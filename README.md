@@ -13,9 +13,9 @@ FE Common code snippets
 
 ###코드 설명
 
-|File|Description|
-|----|-----------|
-|inheritance.js|간단한 상속 코드 (Nicholas C. Zakas, YUI Library)|
+|파일명|설명|비고|
+|----|-----------|------|
+|inheritance.js|간단한 상속 코드 (Nicholas C. Zakas, YUI Library)|- 부모 생성자를 명시적으로 호출해야 한다.<br />- 자식 프로토타입 메서드를 구현하기 전에 상속받아야 한다.|
 
 ----
 
@@ -38,4 +38,3 @@ FE Common code snippets
     - [ ] Draggable
 
 ####jQuery 라이브러리 사용 범위 결정
-
