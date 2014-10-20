@@ -30,6 +30,7 @@ FE Common code snippets
 - [ ] Inheritance
 - [ ] Custom Event
 - [ ] Inheritance + Custom Event
+- [ ] Browser Detecting
 - [ ] Util
     - [ ] forEach
     - [ ] Curring
