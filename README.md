@@ -7,14 +7,15 @@ FE Common code snippets
 
 더 좋은 버전의 코드가 있다면 커밋하여 알려주세요!
 
-문서도 자유롭게 수정 가능합니다
+이 문서는 자유롭게 수정 가능합니다
+
+:clap:
 
 ###코드 설명
 
 |File|Description|
 |----|-----------|
 |inheritance.js|간단한 상속 코드 (Nicholas C. Zakas, YUI Library)|
-
 
 ----
 
@@ -26,10 +27,14 @@ FE Common code snippets
 
 ####공용 코드 조각 정리
 
-- [ ] inheritance
+- [ ] Inheritance
 - [ ] Custom Event
+- [ ] Inheritance + Custom Event
 - [ ] Util
     - [ ] forEach
     - [ ] Curring
+- [ ] Component
+    - [ ] Draggable
 
 ####jQuery 라이브러리 사용 범위 결정
+
