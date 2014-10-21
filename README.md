@@ -16,6 +16,7 @@ FE Common code snippets
 |파일명|설명|비고|
 |----|-----------|------|
 |inheritance.js|간단한 상속 코드 (Nicholas C. Zakas, YUI Library)|- 부모 생성자를 명시적으로 호출해야 한다.<br />- 자식 프로토타입 메서드를 구현하기 전에 상속받아야 한다.|
+|browser.js|브라우저 종류, 버전을 검출하는 모듈|-|
 
 ----
 
@@ -27,10 +28,10 @@ FE Common code snippets
 
 ####공용 코드 조각 정리
 
-- [ ] Inheritance
+- [ ] Inheritance - 심의중 :exclamation:
 - [ ] Custom Event
 - [ ] Inheritance + Custom Event
-- [ ] Browser Detecting
+- [ ] Browser Detecting - 심의중 :exclamation:
 - [ ] Util
     - [ ] forEach
     - [ ] Curring
