@@ -35,6 +35,7 @@ FE Common code snippets
 - [ ] Util
     - [ ] forEach
     - [ ] Curring
+    - [ ] type check
 - [ ] Component
     - [ ] Draggable
 
