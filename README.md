@@ -35,7 +35,9 @@ FE Common code snippets
 - [ ] Util
     - [ ] forEach
     - [ ] Curring
+    - [ ] type check
 - [ ] Component
     - [ ] Draggable
 
 ####jQuery 라이브러리 사용 범위 결정
+
