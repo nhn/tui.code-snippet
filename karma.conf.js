@@ -15,18 +15,22 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      'bower_components/jquery/jquery.js',
+      'node_modules/jasmine-jquery/lib/jasmine-jquery.js',
       'src/**/*.js',
-      'node_modules/jasmine-jquery/lib/jasmine-jquery.js'
+      'test/**/*.test.js'
     ],
 
     plugins: [
       'karma-jasmine',
       'karma-coverage',
-      'karma-requirejs',
       'karma-ievms',
       'karma-chrome-launcher',
       'karma-firefox-launcher',
-      'karma-safari-launcher'
+      'karma-safari-launcher',
+      'karma-slimerjs-launcher',
+      'karma-phantomjs-launcher',
+      'karma-junit-reporter'
     ],
 
 
@@ -46,10 +50,20 @@ module.exports = function(config) {
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
     reporters: [
-      'dots', 
+      'dots',
+      'junit',
       'coverage'
     ],
 
+    junitReporter: {
+      outputFile: 'report/junit-result.xml',
+      suite: ''
+    },
+
+    coverageReporter: {
+      type: 'html',
+      dir: 'report/coverage/'
+    },
 
     // web server port
     port: 9876,
@@ -75,13 +89,12 @@ module.exports = function(config) {
       'IE8 - WinXP',
       'IE11 - Win7',
       'Chrome',
-      'Firefox',
-      'Safari'
+      'SlimerJS',
+      'PhantomJS'
     ],
-
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: false
+    singleRun: true
   });
 };

@@ -29,15 +29,16 @@ FE Common code snippets
 ####공용 코드 조각 정리
 
 - [ ] Inheritance - 심의중 :exclamation:
-- [ ] Custom Event
-- [ ] Inheritance + Custom Event
+- [ ] Class
+- [ ] Custom Event Mixin
 - [ ] Browser Detecting - 심의중 :exclamation:
 - [ ] Util
     - [ ] forEach
-    - [ ] Curring
+    - [ ] curring
     - [ ] type check
+- [ ] Array
+- [ ] String
 - [ ] Component
     - [ ] Draggable
 
 ####jQuery 라이브러리 사용 범위 결정
-

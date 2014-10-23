@@ -1,3 +1,15 @@
 # npm
 node_modules
 
+# bower
+bower_components
+
+# coverage
+coverage
+
+# report
+report
+
+#etc
+tmp
+.DS_Store
