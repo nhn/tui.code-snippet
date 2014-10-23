@@ -1,19 +1,23 @@
 /**
- * @fileoverview 모듈 전체에서 사용하는 browser detection module
- * @author minhyeong.kim@nhnent.com
+ * @fileoverview 클라이언트의 브라우저의 종류와 버전 검출을 위한 모듈
+ * @author FE
  */
 
-define(function() {
+(function(ne) {
     'use strict';
+    if (!ne) {
+        ne = window.ne = {};
+    }
 
     /**
      * 다음의 브라우저에 한하여 종류와 버전을 제공하는 모듈
-     * 
+     *
      * - ie7 ~ ie11
      * - chrome
      * - firefox
      * - safari
-     * @exports browser
+     *
+     * @module browser
      */
     var browser = {
         chrome: undefined,
@@ -52,6 +56,7 @@ define(function() {
                 browser.msie = true;
                 browser.version = 11;
             } else {
+                // chrome, firefox, safari, others
                 for (key in versionRegex) {
                     if (versionRegex.hasOwnProperty(key)) {
                         tmp = userAgent.match(versionRegex[key]);
@@ -63,7 +68,7 @@ define(function() {
                     }
                 }
             }
-            
+
             // 브라우저 검출 실패 시 others로 표기
             if (!detected) {
                 browser.others = true;
@@ -71,18 +76,23 @@ define(function() {
         }
     };
 
+    /**
+     * 브라우저 검출 메서드
+     */
     browser.detect = function() {
-        for (key in browser) { if (browser.hasOwnProperty(key)) {
-            if (key === 'detect') {
-                continue;
+        for (key in browser) {
+            if (browser.hasOwnProperty(key)) {
+                if (key === 'detect') {
+                    continue;
+                }
+                browser[key] = undefined;
             }
-            browser[key] = undefined;
-        }}
+        }
         detector[appName]();
     };
 
     browser.detect();
 
-    return browser;
+    ne.browser = browser;
 
-});
+})(window.ne);
