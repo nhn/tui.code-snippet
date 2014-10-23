@@ -38,7 +38,5 @@ FE Common code snippets
     - [ ] type check
 - [ ] Array
 - [ ] String
-- [ ] Component
-    - [ ] Draggable
 
 ####jQuery 라이브러리 사용 범위 결정
