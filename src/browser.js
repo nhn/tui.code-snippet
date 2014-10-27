@@ -1,6 +1,6 @@
 /**
  * @fileoverview 클라이언트의 브라우저의 종류와 버전 검출을 위한 모듈
- * @author FE
+ * @author FE개발팀
  */
 
 (function(ne) {

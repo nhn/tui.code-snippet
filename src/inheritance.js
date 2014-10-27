@@ -1,6 +1,6 @@
 /**
  * @fileoverview 간단한 상속 시뮬레이션
- * @author FE
+ * @author FE개발팀
  */
 
 (function(ne) {
