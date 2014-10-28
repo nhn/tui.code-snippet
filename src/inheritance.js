@@ -5,6 +5,7 @@
 
 (function(ne) {
     'use strict';
+    /* istanbul ignore if */
     if (!ne) {
         ne = window.ne = {};
     }
