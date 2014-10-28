@@ -10,8 +10,8 @@
     }
 
     /**
-     * 인자를 프로토타입으로 사용하는 객체를 만드는 메서드
-     * @param {(Object|Function)} obj
+     * 전달된 객체를 prototype으로 사용하는 객체를 만들어 반환하는 메서드
+     * @param {Object} obj
      * @return {Object}
      */
     ne.createObject = function(obj) {
@@ -21,34 +21,34 @@
     };
 
     /**
-     * 니콜라스 자카스 클래스 상속
+     * 단순 prototype 확장을 응용한 상속 메서드
      *
-     * YUI 라이브러리 내 상속 코드로 사용되고 있다고 함.
+     * **주의점**
      *
-     * *반드시 자식 클래스의 prototype 메서드를 정의하기 전에 호출해야 한다.*
+     * 단순 프로토타입 확장 기능만 제공하므로 자식 생성자의 prototype을 덮어쓰면 안된다.
      *
-     * @param {Function} subType 자식 클래스 생성자
-     * @param {Function} superType 부모 클래스 생성자
-     * @examples
-     * //Animal Class
+     * @example
      * function Animal(leg) {
      *     this.leg = leg;
      * }
-     * Animal.prototype.walk = function() {};
      *
-     * // Person Class
-     * function Person(leg, name) {
-     *     Animal.call(this, leg); // 부모 생성자를 호출
+     * Animal.prototype.growl = function() {
+     *     // ...
+     * };
+     *
+     * function Person(name) {
      *     this.name = name;
      * }
      *
-     * // !주의
-     * inherit(Person, Animal);
+     * // 상속
+     * core.inherit(Person, Animal);
      *
-     * Person.prototype.sayName = function() {
-     *     return this.name;
+     * // 이 이후부터는 프로퍼티 편집만으로 확장해야 한다.
+     * Person.prototype.walk = function(direction) {
+     *     // ...
      * };
-     *
+     * @param {function} subType 자식 생성자 함수
+     * @param {function} superType 부모 생성자 함수
      */
     ne.inherit = function(subType, superType) {
         var prototype = ne.createObject(superType.prototype);
