@@ -15,11 +15,14 @@
      * @param {Object} obj
      * @return {Object}
      */
-    ne.createObject = function(obj) {
+    ne.createObject = (function(){
         function F() {}
-        F.prototype = obj;
-        return new F;
-    };
+
+        return function(obj) {
+            F.prototype = obj;
+            return new F;
+        };
+    })();
 
     /**
      * 단순 prototype 확장을 응용한 상속 메서드
