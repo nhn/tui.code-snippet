@@ -55,4 +55,75 @@ describe('type', function() {
         expect(ne.type.isObject(o7)).toBeTruthy();
     });
 
+    it('isFunction()', function() {
+        var o1 = function() {},
+            o2 = {},
+            o3 = '',
+            o4 = [],
+            o5 = 1,
+            o6 = true,
+            o7 = /xyz/g,
+            o8 = new Function;
+        expect(ne.type.isFunction(o1)).toBeTruthy();
+        expect(ne.type.isFunction(o2)).toBeFalsy();
+        expect(ne.type.isFunction(o3)).toBeFalsy();
+        expect(ne.type.isFunction(o4)).toBeFalsy();
+        expect(ne.type.isFunction(o5)).toBeFalsy();
+        expect(ne.type.isFunction(o6)).toBeFalsy();
+        expect(ne.type.isFunction(o7)).toBeFalsy();
+        expect(ne.type.isFunction(o8)).toBeTruthy();
+    });
+
+    it('isNumber()', function() {
+        var o1 = 1,
+            o2 = new Number(2),
+            o3 = { test: 1 },
+            o4 = [],
+            o5 = 'string',
+            o6 = true,
+            o7 = /xyz/g;
+        expect(ne.type.isNumber(o1)).toBeTruthy();
+        expect(ne.type.isNumber(o2)).toBeTruthy();
+        expect(ne.type.isNumber(o3.test)).toBeTruthy();
+        expect(ne.type.isNumber(o4)).toBeFalsy();
+        expect(ne.type.isNumber(o5)).toBeFalsy();
+        expect(ne.type.isNumber(o6)).toBeFalsy();
+        expect(ne.type.isNumber(o7)).toBeFalsy();
+    });
+
+    it('isString()', function() {
+        var o1 = {},
+            o2 = new String('a'),
+            o3 = 'string',
+            o4 = [],
+            o5 = '',
+            o6 = true,
+            o7 = /xyz/g;
+        expect(ne.type.isString(o1)).toBeFalsy();
+        expect(ne.type.isString(o2)).toBeTruthy();
+        expect(ne.type.isString(o3)).toBeTruthy();
+        expect(ne.type.isString(o4)).toBeFalsy();
+        expect(ne.type.isString(o5)).toBeTruthy();
+        expect(ne.type.isString(o6)).toBeFalsy();
+        expect(ne.type.isString(o7)).toBeFalsy();
+    });
+
+    it('isBoolean()', function() {
+        var o1 = {},
+            o2 = new Boolean('true'),
+            o3 = 1,
+            o4 = true,
+            o5 = false,
+            o6 = undefined,
+            o7 = null;
+
+        expect(ne.type.isBoolean(o1)).toBeFalsy();
+        expect(ne.type.isBoolean(o2)).toBeTruthy();
+        expect(ne.type.isBoolean(o3)).toBeFalsy();
+        expect(ne.type.isBoolean(o4)).toBeTruthy();
+        expect(ne.type.isBoolean(o5)).toBeTruthy();
+        expect(ne.type.isBoolean(o6)).toBeFalsy();
+        expect(ne.type.isBoolean(o7)).toBeFalsy();
+    });
+
 });

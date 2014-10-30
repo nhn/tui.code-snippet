@@ -31,11 +31,31 @@
         return obj === Object(obj);
     }
 
+    function isFunction(obj) {
+        return Object.prototype.toString.call(obj) === '[object Function]';
+    }
+
+    function isNumber(obj) {
+        return Object.prototype.toString.call(obj) === '[object Number]';
+    }
+
+    function isString(obj) {
+        return Object.prototype.toString.call(obj) === '[object String]';
+    }
+
+    function isBoolean(obj) {
+        return Object.prototype.toString.call(obj) === '[object Boolean]';
+    }
+
     ne.type = {
         isDefined: isDefined,
         isTruthy: isTruthy,
         isArray: isArray,
-        isObject: isObject
+        isObject: isObject,
+        isFunction: isFunction,
+        isNumber: isNumber,
+        isString: isString,
+        isBoolean: isBoolean
     };
 
 })(window.ne);
