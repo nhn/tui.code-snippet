@@ -87,6 +87,7 @@ module.exports = function(config) {
     browsers: [
       'IE7 - WinXP',
       'IE8 - WinXP',
+      'IE9 - Win7',
       'IE11 - Win7',
       'Chrome',
       'SlimerJS',

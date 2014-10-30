@@ -18,6 +18,11 @@
         return isDefined(obj) && obj !== false;
     }
 
+    /**
+     * 인자가 배열인지 확인
+     * @param {*} obj
+     * @return {boolean}
+     */
     function isArray(obj) {
         return isDefined(Array.isArray) ? Array.isArray(obj) : Object.prototype.toString.call(obj) === '[object Array]';
     }

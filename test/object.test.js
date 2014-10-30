@@ -1,6 +1,6 @@
-describe('module:util', function() {
-    afterEach(function() {
-        ne.util.lastId = 0;
+describe('object', function() {
+    beforeEach(function() {
+        ne.object.resetLastId();
     });
 
     it('extend()는 객체를 확장한다', function() {
@@ -21,7 +21,7 @@ describe('module:util', function() {
             }
         };
 
-        ne.util.extend(target, source);
+        ne.object.extend(target, source);
 
         expect(target.middleName).toEqual('-');
         expect(target.lastName).toEqual('Kim');
@@ -30,31 +30,17 @@ describe('module:util', function() {
 
     });
 
-    it('bind()를 통해 함수를 커링할 수 있다', function() {
-        var a = {
-            word: 'hello'
-        };
-
-        var b = function() {
-            return this.word;
-        };
-
-        var curried = ne.util.bind(b, a);
-
-        expect(curried()).toBe('hello');
-    });
-
     it('stamp() 메서드로 특정 객체에 unique 한 ID를 부여할 수 있다', function() {
         var myFn = function() {};
 
         var myObj = {};
 
-        ne.util.stamp(myFn);
-        ne.util.stamp(myObj);
+        ne.object.stamp(myFn);
+        ne.object.stamp(myObj);
 
-        expect(myFn._t_id).toBeDefined();
-        expect(myFn._t_id).toBe(1);
-        expect(myObj._t_id).toBe(2);
+        expect(ne.object.stamp(myFn)).toBeDefined();
+        expect(ne.object.stamp(myFn)).toBe(1);
+        expect(ne.object.stamp(myObj)).toBe(2);
     });
 
 });
