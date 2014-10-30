@@ -1,4 +1,4 @@
-describe('customEvent() 메서드를 이용해 인스턴스가 커스텀 이벤트를 발생하거나 받을 수 있게 할 수 있다', function() {
+describe('customEvent', function() {
 
     it('on() 메서드로 이벤트를 구독할 수 있다', function() {
         function Animal(leg) {

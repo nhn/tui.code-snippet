@@ -1,4 +1,4 @@
-describe('module:browser', function() {
+describe('browser', function() {
 
     beforeEach(function() {
         ne.browser.detect();
