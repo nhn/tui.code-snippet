@@ -95,6 +95,9 @@
      * @param {object} obj
      */
     function applyConfig(obj) {
+        if (!ne.isDefined(obj) || !ne.isObject(obj) || ne.isFunction(obj) || ne.isArray(obj)) {
+            throw new Error('variable: 전역변수 공간은 object 형태의 데이터로만 설정이 가능합니다.');
+        }
         settings = obj;
     }
 

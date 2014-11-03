@@ -124,7 +124,33 @@ describe('variable', function() {
         expect(ne.get('msg.common.fire')).toBeUndefined();
         // msg.common.admin 항목은 덮어써진다.
         expect(ne.get('msg.common.admin.need')).toBe(undefined);
+    });
 
+    it('applyConfig() 메서드를 통해 전역변수 공간을 한번에 덮어쓸 수 있다', function() {
+
+        expect(function() {
+            ne.applyConfig(3);
+        }).toThrowError('variable: 전역변수 공간은 object 형태의 데이터로만 설정이 가능합니다.');
+
+        expect(function() {
+            ne.applyConfig(function() {});
+        }).toThrowError('variable: 전역변수 공간은 object 형태의 데이터로만 설정이 가능합니다.');
+
+        expect(function() {
+            ne.applyConfig([]);
+        }).toThrowError('variable: 전역변수 공간은 object 형태의 데이터로만 설정이 가능합니다.');
+
+        var mySetting = {
+            a: '123',
+            b: '456',
+            c: ['a', 'b']
+        };
+
+        ne.applyConfig(mySetting);
+
+        expect(ne.get('a')).toBe('123');
+        expect(ne.get('b')).toBe('456');
+        expect(ne.get('c').length).toBe(2);
     });
 
 });
