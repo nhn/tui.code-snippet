@@ -19,3 +19,8 @@ FE Common code snippets
 |browser.js|브라우저 종류, 버전을 검출하는 모듈|-|
 |util.js|공통으로 사용하는 유틸리티 메서드 모음|-|
 |customEvent.js|인스턴스에게 커스텀 이벤트 기능을 추가하는 믹스인 모듈|-|
+|type.js|변수 타입 체크 모듈|-|
+|object.js|객체 자체를 다루는 모듈 (extend, stamp ...)|-|
+|func.js|함수 처리 모듈 (bind ...)|-|
+|collection.js|콜렉션 처리 모듈 (forEach, map, reduce ...)|-|
+
