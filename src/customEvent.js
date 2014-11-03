@@ -63,7 +63,7 @@
          */
         _on: function(type, fn, context) {
             var events = this._events = this._events || {},
-                contextId = context && context !== this && ne.object.stamp(context);
+                contextId = context && context !== this && ne.stamp(context);
 
             if (contextId) {
                 /*
@@ -74,7 +74,7 @@
                 var indexKey = type + '_idx',
                     indexLenKey = type + '_len',
                     typeIndex = events[indexKey] = events[indexKey] || {},
-                    id = ne.object.stamp(fn) + '_' + contextId; // 핸들러의 id + context의 id
+                    id = ne.stamp(fn) + '_' + contextId; // 핸들러의 id + context의 id
 
                 if (!typeIndex[id]) {
                     typeIndex[id] = {
@@ -137,11 +137,11 @@
                 return;
             }
 
-            var contextId = context && context !== this && ne.object.stamp(context),
+            var contextId = context && context !== this && ne.stamp(context),
                 listeners, i, len, id;
 
             if (contextId) {
-                id = ne.object.stamp(fn) + '_' + contextId;
+                id = ne.stamp(fn) + '_' + contextId;
                 listeners = events[indexKey];
 
                 if (listeners && listeners[id]) {
@@ -176,7 +176,7 @@
                 return this;
             }
 
-            var event = ne.object.extend({}, data, {type: type, target: this}),
+            var event = ne.extend({}, data, {type: type, target: this}),
                 events = this._events;
 
             /* istanbul ignore if */
@@ -246,7 +246,7 @@
     };
 
     function customEvent(Type) {
-        return ne.object.extend(Type.prototype, CustomEvent);
+        return ne.extend(Type.prototype, CustomEvent);
     }
 
     ne.customEvent = customEvent;

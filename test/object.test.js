@@ -1,6 +1,6 @@
 describe('object', function() {
     beforeEach(function() {
-        ne.object.resetLastId();
+        ne._resetLastId();
     });
 
     it('extend()는 객체를 확장한다', function() {
@@ -21,7 +21,7 @@ describe('object', function() {
             }
         };
 
-        ne.object.extend(target, source);
+        ne.extend(target, source);
 
         expect(target.middleName).toEqual('-');
         expect(target.lastName).toEqual('Kim');
@@ -35,12 +35,12 @@ describe('object', function() {
 
         var myObj = {};
 
-        ne.object.stamp(myFn);
-        ne.object.stamp(myObj);
+        ne.stamp(myFn);
+        ne.stamp(myObj);
 
-        expect(ne.object.stamp(myFn)).toBeDefined();
-        expect(ne.object.stamp(myFn)).toBe(1);
-        expect(ne.object.stamp(myObj)).toBe(2);
+        expect(ne.stamp(myFn)).toBeDefined();
+        expect(ne.stamp(myFn)).toBe(1);
+        expect(ne.stamp(myObj)).toBe(2);
     });
 
 });

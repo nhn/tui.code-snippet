@@ -15,14 +15,14 @@
      * @param {Object} obj
      * @return {Object}
      */
-    ne.createObject = (function(){
+    function createObject(){
         function F() {}
 
         return function(obj) {
             F.prototype = obj;
             return new F;
         };
-    })();
+    }
 
     /**
      * 단순 prototype 확장을 응용한 상속 메서드
@@ -54,10 +54,13 @@
      * @param {function} subType 자식 생성자 함수
      * @param {function} superType 부모 생성자 함수
      */
-    ne.inherit = function(subType, superType) {
+    function inherit(subType, superType) {
         var prototype = ne.createObject(superType.prototype);
         prototype.constructor = subType;
         subType.prototype = prototype;
-    };
+    }
+
+    ne.createObject = createObject();
+    ne.inherit = inherit;
 
 })(window.ne);

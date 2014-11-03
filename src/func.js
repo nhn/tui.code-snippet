@@ -33,8 +33,6 @@
         };
     }
 
-    ne.func = {
-        bind: bind
-    };
+    ne.bind = bind;
 
 })(window.ne);

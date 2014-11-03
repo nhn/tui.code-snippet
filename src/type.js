@@ -47,15 +47,13 @@
         return Object.prototype.toString.call(obj) === '[object Boolean]';
     }
 
-    ne.type = {
-        isDefined: isDefined,
-        isTruthy: isTruthy,
-        isArray: isArray,
-        isObject: isObject,
-        isFunction: isFunction,
-        isNumber: isNumber,
-        isString: isString,
-        isBoolean: isBoolean
-    };
+    ne.isDefined = isDefined;
+    ne.isTruthy = isTruthy;
+    ne.isArray = isArray;
+    ne.isObject = isObject;
+    ne.isFunction = isFunction;
+    ne.isNumber = isNumber;
+    ne.isString = isString;
+    ne.isBoolean = isBoolean;
 
 })(window.ne);

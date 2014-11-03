@@ -77,13 +77,13 @@ describe('customEvent', function() {
         };
 
         var lion = new Animal(4),
-            growlFn = ne.func.bind(function() {
+            growlFn = ne.bind(function() {
                 this.position = 0;
             }, lion);
 
         lion.on('move', growlFn);
 
-        expect(ne.type.isArray(lion._events['move'])).toBeTruthy();
+        expect(ne.isArray(lion._events['move'])).toBeTruthy();
     });
 
     it('on() 메서드는 context를 제공할 경우 옵저버 패턴을 객체를 이용한다', function() {
@@ -110,7 +110,7 @@ describe('customEvent', function() {
 
         lion.move(10);
 
-        ne.object.stamp(onMove);
+        ne.stamp(onMove);
 
         expect(myObj.moved).toBeTruthy();
         expect(lion._events['move_len']).toBe(1);

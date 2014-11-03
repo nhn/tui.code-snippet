@@ -52,10 +52,8 @@
         lastId = 0;
     }
 
-    ne.object = {
-        extend: extend,
-        stamp: stamp,
-        resetLastId: resetLastId
-    };
+    ne.extend = extend;
+    ne.stamp = stamp;
+    ne._resetLastId = resetLastId;
 
 })(window.ne);
