@@ -23,4 +23,4 @@ FE Common code snippets
 |object.js|객체 자체를 다루는 모듈 (extend, stamp ...)|-|
 |func.js|함수 처리 모듈 (bind ...)|-|
 |collection.js|콜렉션 처리 모듈 (forEach, map, reduce ...)|-|
-
+|variable.js|전역변수의 get, set을 지원하는 모듈|-|
