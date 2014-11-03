@@ -94,15 +94,24 @@
      * 전역변수 공간을 인자 객체로 재설정한다
      * @param {object} obj
      */
-    function applyConfig(obj) {
-        if (!ne.isDefined(obj) || !ne.isObject(obj) || ne.isFunction(obj) || ne.isArray(obj)) {
-            throw new Error('variable: 전역변수 공간은 object 형태의 데이터로만 설정이 가능합니다.');
+    function reset(obj) {
+        if (ne.isDefined(obj)) {
+
+            if (!ne.isObject(obj) || ne.isFunction(obj) || ne.isArray(obj)) {
+                throw new Error('variable: 전역변수 공간은 object 형태의 데이터로만 설정이 가능합니다.');
+            } else {
+                settings = obj;
+            }
+
+        } else {
+            settings = {};
         }
-        settings = obj;
     }
 
-    ne.get = get;
-    ne.set = set;
-    ne.applyConfig = applyConfig;
+    ne.variable = {
+        get: get,
+        set: set,
+        reset: reset
+    };
 
 })(window.ne);
