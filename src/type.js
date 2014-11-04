@@ -93,6 +93,9 @@
         }
         return !empty;
     }
+
+
+
     ne.isDefined = isDefined;
     ne.isTruthy = isTruthy;
     ne.isArray = isArray;
