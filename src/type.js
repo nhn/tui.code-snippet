@@ -24,7 +24,7 @@
      * @return {boolean}
      */
     function isArray(obj) {
-        return isDefined(Array.isArray) ? Array.isArray(obj) : Object.prototype.toString.call(obj) === '[object Array]';
+        return Object.prototype.toString.call(obj) === '[object Array]';
     }
 
     function isObject(obj) {
@@ -98,7 +98,7 @@
 
     ne.isDefined = isDefined;
     ne.isTruthy = isTruthy;
-    ne.isArray = isArray;
+    ne.isArray = Array.isArray || isArray;
     ne.isObject = isObject;
     ne.isFunction = isFunction;
     ne.isNumber = isNumber;

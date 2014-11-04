@@ -14,6 +14,6 @@
      * pug.net.ajax() 작업 부탁드립니다.
      */
 
-    ne.ajax = ajax;
+    //ne.ajax = ajax;
 
 })(window.ne);
