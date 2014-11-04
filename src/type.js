@@ -46,7 +46,53 @@
     function isBoolean(obj) {
         return Object.prototype.toString.call(obj) === '[object Boolean]';
     }
+    function isHTMLElement(html)	{
+        if(typeof(HTMLElement) === 'object') {
+            return(html && (html instanceof HTMLElement));
+        }
+        return !!(html && html.nodeType);
+    }
 
+    /**
+     * 값이 비어있는지 확인 한다.
+     * - type 이 Object 의 경우 : 값이 하나라도 있으면 false 로 간주
+     * - 그 외의 경우 : boolean 으로 변경하여 평가함.
+     * @param {*} obj 평가할 대상
+     * @returns {boolean}
+     */
+    function isEmpty(obj) {
+        var empty = true,
+            name;
+        if (typeof obj === 'object') {
+            for (name in obj) {
+                empty = false;
+                break;
+            }
+        } else {
+            empty = !obj;
+        }
+        return empty;
+    }
+    /**
+     * 값이 비어있는지 확인 한다.
+     * - type 이 Object 의 경우 : 값이 하나라도 있으면 true 로 간주
+     * - 그 외의 경우 : boolean 으로 변경하여 평가함.
+     * @param {*} obj 평가할 대상
+     * @returns {boolean}
+     */
+    function isNotEmpty(obj) {
+        var empty = true,
+            name;
+        if (typeof obj === 'object') {
+            for (name in obj) {
+                empty = false;
+                break;
+            }
+        } else {
+            empty = !obj;
+        }
+        return !empty;
+    }
     ne.isDefined = isDefined;
     ne.isTruthy = isTruthy;
     ne.isArray = isArray;
@@ -55,5 +101,7 @@
     ne.isNumber = isNumber;
     ne.isString = isString;
     ne.isBoolean = isBoolean;
+    ne.isEmpty = isEmpty;
+    ne.isNotEmpty = isNotEmpty;
 
 })(window.ne);

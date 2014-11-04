@@ -126,4 +126,56 @@ describe('type', function() {
         expect(ne.isBoolean(o7)).toBeFalsy();
     });
 
+    it('isEmpty()', function() {
+        var o1 = {},
+            o2 = false,
+            o3 = undefined,
+            o4 = null,
+            o5 = '',
+            o6 = [],
+            o7 = new Boolean('true'),
+            o8 = 1,
+            o9 = true,
+            o10 = [1, 2],
+            o11 = {a: ''};
+
+        expect(ne.isEmpty(o1)).toBeTruthy();
+        expect(ne.isEmpty(o2)).toBeTruthy();
+        expect(ne.isEmpty(o3)).toBeTruthy();
+        expect(ne.isEmpty(o4)).toBeTruthy();
+        expect(ne.isEmpty(o5)).toBeTruthy();
+        expect(ne.isEmpty(o6)).toBeTruthy();
+        expect(ne.isEmpty(o7)).toBeTruthy();
+        expect(ne.isEmpty(o8)).toBeFalsy();
+        expect(ne.isEmpty(o9)).toBeFalsy();
+        expect(ne.isEmpty(o10)).toBeFalsy();
+        expect(ne.isEmpty(o11)).toBeFalsy();
+    });
+
+    it('isNotEmpty()', function() {
+        var o1 = {},
+            o2 = false,
+            o3 = undefined,
+            o4 = null,
+            o5 = '',
+            o6 = [],
+            o7 = new Boolean('true'),
+            o8 = 1,
+            o9 = true,
+            o10 = [1, 2],
+            o11 = {a: ''};
+
+        expect(ne.isNotEmpty(o1)).toBeFalsy();
+        expect(ne.isNotEmpty(o2)).toBeFalsy();
+        expect(ne.isNotEmpty(o3)).toBeFalsy();
+        expect(ne.isNotEmpty(o4)).toBeFalsy();
+        expect(ne.isNotEmpty(o5)).toBeFalsy();
+        expect(ne.isNotEmpty(o6)).toBeFalsy();
+        expect(ne.isNotEmpty(o7)).toBeFalsy();
+        expect(ne.isNotEmpty(o8)).toBeTruthy();
+        expect(ne.isNotEmpty(o9)).toBeTruthy();
+        expect(ne.isNotEmpty(o10)).toBeTruthy();
+        expect(ne.isNotEmpty(o11)).toBeTruthy();
+    });
+
 });
