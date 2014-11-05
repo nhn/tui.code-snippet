@@ -39,8 +39,10 @@
      *
      *
      * Parent.staticMethod();
-     *var parentInstance = new Parent();
+     *
+     * var parentInstance = new Parent();
      * console.log(parentInstance.name); //made by def
+     * parentInstance.staticMethod(); // Error
      *
      *
      * var childInstance = new Child();
