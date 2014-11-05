@@ -1,7 +1,7 @@
 /**
  * @fileoverview
  * @author FE개발팀
- * @dependency type.js
+ * @dependency type.js, object.js
  */
 
 (function(ne) {
