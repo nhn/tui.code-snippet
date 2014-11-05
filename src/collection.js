@@ -49,7 +49,7 @@
     var map = function(obj, iteratee, context) {
         var resultArray = [];
 
-        forEach(obj, function() {
+        ne.forEach(obj, function() {
             resultArray.push(iteratee.apply(context || null, arguments));
         });
 
