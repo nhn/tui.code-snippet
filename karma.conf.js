@@ -17,6 +17,8 @@ module.exports = function(config) {
     files: [
       'bower_components/jquery/jquery.js',
       'node_modules/jasmine-jquery/lib/jasmine-jquery.js',
+      'node_modules/jquery-urlinternal/jquery.ba-urlinternal.js',
+      'node_modules/jasmine-ajax/lib/mock-ajax.js',
       'src/**/*.js',
       'test/**/*.test.js'
     ],
@@ -30,7 +32,8 @@ module.exports = function(config) {
       'karma-safari-launcher',
       'karma-slimerjs-launcher',
       'karma-phantomjs-launcher',
-      'karma-junit-reporter'
+      'karma-junit-reporter',
+      'karma-ajax'
     ],
 
 
@@ -42,7 +45,7 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      'src/**/*.js': ['coverage']
+//      'src/**/*.js': ['coverage']
     },
 
 
@@ -52,7 +55,7 @@ module.exports = function(config) {
     reporters: [
       'dots',
       'junit',
-      'coverage'
+//      'coverage'
     ],
 
     junitReporter: {
@@ -79,7 +82,7 @@ module.exports = function(config) {
 
 
     // enable / disable watching file and executing tests whenever any file changes
-    autoWatch: false,
+    autoWatch: true,
 
 
     // start these browsers
@@ -87,17 +90,17 @@ module.exports = function(config) {
     _browsers: ['PhantomJS'], //로컬에서 작게 테스트할 용도
 
     browsers: [
-      'IE7 - WinXP',
-      'IE8 - WinXP',
-      'IE9 - Win7',
-      'IE11 - Win7',
+//      'IE7 - WinXP',
+//      'IE8 - WinXP',
+//      'IE9 - Win7',
+//      'IE11 - Win7',
       'Chrome',
-      'SlimerJS',
+//      'SlimerJS',
       'PhantomJS'
     ],
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: true
+    singleRun: false
   });
 };

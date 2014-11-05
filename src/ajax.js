@@ -188,35 +188,9 @@
                 result = requestData['_error'](jqXHR, status, errorMessage);
             }
         } else {
-            throw this.error('Ajax 요청 정보가 없습니다.');
+            throw new Error('Ajax 요청 정보가 없습니다.');
         }
     };
-
-    ajax.error = function(message, errorObject) {
-        var caller = arguments.callee.caller;
-        var methodName = caller ? (caller.name || caller.methodName || '') : '';
-        message = message ? '\'' + message + '\'' : '';
-        message = errorObject ? (message ? message + ' (' + errorObject.message + ')' : errorObject.message) : message;
-        message = methodName ? message + ' on ' + methodName + '()' : message;
-
-        if (errorObject) {
-            errorObject.neme = 'PugException - ' + errorObject.name;
-            errorObject.message = message;
-            errorObject.methodName = methodName;
-            errorObject.caller = caller;
-            return errorObject;
-        } else {
-            var CustomError = function() {
-                this.name = 'PugException';
-                this.message = message;
-                this.methodName = methodName;
-                this.caller = caller;
-            };
-            CustomError.prototype = new Error();
-            return new CustomError();
-        }
-    };
-
 
     /**
      * @modules ne.ajax.util
