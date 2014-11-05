@@ -74,7 +74,7 @@
      * @param {*} [context] 콜백함수의 컨텍스트
      * @returns {*}
      * @example
-     * map([0,1,2,3], function(stored, value) {
+     * reduce([0,1,2,3], function(stored, value) {
      *     return stored + value;
      * });
      *
