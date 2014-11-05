@@ -47,22 +47,11 @@
      * => [1,2,3,4];
      */
     var map = function(obj, iteratee, context) {
-        var resultArray = [],
-            key,
-            t;
+        var resultArray = [];
 
-        if (ne.isArray(obj)) {
-            for (key = 0, t = obj.length; key < t; key++) {
-                resultArray.push(iteratee.call(context || null, obj[key], key, obj));
-            }
-        }
-        else {
-            for (key in obj) {
-                if (obj.hasOwnProperty(key)) {
-                    resultArray.push(iteratee.call(context || null, obj[key], key, obj));
-                }
-            }
-        }
+        forEach(obj, function() {
+            resultArray.push(iteratee.apply(context || null, arguments));
+        });
 
         return resultArray;
     };
@@ -100,7 +89,7 @@
             store = iteratee.call(context || null, store, obj[keys ? keys[index] : index]);
         }
 
-        return store
+        return store;
     };
 
     ne.forEach = forEach;
