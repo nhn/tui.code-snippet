@@ -84,6 +84,8 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
+    _browsers: ['PhantomJS'], //로컬에서 작게 테스트할 용도
+
     browsers: [
       'IE7 - WinXP',
       'IE8 - WinXP',
