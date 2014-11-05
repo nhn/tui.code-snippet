@@ -35,10 +35,16 @@
 
     /**
      * 파라메터로 전달된 객체나 어레이를 순회하며 콜백을 실행한 리턴값을 배열로 만들어 리턴한다.
-     * @param {*} obj
-     * @param {Function} iteratee
-     * @param {*} context
+     * @param {*} obj 순회할 객체
+     * @param {Function} iteratee 데이터가 전달될 콜백함수
+     * @param {*} [context] 콜백함수의 컨텍스트
      * @returns {Array}
+     * @example
+     * map([0,1,2,3], function(value) {
+     *     return value + 1;
+     * });
+     *
+     * => [1,2,3,4];
      */
     var map = function(obj, iteratee, context) {
         var resultArray = [],
@@ -63,10 +69,16 @@
 
     /**
      * 파라메터로 전달된 객체나 어레이를 순회하며 콜백을 실행한 리턴값을 다음 콜백의 첫번째 인자로 넘겨준다.
-     * @param {*} obj
-     * @param {Function} iteratee
-     * @param {*} context
+     * @param {*} obj 순회할 객체
+     * @param {Function} iteratee 데이터가 전달될 콜백함수
+     * @param {*} [context] 콜백함수의 컨텍스트
      * @returns {*}
+     * @example
+     * map([0,1,2,3], function(stored, value) {
+     *     return stored + value;
+     * });
+     *
+     * => 6;
      */
     var reduce = function(obj, iteratee, context) {
         var keys,
