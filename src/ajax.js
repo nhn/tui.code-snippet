@@ -119,7 +119,7 @@
             }
             delete this._ajaxRequestData[requestKey];
         } else {
-            throw this.error('Ajax 요청 정보가 없습니다.');
+            throw new Error('Ajax 요청 정보가 없습니다.');
         }
     };
 
@@ -163,7 +163,7 @@
                 }
             }
         } else {
-            throw this.error('Ajax 요청 정보가 없습니다.');
+            throw new Error('Ajax 요청 정보가 없습니다.');
         }
     };
 
