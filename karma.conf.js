@@ -90,12 +90,12 @@ module.exports = function(config) {
     _browsers: ['PhantomJS'], //로컬에서 작게 테스트할 용도
 
     browsers: [
-//      'IE7 - WinXP',
-//      'IE8 - WinXP',
-//      'IE9 - Win7',
-//      'IE11 - Win7',
+      'IE7 - WinXP',
+      'IE8 - WinXP',
+      'IE9 - Win7',
+      'IE11 - Win7',
       'Chrome',
-//      'SlimerJS',
+      'SlimerJS',
       'PhantomJS'
     ],
 
