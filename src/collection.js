@@ -1,5 +1,5 @@
 /**
- * @fileoverview
+ * @fileoverview 데이터를 가진 객체나 어레이를 다루기 위한 펑션들이 정의되어있다.
  * @author FE개발팀
  * @dependency type.js, object.js
  */
