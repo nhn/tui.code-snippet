@@ -15,6 +15,14 @@
      * @param {*} obj 순회할 객체
      * @param {Function} iteratee 데이터가 전달될 콜백함수
      * @param {*} [context] 콜백함수의 컨텍스트
+     * @example
+     * var sum = 0;
+     *
+     * forEach([1,2,3], function(value){
+     *     sum += value;
+     * });
+     *
+     * => sum == 6
      **/
     var forEach = function(obj, iteratee, context) {
         var key,

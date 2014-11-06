@@ -1,5 +1,5 @@
 /**
- * @fileoverview 객체의 생성 및 상속을 편하게작업 할수있도록 도와주는 메소드 def가 정의되어있다.
+ * @fileoverview 객체의 생성 및 상속을 편하게 작업 할수있도록 도와주는 메소드 def가 정의되어있다.
  * @author FE개발팀
  * @dependency inheritance.js, object.js
  */
