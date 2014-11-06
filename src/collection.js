@@ -18,10 +18,10 @@
      **/
     var forEach = function(obj, iteratee, context) {
         var key,
-            t;
+            len;
 
         if (ne.isArray(obj)) {
-            for (key = 0, t = obj.length; key < t; key++) {
+            for (key = 0, len = obj.length; key < len; key++) {
                 iteratee.call(context || null, obj[key], key, obj);
             }
         } else {
@@ -73,8 +73,7 @@
         var keys,
             index = 0,
             length,
-            store,
-            t;
+            store;
 
 
         if (!ne.isArray(obj)) {
