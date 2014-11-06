@@ -1,5 +1,5 @@
 /**
- * @fileoverview
+ * @fileoverview 문자열 조작 모듈
  * @author FE개발팀
  */
 

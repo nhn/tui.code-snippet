@@ -62,7 +62,7 @@
     /**
      *
      * @param {*} obj 평가할 대상
-     * @returns {boolean}
+     * @return {boolean}
      */
     function isFalsy(obj) {
         return !isTruthy(obj);
@@ -72,7 +72,7 @@
      * - type 이 Object 의 경우 : 값이 하나라도 있으면 false 로 간주
      * - 그 외의 경우 : boolean 으로 변경하여 평가함.
      * @param {*} obj 평가할 대상
-     * @returns {boolean}
+     * @return {boolean}
      */
     function isEmpty(obj) {
         var empty = true,
@@ -92,7 +92,7 @@
      * - type 이 Object 의 경우 : 값이 하나라도 있으면 true 로 간주
      * - 그 외의 경우 : boolean 으로 변경하여 평가함.
      * @param {*} obj 평가할 대상
-     * @returns {boolean}
+     * @return {boolean}
      */
     function isNotEmpty(obj) {
         return !isEmpty(obj);
