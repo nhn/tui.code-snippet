@@ -54,7 +54,7 @@
     var def = function(parent, props) {
         var obj;
 
-        if(!props) {
+        if (!props) {
             props = parent;
             parent = null;
         }
@@ -63,7 +63,7 @@
 
         parent && ne.inherit(obj, parent);
 
-        if(props.hasOwnProperty('static')){
+        if (props.hasOwnProperty('static')) {
             ne.extend(obj, props.static);
             delete props.static;
         }
