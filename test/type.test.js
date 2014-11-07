@@ -158,56 +158,51 @@ describe('type', function() {
         expect(ne.isBoolean(o7)).toBe(false);
     });
 
-    it('isEmpty()', function() {
-        var o1 = {},
-            o2 = false,
-            o3 = undefined,
-            o4 = null,
-            o5 = '',
-            o6 = [],
-            o7 = new Boolean('true'),
-            o8 = 1,
-            o9 = true,
-            o10 = [1, 2],
-            o11 = {a: ''};
+    it('isArguments()', function() {
+        var o1,
+            o2 = [];
 
-        expect(ne.isEmpty(o1)).toBeTruthy();
-        expect(ne.isEmpty(o2)).toBeTruthy();
-        expect(ne.isEmpty(o3)).toBeTruthy();
-        expect(ne.isEmpty(o4)).toBeTruthy();
-        expect(ne.isEmpty(o5)).toBeTruthy();
-        expect(ne.isEmpty(o6)).toBeTruthy();
-        expect(ne.isEmpty(o7)).toBeTruthy();
-        expect(ne.isEmpty(o8)).toBeFalsy();
-        expect(ne.isEmpty(o9)).toBeFalsy();
-        expect(ne.isEmpty(o10)).toBeFalsy();
-        expect(ne.isEmpty(o11)).toBeFalsy();
+        (function() {
+            o1 = arguments;
+        })();
+
+        expect(ne.isArguments(o1)).toBe(true);
+        expect(ne.isArguments(o2)).toBe(false);
     });
 
-    it('isNotEmpty()', function() {
+    it('isEmpty()', function() {
         var o1 = {},
-            o2 = false,
-            o3 = undefined,
-            o4 = null,
-            o5 = '',
-            o6 = [],
-            o7 = new Boolean('true'),
-            o8 = 1,
-            o9 = true,
-            o10 = [1, 2],
-            o11 = {a: ''};
+            o2 = { test: 1},
+            o3 = new Object(),
+            o4 = [],
+            o5 = new Array(),
+            o6 = [1, 3],
+            o7 = function() {},
+            o8,
+            o9 = void 0,
+            o10 = null,
+            o11;
 
-        expect(ne.isNotEmpty(o1)).toBeFalsy();
-        expect(ne.isNotEmpty(o2)).toBeFalsy();
-        expect(ne.isNotEmpty(o3)).toBeFalsy();
-        expect(ne.isNotEmpty(o4)).toBeFalsy();
-        expect(ne.isNotEmpty(o5)).toBeFalsy();
-        expect(ne.isNotEmpty(o6)).toBeFalsy();
-        expect(ne.isNotEmpty(o7)).toBeFalsy();
-        expect(ne.isNotEmpty(o8)).toBeTruthy();
-        expect(ne.isNotEmpty(o9)).toBeTruthy();
-        expect(ne.isNotEmpty(o10)).toBeTruthy();
-        expect(ne.isNotEmpty(o11)).toBeTruthy();
+        (function() {
+            o8 = arguments;
+        })(2, 4);
+
+        (function() {
+            o11 = arguments;
+        })();
+
+        expect(ne.isEmpty(o1)).toBe(true);
+        expect(ne.isEmpty(o2)).toBe(false);
+        expect(ne.isEmpty(o3)).toBe(true);
+        expect(ne.isEmpty(o4)).toBe(true);
+        expect(ne.isEmpty(o5)).toBe(true);
+        expect(ne.isEmpty(o6)).toBe(false);
+        expect(ne.isEmpty(o7)).toBe(true);
+        expect(ne.isEmpty(o8)).toBe(false);
+        expect(ne.isEmpty(o9)).toBe(true);
+        expect(ne.isEmpty(o10)).toBe(true);
+        expect(ne.isEmpty(o11)).toBe(true);
+
     });
 
 });

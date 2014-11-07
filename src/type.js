@@ -18,7 +18,28 @@
         return isDefined(obj) && obj !== false;
     }
 
+    /**
+     *
+     * @param {*} obj 평가할 대상
+     * @return {boolean}
+     */
+    function isFalsy(obj) {
+        return !isTruthy(obj);
+    }
+
+
     var toString = Object.prototype.toString;
+
+    /**
+     * 인자가 arguments 객체인지 확인
+     * @param obj
+     */
+    function isArguments(obj) {
+        var result = isDefined(obj) &&
+            ((toString.call(obj) === '[object Arguments]') || 'callee' in obj);
+
+        return result;
+    }
 
     /**
      * 인자가 배열인지 확인
@@ -86,45 +107,44 @@
         return !!(html && html.nodeType);
     }
 
+
+
     /**
-     *
-     * @param {*} obj 평가할 대상
-     * @return {boolean}
-     */
-    function isFalsy(obj) {
-        return !isTruthy(obj);
-    }
-    /**
-     * 값이 비어있는지 확인 한다.
-     * - type 이 Object 의 경우 : 값이 하나라도 있으면 false 로 간주
-     * - 그 외의 경우 : boolean 으로 변경하여 평가함.
+     * null, undefined 여부와 순회 가능한 객체의 순회가능 갯수가 0인지 체크한다.
      * @param {*} obj 평가할 대상
      * @return {boolean}
      */
     function isEmpty(obj) {
-        var empty = true,
-            name;
-        if (typeof obj === 'object') {
-            for (name in obj) {
-                empty = false;
-                break;
-            }
-        } else {
-            empty = !obj;
+        var key;
+
+        if (!isDefined(obj)) {
+            return true;
         }
-        return empty;
+
+        if (isArray(obj) || isArguments(obj)) {
+            return obj.length === 0;
+        }
+
+        if (isObject(obj) && !isFunction(obj)) {
+            for (key in obj) {
+                if (obj.hasOwnProperty(key)) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+
     }
+
     /**
-     * 값이 비어있는지 확인 한다.
-     * - type 이 Object 의 경우 : 값이 하나라도 있으면 true 로 간주
-     * - 그 외의 경우 : boolean 으로 변경하여 평가함.
+     * isEmpty 메서드와 반대로 동작한다.
      * @param {*} obj 평가할 대상
      * @return {boolean}
      */
     function isNotEmpty(obj) {
         return !isEmpty(obj);
     }
-
 
 
     ne.isDefined = isDefined;
@@ -136,6 +156,7 @@
     ne.isString = isString;
     ne.isBoolean = isBoolean;
     ne.isHTMLElement = isHTMLElement;
+    ne.isArguments = isArguments;
     ne.isEmpty = isEmpty;
     ne.isNotEmpty = isNotEmpty;
 
