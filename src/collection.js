@@ -11,6 +11,30 @@
     }
 
     /**
+     * obj에 상속된 프로퍼티를 제외한 obj의 고유의 프로퍼티만 순회하며 콜백함수에 전달한다.
+     * @param {object} obj
+     * @param {Function} iteratee  프로퍼티가 전달될 콜백함수
+     * @param {*} [context] 콜백함수의 컨텍스트
+     * @example
+     * var sum = 0;
+     *
+     * forEach({a:1,b:2,c:3}, function(value){
+     *     sum += value;
+     * });
+     *
+     * => sum == 6
+     **/
+    var forEachOwnProperties = function(obj, iteratee, context) {
+        var key;
+
+        for(key in obj) {
+            if (obj.hasOwnProperty(key)) {
+                iteratee.call(context || null, obj[key], key, obj);
+            }
+        }
+    };
+
+    /**
      * 파라메터로 전달된 객체나 어레이를 순회하며 데이터를 콜백함수에 전달한다.
      * @param {*} obj 순회할 객체
      * @param {Function} iteratee 데이터가 전달될 콜백함수
@@ -33,11 +57,7 @@
                 iteratee.call(context || null, obj[key], key, obj);
             }
         } else {
-            for (key in obj) {
-                if (obj.hasOwnProperty(key)) {
-                    iteratee.call(context || null, obj[key], key, obj);
-                }
-            }
+            ne.forEachOwnProperties(obj, iteratee, context);
         }
     };
 
@@ -99,6 +119,7 @@
         return store;
     };
 
+    ne.forEachOwnProperties = forEachOwnProperties;
     ne.forEach = forEach;
     ne.map = map;
     ne.reduce = reduce;
