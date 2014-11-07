@@ -23,7 +23,7 @@
     "jasmine-ajax": "^2.0.1",
     "jasmine-jquery": "^2.0.5",
     "jquery": "1.8.3",
-    "jquery-urlinternal": "git+https://github.com/cowboy/jquery-urlinternal.git",
+    "jquery-urlinternal": "git+https://github.com/Jenair/jquery-urlinternal.git",
     "jsdoc": "git+https://github.com/jsdoc3/jsdoc.git",
     "karma": "^0.12.24",
     "karma-chrome-launcher": "^0.1.5",
