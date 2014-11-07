@@ -6,7 +6,7 @@ describe('customEvent', function() {
             this.position = 0;
         }
 
-        ne.customEvent(Animal); // 커스텀 이벤트 기능 부여
+        ne.CustomEvents.mixin(Animal); // 커스텀 이벤트 기능 부여
 
         Animal.prototype.move = function(to) {
             this.position = to;
@@ -32,7 +32,7 @@ describe('customEvent', function() {
             this.leg = leg;
             this.position = 0;
         }
-        ne.customEvent(Animal); // 커스텀 이벤트 기능 부여
+        ne.CustomEvents.mixin(Animal); // 커스텀 이벤트 기능 부여
 
         Animal.prototype.move = function(to) {
             this.position = to;
@@ -69,7 +69,7 @@ describe('customEvent', function() {
             this.position = 0;
         }
 
-        ne.customEvent(Animal); // 커스텀 이벤트 기능 부여
+        ne.CustomEvents.mixin(Animal); // 커스텀 이벤트 기능 부여
 
         Animal.prototype.move = function(to) {
             this.position = to;
@@ -92,7 +92,7 @@ describe('customEvent', function() {
             this.position = 0;
         }
 
-        ne.customEvent(Animal); // 커스텀 이벤트 기능 부여
+        ne.CustomEvents.mixin(Animal); // 커스텀 이벤트 기능 부여
 
         Animal.prototype.move = function(to) {
             this.position = to;
@@ -123,7 +123,7 @@ describe('customEvent', function() {
             this.position = 0;
         }
 
-        ne.customEvent(Animal); // 커스텀 이벤트 기능 부여
+        ne.CustomEvents.mixin(Animal); // 커스텀 이벤트 기능 부여
 
         Animal.prototype.move = function (to) {
             this.position = to;
@@ -153,7 +153,7 @@ describe('customEvent', function() {
             this.position = 0;
         }
 
-        ne.customEvent(Animal); // 커스텀 이벤트 기능 부여
+        ne.CustomEvents.mixin(Animal); // 커스텀 이벤트 기능 부여
 
         Animal.prototype.move = function (to) {
             this.position = to;
@@ -194,7 +194,7 @@ describe('customEvent', function() {
             this.position = 0;
         }
 
-        ne.customEvent(Animal); // 커스텀 이벤트 기능 부여
+        ne.CustomEvents.mixin(Animal); // 커스텀 이벤트 기능 부여
 
         Animal.prototype.move = function (to) {
             this.position = to;
@@ -232,7 +232,7 @@ describe('customEvent', function() {
             this.position = 0;
         }
 
-        ne.customEvent(Animal); // 커스텀 이벤트 기능 부여
+        ne.CustomEvents.mixin(Animal); // 커스텀 이벤트 기능 부여
 
         Animal.prototype.move = function(to) {
             this.position = to;
@@ -259,7 +259,7 @@ describe('customEvent', function() {
             this.position = 0;
         }
 
-        ne.customEvent(Animal); // 커스텀 이벤트 기능 부여
+        ne.CustomEvents.mixin(Animal); // 커스텀 이벤트 기능 부여
 
         Animal.prototype.move = function(to) {
             this.position = to;
@@ -288,5 +288,21 @@ describe('customEvent', function() {
         lion.back(10);
 
         expect(lion.moveDistance).toBe(0);
+    });
+
+    describe('인스턴스로 사용하는 방법', function() {
+
+        it('CustomEventss 자체를 인스턴스로 생성하여 사용할 수도 있다', function() {
+            var spy = jasmine.createSpy('spy');
+
+            var inst = new ne.CustomEvents();
+
+            inst.on('move', spy);
+
+            inst.fire('move', { test: 'a' });
+
+            expect(spy).toHaveBeenCalledWith({ test: 'a', type: 'move', target: inst });
+        });
+
     });
 });
