@@ -201,6 +201,8 @@
          * @param {string} type 이벤트 타입명
          * @param {(object|string)=} data 발생과 함께 전달할 이벤트 데이터
          * @return {*}
+         * @example
+         * inst.fire('move', { direction: 'left' });
          */
         fire: function(type, data) {
             if (!this.hasListener(type)) {
