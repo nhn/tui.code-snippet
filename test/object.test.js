@@ -43,4 +43,13 @@ describe('object', function() {
         expect(ne.stamp(myObj)).toBe(2);
     });
 
+    describe('keys', function() {
+        it('객체를 전달받아 키만 따로 배열로 만들어 리턴해준다.', function() {
+            var result = ne.keys({'key1': 1, 'key2': 2});
+
+            expect(result.length).toEqual(2);
+            expect(result[0]).toEqual('key1');
+            expect(result[1]).toEqual('key2');
+        });
+    });
 });

@@ -52,8 +52,27 @@
         lastId = 0;
     }
 
+    /**
+     * 객체를 전달받아 객체의 키목록을 배열로만들어 리턴해준다.
+     * @param obj
+     * @returns {Array}
+     */
+    var keys = function(obj) {
+        var keys = [],
+            key;
+
+        for (key in obj) {
+            if (obj.hasOwnProperty(key)) {
+                keys.push(key);
+            }
+        }
+
+        return keys;
+    };
+
     ne.extend = extend;
     ne.stamp = stamp;
     ne._resetLastId = resetLastId;
+    ne.keys = Object.keys || keys;
 
 })(window.ne);
