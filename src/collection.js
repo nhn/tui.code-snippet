@@ -1,5 +1,5 @@
 /**
- * @fileoverview
+ * @fileoverview 객체나 배열을 다루기위한 펑션들이 정의 되어있는 모듈
  * @author FE개발팀
  * @dependency type.js, object.js
  */
@@ -15,13 +15,21 @@
      * @param {*} obj 순회할 객체
      * @param {Function} iteratee 데이터가 전달될 콜백함수
      * @param {*} [context] 콜백함수의 컨텍스트
+     * @example
+     * var sum = 0;
+     *
+     * forEach([1,2,3], function(value){
+     *     sum += value;
+     * });
+     *
+     * => sum == 6
      **/
     var forEach = function(obj, iteratee, context) {
         var key,
-            t;
+            len;
 
         if (ne.isArray(obj)) {
-            for (key = 0, t = obj.length; key < t; key++) {
+            for (key = 0, len = obj.length; key < len; key++) {
                 iteratee.call(context || null, obj[key], key, obj);
             }
         } else {
@@ -73,8 +81,7 @@
         var keys,
             index = 0,
             length,
-            store,
-            t;
+            store;
 
 
         if (!ne.isArray(obj)) {
