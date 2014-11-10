@@ -2,6 +2,13 @@
 // Generated on Wed Oct 22 2014 11:36:33 GMT+0900 (KST)
 
 module.exports = function(config) {
+  var webdriverConfig = {
+    hostname: 'fe.nhnent.com',
+    port: 4444,
+    remoteHost: true
+  };
+
+
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
@@ -21,19 +28,6 @@ module.exports = function(config) {
       'node_modules/jasmine-ajax/lib/mock-ajax.js',
       'src/**/*.js',
       'test/**/*.test.js'
-    ],
-
-    plugins: [
-      'karma-jasmine',
-      'karma-coverage',
-      'karma-ievms',
-      'karma-chrome-launcher',
-      'karma-firefox-launcher',
-      'karma-safari-launcher',
-      'karma-slimerjs-launcher',
-      'karma-phantomjs-launcher',
-      'karma-junit-reporter',
-      'karma-ajax'
     ],
 
 
@@ -87,17 +81,53 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    _browsers: ['PhantomJS'], //로컬에서 작게 테스트할 용도
-
     browsers: [
-      'IE7 - WinXP',
-      'IE8 - WinXP',
-      'IE9 - Win7',
-      'IE11 - Win7',
-      'Chrome',
-      'SlimerJS',
-      'PhantomJS'
+      'IE7',
+      'IE8',
+      'IE9',
+      'IE10',
+      'IE11',
+      'Chrome-WebDriver',
+      'Firefox-WebDriver'
     ],
+
+    customLaunchers: {
+      'IE7': {
+        base: 'WebDriver',
+        config: webdriverConfig,
+        browserName: 'IE7'
+      },
+      'IE8': {
+        base: 'WebDriver',
+        config: webdriverConfig,
+        browserName: 'IE8'
+      },
+      'IE9': {
+        base: 'WebDriver',
+        config: webdriverConfig,
+        browserName: 'IE9'
+      },
+      'IE10': {
+        base: 'WebDriver',
+        config: webdriverConfig,
+        browserName: 'IE10'
+      },
+      'IE11': {
+        base: 'WebDriver',
+        config: webdriverConfig,
+        browserName: 'IE11'
+      },
+      'Chrome-WebDriver': {
+        base: 'WebDriver',
+        config: webdriverConfig,
+        browserName: 'chrome'
+      },
+      'Firefox-WebDriver': {
+        base: 'WebDriver',
+        config: webdriverConfig,
+        browserName: 'firefox'
+      }
+    },
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
