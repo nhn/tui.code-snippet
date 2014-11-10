@@ -18,14 +18,22 @@
      * - safari
      *
      * @module browser
+     * @example
+     * if (browser.msie && browser.version === 7) {
+     *     // IE7일 경우의 루틴
+     * }
+     *
+     * if (browser.chrome && browser.version >= 32) {
+     *     // Chrome 32버전 이상일 때의 루틴
+     * }
      */
     var browser = {
-        chrome: undefined,
-        firefox: undefined,
-        safari: undefined,
-        msie: undefined,
-        others: undefined,
-        version: undefined
+        chrome: false,
+        firefox: false,
+        safari: false,
+        msie: false,
+        others: false,
+        version: 0
     };
 
     var nav = window.navigator,
@@ -76,22 +84,7 @@
         }
     };
 
-    /**
-     * 브라우저 검출 메서드
-     */
-    browser.detect = function() {
-        for (key in browser) {
-            if (browser.hasOwnProperty(key)) {
-                if (key === 'detect') {
-                    continue;
-                }
-                browser[key] = undefined;
-            }
-        }
-        detector[appName]();
-    };
-
-    browser.detect();
+    detector[appName]();
 
     ne.browser = browser;
 

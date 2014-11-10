@@ -20,7 +20,8 @@
         var source,
             prop,
             hasOwnProp = Object.prototype.hasOwnProperty,
-            i, len;
+            i,
+            len;
 
         for (i = 1, len = arguments.length; i < len; i++) {
             source = arguments[i];
