@@ -43,6 +43,7 @@
     /**
      * 인자가 arguments 객체인지 확인
      * @param {*} obj
+     * @return {boolean}
      */
     function isArguments(obj) {
         var result = isDefined(obj) &&

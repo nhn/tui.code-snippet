@@ -202,7 +202,12 @@
          * @param {(object|string)=} data 발생과 함께 전달할 이벤트 데이터
          * @return {*}
          * @example
-         * inst.fire('move', { direction: 'left' });
+         * instance.fire('move', { direction: 'left' });
+         *
+         * // 이벤트 핸들러 처리
+         * instance.on('move', function(moveEvent) {
+         *     var direction = moveEvent.direction;
+         * });
          */
         fire: function(type, data) {
             if (!this.hasListener(type)) {
