@@ -123,7 +123,8 @@
      * @return {boolean}
      */
     function isEmpty(obj) {
-        var key;
+        var key,
+            hasKey = false;
 
         if (!isDefined(obj)) {
             return true;
@@ -134,11 +135,12 @@
         }
 
         if (isObject(obj) && !isFunction(obj)) {
-            for (key in obj) {
-                if (obj.hasOwnProperty(key)) {
-                    return false;
-                }
-            }
+            ne.forEachOwnProperties(obj, function() {
+                hasKey = true;
+                return false;
+            });
+
+            return !hasKey;
         }
 
         return true;

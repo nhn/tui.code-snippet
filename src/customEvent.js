@@ -187,7 +187,7 @@
 
                 if (listeners) {
                     ne.forEach(listeners, function(listener, arr, index) {
-                        if (ne.isDefined(listener) && listener.fn === fn) {
+                        if (ne.isDefined(listener) && (listener.fn === fn)) {
                             listeners.splice(index, 1);
                             return true;
                         }
