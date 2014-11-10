@@ -10,17 +10,27 @@
         ne = window.ne = {};
     }
 
+    /**
+     * 인자가 null 또는 undefined가 아닌지 확인하는 메서드
+     * @param {*} obj
+     * @return {boolean}
+     */
     function isDefined(obj) {
         return obj !== null && obj !== undefined;
     }
 
+    /**
+     * 인자가 null, undefined, false가 아닌지 확인하는 메서드
+     * @param {*} obj
+     * @return {boolean}
+     */
     function isTruthy(obj) {
         return isDefined(obj) && obj !== false;
     }
 
     /**
-     *
-     * @param {*} obj 평가할 대상
+     * 인자가 null, undefined, false인지 확인하는 메서드
+     * @param {*} obj
      * @return {boolean}
      */
     function isFalsy(obj) {
@@ -32,7 +42,7 @@
 
     /**
      * 인자가 arguments 객체인지 확인
-     * @param obj
+     * @param {*} obj
      */
     function isArguments(obj) {
         var result = isDefined(obj) &&
@@ -47,7 +57,7 @@
      * @return {boolean}
      */
     function isArray(obj) {
-        return isDefined(Array.isArray) ? Array.isArray(obj) : toString.call(obj) === '[object Array]';
+        return toString.call(obj) === '[object Array]';
     }
 
     /**
@@ -107,8 +117,6 @@
         return !!(html && html.nodeType);
     }
 
-
-
     /**
      * null, undefined 여부와 순회 가능한 객체의 순회가능 갯수가 0인지 체크한다.
      * @param {*} obj 평가할 대상
@@ -149,6 +157,8 @@
 
     ne.isDefined = isDefined;
     ne.isTruthy = isTruthy;
+    ne.isFalsy = isFalsy;
+    ne.isArguments = isArguments;
     ne.isArray = Array.isArray || isArray;
     ne.isObject = isObject;
     ne.isFunction = isFunction;
@@ -156,7 +166,6 @@
     ne.isString = isString;
     ne.isBoolean = isBoolean;
     ne.isHTMLElement = isHTMLElement;
-    ne.isArguments = isArguments;
     ne.isEmpty = isEmpty;
     ne.isNotEmpty = isNotEmpty;
 

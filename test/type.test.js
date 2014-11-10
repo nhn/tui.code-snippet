@@ -33,6 +33,32 @@ describe('type', function() {
         expect(ne.isTruthy(o5)).toBe(false);
     });
 
+    it('isFalsy()', function() {
+        var o1 = 0,
+            o2 = false,
+            o3 = '',
+            o4 = null,
+            o5;
+
+        expect(ne.isFalsy(o1)).toBe(false);
+        expect(ne.isFalsy(o2)).toBe(true);
+        expect(ne.isFalsy(o3)).toBe(false);
+        expect(ne.isFalsy(o4)).toBe(true);
+        expect(ne.isFalsy(o5)).toBe(true);
+    });
+
+    it('isArguments()', function() {
+        var o1,
+            o2 = [];
+
+        (function() {
+            o1 = arguments;
+        })();
+
+        expect(ne.isArguments(o1)).toBe(true);
+        expect(ne.isArguments(o2)).toBe(false);
+    });
+
     it('isArray()', function() {
         var o1 = new Array(3),
             o2 = [],
@@ -158,16 +184,16 @@ describe('type', function() {
         expect(ne.isBoolean(o7)).toBe(false);
     });
 
-    it('isArguments()', function() {
-        var o1,
-            o2 = [];
+    it('isHTMLElement()', function() {
+        jasmine.getFixtures().set('<div id="test"></div>');
 
-        (function() {
-            o1 = arguments;
-        })();
+        var el = document.getElementById('test'),
+            myObj = 3,
+            testObj = {};
 
-        expect(ne.isArguments(o1)).toBe(true);
-        expect(ne.isArguments(o2)).toBe(false);
+        expect(ne.isHTMLElement(el)).toBe(true);
+        expect(ne.isHTMLElement(myObj)).toBe(false);
+        expect(ne.isHTMLElement(testObj)).toBe(false);
     });
 
     it('isEmpty()', function() {
