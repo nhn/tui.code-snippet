@@ -51,7 +51,7 @@
      *
      *
      */
-    var def = function(parent, props) {
+    var defineClass = function(parent, props) {
         var obj;
 
         if (!props) {
@@ -73,6 +73,6 @@
         return obj;
     };
 
-    ne.def = def;
+    ne.defineClass = defineClass;
 
 })(window.ne);
