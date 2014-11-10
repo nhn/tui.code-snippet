@@ -1,5 +1,5 @@
 describe('module:def', function() {
-    var def = ne.def;
+    var defineClass = ne.defineClass;
 
     describe('def()', function() {
         var props1,
@@ -41,7 +41,7 @@ describe('module:def', function() {
             var obj;
 
             beforeEach(function() {
-                obj = def(props1);
+                obj = defineClass(props1);
             });
 
             it('obj.prototype에 method1이 있다.', function() {
@@ -68,7 +68,7 @@ describe('module:def', function() {
             var obj;
 
             beforeEach(function() {
-                obj = def(propsWithinit);
+                obj = defineClass(propsWithinit);
             });
 
             it('obj.prototype에 method3가 있다.', function() {
@@ -102,7 +102,7 @@ describe('module:def', function() {
             var obj;
 
             beforeEach(function() {
-                obj = def(propsWithStatic);
+                obj = defineClass(propsWithStatic);
             });
 
             it('obj에 스테틱멤버가 존재한다.', function() {
@@ -117,8 +117,8 @@ describe('module:def', function() {
                 Child;
 
             beforeEach(function() {
-                Parent = def(propsWithinit);
-                Child = def(Parent, propsWithinit2);
+                Parent = defineClass(propsWithinit);
+                Child = defineClass(Parent, propsWithinit2);
             });
 
             it('Child.prototype에 method4가 있다.', function() {
@@ -162,8 +162,8 @@ describe('module:def', function() {
                 Child;
 
             beforeEach(function() {
-                Parent = def(propsWithinit);
-                Child = def(Parent, {
+                Parent = defineClass(propsWithinit);
+                Child = defineClass(Parent, {
                     init: function() {
                         Parent.call(this);
                     }
