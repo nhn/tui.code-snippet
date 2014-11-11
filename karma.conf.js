@@ -22,6 +22,7 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      {pattern: 'test/fixtures/*.html', watched: true, served: true, included: false},
       'bower_components/jquery/jquery.js',
       'node_modules/jasmine-jquery/lib/jasmine-jquery.js',
       'node_modules/jquery-urlinternal/jquery.ba-urlinternal.js',
