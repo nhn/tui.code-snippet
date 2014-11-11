@@ -39,7 +39,16 @@
             return entities[m0] ? '&' + entities[m0] + ';' : m0;
         });
     }
+    /**
+     * html Entity 로 변환할 수 있는 문자가 포함되었는지 확인
+     * @param {String} string
+     * @return {boolean}
+     */
+    function hasEncodableString(string) {
+        return /[<>&"']/.test(string);
+    }
 
     ne.decodeHTMLEntity = decodeHTMLEntity;
     ne.encodeHTMLEntity = encodeHTMLEntity;
+    ne.hasEncodableString = hasEncodableString;
 })(window.ne);

@@ -10,4 +10,19 @@ describe('type', function() {
             expectString = 'A \'quote\' is <b>bold</b>';
         expect(ne.decodeHTMLEntity(htmlEntityString)).toEqual(expectString);
     });
+    it('hasEncodableString()', function() {
+        var s1 = 'te < st',
+            s2 = 'te > st',
+            s3 = 'te __ st',
+            s4 = 'te " st',
+            s5 = 'te \' st',
+            s6 = '<script> alert(\'test\');</script><a href=\'test\'>';
+
+        expect(ne.hasEncodableString(s1)).toBe(true);
+        expect(ne.hasEncodableString(s2)).toBe(true);
+        expect(ne.hasEncodableString(s3)).toBe(false);
+        expect(ne.hasEncodableString(s4)).toBe(true);
+        expect(ne.hasEncodableString(s5)).toBe(true);
+        expect(ne.hasEncodableString(s6)).toBe(true);
+    });
 });
