@@ -184,16 +184,32 @@ describe('type', function() {
         expect(ne.isBoolean(o7)).toBe(false);
     });
 
-    it('isHTMLElement()', function() {
-        jasmine.getFixtures().set('<div id="test"></div>');
+    it('isHTMLNode()', function() {
+        jasmine.getFixtures().set('<div id="test">\n</div>');
 
         var el = document.getElementById('test'),
+            child = el.firstChild,
             myObj = 3,
             testObj = {};
 
-        expect(ne.isHTMLElement(el)).toBe(true);
-        expect(ne.isHTMLElement(myObj)).toBe(false);
-        expect(ne.isHTMLElement(testObj)).toBe(false);
+        expect(ne.isHTMLNode(el)).toBe(true);
+        expect(ne.isHTMLNode(child)).toBe(true);
+        expect(ne.isHTMLNode(myObj)).toBe(false);
+        expect(ne.isHTMLNode(testObj)).toBe(false);
+    });
+
+    it('isHTMLTag()', function() {
+        jasmine.getFixtures().set('<div id="test">\n</div>');
+
+        var el = document.getElementById('test'),
+            child = el.firstChild,
+            myObj = 3,
+            testObj = {};
+
+        expect(ne.isHTMLTag(el)).toBe(true);
+        expect(ne.isHTMLTag(child)).toBe(false);
+        expect(ne.isHTMLTag(myObj)).toBe(false);
+        expect(ne.isHTMLTag(testObj)).toBe(false);
     });
 
     it('isEmpty()', function() {

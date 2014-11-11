@@ -107,17 +107,27 @@
     }
 
     /**
-     * HTMLElement타입 검사
+     * 인자가 HTML Node 인지 검사한다. (Text Node 도 포함)
      * @param {HTMLElement} html
      * @return {Boolean} HTMLElement 인지 여부
      */
-    function isHTMLElement(html)	{
+    function isHTMLNode(html) {
         if(typeof(HTMLElement) === 'object') {
             return(html && (html instanceof HTMLElement));
         }
         return !!(html && html.nodeType);
     }
-
+    /**
+     * 인자가 HTML Tag 인지 검사한다. (Text Node 제외)
+     * @param {HTMLElement} html
+     * @return {Boolean} HTMLElement 인지 여부
+     */
+    function isHTMLTag(html) {
+        if(typeof(HTMLElement) === 'object') {
+            return(html && (html instanceof HTMLElement));
+        }
+        return !!(html && html.nodeType && html.nodeType !== 3);
+    }
     /**
      * null, undefined 여부와 순회 가능한 객체의 순회가능 갯수가 0인지 체크한다.
      * @param {*} obj 평가할 대상
@@ -168,7 +178,8 @@
     ne.isNumber = isNumber;
     ne.isString = isString;
     ne.isBoolean = isBoolean;
-    ne.isHTMLElement = isHTMLElement;
+    ne.isHTMLNode = isHTMLNode;
+    ne.isHTMLTag = isHTMLTag;
     ne.isEmpty = isEmpty;
     ne.isNotEmpty = isNotEmpty;
 
