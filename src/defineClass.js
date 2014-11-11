@@ -19,7 +19,7 @@
      * @returns {*}
      * @example
      *
-     * var Parent = def({
+     * var Parent = defineClasss({
      *     init: function() {
      *         this.name = 'made by def';
      *     },
@@ -33,7 +33,7 @@
      *     }
      * });
      *
-     * var Child = def(Parent, {
+     * var Child = defineClass(Parent, {
      *     method2: function() {}
      * });
      *
