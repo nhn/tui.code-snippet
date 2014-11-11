@@ -1,13 +1,17 @@
 describe('form', function() {
     var $form;
-    jasmine.getFixtures().fixturesPath = 'base/';
-    loadFixtures('test/fixtures/form.html');
+    beforeEach(function() {
+        jasmine.getFixtures().fixturesPath = 'base/';
+        loadFixtures('test/fixtures/form.html');
+    });
 
 
 
     describe('getFormElement()', function() {
-        $form = $('#test_form');
-//        console.log($form, $form.html());
+        beforeEach(function() {
+            $form = $('#test_form');
+        });
+
         it('name 에 해당하는 input 이 존재하지 않는 경우 길이가 0 인 배열을 반환한다.', function() {
             var $element = ne.getFormElement($form, 'not_found_delivery_number');
         });
@@ -24,17 +28,15 @@ describe('form', function() {
         });
     });
     describe('getFormData()', function() {
-        var $form = $('#test_form_empty');
-
         describe('Form 에 설정된 데이터를 object 형태로 반환한다.', function() {
             beforeEach(function() {
-                $form.empty();
+                $form = $('#test_form_empty');
+                $form.html('');
             });
             it('text input 의 데이터를 가져올 수 있다.', function() {
                 var htmlText = '<input type="text" name="user_name" value="defaultText"/>',
                     formData,
                     expectResult = 'defaultText';
-
                 $form.append(htmlText);
 
                 formData = ne.getFormData($form);
@@ -80,11 +82,10 @@ describe('form', function() {
         });
     });
     describe('setFormElementValue()', function() {
-        var $form = $('#test_form_empty');
-
         describe('form 의 각 인풋 요소에 값을 설정할 수 있다.', function() {
             beforeEach(function() {
-                $form.empty();
+                $form = $('#test_form_empty');
+                $form.html('');
             });
             it('text input 에 값을 설정할 수 있다.', function() {
                 var htmlText = '<input type="text" name="user_name"/>',
@@ -142,18 +143,21 @@ describe('form', function() {
 
     });
     describe('setFormData()', function() {
-        var sampleFormData = {
-            'delivery_number': '1000',
-            'user_name': 'john',
-            'weather': 'summer',
-            'gender': 'male',
-            'hobby': ['sport', 'dancing']
-        };
+        var sampleFormData;
+        beforeEach(function() {
+            sampleFormData = {
+                'delivery_number': '1000',
+                'user_name': 'john',
+                'weather': 'summer',
+                'gender': 'male',
+                'hobby': ['sport', 'dancing']
+            };
+            $form = $('#test_form');
+        });
         it('Object 형태의 데이터를 전달하여 form 엘리먼트들의 data 들을 설정할 수 있다.', function() {
-            ne.setFormData(sampleFormData);
-            ne.getFormData($form);
+            ne.setFormData($form, sampleFormData);
+            var formData = ne.getFormData($form);
+            expect(formData).toEqual(sampleFormData);
         });
     });
-
-
 });
