@@ -139,9 +139,28 @@
             }
         }
     }
+    /**
+     * input 타입의 엘리먼트의 커서를 가장 끝으로 이동한다.
+     * @param {element} target HTML input 엘리먼트
+     */
+    function setCursorToEnd(target) {
+        target.focus();
+        var length = target.value.length;
+
+        if (target.setSelectionRange) {
+            target.setSelectionRange(length, length);
+        } else if (target.createTextRange) {
+            var range = target.createTextRange();
+            range.collapse(true);
+            range.moveEnd('character', length);
+            range.moveStart('character', length);
+            range.select();
+        }
+    }
 
     ne.getFormElement = getFormElement;
     ne.getFormData = getFormData;
     ne.setFormData = setFormData;
     ne.setFormElementValue = setFormElementValue;
+    ne.setCursorToEnd = setCursorToEnd;
 })(window.ne);
