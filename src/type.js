@@ -112,8 +112,8 @@
      * @return {Boolean} HTMLElement 인지 여부
      */
     function isHTMLNode(html) {
-        if(typeof(HTMLElement) === 'object') {
-            return(html && (html instanceof HTMLElement));
+        if (typeof(HTMLElement) === 'object') {
+            return (html && (html instanceof HTMLElement));
         }
         return !!(html && html.nodeType);
     }
@@ -123,10 +123,10 @@
      * @return {Boolean} HTMLElement 인지 여부
      */
     function isHTMLTag(html) {
-        if(typeof(HTMLElement) === 'object') {
-            return(html && (html instanceof HTMLElement));
+        if (typeof(HTMLElement) === 'object') {
+            return (html && (html instanceof HTMLElement));
         }
-        return !!(html && html.nodeType && html.nodeType !== 3);
+        return !!(html && html.nodeType && html.nodeType === 1);
     }
     /**
      * null, undefined 여부와 순회 가능한 객체의 순회가능 갯수가 0인지 체크한다.

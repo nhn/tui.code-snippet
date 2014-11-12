@@ -14,6 +14,7 @@ describe('form', function() {
 
         it('name 에 해당하는 input 이 존재하지 않는 경우 길이가 0 인 배열을 반환한다.', function() {
             var $element = ne.getFormElement($form, 'not_found_delivery_number');
+            expect($element.length).toEqual(0);
         });
         it('$form 이 존재하지 않는 경우 길이가 0 인 배열을 반환한다.', function() {
             var $element = ne.getFormElement('', 'delivery_number');
@@ -146,7 +147,7 @@ describe('form', function() {
         var sampleFormData;
         beforeEach(function() {
             sampleFormData = {
-                'delivery_number': '1000',
+                'delivery_number': 1000,
                 'user_name': 'john',
                 'weather': 'summer',
                 'gender': 'male',
@@ -156,6 +157,7 @@ describe('form', function() {
         });
         it('Object 형태의 데이터를 전달하여 form 엘리먼트들의 data 들을 설정할 수 있다.', function() {
             ne.setFormData($form, sampleFormData);
+            sampleFormData.delivery_number = String(sampleFormData.delivery_number);
             var formData = ne.getFormData($form);
             expect(formData).toEqual(sampleFormData);
         });
