@@ -24,15 +24,15 @@
      *
      * => sum == 6
      **/
-    var forEachOwnProperties = function(obj, iteratee, context) {
+    function forEachOwnProperties(obj, iteratee, context) {
         var key;
 
-        for(key in obj) {
+        for (key in obj) {
             if (obj.hasOwnProperty(key)) {
                 iteratee.call(context || null, obj[key], key, obj);
             }
         }
-    };
+    }
 
     /**
      * 파라메터로 전달된 객체나 어레이를 순회하며 데이터를 콜백함수에 전달한다.
@@ -48,7 +48,7 @@
      *
      * => sum == 6
      **/
-    var forEach = function(obj, iteratee, context) {
+    function forEach(obj, iteratee, context) {
         var key,
             len;
 
@@ -59,7 +59,7 @@
         } else {
             ne.forEachOwnProperties(obj, iteratee, context);
         }
-    };
+    }
 
     /**
      * 파라메터로 전달된 객체나 어레이를 순회하며 콜백을 실행한 리턴값을 배열로 만들어 리턴한다.
@@ -74,7 +74,7 @@
      *
      * => [1,2,3,4];
      */
-    var map = function(obj, iteratee, context) {
+    function map(obj, iteratee, context) {
         var resultArray = [];
 
         ne.forEach(obj, function() {
@@ -82,7 +82,7 @@
         });
 
         return resultArray;
-    };
+    }
 
     /**
      * 파라메터로 전달된 객체나 어레이를 순회하며 콜백을 실행한 리턴값을 다음 콜백의 첫번째 인자로 넘겨준다.
@@ -97,7 +97,7 @@
      *
      * => 6;
      */
-    var reduce = function(obj, iteratee, context) {
+    function reduce(obj, iteratee, context) {
         var keys,
             index = 0,
             length,
@@ -117,11 +117,33 @@
         }
 
         return store;
+    }
+
+    /**
+     * 유사배열을 배열 형태로 변환한다.
+     * @param {Object} arrayLike 유사배열
+     * @return {Array}
+     * @example
+
+     var arrayLike = {
+        0: 'one',
+        1: 'two',
+        2: 'three',
+        3: 'four',
+        length: 4
     };
+     var result = toArray(arrayLike);
+
+     => ['one', 'two', 'three', 'four'];
+     */
+    function toArray(arrayLike) {
+        return Array.prototype.slice.call(arrayLike);
+    }
 
     ne.forEachOwnProperties = forEachOwnProperties;
     ne.forEach = forEach;
     ne.map = map;
     ne.reduce = reduce;
+    ne.toArray = toArray;
 
 })(window.ne);

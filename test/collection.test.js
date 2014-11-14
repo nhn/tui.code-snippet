@@ -96,5 +96,48 @@ describe('module:collection', function() {
 
             expect(result).toEqual(15);
         });
+    })
+    describe('toArray', function() {
+        it('유사 배열 객체를 배열로 변환한다.', function() {
+            var result,
+                arrayLike = {
+                    0: 'one',
+                    1: 'two',
+                    2: 'three',
+                    3: 'four',
+                    length: 4
+                };
+            result = ne.toArray(arrayLike);
+            expect(arrayLike instanceof Array).toBe(false);
+            expect(result instanceof Array).toBe(true);
+
+            result = ne.toArray(arguments);
+            expect(arguments instanceof Array).toBe(false);
+            expect(result instanceof Array).toBe(true);
+
+
+        });
+        it('인자의 length 프로퍼티 숫자 크기만큼 순회하며, length 가 없을 경우 빈 배열을 반환한다.', function() {
+            var result,
+                arrayLike = {
+                    0: 'one',
+                    1: 'two',
+                    2: 'three',
+                    3: 'four',
+                    length: 2
+                };
+            result = ne.toArray(arrayLike);
+            expect(result instanceof Array).toBe(true);
+            expect(result.length).toBe(2);
+
+            result = ne.toArray('abcde');
+            expect(result instanceof Array).toBe(true);
+            expect(result.length).toBe(5);
+
+            result = ne.toArray(1);
+            expect(result instanceof Array).toBe(true);
+            expect(result.length).toBe(0);
+        });
+
     });
 });
