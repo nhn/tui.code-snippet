@@ -56,7 +56,7 @@ describe('form', function() {
                 formData = ne.getFormData($form);
                 expect(formData['weather']).toEqual(expectResult);
             });
-            it('multiple select 의 데이터를 가져올 수 있다.', function() {
+            it('2개 이상 선택된 multiple select 의 데이터를 가져올 수 있다.', function() {
                 var htmlText = '<select multiple="" name="drink">' +
                         '<option value="soju" selected>소주</option>' +
                         '<option value="beer">맥주</option>' +
@@ -67,6 +67,22 @@ describe('form', function() {
                         '<option value="vodca">보드카</option>' +
                         '</select>',
                     expectResult = ['soju', 'whiskey'],
+                    formData;
+                $form.append(htmlText);
+                formData = ne.getFormData($form);
+                expect(formData['drink']).toEqual(expectResult);
+            });
+            it('1개 선택된 multiple select 의 데이터를 가져올 수 있다.', function() {
+                var htmlText = '<select multiple="" name="drink">' +
+                        '<option value="soju">소주</option>' +
+                        '<option value="beer">맥주</option>' +
+                        '<option value="koreanWine">막걸리</option>' +
+                        '<option value="redWine">레드와인</option>' +
+                        '<option value="whiteWine">화이트와인</option>' +
+                        '<option value="whiskey" selected>위스키</option>' +
+                        '<option value="vodca">보드카</option>' +
+                        '</select>',
+                    expectResult = 'whiskey',
                     formData;
                 $form.append(htmlText);
                 formData = ne.getFormData($form);
@@ -83,12 +99,25 @@ describe('form', function() {
                 formData = ne.getFormData($form);
                 expect(formData['gender']).toEqual(expectResult);
             });
-            it('checkbox input 의 데이터를 가져올 수 있다.', function() {
+            it('2개 이상 선택된 checkbox input 의 데이터를 가져올 수 있다.', function() {
                 var htmlText = '<input type="checkbox" name="hobby" value="sport"/>스포츠' +
                                 '<input type="checkbox" name="hobby" value="sewing" checked/>재봉틀' +
                                 '<input type="checkbox" name="hobby" value="drinking" checked/>음주' +
                                 '<input type="checkbox" name="hobby" value="dancing"/>가무',
                     expectResult = ['sewing', 'drinking'],
+                    formData;
+
+                $form.append(htmlText);
+
+                formData = ne.getFormData($form);
+                expect(formData['hobby']).toEqual(expectResult);
+            });
+            it('1개 선택된 checkbox input 의 데이터를 가져올 수 있다.', function() {
+                var htmlText = '<input type="checkbox" name="hobby" value="sport"/>스포츠' +
+                        '<input type="checkbox" name="hobby" value="sewing"/>재봉틀' +
+                        '<input type="checkbox" name="hobby" value="drinking" checked/>음주' +
+                        '<input type="checkbox" name="hobby" value="dancing"/>가무',
+                    expectResult = 'drinking',
                     formData;
 
                 $form.append(htmlText);
@@ -130,24 +159,49 @@ describe('form', function() {
                 formData = ne.getFormData($form);
                 expect(formData['weather']).toEqual(expectResult);
             });
-            it('multiple select 요소의 값을 설정할 수 있다.', function() {
-                var htmlText = '<select multiple="" name="drink">' +
-                            '<option value="soju">소주</option>' +
-                            '<option value="beer">맥주</option>' +
-                            '<option value="koreanWine">막걸리</option>' +
-                            '<option value="redWine">레드와인</option>' +
-                            '<option value="whiteWine">화이트와인</option>' +
-                            '<option value="whiskey">위스키</option>' +
-                            '<option value="vodca">보드카</option>' +
-                        '</select>',
-                    expectResult = ['redWine', 'whiteWine'],
+            describe('multiple select 요소의 값을 설정할 수 있다.', function() {
+                var htmlText,
+                    expectResult,
                     formData;
 
-                $form.append(htmlText);
-                ne.setFormElementValue($form, 'drink', expectResult);
-                formData = ne.getFormData($form);
-                expect(formData['drink']).toEqual(expectResult);
+                beforeEach(function() {
+                    htmlText = '<select multiple="" name="drink">' +
+                        '<option value="1">1번소주</option>' +
+                        '<option value="soju">소주</option>' +
+                        '<option value="beer">맥주</option>' +
+                        '<option value="koreanWine">막걸리</option>' +
+                        '<option value="redWine">레드와인</option>' +
+                        '<option value="whiteWine">화이트와인</option>' +
+                        '<option value="whiskey">위스키</option>' +
+                        '<option value="vodca">보드카</option>' +
+                        '</select>';
+                    $form.append(htmlText);
+                });
+
+                it('배열을 인자로 하여 설정할 수 있다', function() {
+                    expectResult = ['redWine', 'whiteWine'];
+                    ne.setFormElementValue($form, 'drink', expectResult);
+                    formData = ne.getFormData($form);
+                    expect(formData['drink']).toEqual(expectResult);
+
+                    ne.setFormElementValue($form, 'drink', ['redWine']);
+                    formData = ne.getFormData($form);
+                    expect(formData['drink']).toEqual('redWine');
+                });
+                it('String 형태 인자로 설정할 수 있다.', function() {
+                    expectResult = 'redWine';
+                    ne.setFormElementValue($form, 'drink', expectResult);
+                    formData = ne.getFormData($form);
+                    expect(formData['drink']).toEqual(expectResult);
+                });
+                it('Number 형태도 사용 가능하다.', function() {
+                    expectResult = '1';
+                    ne.setFormElementValue($form, 'drink', 1);
+                    formData = ne.getFormData($form);
+                    expect(formData['drink']).toEqual(expectResult);
+                });
             });
+
             it('radio input 의 값을 설정할 수 있다.', function() {
                 var htmlText = '<input type="radio" name="gender" value="male"/>남' +
                         '<input type="radio" name="gender" value="female"/>여',
@@ -160,19 +214,44 @@ describe('form', function() {
                 formData = ne.getFormData($form);
                 expect(formData['gender']).toEqual(expectResult);
             });
-            it('checkbox input 의 값을 설정할 수 있다.', function() {
-                var htmlText = '<input type="checkbox" name="hobby" value="sport"/>스포츠' +
-                        '<input type="checkbox" name="hobby" value="sewing"/>재봉틀' +
-                        '<input type="checkbox" name="hobby" value="drinking"/>음주' +
-                        '<input type="checkbox" name="hobby" value="dancing"/>가무',
-                    expectResult = ['sewing', 'drinking', 'sport', 'dancing'],
+            describe('checkbox input 의 값을 설정할 수 있다.', function() {
+                var htmlText,
+                    expectResult,
                     formData;
 
-                $form.append(htmlText);
-                ne.setFormElementValue($form, 'hobby', expectResult);
+                beforeEach(function() {
+                    htmlText = '<input type="checkbox" name="hobby" value="1"/>넘버원' +
+                        '<input type="checkbox" name="hobby" value="sport"/>스포츠' +
+                        '<input type="checkbox" name="hobby" value="sewing"/>재봉틀' +
+                        '<input type="checkbox" name="hobby" value="drinking"/>음주' +
+                        '<input type="checkbox" name="hobby" value="dancing"/>가무';
+                    $form.append(htmlText);
+                });
+                it('배열을 인자로 하여 설정할 수 있다', function() {
+                    expectResult = ['sewing', 'drinking', 'sport', 'dancing'];
 
-                formData = ne.getFormData($form);
-                expect(formData['hobby'].sort()).toEqual(expectResult.sort());
+                    ne.setFormElementValue($form, 'hobby', expectResult);
+                    formData = ne.getFormData($form);
+                    expect(formData['hobby'].sort()).toEqual(expectResult.sort());
+
+                    ne.setFormElementValue($form, 'hobby', ['sewing']);
+                    formData = ne.getFormData($form);
+                    expect(formData['hobby']).toEqual('sewing');
+                });
+                it('String 형태 인자로 설정할 수 있다.', function() {
+                    expectResult = 'sewing';
+                    ne.setFormElementValue($form, 'hobby', expectResult);
+
+                    formData = ne.getFormData($form);
+                    expect(formData['hobby']).toEqual(expectResult);
+                });
+                it('Number 형태도 사용 가능하다.', function() {
+                    expectResult = '1';
+                    ne.setFormElementValue($form, 'hobby', 1);
+
+                    formData = ne.getFormData($form);
+                    expect(formData['hobby']).toEqual(expectResult);
+                });
             });
         });
 
