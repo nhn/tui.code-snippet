@@ -56,6 +56,22 @@ describe('form', function() {
                 formData = ne.getFormData($form);
                 expect(formData['weather']).toEqual(expectResult);
             });
+            it('multiple select 의 데이터를 가져올 수 있다.', function() {
+                var htmlText = '<select multiple="" name="drink">' +
+                        '<option value="soju" selected>소주</option>' +
+                        '<option value="beer">맥주</option>' +
+                        '<option value="koreanWine">막걸리</option>' +
+                        '<option value="redWine">레드와인</option>' +
+                        '<option value="whiteWine">화이트와인</option>' +
+                        '<option value="whiskey" selected>위스키</option>' +
+                        '<option value="vodca">보드카</option>' +
+                        '</select>',
+                    expectResult = ['soju', 'whiskey'],
+                    formData;
+                $form.append(htmlText);
+                formData = ne.getFormData($form);
+                expect(formData['drink']).toEqual(expectResult);
+            });
             it('radio input 의 데이터를 가져올 수 있다.', function() {
                 var htmlText = '<input type="radio" name="gender" value="male"/>남' +
                         '<input type="radio" name="gender" value="female" checked/>여',
@@ -114,6 +130,24 @@ describe('form', function() {
                 formData = ne.getFormData($form);
                 expect(formData['weather']).toEqual(expectResult);
             });
+            it('multiple select 요소의 값을 설정할 수 있다.', function() {
+                var htmlText = '<select multiple="" name="drink">' +
+                            '<option value="soju">소주</option>' +
+                            '<option value="beer">맥주</option>' +
+                            '<option value="koreanWine">막걸리</option>' +
+                            '<option value="redWine">레드와인</option>' +
+                            '<option value="whiteWine">화이트와인</option>' +
+                            '<option value="whiskey">위스키</option>' +
+                            '<option value="vodca">보드카</option>' +
+                        '</select>',
+                    expectResult = ['redWine', 'whiteWine'],
+                    formData;
+
+                $form.append(htmlText);
+                ne.setFormElementValue($form, 'drink', expectResult);
+                formData = ne.getFormData($form);
+                expect(formData['drink']).toEqual(expectResult);
+            });
             it('radio input 의 값을 설정할 수 있다.', function() {
                 var htmlText = '<input type="radio" name="gender" value="male"/>남' +
                         '<input type="radio" name="gender" value="female"/>여',
@@ -151,6 +185,7 @@ describe('form', function() {
                 'user_name': 'john',
                 'weather': 'summer',
                 'gender': 'male',
+                'drink': ['soju', 'whiteWine'],
                 'hobby': ['sport', 'dancing']
             };
             $form = $('#test_form');
