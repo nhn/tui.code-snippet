@@ -30,7 +30,7 @@
         'checkbox': function(targetElement, formValue) {
             if (ne.isArray(formValue)) {
                 targetElement.checked = $.inArray(targetElement.value, _changeToStringInArray(formValue)) !== -1;
-            }else {
+            } else {
                 targetElement.checked = (targetElement.value === formValue);
             }
         },
@@ -40,46 +40,35 @@
          * @param {String} formValue
          */
         'select-one': function(targetElement, formValue) {
-            var i,
-                targetOption,
-                index = -1,
-                length = targetElement.options.length;
-            for (i = 0; i < length; i++) {
-                targetOption = targetElement.options[i];
+            var options = ne.toArray(targetElement.options),
+                index = -1;
+
+            ne.forEach(options, function(targetOption, i) {
                 if (targetOption.value === formValue || targetOption.text === formValue) {
                     index = i;
+                    return false;
                 }
-            }
+            }, this);
+
             targetElement.selectedIndex = index;
+
         },
         /**
          * select-multiple type 의 input 요소의 값을 설정한다.
          * @param {HTMLElement} targetElement
-         * @param {String} formValue
+         * @param {String|Array} formValue
          */
         'select-multiple': function(targetElement, formValue) {
-            var targetOption,
-                i,
-                length,
-                index = -1;
+            var options = ne.toArray(targetElement.options);
 
             if (ne.isArray(formValue)) {
                 formValue = _changeToStringInArray(formValue);
-                length = targetElement.options.length;
-                for (i = 0; i < length; i++) {
-                    targetOption = targetElement.options[i];
+                ne.forEach(options, function(targetOption) {
                     targetOption.selected = $.inArray(targetOption.value, formValue) !== -1 ||
                         $.inArray(targetOption.text, formValue) !== -1;
-                }
-            }else {
-                length = targetElement.options.length;
-                for (i = 0; i < length; i++) {
-                    targetOption = targetElement.options[i];
-                    if (targetOption.value === formValue || targetOption.text === formValue) {
-                        index = i;
-                    }
-                }
-                targetElement.selectedIndex = index;
+                }, this);
+            } else {
+                this['select-one'].call(arguments);
             }
         },
         /**
@@ -87,7 +76,7 @@
          * @param {HTMLElement} targetElement
          * @param {String} formValue
          */
-        'default': function(targetElement, formValue) {
+        'defaultAction': function(targetElement, formValue) {
             targetElement.value = formValue;
         }
     };
@@ -169,7 +158,7 @@
             type,
             targetElement,
             length,
-            elementList = getFormElement($form, elementName, true);
+            elementList = getFormElement($form, elementName);
 
         if (!elementList) {
             return;
@@ -178,13 +167,11 @@
             formValue = String(formValue);
         }
         elementList = ne.isHTMLTag(elementList) ? [elementList] : elementList;
-
-        length = elementList.length;
-        for (i = 0; i < length; i++) {
-            targetElement = elementList[i];
-            type = setInput[targetElement.type] ? targetElement.type : 'default';
+        elementList = ne.toArray(elementList);
+        ne.forEach(elementList, function(targetElement) {
+            type = setInput[targetElement.type] ? targetElement.type : 'defaultAction';
             setInput[type](targetElement, formValue);
-        }
+        }, this);
     }
     /**
      * input 타입의 엘리먼트의 커서를 가장 끝으로 이동한다.
