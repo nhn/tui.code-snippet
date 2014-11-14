@@ -121,7 +121,7 @@
 
     /**
      * 유사배열을 배열 형태로 변환한다.
-     * @param {Object} arrayLike 유사배열
+     * @param {*} arrayLike 유사배열
      * @return {Array}
      * @example
 

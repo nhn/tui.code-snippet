@@ -87,8 +87,8 @@
      * @return {Array} 변환된 배열 결과 값
      */
     function _changeToStringInArray(arr) {
-        ne.forEach(arr, function(value) {
-            value = String(value);
+        ne.forEach(arr, function(value, i) {
+            arr[i] = String(value);
         }, this);
         return arr;
     }
@@ -154,10 +154,7 @@
      * @param {String|Array} formValue 인풋 엘리먼트에 설정할 값으로 체크박스나 멀티플 셀렉트박스인 경우에는 배열로 설정할 수 있다.
      **/
     function setFormElementValue($form, elementName, formValue) {
-        var i,
-            type,
-            targetElement,
-            length,
+        var type,
             elementList = getFormElement($form, elementName);
 
         if (!elementList) {
