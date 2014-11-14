@@ -104,13 +104,15 @@
             valueList = $form.serializeArray();
 
         ne.forEach(valueList, function(obj) {
-            if (ne.isDefined(result[obj.name])) {
-                if (!result[obj.name].push) {
-                    result[obj.name] = [result[obj.name]];
+            var value = obj.value,
+                name = obj.name;
+            if (ne.isDefined(result[name])) {
+                if (!result[name].push) {
+                    result[name] = [result[name]];
                 }
-                result[obj.name].push(obj.value || '');
+                result[name].push(value || '');
             } else {
-                result[obj.name] = obj.value || '';
+                result[name] = value || '';
             }
         }, this);
 
