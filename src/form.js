@@ -68,7 +68,7 @@
                         $.inArray(targetOption.text, formValue) !== -1;
                 }, this);
             } else {
-                this['select-one'].call(arguments);
+                this['select-one'].apply(this, arguments);
             }
         },
         /**
