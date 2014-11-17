@@ -7,6 +7,35 @@ describe('module:collection', function() {
         objDummy = {_0: 0, _1: 1, _2: 2, _3: 3, _4: 4, _5: 5};
     });
 
+    describe('forEachArray', function() {
+
+        it('어레이나 유사어레이와 콜백펑션을 입력받아 객체의 내용을 순회할수있다.', function() {
+            var oSum = 0;
+
+            ne.forEachArray(arrayDummy, function(value) {
+                oSum += value;
+            });
+
+            expect(oSum).toEqual(15);
+        });
+
+
+        it('콜백펑션이 false를 리턴하면 순회를 종료한다.', function() {
+            var oSum = 0;
+
+            ne.forEachArray(arrayDummy, function(value) {
+                oSum += value;
+
+                if(oSum === 3){
+                    return false;
+                }
+            });
+
+            expect(oSum).toEqual(3);
+        });
+
+    });
+
     describe('forEachOwnProperties', function() {
 
         it('객체와 콜백펑션을 입력받아 객체의 내용을 순회할수있다.', function() {
@@ -17,6 +46,20 @@ describe('module:collection', function() {
             });
 
             expect(oSum).toEqual(15);
+        });
+
+        it('콜백펑션이 false를 리턴하면 순회를 종료한다.', function() {
+            var oSum = 0;
+
+            ne.forEachOwnProperties(objDummy, function(value) {
+                oSum += value;
+
+                if(oSum === 3){
+                    return false;
+                }
+            });
+
+            expect(oSum).toEqual(3);
         });
 
     });
@@ -41,7 +84,6 @@ describe('module:collection', function() {
 
             expect(oSum).toEqual(15);
         });
-
     });
     describe('map', function() {
         it('배열을 입력받아 콜백을 통해 새로운 배열을 생성한다.', function() {
