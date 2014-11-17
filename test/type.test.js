@@ -185,29 +185,18 @@ describe('type', function() {
     });
 
     it('isHTMLNode()', function() {
-        jasmine.getFixtures().set('' +
-            '<div       id="test0">\n</div>' +
-            '<select    id="test1">\n</select>' +
-            '<p         id="test2">\n</p>' +
-            '<span      id="test3">\n</span>' +
-            '<a         id="test4">\n</a>' +
-            '<textarea  id="test5">\n</textarea>' +
-            '<input     id="test6">\n</input>' +
-            '<form      id="test7">\n</form>');
 
-        var el0 = document.getElementById('test0'),
-            el1 = document.getElementById('test1'),
-            el2 = document.getElementById('test2'),
-            el3 = document.getElementById('test3'),
-            el4 = document.getElementById('test4'),
-            el5 = document.getElementById('test5'),
-            el6 = document.getElementById('test6'),
-            el7 = document.getElementById('test7'),
-            child = el0.firstChild,
+        var text = document.createTextNode("Hello World"),
+            el1 = document.createElement("H1"),
+            el2 = document.createElement("A"),
+            el3 = document.createElement("SPAN"),
+            el4 = document.createElement("P"),
+            el5 = document.createElement("PRE"),
+            el6 = document.createElement("DIV"),
+            el7 = document.createElement("INPUT"),
             myObj = 3,
             testObj = {};
 
-        expect(ne.isHTMLNode(el0)).toBe(true);
         expect(ne.isHTMLNode(el1)).toBe(true);
         expect(ne.isHTMLNode(el2)).toBe(true);
         expect(ne.isHTMLNode(el3)).toBe(true);
@@ -215,44 +204,32 @@ describe('type', function() {
         expect(ne.isHTMLNode(el5)).toBe(true);
         expect(ne.isHTMLNode(el6)).toBe(true);
         expect(ne.isHTMLNode(el7)).toBe(true);
-
-        expect(ne.isHTMLNode(child)).toBe(true);
+        expect(ne.isHTMLNode(text)).toBe(true);
         expect(ne.isHTMLNode(myObj)).toBe(false);
         expect(ne.isHTMLNode(testObj)).toBe(false);
     });
 
     it('isHTMLTag()', function() {
-        jasmine.getFixtures().set('' +
-            '<div       id="test0">\n</div>' +
-            '<select    id="test1">\n</select>' +
-            '<p         id="test2">\n</p>' +
-            '<span      id="test3">\n</span>' +
-            '<a         id="test4">\n</a>' +
-            '<textarea  id="test5">\n</textarea>' +
-            '<input     id="test6">\n</input>' +
-            '<form      id="test7">\n</form>');
-
-        var el0 = document.getElementById('test0'),
-            el1 = document.getElementById('test1'),
-            el2 = document.getElementById('test2'),
-            el3 = document.getElementById('test3'),
-            el4 = document.getElementById('test4'),
-            el5 = document.getElementById('test5'),
-            el6 = document.getElementById('test6'),
-            el7 = document.getElementById('test7'),
-            child = el0.firstChild,
+        var text = document.createTextNode("Hello World"),
+            el1 = document.createElement("H1"),
+            el2 = document.createElement("A"),
+            el3 = document.createElement("SPAN"),
+            el4 = document.createElement("P"),
+            el5 = document.createElement("PRE"),
+            el6 = document.createElement("DIV"),
+            el7 = document.createElement("INPUT"),
             myObj = 3,
             testObj = {};
 
-        expect(ne.isHTMLNode(el0)).toBe(true);
-        expect(ne.isHTMLNode(el1)).toBe(true);
-        expect(ne.isHTMLNode(el2)).toBe(true);
-        expect(ne.isHTMLNode(el3)).toBe(true);
-        expect(ne.isHTMLNode(el4)).toBe(true);
-        expect(ne.isHTMLNode(el5)).toBe(true);
-        expect(ne.isHTMLNode(el6)).toBe(true);
-        expect(ne.isHTMLNode(el7)).toBe(true);
-        expect(ne.isHTMLTag(child)).toBe(false);
+        expect(ne.isHTMLTag(el1)).toBe(true);
+        expect(ne.isHTMLTag(el2)).toBe(true);
+        expect(ne.isHTMLTag(el3)).toBe(true);
+        expect(ne.isHTMLTag(el4)).toBe(true);
+        expect(ne.isHTMLTag(el5)).toBe(true);
+        expect(ne.isHTMLTag(el6)).toBe(true);
+        expect(ne.isHTMLTag(el7)).toBe(true);
+
+        expect(ne.isHTMLTag(text)).toBe(false);
         expect(ne.isHTMLTag(myObj)).toBe(false);
         expect(ne.isHTMLTag(testObj)).toBe(false);
     });

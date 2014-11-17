@@ -26,16 +26,16 @@
      *
      * => sum == 6
      */
-    var forEachArray = function(arr, iteratee, context) {
+    function forEachArray(arr, iteratee, context) {
         var index = 0,
             len = arr.length;
 
         for (; index < len; index++) {
-            if(iteratee.call(context || null, arr[index], index, arr) === false) {
+            if (iteratee.call(context || null, arr[index], index, arr) === false) {
                 break;
             }
         }
-    };
+    }
 
 
     /**
@@ -53,17 +53,17 @@
      *
      * => sum == 6
      **/
-    var forEachOwnProperties = function(obj, iteratee, context) {
+    function forEachOwnProperties(obj, iteratee, context) {
         var key;
 
-        for(key in obj) {
+        for (key in obj) {
             if (obj.hasOwnProperty(key)) {
-                if(iteratee.call(context || null, obj[key], key, obj) === false) {
+                if (iteratee.call(context || null, obj[key], key, obj) === false) {
                     break;
                 }
             }
         }
-    };
+    }
 
     /**
      * 파라메터로 전달된 객체나 배열를 순회하며 데이터를 콜백함수에 전달한다.
@@ -93,7 +93,7 @@
      * }
      *
      **/
-    var forEach = function(obj, iteratee, context) {
+    function forEach(obj, iteratee, context) {
         var key,
             len;
 
@@ -104,7 +104,7 @@
         } else {
             ne.forEachOwnProperties(obj, iteratee, context);
         }
-    };
+    }
 
     /**
      * 파라메터로 전달된 객체나 배열를 순회하며 콜백을 실행한 리턴값을 배열로 만들어 리턴한다.
@@ -120,7 +120,7 @@
      *
      * => [1,2,3,4];
      */
-    var map = function(obj, iteratee, context) {
+    function map(obj, iteratee, context) {
         var resultArray = [];
 
         ne.forEach(obj, function() {
@@ -128,7 +128,7 @@
         });
 
         return resultArray;
-    };
+    }
 
     /**
      * 파라메터로 전달된 객체나 배열를 순회하며 콜백을 실행한 리턴값을 다음 콜백의 첫번째 인자로 넘겨준다.
@@ -144,7 +144,7 @@
      *
      * => 6;
      */
-    var reduce = function(obj, iteratee, context) {
+    function reduce(obj, iteratee, context) {
         var keys,
             index = 0,
             length,
@@ -164,11 +164,36 @@
         }
 
         return store;
+    }
+    /**
+     * 유사배열을 배열 형태로 변환한다.
+     * @param {*} arrayLike 유사배열
+     * @return {Array}
+     * @example
+
+     var arrayLike = {
+        0: 'one',
+        1: 'two',
+        2: 'three',
+        3: 'four',
+        length: 4
     };
+     var result = toArray(arrayLike);
+
+     => ['one', 'two', 'three', 'four'];
+     */
+    function toArray(arrayLike) {
+        var arr = [];
+        forEachArray(arrayLike, function(value) {
+            arr.push(value);
+        }, this);
+        return arr;
+    }
 
     ne.forEachOwnProperties = forEachOwnProperties;
     ne.forEachArray = forEachArray;
     ne.forEach = forEach;
+    ne.toArray = toArray;
     ne.map = map;
     ne.reduce = reduce;
 

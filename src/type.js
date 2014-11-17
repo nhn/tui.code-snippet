@@ -113,7 +113,7 @@
      */
     function isHTMLNode(html) {
         if (typeof(HTMLElement) === 'object') {
-            return (html && (html instanceof HTMLElement));
+            return (html && (html instanceof HTMLElement)) || !!(html && html.nodeType);
         }
         return !!(html && html.nodeType);
     }
