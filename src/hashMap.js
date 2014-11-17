@@ -255,7 +255,7 @@
 
     /**
      * 조건을 체크하는 콜백을 전달받아 데이터를 전달해주고 콜백의 결과가 true인경우의 데이터를 모와 배열로 만들어 리턴해준다.
-     * @param condition
+     * @param {Function} condition
      * @returns {Array}
      * @example
      *
