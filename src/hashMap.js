@@ -1,7 +1,7 @@
 /**
  * @fileoverview Hash Map을 구현한 모듈이 정의 되어있다.
  * @author FE개발팀
- * @dependency object.js, collection.js
+ * @dependency type, collection.js
  */
 
 (function(ne) {
