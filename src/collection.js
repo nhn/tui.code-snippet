@@ -11,8 +11,8 @@
     }
 
     /**
-     * 어레이나 유사어레이를 순회하며 콜백함수에 전달한다.
-     * 콜백함수가 false를 리턴하면 순회를 중료한다.
+     * 배열나 유사배열를 순회하며 콜백함수에 전달한다.
+     * 콜백함수가 false를 리턴하면 순회를 종료한다.
      * @param {Array} arr
      * @param {Function} iteratee  값이 전달될 콜백함수
      * @param {*} [context] 콜백함수의 컨텍스트
@@ -20,7 +20,7 @@
      *
      * var sum = 0;
      *
-     * forEach([1,2,3], function(value){
+     * forEachArray([1,2,3], function(value){
      *     sum += value;
      * });
      *
@@ -47,7 +47,7 @@
      * @example
      * var sum = 0;
      *
-     * forEach({a:1,b:2,c:3}, function(value){
+     * forEachOwnProperties({a:1,b:2,c:3}, function(value){
      *     sum += value;
      * });
      *
@@ -66,8 +66,8 @@
     };
 
     /**
-     * 파라메터로 전달된 객체나 어레이를 순회하며 데이터를 콜백함수에 전달한다.
-     * 유사어레이의 경우 어레이로 전환후 사용해야함.(ex2 참고)
+     * 파라메터로 전달된 객체나 배열를 순회하며 데이터를 콜백함수에 전달한다.
+     * 유사배열의 경우 배열로 전환후 사용해야함.(ex2 참고)
      * 콜백함수가 false를 리턴하면 순회를 종료한다.
      * @param {*} obj 순회할 객체
      * @param {Function} iteratee 데이터가 전달될 콜백함수
@@ -83,9 +83,9 @@
      *
      * => sum == 6
      *
-     * //ex2) 유사 어레이사용
+     * //ex2) 유사 배열사용
      * function sum(){
-     *     var factors = Array.prototype.slice.call(arguments); //arguments를 어레이로 변환, arguments와 같은정보를 가진 새 어레이 리턴
+     *     var factors = Array.prototype.slice.call(arguments); //arguments를 배열로 변환, arguments와 같은정보를 가진 새 배열 리턴
      *
      *     forEach(factors, function(value){
      *          ......
@@ -98,8 +98,8 @@
     };
 
     /**
-     * 파라메터로 전달된 객체나 어레이를 순회하며 콜백을 실행한 리턴값을 배열로 만들어 리턴한다.
-     * 유사어레이의 경우 어레이로 전환후 사용해야함.(forEach example참고)
+     * 파라메터로 전달된 객체나 배열를 순회하며 콜백을 실행한 리턴값을 배열로 만들어 리턴한다.
+     * 유사배열의 경우 배열로 전환후 사용해야함.(forEach example참고)
      * @param {*} obj 순회할 객체
      * @param {Function} iteratee 데이터가 전달될 콜백함수
      * @param {*} [context] 콜백함수의 컨텍스트
@@ -122,8 +122,8 @@
     };
 
     /**
-     * 파라메터로 전달된 객체나 어레이를 순회하며 콜백을 실행한 리턴값을 다음 콜백의 첫번째 인자로 넘겨준다.
-     * 유사어레이의 경우 어레이로 전환후 사용해야함.(forEach example참고)
+     * 파라메터로 전달된 객체나 배열를 순회하며 콜백을 실행한 리턴값을 다음 콜백의 첫번째 인자로 넘겨준다.
+     * 유사배열의 경우 배열로 전환후 사용해야함.(forEach example참고)
      * @param {*} obj 순회할 객체
      * @param {Function} iteratee 데이터가 전달될 콜백함수
      * @param {*} [context] 콜백함수의 컨텍스트
