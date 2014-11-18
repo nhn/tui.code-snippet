@@ -183,10 +183,15 @@
      => ['one', 'two', 'three', 'four'];
      */
     function toArray(arrayLike) {
-        var arr = [];
-        forEachArray(arrayLike, function(value) {
-            arr.push(value);
-        }, this);
+        var arr;
+        try {
+            arr = Array.prototype.slice.call(arrayLike);
+        } catch (e) {
+            arr = [];
+            forEachArray(arrayLike, function(value) {
+                arr.push(value);
+            });
+        }
         return arr;
     }
 
