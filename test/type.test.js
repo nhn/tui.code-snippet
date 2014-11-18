@@ -184,16 +184,54 @@ describe('type', function() {
         expect(ne.isBoolean(o7)).toBe(false);
     });
 
-    it('isHTMLElement()', function() {
-        jasmine.getFixtures().set('<div id="test"></div>');
+    it('isHTMLNode()', function() {
 
-        var el = document.getElementById('test'),
+        var text = document.createTextNode("Hello World"),
+            el1 = document.createElement("H1"),
+            el2 = document.createElement("A"),
+            el3 = document.createElement("SPAN"),
+            el4 = document.createElement("P"),
+            el5 = document.createElement("PRE"),
+            el6 = document.createElement("DIV"),
+            el7 = document.createElement("INPUT"),
             myObj = 3,
             testObj = {};
 
-        expect(ne.isHTMLElement(el)).toBe(true);
-        expect(ne.isHTMLElement(myObj)).toBe(false);
-        expect(ne.isHTMLElement(testObj)).toBe(false);
+        expect(ne.isHTMLNode(el1)).toBe(true);
+        expect(ne.isHTMLNode(el2)).toBe(true);
+        expect(ne.isHTMLNode(el3)).toBe(true);
+        expect(ne.isHTMLNode(el4)).toBe(true);
+        expect(ne.isHTMLNode(el5)).toBe(true);
+        expect(ne.isHTMLNode(el6)).toBe(true);
+        expect(ne.isHTMLNode(el7)).toBe(true);
+        expect(ne.isHTMLNode(text)).toBe(true);
+        expect(ne.isHTMLNode(myObj)).toBe(false);
+        expect(ne.isHTMLNode(testObj)).toBe(false);
+    });
+
+    it('isHTMLTag()', function() {
+        var text = document.createTextNode("Hello World"),
+            el1 = document.createElement("H1"),
+            el2 = document.createElement("A"),
+            el3 = document.createElement("SPAN"),
+            el4 = document.createElement("P"),
+            el5 = document.createElement("PRE"),
+            el6 = document.createElement("DIV"),
+            el7 = document.createElement("INPUT"),
+            myObj = 3,
+            testObj = {};
+
+        expect(ne.isHTMLTag(el1)).toBe(true);
+        expect(ne.isHTMLTag(el2)).toBe(true);
+        expect(ne.isHTMLTag(el3)).toBe(true);
+        expect(ne.isHTMLTag(el4)).toBe(true);
+        expect(ne.isHTMLTag(el5)).toBe(true);
+        expect(ne.isHTMLTag(el6)).toBe(true);
+        expect(ne.isHTMLTag(el7)).toBe(true);
+
+        expect(ne.isHTMLTag(text)).toBe(false);
+        expect(ne.isHTMLTag(myObj)).toBe(false);
+        expect(ne.isHTMLTag(testObj)).toBe(false);
     });
 
     it('isEmpty()', function() {
