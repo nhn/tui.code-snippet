@@ -167,9 +167,11 @@
     }
     /**
      * 유사배열을 배열 형태로 변환한다.
+     * - IE 8 이하 버전에서 Array.prototype.slice.call 이 오류가 나는 경우가 있어 try-catch 로 예외 처리를 한다.
      * @param {*} arrayLike 유사배열
      * @return {Array}
      * @example
+
 
      var arrayLike = {
         0: 'one',
