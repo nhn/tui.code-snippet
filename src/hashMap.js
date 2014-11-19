@@ -164,7 +164,7 @@
      */
     HashMap.prototype.remove = function(key) {
         if (arguments.length > 1) {
-            key = Array.prototype.slice.call(arguments);
+            key = ne.toArray(arguments);
         }
 
         return ne.isArray(key) ? this.removeByKeyArray(key) : this.removeByKey(key);
