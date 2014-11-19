@@ -1,6 +1,5 @@
 /**
  * @fileoverview Hash Map을 구현한 모듈이 정의 되어있다.
- * 주의) length프로퍼티를 가지고있어 유사 배열을 length의 유무로 체크하는 로직에서 의도되지 않은 동작을 할수있다.
  * @author FE개발팀
  * @dependency type, collection.js
  */
@@ -22,6 +21,7 @@
     /**
      * HashMap
      * 키/밸류로 데이터를 관리할수있다(자바의 hashMap과 유사)
+     * 주의) length프로퍼티를 가지고있어 유사 배열을 length의 유무로 체크하는 로직에서 의도되지 않은 동작을 할수있다.
      * @param {Object} [obj] 인스턴스가 만들어질때 셋팅할 초기 데이터
      * @constructor
      * @example
