@@ -305,4 +305,44 @@ describe('customEvent', function() {
         });
 
     });
+
+    describe('getListenerLength', function() {
+        var customEvent,
+            thisObj,
+            spy,
+            spyObj;
+
+        beforeEach(function() {
+            customEvent = new ne.CustomEvents();
+            spy = jasmine.createSpy('zoom');
+            spyObj = jasmine.createSpyObj('spy', ['pan', 'zoom']);
+
+            thisObj = {};
+
+            customEvent.on({
+                'pan': spyObj.pan,
+                'zoom': spyObj.zoom
+            }, thisObj);
+
+            customEvent.on('zoom', spy);
+        });
+
+        it('할당된 이벤트의 갯수를 알 수 있다', function() {
+            expect(customEvent.getListenerLength('zoom')).toBe(2);
+            expect(customEvent.getListenerLength('pan')).toBe(1);
+        });
+
+        it('이벤트가 해제되어도 갯수가 반영된다', function() {
+            customEvent.off('zoom', spyObj.zoom, thisObj);
+
+            expect(customEvent.getListenerLength('zoom')).toBe(1);
+        });
+
+        it('이벤트를 모두 삭제하면 0', function() {
+            customEvent.off();
+
+            expect(customEvent.getListenerLength('zoom')).toBe(0);
+        });
+
+    });
 });
