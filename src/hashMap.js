@@ -237,11 +237,16 @@
      * });
      */
     HashMap.prototype.each = function(iteratee) {
-        var self = this;
+        var self = this,
+            flag;
 
-        ne.forEachOwnProperties(this, function(value, key){
+        ne.forEachOwnProperties(this, function(value, key) {
             if (key.charAt(0) === _MAPDATAPREFIX) {
-                iteratee(value, self.decodeKey(key));
+                flag = iteratee(value, self.decodeKey(key));
+            }
+
+            if (flag === false) {
+                return flag;
             }
         });
     };
