@@ -1,5 +1,6 @@
 /**
  * @fileoverview Hash Map을 구현한 모듈이 정의 되어있다.
+ * 주의) length프로퍼티를 가지고있어 유사 배열을 length의 유무로 체크하는 로직에서 의도되지 않은 동작을 할수있다.
  * @author FE개발팀
  * @dependency type, collection.js
  */
@@ -69,8 +70,10 @@
      * hm.setKeyValue('key', 'value');
      */
     HashMap.prototype.setKeyValue = function(key, value) {
+        if(!this.has(key)){
+            this.length += 1;
+        }
         this[this.encodeKey(key)] = value;
-        this.length += 1;
     };
 
     /**
@@ -87,7 +90,7 @@
     HashMap.prototype.setObject = function(obj) {
         var self = this;
 
-        ne.forEach(obj, function(value, key) {
+        ne.forEachOwnProperties(obj, function(value, key) {
             self.setKeyValue(key, value);
         });
     };
@@ -143,7 +146,7 @@
 
     /**
      * 키나 키의 목록을 전달하여 데이터를 삭제한다.
-     * @param {String|String[]} key
+     * @param {String...|String[]} key
      * @returns {String|String[]}
      * @example
      * var hm = new HashMap();
@@ -151,19 +154,26 @@
      * hm.set('key2', 'value');
      *
      * //ex1
-     * hm.remove('key')
+     * hm.remove('key');
      *
      * //ex2
+     * hm.remove('key', 'key2');
+     *
+     * //ex3
      * hm.remove(['key', 'key2']);
      */
     HashMap.prototype.remove = function(key) {
+        if(arguments.length > 1){
+            key = Array.prototype.slice.call(arguments);
+        }
+
         return ne.isArray(key) ? this.removeByKeyArray(key) : this.removeByKey(key);
     };
 
     /**
      * 키를 전달하여 데이터를 삭제한다.
      * @param {String} key
-     * @returns {*} 삭제된 데이터
+     * @returns {*|null} 삭제된 데이터
      * @example
      * var hm = new HashMap();
      * hm.set('key', 'value');
@@ -171,9 +181,13 @@
      * hm.removeByKey('key')
      */
     HashMap.prototype.removeByKey = function(key) {
-        var data = this.get(key);
-        delete this[this.encodeKey(key)];
-        this.length -= 1;
+        var data = this.has(key) ? this.get(key) : null;
+
+        if(data !== null){
+            delete this[this.encodeKey(key)];
+            this.length -= 1;
+        }
+
         return data;
     };
 

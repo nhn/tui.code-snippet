@@ -22,6 +22,13 @@ describe('module:hashMap', function() {
             expect(hashMap.get('dataKey')).toEqual('data');
             expect(hashMap.length).toEqual(2);
         });
+
+        it('같은 key에 값을 두번 셋팅하면 length에 변함이 없다.', function() {
+            hashMap.setKeyValue('dataKey', 'data');
+            hashMap.setKeyValue('dataKey', 'data2');
+            expect(hashMap.get('dataKey')).toEqual('data2');
+            expect(hashMap.length).toEqual(1);
+        });
     });
 
     describe('setObject()', function() {
@@ -89,6 +96,42 @@ describe('module:hashMap', function() {
         });
     });
 
+    describe('remove()', function() {
+        beforeEach(function() {
+            hashMap.set('dataKey', 'data');
+            hashMap.set('dataKey2', 'data');
+        });
+
+        it('키를 넘겨 데이터를 삭제한다.', function() {
+            hashMap.remove('dataKey');
+            expect(hashMap.has('dataKey')).toEqual(false);
+            expect(hashMap.length).toEqual(1);
+        });
+
+        it('키를 여러개 넘겨 데이터를 삭제한다.', function() {
+            var v = hashMap.remove('dataKey', 'dataKey2');
+            expect(v).toEqual(['data', 'data']);
+            expect(hashMap.length).toEqual(0);
+        });
+
+        it('키의 배열을 넘겨 데이터를 삭제한다.', function() {
+            var v = hashMap.remove(['dataKey', 'dataKey2']);
+            expect(v).toEqual(['data', 'data']);
+            expect(hashMap.length).toEqual(0);
+        });
+
+        it('삭제된 데이터가 리턴된다.', function() {
+            var v = hashMap.remove('dataKey');
+            expect(v).toEqual('data');
+        });
+
+        it('없는키를 삭제하면 null이 리턴되고 length는 변함이 없다.', function() {
+            var v = hashMap.remove('dataKey1');
+            expect(v).toBe(null);
+            expect(hashMap.length).toEqual(2);
+        });
+    });
+
     describe('removeByKey()', function() {
         beforeEach(function() {
             hashMap.set('dataKey', 'data');
@@ -104,6 +147,12 @@ describe('module:hashMap', function() {
         it('삭제된 데이터가 리턴된다.', function() {
             var v = hashMap.removeByKey('dataKey');
             expect(v).toEqual('data');
+        });
+
+        it('없는키를 삭제하면 null이 리턴되고 length는 변함이 없다.', function() {
+            var v = hashMap.removeByKey('dataKey1');
+            expect(v).toBe(null);
+            expect(hashMap.length).toEqual(1);
         });
     });
 
