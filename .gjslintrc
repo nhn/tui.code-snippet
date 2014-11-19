@@ -2,4 +2,4 @@
 --custom_jsdoc_tags=example,memberof,description,module,namespace,method,ignore,fires,event,property,mixin,mixes,constructs,callback,alias,exports,global,static,classdesc,name,method,returns
 --exclude_directories=node_modules,lib,demo,test
 --exclude_files=Gruntfile.js,karma.conf.js
---disable=225
+--disable=225 
