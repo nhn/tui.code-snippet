@@ -70,7 +70,7 @@
      * hm.setKeyValue('key', 'value');
      */
     HashMap.prototype.setKeyValue = function(key, value) {
-        if(!this.has(key)){
+        if (!this.has(key)) {
             this.length += 1;
         }
         this[this.encodeKey(key)] = value;
@@ -163,7 +163,7 @@
      * hm.remove(['key', 'key2']);
      */
     HashMap.prototype.remove = function(key) {
-        if(arguments.length > 1){
+        if (arguments.length > 1) {
             key = Array.prototype.slice.call(arguments);
         }
 
@@ -183,7 +183,7 @@
     HashMap.prototype.removeByKey = function(key) {
         var data = this.has(key) ? this.get(key) : null;
 
-        if(data !== null){
+        if (data !== null) {
             delete this[this.encodeKey(key)];
             this.length -= 1;
         }
@@ -300,7 +300,7 @@
         var founds = [];
 
         this.each(function(value, key) {
-            if (condition(value, key)){
+            if (condition(value, key)) {
                 founds.push(value);
             }
         });
