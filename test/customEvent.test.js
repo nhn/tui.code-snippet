@@ -401,4 +401,85 @@ describe('customEvent', function() {
         });
 
     });
+
+    describe('invoke()', function() {
+        var component,
+            beforeZoomHandler,
+            spy;
+
+        function MockComponent() {}
+
+        ne.CustomEvents.mixin(MockComponent);
+
+        MockComponent.prototype.work = function() {
+            if (this.invoke('beforeZoom')) {
+                this.fire('zoom');
+            }
+        };
+
+        beforeEach(function() {
+            component = new MockComponent();
+
+            beforeZoomHandler = function() {
+                return false;
+            };
+
+            spy = jasmine.createSpy('handler');
+
+            component.on({
+                'beforeZoom': beforeZoomHandler,
+                'zoom': spy
+            });
+        });
+
+        it('invoke()는 리스너의 실행결과를 boolean AND연산하여 반환한다', function() {
+            component.work();
+
+            expect(spy).not.toHaveBeenCalled();
+        });
+
+        it('invoke()로 실행되는 리스너들의 결과를 AND연산하여 반환한다', function() {
+            component.on('beforeZoom', function() {
+                return true;
+            });
+
+            component.work();
+
+            expect(spy).not.toHaveBeenCalled();
+        });
+
+        it('invoke()되는 리스너들이 모두 truthy타입을 반환하면 true를 반환한다', function() {
+            component.off('beforeZoom', beforeZoomHandler);
+
+            component.on('beforeZoom', function() {
+                return true;
+            });
+
+            component.work();
+
+            expect(spy).toHaveBeenCalled();
+        });
+
+    });
+
+    describe('fire()', function() {
+        var component,
+            spyObj;
+
+        beforeEach(function() {
+            component = new ne.CustomEvents();
+            spyObj = jasmine.createSpyObj('handler', ['foo', 'bar']);
+            component.on({
+                'foo': spyObj.foo,
+                'bar': spyObj.bar
+            });
+        });
+
+        it('fire()는 체이닝을 지원한다', function() {
+            component.fire('foo').fire('bar');
+
+            expect(spyObj.foo).toHaveBeenCalled();
+            expect(spyObj.bar).toHaveBeenCalled();
+        });
+    });
 });

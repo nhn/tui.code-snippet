@@ -198,18 +198,37 @@
 
         /**
          * 이벤트를 발생시키는 메서드
-         * @param {string} type 이벤트 타입명
-         * @param {(object|string)=} data 발생과 함께 전달할 이벤트 데이터
-         * @return {*}
-         * @example
-         * instance.fire('move', { direction: 'left' });
          *
-         * // 이벤트 핸들러 처리
-         * instance.on('move', function(moveEvent) {
-         *     var direction = moveEvent.direction;
+         * 등록한 리스너들의 실행 결과를 boolean AND 연산하여
+         *
+         * 반환한다는 점에서 {@link CustomEvents#fire} 와 차이가 있다
+         *
+         * 보통 컴포넌트 레벨에서 before 이벤트로 사용자에게
+         *
+         * 이벤트를 취소할 수 있게 해 주는 기능에서 사용한다.
+         * @param {string} type
+         * @param {object} data
+         * @returns {*}
+         * @example
+         * // 확대 기능을 지원하는 컴포넌트 내부 코드라 가정
+         * if (this.invoke('beforeZoom')) {    // 사용자가 등록한 리스너 결과 체크
+         *     // 리스너의 실행결과가 true 일 경우
+         *     this.fire('zoom');
+         *     // doSomething
+         * }
+         *
+         * //
+         * // 아래는 사용자의 서비스 코드
+         * map.on({
+         *     'beforeZoom': function() {
+         *         if (that.disabled && this.getState()) {    //서비스 페이지에서 어떤 조건에 의해 이벤트를 취소해야한다
+         *             return false;
+         *         }
+         *         return true;
+         *     }
          * });
          */
-        fire: function(type, data) {
+        invoke: function(type, data) {
             if (!this.hasListener(type)) {
                 return this;
             }
@@ -222,20 +241,39 @@
             }
 
             var typeIndex = events[type + '_idx'],
-                listeners;
+                listeners,
+                result = true;
 
             if (events[type]) {
                 listeners = events[type].slice();
 
                 ne.forEach(listeners, function(listener) {
-                    listener.fn.call(this, event);
+                    result = result && !!listener.fn.call(this, event);
                 }, this);
             }
 
             ne.forEachOwnProperties(typeIndex, function(eventItem) {
-                eventItem.fn.call(eventItem.ctx, event);
+                result = result && !!eventItem.fn.call(eventItem.ctx, event);
             });
 
+            return ne.isBoolean(result) ? result : false;
+        },
+
+        /**
+         * 이벤트를 발생시키는 메서드
+         * @param {string} type 이벤트 타입명
+         * @param {(object|string)=} data 발생과 함께 전달할 이벤트 데이터
+         * @return {*}
+         * @example
+         * instance.fire('move', { direction: 'left' });
+         *
+         * // 이벤트 핸들러 처리
+         * instance.on('move', function(moveEvent) {
+         *     var direction = moveEvent.direction;
+         * });
+         */
+        fire: function(type, data) {
+            this.invoke(type, data);
             return this;
         },
 
