@@ -179,14 +179,14 @@
 
                 if (listeners && listeners[id]) {
                     listeners[id] = null;
-                    events[indexLenKey]--;
+                    events[indexLenKey] -= 1;
                 }
 
             } else {
                 listeners = events[type];
 
                 if (listeners) {
-                    ne.forEach(listeners, function(listener, arr, index) {
+                    ne.forEach(listeners, function(listener, index) {
                         if (ne.isDefined(listener) && (listener.fn === fn)) {
                             listeners.splice(index, 1);
                             return true;
@@ -252,6 +252,31 @@
         },
 
         /**
+         * 등록된 이벤트 핸들러의 갯수 반환
+         * @param {string} type
+         * @returns {number}
+         */
+        getListenerLength: function(type) {
+            var events = this._events,
+                lenKey = type + '_len',
+                length = 0,
+                types,
+                len;
+
+            if (!ne.isDefined(events)) {
+                return 0;
+            }
+
+            types = events[type];
+            len = events[lenKey];
+
+            length += (ne.isDefined(types) && ne.isArray(types)) ? types.length : 0;
+            length += ne.isDefined(len) ? len : 0;
+
+            return length;
+        },
+
+        /**
          * 단발성 커스텀 이벤트 핸들러 등록 시 사용
          * @param {(object|string)} types 이벤트명:핸들러 객체 또는 이벤트명
          * @param {function()=} fn 핸들러 함수
@@ -262,7 +287,7 @@
 
             if (ne.isObject(types)) {
                 ne.forEachOwnProperties(types, function(type) {
-                    this.once(type, types[type], fn)
+                    this.once(type, types[type], fn);
                 }, this);
 
                 return;

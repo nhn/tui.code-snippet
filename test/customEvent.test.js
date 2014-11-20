@@ -290,6 +290,21 @@ describe('customEvent', function() {
         expect(lion.moveDistance).toBe(0);
     });
 
+    describe('off 예외 테스트', function() {
+        var customEvent;
+
+        beforeEach(function() {
+            customEvent = new ne.CustomEvents();
+        });
+
+        it('아무 이벤트도 등록하지 않았을 때 off를 호출해도 문제 없다', function() {
+            expect(function() {
+                customEvent.off();
+            }).not.toThrow();
+        });
+
+    });
+
     describe('인스턴스로 사용하는 방법', function() {
 
         it('CustomEventss 자체를 인스턴스로 생성하여 사용할 수도 있다', function() {
@@ -302,6 +317,87 @@ describe('customEvent', function() {
             inst.fire('move', { test: 'a' });
 
             expect(spy).toHaveBeenCalledWith({ test: 'a', type: 'move', target: inst });
+        });
+
+    });
+
+    describe('getListenerLength', function() {
+        var customEvent,
+            thisObj,
+            spy,
+            spyObj;
+
+        describe('예외 테스트', function() {
+            beforeEach(function() {
+                customEvent = new ne.CustomEvents();
+            });
+
+            it('이벤트를 등록하지 않았을 경우 0', function() {
+                expect(customEvent.getListenerLength('pan')).toBe(0);
+            });
+
+            describe('등록했다 해제할 경우', function() {
+                var customEvent2;
+
+                beforeEach(function() {
+                    spy = jasmine.createSpy('zoom');
+                    spyObj = jasmine.createSpyObj('test', ['zoom']);
+
+                    customEvent.on('zoom', spyObj.zoom, thisObj);
+                    customEvent.off('zoom', spyObj.zoom, thisObj);
+                    customEvent2 = new ne.CustomEvents();
+                    customEvent2.on('zoom', spy);
+                    customEvent2.off('zoom', spy);
+                });
+
+                it('context 제공 시', function() {
+                    expect(customEvent.getListenerLength('zoom')).toBe(0);
+                });
+
+                it('context 비 제공 시', function() {
+                    expect(customEvent2.getListenerLength('zoom')).toBe(0);
+                });
+            });
+        });
+
+        describe('갯수 테스트', function() {
+            beforeEach(function() {
+                customEvent = new ne.CustomEvents();
+                spy = jasmine.createSpy('zoom');
+                spyObj = jasmine.createSpyObj('spy', ['pan', 'zoom']);
+
+                thisObj = {};
+
+                customEvent.on({
+                    'pan': spyObj.pan,
+                    'zoom': spyObj.zoom
+                }, thisObj);
+
+                customEvent.on('zoom', spy);
+            });
+
+            it('할당된 이벤트의 갯수를 알 수 있다', function() {
+                expect(customEvent.getListenerLength('zoom')).toBe(2);
+                expect(customEvent.getListenerLength('pan')).toBe(1);
+            });
+
+            it('이벤트가 해제되어도 갯수가 반영된다', function() {
+                customEvent.off('zoom', spyObj.zoom, thisObj);
+
+                expect(customEvent.getListenerLength('zoom')).toBe(1);
+            });
+
+            it('이벤트가 해제되면 갯수가 반영된다', function() {
+                customEvent.off('zoom', spy);
+
+                expect(customEvent.getListenerLength('zoom')).toBe(1);
+            });
+
+            it('이벤트를 모두 삭제하면 0', function() {
+                customEvent.off();
+
+                expect(customEvent.getListenerLength('zoom')).toBe(0);
+            });
         });
 
     });
