@@ -12,21 +12,6 @@
         ne.util = window.ne.util = {};
     }
 
-    ne.util.type = ne.util.type || {
-        isPlaneObject: function(obj) {
-            return Object.prototype.toString.call(obj) === '[object Object]';
-        },
-        isFunction: function(obj) {
-            return Object.prototype.toString.call(obj) === '[object Function]';
-        },
-        isTruthy: function(obj){
-            return ne.util.type.isDefined(obj) && obj !== false;
-        },
-        isDefined: function(obj) {
-            return obj !== null && obj !== undefined;
-        }
-    };
-
     var ajax = {};
 
     /**
@@ -148,7 +133,7 @@
 
         if (requestData) {
             var result = true;
-            if (requestData['_success'] && ne.util.type.isFunction(requestData['_success'])) {
+            if (requestData['_success'] && $.isFunction(requestData['_success'])) {
                 result = requestData['_success'](responseData, status, jqXHR);
             }
 
@@ -211,7 +196,7 @@
             destinationTarget,
             x, y;
 
-        if (ne.util.type.isPlaneObject(sourceTarget) && (constructor = this.getConstructorName(sourceTarget))) {
+        if (typeof sourceTarget === 'object' && (constructor = this.getConstructorName(sourceTarget))) {
             destinationTarget = eval('new ' + constructor + '()');
 
             if (sourceTarget.prototype) {
@@ -268,7 +253,7 @@
     ajax.util.close = function(skipBeforeUnload, popup) {
         var target = popup || window;
 
-        if (ne.util.type.isTruthy(skipBeforeUnload)) {
+        if (ne.util.isTruthy(skipBeforeUnload)) {
             $(target).off('beforeunload');
         }
 

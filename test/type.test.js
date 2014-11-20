@@ -1,6 +1,6 @@
 describe('type', function() {
 
-    it('isDefined()', function() {
+    it('isExisty()', function() {
         var o1 = null,
             o2 = 3,
             o3 = 0,
@@ -10,13 +10,24 @@ describe('type', function() {
             o7;
 
 
-        expect(ne.util.isDefined(o1)).toBe(false);
-        expect(ne.util.isDefined(o2)).toBe(true);
-        expect(ne.util.isDefined(o3)).toBe(true);
-        expect(ne.util.isDefined(o4.test)).toBe(false);
-        expect(ne.util.isDefined(o5)).toBe(true);
-        expect(ne.util.isDefined(o6)).toBe(true);
-        expect(ne.util.isDefined(o7)).toBe(false);
+        expect(ne.util.isExisty(o1)).toBe(false);
+        expect(ne.util.isExisty(o2)).toBe(true);
+        expect(ne.util.isExisty(o3)).toBe(true);
+        expect(ne.util.isExisty(o4.test)).toBe(false);
+        expect(ne.util.isExisty(o5)).toBe(true);
+        expect(ne.util.isExisty(o6)).toBe(true);
+        expect(ne.util.isExisty(o7)).toBe(false);
+    });
+
+    it('isExisty() second params', function() {
+        var o1 = { a: 10 },
+            o2 = { a: { b: '10' }};
+
+        expect(ne.util.isExisty(o1, 'a')).toBeTruthy();
+        expect(ne.util.isExisty(o2, 'a.b')).toBeTruthy();
+        expect(ne.util.isExisty(o2, 'a.c')).toBeFalsy();
+        expect(ne.util.isExisty()).toBeFalsy();
+
     });
 
     it('isTruthy()', function() {

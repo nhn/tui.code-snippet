@@ -14,25 +14,73 @@
     }
 
     /**
-     * 인자가 null 또는 undefined가 아닌지 확인하는 메서드
+     * 값이 정의되어 있는지 확인(null과 undefined가 아니면 true를 반환한다)
      * @param {*} obj
-     * @return {boolean}
+     * @param {{String|Array}} key
+     * @returns {boolean}
+     * @example
+     * var obj = {a: {b: {c: 1}}};
+     * ne.util.isExisty(a, 'b.c');
+     * => true;
+     * ne.util.isExisty(a, 'b.d');
+     * => false;
      */
-    function isDefined(obj) {
-        return obj !== null && obj !== undefined;
+    function isExisty(obj, key) {
+        if (arguments.length < 2) {
+            return !isNull(obj) && !isUndefined(obj);
+        }
+        if (!isObject(obj)) {
+            return false;
+        }
+
+        key = isString(key) ? key.split('.') : key;
+
+        if (!isArray(key)) {
+            return false;
+        }
+        key.unshift(obj);
+
+        var res = ne.util.reduce(key, function(acc, a) {
+            if (!acc) {
+                return;
+            }
+            return acc[a];
+        });
+        return !isNull(res) && !isUndefined(res);
+    }
+
+    /**
+     * 인자가 undefiend 인지 체크하는 메서드
+     * @param obj
+     * @returns {boolean}
+     */
+    function isUndefined(obj) {
+        return obj === undefined;
+    }
+
+    /**
+     * 인자가 null 인지 체크하는 메서드
+     * @param {*} obj
+     * @returns {boolean}
+     */
+    function isNull(obj) {
+        return obj === null;
     }
 
     /**
      * 인자가 null, undefined, false가 아닌지 확인하는 메서드
+     * (0도 true로 간주한다)
+     *
      * @param {*} obj
      * @return {boolean}
      */
     function isTruthy(obj) {
-        return isDefined(obj) && obj !== false;
+        return isExisty(obj) && obj !== false;
     }
 
     /**
      * 인자가 null, undefined, false인지 확인하는 메서드
+     * (truthy의 반대값)
      * @param {*} obj
      * @return {boolean}
      */
@@ -49,7 +97,7 @@
      * @return {boolean}
      */
     function isArguments(obj) {
-        var result = isDefined(obj) &&
+        var result = isExisty(obj) &&
             ((toString.call(obj) === '[object Arguments]') || 'callee' in obj);
 
         return result;
@@ -140,7 +188,7 @@
         var key,
             hasKey = false;
 
-        if (!isDefined(obj)) {
+        if (!isExisty(obj)) {
             return true;
         }
 
@@ -171,7 +219,9 @@
     }
 
 
-    ne.util.isDefined = isDefined;
+    ne.util.isExisty = isExisty;
+    ne.util.isUndefined = isUndefined;
+    ne.util.isNull = isNull;
     ne.util.isTruthy = isTruthy;
     ne.util.isFalsy = isFalsy;
     ne.util.isArguments = isArguments;
