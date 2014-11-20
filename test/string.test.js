@@ -3,12 +3,12 @@ describe('type', function() {
         var htmlEntityString = '<script> alert(\'test\');</script><a href=\'test\'>',
             expectString = '&lt;script&gt; alert(&#39;test&#39;);&lt;/script&gt;&lt;a href=&#39;test&#39;&gt;';
 
-        expect(ne.encodeHTMLEntity(htmlEntityString)).toEqual(expectString);
+        expect(ne.util.encodeHTMLEntity(htmlEntityString)).toEqual(expectString);
     });
     it('decodeHTMLEntity()', function() {
         var htmlEntityString = 'A &#39;quote&#39; is &lt;b&gt;bold&lt;/b&gt;',
             expectString = 'A \'quote\' is <b>bold</b>';
-        expect(ne.decodeHTMLEntity(htmlEntityString)).toEqual(expectString);
+        expect(ne.util.decodeHTMLEntity(htmlEntityString)).toEqual(expectString);
     });
     it('hasEncodableString()', function() {
         var s1 = 'te < st',
@@ -18,11 +18,11 @@ describe('type', function() {
             s5 = 'te \' st',
             s6 = '<script> alert(\'test\');</script><a href=\'test\'>';
 
-        expect(ne.hasEncodableString(s1)).toBe(true);
-        expect(ne.hasEncodableString(s2)).toBe(true);
-        expect(ne.hasEncodableString(s3)).toBe(false);
-        expect(ne.hasEncodableString(s4)).toBe(true);
-        expect(ne.hasEncodableString(s5)).toBe(true);
-        expect(ne.hasEncodableString(s6)).toBe(true);
+        expect(ne.util.hasEncodableString(s1)).toBe(true);
+        expect(ne.util.hasEncodableString(s2)).toBe(true);
+        expect(ne.util.hasEncodableString(s3)).toBe(false);
+        expect(ne.util.hasEncodableString(s4)).toBe(true);
+        expect(ne.util.hasEncodableString(s5)).toBe(true);
+        expect(ne.util.hasEncodableString(s6)).toBe(true);
     });
 });

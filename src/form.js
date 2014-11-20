@@ -9,6 +9,9 @@
     if (!ne) {
         ne = window.ne = {};
     }
+    if (!ne.util) {
+        ne.util = window.ne.util = {};
+    }
 
     /**
      * form 의 input 요소 값을 설정하기 위한 객체
@@ -28,7 +31,7 @@
          * @param {String} formValue
          */
         'checkbox': function(targetElement, formValue) {
-            if (ne.isArray(formValue)) {
+            if (ne.util.isArray(formValue)) {
                 targetElement.checked = $.inArray(targetElement.value, _changeToStringInArray(formValue)) !== -1;
             } else {
                 targetElement.checked = (targetElement.value === formValue);
@@ -40,10 +43,10 @@
          * @param {String} formValue
          */
         'select-one': function(targetElement, formValue) {
-            var options = ne.toArray(targetElement.options),
+            var options = ne.util.toArray(targetElement.options),
                 index = -1;
 
-            ne.forEach(options, function(targetOption, i) {
+            ne.util.forEach(options, function(targetOption, i) {
                 if (targetOption.value === formValue || targetOption.text === formValue) {
                     index = i;
                     return false;
@@ -59,11 +62,11 @@
          * @param {String|Array} formValue
          */
         'select-multiple': function(targetElement, formValue) {
-            var options = ne.toArray(targetElement.options);
+            var options = ne.util.toArray(targetElement.options);
 
-            if (ne.isArray(formValue)) {
+            if (ne.util.isArray(formValue)) {
                 formValue = _changeToStringInArray(formValue);
-                ne.forEach(options, function(targetOption) {
+                ne.util.forEach(options, function(targetOption) {
                     targetOption.selected = $.inArray(targetOption.value, formValue) !== -1 ||
                         $.inArray(targetOption.text, formValue) !== -1;
                 }, this);
@@ -87,7 +90,7 @@
      * @return {Array} 변환된 배열 결과 값
      */
     function _changeToStringInArray(arr) {
-        ne.forEach(arr, function(value, i) {
+        ne.util.forEach(arr, function(value, i) {
             arr[i] = String(value);
         }, this);
         return arr;
@@ -103,10 +106,10 @@
         var result = {},
             valueList = $form.serializeArray();
 
-        ne.forEach(valueList, function(obj) {
+        ne.util.forEach(valueList, function(obj) {
             var value = obj.value,
                 name = obj.name;
-            if (ne.isDefined(result[name])) {
+            if (ne.util.isDefined(result[name])) {
                 if (!result[name].push) {
                     result[name] = [result[name]];
                 }
@@ -144,7 +147,7 @@
      * @param {Object} formData 폼에 설정할 폼 데이터 객체
      **/
     function setFormData($form, formData) {
-        ne.forEachOwnProperties(formData, function(value, property) {
+        ne.util.forEachOwnProperties(formData, function(value, property) {
             setFormElementValue($form, property, value);
         }, this);
     }
@@ -162,12 +165,12 @@
         if (!elementList) {
             return;
         }
-        if (!ne.isArray(formValue)) {
+        if (!ne.util.isArray(formValue)) {
             formValue = String(formValue);
         }
-        elementList = ne.isHTMLTag(elementList) ? [elementList] : elementList;
-        elementList = ne.toArray(elementList);
-        ne.forEach(elementList, function(targetElement) {
+        elementList = ne.util.isHTMLTag(elementList) ? [elementList] : elementList;
+        elementList = ne.util.toArray(elementList);
+        ne.util.forEach(elementList, function(targetElement) {
             type = setInput[targetElement.type] ? targetElement.type : 'defaultAction';
             setInput[type](targetElement, formValue);
         }, this);
@@ -191,9 +194,9 @@
         }
     }
 
-    ne.getFormElement = getFormElement;
-    ne.getFormData = getFormData;
-    ne.setFormData = setFormData;
-    ne.setFormElementValue = setFormElementValue;
-    ne.setCursorToEnd = setCursorToEnd;
+    ne.util.getFormElement = getFormElement;
+    ne.util.getFormData = getFormData;
+    ne.util.setFormData = setFormData;
+    ne.util.setFormElementValue = setFormElementValue;
+    ne.util.setCursorToEnd = setCursorToEnd;
 })(window.ne);

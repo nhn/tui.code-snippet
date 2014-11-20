@@ -2,12 +2,12 @@ describe('module:hashMap', function() {
     var hashMap;
 
     beforeEach(function() {
-        hashMap = new ne.HashMap();
+        hashMap = new ne.util.HashMap();
     });
 
     describe('HashMap이 존재한다.', function() {
         it('HashMap은 정의되어있다.', function() {
-            expect(ne.HashMap).toBeDefined();
+            expect(ne.util.HashMap).toBeDefined();
         });
 
         it('hashMap의 인스턴스가 존재한다.', function() {

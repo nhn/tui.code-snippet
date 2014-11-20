@@ -12,7 +12,7 @@ describe('module:collection', function() {
         it('어레이나 유사어레이와 콜백펑션을 입력받아 객체의 내용을 순회할수있다.', function() {
             var oSum = 0;
 
-            ne.forEachArray(arrayDummy, function(value) {
+            ne.util.forEachArray(arrayDummy, function(value) {
                 oSum += value;
             });
 
@@ -23,7 +23,7 @@ describe('module:collection', function() {
         it('콜백펑션이 false를 리턴하면 순회를 종료한다.', function() {
             var oSum = 0;
 
-            ne.forEachArray(arrayDummy, function(value) {
+            ne.util.forEachArray(arrayDummy, function(value) {
                 oSum += value;
 
                 if(oSum === 3){
@@ -41,7 +41,7 @@ describe('module:collection', function() {
         it('객체와 콜백펑션을 입력받아 객체의 내용을 순회할수있다.', function() {
             var oSum = 0;
 
-            ne.forEachOwnProperties(objDummy, function(value) {
+            ne.util.forEachOwnProperties(objDummy, function(value) {
                 oSum += value;
             });
 
@@ -51,7 +51,7 @@ describe('module:collection', function() {
         it('콜백펑션이 false를 리턴하면 순회를 종료한다.', function() {
             var oSum = 0;
 
-            ne.forEachOwnProperties(objDummy, function(value) {
+            ne.util.forEachOwnProperties(objDummy, function(value) {
                 oSum += value;
 
                 if(oSum === 3){
@@ -68,7 +68,7 @@ describe('module:collection', function() {
         it('배열과 콜백펑션을 입력받아 배열의 내용을 순회할수있다.', function() {
             var aSum = 0;
 
-            ne.forEach(arrayDummy, function(value) {
+            ne.util.forEach(arrayDummy, function(value) {
                 aSum += value;
             });
 
@@ -78,7 +78,7 @@ describe('module:collection', function() {
         it('객체와 콜백펑션을 입력받아 객체의 내용을 순회할수있다.', function() {
             var oSum = 0;
 
-            ne.forEach(objDummy, function(value) {
+            ne.util.forEach(objDummy, function(value) {
                 oSum += value;
             });
 
@@ -90,7 +90,7 @@ describe('module:collection', function() {
             var aSum = 1,
                 resultArray;
 
-            resultArray = ne.map(arrayDummy, function(value) {
+            resultArray = ne.util.map(arrayDummy, function(value) {
                 return value + aSum;
             });
 
@@ -106,7 +106,7 @@ describe('module:collection', function() {
             var aSum = 1,
                 resultArray;
 
-            resultArray = ne.map(objDummy, function(value) {
+            resultArray = ne.util.map(objDummy, function(value) {
                 return value + aSum;
             });
 
@@ -122,7 +122,7 @@ describe('module:collection', function() {
         it('배열을 순회하여 콜백의 실행결과를 다음 콜백에 전달해 연산한다.', function() {
             var result;
 
-            result = ne.reduce(arrayDummy, function(stored, value) {
+            result = ne.util.reduce(arrayDummy, function(stored, value) {
                 return stored + value;
             });
 
@@ -132,7 +132,7 @@ describe('module:collection', function() {
         it('객체를 순회하여 콜백의 실행결과를 다음 콜백에 전달해 연산한다.', function() {
             var result;
 
-            result = ne.reduce(objDummy, function(stored, value) {
+            result = ne.util.reduce(objDummy, function(stored, value) {
                 return stored + value;
             });
 
@@ -149,11 +149,11 @@ describe('module:collection', function() {
                     3: 'four',
                     length: 4
                 };
-            result = ne.toArray(arrayLike);
+            result = ne.util.toArray(arrayLike);
             expect(arrayLike instanceof Array).toBe(false);
             expect(result instanceof Array).toBe(true);
 
-            result = ne.toArray(arguments);
+            result = ne.util.toArray(arguments);
             expect(arguments instanceof Array).toBe(false);
             expect(result instanceof Array).toBe(true);
 
@@ -168,15 +168,15 @@ describe('module:collection', function() {
                     3: 'four',
                     length: 2
                 };
-            result = ne.toArray(arrayLike);
+            result = ne.util.toArray(arrayLike);
             expect(result instanceof Array).toBe(true);
             expect(result.length).toBe(2);
 
-            result = ne.toArray('abcde');
+            result = ne.util.toArray('abcde');
             expect(result instanceof Array).toBe(true);
             expect(result.length).toBe(5);
 
-            result = ne.toArray(1);
+            result = ne.util.toArray(1);
             expect(result instanceof Array).toBe(true);
             expect(result.length).toBe(0);
         });

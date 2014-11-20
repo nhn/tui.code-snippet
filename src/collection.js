@@ -9,6 +9,9 @@
     if (!ne) {
         ne = window.ne = {};
     }
+    if (!ne.util) {
+        ne.util = window.ne.util = {};
+    }
 
     /**
      * 배열나 유사배열를 순회하며 콜백함수에 전달한다.
@@ -97,12 +100,12 @@
         var key,
             len;
 
-        if (ne.isArray(obj)) {
+        if (ne.util.isArray(obj)) {
             for (key = 0, len = obj.length; key < len; key++) {
                 iteratee.call(context || null, obj[key], key, obj);
             }
         } else {
-            ne.forEachOwnProperties(obj, iteratee, context);
+            ne.util.forEachOwnProperties(obj, iteratee, context);
         }
     }
 
@@ -123,7 +126,7 @@
     function map(obj, iteratee, context) {
         var resultArray = [];
 
-        ne.forEach(obj, function() {
+        ne.util.forEach(obj, function() {
             resultArray.push(iteratee.apply(context || null, arguments));
         });
 
@@ -151,8 +154,8 @@
             store;
 
 
-        if (!ne.isArray(obj)) {
-            keys = ne.keys(obj);
+        if (!ne.util.isArray(obj)) {
+            keys = ne.util.keys(obj);
         }
 
         length = keys ? keys.length : obj.length;
@@ -197,11 +200,11 @@
         return arr;
     }
 
-    ne.forEachOwnProperties = forEachOwnProperties;
-    ne.forEachArray = forEachArray;
-    ne.forEach = forEach;
-    ne.toArray = toArray;
-    ne.map = map;
-    ne.reduce = reduce;
+    ne.util.forEachOwnProperties = forEachOwnProperties;
+    ne.util.forEachArray = forEachArray;
+    ne.util.forEach = forEach;
+    ne.util.toArray = toArray;
+    ne.util.map = map;
+    ne.util.reduce = reduce;
 
 })(window.ne);

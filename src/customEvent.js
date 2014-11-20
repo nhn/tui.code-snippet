@@ -1,6 +1,7 @@
 /**
  * @fileoverview 옵저버 패턴을 이용하여 객체 간 커스텀 이벤트를 전달할 수 있는 기능을 제공하는 모듈
  * @author FE개발팀
+ * @dependency type.js, collection.js object.js
  */
 
 (function(ne) {
@@ -8,6 +9,9 @@
     /* istanbul ignore if */
     if (!ne) {
         ne = window.ne = {};
+    }
+    if (!ne.util) {
+        ne.util = window.ne.util = {};
     }
 
     /**
@@ -72,7 +76,7 @@
          * instance.off();
          */
         off: function(types, fn, context) {
-            if (!ne.isDefined(types)) {
+            if (!ne.util.isDefined(types)) {
                 this._events = null;
                 return;
             }
@@ -93,14 +97,14 @@
             var methodName = isOn ? '_on' : '_off',
                 method = this[methodName];
 
-            if (ne.isObject(types)) {
-                ne.forEachOwnProperties(types, function(handler, type) {
+            if (ne.util.isObject(types)) {
+                ne.util.forEachOwnProperties(types, function(handler, type) {
                     method.call(this, type, handler, fn);
                 }, this);
             } else {
                 types = types.split(' ');
 
-                ne.forEach(types, function(type) {
+                ne.util.forEach(types, function(type) {
                     method.call(this, type, fn, context);
                 }, this);
             }
@@ -124,7 +128,7 @@
          */
         _on: function(type, fn, context) {
             var events = this._events = this._events || {},
-                contextId = context && (context !== this) && ne.stamp(context);
+                contextId = context && (context !== this) && ne.util.stamp(context);
 
             if (contextId) {
                 /*
@@ -135,7 +139,7 @@
                 var indexKey = type + '_idx',
                     indexLenKey = type + '_len',
                     typeIndex = events[indexKey] = events[indexKey] || {},
-                    id = ne.stamp(fn) + '_' + contextId; // 핸들러의 id + context의 id
+                    id = ne.util.stamp(fn) + '_' + contextId; // 핸들러의 id + context의 id
 
                 if (!typeIndex[id]) {
                     typeIndex[id] = {
@@ -169,12 +173,12 @@
                 return;
             }
 
-            var contextId = context && (context !== this) && ne.stamp(context),
+            var contextId = context && (context !== this) && ne.util.stamp(context),
                 listeners,
                 id;
 
             if (contextId) {
-                id = ne.stamp(fn) + '_' + contextId;
+                id = ne.util.stamp(fn) + '_' + contextId;
                 listeners = events[indexKey];
 
                 if (listeners && listeners[id]) {
@@ -186,8 +190,8 @@
                 listeners = events[type];
 
                 if (listeners) {
-                    ne.forEach(listeners, function(listener, index) {
-                        if (ne.isDefined(listener) && (listener.fn === fn)) {
+                    ne.util.forEach(listeners, function(listener, index) {
+                        if (ne.util.isDefined(listener) && (listener.fn === fn)) {
                             listeners.splice(index, 1);
                             return true;
                         }
@@ -233,7 +237,7 @@
                 return this;
             }
 
-            var event = ne.extend({}, data, {type: type, target: this}),
+            var event = ne.util.extend({}, data, {type: type, target: this}),
                 events = this._events;
 
             if (!events) {
@@ -247,16 +251,16 @@
             if (events[type]) {
                 listeners = events[type].slice();
 
-                ne.forEach(listeners, function(listener) {
+                ne.util.forEach(listeners, function(listener) {
                     result = result && !!listener.fn.call(this, event);
                 }, this);
             }
 
-            ne.forEachOwnProperties(typeIndex, function(eventItem) {
+            ne.util.forEachOwnProperties(typeIndex, function(eventItem) {
                 result = result && !!eventItem.fn.call(eventItem.ctx, event);
             });
 
-            return ne.isBoolean(result) ? result : false;
+            return ne.util.isBoolean(result) ? result : false;
         },
 
         /**
@@ -284,7 +288,7 @@
          */
         hasListener: function(type) {
             var events = this._events,
-                isDefineMethod = ne.isDefined;
+                isDefineMethod = ne.util.isDefined;
 
             return isDefineMethod(events) && (isDefineMethod(events[type]) || events[type + '_len']);
         },
@@ -301,15 +305,15 @@
                 types,
                 len;
 
-            if (!ne.isDefined(events)) {
+            if (!ne.util.isDefined(events)) {
                 return 0;
             }
 
             types = events[type];
             len = events[lenKey];
 
-            length += (ne.isDefined(types) && ne.isArray(types)) ? types.length : 0;
-            length += ne.isDefined(len) ? len : 0;
+            length += (ne.util.isDefined(types) && ne.util.isArray(types)) ? types.length : 0;
+            length += ne.util.isDefined(len) ? len : 0;
 
             return length;
         },
@@ -323,8 +327,8 @@
         once: function(types, fn, context) {
             var that = this;
 
-            if (ne.isObject(types)) {
-                ne.forEachOwnProperties(types, function(type) {
+            if (ne.util.isObject(types)) {
+                ne.util.forEachOwnProperties(types, function(type) {
                     this.once(type, types[type], fn);
                 }, this);
 
@@ -353,16 +357,16 @@
      * function Model() {}
      *
      * // 커스텀 이벤트 믹스인
-     * ne.CustomEvents.mixin(Model);
+     * ne.util.CustomEvents.mixin(Model);
      *
      * var model = new Model();
      *
      * model.on('changed', function() {}, this);
      */
     CustomEvents.mixin = function(func) {
-        ne.extend(func.prototype, CustomEventMethod);
+        ne.util.extend(func.prototype, CustomEventMethod);
     };
 
-    ne.CustomEvents = CustomEvents;
+    ne.util.CustomEvents = CustomEvents;
 
 })(window.ne);

@@ -9,7 +9,7 @@ describe('func', function() {
             return this.word;
         };
 
-        var curried = ne.bind(b, a);
+        var curried = ne.util.bind(b, a);
 
         expect(curried()).toBe('hello');
     });

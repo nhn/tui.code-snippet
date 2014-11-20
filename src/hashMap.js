@@ -10,7 +10,10 @@
     if (!ne) {
         ne = window.ne = {};
     }
-
+    if (!ne.util) {
+        ne.util = window.ne.util = {};
+    }
+    
     /**
      * 해쉬맵에서 사용하는 데이터는 _MAPDATAPREFIX로 시작한다.
      * @type {string}
@@ -90,7 +93,7 @@
     HashMap.prototype.setObject = function(obj) {
         var self = this;
 
-        ne.forEachOwnProperties(obj, function(value, key) {
+        ne.util.forEachOwnProperties(obj, function(value, key) {
             self.setKeyValue(key, value);
         });
     };
@@ -164,10 +167,10 @@
      */
     HashMap.prototype.remove = function(key) {
         if (arguments.length > 1) {
-            key = ne.toArray(arguments);
+            key = ne.util.toArray(arguments);
         }
 
-        return ne.isArray(key) ? this.removeByKeyArray(key) : this.removeByKey(key);
+        return ne.util.isArray(key) ? this.removeByKeyArray(key) : this.removeByKey(key);
     };
 
     /**
@@ -206,7 +209,7 @@
         var data = [],
             self = this;
 
-        ne.forEach(keyArray, function(key) {
+        ne.util.forEach(keyArray, function(key) {
             data.push(self.removeByKey(key));
         });
 
@@ -240,7 +243,7 @@
         var self = this,
             flag;
 
-        ne.forEachOwnProperties(this, function(value, key) {
+        ne.util.forEachOwnProperties(this, function(value, key) {
             if (key.charAt(0) === _MAPDATAPREFIX) {
                 flag = iteratee(value, self.decodeKey(key));
             }
@@ -313,6 +316,6 @@
         return founds;
     };
 
-    ne.HashMap = HashMap;
+    ne.util.HashMap = HashMap;
 
 })(window.ne);
