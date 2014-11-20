@@ -8,8 +8,11 @@
     if (!ne) {
         ne = window.ne = {};
     }
+    if (!ne.util) {
+        ne.util = window.ne.util = {};
+    }
 
-    ne.type = ne.type || {
+    ne.util.type = ne.util.type || {
         isPlaneObject: function(obj) {
             return Object.prototype.toString.call(obj) === '[object Object]';
         },
@@ -17,7 +20,7 @@
             return Object.prototype.toString.call(obj) === '[object Function]';
         },
         isTruthy: function(obj){
-            return ne.type.isDefined(obj) && obj !== false;
+            return ne.util.type.isDefined(obj) && obj !== false;
         },
         isDefined: function(obj) {
             return obj !== null && obj !== undefined;
@@ -50,7 +53,7 @@
      *  sResultType : 응답 포맷
      * @return {Object} $Ajax() 객체
      * @example
-     * ne.ajax.request(url, {
+     * ne.util.ajax.request(url, {
      *	 "action" : "insertList",
      *	 "page" : 3
      *	 "success" : function(responseData, status, jqXHR){
@@ -145,7 +148,7 @@
 
         if (requestData) {
             var result = true;
-            if (requestData['_success'] && ne.type.isFunction(requestData['_success'])) {
+            if (requestData['_success'] && ne.util.type.isFunction(requestData['_success'])) {
                 result = requestData['_success'](responseData, status, jqXHR);
             }
 
@@ -193,7 +196,7 @@
     };
 
     /**
-     * @modules ne.ajax.util
+     * @modules ne.util.ajax.util
      */
 
     ajax.util = {};
@@ -208,7 +211,7 @@
             destinationTarget,
             x, y;
 
-        if (ne.type.isPlaneObject(sourceTarget) && (constructor = this.getConstructorName(sourceTarget))) {
+        if (ne.util.type.isPlaneObject(sourceTarget) && (constructor = this.getConstructorName(sourceTarget))) {
             destinationTarget = eval('new ' + constructor + '()');
 
             if (sourceTarget.prototype) {
@@ -265,7 +268,7 @@
     ajax.util.close = function(skipBeforeUnload, popup) {
         var target = popup || window;
 
-        if (ne.type.isTruthy(skipBeforeUnload)) {
+        if (ne.util.type.isTruthy(skipBeforeUnload)) {
             $(target).off('beforeunload');
         }
 
@@ -276,6 +279,6 @@
 
     };
 
-    ne.ajax = ajax;
+    ne.util.ajax = ajax;
 
 })(window.ne);

@@ -1,4 +1,4 @@
-describe('customEvent', function() {
+xdescribe('customEvent', function() {
 
     it('on() 메서드로 이벤트를 구독할 수 있다', function() {
         function Animal(leg) {

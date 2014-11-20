@@ -8,5 +8,7 @@
     if (!ne) {
         ne = window.ne = {};
     }
-
+    if (!ne.util) {
+        ne.util = window.ne.util = {};
+    }
 })(window.ne);

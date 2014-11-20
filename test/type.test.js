@@ -10,13 +10,13 @@ describe('type', function() {
             o7;
 
 
-        expect(ne.isDefined(o1)).toBe(false);
-        expect(ne.isDefined(o2)).toBe(true);
-        expect(ne.isDefined(o3)).toBe(true);
-        expect(ne.isDefined(o4.test)).toBe(false);
-        expect(ne.isDefined(o5)).toBe(true);
-        expect(ne.isDefined(o6)).toBe(true);
-        expect(ne.isDefined(o7)).toBe(false);
+        expect(ne.util.isDefined(o1)).toBe(false);
+        expect(ne.util.isDefined(o2)).toBe(true);
+        expect(ne.util.isDefined(o3)).toBe(true);
+        expect(ne.util.isDefined(o4.test)).toBe(false);
+        expect(ne.util.isDefined(o5)).toBe(true);
+        expect(ne.util.isDefined(o6)).toBe(true);
+        expect(ne.util.isDefined(o7)).toBe(false);
     });
 
     it('isTruthy()', function() {
@@ -26,11 +26,11 @@ describe('type', function() {
             o4 = null,
             o5;
 
-        expect(ne.isTruthy(o1)).toBe(true);
-        expect(ne.isTruthy(o2)).toBe(false);
-        expect(ne.isTruthy(o3)).toBe(true);
-        expect(ne.isTruthy(o4)).toBe(false);
-        expect(ne.isTruthy(o5)).toBe(false);
+        expect(ne.util.isTruthy(o1)).toBe(true);
+        expect(ne.util.isTruthy(o2)).toBe(false);
+        expect(ne.util.isTruthy(o3)).toBe(true);
+        expect(ne.util.isTruthy(o4)).toBe(false);
+        expect(ne.util.isTruthy(o5)).toBe(false);
     });
 
     it('isFalsy()', function() {
@@ -40,11 +40,11 @@ describe('type', function() {
             o4 = null,
             o5;
 
-        expect(ne.isFalsy(o1)).toBe(false);
-        expect(ne.isFalsy(o2)).toBe(true);
-        expect(ne.isFalsy(o3)).toBe(false);
-        expect(ne.isFalsy(o4)).toBe(true);
-        expect(ne.isFalsy(o5)).toBe(true);
+        expect(ne.util.isFalsy(o1)).toBe(false);
+        expect(ne.util.isFalsy(o2)).toBe(true);
+        expect(ne.util.isFalsy(o3)).toBe(false);
+        expect(ne.util.isFalsy(o4)).toBe(true);
+        expect(ne.util.isFalsy(o5)).toBe(true);
     });
 
     it('isArguments()', function() {
@@ -55,8 +55,8 @@ describe('type', function() {
             o1 = arguments;
         })();
 
-        expect(ne.isArguments(o1)).toBe(true);
-        expect(ne.isArguments(o2)).toBe(false);
+        expect(ne.util.isArguments(o1)).toBe(true);
+        expect(ne.util.isArguments(o2)).toBe(false);
     });
 
     it('isArray()', function() {
@@ -68,13 +68,13 @@ describe('type', function() {
             o6 = new Object(),
             o7 = {};
 
-        expect(ne.isArray(o1)).toBe(true);
-        expect(ne.isArray(o2)).toBe(true);
-        expect(ne.isArray(o3)).toBe(false);
-        expect(ne.isArray(o4)).toBe(false);
-        expect(ne.isArray(o5)).toBe(false);
-        expect(ne.isArray(o6)).toBe(false);
-        expect(ne.isArray(o7)).toBe(false);
+        expect(ne.util.isArray(o1)).toBe(true);
+        expect(ne.util.isArray(o2)).toBe(true);
+        expect(ne.util.isArray(o3)).toBe(false);
+        expect(ne.util.isArray(o4)).toBe(false);
+        expect(ne.util.isArray(o5)).toBe(false);
+        expect(ne.util.isArray(o6)).toBe(false);
+        expect(ne.util.isArray(o7)).toBe(false);
     });
 
     it('isObject()', function() {
@@ -88,15 +88,15 @@ describe('type', function() {
             o8 = new Date(),
             o9 = new Function('x', 'y', 'return x + y');
 
-        expect(ne.isObject(o1)).toBe(true);
-        expect(ne.isObject(o2)).toBe(true);
-        expect(ne.isObject(o3.test)).toBe(true);
-        expect(ne.isObject(o4)).toBe(false);
-        expect(ne.isObject(o5)).toBe(true);
-        expect(ne.isObject(o6)).toBe(true);
-        expect(ne.isObject(o7)).toBe(true);
-        expect(ne.isObject(o8)).toBe(true);
-        expect(ne.isObject(o9)).toBe(true);
+        expect(ne.util.isObject(o1)).toBe(true);
+        expect(ne.util.isObject(o2)).toBe(true);
+        expect(ne.util.isObject(o3.test)).toBe(true);
+        expect(ne.util.isObject(o4)).toBe(false);
+        expect(ne.util.isObject(o5)).toBe(true);
+        expect(ne.util.isObject(o6)).toBe(true);
+        expect(ne.util.isObject(o7)).toBe(true);
+        expect(ne.util.isObject(o8)).toBe(true);
+        expect(ne.util.isObject(o9)).toBe(true);
     });
 
     it('isFunction()', function() {
@@ -110,15 +110,15 @@ describe('type', function() {
             o8 = new Function(),
             o9 = function test() {};
 
-        expect(ne.isFunction(o1)).toBe(true);
-        expect(ne.isFunction(o2)).toBe(false);
-        expect(ne.isFunction(o3)).toBe(false);
-        expect(ne.isFunction(o4)).toBe(false);
-        expect(ne.isFunction(o5)).toBe(false);
-        expect(ne.isFunction(o6)).toBe(false);
-        expect(ne.isFunction(o7)).toBe(false);
-        expect(ne.isFunction(o8)).toBe(true);
-        expect(ne.isFunction(o9)).toBe(true);
+        expect(ne.util.isFunction(o1)).toBe(true);
+        expect(ne.util.isFunction(o2)).toBe(false);
+        expect(ne.util.isFunction(o3)).toBe(false);
+        expect(ne.util.isFunction(o4)).toBe(false);
+        expect(ne.util.isFunction(o5)).toBe(false);
+        expect(ne.util.isFunction(o6)).toBe(false);
+        expect(ne.util.isFunction(o7)).toBe(false);
+        expect(ne.util.isFunction(o8)).toBe(true);
+        expect(ne.util.isFunction(o9)).toBe(true);
     });
 
     it('isNumber()', function() {
@@ -134,17 +134,17 @@ describe('type', function() {
             o10 = 0x15,
             o11 = parseInt('00101', 2);
 
-        expect(ne.isNumber(o1)).toBe(true);
-        expect(ne.isNumber(o2)).toBe(true);
-        expect(ne.isNumber(o3.test)).toBe(true);
-        expect(ne.isNumber(o3)).toBe(false);
-        expect(ne.isNumber(o4)).toBe(false);
-        expect(ne.isNumber(o5)).toBe(false);
-        expect(ne.isNumber(o6)).toBe(false);
-        expect(ne.isNumber(o7)).toBe(false);
-        expect(ne.isNumber(o8)).toBe(true);
-        expect(ne.isNumber(o9)).toBe(true);
-        expect(ne.isNumber(o11)).toBe(true);
+        expect(ne.util.isNumber(o1)).toBe(true);
+        expect(ne.util.isNumber(o2)).toBe(true);
+        expect(ne.util.isNumber(o3.test)).toBe(true);
+        expect(ne.util.isNumber(o3)).toBe(false);
+        expect(ne.util.isNumber(o4)).toBe(false);
+        expect(ne.util.isNumber(o5)).toBe(false);
+        expect(ne.util.isNumber(o6)).toBe(false);
+        expect(ne.util.isNumber(o7)).toBe(false);
+        expect(ne.util.isNumber(o8)).toBe(true);
+        expect(ne.util.isNumber(o9)).toBe(true);
+        expect(ne.util.isNumber(o11)).toBe(true);
 
     });
 
@@ -157,13 +157,13 @@ describe('type', function() {
             o6 = true,
             o7 = /xyz/g;
 
-        expect(ne.isString(o1)).toBe(false);
-        expect(ne.isString(o2)).toBe(true);
-        expect(ne.isString(o3)).toBe(true);
-        expect(ne.isString(o4)).toBe(false);
-        expect(ne.isString(o5)).toBe(true);
-        expect(ne.isString(o6)).toBe(false);
-        expect(ne.isString(o7)).toBe(false);
+        expect(ne.util.isString(o1)).toBe(false);
+        expect(ne.util.isString(o2)).toBe(true);
+        expect(ne.util.isString(o3)).toBe(true);
+        expect(ne.util.isString(o4)).toBe(false);
+        expect(ne.util.isString(o5)).toBe(true);
+        expect(ne.util.isString(o6)).toBe(false);
+        expect(ne.util.isString(o7)).toBe(false);
     });
 
     it('isBoolean()', function() {
@@ -175,13 +175,13 @@ describe('type', function() {
             o6 = undefined,
             o7 = null;
 
-        expect(ne.isBoolean(o1)).toBe(false);
-        expect(ne.isBoolean(o2)).toBe(true);
-        expect(ne.isBoolean(o3)).toBe(false);
-        expect(ne.isBoolean(o4)).toBe(true);
-        expect(ne.isBoolean(o5)).toBe(true);
-        expect(ne.isBoolean(o6)).toBe(false);
-        expect(ne.isBoolean(o7)).toBe(false);
+        expect(ne.util.isBoolean(o1)).toBe(false);
+        expect(ne.util.isBoolean(o2)).toBe(true);
+        expect(ne.util.isBoolean(o3)).toBe(false);
+        expect(ne.util.isBoolean(o4)).toBe(true);
+        expect(ne.util.isBoolean(o5)).toBe(true);
+        expect(ne.util.isBoolean(o6)).toBe(false);
+        expect(ne.util.isBoolean(o7)).toBe(false);
     });
 
     it('isHTMLNode()', function() {
@@ -197,16 +197,16 @@ describe('type', function() {
             myObj = 3,
             testObj = {};
 
-        expect(ne.isHTMLNode(el1)).toBe(true);
-        expect(ne.isHTMLNode(el2)).toBe(true);
-        expect(ne.isHTMLNode(el3)).toBe(true);
-        expect(ne.isHTMLNode(el4)).toBe(true);
-        expect(ne.isHTMLNode(el5)).toBe(true);
-        expect(ne.isHTMLNode(el6)).toBe(true);
-        expect(ne.isHTMLNode(el7)).toBe(true);
-        expect(ne.isHTMLNode(text)).toBe(true);
-        expect(ne.isHTMLNode(myObj)).toBe(false);
-        expect(ne.isHTMLNode(testObj)).toBe(false);
+        expect(ne.util.isHTMLNode(el1)).toBe(true);
+        expect(ne.util.isHTMLNode(el2)).toBe(true);
+        expect(ne.util.isHTMLNode(el3)).toBe(true);
+        expect(ne.util.isHTMLNode(el4)).toBe(true);
+        expect(ne.util.isHTMLNode(el5)).toBe(true);
+        expect(ne.util.isHTMLNode(el6)).toBe(true);
+        expect(ne.util.isHTMLNode(el7)).toBe(true);
+        expect(ne.util.isHTMLNode(text)).toBe(true);
+        expect(ne.util.isHTMLNode(myObj)).toBe(false);
+        expect(ne.util.isHTMLNode(testObj)).toBe(false);
     });
 
     it('isHTMLTag()', function() {
@@ -221,17 +221,17 @@ describe('type', function() {
             myObj = 3,
             testObj = {};
 
-        expect(ne.isHTMLTag(el1)).toBe(true);
-        expect(ne.isHTMLTag(el2)).toBe(true);
-        expect(ne.isHTMLTag(el3)).toBe(true);
-        expect(ne.isHTMLTag(el4)).toBe(true);
-        expect(ne.isHTMLTag(el5)).toBe(true);
-        expect(ne.isHTMLTag(el6)).toBe(true);
-        expect(ne.isHTMLTag(el7)).toBe(true);
+        expect(ne.util.isHTMLTag(el1)).toBe(true);
+        expect(ne.util.isHTMLTag(el2)).toBe(true);
+        expect(ne.util.isHTMLTag(el3)).toBe(true);
+        expect(ne.util.isHTMLTag(el4)).toBe(true);
+        expect(ne.util.isHTMLTag(el5)).toBe(true);
+        expect(ne.util.isHTMLTag(el6)).toBe(true);
+        expect(ne.util.isHTMLTag(el7)).toBe(true);
 
-        expect(ne.isHTMLTag(text)).toBe(false);
-        expect(ne.isHTMLTag(myObj)).toBe(false);
-        expect(ne.isHTMLTag(testObj)).toBe(false);
+        expect(ne.util.isHTMLTag(text)).toBe(false);
+        expect(ne.util.isHTMLTag(myObj)).toBe(false);
+        expect(ne.util.isHTMLTag(testObj)).toBe(false);
     });
 
     it('isEmpty()', function() {
@@ -255,17 +255,17 @@ describe('type', function() {
             o11 = arguments;
         })();
 
-        expect(ne.isEmpty(o1)).toBe(true);
-        expect(ne.isEmpty(o2)).toBe(false);
-        expect(ne.isEmpty(o3)).toBe(true);
-        expect(ne.isEmpty(o4)).toBe(true);
-        expect(ne.isEmpty(o5)).toBe(true);
-        expect(ne.isEmpty(o6)).toBe(false);
-        expect(ne.isEmpty(o7)).toBe(true);
-        expect(ne.isEmpty(o8)).toBe(false);
-        expect(ne.isEmpty(o9)).toBe(true);
-        expect(ne.isEmpty(o10)).toBe(true);
-        expect(ne.isEmpty(o11)).toBe(true);
+        expect(ne.util.isEmpty(o1)).toBe(true);
+        expect(ne.util.isEmpty(o2)).toBe(false);
+        expect(ne.util.isEmpty(o3)).toBe(true);
+        expect(ne.util.isEmpty(o4)).toBe(true);
+        expect(ne.util.isEmpty(o5)).toBe(true);
+        expect(ne.util.isEmpty(o6)).toBe(false);
+        expect(ne.util.isEmpty(o7)).toBe(true);
+        expect(ne.util.isEmpty(o8)).toBe(false);
+        expect(ne.util.isEmpty(o9)).toBe(true);
+        expect(ne.util.isEmpty(o10)).toBe(true);
+        expect(ne.util.isEmpty(o11)).toBe(true);
 
     });
 

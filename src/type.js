@@ -9,6 +9,9 @@
     if (!ne) {
         ne = window.ne = {};
     }
+    if (!ne.util) {
+        ne.util = window.ne.util = {};
+    }
 
     /**
      * 인자가 null 또는 undefined가 아닌지 확인하는 메서드
@@ -146,7 +149,7 @@
         }
 
         if (isObject(obj) && !isFunction(obj)) {
-            ne.forEachOwnProperties(obj, function() {
+            ne.util.forEachOwnProperties(obj, function() {
                 hasKey = true;
                 return false;
             });
@@ -168,19 +171,19 @@
     }
 
 
-    ne.isDefined = isDefined;
-    ne.isTruthy = isTruthy;
-    ne.isFalsy = isFalsy;
-    ne.isArguments = isArguments;
-    ne.isArray = Array.isArray || isArray;
-    ne.isObject = isObject;
-    ne.isFunction = isFunction;
-    ne.isNumber = isNumber;
-    ne.isString = isString;
-    ne.isBoolean = isBoolean;
-    ne.isHTMLNode = isHTMLNode;
-    ne.isHTMLTag = isHTMLTag;
-    ne.isEmpty = isEmpty;
-    ne.isNotEmpty = isNotEmpty;
+    ne.util.isDefined = isDefined;
+    ne.util.isTruthy = isTruthy;
+    ne.util.isFalsy = isFalsy;
+    ne.util.isArguments = isArguments;
+    ne.util.isArray = Array.isArray || isArray;
+    ne.util.isObject = isObject;
+    ne.util.isFunction = isFunction;
+    ne.util.isNumber = isNumber;
+    ne.util.isString = isString;
+    ne.util.isBoolean = isBoolean;
+    ne.util.isHTMLNode = isHTMLNode;
+    ne.util.isHTMLTag = isHTMLTag;
+    ne.util.isEmpty = isEmpty;
+    ne.util.isNotEmpty = isNotEmpty;
 
 })(window.ne);

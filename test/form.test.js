@@ -13,19 +13,19 @@ describe('form', function() {
         });
 
         it('name 에 해당하는 input 이 존재하지 않는 경우 길이가 0 인 배열을 반환한다.', function() {
-            var $element = ne.getFormElement($form, 'not_found_delivery_number');
+            var $element = ne.util.getFormElement($form, 'not_found_delivery_number');
             expect($element.length).toEqual(0);
         });
         it('$form 이 존재하지 않는 경우 길이가 0 인 배열을 반환한다.', function() {
-            var $element = ne.getFormElement('', 'delivery_number');
+            var $element = ne.util.getFormElement('', 'delivery_number');
             expect($element.length).toEqual(0);
         });
         it('name 에 해당하는 input 요소들을 배열 형태로 반환한다.', function() {
-            expect(ne.getFormElement($form, 'delivery_number').length).toEqual(1);
-            expect(ne.getFormElement($form, 'user_name').length).toEqual(1);
-            expect(ne.getFormElement($form, 'weather').length).toEqual(1);
-            expect(ne.getFormElement($form, 'gender').length).toEqual(2);
-            expect(ne.getFormElement($form, 'hobby').length).toEqual(4);
+            expect(ne.util.getFormElement($form, 'delivery_number').length).toEqual(1);
+            expect(ne.util.getFormElement($form, 'user_name').length).toEqual(1);
+            expect(ne.util.getFormElement($form, 'weather').length).toEqual(1);
+            expect(ne.util.getFormElement($form, 'gender').length).toEqual(2);
+            expect(ne.util.getFormElement($form, 'hobby').length).toEqual(4);
         });
     });
     describe('getFormData()', function() {
@@ -40,7 +40,7 @@ describe('form', function() {
                     expectResult = 'defaultText';
                 $form.append(htmlText);
 
-                formData = ne.getFormData($form);
+                formData = ne.util.getFormData($form);
                 expect(formData['user_name']).toEqual(expectResult);
             });
             it('select 의 데이터를 가져올 수 있다.', function() {
@@ -53,7 +53,7 @@ describe('form', function() {
                     expectResult = 'summer',
                     formData;
                 $form.append(htmlText);
-                formData = ne.getFormData($form);
+                formData = ne.util.getFormData($form);
                 expect(formData['weather']).toEqual(expectResult);
             });
             it('2개 이상 선택된 multiple select 의 데이터를 가져올 수 있다.', function() {
@@ -69,7 +69,7 @@ describe('form', function() {
                     expectResult = ['soju', 'whiskey'],
                     formData;
                 $form.append(htmlText);
-                formData = ne.getFormData($form);
+                formData = ne.util.getFormData($form);
                 expect(formData['drink']).toEqual(expectResult);
             });
             it('1개 선택된 multiple select 의 데이터를 가져올 수 있다.', function() {
@@ -85,7 +85,7 @@ describe('form', function() {
                     expectResult = 'whiskey',
                     formData;
                 $form.append(htmlText);
-                formData = ne.getFormData($form);
+                formData = ne.util.getFormData($form);
                 expect(formData['drink']).toEqual(expectResult);
             });
             it('radio input 의 데이터를 가져올 수 있다.', function() {
@@ -96,7 +96,7 @@ describe('form', function() {
 
                 $form.append(htmlText);
 
-                formData = ne.getFormData($form);
+                formData = ne.util.getFormData($form);
                 expect(formData['gender']).toEqual(expectResult);
             });
             it('2개 이상 선택된 checkbox input 의 데이터를 가져올 수 있다.', function() {
@@ -109,7 +109,7 @@ describe('form', function() {
 
                 $form.append(htmlText);
 
-                formData = ne.getFormData($form);
+                formData = ne.util.getFormData($form);
                 expect(formData['hobby']).toEqual(expectResult);
             });
             it('1개 선택된 checkbox input 의 데이터를 가져올 수 있다.', function() {
@@ -122,7 +122,7 @@ describe('form', function() {
 
                 $form.append(htmlText);
 
-                formData = ne.getFormData($form);
+                formData = ne.util.getFormData($form);
                 expect(formData['hobby']).toEqual(expectResult);
             });
         });
@@ -139,9 +139,9 @@ describe('form', function() {
                     expectResult = 'defaultText';
 
                 $form.append(htmlText);
-                ne.setFormElementValue($form, 'user_name', expectResult);
+                ne.util.setFormElementValue($form, 'user_name', expectResult);
 
-                formData = ne.getFormData($form);
+                formData = ne.util.getFormData($form);
                 expect(formData['user_name']).toEqual(expectResult);
             });
             it('select 요소의 값을 설정할 수 있다.', function() {
@@ -155,8 +155,8 @@ describe('form', function() {
                     formData;
 
                 $form.append(htmlText);
-                ne.setFormElementValue($form, 'weather', expectResult);
-                formData = ne.getFormData($form);
+                ne.util.setFormElementValue($form, 'weather', expectResult);
+                formData = ne.util.getFormData($form);
                 expect(formData['weather']).toEqual(expectResult);
             });
             describe('multiple select 요소의 값을 설정할 수 있다.', function() {
@@ -180,24 +180,24 @@ describe('form', function() {
 
                 it('배열을 인자로 하여 설정할 수 있다', function() {
                     expectResult = ['redWine', 'whiteWine'];
-                    ne.setFormElementValue($form, 'drink', expectResult);
-                    formData = ne.getFormData($form);
+                    ne.util.setFormElementValue($form, 'drink', expectResult);
+                    formData = ne.util.getFormData($form);
                     expect(formData['drink']).toEqual(expectResult);
 
-                    ne.setFormElementValue($form, 'drink', ['redWine']);
-                    formData = ne.getFormData($form);
+                    ne.util.setFormElementValue($form, 'drink', ['redWine']);
+                    formData = ne.util.getFormData($form);
                     expect(formData['drink']).toEqual('redWine');
                 });
                 it('String 형태 인자로 설정할 수 있다.', function() {
                     expectResult = 'redWine';
-                    ne.setFormElementValue($form, 'drink', expectResult);
-                    formData = ne.getFormData($form);
+                    ne.util.setFormElementValue($form, 'drink', expectResult);
+                    formData = ne.util.getFormData($form);
                     expect(formData['drink']).toEqual(expectResult);
                 });
                 it('Number 형태도 사용 가능하다.', function() {
                     expectResult = '1';
-                    ne.setFormElementValue($form, 'drink', 1);
-                    formData = ne.getFormData($form);
+                    ne.util.setFormElementValue($form, 'drink', 1);
+                    formData = ne.util.getFormData($form);
                     expect(formData['drink']).toEqual(expectResult);
                 });
             });
@@ -209,9 +209,9 @@ describe('form', function() {
                     formData;
 
                 $form.append(htmlText);
-                ne.setFormElementValue($form, 'gender', expectResult);
+                ne.util.setFormElementValue($form, 'gender', expectResult);
 
-                formData = ne.getFormData($form);
+                formData = ne.util.getFormData($form);
                 expect(formData['gender']).toEqual(expectResult);
             });
             describe('checkbox input 의 값을 설정할 수 있다.', function() {
@@ -230,26 +230,26 @@ describe('form', function() {
                 it('배열을 인자로 하여 설정할 수 있다', function() {
                     expectResult = ['sewing', 'drinking', 'sport', 'dancing'];
 
-                    ne.setFormElementValue($form, 'hobby', expectResult);
-                    formData = ne.getFormData($form);
+                    ne.util.setFormElementValue($form, 'hobby', expectResult);
+                    formData = ne.util.getFormData($form);
                     expect(formData['hobby'].sort()).toEqual(expectResult.sort());
 
-                    ne.setFormElementValue($form, 'hobby', ['sewing']);
-                    formData = ne.getFormData($form);
+                    ne.util.setFormElementValue($form, 'hobby', ['sewing']);
+                    formData = ne.util.getFormData($form);
                     expect(formData['hobby']).toEqual('sewing');
                 });
                 it('String 형태 인자로 설정할 수 있다.', function() {
                     expectResult = 'sewing';
-                    ne.setFormElementValue($form, 'hobby', expectResult);
+                    ne.util.setFormElementValue($form, 'hobby', expectResult);
 
-                    formData = ne.getFormData($form);
+                    formData = ne.util.getFormData($form);
                     expect(formData['hobby']).toEqual(expectResult);
                 });
                 it('Number 형태도 사용 가능하다.', function() {
                     expectResult = '1';
-                    ne.setFormElementValue($form, 'hobby', 1);
+                    ne.util.setFormElementValue($form, 'hobby', 1);
 
-                    formData = ne.getFormData($form);
+                    formData = ne.util.getFormData($form);
                     expect(formData['hobby']).toEqual(expectResult);
                 });
             });
@@ -270,9 +270,9 @@ describe('form', function() {
             $form = $('#test_form');
         });
         it('Object 형태의 데이터를 전달하여 form 엘리먼트들의 data 들을 설정할 수 있다.', function() {
-            ne.setFormData($form, sampleFormData);
+            ne.util.setFormData($form, sampleFormData);
             sampleFormData.delivery_number = String(sampleFormData.delivery_number);
-            var formData = ne.getFormData($form);
+            var formData = ne.util.getFormData($form);
             expect(formData).toEqual(sampleFormData);
         });
     });

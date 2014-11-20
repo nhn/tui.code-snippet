@@ -8,6 +8,9 @@
     if (!ne) {
         ne = window.ne = {};
     }
+    if (!ne.util) {
+        ne.util = window.ne.util = {};
+    }
 
     /**
      * 다음의 브라우저에 한하여 종류와 버전을 제공하는 모듈
@@ -86,6 +89,6 @@
 
     detector[appName]();
 
-    ne.browser = browser;
+    ne.util.browser = browser;
 
 })(window.ne);

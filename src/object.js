@@ -9,6 +9,9 @@
     if (!ne) {
         ne = window.ne = {};
     }
+    if (!ne.util) {
+        ne.util = window.ne.util = {};
+    }
 
     /**
      * 데이터 객체를 확장하는 메서드 (deep copy 는 하지 않는다)
@@ -71,9 +74,9 @@
         return keys;
     };
 
-    ne.extend = extend;
-    ne.stamp = stamp;
-    ne._resetLastId = resetLastId;
-    ne.keys = Object.keys || keys;
+    ne.util.extend = extend;
+    ne.util.stamp = stamp;
+    ne.util._resetLastId = resetLastId;
+    ne.util.keys = Object.keys || keys;
 
 })(window.ne);
