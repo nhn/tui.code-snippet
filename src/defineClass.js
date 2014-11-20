@@ -9,6 +9,9 @@
     if (!ne) {
         ne = window.ne = {};
     }
+    if (!ne.util) {
+        ne.util = window.ne.util = {};
+    }
 
     /**
      * 객체의 생성및 상속을 편하게 도와주는 메소드
@@ -61,18 +64,18 @@
 
         obj = props.init || function(){};
 
-        parent && ne.inherit(obj, parent);
+        parent && ne.util.inherit(obj, parent);
 
         if (props.hasOwnProperty('static')) {
-            ne.extend(obj, props.static);
+            ne.util.extend(obj, props.static);
             delete props.static;
         }
 
-        ne.extend(obj.prototype, props);
+        ne.util.extend(obj.prototype, props);
 
         return obj;
     };
 
-    ne.defineClass = defineClass;
+    ne.util.defineClass = defineClass;
 
 })(window.ne);

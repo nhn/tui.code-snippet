@@ -1,5 +1,5 @@
 describe('module:def', function() {
-    var defineClass = ne.defineClass;
+    var defineClass = ne.util.defineClass;
 
     describe('def()', function() {
         var props1,

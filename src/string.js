@@ -8,6 +8,10 @@
     if (!ne) {
         ne = window.ne = {};
     }
+    if (!ne.util) {
+        ne.util = window.ne.util = {};
+    }
+
     /**
      * 전달된 문자열에 모든 HTML Entity 타입의 문자열을 원래의 문자로 반환
      * @method decodeHTMLEntity
@@ -48,7 +52,7 @@
         return /[<>&"']/.test(string);
     }
 
-    ne.decodeHTMLEntity = decodeHTMLEntity;
-    ne.encodeHTMLEntity = encodeHTMLEntity;
-    ne.hasEncodableString = hasEncodableString;
+    ne.util.decodeHTMLEntity = decodeHTMLEntity;
+    ne.util.encodeHTMLEntity = encodeHTMLEntity;
+    ne.util.hasEncodableString = hasEncodableString;
 })(window.ne);
