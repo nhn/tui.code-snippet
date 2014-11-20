@@ -23,12 +23,38 @@ describe('type', function() {
         var o1 = { a: 10 },
             o2 = { a: { b: '10' }};
 
-        expect(ne.util.isExisty(o1, 'a')).toBeTruthy();
-        expect(ne.util.isExisty(o2, 'a.b')).toBeTruthy();
-        expect(ne.util.isExisty(o2, ['a','b'])).toBeTruthy();
-        expect(ne.util.isExisty(o2, 'a.c')).toBeFalsy();
-        expect(ne.util.isExisty()).toBeFalsy();
+        expect(ne.util.isExisty(o1, 'a')).toBe(true);
+        expect(ne.util.isExisty(o2, 'a.b')).toBe(true);
+        expect(ne.util.isExisty(o2, ['a','b'])).toBe(true);
+        expect(ne.util.isExisty(o2, 'a.c')).toBe(false);
+        expect(ne.util.isExisty()).toBeFalsy(false);
 
+    });
+
+    it('isUndefined()', function() {
+        var o1 = 0,
+            o2 = false,
+            o3 = '',
+            o4 = null,
+            o5;
+        expect(ne.util.isUndefined(o1)).toBe(false);
+        expect(ne.util.isUndefined(o2)).toBe(false);
+        expect(ne.util.isUndefined(o3)).toBe(false);
+        expect(ne.util.isUndefined(o4)).toBe(false);
+        expect(ne.util.isUndefined(o5)).toBe(true);
+    });
+
+    it('isNull()', function() {
+        var o1 = 0,
+            o2 = false,
+            o3 = '',
+            o4 = null,
+            o5;
+        expect(ne.util.isNull(o1)).toBe(false);
+        expect(ne.util.isNull(o2)).toBe(false);
+        expect(ne.util.isNull(o3)).toBe(false);
+        expect(ne.util.isNull(o4)).toBe(true);
+        expect(ne.util.isNull(o5)).toBe(false);
     });
 
     it('isTruthy()', function() {
