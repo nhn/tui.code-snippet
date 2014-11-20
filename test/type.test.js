@@ -25,6 +25,7 @@ describe('type', function() {
 
         expect(ne.util.isExisty(o1, 'a')).toBeTruthy();
         expect(ne.util.isExisty(o2, 'a.b')).toBeTruthy();
+        expect(ne.util.isExisty(o2, ['a','b'])).toBeTruthy();
         expect(ne.util.isExisty(o2, 'a.c')).toBeFalsy();
         expect(ne.util.isExisty()).toBeFalsy();
 
