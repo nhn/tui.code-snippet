@@ -1,6 +1,7 @@
 describe('type', function() {
 
     it('isExisty() 값이 존재하는지 확인', function() {
+        // null과 undefined이 아닐경우 값이 존재한다고 판단한다.
         var o1 = null,
             o2 = 3,
             o3 = 0,
