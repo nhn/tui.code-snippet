@@ -76,7 +76,7 @@
          * instance.off();
          */
         off: function(types, fn, context) {
-            if (!ne.util.isDefined(types)) {
+            if (!ne.util.isExisty(types)) {
                 this._events = null;
                 return;
             }
@@ -191,7 +191,7 @@
 
                 if (listeners) {
                     ne.util.forEach(listeners, function(listener, index) {
-                        if (ne.util.isDefined(listener) && (listener.fn === fn)) {
+                        if (ne.util.isExisty(listener) && (listener.fn === fn)) {
                             listeners.splice(index, 1);
                             return true;
                         }
@@ -217,7 +217,6 @@
          * // 확대 기능을 지원하는 컴포넌트 내부 코드라 가정
          * if (this.invoke('beforeZoom')) {    // 사용자가 등록한 리스너 결과 체크
          *     // 리스너의 실행결과가 true 일 경우
-         *     this.fire('zoom');
          *     // doSomething
          * }
          *
@@ -288,9 +287,9 @@
          */
         hasListener: function(type) {
             var events = this._events,
-                isDefineMethod = ne.util.isDefined;
+                existyFunc = ne.util.isExisty;
 
-            return isDefineMethod(events) && (isDefineMethod(events[type]) || events[type + '_len']);
+            return existyFunc(events) && (existyFunc(events[type]) || events[type + '_len']);
         },
 
         /**
@@ -305,15 +304,15 @@
                 types,
                 len;
 
-            if (!ne.util.isDefined(events)) {
+            if (!ne.util.isExisty(events)) {
                 return 0;
             }
 
             types = events[type];
             len = events[lenKey];
 
-            length += (ne.util.isDefined(types) && ne.util.isArray(types)) ? types.length : 0;
-            length += ne.util.isDefined(len) ? len : 0;
+            length += (ne.util.isExisty(types) && ne.util.isArray(types)) ? types.length : 0;
+            length += ne.util.isExisty(len) ? len : 0;
 
             return length;
         },
