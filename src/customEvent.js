@@ -1,6 +1,7 @@
 /**
  * @fileoverview 옵저버 패턴을 이용하여 객체 간 커스텀 이벤트를 전달할 수 있는 기능을 제공하는 모듈
  * @author FE개발팀
+ * @dependency type.js, collection.js object.js
  */
 
 (function(ne) {
@@ -8,6 +9,9 @@
     /* istanbul ignore if */
     if (!ne) {
         ne = window.ne = {};
+    }
+    if (!ne.util) {
+        ne.util = window.ne.util = {};
     }
 
     /**
@@ -72,7 +76,7 @@
          * instance.off();
          */
         off: function(types, fn, context) {
-            if (!ne.isDefined(types)) {
+            if (!ne.util.isExisty(types)) {
                 this._events = null;
                 return;
             }
@@ -93,14 +97,14 @@
             var methodName = isOn ? '_on' : '_off',
                 method = this[methodName];
 
-            if (ne.isObject(types)) {
-                ne.forEachOwnProperties(types, function(handler, type) {
+            if (ne.util.isObject(types)) {
+                ne.util.forEachOwnProperties(types, function(handler, type) {
                     method.call(this, type, handler, fn);
                 }, this);
             } else {
                 types = types.split(' ');
 
-                ne.forEach(types, function(type) {
+                ne.util.forEach(types, function(type) {
                     method.call(this, type, fn, context);
                 }, this);
             }
@@ -124,7 +128,7 @@
          */
         _on: function(type, fn, context) {
             var events = this._events = this._events || {},
-                contextId = context && (context !== this) && ne.stamp(context);
+                contextId = context && (context !== this) && ne.util.stamp(context);
 
             if (contextId) {
                 /*
@@ -135,7 +139,7 @@
                 var indexKey = type + '_idx',
                     indexLenKey = type + '_len',
                     typeIndex = events[indexKey] = events[indexKey] || {},
-                    id = ne.stamp(fn) + '_' + contextId; // 핸들러의 id + context의 id
+                    id = ne.util.stamp(fn) + '_' + contextId; // 핸들러의 id + context의 id
 
                 if (!typeIndex[id]) {
                     typeIndex[id] = {
@@ -169,12 +173,12 @@
                 return;
             }
 
-            var contextId = context && (context !== this) && ne.stamp(context),
+            var contextId = context && (context !== this) && ne.util.stamp(context),
                 listeners,
                 id;
 
             if (contextId) {
-                id = ne.stamp(fn) + '_' + contextId;
+                id = ne.util.stamp(fn) + '_' + contextId;
                 listeners = events[indexKey];
 
                 if (listeners && listeners[id]) {
@@ -186,14 +190,76 @@
                 listeners = events[type];
 
                 if (listeners) {
-                    ne.forEach(listeners, function(listener, index) {
-                        if (ne.isDefined(listener) && (listener.fn === fn)) {
+                    ne.util.forEach(listeners, function(listener, index) {
+                        if (ne.util.isExisty(listener) && (listener.fn === fn)) {
                             listeners.splice(index, 1);
                             return true;
                         }
                     });
                 }
             }
+        },
+
+        /**
+         * 이벤트를 발생시키는 메서드
+         *
+         * 등록한 리스너들의 실행 결과를 boolean AND 연산하여
+         *
+         * 반환한다는 점에서 {@link CustomEvents#fire} 와 차이가 있다
+         *
+         * 보통 컴포넌트 레벨에서 before 이벤트로 사용자에게
+         *
+         * 이벤트를 취소할 수 있게 해 주는 기능에서 사용한다.
+         * @param {string} type
+         * @param {object} data
+         * @returns {*}
+         * @example
+         * // 확대 기능을 지원하는 컴포넌트 내부 코드라 가정
+         * if (this.invoke('beforeZoom')) {    // 사용자가 등록한 리스너 결과 체크
+         *     // 리스너의 실행결과가 true 일 경우
+         *     // doSomething
+         * }
+         *
+         * //
+         * // 아래는 사용자의 서비스 코드
+         * map.on({
+         *     'beforeZoom': function() {
+         *         if (that.disabled && this.getState()) {    //서비스 페이지에서 어떤 조건에 의해 이벤트를 취소해야한다
+         *             return false;
+         *         }
+         *         return true;
+         *     }
+         * });
+         */
+        invoke: function(type, data) {
+            if (!this.hasListener(type)) {
+                return this;
+            }
+
+            var event = ne.util.extend({}, data, {type: type, target: this}),
+                events = this._events;
+
+            if (!events) {
+                return;
+            }
+
+            var typeIndex = events[type + '_idx'],
+                listeners,
+                result = true;
+
+            if (events[type]) {
+                listeners = events[type].slice();
+
+                ne.util.forEach(listeners, function(listener) {
+                    result = result && !!listener.fn.call(this, event);
+                }, this);
+            }
+
+            ne.util.forEachOwnProperties(typeIndex, function(eventItem) {
+                result = result && !!eventItem.fn.call(eventItem.ctx, event);
+            });
+
+            return ne.util.isBoolean(result) ? result : false;
         },
 
         /**
@@ -210,32 +276,7 @@
          * });
          */
         fire: function(type, data) {
-            if (!this.hasListener(type)) {
-                return this;
-            }
-
-            var event = ne.extend({}, data, {type: type, target: this}),
-                events = this._events;
-
-            if (!events) {
-                return;
-            }
-
-            var typeIndex = events[type + '_idx'],
-                listeners;
-
-            if (events[type]) {
-                listeners = events[type].slice();
-
-                ne.forEach(listeners, function(listener) {
-                    listener.fn.call(this, event);
-                }, this);
-            }
-
-            ne.forEachOwnProperties(typeIndex, function(eventItem) {
-                eventItem.fn.call(eventItem.ctx, event);
-            });
-
+            this.invoke(type, data);
             return this;
         },
 
@@ -246,9 +287,9 @@
          */
         hasListener: function(type) {
             var events = this._events,
-                isDefineMethod = ne.isDefined;
+                existyFunc = ne.util.isExisty;
 
-            return isDefineMethod(events) && (isDefineMethod(events[type]) || events[type + '_len']);
+            return existyFunc(events) && (existyFunc(events[type]) || events[type + '_len']);
         },
 
         /**
@@ -263,15 +304,15 @@
                 types,
                 len;
 
-            if (!ne.isDefined(events)) {
+            if (!ne.util.isExisty(events)) {
                 return 0;
             }
 
             types = events[type];
             len = events[lenKey];
 
-            length += (ne.isDefined(types) && ne.isArray(types)) ? types.length : 0;
-            length += ne.isDefined(len) ? len : 0;
+            length += (ne.util.isExisty(types) && ne.util.isArray(types)) ? types.length : 0;
+            length += ne.util.isExisty(len) ? len : 0;
 
             return length;
         },
@@ -285,8 +326,8 @@
         once: function(types, fn, context) {
             var that = this;
 
-            if (ne.isObject(types)) {
-                ne.forEachOwnProperties(types, function(type) {
+            if (ne.util.isObject(types)) {
+                ne.util.forEachOwnProperties(types, function(type) {
                     this.once(type, types[type], fn);
                 }, this);
 
@@ -315,16 +356,16 @@
      * function Model() {}
      *
      * // 커스텀 이벤트 믹스인
-     * ne.CustomEvents.mixin(Model);
+     * ne.util.CustomEvents.mixin(Model);
      *
      * var model = new Model();
      *
      * model.on('changed', function() {}, this);
      */
     CustomEvents.mixin = function(func) {
-        ne.extend(func.prototype, CustomEventMethod);
+        ne.util.extend(func.prototype, CustomEventMethod);
     };
 
-    ne.CustomEvents = CustomEvents;
+    ne.util.CustomEvents = CustomEvents;
 
 })(window.ne);

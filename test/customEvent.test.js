@@ -1,4 +1,4 @@
-xdescribe('customEvent', function() {
+describe('customEvent', function() {
 
     it('on() 메서드로 이벤트를 구독할 수 있다', function() {
         function Animal(leg) {
@@ -6,7 +6,7 @@ xdescribe('customEvent', function() {
             this.position = 0;
         }
 
-        ne.CustomEvents.mixin(Animal); // 커스텀 이벤트 기능 부여
+        ne.util.CustomEvents.mixin(Animal); // 커스텀 이벤트 기능 부여
 
         Animal.prototype.move = function(to) {
             this.position = to;
@@ -32,7 +32,7 @@ xdescribe('customEvent', function() {
             this.leg = leg;
             this.position = 0;
         }
-        ne.CustomEvents.mixin(Animal); // 커스텀 이벤트 기능 부여
+        ne.util.CustomEvents.mixin(Animal); // 커스텀 이벤트 기능 부여
 
         Animal.prototype.move = function(to) {
             this.position = to;
@@ -69,7 +69,7 @@ xdescribe('customEvent', function() {
             this.position = 0;
         }
 
-        ne.CustomEvents.mixin(Animal); // 커스텀 이벤트 기능 부여
+        ne.util.CustomEvents.mixin(Animal); // 커스텀 이벤트 기능 부여
 
         Animal.prototype.move = function(to) {
             this.position = to;
@@ -77,13 +77,13 @@ xdescribe('customEvent', function() {
         };
 
         var lion = new Animal(4),
-            growlFn = ne.bind(function() {
+            growlFn = ne.util.bind(function() {
                 this.position = 0;
             }, lion);
 
         lion.on('move', growlFn);
 
-        expect(ne.isArray(lion._events['move'])).toBeTruthy();
+        expect(ne.util.isArray(lion._events['move'])).toBeTruthy();
     });
 
     it('on() 메서드는 context를 제공할 경우 옵저버 패턴을 객체를 이용한다', function() {
@@ -92,7 +92,7 @@ xdescribe('customEvent', function() {
             this.position = 0;
         }
 
-        ne.CustomEvents.mixin(Animal); // 커스텀 이벤트 기능 부여
+        ne.util.CustomEvents.mixin(Animal); // 커스텀 이벤트 기능 부여
 
         Animal.prototype.move = function(to) {
             this.position = to;
@@ -110,7 +110,7 @@ xdescribe('customEvent', function() {
 
         lion.move(10);
 
-        ne.stamp(onMove);
+        ne.util.stamp(onMove);
 
         expect(myObj.moved).toBeTruthy();
         expect(lion._events['move_len']).toBe(1);
@@ -123,16 +123,16 @@ xdescribe('customEvent', function() {
             this.position = 0;
         }
 
-        ne.CustomEvents.mixin(Animal); // 커스텀 이벤트 기능 부여
+        ne.util.CustomEvents.mixin(Animal); // 커스텀 이벤트 기능 부여
 
-        Animal.prototype.move = function (to) {
+        Animal.prototype.move = function(to) {
             this.position = to;
             this.fire('move');
         };
 
         var lion = new Animal(4),
             deer = new Animal(4),
-            runAwayFn = function () {
+            runAwayFn = function() {
                 this.position = 1000;
             };
 
@@ -153,13 +153,13 @@ xdescribe('customEvent', function() {
             this.position = 0;
         }
 
-        ne.CustomEvents.mixin(Animal); // 커스텀 이벤트 기능 부여
+        ne.util.CustomEvents.mixin(Animal); // 커스텀 이벤트 기능 부여
 
-        Animal.prototype.move = function (to) {
+        Animal.prototype.move = function(to) {
             this.position = to;
             this.fire('move');
         };
-        Animal.prototype.growl = function () {
+        Animal.prototype.growl = function() {
             this.fire('growl');
         };
 
@@ -194,20 +194,20 @@ xdescribe('customEvent', function() {
             this.position = 0;
         }
 
-        ne.CustomEvents.mixin(Animal); // 커스텀 이벤트 기능 부여
+        ne.util.CustomEvents.mixin(Animal); // 커스텀 이벤트 기능 부여
 
-        Animal.prototype.move = function (to) {
+        Animal.prototype.move = function(to) {
             this.position = to;
             this.fire('move');
         };
-        Animal.prototype.growl = function () {
+        Animal.prototype.growl = function() {
             this.fire('growl');
         };
 
         var lion = new Animal(4);
         var deer = new Animal(4);
 
-        var runAwayFn = function () {
+        var runAwayFn = function() {
             this.position = 1000;
         };
 
@@ -232,7 +232,7 @@ xdescribe('customEvent', function() {
             this.position = 0;
         }
 
-        ne.CustomEvents.mixin(Animal); // 커스텀 이벤트 기능 부여
+        ne.util.CustomEvents.mixin(Animal); // 커스텀 이벤트 기능 부여
 
         Animal.prototype.move = function(to) {
             this.position = to;
@@ -259,7 +259,7 @@ xdescribe('customEvent', function() {
             this.position = 0;
         }
 
-        ne.CustomEvents.mixin(Animal); // 커스텀 이벤트 기능 부여
+        ne.util.CustomEvents.mixin(Animal); // 커스텀 이벤트 기능 부여
 
         Animal.prototype.move = function(to) {
             this.position = to;
@@ -294,7 +294,7 @@ xdescribe('customEvent', function() {
         var customEvent;
 
         beforeEach(function() {
-            customEvent = new ne.CustomEvents();
+            customEvent = new ne.util.CustomEvents();
         });
 
         it('아무 이벤트도 등록하지 않았을 때 off를 호출해도 문제 없다', function() {
@@ -310,7 +310,7 @@ xdescribe('customEvent', function() {
         it('CustomEventss 자체를 인스턴스로 생성하여 사용할 수도 있다', function() {
             var spy = jasmine.createSpy('spy');
 
-            var inst = new ne.CustomEvents();
+            var inst = new ne.util.CustomEvents();
 
             inst.on('move', spy);
 
@@ -329,7 +329,7 @@ xdescribe('customEvent', function() {
 
         describe('예외 테스트', function() {
             beforeEach(function() {
-                customEvent = new ne.CustomEvents();
+                customEvent = new ne.util.CustomEvents();
             });
 
             it('이벤트를 등록하지 않았을 경우 0', function() {
@@ -345,7 +345,7 @@ xdescribe('customEvent', function() {
 
                     customEvent.on('zoom', spyObj.zoom, thisObj);
                     customEvent.off('zoom', spyObj.zoom, thisObj);
-                    customEvent2 = new ne.CustomEvents();
+                    customEvent2 = new ne.util.CustomEvents();
                     customEvent2.on('zoom', spy);
                     customEvent2.off('zoom', spy);
                 });
@@ -362,7 +362,7 @@ xdescribe('customEvent', function() {
 
         describe('갯수 테스트', function() {
             beforeEach(function() {
-                customEvent = new ne.CustomEvents();
+                customEvent = new ne.util.CustomEvents();
                 spy = jasmine.createSpy('zoom');
                 spyObj = jasmine.createSpyObj('spy', ['pan', 'zoom']);
 
@@ -400,5 +400,86 @@ xdescribe('customEvent', function() {
             });
         });
 
+    });
+
+    describe('invoke()', function() {
+        var component,
+            beforeZoomHandler,
+            spy;
+
+        function MockComponent() {}
+
+        ne.util.CustomEvents.mixin(MockComponent);
+
+        MockComponent.prototype.work = function() {
+            if (this.invoke('beforeZoom')) {
+                this.fire('zoom');
+            }
+        };
+
+        beforeEach(function() {
+            component = new MockComponent();
+
+            beforeZoomHandler = function() {
+                return false;
+            };
+
+            spy = jasmine.createSpy('handler');
+
+            component.on({
+                'beforeZoom': beforeZoomHandler,
+                'zoom': spy
+            });
+        });
+
+        it('invoke()는 리스너의 실행결과를 boolean AND연산하여 반환한다', function() {
+            component.work();
+
+            expect(spy).not.toHaveBeenCalled();
+        });
+
+        it('invoke()로 실행되는 리스너들의 결과를 AND연산하여 반환한다', function() {
+            component.on('beforeZoom', function() {
+                return true;
+            });
+
+            component.work();
+
+            expect(spy).not.toHaveBeenCalled();
+        });
+
+        it('invoke()되는 리스너들이 모두 truthy타입을 반환하면 true를 반환한다', function() {
+            component.off('beforeZoom', beforeZoomHandler);
+
+            component.on('beforeZoom', function() {
+                return true;
+            });
+
+            component.work();
+
+            expect(spy).toHaveBeenCalled();
+        });
+
+    });
+
+    describe('fire()', function() {
+        var component,
+            spyObj;
+
+        beforeEach(function() {
+            component = new ne.util.CustomEvents();
+            spyObj = jasmine.createSpyObj('handler', ['foo', 'bar']);
+            component.on({
+                'foo': spyObj.foo,
+                'bar': spyObj.bar
+            });
+        });
+
+        it('fire()는 체이닝을 지원한다', function() {
+            component.fire('foo').fire('bar');
+
+            expect(spyObj.foo).toHaveBeenCalled();
+            expect(spyObj.bar).toHaveBeenCalled();
+        });
     });
 });
