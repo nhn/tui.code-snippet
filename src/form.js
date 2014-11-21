@@ -109,7 +109,7 @@
         ne.util.forEach(valueList, function(obj) {
             var value = obj.value,
                 name = obj.name;
-            if (ne.util.isDefined(result[name])) {
+            if (ne.util.isExisty(result[name])) {
                 if (!result[name].push) {
                     result[name] = [result[name]];
                 }

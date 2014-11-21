@@ -1,6 +1,7 @@
 describe('type', function() {
 
-    it('isDefined()', function() {
+    it('isExisty() 값이 존재하는지 확인', function() {
+        // null과 undefined이 아닐경우 값이 존재한다고 판단한다.
         var o1 = null,
             o2 = 3,
             o3 = 0,
@@ -10,16 +11,54 @@ describe('type', function() {
             o7;
 
 
-        expect(ne.util.isDefined(o1)).toBe(false);
-        expect(ne.util.isDefined(o2)).toBe(true);
-        expect(ne.util.isDefined(o3)).toBe(true);
-        expect(ne.util.isDefined(o4.test)).toBe(false);
-        expect(ne.util.isDefined(o5)).toBe(true);
-        expect(ne.util.isDefined(o6)).toBe(true);
-        expect(ne.util.isDefined(o7)).toBe(false);
+        expect(ne.util.isExisty(o1)).toBe(false);
+        expect(ne.util.isExisty(o2)).toBe(true);
+        expect(ne.util.isExisty(o3)).toBe(true);
+        expect(ne.util.isExisty(o4.test)).toBe(false);
+        expect(ne.util.isExisty(o5)).toBe(true);
+        expect(ne.util.isExisty(o6)).toBe(true);
+        expect(ne.util.isExisty(o7)).toBe(false);
     });
 
-    it('isTruthy()', function() {
+    it('isExisty() second params 객체의 내부에 값이 존재하는지 확인', function() {
+        var o1 = { a: 10 },
+            o2 = { a: { b: '10' }};
+
+        expect(ne.util.isExisty(o1, 'a')).toBe(true);
+        expect(ne.util.isExisty(o2, 'a.b')).toBe(true);
+        expect(ne.util.isExisty(o2, ['a','b'])).toBe(true);
+        expect(ne.util.isExisty(o2, 'a.c')).toBe(false);
+        expect(ne.util.isExisty()).toBeFalsy(false);
+
+    });
+
+    it('isUndefined() 값이 undefined인지 확인', function() {
+        var o1 = 0,
+            o2 = false,
+            o3 = '',
+            o4 = null,
+            o5;
+        expect(ne.util.isUndefined(o1)).toBe(false);
+        expect(ne.util.isUndefined(o2)).toBe(false);
+        expect(ne.util.isUndefined(o3)).toBe(false);
+        expect(ne.util.isUndefined(o4)).toBe(false);
+        expect(ne.util.isUndefined(o5)).toBe(true);
+    });
+
+    it('isNull() 값이 null인지 확인', function() {
+        var o1 = 0,
+            o2 = false,
+            o3 = '',
+            o4 = null,
+            o5;
+        expect(ne.util.isNull(o1)).toBe(false);
+        expect(ne.util.isNull(o2)).toBe(false);
+        expect(ne.util.isNull(o3)).toBe(false);
+        expect(ne.util.isNull(o4)).toBe(true);
+        expect(ne.util.isNull(o5)).toBe(false);
+    });
+
+    it('isTruthy() undefined, null, false가 아닌 값인지 확인', function() {
         var o1 = 0,
             o2 = false,
             o3 = '',
@@ -33,7 +72,7 @@ describe('type', function() {
         expect(ne.util.isTruthy(o5)).toBe(false);
     });
 
-    it('isFalsy()', function() {
+    it('isFalsy() isTruthy에 해당하지 않는 값인지 확인', function() {
         var o1 = 0,
             o2 = false,
             o3 = '',
@@ -184,7 +223,7 @@ describe('type', function() {
         expect(ne.util.isBoolean(o7)).toBe(false);
     });
 
-    it('isHTMLNode()', function() {
+    it('isHTMLNode() DOM인지 확인', function() {
 
         var text = document.createTextNode("Hello World"),
             el1 = document.createElement("H1"),
@@ -209,7 +248,7 @@ describe('type', function() {
         expect(ne.util.isHTMLNode(testObj)).toBe(false);
     });
 
-    it('isHTMLTag()', function() {
+    it('isHTMLTag() HTML element 인지 확인', function() {
         var text = document.createTextNode("Hello World"),
             el1 = document.createElement("H1"),
             el2 = document.createElement("A"),

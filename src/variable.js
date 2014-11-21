@@ -25,7 +25,7 @@
      * @param {string} path
      */
     function get(path) {
-        if (!ne.util.isDefined(path)) {
+        if (!ne.util.isExisty(path)) {
             return undefined;
         }
 
@@ -98,7 +98,7 @@
      * @param {object} obj
      */
     function reset(obj) {
-        if (ne.util.isDefined(obj)) {
+        if (ne.util.isExisty(obj)) {
 
             if (!ne.util.isObject(obj) || ne.util.isFunction(obj) || ne.util.isArray(obj)) {
                 throw new Error('variable: 전역변수 공간은 object 형태의 데이터로만 설정이 가능합니다.');
