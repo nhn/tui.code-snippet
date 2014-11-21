@@ -1,6 +1,6 @@
 describe('type', function() {
 
-    it('isExisty()', function() {
+    it('isExisty() 값이 존재하는지 확인', function() {
         var o1 = null,
             o2 = 3,
             o3 = 0,
@@ -19,7 +19,7 @@ describe('type', function() {
         expect(ne.util.isExisty(o7)).toBe(false);
     });
 
-    it('isExisty() second params', function() {
+    it('isExisty() second params 객체의 내부에 값이 존재하는지 확인', function() {
         var o1 = { a: 10 },
             o2 = { a: { b: '10' }};
 
@@ -31,7 +31,7 @@ describe('type', function() {
 
     });
 
-    it('isUndefined()', function() {
+    it('isUndefined() 값이 undefined인지 확인', function() {
         var o1 = 0,
             o2 = false,
             o3 = '',
@@ -44,7 +44,7 @@ describe('type', function() {
         expect(ne.util.isUndefined(o5)).toBe(true);
     });
 
-    it('isNull()', function() {
+    it('isNull() 값이 null인지 확인', function() {
         var o1 = 0,
             o2 = false,
             o3 = '',
@@ -57,7 +57,7 @@ describe('type', function() {
         expect(ne.util.isNull(o5)).toBe(false);
     });
 
-    it('isTruthy()', function() {
+    it('isTruthy() undefined, null, false가 아닌 값인지 확인', function() {
         var o1 = 0,
             o2 = false,
             o3 = '',
@@ -71,7 +71,7 @@ describe('type', function() {
         expect(ne.util.isTruthy(o5)).toBe(false);
     });
 
-    it('isFalsy()', function() {
+    it('isFalsy() isTruthy에 해당하지 않는 값인지 확인', function() {
         var o1 = 0,
             o2 = false,
             o3 = '',
@@ -222,7 +222,7 @@ describe('type', function() {
         expect(ne.util.isBoolean(o7)).toBe(false);
     });
 
-    it('isHTMLNode()', function() {
+    it('isHTMLNode() DOM인지 확인', function() {
 
         var text = document.createTextNode("Hello World"),
             el1 = document.createElement("H1"),
@@ -247,7 +247,7 @@ describe('type', function() {
         expect(ne.util.isHTMLNode(testObj)).toBe(false);
     });
 
-    it('isHTMLTag()', function() {
+    it('isHTMLTag() HTML element 인지 확인', function() {
         var text = document.createTextNode("Hello World"),
             el1 = document.createElement("H1"),
             el2 = document.createElement("A"),
