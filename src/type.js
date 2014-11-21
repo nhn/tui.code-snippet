@@ -19,9 +19,18 @@
      * @param {{String|Array}} key
      * @returns {boolean}
      * @example
+     *
      * var obj = {a: {b: {c: 1}}};
+     * a 가 존재하는지 확인한다(존재함, true반환)
+     * ne.util.isExisty(a);
+     * => true;
+     * a 에 속성 b 가 존재하는지 확인한다.(존재함, true반환)
+     * ne.util.isExisty(a, 'b');
+     * => true;
+     * a 의 속성 b에 c가 존재하는지 확인한다.(존재함, true반환)
      * ne.util.isExisty(a, 'b.c');
      * => true;
+     * a 의 속성 b에 d가 존재하는지 확인한다.(존재하지 않음, false반환)
      * ne.util.isExisty(a, 'b.d');
      * => false;
      */
