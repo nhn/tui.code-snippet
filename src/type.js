@@ -16,7 +16,7 @@
     /**
      * 값이 정의되어 있는지 확인(null과 undefined가 아니면 true를 반환한다)
      * @param {*} obj
-     * @param {{String|Array}} key
+     * @param {{String|Array}} [key]
      * @returns {boolean}
      * @example
      *
