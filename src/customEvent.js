@@ -251,15 +251,15 @@
                 listeners = events[type].slice();
 
                 ne.util.forEach(listeners, function(listener) {
-                    result = result && !!listener.fn.call(this, event);
+                    result = result && (listener.fn.call(this, event) !== false);
                 }, this);
             }
 
             ne.util.forEachOwnProperties(typeIndex, function(eventItem) {
-                result = result && !!eventItem.fn.call(eventItem.ctx, event);
+                result = result && (eventItem.fn.call(eventItem.ctx, event) !== false);
             });
 
-            return ne.util.isBoolean(result) ? result : false;
+            return result;
         },
 
         /**

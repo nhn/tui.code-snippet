@@ -404,7 +404,6 @@ describe('customEvent', function() {
 
     describe('invoke()', function() {
         var component,
-            beforeZoomHandler,
             spy;
 
         function MockComponent() {}
@@ -417,48 +416,70 @@ describe('customEvent', function() {
             }
         };
 
-        beforeEach(function() {
-            component = new MockComponent();
-
-            beforeZoomHandler = function() {
-                return false;
-            };
-
-            spy = jasmine.createSpy('handler');
-
-            component.on({
-                'beforeZoom': beforeZoomHandler,
-                'zoom': spy
-            });
-        });
-
-        it('invoke()는 리스너의 실행결과를 boolean AND연산하여 반환한다', function() {
-            component.work();
-
-            expect(spy).not.toHaveBeenCalled();
-        });
-
-        it('invoke()로 실행되는 리스너들의 결과를 AND연산하여 반환한다', function() {
-            component.on('beforeZoom', function() {
-                return true;
+        describe('리스너의 실행 결과 반환', function() {
+            beforeEach(function() {
+                component = new MockComponent();
+                spy = jasmine.createSpy('handler');
             });
 
-            component.work();
+            describe('명시적으로 false를 반환하지 않으면 모두 true로 간주한다', function() {
+                beforeEach(function() {
+                    component.on('zoom', spy);
+                });
 
-            expect(spy).not.toHaveBeenCalled();
-        });
+                it('빈 문자열 반환은 true로 간주', function() {
+                    component.on('beforeZoom', function() { return ''; });
 
-        it('invoke()되는 리스너들이 모두 truthy타입을 반환하면 true를 반환한다', function() {
-            component.off('beforeZoom', beforeZoomHandler);
+                    component.work();
 
-            component.on('beforeZoom', function() {
-                return true;
+                    expect(spy).toHaveBeenCalled();
+                });
+
+                it('undefined도 true로 간주', function() {
+                    component.on('beforeZoom', function() { return void 0; });
+
+                    component.work();
+
+                    expect(spy).toHaveBeenCalled();
+                });
+
+                it('null도 true로 간주', function() {
+                    component.on('beforeZoom', function() { return null; });
+
+                    component.work();
+
+                    expect(spy).toHaveBeenCalled();
+                });
             });
 
-            component.work();
+            describe('리스너의 실행결과를 AND연산하여 반환한다', function() {
+                beforeEach(function() {
+                    component.on('zoom', spy);
+                });
 
-            expect(spy).toHaveBeenCalled();
-        });
+                it('리스너 중 하나라도 명시적 false이면 false를 반환', function() {
+                    component.on('beforeZoom', function() { return true; });
+                    component.on('beforeZoom', function() { return false; });
+                    component.on('beforeZoom', function() { return null; });
+
+                    component.work();
+
+                    expect(spy).not.toHaveBeenCalled();
+                });
+
+                it('그렇지 않으면 true반환', function() {
+                    component.on('beforeZoom', function() { return true; });
+                    component.on('beforeZoom', function() { return void 0; });
+                    component.on('beforeZoom', function() { });
+
+                    component.work();
+
+                    expect(spy).toHaveBeenCalled();
+                });
+
+            });
+
+       });
 
     });
 
