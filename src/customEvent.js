@@ -211,7 +211,7 @@
          *
          * 이벤트를 취소할 수 있게 해 주는 기능에서 사용한다.
          * @param {string} type
-         * @param {object} data
+         * @param {*...} data
          * @returns {*}
          * @example
          * // 확대 기능을 지원하는 컴포넌트 내부 코드라 가정
@@ -233,14 +233,14 @@
          */
         invoke: function(type, data) {
             if (!this.hasListener(type)) {
-                return this;
+                return true;
             }
 
-            var event = ne.util.extend({}, data, {type: type, target: this}),
+            var args = Array.prototype.slice.call(arguments, 1),
                 events = this._events;
 
             if (!events) {
-                return;
+                return true;
             }
 
             var typeIndex = events[type + '_idx'],
@@ -251,12 +251,16 @@
                 listeners = events[type].slice();
 
                 ne.util.forEach(listeners, function(listener) {
-                    result = result && (listener.fn.call(this, event) !== false);
+                    if (listener.fn.apply(this, args) === false) {
+                        result = false;
+                    }
                 }, this);
             }
 
             ne.util.forEachOwnProperties(typeIndex, function(eventItem) {
-                result = result && (eventItem.fn.call(eventItem.ctx, event) !== false);
+                if (eventItem.fn.apply(eventItem.ctx, args) === false) {
+                    result = false;
+                }
             });
 
             return result;
@@ -276,7 +280,7 @@
          * });
          */
         fire: function(type, data) {
-            this.invoke(type, data);
+            this.invoke.apply(this, arguments);
             return this;
         },
 
@@ -327,8 +331,8 @@
             var that = this;
 
             if (ne.util.isObject(types)) {
-                ne.util.forEachOwnProperties(types, function(type) {
-                    this.once(type, types[type], fn);
+                ne.util.forEachOwnProperties(types, function(handler, type) {
+                    this.once(type, handler, fn);
                 }, this);
 
                 return;
