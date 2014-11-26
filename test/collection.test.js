@@ -182,4 +182,24 @@ describe('module:collection', function() {
         });
 
     });
+
+    describe('filter', function() {
+        it('배열을 순회하여, 콜백 실행 결과가 참인 새로울 배열을 만들어 리턴한다.', function() {
+            var result;
+
+            result = ne.util.filter(arrayDummy, function(value) {
+                return (value % 2) === 0;
+            });
+
+            expect(result).toEqual([0, 2, 4]);
+        });
+        it('객체를 순회하여 콜백 실행 결과가 참인 새로운 객체를 만들어 리턴한다.', function() {
+            var result;
+
+            result = ne.util.filter(objDummy, function(value) {
+                return (value % 2) === 0;
+            });
+            expect(result).toEqual({_0: 0, _2: 2, _4: 4});
+        });
+    });
 });

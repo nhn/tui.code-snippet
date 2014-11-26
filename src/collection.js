@@ -200,11 +200,55 @@
         return arr;
     }
 
+    /**
+     * 파라메터로 전달된 객체나 어레이를 순회하며 콜백을 실행한 리턴값이 참일 경우의 모음을 만들어서 리턴한다.
+     *
+     * @param {*} obj 순회할 객체나 배열
+     * @param {Function} iteratee 데이터가 전달될 콜백함수
+     * @param {*} [context] 콜백함수의 컨텍스트
+     * @returns {*}
+     * @example
+     * filter([0,1,2,3], function(value) {
+     *     return (value % 2 === 0);
+     * });
+     *
+     * => [0, 2];
+     * filter({a : 1, b: 2, c: 3}, function(value) {
+     *     return (value % 2 !== 0);
+     * });
+     *
+     * => {a: 1, c: 3};
+     */
+    var filter = function(obj, iteratee, context) {
+        var result = ne.util.isArray(obj) ? [] : {},
+            value,
+            key;
+
+        if (!ne.util.isObject(obj) || !ne.util.isFunction(iteratee)) {
+            throw new Error('wrong parameter');
+        }
+
+        ne.util.forEach(obj, function() {
+            if (iteratee.apply(context || null, arguments)) {
+                value = arguments[0];
+                key = arguments[1];
+                if (ne.util.isArray(obj)) {
+                    result.push(value);
+                } else {
+                    result[key] = value;
+                }
+            }
+        }, context);
+
+        return result;
+    };
+
     ne.util.forEachOwnProperties = forEachOwnProperties;
     ne.util.forEachArray = forEachArray;
     ne.util.forEach = forEach;
     ne.util.toArray = toArray;
     ne.util.map = map;
     ne.util.reduce = reduce;
+    ne.util.filter = filter;
 
 })(window.ne);
