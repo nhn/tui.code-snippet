@@ -42,6 +42,22 @@ describe('module:hashMap', function() {
         });
     });
 
+    describe('merge()', function() {
+        it('해쉬맵을 인자로 받아 병합한다.', function() {
+            var mergedHashMap = new ne.HashMap();
+
+            hashMap.setObject({
+                'dataKey': 'data',
+                'dataKey2': 'data'
+            });
+
+            mergedHashMap.merge(hashMap);
+
+            expect(mergedHashMap.get('dataKey')).toEqual('data');
+            expect(mergedHashMap.length).toEqual(2);
+        });
+    });
+
     describe('set()', function() {
         it('key와 value를 전달하여 데이터를 저장한다..', function() {
             hashMap.set('dataKey', 'data');

@@ -99,6 +99,18 @@
     };
 
     /**
+     * 해쉬맵을 인자로 받아 병합한다.
+     * @param {HashMap} hashMap
+     */
+    HashMap.prototype.merge = function(hashMap) {
+        var self = this;
+
+        hashMap.each(function(value, key) {
+            self.setKeyValue(key, value);
+        });
+    };
+
+    /**
      * 해쉬맵에서 사용할 키를 생성한다.
      * @param {String} key
      * @returns {string}
