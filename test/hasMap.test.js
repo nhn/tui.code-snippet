@@ -44,7 +44,7 @@ describe('module:hashMap', function() {
 
     describe('merge()', function() {
         it('해쉬맵을 인자로 받아 병합한다.', function() {
-            var mergedHashMap = new ne.HashMap();
+            var mergedHashMap = new ne.util.HashMap();
 
             hashMap.setObject({
                 'dataKey': 'data',
