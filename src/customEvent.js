@@ -63,7 +63,7 @@
         /**
          * 인스턴스에 등록했던 이벤트 핸들러를 해제할 수 있다.
          * @param {(object|string)=} types 등록 해지를 원하는 이벤트 객체 또는 타입명. 아무 인자도 전달하지 않으면 모든 이벤트를 해제한다.
-         * @param {Function=} fn
+         * @param {Function=} fn 삭제할 핸들러, 핸들러를 전달하지 않으면 types 해당 이벤트가 모두 삭제된다.
          * @param {*=} context
          * @example
          * // zoom 이벤트만 해제
@@ -160,7 +160,7 @@
         /**
          * 실제로 구독을 해제하는 메서드
          * @param {(object|string)=} type 등록 해지를 원하는 핸들러명
-         * @param {function} fn
+         * @param {function} [fn] 삭제할 핸들러
          * @param {*} context
          * @private
          */
