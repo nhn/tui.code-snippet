@@ -160,7 +160,7 @@
         /**
          * 실제로 구독을 해제하는 메서드
          * @param {(object|string)=} type 등록 해지를 원하는 핸들러명
-         * @param {function} [fn] 삭제할 핸들러
+         * @param {function} [fn]
          * @param {*} context
          * @private
          */
