@@ -186,16 +186,20 @@
                     events[indexLenKey] -= 1;
                 }
 
+            } else if(!fn) {
+                events[type] = null;
             } else {
                 listeners = events[type];
 
                 if (listeners) {
-                    ne.util.forEach(listeners, function(listener, index) {
-                        if (ne.util.isExisty(listener) && (listener.fn === fn)) {
-                            listeners.splice(index, 1);
-                            return true;
-                        }
-                    });
+                    if(fn){
+                        ne.util.forEach(listeners, function(listener, index) {
+                            if (ne.util.isExisty(listener) && (listener.fn === fn)) {
+                                listeners.splice(index, 1);
+                                return true;
+                            }
+                        });
+                    }
                 }
             }
         },

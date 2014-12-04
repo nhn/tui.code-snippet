@@ -83,6 +83,15 @@ describe('CustomEvents', function() {
                     expect(spy.growl).not.toHaveBeenCalled();
                 });
 
+                it('이벤트명만 넘기면 해당 이벤트를 모두 제거한다.', function() {
+                    lion.off('move');
+                    lion.fire('move');
+                    lion.fire('growl');
+
+                    expect(spy.move).not.toHaveBeenCalled();
+                    expect(spy.growl).toHaveBeenCalled();
+                });
+
                 it('type, handler를 넘겨 등록된 이벤트를 제거한다', function() {
                     lion.off('move', spy.move);
                     lion.fire('move');
