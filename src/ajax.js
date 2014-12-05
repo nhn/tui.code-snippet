@@ -73,7 +73,7 @@
             var isMatchedURL, isExistJSON;
             for (var x in this._ajaxRequestData) {
                 isMatchedURL = options.url === this._ajaxRequestData[x].url;
-                isExistJSON = $.compareJSON(this._ajaxRequestData[x].data, options.data);
+                isExistJSON = ne.util.$compareJSON(this._ajaxRequestData[x].data, options.data);
                 if (isMatchedURL && isExistJSON) {
                     return false;
                 }
