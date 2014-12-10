@@ -49,7 +49,6 @@
     ajax.request = function(api, options) {
         // Ajax 요청을 할 API 설정
         var url = api;
-
         if (url) {
             // 랜덤 아이디 생성
             var randomId = ajax.util._getRandomId();
@@ -70,10 +69,12 @@
             });
 
             // 중복된 요청일 경우 요청 중단
-            var isMatchedURL, isExistJSON;
-            for (var x in this._ajaxRequestData) {
+            var isMatchedURL,
+                isExistJSON,
+                x;
+            for (x in this._ajaxRequestData) {
                 isMatchedURL = options.url === this._ajaxRequestData[x].url;
-                isExistJSON = ne.util.$compareJSON(this._ajaxRequestData[x].data, options.data);
+                isExistJSON = ne.util.compareJSON(this._ajaxRequestData[x].data, options.data);
                 if (isMatchedURL && isExistJSON) {
                     return false;
                 }
@@ -130,13 +131,11 @@
      */
     ajax._onAjaxSuccess = function(requestKey, responseData, status, jqXHR) {
         var requestData = this._ajaxRequestData[requestKey];
-
         if (requestData) {
             var result = true;
             if (requestData['_success'] && $.isFunction(requestData['_success'])) {
                 result = requestData['_success'](responseData, status, jqXHR);
             }
-
             if (result !== false && responseData && responseData.data) {
                 if (responseData.data.message) {
                     alert(responseData.data.message);
