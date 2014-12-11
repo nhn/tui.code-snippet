@@ -202,4 +202,26 @@ describe('module:collection', function() {
             expect(result).toEqual({_0: 0, _2: 2, _4: 4});
         });
     });
+
+    describe('inArray', function() {
+       it('배열 내의 값을 찾아서 인덱스를 반환한다', function() {
+           var arr = ['java', 'javascript', 'c#', 'basic'];
+           var result;
+           result = ne.util.inArray('javascript', arr);
+           expect(result).toBe(1);
+
+           result = ne.util.inArray('php', arr);
+           expect(result).toBe(-1);
+
+           var arr2 = ['one', 'two', 'three', 'four'];
+           result = ne.util.inArray('one', arr2, 3);
+           expect(result).toBe(-1);
+
+           result = ne.util.inArray('one', arr2);
+           expect(result).toBe(0);
+
+           result = ne.util.inArray('four', arr2);
+           expect(result).toBe(3);
+       });
+    });
 });

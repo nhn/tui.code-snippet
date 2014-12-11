@@ -243,6 +243,52 @@
         return result;
     };
 
+    /**
+     * 배열 내의 값을 찾아서 인덱스를 반환한다. 찾고자 하는 값이 없으면 -1 반환.
+     * @param {*} value 배열 내에서 찾고자 하는 값
+     * @param {array} array 검색 대상 배열
+     * @param {number} fromIndex 검색이 시작될 배열 인덱스. 지정하지 않으면 기본은 0이고 전체 배열 검색.
+     *
+     * @return {number} targetValue가 발견된 array내에서의 index값
+     * @example
+     *
+     *   var arr = ['one', 'two', 'three', 'four'];
+     *   ne.util.inArray('one', arr, 3);
+     *      => return -1;
+     *
+     *   ne.util.inArray('one', arr);
+     *      => return 0
+     */
+    var inArray = function(value, array, fromIndex) {
+        if (!array) {
+            return -1;
+        }
+
+        var i,
+            index,
+            arrLen = array.length;
+
+        //fromIndex를 지정하되 array 길이보다 같거나 큰 숫자로 지정하면 오류이므로 -1을 리턴한다.
+        if (fromIndex && (fromIndex >= arrLen)) {
+            return -1;
+        }
+        if (ne.util.isUndefined(fromIndex)) {
+            fromIndex = 0;
+        }
+
+        //fromIndex값을 참고하여 배열을 순회할 시작index를 정한다.
+        index = (fromIndex > -1) ? fromIndex : 0;
+
+        //array에서 value 탐색하여 index반환
+        for (i = index; i < arrLen; i++) {
+            if (array[i] === value) {
+                return i;
+            }
+        }
+
+        return -1;
+    };
+
     ne.util.forEachOwnProperties = forEachOwnProperties;
     ne.util.forEachArray = forEachArray;
     ne.util.forEach = forEach;
@@ -250,5 +296,6 @@
     ne.util.map = map;
     ne.util.reduce = reduce;
     ne.util.filter = filter;
+    ne.util.inArray = inArray;
 
 })(window.ne);
