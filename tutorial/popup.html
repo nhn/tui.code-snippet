@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+
+</head>
+<body>
+<input id="open" type="button" value="팝업열기" />
+<input id="open2" type="button" value="팝업열기2" />
+
+<script src="../src/browser.js"></script>
+<script src="../src/type.js"></script>
+<script src="../src/object.js"></script>
+<script src="../src/collection.js"></script>
+<script src="../src/func.js"></script>
+<script src="../src/window.js"></script>
+<script>
+    (function() {
+
+        var openBtn = document.getElementById('open');
+        openBtn.addEventListener('click',  function() {
+            var pop = ne.util.popup;
+
+            pop.openPopup('http://10.77.34.123:3000/', {
+                popupName: 'test',
+                popupOptionStr: 'width=450,height=350',
+                method: 'POST',
+                postDataBridgeUrl: 'postDataBridge.html',
+                param: {
+                    'name': 'good'
+                }
+            });
+        });
+
+        var openBtn2 = document.getElementById('open2');
+        openBtn2.onclick = function() {
+            var pop = ne.util.popup;
+
+            pop.openPopup('http://10.77.34.123:3000/', {
+                popupName: 'test2',
+                popupOptionStr: 'width=450,height=350,left=50,top=50',
+                closeWithParent: false,
+                useReload: true
+            });
+        };
+
+
+    })();
+</script>
+</body>
+</html>
