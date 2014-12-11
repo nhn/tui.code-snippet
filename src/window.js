@@ -114,7 +114,7 @@
      */
     Popup.prototype.openPopup = function(url, options) {
         options = ne.util.extend({
-            popupName: 'popup_' + popup_id,
+            popupName: 'popup_' + popup_id + '_' + (+new Date()),
             popupOptionStr: '', // 팝업 옵션
             useReload: true, // 팝업이 열린 상태에서 다시 열려고 할 때 새로고침 하는지 여부
             closeWithParent: true, // 부모창 닫힐때 팝업 닫기 여부
@@ -285,8 +285,6 @@
     /**********
      * private methods
      **********/
-
-
 
     /**
      * 객체를 쿼리스트링 형태로 변환
