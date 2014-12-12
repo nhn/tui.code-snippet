@@ -75,18 +75,42 @@
     };
 
 
+    /**
+     *
+     * 여러개의 json객체들을 대상으로 그것들이 동일한지 비교하여 리턴한다.
+     * (출처) http://stackoverflow.com/questions/1068834/object-comparison-in-javascript
+     *
+     * @return {boolean} 파라미터로 전달받은 json객체들의 동일 여부
+     * @example
+     *
+       var jsonObj1 = {name:'milk', price: 1000},
+           jsonObj2 = {name:'milk', price: 1000},
+           jsonObj3 = {name:'milk', price: 1000}
+
+       ne.util.compareJSON(jsonObj1, jsonObj2, jsonObj3);
+           => return true
+
+       var jsonObj4 = {name:'milk', price: 1000},
+           jsonObj5 = {name:'beer', price: 3000}
+
+       ne.util.compareJSON(jsonObj4, jsonObj5);
+          => return false
+     */
     function compareJSON() {
         var leftChain,
             rightChain,
-            l = arguments.length,
+            argsLen = arguments.length,
             i;
 
-        function compare2Objects (x, y) {
+        function isSameObject(x, y) {
             var p;
 
             // remember that NaN === NaN returns false
             // and isNaN(undefined) returns true
-            if (isNaN(x) && isNaN(y) && typeof x === 'number' && typeof y === 'number') {
+            if (isNaN(x) &&
+                isNaN(y) &&
+                ne.util.isNumber(x) &&
+                ne.util.isNumber(y)) {
                 return true;
             }
 
@@ -100,7 +124,7 @@
             // Works in case when functions are created in constructor.
             // Comparing dates is a common scenario. Another built-ins?
             // We can even handle functions passed across iframes
-            if ((typeof x === 'function' && typeof y === 'function') ||
+            if ((ne.util.isFunction(x) && ne.util.isFunction(y)) ||
                 (x instanceof Date && y instanceof Date) ||
                 (x instanceof RegExp && y instanceof RegExp) ||
                 (x instanceof String && y instanceof String) ||
@@ -113,20 +137,16 @@
                 return false;
             }
 
-            if (x.isPrototypeOf(y) || y.isPrototypeOf(x)) {
-                return false;
-            }
-
-            if (x.constructor !== y.constructor) {
-                return false;
-            }
-
-            if (x.prototype !== y.prototype) {
+            if (x.isPrototypeOf(y) ||
+                y.isPrototypeOf(x) ||
+                x.constructor !== y.constructor ||
+                x.prototype !== y.prototype) {
                 return false;
             }
 
             // check for infinitive linking loops
-            if ($.inArray(x, leftChain) > -1 || $.inArray(y, rightChain) > -1) {
+            if (ne.util.inArray(x, leftChain) > -1 ||
+                ne.util.inArray(y, rightChain) > -1) {
                 return false;
             }
 
@@ -140,6 +160,8 @@
                 }
             }
 
+            //인풋 데이터 x의 오브젝트 키값으로 값을 순회하면서
+            //hasOwnProperty, typeof 체크를 해서 비교하고 x[prop]값과 y[prop] 가 같은 객체인지 판별한다.
             for (p in x) {
                 if (y.hasOwnProperty(p) !== x.hasOwnProperty(p)) {
                     return false;
@@ -148,39 +170,33 @@
                     return false;
                 }
 
-                switch (typeof (x[p])) {
-                    case 'object':
-                    case 'function':
-                        leftChain.push(x);
-                        rightChain.push(y);
+                if (typeof(x[p]) === 'object' || typeof(x[p]) === 'function') {
+                    leftChain.push(x);
+                    rightChain.push(y);
 
-                        if (!compare2Objects (x[p], y[p])) {
-                            return false;
-                        }
+                    if (!isSameObject(x[p], y[p])) {
+                        return false;
+                    }
 
-                        leftChain.pop();
-                        rightChain.pop();
-                        break;
-                    default:
-                        if (x[p] !== y[p]) {
-                            return false;
-                        }
-                        break;
+                    leftChain.pop();
+                    rightChain.pop();
+                } else if (x[p] !== y[p]) {
+                    return false;
                 }
             }
 
             return true;
         }
 
-        if (l < 1) {
+        if (argsLen < 1) {
             return true;
         }
 
-        for (i = 1; i < l; i++) {
+        for (i = 1; i < argsLen; i++) {
             leftChain = [];
             rightChain = [];
 
-            if (!compare2Objects(arguments[0], arguments[i])) {
+            if (!isSameObject(arguments[0], arguments[i])) {
                 return false;
             }
         }
