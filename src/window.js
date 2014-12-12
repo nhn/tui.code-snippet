@@ -44,21 +44,6 @@
     }
 
     /**********
-     * static props
-     **********/
-
-    /**
-     * 팝업의 최대, 최소 크기
-     * @type {{MAX_WIDTH: number, MIN_WIDTH: number, MAX_HEIGHT: number, MIN_HEIGHT: number}}
-     */
-    Popup.LIMIT_SIZE = {
-        MAX_WIDTH: window.screen.availWidth - 100,
-        MIN_WIDTH: 240,
-        MAX_HEIGHT: window.screen.availHeight - 100,
-        MIN_HEIGHT: 200
-    };
-
-    /**********
      * public methods
      **********/
 
@@ -103,7 +88,7 @@
      *     부를 묻는 메시지가 출력될 수 있습니다.
      *
      *     @param {string} [options.postDataBridgeUrl='']
-     *     IE11 에서 POST로 팝업에 데이터를 전송할 때 팝업이 아닌 새 탭으로 열리는 버그를 우회하기 위한 페이지를 별도로 구현해 설정해야 한다.
+     *     IE11 에서 POST로 팝업에 데이터를 전송할 때 팝업이 아닌 새 탭으로 열리는 버그를 우회하기 위한 페이지의 url을 입력합니다.
      *     참고: http://wiki.nhnent.com/pages/viewpage.action?pageId=240562844
      *
      *     @param {String} [options.method=get]
@@ -143,7 +128,6 @@
                 url = url + (/\?/.test(url) ? '&' : '?') + this._parameterize(options.param);
             } else if (options.method === 'POST') {
                 if (!useIEPostBridge) {
-                    //TODO: 폼 생성 스크립트
                     formElement = this.createForm(url, options.param, null, options.method, options.popupName);
                     url = 'about:blank';
                 }
@@ -184,8 +168,7 @@
             }
         }
 
-        //TODO: 이벤트 바인딩
-        window.addEventListener('unload', ne.util.bind(this.closeAllPopup, this));
+        window.onunload = ne.util.bind(this.closeAllPopup, this);
     };
 
     /**
@@ -199,7 +182,7 @@
         var target = popup || window;
 
         if (skipBeforeUnload) {
-            $(target).off('beforeunload');
+            window.onunload = null;
         }
 
         if (!target.closed) {
