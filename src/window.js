@@ -128,7 +128,7 @@
                 url = url + (/\?/.test(url) ? '&' : '?') + this._parameterize(options.param);
             } else if (options.method === 'POST') {
                 if (!useIEPostBridge) {
-                    formElement = this.createForm(url, options.param, null, options.method, options.popupName);
+                    formElement = this.createForm(url, options.param, options.method, options.popupName);
                     url = 'about:blank';
                 }
             }
