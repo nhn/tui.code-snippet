@@ -22,6 +22,10 @@
                 postData = JSON.parse(localStorage.getItem(storageKey)),
                 key;
 
+            if (!ne.util.isExisty(postData)) {
+                window.location.history.back();
+            }
+
             // 폼을 만들고 데이터를 구성하여 전송합니다.
             formElement = ne.util.popup.createForm(redirectUrl, postData, 'POST');
 
