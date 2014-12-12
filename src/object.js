@@ -80,6 +80,7 @@
      * 여러개의 json객체들을 대상으로 그것들이 동일한지 비교하여 리턴한다.
      * (출처) http://stackoverflow.com/questions/1068834/object-comparison-in-javascript
      *
+     * @param {...object} object 비교할 객체 목록
      * @return {boolean} 파라미터로 전달받은 json객체들의 동일 여부
      * @example
      *
@@ -96,7 +97,7 @@
        ne.util.compareJSON(jsonObj4, jsonObj5);
           => return false
      */
-    function compareJSON() {
+    function compareJSON(object) {
         var leftChain,
             rightChain,
             argsLen = arguments.length,

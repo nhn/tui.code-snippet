@@ -209,19 +209,34 @@ describe('module:collection', function() {
            var result;
            result = ne.util.inArray('javascript', arr);
            expect(result).toBe(1);
-
+       });
+       it('배열내에 없는 값을 찾으려고 하면 -1을 반환한다.', function() {
+           var arr = ['java', 'javascript', 'c#', 'basic'];
+           var result;
            result = ne.util.inArray('php', arr);
            expect(result).toBe(-1);
+       });
+       it('배열내에서 찾고자 하는 값과 fromIndex의 범위가 맞지 않으면 -1을 반환한다.', function() {
+           var arr = ['one', 'two', 'three', 'four'];
+           var result;
 
-           var arr2 = ['one', 'two', 'three', 'four'];
-           result = ne.util.inArray('one', arr2, 3);
+           //'one' 이라는 값을 3번째 인덱스에서부터 찾음
+           result = ne.util.inArray('one', arr, 3);
            expect(result).toBe(-1);
+       });
+       it('array가 아닌 다른 객체를 넘기면 -1을 반환한다.', function() {
+           var dummyObj = {};
+           var result;
 
-           result = ne.util.inArray('one', arr2);
-           expect(result).toBe(0);
+           result = ne.util.inArray('four', dummyObj);
+           expect(result).toBe(-1);
+       });
+       it('fromIndex의 범위가 초과하면 -1을 리턴한다', function() {
+           var arr = ['one', 'two', 'three', 'four'];
+           var result;
 
-           result = ne.util.inArray('four', arr2);
-           expect(result).toBe(3);
+           result = ne.util.inArray('two', arr, 10);
+           expect(result).toBe(-1);
        });
     });
 });

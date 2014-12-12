@@ -260,8 +260,12 @@
      *      => return 0
      */
     var inArray = function(value, array, fromIndex) {
-        if (!array) {
+        if (!ne.util.isArray(array)) {
             return -1;
+        }
+
+        if (Array.prototype.indexOf) {
+            return Array.prototype.indexOf.call(array, value, fromIndex);
         }
 
         var i,
@@ -269,11 +273,10 @@
             arrLen = array.length;
 
         //fromIndex를 지정하되 array 길이보다 같거나 큰 숫자로 지정하면 오류이므로 -1을 리턴한다.
-        if (fromIndex && (fromIndex >= arrLen)) {
-            return -1;
-        }
         if (ne.util.isUndefined(fromIndex)) {
             fromIndex = 0;
+        } else if (fromIndex >= arrLen) {
+            return -1;
         }
 
         //fromIndex값을 참고하여 배열을 순회할 시작index를 정한다.
