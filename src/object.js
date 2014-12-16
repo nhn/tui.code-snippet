@@ -74,9 +74,140 @@
         return keys;
     };
 
+
+    /**
+     *
+     * 여러개의 json객체들을 대상으로 그것들이 동일한지 비교하여 리턴한다.
+     * (출처) http://stackoverflow.com/questions/1068834/object-comparison-in-javascript
+     *
+     * @param {...object} object 비교할 객체 목록
+     * @return {boolean} 파라미터로 전달받은 json객체들의 동일 여부
+     * @example
+     *
+       var jsonObj1 = {name:'milk', price: 1000},
+           jsonObj2 = {name:'milk', price: 1000},
+           jsonObj3 = {name:'milk', price: 1000}
+
+       ne.util.compareJSON(jsonObj1, jsonObj2, jsonObj3);
+           => return true
+
+       var jsonObj4 = {name:'milk', price: 1000},
+           jsonObj5 = {name:'beer', price: 3000}
+
+       ne.util.compareJSON(jsonObj4, jsonObj5);
+          => return false
+     */
+    function compareJSON(object) {
+        var leftChain,
+            rightChain,
+            argsLen = arguments.length,
+            i;
+
+        function isSameObject(x, y) {
+            var p;
+
+            // remember that NaN === NaN returns false
+            // and isNaN(undefined) returns true
+            if (isNaN(x) &&
+                isNaN(y) &&
+                ne.util.isNumber(x) &&
+                ne.util.isNumber(y)) {
+                return true;
+            }
+
+            // Compare primitives and functions.
+            // Check if both arguments link to the same object.
+            // Especially useful on step when comparing prototypes
+            if (x === y) {
+                return true;
+            }
+
+            // Works in case when functions are created in constructor.
+            // Comparing dates is a common scenario. Another built-ins?
+            // We can even handle functions passed across iframes
+            if ((ne.util.isFunction(x) && ne.util.isFunction(y)) ||
+                (x instanceof Date && y instanceof Date) ||
+                (x instanceof RegExp && y instanceof RegExp) ||
+                (x instanceof String && y instanceof String) ||
+                (x instanceof Number && y instanceof Number)) {
+                return x.toString() === y.toString();
+            }
+
+            // At last checking prototypes as good a we can
+            if (!(x instanceof Object && y instanceof Object)) {
+                return false;
+            }
+
+            if (x.isPrototypeOf(y) ||
+                y.isPrototypeOf(x) ||
+                x.constructor !== y.constructor ||
+                x.prototype !== y.prototype) {
+                return false;
+            }
+
+            // check for infinitive linking loops
+            if (ne.util.inArray(x, leftChain) > -1 ||
+                ne.util.inArray(y, rightChain) > -1) {
+                return false;
+            }
+
+            // Quick checking of one object beeing a subset of another.
+            for (p in y) {
+                if (y.hasOwnProperty(p) !== x.hasOwnProperty(p)) {
+                    return false;
+                }
+                else if (typeof y[p] !== typeof x[p]) {
+                    return false;
+                }
+            }
+
+            //인풋 데이터 x의 오브젝트 키값으로 값을 순회하면서
+            //hasOwnProperty, typeof 체크를 해서 비교하고 x[prop]값과 y[prop] 가 같은 객체인지 판별한다.
+            for (p in x) {
+                if (y.hasOwnProperty(p) !== x.hasOwnProperty(p)) {
+                    return false;
+                }
+                else if (typeof y[p] !== typeof x[p]) {
+                    return false;
+                }
+
+                if (typeof(x[p]) === 'object' || typeof(x[p]) === 'function') {
+                    leftChain.push(x);
+                    rightChain.push(y);
+
+                    if (!isSameObject(x[p], y[p])) {
+                        return false;
+                    }
+
+                    leftChain.pop();
+                    rightChain.pop();
+                } else if (x[p] !== y[p]) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        if (argsLen < 1) {
+            return true;
+        }
+
+        for (i = 1; i < argsLen; i++) {
+            leftChain = [];
+            rightChain = [];
+
+            if (!isSameObject(arguments[0], arguments[i])) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     ne.util.extend = extend;
     ne.util.stamp = stamp;
     ne.util._resetLastId = resetLastId;
     ne.util.keys = Object.keys || keys;
-
+    ne.util.compareJSON = compareJSON;
 })(window.ne);
