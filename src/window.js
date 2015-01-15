@@ -254,9 +254,9 @@
 
         ne.util.forEachOwnProperties(data, function(value, key) {
             input = document.createElement('input');
-            input.name = encodeURIComponent(key);
+            input.name = key;
             input.type = 'hidden';
-            input.value = encodeURIComponent(value);
+            input.value = value;
             form.appendChild(input);
         });
 
@@ -300,7 +300,7 @@
 
         if (useIEPostBridge) {
             url = this.postDataBridgeUrl + '?storageKey=' + encodeURIComponent(popupName) +
-                '&redirectUrl=' + encodeURIComponent(url);
+            '&redirectUrl=' + encodeURIComponent(url);
             if (!window.localStorage) {
                 alert('IE11브라우저의 문제로 인해 이 기능은 브라우저의 LocalStorage 기능을 활성화 하셔야 이용하실 수 있습니다');
             } else {
