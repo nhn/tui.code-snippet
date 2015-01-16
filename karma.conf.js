@@ -59,8 +59,22 @@ module.exports = function(config) {
     },
 
     coverageReporter: {
-      type: 'html',
-      dir: 'report/coverage/'
+      dir : 'report/coverage/',
+      reporters: [
+        {
+          type: 'html',
+          subdir: function(browser) {
+            return 'report-html/' + browser;
+          }
+        },
+        {
+          type: 'cobertura',
+          subdir: function(browser) {
+            return 'report-cobertura/' + browser;
+          },
+          file: 'cobertura.txt'
+        }
+      ]
     },
 
     // web server port

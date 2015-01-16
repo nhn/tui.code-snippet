@@ -267,5 +267,22 @@ describe('module:hashMap', function() {
             expect(dataByKey).toEqual(['data1']);
         });
     });
+    
+    describe('toArray()', function() {
+        var obj = {};
+        beforeEach(function() {
+            hashMap.set('key1', 'good');
+            hashMap.set('key2', obj);
+        });
+
+        it('내부의 값들을 순서에 상관없이 배열로 반환한다', function() {
+            var arr = hashMap.toArray();
+
+            expect(arr.length).toBe(2);
+            expect(arr[0]).toBe('good');
+            expect(arr[1]).toBe(obj);
+            expect(arr[3]).toBeUndefined();
+        });
+    });
 });
 
