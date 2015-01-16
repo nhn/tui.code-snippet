@@ -328,6 +328,20 @@
         return founds;
     };
 
+    /**
+     * 내부의 값들을 순서에 상관없이 배열로 반환한다
+     * @returns {Array}
+     */
+    HashMap.prototype.toArray = function() {
+        var result = [];
+
+        this.each(function(v, i) {
+            result.push(v);
+        });
+
+        return result;
+    };
+
     ne.util.HashMap = HashMap;
 
 })(window.ne);
