@@ -4,6 +4,14 @@ module.exports = function(grunt) {
 	grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         concat: {
+            options: {
+                stripBanner: true,
+                process: function(str, filepath) {
+                    var filename = filepath.split('/');
+                    filename = filename[filename.length - 1];
+                    return '/**********\n * ' + filename + '\n **********/' + '\n\n' + str;
+                }
+            },
             dist: {
                 src: ['src/*.js'],
                 dest: 'dist/code-snippet.js'
