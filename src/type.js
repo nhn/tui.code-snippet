@@ -107,7 +107,7 @@
      */
     function isArguments(obj) {
         var result = isExisty(obj) &&
-            ((toString.call(obj) === '[object Arguments]') || 'callee' in obj);
+            ((toString.call(obj) === '[object Arguments]') || !!obj.callee);
 
         return result;
     }
@@ -198,6 +198,10 @@
             hasKey = false;
 
         if (!isExisty(obj)) {
+            return true;
+        }
+
+        if (isString(obj) && obj === '') {
             return true;
         }
 
