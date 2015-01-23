@@ -43,8 +43,8 @@
         appName = nav.appName.replace(/\s/g, '_'),
         userAgent = nav.userAgent;
 
-    var rIE = new RegExp('MSIE ([0-9]{1,}[\.0-9]{0,})'),
-        rIE11 = /Trident.*rv\:11\./,
+    var rIE = /MSIE\s([0-9]+[.0-9]*)/,
+        rIE11 = /Trident.*rv:11\./,
         versionRegex = {
             'firefox': /Firefox\/(\d+)\./,
             'chrome': /Chrome\/(\d+)\./,
