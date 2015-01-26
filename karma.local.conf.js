@@ -19,8 +19,7 @@ module.exports = function(config) {
             'node_modules/jasmine-jquery/lib/jasmine-jquery.js',
             {pattern: 'test/fixtures/*.html', included: false},
             'src/*.js',
-            //'test/**/*.test.js'
-            'test/**/customEvents2.test.js'
+            'test/**/*.test.js'
         ],
 
 
