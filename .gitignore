@@ -53,3 +53,4 @@ doc
 demo
 report
 dist
+karma.conf.local.js
