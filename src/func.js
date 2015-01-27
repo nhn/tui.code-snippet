@@ -9,6 +9,9 @@
     if (!ne) {
         ne = window.ne = {};
     }
+    if (!ne.util) {
+        ne.util = window.ne.util = {};
+    }
 
     /**
      * 커링 메서드
@@ -33,6 +36,6 @@
         };
     }
 
-    ne.bind = bind;
+    ne.util.bind = bind;
 
 })(window.ne);

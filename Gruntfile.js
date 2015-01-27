@@ -5,11 +5,11 @@ module.exports = function(grunt) {
         pkg: grunt.file.readJSON('package.json'),
         concat: {
             options: {
-                banner: 'if (!window.ne) { window.ne = {}; }\nif (!window.ne.util) { window.ne.util = {}; }\n',
-                process: function(src) {
-                    var namespaceStr = '    if (!ne) {\n        ne = window.ne = {};\n    }',
-                        paramStr = '})(window.ne);';
-                    return src.replace(namespaceStr, '').replace(paramStr, '})(window.ne.util);');
+                stripBanner: true,
+                process: function(str, filepath) {
+                    var filename = filepath.split('/');
+                    filename = filename[filename.length - 1];
+                    return '/**********\n * ' + filename + '\n **********/' + '\n\n' + str;
                 }
             },
             dist: {

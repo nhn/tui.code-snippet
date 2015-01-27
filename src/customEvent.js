@@ -1,6 +1,7 @@
 /**
- * @fileoverview
+ * @fileoverview 옵저버 패턴을 이용하여 객체 간 커스텀 이벤트를 전달할 수 있는 기능을 제공하는 모듈
  * @author FE개발팀
+ * @dependency type.js, collection.js object.js
  */
 
 (function(ne) {
@@ -9,40 +10,104 @@
     if (!ne) {
         ne = window.ne = {};
     }
+    if (!ne.util) {
+        ne.util = window.ne.util = {};
+    }
 
     /**
-     * 커스텀 이벤트를 위한 메서드 믹스인.
-     *
-     * extend 메서드를 사용하여 
-     * @exports CustomEvent
-     * @mixin
+     * 이벤트 핸들러에 저장되는 단위
+     * @typedef {object} eventItem
+     * @property {object.<string, object>} eventObject
+     * @property {function()} eventObject.fn 이벤트 핸들러 함수
+     * @property {*} [eventObject.ctx] 이벤트 핸들러 실행 시 컨텍스트 지정가능
      */
-    var CustomEvent = {
+
+
+    /**
+     * 커스텀 이벤트 클래스
+     * @constructor
+     * @exports CustomEvents
+     * @class
+     */
+    function CustomEvents() {
+
+        /**
+         * 이벤트 핸들러를 저장하는 객체
+         * @type {object.<string, eventItem>}
+         * @private
+         */
+        this._events = {};
+    }
+
+    var CustomEventMethod = /** @lends CustomEvents */ {
         /**
          * 인스턴스가 발생하는 이벤트에 핸들러를 등록하는 메서드
+         * @param {(object|String)} types - 이벤트 타입 (타입과 함수 쌍으로 된 객체를 전달할 수도 있고 타입만
+         * 전달할 수 있다. 후자의 경우 두 번째 인자에 핸들러를 전달해야 한다.)
+         * @param {function()=} fn - 이벤트 핸들러 목록
+         * @param {*=} context
+         * @example
+         * // 첫 번째 인자에 이벤트명:핸들러 데이터 객체를 넘긴 경우
+         * instance.on({
+         *     zoom: function() {},
+         *     pan: function() {}
+         * }, this);
+         *
+         * // 여러 이벤트를 한 핸들러로 처리할 수 있도록 함
+         * instance.on('zoom pan', function() {});
+         */
+        on: function(types, fn, context) {
+            this._toggle(true, types, fn, context);
+        },
+
+        /**
+         * 인스턴스에 등록했던 이벤트 핸들러를 해제할 수 있다.
+         * @param {(object|string)=} types 등록 해지를 원하는 이벤트 객체 또는 타입명. 아무 인자도 전달하지 않으면 모든 이벤트를 해제한다.
+         * @param {Function=} fn 삭제할 핸들러, 핸들러를 전달하지 않으면 types 해당 이벤트가 모두 삭제된다.
+         * @param {*=} context
+         * @example
+         * // zoom 이벤트만 해제
+         * instance.off('zoom', onZoom);
+         *
+         * // pan 이벤트 해제 (이벤트 바인딩 시에 context를 넘겼으면 그대로 넘겨주어야 한다)
+         * instance.off('pan', onPan, this);
+         *
+         * // 인스턴스 내 모든 이벤트 해제
+         * instance.off();
+         */
+        off: function(types, fn, context) {
+            if (!ne.util.isExisty(types)) {
+                this._events = null;
+                return;
+            }
+
+            this._toggle(false, types, fn, context);
+        },
+
+        /**
+         * on, off 메서드의 중복 코드를 줄이기 위해 만든 on토글 메서드
+         * @param {boolean} isOn
          * @param {(Object|String)} types - 이벤트 타입 (타입과 함수 쌍으로 된 객체를 전달할 수도 있고 타입만
          * 전달할 수 있다. 후자의 경우 두 번째 인자에 핸들러를 전달해야 한다.)
          * @param {function()=} fn - 이벤트 핸들러 목록
          * @param {*=} context
+         * @private
          */
-        on: function(types, fn, context) {
-            var type, i, len;
+        _toggle: function(isOn, types, fn, context) {
+            var methodName = isOn ? '_on' : '_off',
+                method = this[methodName];
 
-            if (typeof types === 'object') {
-                for (type in types) {
-                    if (types.hasOwnProperty(type)) {
-                        this._on(type, types[type], fn);
-                    }
-                }
+            if (ne.util.isObject(types)) {
+                ne.util.forEachOwnProperties(types, function(handler, type) {
+                    method.call(this, type, handler, fn);
+                }, this);
             } else {
                 types = types.split(' ');
 
-                for (i = 0, len = types.length; i < len; i++) {
-                    this._on(types[i], fn, context);
-                }
+                ne.util.forEach(types, function(type) {
+                    method.call(this, type, fn, context);
+                }, this);
             }
-
-            return this;
         },
 
         /**
@@ -55,7 +120,7 @@
          * 핸들러가 이미 this바인딩이 되어 있고 핸들러를 사용하는 object가 같은 종류가 동시다발적으로 생성/삭제되는 경우에는 context인자를
          * 전달하여 해시의 빠른 접근 속도를 이용하는 것이 좋다.
          *
-         * @param {(Object.<String, Function()>|String)} type - 이벤트 타입 (타입과 함수 쌍으로 된 객체를 전달할 수도 있고 타입만
+         * @param {(object.<string, function()>|string)} type - 이벤트 타입 (타입과 함수 쌍으로 된 객체를 전달할 수도 있고 타입만
          * 전달할 수 있다. 후자의 경우 두 번째 인자에 핸들러를 전달해야 한다.)
          * @param {function()} fn - 이벤트 핸들러
          * @param {*=} context
@@ -63,7 +128,7 @@
          */
         _on: function(type, fn, context) {
             var events = this._events = this._events || {},
-                contextId = context && context !== this && ne.stamp(context);
+                contextId = context && (context !== this) && ne.util.stamp(context);
 
             if (contextId) {
                 /*
@@ -74,7 +139,7 @@
                 var indexKey = type + '_idx',
                     indexLenKey = type + '_len',
                     typeIndex = events[indexKey] = events[indexKey] || {},
-                    id = ne.stamp(fn) + '_' + contextId; // 핸들러의 id + context의 id
+                    id = ne.util.stamp(fn) + '_' + contextId; // 핸들러의 id + context의 id
 
                 if (!typeIndex[id]) {
                     typeIndex[id] = {
@@ -93,37 +158,9 @@
         },
 
         /**
-         * 인스턴스에 등록했던 이벤트 핸들러를 해제할 수 있다.
-         * @param {(Object|string)=} types 등록 해지를 원하는 이벤트 객체 또는 타입명. 아무 인자도 전달하지 않으면 모든 이벤트를 해제한다.
-         * @param {Function=} fn
-         * @param {*=} context
-         */
-        off: function(types, fn, context) {
-            var type, i, len;
-
-            if (!types) {
-                this._events = null;
-            } else if (typeof types === 'object') {
-                for (type in types) {
-                    if (types.hasOwnProperty(type)) {
-                        this._off(type, types[type], fn);
-                    }
-                }
-            } else {
-                types = types.split(' ');
-
-                for (i = 0, len = types.length; i < len; i++) {
-                    this._off(types[i], fn, context);
-                }
-            }
-
-            return this;
-        },
-
-        /**
          * 실제로 구독을 해제하는 메서드
-         * @param {(Object|string)=} type 등록 해지를 원하는 핸들러명
-         * @param {Function} fn
+         * @param {(object|string)=} type 등록 해지를 원하는 핸들러명
+         * @param {function} [fn]
          * @param {*} context
          * @private
          */
@@ -132,106 +169,177 @@
                 indexKey = type + '_idx',
                 indexLenKey = type + '_len';
 
-            /* istanbul ignore if */
             if (!events) {
                 return;
             }
 
-            var contextId = context && context !== this && ne.stamp(context),
-                listeners, i, len, id;
+            var contextId = context && (context !== this) && ne.util.stamp(context),
+                listeners,
+                id;
 
             if (contextId) {
-                id = ne.stamp(fn) + '_' + contextId;
+                id = ne.util.stamp(fn) + '_' + contextId;
                 listeners = events[indexKey];
 
                 if (listeners && listeners[id]) {
                     listeners[id] = null;
-                    events[indexLenKey]--;
+                    events[indexLenKey] -= 1;
                 }
 
+            } else if(!fn) {
+                events[type] = null;
             } else {
                 listeners = events[type];
 
                 if (listeners) {
-                    for (i = 0, len = listeners.length; i < len; i++) {
-                        if (listeners[i] && listeners[i].fn === fn) {
-                            listeners.splice(i, 1);
-                            break;
-                        }
+                    if(fn){
+                        ne.util.forEach(listeners, function(listener, index) {
+                            if (ne.util.isExisty(listener) && (listener.fn === fn)) {
+                                listeners.splice(index, 1);
+                                return true;
+                            }
+                        });
                     }
-
                 }
             }
-
         },
 
         /**
          * 이벤트를 발생시키는 메서드
-         * @param {String} type 이벤트 타입명
-         * @param {(Object|String)=} data 발생과 함께 전달할 이벤트 데이터
-         * @return {*}
+         *
+         * 등록한 리스너들의 실행 결과를 boolean AND 연산하여
+         *
+         * 반환한다는 점에서 {@link CustomEvents#fire} 와 차이가 있다
+         *
+         * 보통 컴포넌트 레벨에서 before 이벤트로 사용자에게
+         *
+         * 이벤트를 취소할 수 있게 해 주는 기능에서 사용한다.
+         * @param {string} type
+         * @param {*...} data
+         * @returns {*}
+         * @example
+         * // 확대 기능을 지원하는 컴포넌트 내부 코드라 가정
+         * if (this.invoke('beforeZoom')) {    // 사용자가 등록한 리스너 결과 체크
+         *     // 리스너의 실행결과가 true 일 경우
+         *     // doSomething
+         * }
+         *
+         * //
+         * // 아래는 사용자의 서비스 코드
+         * map.on({
+         *     'beforeZoom': function() {
+         *         if (that.disabled && this.getState()) {    //서비스 페이지에서 어떤 조건에 의해 이벤트를 취소해야한다
+         *             return false;
+         *         }
+         *         return true;
+         *     }
+         * });
          */
-        fire: function(type, data) {
+        invoke: function(type, data) {
             if (!this.hasListener(type)) {
-                return this;
+                return true;
             }
 
-            var event = ne.extend({}, data, {type: type, target: this}),
+            var args = Array.prototype.slice.call(arguments, 1),
                 events = this._events;
 
-            /* istanbul ignore if */
             if (!events) {
-                return;
+                return true;
             }
 
             var typeIndex = events[type + '_idx'],
-                i, len, listeners, id;
+                listeners,
+                result = true;
 
             if (events[type]) {
                 listeners = events[type].slice();
 
-                for (i = 0, len = listeners.length; i < len; i++) {
-                    listeners[i].fn.call(this, event);
-                }
+                ne.util.forEach(listeners, function(listener) {
+                    if (listener.fn.apply(this, args) === false) {
+                        result = false;
+                    }
+                }, this);
             }
 
-            for (id in typeIndex) {
-                if (typeIndex.hasOwnProperty(id)) {
-                    typeIndex[id].fn.call(typeIndex[id].ctx, event);
+            ne.util.forEachOwnProperties(typeIndex, function(eventItem) {
+                if (eventItem.fn.apply(eventItem.ctx, args) === false) {
+                    result = false;
                 }
-            }
+            });
 
+            return result;
+        },
+
+        /**
+         * 이벤트를 발생시키는 메서드
+         * @param {string} type 이벤트 타입명
+         * @param {(object|string)=} data 발생과 함께 전달할 이벤트 데이터
+         * @return {*}
+         * @example
+         * instance.fire('move', { direction: 'left' });
+         *
+         * // 이벤트 핸들러 처리
+         * instance.on('move', function(moveEvent) {
+         *     var direction = moveEvent.direction;
+         * });
+         */
+        fire: function(type, data) {
+            this.invoke.apply(this, arguments);
             return this;
-
         },
 
         /**
          * 이벤트 핸들러 존재 여부 확인
-         * @param {String} type 핸들러명
+         * @param {string} type 핸들러명
          * @return {boolean}
          */
         hasListener: function(type) {
-            var events = this._events;
-            return events && (events[type] || events[type + '_len']);
+            var events = this._events,
+                existyFunc = ne.util.isExisty;
+
+            return existyFunc(events) && (existyFunc(events[type]) || events[type + '_len']);
+        },
+
+        /**
+         * 등록된 이벤트 핸들러의 갯수 반환
+         * @param {string} type
+         * @returns {number}
+         */
+        getListenerLength: function(type) {
+            var events = this._events,
+                lenKey = type + '_len',
+                length = 0,
+                types,
+                len;
+
+            if (!ne.util.isExisty(events)) {
+                return 0;
+            }
+
+            types = events[type];
+            len = events[lenKey];
+
+            length += (ne.util.isExisty(types) && ne.util.isArray(types)) ? types.length : 0;
+            length += ne.util.isExisty(len) ? len : 0;
+
+            return length;
         },
 
         /**
          * 단발성 커스텀 이벤트 핸들러 등록 시 사용
-         * @param {(Object|String)} types 이벤트명:핸들러 객체 또는 이벤트명
+         * @param {(object|string)} types 이벤트명:핸들러 객체 또는 이벤트명
          * @param {function()=} fn 핸들러 함수
          * @param {*=} context
-         * @return {*}
          */
         once: function(types, fn, context) {
             var that = this;
 
-            if (typeof types === 'object') {
-                for (var type in types) {
-                    if (types.hasOwnProperty(type)) {
-                        this.once(type, types[type], fn);
-                    }
-                }
-                return this;
+            if (ne.util.isObject(types)) {
+                ne.util.forEachOwnProperties(types, function(handler, type) {
+                    this.once(type, handler, fn);
+                }, this);
+
+                return;
             }
 
             function onceHandler() {
@@ -240,15 +348,32 @@
             }
 
             this.on(types, onceHandler, context);
-
-            return this;
         }
+
     };
 
-    function customEvent(Type) {
-        return ne.extend(Type.prototype, CustomEvent);
-    }
+    CustomEvents.prototype = CustomEventMethod;
+    CustomEvents.prototype.constructor = CustomEvents;
 
-    ne.customEvent = customEvent;
+    /**
+     * 커스텀 이벤트 기능을 믹스인할 때 사용하는 메서드
+     * @param {function()} func 생성자 함수
+     * @example
+     * // 모델 클래스 변경 시 컨트롤러에게 알림을 주고 싶은데
+     * // 그 기능을 모델 클래스 자체에게 주고 싶다
+     * function Model() {}
+     *
+     * // 커스텀 이벤트 믹스인
+     * ne.util.CustomEvents.mixin(Model);
+     *
+     * var model = new Model();
+     *
+     * model.on('changed', function() {}, this);
+     */
+    CustomEvents.mixin = function(func) {
+        ne.util.extend(func.prototype, CustomEventMethod);
+    };
+
+    ne.util.CustomEvents = CustomEvents;
 
 })(window.ne);

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script src="../src/browser.js"></script>
+<script src="../src/type.js"></script>
+<script src="../src/object.js"></script>
+<script src="../src/collection.js"></script>
+<script src="../src/func.js"></script>
+<script src="../src/window.js"></script>
+<script>
+    (function() {
+
+        window.onload = function(){
+            var formElement,
+                queryObj = ne.util.popup.parseQuery(),
+                storageKey = queryObj.storageKey,
+                redirectUrl = queryObj.redirectUrl,
+                postData = JSON.parse(localStorage.getItem(storageKey)),
+                key;
+
+            if (!ne.util.isExisty(postData)) {
+                window.location.history.back();
+            }
+
+            // 폼을 만들고 데이터를 구성하여 전송합니다.
+            formElement = ne.util.popup.createForm(redirectUrl, postData, 'POST');
+
+            localStorage.removeItem(storageKey);
+
+            formElement.submit();
+        };
+
+    })();
+</script>
+</body>
+</html>

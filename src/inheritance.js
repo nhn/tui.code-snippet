@@ -9,13 +9,16 @@
     if (!ne) {
         ne = window.ne = {};
     }
+    if (!ne.util) {
+        ne.util = window.ne.util = {};
+    }
 
     /**
      * 전달된 객체를 prototype으로 사용하는 객체를 만들어 반환하는 메서드
      * @param {Object} obj
      * @return {Object}
      */
-    function createObject(){
+    function createObject() {
         function F() {}
 
         return function(obj) {
@@ -55,12 +58,12 @@
      * @param {function} superType 부모 생성자 함수
      */
     function inherit(subType, superType) {
-        var prototype = ne.createObject(superType.prototype);
+        var prototype = ne.util.createObject(superType.prototype);
         prototype.constructor = subType;
         subType.prototype = prototype;
     }
 
-    ne.createObject = createObject();
-    ne.inherit = inherit;
+    ne.util.createObject = createObject();
+    ne.util.inherit = inherit;
 
 })(window.ne);
