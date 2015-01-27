@@ -71,12 +71,14 @@
      * @param {Array} arr
      * @param {function} iteratee
      */
-    CustomEvents.prototype._forEachArrayDecrease = function(arr, iteratee) {
+    CustomEvents.prototype._forEachArraySplice = function(arr, iteratee) {
         var i,
             len,
             item,
             decrease = function() {
+                arr.splice(i, 1);
                 len -= 1;
+                i -= 1;
             };
 
         if (!ne.util.isExisty(arr) || !ne.util.isArray(arr)) {
@@ -191,7 +193,7 @@
      */
     CustomEvents.prototype._eachEventByHandler = function(handler, iteratee) {
         var events = this._events,
-            forEachArrayDecrease = this._forEachArrayDecrease,
+            forEachArrayDecrease = this._forEachArraySplice,
             idx = 0;
 
         ne.util.forEachOwnProperties(events, function(eventList, eventKey) {
@@ -220,7 +222,7 @@
             return;
         }
 
-        this._forEachArrayDecrease(events, iteratee);
+        this._forEachArraySplice(events, iteratee);
     };
 
     /**
@@ -257,7 +259,7 @@
 
     /**
      * 컨텍스트 이벤트 핸들러의 갯수를 카운팅
-     * @param {string} lenKey
+     * @param {string} lenKey 컨텍스트 이벤트 갯수를 저장하기 위한 프로퍼티 명 (getCtxLenKey메서드로 계산가능)
      * @param {number} change 증감 값
      * @private
      */
@@ -326,6 +328,82 @@
         }
 
         event.push({ fn: handler });
+    };
+
+
+    /**
+     * 핸들러 함수로 이벤트 해제
+     * @param {function} handler 이벤트 핸들러 함수
+     * @private
+     */
+    CustomEvents.prototype._offByHandler = function(handler) {
+        var ctxEvents = this._ctxEvents,
+            lenKey;
+
+        this._eachCtxEventByHandler(handler, function(handlerItem, hanId, ctxItems, eventKey) {
+            lenKey = eventKey.replace('_idx', '_len');
+            ctxItems[hanId] = null;
+            ctxEvents[lenKey] -= 1;
+        });
+
+        this._eachEventByHandler(handler, function(handlerItem, index, items, eventKey, decrease) {
+            items.splice(index, 1);
+            decrease();
+        });
+    };
+
+    /**
+     * 컨텍스트로 이벤트 해제
+     * @param {*} context
+     * @param {(string|function)} [eventName]
+     * @private
+     */
+    CustomEvents.prototype._offByContext = function(context, eventName) {
+        var ctxEvents = this._ctxEvents,
+            hasArgs = ne.util.isExisty(eventName),
+            matchEventName,
+            matchHandler,
+            lenKey;
+
+        this._eachCtxEventByContext(context, function(handlerItem, hanId, ctxItems, eventKey) {
+            lenKey = eventKey.replace('_idx', '_len');
+
+            matchEventName = hasArgs && ne.util.isString(eventName) && eventKey.indexOf(eventName) > -1;
+            matchHandler = hasArgs && ne.util.isFunction(eventName) && handlerItem.fn === eventName;
+
+            if (!hasArgs || (matchEventName || matchHandler)) {
+                ctxItems[hanId] = null;
+                ctxEvents[lenKey] -= 1;
+            }
+        });
+    };
+
+    /**
+     * 이벤트명으로 이벤트 해제
+     * @param {string} eventName 이벤트명
+     * @param {function} [handler] 이벤트 핸들러
+     * @private
+     */
+    CustomEvents.prototype._offByEventName = function(eventName, handler) {
+        var ctxEvents = this._ctxEvents,
+            hasHandler = ne.util.isExisty(handler),
+            lenKey;
+
+        this._eachCtxEventByEventName(eventName, function(handlerItem, hanId, ctxItems, eventKey) {
+            lenKey = eventKey.replace('_idx', '_len');
+            if (!hasHandler || (hasHandler && handlerItem.fn === handler)) {
+                ctxItems[hanId] = null;
+                ctxEvents[lenKey] -= 1;
+            }
+        });
+
+        this._eachEventByEventName(eventName, function(handlerItem, index, items, decrease) {
+            if (!hasHandler || (hasHandler && handlerItem.fn === handler)) {
+                items.splice(index, 1);
+                decrease();
+            }
+        });
+
     };
 
     /**********
@@ -576,80 +654,6 @@
         }
 
         this.on(eventName, onceHandler, context);
-    };
-
-    /**
-     * 핸들러 함수로 이벤트 해제
-     * @param {function} handler 이벤트 핸들러 함수
-     * @private
-     */
-    CustomEvents.prototype._offByHandler = function(handler) {
-        var ctxEvents = this._ctxEvents,
-            lenKey;
-
-        this._eachCtxEventByHandler(handler, function(handlerItem, hanId, ctxItems, eventKey) {
-            lenKey = eventKey.replace('_idx', '_len');
-            ctxItems[hanId] = null;
-            ctxEvents[lenKey] -= 1;
-        });
-
-        this._eachEventByHandler(handler, function(handlerItem, index, items, eventKey, decrease) {
-            items.splice(index, 1);
-            decrease();
-        });
-    };
-
-    /**
-     * 컨텍스트로 이벤트 해제
-     * @param {*} context
-     * @param {(string|function)} [eventName]
-     * @private
-     */
-    CustomEvents.prototype._offByContext = function(context, eventName) {
-        var ctxEvents = this._ctxEvents,
-            hasArgs = ne.util.isExisty(eventName),
-            isStr = hasArgs && ne.util.isString(eventName),
-            isFunc = hasArgs && ne.util.isFunction(eventName),
-            lenKey;
-
-        this._eachCtxEventByContext(context, function(handlerItem, hanId, ctxItems, eventKey) {
-            lenKey = eventKey.replace('_idx', '_len');
-
-            if (!hasArgs || ( hasArgs &&
-                (isStr && eventKey.indexOf(eventName) > -1 || isFunc && handlerItem.fn === eventName))
-            ) {
-                ctxItems[hanId] = null;
-                ctxEvents[lenKey] -= 1;
-            }
-        });
-    };
-
-    /**
-     * 이벤트명으로 이벤트 해제
-     * @param {string} eventName 이벤트명
-     * @param {function} [handler] 이벤트 핸들러
-     * @private
-     */
-    CustomEvents.prototype._offByEventName = function(eventName, handler) {
-        var ctxEvents = this._ctxEvents,
-            hasHandler = ne.util.isExisty(handler),
-            lenKey;
-
-        this._eachCtxEventByEventName(eventName, function(handlerItem, hanId, ctxItems, eventKey) {
-            lenKey = eventKey.replace('_idx', '_len');
-            if (!hasHandler || (hasHandler && handlerItem.fn === handler)) {
-                ctxItems[hanId] = null;
-                ctxEvents[lenKey] -= 1;
-            }
-        });
-
-        this._eachEventByEventName(eventName, function(handlerItem, index, items, decrease) {
-            if (!hasHandler || (hasHandler && handlerItem.fn === handler)) {
-                items.splice(index, 1);
-                decrease();
-            }
-        });
-
     };
 
     ne.util.CustomEvents = CustomEvents;

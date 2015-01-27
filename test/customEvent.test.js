@@ -6,7 +6,7 @@ describe('CustomEvents2', function() {
         ce = new CustomEvents();
     });
 
-    describe('_forEachArrayDecrease()', function() {
+    describe('_forEachArraySplice()', function() {
         var arr,
             result,
             count;
@@ -18,16 +18,27 @@ describe('CustomEvents2', function() {
         });
 
         it('forEach와 같지만 전체 순회 수를 감소시키는 메서드를 제공한다', function() {
-            ce._forEachArrayDecrease(arr, function(num, index, arr, decrease) {
+            ce._forEachArraySplice(arr, function(num, index, arr, decrease) {
                 if (num % 2 === 0) {
-                    arr.splice(index, 1);
                     decrease();
                 }
                 count += 1;
             });
 
             expect(arr).toEqual([1, 3, 5]);
-            expect(count).toBe(3);
+            expect(count).toBe(5);
+        });
+
+        it('decrease를 사용하면 전체 순회 수를 감소시킨다', function() {
+            var arr = ['mike', 'jane', 'mike', 'foo', 'bar'];
+
+            ce._forEachArraySplice(arr, function(name, i, arr, decrease) {
+                if (name === 'mike') {
+                    decrease();
+                }
+            });
+
+            expect(arr).toEqual(['jane', 'foo', 'bar']);
         });
     });
 
