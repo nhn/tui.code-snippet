@@ -65,6 +65,16 @@ describe('object', function() {
         expect(ne.util.stamp(myObj)).toBe(2);
     });
 
+    it('hasStamp() 는 stamp()로 ID부여 여부를 확인가능', function() {
+        var myFn = function() {};
+
+        expect(ne.util.hasStamp(myFn)).not.toBe(true);
+
+        ne.util.stamp(myFn);
+
+        expect(ne.util.hasStamp(myFn)).toBe(true);
+    });
+
     describe('keys', function() {
         it('객체를 전달받아 키만 따로 배열로 만들어 리턴해준다.', function() {
             var result = ne.util.keys({'key1': 1, 'key2': 2});

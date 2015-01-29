@@ -335,7 +335,7 @@
     HashMap.prototype.toArray = function() {
         var result = [];
 
-        this.each(function(v, i) {
+        this.each(function(v) {
             result.push(v);
         });
 

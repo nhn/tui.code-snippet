@@ -52,6 +52,15 @@
         return obj.__fe_id;
     }
 
+    /**
+     * object#stamp로 UniqueID를 부여했었는지 여부 확인
+     * @param {object} obj
+     * @returns {boolean}
+     */
+    function hasStamp(obj) {
+        return ne.util.isExisty(obj, '__fe_id');
+    }
+
     function resetLastId() {
         lastId = 0;
     }
@@ -207,6 +216,7 @@
 
     ne.util.extend = extend;
     ne.util.stamp = stamp;
+    ne.util.hasStamp = hasStamp;
     ne.util._resetLastId = resetLastId;
     ne.util.keys = Object.keys || keys;
     ne.util.compareJSON = compareJSON;
