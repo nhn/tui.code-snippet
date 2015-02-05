@@ -16,11 +16,14 @@ if (!ne.util) {
     ne.util = window.ne.util = {};
 }
 
+var isModernBrowser,
+    enumValue;
+
 /**
  * definedProperty지원 여부 체크
  * @returns {boolean}
  */
-var isModernBrowser = (function () {
+isModernBrowser = (function () {
     try {
         Object.defineProperty({}, 'x', {});
         return true;
@@ -33,7 +36,7 @@ var isModernBrowser = (function () {
  * 상수에 들어갈 임의의 값
  * @type {number}
  */
-var enumValue = 0;
+enumValue = 0;
 
 /**
  * Enums
