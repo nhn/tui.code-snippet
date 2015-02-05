@@ -17,6 +17,19 @@ if (!ne.util) {
 }
 
 /**
+ * definedProperty지원 여부 체크
+ * @returns {boolean}
+ */
+var isModernBrowser = (function () {
+    try {
+        Object.defineProperty({}, 'x', {});
+        return true;
+    } catch (e) {
+        return false;
+    }
+}());
+
+/**
  * 상수에 들어갈 임의의 값
  * @type {number}
  */
@@ -109,7 +122,7 @@ Enums.prototype._addItem = function(name) {
     if (!this.hasOwnProperty(name)) {
         value = this._makeEnumValue();
 
-        if (Object.defineProperty) {
+        if (isModernBrowser) {
             Object.defineProperty(this, name, {
                 enumerable: true,
                 configurable: false,

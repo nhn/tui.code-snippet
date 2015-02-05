@@ -4,6 +4,16 @@ describe('module:Enum', function() {
     var Enums = ne.util.Enums,
         enums;
 
+
+    var isModernBrowser = (function () {
+        try {
+            Object.defineProperty({}, 'x', {});
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }());
+
     beforeEach(function() {
         enums = new Enums();
     });
@@ -67,7 +77,7 @@ describe('module:Enum', function() {
         });
     });
 
-    if (Object.defineProperty) {
+    if (isModernBrowser) {
         describe('Modern Browser: 정의된 값은 변경할수없다', function() {
             beforeEach(function() {
                 enums.set('CONST1', 'CONST2');
