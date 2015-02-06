@@ -16,14 +16,11 @@ if (!ne.util) {
     ne.util = window.ne.util = {};
 }
 
-var isModernBrowser,
-    enumValue;
-
 /**
  * definedProperty지원 여부 체크
  * @returns {boolean}
  */
-isModernBrowser = (function () {
+var isModernBrowser = (function () {
     try {
         Object.defineProperty({}, 'x', {});
         return true;
@@ -36,12 +33,14 @@ isModernBrowser = (function () {
  * 상수에 들어갈 임의의 값
  * @type {number}
  */
-enumValue = 0;
+var enumValue = 0;
 
 /**
  * Enums
  * 임의의 값이지만 중복되지 않는 값을 갖는 상수의 목록을 만든다
- * 한번 결정된값은 추후 변경될수 없다(IE는 9버전이상부터 가능)
+ * IE8이하를 제외한 모던브라우저에서는
+ * 한번 결정된값은 추후 변경될수 없다(바꾸려고 시도해도 원래 값을 유지한다)
+ *
  * @param {...string} itemList 상수목록, 스트링 배열 가능
  * @exports Enums
  * @constructor
