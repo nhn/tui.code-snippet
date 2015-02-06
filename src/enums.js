@@ -20,7 +20,7 @@ if (!ne.util) {
  * definedProperty지원 여부 체크
  * @returns {boolean}
  */
-var isModernBrowser = (function () {
+var isSupportDefinedProperty = (function () {
     try {
         Object.defineProperty({}, 'x', {});
         return true;
@@ -36,21 +36,21 @@ var isModernBrowser = (function () {
 var enumValue = 0;
 
 /**
- * Enums
+ * Enum
  * 임의의 값이지만 중복되지 않는 값을 갖는 상수의 목록을 만든다
  * IE8이하를 제외한 모던브라우저에서는
  * 한번 결정된값은 추후 변경될수 없다(바꾸려고 시도해도 원래 값을 유지한다)
  *
  * @param {...string | string[]} itemList 상수목록, 스트링 배열 가능
- * @exports Enums
+ * @exports Enum
  * @constructor
  * @class
  *
  * @examples
  *
  * //생성
- * var MYENUM = new Enums('TYPE1', 'TYPE2');
- * var MYENUM2 = new Enums(['TYPE1', 'TYPE2']);
+ * var MYENUM = new Enum('TYPE1', 'TYPE2');
+ * var MYENUM2 = new Enum(['TYPE1', 'TYPE2']);
  *
  * //사용
  * if (value === MYENUM.TYPE1) {
@@ -69,7 +69,7 @@ var enumValue = 0;
  * MYENUM.TYPE1 === originalValue; // true
  *
  **/
-function Enums(itemList) {
+function Enum(itemList) {
     if (itemList) {
         this.set.apply(this, arguments);
     }
@@ -80,7 +80,7 @@ function Enums(itemList) {
  * 상수를 정의한다.
  * @param {...string| string[]} itemList 상수목록, 스트링 배열도
  */
-Enums.prototype.set = function(itemList) {
+Enum.prototype.set = function(itemList) {
     var self = this;
 
     if (!ne.util.isArray(itemList)) {
@@ -98,7 +98,7 @@ Enums.prototype.set = function(itemList) {
  * @param {number} value 비교할 값
  * @returns {string} 상수의 키값
  */
-Enums.prototype.getName = function(value) {
+Enum.prototype.getName = function(value) {
     var foundedKey,
         self = this;
 
@@ -118,13 +118,13 @@ Enums.prototype.getName = function(value) {
  * @private
  * @param {string} name 상수명
  */
-Enums.prototype._addItem = function(name) {
+Enum.prototype._addItem = function(name) {
     var value;
 
     if (!this.hasOwnProperty(name)) {
         value = this._makeEnumValue();
 
-        if (isModernBrowser) {
+        if (isSupportDefinedProperty) {
             Object.defineProperty(this, name, {
                 enumerable: true,
                 configurable: false,
@@ -139,12 +139,11 @@ Enums.prototype._addItem = function(name) {
 
 /**
  * _makeEnumValue
- * id와 valueCount를 이용해 상수에 대입할 값을 구한다
- * 항상 string이다.
+ * 상수에 대입할 임의의 중복되지 않는 값을 구한다.
  * @private
  * @returns {number} 상수에 대입될 값
  */
-Enums.prototype._makeEnumValue = function() {
+Enum.prototype._makeEnumValue = function() {
     var value;
 
     value = enumValue;
@@ -160,10 +159,10 @@ Enums.prototype._makeEnumValue = function() {
  * @returns {boolean} 결과
  * @private
  */
-Enums.prototype._isEnumItem = function(key) {
-    return typeof this[key] === 'number';
+Enum.prototype._isEnumItem = function(key) {
+    return ne.util.isNumber(this[key]);
 };
 
-ne.util.Enums = Enums;
+ne.util.Enum = Enum;
 
 })(window.ne);
