@@ -41,7 +41,7 @@ var enumValue = 0;
  * IE8이하를 제외한 모던브라우저에서는
  * 한번 결정된값은 추후 변경될수 없다(바꾸려고 시도해도 원래 값을 유지한다)
  *
- * @param {...string} itemList 상수목록, 스트링 배열 가능
+ * @param {...string | string[]} itemList 상수목록, 스트링 배열 가능
  * @exports Enums
  * @constructor
  * @class
