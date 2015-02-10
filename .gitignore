@@ -54,3 +54,4 @@ demo
 report
 dist
 .swp
+karma.conf.local.js
