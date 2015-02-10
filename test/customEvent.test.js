@@ -309,9 +309,9 @@ describe('CustomEvents2', function() {
             expect(ce._ctxEvents['pause_len']).toBe(1);
 
             // 제거된 이벤트
-            expect(ce._ctxEvents['play_idx'][ce._getHandlerKey(handler2, myObj)]).toBe(null);
-            expect(ce._ctxEvents['play_idx'][ce._getHandlerKey(handler, myObj)]).toBe(null);
-            expect(ce._ctxEvents['pause_idx'][ce._getHandlerKey(handler, myObj)]).toBe(null);
+            expect(ce._ctxEvents['play_idx'][ce._getHandlerKey(handler2, myObj)]).toBeUndefined();
+            expect(ce._ctxEvents['play_idx'][ce._getHandlerKey(handler, myObj)]).toBeUndefined();
+            expect(ce._ctxEvents['pause_idx'][ce._getHandlerKey(handler, myObj)]).toBeUndefined();
         });
 
         it('이벤트 명을 추가로 전달해 해당하는 이벤트만 해제 가능', function() {
@@ -323,8 +323,8 @@ describe('CustomEvents2', function() {
             expect(ce._ctxEvents['pause_len']).toBe(2);
 
             // 제거된 이벤트
-            expect(ce._ctxEvents['play_idx'][ce._getHandlerKey(handler, myObj)]).toBe(null);
-            expect(ce._ctxEvents['play_idx'][ce._getHandlerKey(handler2, myObj)]).toBe(null);
+            expect(ce._ctxEvents['play_idx'][ce._getHandlerKey(handler, myObj)]).toBeUndefined();
+            expect(ce._ctxEvents['play_idx'][ce._getHandlerKey(handler2, myObj)]).toBeUndefined();
         });
 
         it('핸들러 함수를 추가로 전달해 해당하는 이벤트만 제거 가능', function() {
@@ -336,7 +336,7 @@ describe('CustomEvents2', function() {
             expect(ce._ctxEvents['pause_len']).toBe(1);
 
             // 제거된 이벤트
-            expect(ce._ctxEvents['pause_idx'][ce._getHandlerKey(handler2, myObj2)]).toBe(null);
+            expect(ce._ctxEvents['pause_idx'][ce._getHandlerKey(handler2, myObj2)]).toBeUndefined();
         });
     });
     
@@ -380,7 +380,7 @@ describe('CustomEvents2', function() {
             expect(ce._ctxEvents['play_len']).toBe(1);
 
             // 제거된 이벤트
-            expect(ce._ctxEvents['play_idx'][ce._getHandlerKey(handler, myObj)]).toBe(null);
+            expect(ce._ctxEvents['play_idx'][ce._getHandlerKey(handler, myObj)]).toBeUndefined();
             expect(ce._events['play'].length).toBe(0);
         });
 
@@ -551,7 +551,6 @@ describe('CustomEvents2', function() {
                 });
             });
         });
-
     });
 
     var Animal = function() {};

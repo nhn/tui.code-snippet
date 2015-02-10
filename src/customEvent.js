@@ -118,10 +118,8 @@
      * @private
      */
     CustomEvents.prototype._eachCtxHandlerItemByContainId = function(ctxEvents, id, iteratee) {
-        var existy = ne.util.isExisty;
-
         ne.util.forEachOwnProperties(ctxEvents, function(handlerItem, handlerItemId) {
-            if (handlerItemId.indexOf(id) > -1 && existy(handlerItem)) {
+            if (handlerItemId.indexOf(id) > -1) {
                 iteratee(handlerItem, handlerItemId);
             }
         });
@@ -134,15 +132,12 @@
      * @private
      */
     CustomEvents.prototype._eachCtxEventByHandler = function(handler, iteratee) {
-        var existy = ne.util.isExisty,
-            handlerId = ne.util.stamp(handler),
+        var handlerId = ne.util.stamp(handler),
             eachById = this._eachCtxHandlerItemByContainId;
 
         this._eachCtxEvents(function(ctxEvents, eventKey) {
             eachById(ctxEvents, handlerId, function(handlerItem, handlerItemId) {
-                if (existy(handlerItem)) {
-                    iteratee(handlerItem, handlerItemId, ctxEvents, eventKey);
-                }
+                iteratee(handlerItem, handlerItemId, ctxEvents, eventKey);
             });
         });
     };
@@ -154,15 +149,12 @@
      * @private
      */
     CustomEvents.prototype._eachCtxEventByContext = function(context, iteratee) {
-        var existy = ne.util.isExisty,
-            contextId = ne.util.stamp(context),
+        var contextId = ne.util.stamp(context),
             eachById = this._eachCtxHandlerItemByContainId;
 
         this._eachCtxEvents(function(ctxEvents, eventKey) {
             eachById(ctxEvents, contextId, function(handlerItem, handlerItemId) {
-                if (existy(handlerItem)) {
-                    iteratee(handlerItem, handlerItemId, ctxEvents, eventKey);
-                }
+                iteratee(handlerItem, handlerItemId, ctxEvents, eventKey);
             });
         });
     };
@@ -174,8 +166,6 @@
      * @private
      */
     CustomEvents.prototype._eachCtxEventByEventName = function(name, iteratee) {
-        var existy = ne.util.isExisty;
-
         if (!this._ctxEvents) {
             return;
         }
@@ -184,12 +174,10 @@
             ctxEvents = this._ctxEvents[key],
             args;
 
-        ne.util.forEachOwnProperties(ctxEvents, function(handlerItem) {
-            if (existy(handlerItem)) {
-                args = Array.prototype.slice.call(arguments);
-                args.push(key);
-                iteratee.apply(null, args);
-            }
+        ne.util.forEachOwnProperties(ctxEvents, function() {
+            args = Array.prototype.slice.call(arguments);
+            args.push(key);
+            iteratee.apply(null, args);
         });
     };
 
@@ -354,7 +342,7 @@
 
         this._eachCtxEventByHandler(handler, function(handlerItem, hanId, ctxItems, eventKey) {
             lenKey = eventKey.replace('_idx', '_len');
-            ctxItems[hanId] = null;
+            delete ctxItems[hanId];
             ctxEvents[lenKey] -= 1;
         });
 
@@ -384,7 +372,7 @@
             matchHandler = hasArgs && ne.util.isFunction(eventName) && handlerItem.fn === eventName;
 
             if (!hasArgs || (matchEventName || matchHandler)) {
-                ctxItems[hanId] = null;
+                delete ctxItems[hanId];
                 ctxEvents[lenKey] -= 1;
             }
         });
@@ -404,7 +392,7 @@
         this._eachCtxEventByEventName(eventName, function(handlerItem, hanId, ctxItems, eventKey) {
             lenKey = eventKey.replace('_idx', '_len');
             if (!hasHandler || (hasHandler && handlerItem.fn === handler)) {
-                ctxItems[hanId] = null;
+                delete ctxItems[hanId];
                 ctxEvents[lenKey] -= 1;
             }
         });
@@ -611,14 +599,13 @@
             existy = ne.util.isExisty;
 
         this._eachEventByEventName(eventName, function(item) {
-            if (existy(item, 'fn') && item.fn.apply(self, args) === false) {
+            if (existy(item) && item.fn.apply(self, args) === false) {
                 result = false;
             }
         });
 
         this._eachCtxEventByEventName(eventName, function(item) {
-            if (existy(item, 'fn') && existy(item, 'ctx') && 
-                item.fn.apply(item.ctx, args) === false) {
+            if (existy(item) && item.fn.apply(item.ctx, args) === false) {
                 result = false;
             }
         });
