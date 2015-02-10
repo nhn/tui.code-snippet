@@ -541,7 +541,7 @@
             lenKey = this._getCtxLenKey(eventName);
 
         var normal = (existy(events) && ne.util.isArray(events[eventName])) ? events[eventName].length : 0,
-            ctx = existy(ctxEvents) ? ctxEvents[lenKey] : 0;
+            ctx = (existy(ctxEvents) && existy(ctxEvents[lenKey])) ? ctxEvents[lenKey] : 0;
 
         return normal + ctx;
     };

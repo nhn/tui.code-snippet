@@ -957,6 +957,19 @@ describe('CustomEvents2', function() {
                 expect(customEvent.getListenerLength('pan')).toBe(0);
             });
 
+            describe('컨텍스트 등록 후 해제시', function() {
+                var myObj = {};
+                beforeEach(function() {
+                    spy = jasmine.createSpy('zoom');
+                    customEvent.on('zoom', spy, myObj);
+                    customEvent.off('zoom');
+                });
+
+                it('0이어야 한다', function() {
+                    expect(customEvent.getListenerLength('pan')).toBe(0);
+                });
+            });
+
             describe('등록했다 해제할 경우', function() {
                 var customEvent2;
 
