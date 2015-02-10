@@ -342,7 +342,7 @@
 
         this._eachCtxEventByHandler(handler, function(handlerItem, hanId, ctxItems, eventKey) {
             lenKey = eventKey.replace('_idx', '_len');
-            ctxItems[hanId] = null;
+            delete ctxItems[hanId];
             ctxEvents[lenKey] -= 1;
         });
 
@@ -372,7 +372,7 @@
             matchHandler = hasArgs && ne.util.isFunction(eventName) && handlerItem.fn === eventName;
 
             if (!hasArgs || (matchEventName || matchHandler)) {
-                ctxItems[hanId] = null;
+                delete ctxItems[hanId];
                 ctxEvents[lenKey] -= 1;
             }
         });
@@ -392,7 +392,7 @@
         this._eachCtxEventByEventName(eventName, function(handlerItem, hanId, ctxItems, eventKey) {
             lenKey = eventKey.replace('_idx', '_len');
             if (!hasHandler || (hasHandler && handlerItem.fn === handler)) {
-                ctxItems[hanId] = null;
+                delete ctxItems[hanId];
                 ctxEvents[lenKey] -= 1;
             }
         });

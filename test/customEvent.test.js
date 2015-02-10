@@ -309,9 +309,9 @@ describe('CustomEvents2', function() {
             expect(ce._ctxEvents['pause_len']).toBe(1);
 
             // 제거된 이벤트
-            expect(ce._ctxEvents['play_idx'][ce._getHandlerKey(handler2, myObj)]).toBe(null);
-            expect(ce._ctxEvents['play_idx'][ce._getHandlerKey(handler, myObj)]).toBe(null);
-            expect(ce._ctxEvents['pause_idx'][ce._getHandlerKey(handler, myObj)]).toBe(null);
+            expect(ce._ctxEvents['play_idx'][ce._getHandlerKey(handler2, myObj)]).toBeUndefined();
+            expect(ce._ctxEvents['play_idx'][ce._getHandlerKey(handler, myObj)]).toBeUndefined();
+            expect(ce._ctxEvents['pause_idx'][ce._getHandlerKey(handler, myObj)]).toBeUndefined();
         });
 
         it('이벤트 명을 추가로 전달해 해당하는 이벤트만 해제 가능', function() {
@@ -323,8 +323,8 @@ describe('CustomEvents2', function() {
             expect(ce._ctxEvents['pause_len']).toBe(2);
 
             // 제거된 이벤트
-            expect(ce._ctxEvents['play_idx'][ce._getHandlerKey(handler, myObj)]).toBe(null);
-            expect(ce._ctxEvents['play_idx'][ce._getHandlerKey(handler2, myObj)]).toBe(null);
+            expect(ce._ctxEvents['play_idx'][ce._getHandlerKey(handler, myObj)]).toBeUndefined();
+            expect(ce._ctxEvents['play_idx'][ce._getHandlerKey(handler2, myObj)]).toBeUndefined();
         });
 
         it('핸들러 함수를 추가로 전달해 해당하는 이벤트만 제거 가능', function() {
@@ -336,7 +336,7 @@ describe('CustomEvents2', function() {
             expect(ce._ctxEvents['pause_len']).toBe(1);
 
             // 제거된 이벤트
-            expect(ce._ctxEvents['pause_idx'][ce._getHandlerKey(handler2, myObj2)]).toBe(null);
+            expect(ce._ctxEvents['pause_idx'][ce._getHandlerKey(handler2, myObj2)]).toBeUndefined();
         });
     });
     
@@ -380,7 +380,7 @@ describe('CustomEvents2', function() {
             expect(ce._ctxEvents['play_len']).toBe(1);
 
             // 제거된 이벤트
-            expect(ce._ctxEvents['play_idx'][ce._getHandlerKey(handler, myObj)]).toBe(null);
+            expect(ce._ctxEvents['play_idx'][ce._getHandlerKey(handler, myObj)]).toBeUndefined();
             expect(ce._events['play'].length).toBe(0);
         });
 
@@ -525,6 +525,32 @@ describe('CustomEvents2', function() {
 
             expect(spyObj.foo).not.toHaveBeenCalledWith({ say: 'hello' }, false, 2);
         });
+
+        describe('등록 해제 반복후 동작 확인', function() {
+            describe('컨텍스트를 넘기지 않을 때', function() {
+                beforeEach(function() {
+                    component.off('foo', spyObj.foo);
+                    component.on('foo', spyObj.foo);
+                    component.fire('foo');
+                });
+                it('한번만 호출되어야 한다', function() {
+                    expect(spyObj.foo.calls.count()).toBe(1);
+                });
+            });
+            describe('컨텍스트를 넘길 때', function() {
+                var myObj = {};
+                beforeEach(function() {
+                    component.off('foo');
+                    component.on('foo', spyObj.foo, myObj);
+                    component.off('foo');
+                    component.on('foo', spyObj.foo, myObj);
+                    component.fire('foo');
+                });
+                it('한 번만 호출되어야 한다', function() {
+                    expect(spyObj.foo.calls.count()).toBe(1);
+                });
+            });
+        });
     });
 
     var Animal = function() {};
@@ -568,6 +594,35 @@ describe('CustomEvents2', function() {
                 expect(spy.move.calls.count()).toBe(1);
                 expect(spy.growl.calls.count()).toBe(1);
             });
+        });
+
+        describe('중첩하여 적용해도 문제없이 동작한다', function() {
+            beforeEach(function() {
+                lion.once('move', spy.move);
+                lion.fire('move');
+                lion.once('move', spy.move);
+                lion.fire('move');
+            });
+            it('두번 등록해서 사용해도 문제없다', function() {
+                expect(spy.move.calls.count()).toBe(2);
+            });
+        });
+
+        describe('컨텍스트가 제공되도 문제없이 동작한다', function() {
+            beforeEach(function() {
+                lion.once({
+                    'move': spy.move
+                }, this);
+                lion.fire('move');
+                lion.once({
+                    'move': spy.move
+                }, this);
+                lion.fire('move');
+            });
+            it('두 번 호출되어도 문제가 없다', function() {
+                expect(spy.move.calls.count()).toBe(2);
+            });
+            
         });
 
     });
