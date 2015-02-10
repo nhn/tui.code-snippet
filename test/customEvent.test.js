@@ -54,7 +54,9 @@ describe('CustomEvents', function() {
                     expect(spy.move).toHaveBeenCalledWith();
                     expect(spy.growl).toHaveBeenCalledWith({ level: 'loud' });
                 });
+
             });
+
         });
 
         describe('off()', function() {
@@ -426,6 +428,37 @@ describe('CustomEvents', function() {
                 component.fire('foo', [1, 2, 3]);
 
                 expect(spyObj.foo).not.toHaveBeenCalledWith({ say: 'hello' }, false, 2);
+            });
+
+            describe('등록 해제 반복후 동작 확인', function() {
+                
+                describe('컨텍스트를 넘기지 않을 때', function() {
+                    beforeEach(function() {
+                        component.off('foo', spyObj.foo);
+                        component.on('foo', spyObj.foo);
+                        component.fire('foo');
+                    });
+
+                    it('한번만 호출되어야 한다', function() {
+                        expect(spyObj.foo.calls.count()).toBe(1);
+                    });
+                });
+
+                describe('컨텍스트를 넘길 때', function() {
+                    var myObj = {};
+                    beforeEach(function() {
+                        component.off('foo');
+                        component.on('foo', spyObj.foo, myObj);
+                        component.off('foo');
+                        component.on('foo', spyObj.foo, myObj);
+                        component.fire('foo');
+                    });
+
+                    it('한 번만 호출되어야 한다', function() {
+                        expect(spyObj.foo.calls.count()).toBe(1);
+                    });
+                });
+
             });
         });
 
