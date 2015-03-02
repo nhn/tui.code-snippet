@@ -1,6 +1,3 @@
-## FE Common code snippets
-======================
-개발에서 공통으로 사용하는 코드들의 모음
 ## FE common code snippet
 * Common code snippets 이란, **공통으로 사용하는 코드 조각**을 모아둔 것을 정의
 * 아래와 같은 종류의 FE common code snippet이 존재하며 지속적인 추가 및 수정이 이루어 짐
