@@ -7,10 +7,17 @@
   "license": "ISC",
   "ignore": [
     "**/.*",
+    ".*",
+    "src",
+    "bin",
     "node_modules",
     "bower_components",
     "test",
-    "tests"
+    "bower.json",
+    "conf.json",
+    "Gruntfile.js",
+    "karma.conf.js",
+    "package.json"
   ],
   "dependencies": {
     "json2": "*",
