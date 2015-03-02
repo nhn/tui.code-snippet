@@ -5,6 +5,7 @@
     "FE"
   ],
   "license": "ISC",
+  "private": true,
   "ignore": [
     "**/.*",
     ".*",
