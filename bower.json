@@ -6,6 +6,7 @@
   ],
   "license": "ISC",
   "private": true,
+  "main": "code-snippet.js",
   "ignore": [
     "**/.*",
     ".*",
@@ -18,7 +19,10 @@
     "conf.json",
     "Gruntfile.js",
     "karma.conf.js",
-    "package.json"
+    "package.json",
+    "karma.local.conf.js",
+    ".bower.json",
+    "tutorial"
   ],
   "dependencies": {
     "json2": "*",
