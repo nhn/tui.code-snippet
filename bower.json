@@ -21,7 +21,6 @@
     "karma.conf.js",
     "package.json",
     "karma.local.conf.js",
-    ".bower.json",
     "tutorial"
   ],
   "dependencies": {
