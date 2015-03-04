@@ -6,6 +6,7 @@ module.exports = function(grunt) {
         concat: {
             options: {
                 stripBanner: true,
+                banner: '/*!code-snippet v<%=pkg.version%> | NHN Entertainment*/\n',
                 process: function(str, filepath) {
                     var filename = filepath.split('/');
                     filename = filename[filename.length - 1];
@@ -19,6 +20,7 @@ module.exports = function(grunt) {
         },
         uglify: {
             options: {
+                banner: '/*!code-snippet v<%=pkg.version%> | NHN Entertainment*/\n',
                 sourceMap: true
             },
             dist: {

@@ -41,7 +41,7 @@ Desktop.ini
 
 # SVN
 .svn
-
+bin
 # eclipse
 .project
 .metadata

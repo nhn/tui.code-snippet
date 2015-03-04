@@ -45,11 +45,12 @@ FE개발팀에서 배포하는 모든 컴포넌트 및 Application은 **가독�
 * **CI** - http://fe.nhnent.com:8080/jenkins/job/share-code-snippet/
 
 ## Download/Install
-* Bower: `bower install "git+http://3c672057a1ac16c4e6f1baaba73e24d5270ef453:x-oauth-basic@github.nhnent.com/fe/share-code-snippet.git#tag"`
+* Bower: `bower install "git+http://3c672057a1ac16c4e6f1baaba73e24d5270ef453:x-oauth-basic@github.nhnent.com/fe/share-code-snippet.git#1.0.0"`
 * Download: https://github.nhnent.com/fe/share-code-snippet
 
 
 ## History
 | Version | Description | Date | Developer |
 | ---- | ---- | ---- | ---- |
+| 1.0.0 | jquery dependency 제거 | 2015.03 | FE개발팀 |
 | 0.0.1 | 최초개발 | 2014.09 | FE개발팀 |
