@@ -31,18 +31,18 @@ FE개발팀에서 배포하는 모든 컴포넌트 및 Application은 **가독�
 |defineClass.js| 클래스를 정의 및 상속할수 있는 모듈들을 제공한다. | |
 |hashMap.js| 해시맵 기능을 제공한다. | |
 
+## CodeSnippet 사용법
+* 전체 CodeSnippet 모듈이 빌드된 파일 사용하기
+ * [[master branch]](https://github.nhnent.com/FE/Share-CodeSnippet)에서 code-snippet.js 또는 code-snippet.min.js을 다운로드 받아 사용
+ * 혼란을 줄이기위해 파일명(code-snippet.js 또는 code-snippet.min.js)은 그대로 사용하기를 권장
+ * FE개발팀에서 배포한 Component를 병행하여 사용한다면, Component를 CodeSnippet이 포함되지 않은 버전으로 사용할 것을 권장
+* 필요한 부분만 복사하여 사용하기
+ * 각 모듈에 명시된 **의존성을 확인**하여 필요한 모듈을 함께 복사해서 사용
+ * FE개발팀에서 배포한 Component를 병행하여 사용한다면, 전체 CodeSnippet 모듈이 빌드된 파일 사용하기를 권장
 
 ## Documentation
 * **Tutorial** - [준비중]
 * **CI** - http://fe.nhnent.com:8080/jenkins/job/share-code-snippet/
-
-## Code-Snippet 사용법
-* repository: https://github.nhnent.com/FE/Share-CodeSnippet
-* Common code snippets은 빌드된 파일을 전체로 사용할수 있고
-* master branch에서 필요한 코드만 복사하여 사용가능
-* Common code snippets으로 사용하는 파일 명은 common.js를 권장
-* 부분적으로 사용시엔 **의존성을 확인**하여 추출하여 사용
-* FE개발팀 Component와 병행사용시, **FE Component의 core**버전과 full version 사용을 권장
 
 ## Download/Install
 * Bower: `bower install "git+http://3c672057a1ac16c4e6f1baaba73e24d5270ef453:x-oauth-basic@github.nhnent.com/fe/share-code-snippet.git#tag"`
