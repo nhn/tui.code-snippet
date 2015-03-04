@@ -1,13 +1,23 @@
-## FE common code snippet
-* Common code snippets 이란, **공통으로 사용하는 코드 조각**을 모아둔 것을 정의
-* 아래와 같은 종류의 FE common code snippet이 존재하며 지속적인 추가 및 수정이 이루어 짐
-* FE에서 배포하는 모든 컴포넌트 및 Application은 **가독성과 중복코드 방지**등을 위해 FE common code snippet을 사용함
-* 기본적인 네임스페이스는 **ne.util**을 사용
-<br>
+## CodeSnippet
+코드 스니펫<br>
+CodeSnippet이란, <br>
+타입체크나 배열처리와 같이 **자주 사용되는 코드 조각**을 모아둔 것으로,<br>
+아래와 같은 종류의 CodeSnippet이 존재하며 지속적으로 지속적으로 업데이트하고 있습니다.<br>
+FE개발팀에서 배포하는 모든 컴포넌트 및 Application은 **가독성과 중복코드 방지**를 위해 CodeSnippet을 사용하며,<br>
+기본적인 네임스페이스는 **ne.util**을 사용합니다.<br>
+(네임스페이스는 서비스의 성격에 따라 재정의하여 사용할 수 있습니다.)<br>
+
+## Feature
+* inheritance.js
+  * 간단한 상속 코드 (Nicholas C. Zakas, YUI Library)
+  * 부모 생성자를 명시적으로 호출
+  * 자식 프로토타입 메서드를 구현하기 전에 상속받아야 함
+* browser.js
+  * 브라우저 종류, 버전을 검출하는 모듈
 
 |파일명|설명|비고|
 |----|-----------|------|
-|inheritance.js|간단한 상속 코드 (Nicholas C. Zakas, YUI Library)| - 부모 생성자를 명시적으로 호출해야 한다.<br />- 자식 프로토타입 메서드를 구현하기 전에 상속받아야 한다. |
+|inheritance.js|| - 부모 생성자를 명시적으로 호출해야 한다.<br />- 자식 프로토타입 메서드를 구현하기 전에 상속받아야 한다. |
 |browser.js|브라우저 종류, 버전을 검출하는 모듈| |
 |form.js|form 엘리먼트의 요소 및 값들을 받아 올 수 있고, 설정할 수 있다. | |
 |customEvent.js| 커스텀이벤트 기능을 추가/제거 및 발생시킬수 있게 하는 커스텀이벤트. 믹스인 방법과 내부객체로 저장하여 사용할수 있다. | |
