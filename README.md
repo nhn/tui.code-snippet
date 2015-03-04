@@ -9,35 +9,44 @@ FE개발팀에서 배포하는 모든 컴포넌트 및 Application은 **가독�
 
 ## Feature
 * inheritance.js
-  * 간단한 상속 코드 (Nicholas C. Zakas, YUI Library)
+  * 간단한 상속 모듈 (Nicholas C. Zakas, YUI Library)
   * 부모 생성자를 명시적으로 호출
   * 자식 프로토타입 메서드를 구현하기 전에 상속받아야 함
 * browser.js
   * 브라우저 종류, 버전을 검출하는 모듈
-
-|파일명|설명|비고|
-|----|-----------|------|
-|inheritance.js|| - 부모 생성자를 명시적으로 호출해야 한다.<br />- 자식 프로토타입 메서드를 구현하기 전에 상속받아야 한다. |
-|browser.js|브라우저 종류, 버전을 검출하는 모듈| |
-|customEvent.js| 커스텀이벤트 기능을 추가/제거 및 발생시킬수 있게 하는 커스텀이벤트. 믹스인 방법과 내부객체로 저장하여 사용할수 있다. | |
-|type.js| 변수의 타입 체크 모듈 | |
-|object.js| 객체 자체를 다루는 모듈 (extend, stamp ...) | |
-|func.js| 함수 처리 모듈 (bind ...) | |
-|collection.js| 콜렉션을 처리할 수 있는 유틸성 함수들의 모음이다. (forEach, map, reduce ...) | |
-|enum.js| 임의의 값으로 중복되지 않는 값을 갖는 상수의 목록을 만든다. | -IE8이하를 제외한 모던브라우저에서는 한번 결정된 값은 추후 변경될 수 없다. |
-|string.js| decodeHTMLEntity및, encodeHTMLEntity등의 문자열 조작 모듈을 제공한다. | |
-|window.js| 윈도우 팝업등의 window객체와 관련된 모듈들을 제공한다. | -IE11에서 POST를 사용해 팝업에 값을 전달할 땐 꼭 postDataBridgeUrl을 설정해야 한다<br> - 다른 도메인을 팝업으로 띄울 경우 보안 문제로 팝업 컨트롤 기능을 사용할 수 없다. |
-|defineClass.js| 클래스를 정의 및 상속할수 있는 모듈들을 제공한다. | |
-|hashMap.js| 해시맵 기능을 제공한다. | |
+* customEvent.js
+ * 커스텀이벤트 기능을 추가/제거 및 발생시킬수 있게 하는 커스텀이벤트
+ * 믹스인 방법과 내부객체로 저장하여 사용
+* type.js
+ * 변수의 타입 체크 모듈
+* object.js
+ * 객체를 다루는 모듈
+* func.js
+ * 함수 처리 모듈
+* collection.js
+ * 콜렉션을 처리할 수 있는 유틸성 함수들의 모음
+* enum.js
+ * 중복되지 않는 임의의 값을 갖는 상수목록을 다루는 모듈
+ * IE8이하를 제외한 모던브라우저에서는 한번 결정된 값은 추후 변경 불가
+* string.js
+ * decodeHTMLEntity, encodeHTMLEntity 등의 문자열을 다루는 모듈
+* window.js
+ * 윈도우 팝업등의 window객체와 관련된 모듈들을 제공
+ * IE11에서 POST를 사용해 팝업에 값을 전달시 postDataBridgeUrl 설정 필요
+ * 다른 도메인을 팝업으로 띄울 경우 보안 문제로 팝업 컨트롤 불가
+* defineClass.js
+ * 클래스 정의 및 상속 모듈
+* hashMap.js
+ * 해시맵 모듈
 
 ## CodeSnippet 사용법
 * 전체 CodeSnippet 모듈이 빌드된 파일 사용하기
  * [[master branch]](https://github.nhnent.com/FE/Share-CodeSnippet)에서 code-snippet.js 또는 code-snippet.min.js을 다운로드 받아 사용
  * 혼란을 줄이기위해 파일명(code-snippet.js 또는 code-snippet.min.js)은 그대로 사용하기를 권장
- * FE개발팀에서 배포한 Component를 병행하여 사용한다면, Component를 CodeSnippet이 포함되지 않은 버전으로 사용할 것을 권장
 * 필요한 부분만 복사하여 사용하기
  * 각 모듈에 명시된 **의존성을 확인**하여 필요한 모듈을 함께 복사해서 사용
- * FE개발팀에서 배포한 Component를 병행하여 사용한다면, 전체 CodeSnippet 모듈이 빌드된 파일 사용하기를 권장
+ * 가급적이면 유지보수 등의 관리를 위하여 빌드된 버전 사용을 권장
+* 자세한 사용법은 별도의 문서로 3월중 배포 예정
 
 ## Documentation
 * **Tutorial** - [준비중]
