@@ -61,7 +61,11 @@
      * });
      */
     HashMap.prototype.set = function(key, value) {
-        arguments.length === 2 ? this.setKeyValue(key, value) : this.setObject(key);
+        if(arguments.length === 2) {
+            this.setKeyValue(key, value);
+        } else {
+            this.setObject(key);
+        }
     };
 
     /**

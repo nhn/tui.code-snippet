@@ -64,7 +64,9 @@
 
         obj = props.init || function(){};
 
-        parent && ne.util.inherit(obj, parent);
+        if(parent) {
+            ne.util.inherit(obj, parent);
+        }
 
         if (props.hasOwnProperty('static')) {
             ne.util.extend(obj, props.static);

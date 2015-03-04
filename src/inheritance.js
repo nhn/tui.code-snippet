@@ -23,7 +23,7 @@
 
         return function(obj) {
             F.prototype = obj;
-            return new F;
+            return new F();
         };
     }
 
