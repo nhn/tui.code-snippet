@@ -61,4 +61,4 @@ FE개발팀에서 배포하는 모든 컴포넌트 및 Application은 **가독�
 | Version | Description | Date | Developer |
 | ---- | ---- | ---- | ---- |
 | 1.0.0 | jquery dependency 제거 | 2015.03 | FE개발팀 |
-| 0.0.1 | 최초개발 | 2014.09 | FE개발팀 |
+| 0.1.0 | 최초개발 | 2014.09 | FE개발팀 |
