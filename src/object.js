@@ -18,6 +18,7 @@
      * @param {object} target - 확장될 객체
      * @param {...object} objects - 프로퍼티를 복사할 객체들
      * @return {object}
+     * @memberOf ne.util
      */
     function extend(target, objects) {
         var source,
@@ -46,6 +47,7 @@
      * 객체에 unique한 ID를 프로퍼티로 할당한다.
      * @param {object} obj - ID를 할당할 객체
      * @return {number}
+     * @memberOf ne.util
      */
     function stamp(obj) {
         obj.__fe_id = obj.__fe_id || ++lastId;
@@ -56,6 +58,7 @@
      * object#stamp로 UniqueID를 부여했었는지 여부 확인
      * @param {object} obj
      * @returns {boolean}
+     * @memberOf ne.util
      */
     function hasStamp(obj) {
         return ne.util.isExisty(obj, '__fe_id');
@@ -69,6 +72,7 @@
      * 객체를 전달받아 객체의 키목록을 배열로만들어 리턴해준다.
      * @param obj
      * @returns {Array}
+     * @memberOf ne.util
      */
     var keys = function(obj) {
         var keys = [],
@@ -105,6 +109,8 @@
 
        ne.util.compareJSON(jsonObj4, jsonObj5);
           => return false
+
+     * @memberOf ne.util
      */
     function compareJSON(object) {
         var leftChain,
