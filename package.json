@@ -4,7 +4,7 @@
   "description": "useful code snippets from frontend development team",
   "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "doc": "./node_modules/.bin/jsdoc -c conf.json"
   },
   "repository": {
     "type": "git",
@@ -21,7 +21,7 @@
     "jasmine-core": "^2.2.0",
     "jasmine-jquery": "^2.0.5",
     "jquery": "1.8.3",
-    "jsdoc": "^3.3.0-beta1",
+    "jsdoc": "git+https://github.com/jsdoc3/jsdoc.git",
     "karma": "^0.12.31",
     "karma-chrome-launcher": "^0.1.5",
     "karma-coverage": "^0.2.6",
