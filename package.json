@@ -1,22 +1,19 @@
 {
   "name": "code-snippet",
   "version": "1.0.0",
-  "description": "FE Common code snippets ====",
+  "description": "useful code snippets from frontend development team",
   "private": true,
-  "directories": {
-    "test": "test"
-  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "doc": "./node_modules/.bin/jsdoc -c conf.json"
   },
   "repository": {
     "type": "git",
-    "url": "http://github.nhnent.com/FE/Share-CodeSnippet.git"
+    "url": "http://github.nhnent.com/fe/share-code-snippet.git"
   },
-  "author": "fe dev",
-  "license": "ISC",
+  "author": "FE",
+  "license": "PRIVATE",
   "devDependencies": {
-    "fedoc-template": "git+http://14bfd38a036366f7ca90355d202038126127bd01:x-oauth-basic@github.nhnent.com/FE/Share-FEDocTemplate.git",
+    "fedoc-template": "git+http://14bfd38a036366f7ca90355d202038126127bd01:x-oauth-basic@github.nhnent.com/fe/share-fedoc-template.git",
     "grunt": "^0.4.5",
     "grunt-contrib-concat": "^0.5.0",
     "grunt-contrib-uglify": "^0.6.0",
@@ -24,7 +21,6 @@
     "jasmine-core": "^2.2.0",
     "jasmine-jquery": "^2.0.5",
     "jquery": "1.8.3",
-    "jquery-urlinternal": "git+https://github.com/Jenair/jquery-urlinternal.git",
     "jsdoc": "git+https://github.com/jsdoc3/jsdoc.git",
     "karma": "^0.12.31",
     "karma-chrome-launcher": "^0.1.5",

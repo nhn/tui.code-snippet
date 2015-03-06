@@ -18,8 +18,7 @@
     /**
      * 팝업 컨트롤 클래스
      * @constructor
-     * @exports Popup
-     * @class
+     * @memberof ne.util
      */
     function Popup() {
 
@@ -49,7 +48,6 @@
 
     /**
      * 현재 윈도우가 관리하는 팝업 창 리스트를 반환합니다.
-     * @method getPopupList
      * @param {String} [key] key에 해당하는 팝업을 반환한다
      * @returns {Object} popup window list object
      */

@@ -3,32 +3,35 @@
  * @author FE개발팀
  */
 
+/** @namespace ne */
+/** @namespace ne.util */
+
 (function(ne) {
     'use strict';
+    /* istanbul ignore if */
     if (!ne) {
         ne = window.ne = {};
     }
+    /* istanbul ignore if */
     if (!ne.util) {
         ne.util = window.ne.util = {};
     }
 
     /**
-     * 다음의 브라우저에 한하여 종류와 버전을 제공하는 모듈
+     * 다음 브라우저들에 한해 종류와 버전 정보를 제공
      *
      * - ie7 ~ ie11
      * - chrome
      * - firefox
      * - safari
-     *
-     * @module browser
      * @example
-     * if (browser.msie && browser.version === 7) {
-     *     // IE7일 경우의 루틴
-     * }
-     *
-     * if (browser.chrome && browser.version >= 32) {
-     *     // Chrome 32버전 이상일 때의 루틴
-     * }
+     * ne.util.browser.chrome === true;    // chrome
+     * ne.util.browser.firefox === true;    // firefox
+     * ne.util.browser.safari === true;    // safari
+     * ne.util.browser.msie === true;    // IE
+     * ne.util.browser.other === true;    // other browser
+     * ne.util.browser.version;    // 브라우저 버전 type: Number
+     * @memberof ne.util
      */
     var browser = {
         chrome: false,

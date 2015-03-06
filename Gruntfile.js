@@ -1,6 +1,4 @@
 module.exports = function(grunt) {
-
-
 	grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         concat: {
@@ -20,8 +18,7 @@ module.exports = function(grunt) {
         },
         uglify: {
             options: {
-                banner: '/*!code-snippet v<%=pkg.version%> | NHN Entertainment*/\n',
-                sourceMap: true
+                banner: '/*!code-snippet v<%=pkg.version%> | NHN Entertainment*/\n'
             },
             dist: {
                 files: {

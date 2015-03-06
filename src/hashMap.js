@@ -6,6 +6,7 @@
 
 (function(ne) {
     'use strict';
+
     /* istanbul ignore if */
     if (!ne) {
         ne = window.ne = {};
@@ -13,7 +14,7 @@
     if (!ne.util) {
         ne.util = window.ne.util = {};
     }
-    
+
     /**
      * 해쉬맵에서 사용하는 데이터는 _MAPDATAPREFIX로 시작한다.
      * @type {string}
@@ -27,11 +28,12 @@
      * 주의) length프로퍼티를 가지고있어 유사 배열을 length의 유무로 체크하는 로직에서 의도되지 않은 동작을 할수있다.
      * @param {Object} [obj] 인스턴스가 만들어질때 셋팅할 초기 데이터
      * @constructor
+     * @memberof ne.util
      * @example
      * var hm = new HashMap({
      *     'mydata': {
      *          'hello': 'imfine'
-     *      },
+     *      },ne.util.HashMap
      *     'what': 'time'
      * });
      */
@@ -165,7 +167,7 @@
 
     /**
      * 키나 키의 목록을 전달하여 데이터를 삭제한다.
-     * @param {String...|String[]} key
+     * @param {...String|String[]} key
      * @returns {String|String[]}
      * @example
      * var hm = new HashMap();

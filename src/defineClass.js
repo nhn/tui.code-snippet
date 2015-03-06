@@ -6,9 +6,11 @@
 
 (function(ne) {
     'use strict';
+    /* istanbul ignore if */
     if (!ne) {
         ne = window.ne = {};
     }
+    /* istanbul ignore if */
     if (!ne.util) {
         ne.util = window.ne.util = {};
     }
@@ -51,7 +53,7 @@
      * var childInstance = new Child();
      * childInstance.method();
      * childInstance.method2();
-     *
+     * @memberof ne.util
      *
      */
     var defineClass = function(parent, props) {
