@@ -8,43 +8,34 @@ FE개발팀에서 배포하는 모든 컴포넌트 및 Application은 **가독�
 (네임스페이스는 서비스의 성격에 따라 재정의하여 사용할 수 있습니다.)<br>
 
 ## Feature
-> browser.js
+* browser.js
   * 브라우저 종류 및 버전 검출 모듈
-
-> collection.js
+* collection.js
  * 콜렉션 처리 모듈
  * 콜렉션를 쉽게 처리할 수 있는 유틸성 메소드를 제공
-
-> customEvent.js
+* customEvent.js
  * 커스텀이벤트 모듈
  * 커스텀 이벤트를 추가/제거 및 발생시켜 컴포넌트의 확장기능을 구현할 수 있도록 함
-
-> defineClass.js
+* defineClass.js
  * 클래스 정의 및 상속 모듈
-
-> enum.js
+* enum.js
  * 중복되지 않는 임의의 값을 갖는 상수목록을 다루는 모듈
  * IE8이하를 제외한 모던브라우저에서는 한번 결정된 값은 추후 변경 불가
-
-> func.js
+* func.js
  * 함수 처리 모듈
  * 처리를 쉽게 처리할 수 있는 유틸성 메소드를 제공
-
-> hashMap.js
+* hashMap.js
  * 해시맵 모듈
  * key/value로 데이터를 관리
-
-> inheritance.js
+* inheritance.js
   * 간단한 상속 모듈 (Nicholas C. Zakas, YUI Library)
   * 부모 생성자를 명시적으로 호출
   * 자식 프로토타입 메서드를 구현하기 전에 상속받아야 함
- * 믹스인 방법과 내부객체로 저장하여 사용
-
-> object.js
+  * 믹스인 방법과 내부객체로 저장하여 사용
+* object.js
  * 객체 처리 모듈
  * 객체를 쉽게 처리할 수 있는 유틸성 메소드를 제공
-
-> string.js
+* string.js
  * 문자열 처리 모듈
  * decodeHTMLEntity, encodeHTMLEntity 등의 유틸성 메소드를 제공
 
