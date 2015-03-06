@@ -17,11 +17,13 @@
 
     /**
      * 이벤트 핸들러 저장 단위
+     * @ignore
      * @typedef {{fn: function, ctx: *}} handlerItem
      */
 
     /**
      * 컨텍스트 별로 저장하기 위한 데이터 구조
+     * @ignore
      * @typedef {object.<string, handlerItem>} ctxEvents
      */
 
