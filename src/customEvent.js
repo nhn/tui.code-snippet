@@ -6,9 +6,11 @@
 
 (function(ne) {
     'use strict';
+    /* istanbul ignore if */
     if (!ne) {
         ne = window.ne = {};
     }
+    /* istanbul ignore if */
     if (!ne.util) {
         ne.util = window.ne.util = {};
     }
@@ -23,6 +25,10 @@
      * @typedef {object.<string, handlerItem>} ctxEvents
      */
 
+    /**
+     * @constructor
+     * @memberof ne.util
+     */
     function CustomEvents() {
         /**
          * 일반 핸들러 캐싱

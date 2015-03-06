@@ -18,8 +18,7 @@
     /**
      * 팝업 컨트롤 클래스
      * @constructor
-     * @exports Popup
-     * @class
+     * @memberof ne.util
      */
     function Popup() {
 
