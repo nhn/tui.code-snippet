@@ -13,7 +13,7 @@
     if (!ne.util) {
         ne.util = window.ne.util = {};
     }
-    
+
     /**
      * 해쉬맵에서 사용하는 데이터는 _MAPDATAPREFIX로 시작한다.
      * @type {string}
@@ -165,7 +165,7 @@
 
     /**
      * 키나 키의 목록을 전달하여 데이터를 삭제한다.
-     * @param {String...|String[]} key
+     * @param {...String|String[]} key
      * @returns {String|String[]}
      * @example
      * var hm = new HashMap();

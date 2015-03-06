@@ -100,7 +100,7 @@
 
     /**
      * 컨텍스트 핸들러 캐시 데이터 구조를 순회하며 반복자 수행
-     * @param {function(ctxEvents: ctxEvents, eventKey: string)} iteratee
+     * @param {function(ctxEvents, eventKey)} iteratee
      * @private
      */
     CustomEvents.prototype._eachCtxEvents = function(iteratee) {
@@ -114,7 +114,7 @@
      * 커스텀 이벤트 데이터 내에서 각 핸들러를 순회할 때 사용한다
      * @param {ctxEvents} ctxEvents
      * @param {string} id
-     * @param {function(handlerItem: handlerItem, handlerItemId: string)} iteratee
+     * @param {function(handlerItem, handlerItemId)} iteratee
      * @private
      */
     CustomEvents.prototype._eachCtxHandlerItemByContainId = function(ctxEvents, id, iteratee) {
@@ -128,7 +128,7 @@
     /**
      * 핸들러를 받아 핸들러가 포함된 컨텍스트 이벤트 핸들러를 순회하며 반복자를 실행함
      * @param {function} handler
-     * @param {function(handlerItem: handlerItem, ctxEventId: string, ctxEvents: ctxEvents, eventKey: string)} iteratee
+     * @param {function(handlerItem, ctxEventId, ctxEvents, eventKey)} iteratee
      * @private
      */
     CustomEvents.prototype._eachCtxEventByHandler = function(handler, iteratee) {
@@ -145,7 +145,7 @@
     /**
      * 컨텍스트를 기준으로 할당된 이벤트 핸들러를 순회하며 반복자를 수행
      * @param {*} context
-     * @param {function(handlerItem: handlerItem, ctxEventId: string, ctxEvents: ctxEvents, eventKey: string)} iteratee
+     * @param {function(handlerItem, ctxEventId, ctxEvents, eventKey)} iteratee
      * @private
      */
     CustomEvents.prototype._eachCtxEventByContext = function(context, iteratee) {
@@ -162,7 +162,7 @@
     /**
      * 이벤트 이름 기준으로 컨텍스트 이벤트 핸들러를 순회하며 반복자를 실행
      * @param {string} name
-     * @param {function(handlerItem: handlerItem, handlerItemId: string, ctxEvents: ctxEvents, eventKey: string)} iteratee
+     * @param {function(handlerItem, handlerItemId, ctxEvents, eventKey)} iteratee
      * @private
      */
     CustomEvents.prototype._eachCtxEventByEventName = function(name, iteratee) {
@@ -188,7 +188,7 @@
     /**
      * 핸들러를 받아 핸들러가 포함된 일반 이벤트 핸들러를 순회하며 반복자를 수행
      * @param {function} handler
-     * @param {function(handlerItem: handlerItem, index: number, eventList: handlerItem[], eventKey: string, decrease: function)} iteratee
+     * @param {function(handlerItem, index, eventList[], eventKey, decrease)} iteratee
      * @private
      */
     CustomEvents.prototype._eachEventByHandler = function(handler, iteratee) {
@@ -208,7 +208,7 @@
     /**
      * 이벤트명 기준으로 일반 이벤트를 순회하며 반복자를 수행
      * @param {string} name
-     * @param {function(handlerItem: handlerItem, index: number, itemList: handlerItem[], decrease: function)} iteratee
+     * @param {function(handlerItem, index, itemList[], decrease)} iteratee
      * @private
      */
     CustomEvents.prototype._eachEventByEventName = function(name, iteratee) {
@@ -568,7 +568,7 @@
      *
      * 이벤트를 취소할 수 있게 해 주는 기능에서 사용한다.
      * @param {string} eventName
-     * @param {*...} data
+     * @param {...*} data
      * @returns {*}
      * @example
      * // 확대 기능을 지원하는 컴포넌트 내부 코드라 가정
@@ -616,7 +616,7 @@
     /**
      * 이벤트를 발생시키는 메서드
      * @param {string} eventName 이벤트 이름
-     * @param {*...} data 발생과 함께 전달할 이벤트 데이터 (래핑하지 않고 인자로 전달한다)
+     * @param {...*} data 발생과 함께 전달할 이벤트 데이터 (래핑하지 않고 인자로 전달한다)
      * @return {*}
      * @example
      * instance.fire('move', 'left');
