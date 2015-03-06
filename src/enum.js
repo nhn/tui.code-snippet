@@ -45,7 +45,7 @@ var enumValue = 0;
  * @exports Enum
  * @constructor
  * @class
- *
+ * @memberof ne.util
  * @examples
  *
  * //생성
