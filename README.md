@@ -38,11 +38,9 @@ FE개발팀에서 배포하는 모든 컴포넌트 및 Application은 **가독�
 * string.js
  * 문자열 처리 모듈
  * decodeHTMLEntity, encodeHTMLEntity 등의 유틸성 메소드를 제공
-
-> type.js
+* type.js
  * 변수 타입체크 모듈
-
-> window.js
+* window.js
  * 윈도우 팝업등 window객체와 관련 모듈
  * IE11에서 POST를 사용해 팝업에 값을 전달시 postDataBridgeUrl 설정 필요
  * 다른 도메인을 팝업으로 띄울 경우 보안 문제로 팝업 컨트롤 불가
