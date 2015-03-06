@@ -5,6 +5,7 @@
 
 (function(ne) {
     'use strict';
+
     /* istanbul ignore if */
     if (!ne) {
         ne = window.ne = {};
@@ -18,6 +19,7 @@
      * @param {function()} fn
      * @param {*} obj - this로 사용될 객체
      * @return {function()}
+     * @memberof ne.util
      */
     function bind(fn, obj) {
         var slice = Array.prototype.slice;
