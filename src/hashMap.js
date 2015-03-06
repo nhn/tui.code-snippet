@@ -6,6 +6,7 @@
 
 (function(ne) {
     'use strict';
+
     /* istanbul ignore if */
     if (!ne) {
         ne = window.ne = {};
@@ -27,11 +28,12 @@
      * 주의) length프로퍼티를 가지고있어 유사 배열을 length의 유무로 체크하는 로직에서 의도되지 않은 동작을 할수있다.
      * @param {Object} [obj] 인스턴스가 만들어질때 셋팅할 초기 데이터
      * @constructor
+     * @memberof ne.util
      * @example
      * var hm = new HashMap({
      *     'mydata': {
      *          'hello': 'imfine'
-     *      },
+     *      },ne.util.HashMap
      *     'what': 'time'
      * });
      */

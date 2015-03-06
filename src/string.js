@@ -5,6 +5,7 @@
 
 (function(ne) {
     'use strict';
+
     if (!ne) {
         ne = window.ne = {};
     }
@@ -14,9 +15,9 @@
 
     /**
      * 전달된 문자열에 모든 HTML Entity 타입의 문자열을 원래의 문자로 반환
-     * @method decodeHTMLEntity
      * @param {String} htmlEntity HTML Entity 타입의 문자열
      * @return {String} 원래 문자로 변환된 문자열
+     * @memberof ne.util
      * @example
      var htmlEntityString = "A &#39;quote&#39; is &lt;b&gt;bold&lt;/b&gt;"
      var result = decodeHTMLEntity(htmlEntityString); //결과값 : "A 'quote' is <b>bold</b>"
@@ -27,11 +28,12 @@
             return entities[m0] ? entities[m0] : m0;
         });
     }
+
     /**
      * 전달된 문자열을 HTML Entity 타입의 문자열로 반환
-     * @method encodeHTMLEntity
      * @param {String} html HTML 문자열
      * @return {String} HTML Entity 타입의 문자열로 변환된 문자열
+     * @memberof ne.util
      * @example
      var htmlEntityString = "<script> alert('test');</script><a href='test'>";
      var result = encodeHTMLEntity(htmlEntityString);
@@ -43,9 +45,11 @@
             return entities[m0] ? '&' + entities[m0] + ';' : m0;
         });
     }
+
     /**
      * html Entity 로 변환할 수 있는 문자가 포함되었는지 확인
      * @param {String} string
+     * @memberof ne.util
      * @return {boolean}
      */
     function hasEncodableString(string) {

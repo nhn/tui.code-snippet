@@ -9,14 +9,18 @@
     if (!ne) {
         ne = window.ne = {};
     }
+    /* istanbul ignore if */
     if (!ne.util) {
         ne.util = window.ne.util = {};
     }
+
+
 
     /**
      * 전달된 객체를 prototype으로 사용하는 객체를 만들어 반환하는 메서드
      * @param {Object} obj
      * @return {Object}
+     * @memberof ne.util
      */
     function createObject() {
         function F() {}
@@ -56,6 +60,7 @@
      * };
      * @param {function} subType 자식 생성자 함수
      * @param {function} superType 부모 생성자 함수
+     * @memberof ne.util
      */
     function inherit(subType, superType) {
         var prototype = ne.util.createObject(superType.prototype);

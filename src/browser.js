@@ -31,7 +31,7 @@
      * ne.util.browser.msie === true;    // IE
      * ne.util.browser.other === true;    // other browser
      * ne.util.browser.version;    // 브라우저 버전 type: Number
-     * @memberOf ne.util
+     * @memberof ne.util
      */
     var browser = {
         chrome: false,
