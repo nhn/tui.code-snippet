@@ -1,42 +1,23 @@
 {
+  "tags": {
+    "allowUnknownTags": true,
+    "dictionaries": ["jsdoc", "closure"]
+  },
   "source": {
-    "include": ["src/*.js", "README.md"],
-    "exclude": ["src/js/common.js"],
+    "include": ["src", "README.md"],
+    "exclude": [],
     "includePattern": ".+\\.js(doc)?$",
     "excludePattern": "(^|\\/|\\\\)_"
   },
   "plugins": ["plugins/markdown"],
   "templates": {
-    "cleverLinks": true,
-    "monospaceLinks": true,
-    "default": {
-      "outputSourceFiles" : true
-    },
-    "applicationName": "share-cede-snippet",
-    "disqus": "",
-    "googleAnalytics": "",
-    "openGraph": {
-      "title": "",
-      "type": "website",
-      "image": "",
-      "site_name": "",
-      "url": ""
-    },
-    "meta": {
-      "title": "",
-      "description": "",
-      "keyword": ""
-    },
-    "linenums": false
-  },
-  "markdown": {
-    "parser": "gfm",
-    "hardwrap": true
+      "monospaceLinks": true,
+      "cleverLinks": true
   },
   "opts": {
+    "template": "./node_modules/fedoc-template",
     "recurse": true,
-    "private": true,
-    "destination": "doc",
-    "tutorials": "samples"
+    "destination": "./doc/",
+    "encoding": "utf8"
   }
 }

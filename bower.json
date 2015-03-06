@@ -4,7 +4,7 @@
   "authors": [
     "FE"
   ],
-  "license": "ISC",
+  "license": "PRIVATE",
   "private": true,
   "main": "code-snippet.js",
   "ignore": [
