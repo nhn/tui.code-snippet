@@ -52,6 +52,7 @@ FE개발팀에서 배포하는 모든 컴포넌트 및 Application은 **가독�
 
 ## Documentation
 * **API** - https://github.nhnent.com/pages/fe/share-code-snippet/
+* **Tutorial** - [준비중]입니다.
 * **CI** - http://fe.nhnent.com:8080/jenkins/job/share-code-snippet/
 
 ## Download/Install
