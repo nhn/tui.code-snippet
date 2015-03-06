@@ -513,7 +513,7 @@
 
     /**
      * 컨텍스트 핸들러 캐시 데이터 구조를 순회하며 반복자 수행
-     * @param {function(ctxEvents: ctxEvents, eventKey: string)} iteratee
+     * @param {function(ctxEvents, eventKey)} iteratee
      * @private
      */
     CustomEvents.prototype._eachCtxEvents = function(iteratee) {
@@ -527,7 +527,7 @@
      * 커스텀 이벤트 데이터 내에서 각 핸들러를 순회할 때 사용한다
      * @param {ctxEvents} ctxEvents
      * @param {string} id
-     * @param {function(handlerItem: handlerItem, handlerItemId: string)} iteratee
+     * @param {function(handlerItem, handlerItemId)} iteratee
      * @private
      */
     CustomEvents.prototype._eachCtxHandlerItemByContainId = function(ctxEvents, id, iteratee) {
@@ -541,7 +541,7 @@
     /**
      * 핸들러를 받아 핸들러가 포함된 컨텍스트 이벤트 핸들러를 순회하며 반복자를 실행함
      * @param {function} handler
-     * @param {function(handlerItem: handlerItem, ctxEventId: string, ctxEvents: ctxEvents, eventKey: string)} iteratee
+     * @param {function(handlerItem, ctxEventId, ctxEvents, eventKey)} iteratee
      * @private
      */
     CustomEvents.prototype._eachCtxEventByHandler = function(handler, iteratee) {
@@ -558,7 +558,7 @@
     /**
      * 컨텍스트를 기준으로 할당된 이벤트 핸들러를 순회하며 반복자를 수행
      * @param {*} context
-     * @param {function(handlerItem: handlerItem, ctxEventId: string, ctxEvents: ctxEvents, eventKey: string)} iteratee
+     * @param {function(handlerItem, ctxEventId, ctxEvents, eventKey)} iteratee
      * @private
      */
     CustomEvents.prototype._eachCtxEventByContext = function(context, iteratee) {
@@ -575,7 +575,7 @@
     /**
      * 이벤트 이름 기준으로 컨텍스트 이벤트 핸들러를 순회하며 반복자를 실행
      * @param {string} name
-     * @param {function(handlerItem: handlerItem, handlerItemId: string, ctxEvents: ctxEvents, eventKey: string)} iteratee
+     * @param {function(handlerItem, handlerItemId, ctxEvents, eventKey)} iteratee
      * @private
      */
     CustomEvents.prototype._eachCtxEventByEventName = function(name, iteratee) {
@@ -601,7 +601,7 @@
     /**
      * 핸들러를 받아 핸들러가 포함된 일반 이벤트 핸들러를 순회하며 반복자를 수행
      * @param {function} handler
-     * @param {function(handlerItem: handlerItem, index: number, eventList: handlerItem[], eventKey: string, decrease: function)} iteratee
+     * @param {function(handlerItem, index, eventList[], eventKey, decrease)} iteratee
      * @private
      */
     CustomEvents.prototype._eachEventByHandler = function(handler, iteratee) {
@@ -621,7 +621,7 @@
     /**
      * 이벤트명 기준으로 일반 이벤트를 순회하며 반복자를 수행
      * @param {string} name
-     * @param {function(handlerItem: handlerItem, index: number, itemList: handlerItem[], decrease: function)} iteratee
+     * @param {function(handlerItem, index, itemList[], decrease)} iteratee
      * @private
      */
     CustomEvents.prototype._eachEventByEventName = function(name, iteratee) {
@@ -981,7 +981,7 @@
      *
      * 이벤트를 취소할 수 있게 해 주는 기능에서 사용한다.
      * @param {string} eventName
-     * @param {*...} data
+     * @param {...*} data
      * @returns {*}
      * @example
      * // 확대 기능을 지원하는 컴포넌트 내부 코드라 가정
@@ -1029,7 +1029,7 @@
     /**
      * 이벤트를 발생시키는 메서드
      * @param {string} eventName 이벤트 이름
-     * @param {*...} data 발생과 함께 전달할 이벤트 데이터 (래핑하지 않고 인자로 전달한다)
+     * @param {...*} data 발생과 함께 전달할 이벤트 데이터 (래핑하지 않고 인자로 전달한다)
      * @return {*}
      * @example
      * instance.fire('move', 'left');
@@ -1143,7 +1143,9 @@
 
         obj = props.init || function(){};
 
-        parent && ne.util.inherit(obj, parent);
+        if(parent) {
+            ne.util.inherit(obj, parent);
+        }
 
         if (props.hasOwnProperty('static')) {
             ne.util.extend(obj, props.static);
@@ -1397,7 +1399,7 @@ ne.util.Enum = Enum;
     if (!ne.util) {
         ne.util = window.ne.util = {};
     }
-    
+
     /**
      * 해쉬맵에서 사용하는 데이터는 _MAPDATAPREFIX로 시작한다.
      * @type {string}
@@ -1445,7 +1447,11 @@ ne.util.Enum = Enum;
      * });
      */
     HashMap.prototype.set = function(key, value) {
-        arguments.length === 2 ? this.setKeyValue(key, value) : this.setObject(key);
+        if(arguments.length === 2) {
+            this.setKeyValue(key, value);
+        } else {
+            this.setObject(key);
+        }
     };
 
     /**
@@ -1545,7 +1551,7 @@ ne.util.Enum = Enum;
 
     /**
      * 키나 키의 목록을 전달하여 데이터를 삭제한다.
-     * @param {String...|String[]} key
+     * @param {...String|String[]} key
      * @returns {String|String[]}
      * @example
      * var hm = new HashMap();
@@ -1759,7 +1765,7 @@ ne.util.Enum = Enum;
 
         return function(obj) {
             F.prototype = obj;
-            return new F;
+            return new F();
         };
     }
 
@@ -1804,24 +1810,6 @@ ne.util.Enum = Enum;
 
 })(window.ne);
 
-/**********
- * layer.js
- **********/
-
-/**
- * @fileoverview
- * @author FE개발팀
- */
-
-(function(ne) {
-    'use strict';
-    if (!ne) {
-        ne = window.ne = {};
-    }
-    if (!ne.util) {
-        ne.util = window.ne.util = {};
-    }
-})(window.ne);
 /**********
  * object.js
  **********/
@@ -2048,25 +2036,6 @@ ne.util.Enum = Enum;
     ne.util._resetLastId = resetLastId;
     ne.util.keys = Object.keys || keys;
     ne.util.compareJSON = compareJSON;
-})(window.ne);
-
-/**********
- * simulation.js
- **********/
-
-/**
- * @fileoverview
- * @author FE개발팀
- */
-
-(function(ne) {
-    'use strict';
-    if (!ne) {
-        ne = window.ne = {};
-    }
-    if (!ne.util) {
-        ne.util = window.ne.util = {};
-    }
 })(window.ne);
 
 /**********
