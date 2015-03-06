@@ -33,7 +33,8 @@
      * a 의 속성 b에 d가 존재하는지 확인한다.(존재하지 않음, false반환)
      * ne.util.isExisty(a, 'b.d');
      * => false;
-     */
+     * @memberOf ne.util
+    */
     function isExisty(obj, key) {
         if (arguments.length < 2) {
             return !isNull(obj) && !isUndefined(obj);
@@ -62,6 +63,7 @@
      * 인자가 undefiend 인지 체크하는 메서드
      * @param obj
      * @returns {boolean}
+     * @memberOf ne.util
      */
     function isUndefined(obj) {
         return obj === undefined;
@@ -71,6 +73,7 @@
      * 인자가 null 인지 체크하는 메서드
      * @param {*} obj
      * @returns {boolean}
+     * @memberOf ne.util
      */
     function isNull(obj) {
         return obj === null;
@@ -82,6 +85,7 @@
      *
      * @param {*} obj
      * @return {boolean}
+     * @memberOf ne.util
      */
     function isTruthy(obj) {
         return isExisty(obj) && obj !== false;
@@ -92,6 +96,7 @@
      * (truthy의 반대값)
      * @param {*} obj
      * @return {boolean}
+     * @memberOf ne.util
      */
     function isFalsy(obj) {
         return !isTruthy(obj);
@@ -104,6 +109,7 @@
      * 인자가 arguments 객체인지 확인
      * @param {*} obj
      * @return {boolean}
+     * @memberOf ne.util
      */
     function isArguments(obj) {
         var result = isExisty(obj) &&
@@ -116,6 +122,7 @@
      * 인자가 배열인지 확인
      * @param {*} obj
      * @return {boolean}
+     * @memberOf ne.util
      */
     function isArray(obj) {
         return toString.call(obj) === '[object Array]';
@@ -125,6 +132,7 @@
      * 인자가 객체인지 확인하는 메서드
      * @param {*} obj
      * @return {boolean}
+     * @memberOf ne.util
      */
     function isObject(obj) {
         return obj === Object(obj);
@@ -134,6 +142,7 @@
      * 인자가 함수인지 확인하는 메서드
      * @param {*} obj
      * @return {boolean}
+     * @memberOf ne.util
      */
     function isFunction(obj) {
         return toString.call(obj) === '[object Function]';
@@ -143,6 +152,7 @@
      * 인자가 숫자인지 확인하는 메서드
      * @param {*} obj
      * @return {boolean}
+     * @memberOf ne.util
      */
     function isNumber(obj) {
         return toString.call(obj) === '[object Number]';
@@ -152,6 +162,7 @@
      * 인자가 문자열인지 확인하는 메서드
      * @param obj
      * @return {boolean}
+     * @memberOf ne.util
      */
     function isString(obj) {
         return toString.call(obj) === '[object String]';
@@ -161,6 +172,7 @@
      * 인자가 불리언 타입인지 확인하는 메서드
      * @param {*} obj
      * @return {boolean}
+     * @memberOf ne.util
      */
     function isBoolean(obj) {
         return toString.call(obj) === '[object Boolean]';
@@ -170,6 +182,7 @@
      * 인자가 HTML Node 인지 검사한다. (Text Node 도 포함)
      * @param {HTMLElement} html
      * @return {Boolean} HTMLElement 인지 여부
+     * @memberOf ne.util
      */
     function isHTMLNode(html) {
         if (typeof(HTMLElement) === 'object') {
@@ -181,6 +194,7 @@
      * 인자가 HTML Tag 인지 검사한다. (Text Node 제외)
      * @param {HTMLElement} html
      * @return {Boolean} HTMLElement 인지 여부
+     * @memberOf ne.util
      */
     function isHTMLTag(html) {
         if (typeof(HTMLElement) === 'object') {
@@ -192,6 +206,7 @@
      * null, undefined 여부와 순회 가능한 객체의 순회가능 갯수가 0인지 체크한다.
      * @param {*} obj 평가할 대상
      * @return {boolean}
+     * @memberOf ne.util
      */
     function isEmpty(obj) {
         var key,
@@ -226,6 +241,7 @@
      * isEmpty 메서드와 반대로 동작한다.
      * @param {*} obj 평가할 대상
      * @return {boolean}
+     * @memberOf ne.util
      */
     function isNotEmpty(obj) {
         return !isEmpty(obj);

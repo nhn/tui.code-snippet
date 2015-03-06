@@ -19,6 +19,7 @@
      * @param {Array} arr
      * @param {Function} iteratee  값이 전달될 콜백함수
      * @param {*} [context] 콜백함수의 컨텍스트
+     * @memberof ne.util
      * @example
      *
      * var sum = 0;
@@ -47,6 +48,7 @@
      * @param {object} obj
      * @param {Function} iteratee  프로퍼티가 전달될 콜백함수
      * @param {*} [context] 콜백함수의 컨텍스트
+     * @memberof ne.util
      * @example
      * var sum = 0;
      *
@@ -75,6 +77,7 @@
      * @param {*} obj 순회할 객체
      * @param {Function} iteratee 데이터가 전달될 콜백함수
      * @param {*} [context] 콜백함수의 컨텍스트
+     * @memberof ne.util
      * @example
      *
      * //ex1)
@@ -116,6 +119,7 @@
      * @param {Function} iteratee 데이터가 전달될 콜백함수
      * @param {*} [context] 콜백함수의 컨텍스트
      * @returns {Array}
+     * @memberof ne.util
      * @example
      * map([0,1,2,3], function(value) {
      *     return value + 1;
@@ -140,6 +144,7 @@
      * @param {Function} iteratee 데이터가 전달될 콜백함수
      * @param {*} [context] 콜백함수의 컨텍스트
      * @returns {*}
+     * @memberof ne.util
      * @example
      * reduce([0,1,2,3], function(stored, value) {
      *     return stored + value;
@@ -173,6 +178,7 @@
      * - IE 8 이하 버전에서 Array.prototype.slice.call 이 오류가 나는 경우가 있어 try-catch 로 예외 처리를 한다.
      * @param {*} arrayLike 유사배열
      * @return {Array}
+     * @memberof ne.util
      * @example
 
 
@@ -207,6 +213,7 @@
      * @param {Function} iteratee 데이터가 전달될 콜백함수
      * @param {*} [context] 콜백함수의 컨텍스트
      * @returns {*}
+     * @memberof ne.util
      * @example
      * filter([0,1,2,3], function(value) {
      *     return (value % 2 === 0);
@@ -248,7 +255,7 @@
      * @param {*} value 배열 내에서 찾고자 하는 값
      * @param {array} array 검색 대상 배열
      * @param {number} fromIndex 검색이 시작될 배열 인덱스. 지정하지 않으면 기본은 0이고 전체 배열 검색.
-     *
+     * @memberof ne.util
      * @return {number} targetValue가 발견된 array내에서의 index값
      * @example
      *
