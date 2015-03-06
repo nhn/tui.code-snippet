@@ -3,11 +3,16 @@
  * @author FE개발팀
  */
 
+/** @namespace ne */
+/** @namespace ne.util */
+
 (function(ne) {
     'use strict';
+    /* istanbul ignore if */
     if (!ne) {
         ne = window.ne = {};
     }
+    /* istanbul ignore if */
     if (!ne.util) {
         ne.util = window.ne.util = {};
     }
@@ -19,16 +24,14 @@
      * - chrome
      * - firefox
      * - safari
-     *
-     * @module browser
      * @example
-     * if (browser.msie && browser.version === 7) {
-     *     // IE7일 경우의 루틴
-     * }
-     *
-     * if (browser.chrome && browser.version >= 32) {
-     *     // Chrome 32버전 이상일 때의 루틴
-     * }
+     * ne.util.browser.chrome === true;    // chrome
+     * ne.util.browser.firefox === true;    // firefox
+     * ne.util.browser.safari === true;    // safari
+     * ne.util.browser.msie === true;    // IE
+     * ne.util.browser.other === true;    // other browser
+     * ne.util.browser.version;    // 브라우저 버전 type: Number
+     * @memberOf ne.util
      */
     var browser = {
         chrome: false,
