@@ -1,4 +1,5 @@
-## CodeSnippet
+CodeSnippet
+======================
 코드 스니펫<br>
 CodeSnippet이란, <br>
 타입체크나 배열처리와 같이 **자주 사용되는 코드 조각**을 모아둔 것으로,<br>
