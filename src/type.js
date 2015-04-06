@@ -15,48 +15,21 @@
 
     /**
      * 값이 정의되어 있는지 확인(null과 undefined가 아니면 true를 반환한다)
-     * @param {*} obj
-     * @param {(String|Array)} [key]
+     * @param {*} param
      * @returns {boolean}
      * @example
      *
-     * var obj = {a: {b: {c: 1}}};
-     * a 가 존재하는지 확인한다(존재함, true반환)
-     * ne.util.isExisty(a);
-     * => true;
-     * a 에 속성 b 가 존재하는지 확인한다.(존재함, true반환)
-     * ne.util.isExisty(a, 'b');
-     * => true;
-     * a 의 속성 b에 c가 존재하는지 확인한다.(존재함, true반환)
-     * ne.util.isExisty(a, 'b.c');
-     * => true;
-     * a 의 속성 b에 d가 존재하는지 확인한다.(존재하지 않음, false반환)
-     * ne.util.isExisty(a, 'b.d');
-     * => false;
+     *
+     * ne.util.isExisty(''); //true
+     * ne.util.isExisty(0); //true
+     * ne.util.isExisty([]); //true
+     * ne.util.isExisty({}); //true
+     * ne.util.isExisty(null); //false
+     * ne.util.isExisty(undefined); //false
      * @memberOf ne.util
     */
-    function isExisty(obj, key) {
-        if (arguments.length < 2) {
-            return !isNull(obj) && !isUndefined(obj);
-        }
-        if (!isObject(obj)) {
-            return false;
-        }
-
-        key = isString(key) ? key.split('.') : key;
-
-        if (!isArray(key)) {
-            return false;
-        }
-        key.unshift(obj);
-
-        var res = ne.util.reduce(key, function(acc, a) {
-            if (!acc) {
-                return;
-            }
-            return acc[a];
-        });
-        return !isNull(res) && !isUndefined(res);
+    function isExisty(param) {
+        return param != null;
     }
 
     /**
@@ -190,6 +163,7 @@
         }
         return !!(html && html.nodeType);
     }
+
     /**
      * 인자가 HTML Tag 인지 검사한다. (Text Node 제외)
      * @param {HTMLElement} html
@@ -202,6 +176,7 @@
         }
         return !!(html && html.nodeType && html.nodeType === 1);
     }
+
     /**
      * null, undefined 여부와 순회 가능한 객체의 순회가능 갯수가 0인지 체크한다.
      * @param {*} obj 평가할 대상
@@ -209,8 +184,7 @@
      * @memberOf ne.util
      */
     function isEmpty(obj) {
-        var key,
-            hasKey = false;
+        var hasKey = false;
 
         if (!isExisty(obj)) {
             return true;
