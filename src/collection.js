@@ -21,7 +21,7 @@
     var hasIndexOf = !!Array.prototype.indexOf;
 
     /**
-     * 배열나 유사배열를 순회하며 콜백함수에 전달한다.
+     * 배열이나 유사배열을 순회하며 콜백함수에 전달한다.
      * 콜백함수가 false를 리턴하면 순회를 종료한다.
      * @param {Array} arr
      * @param {Function} iteratee  값이 전달될 콜백함수
