@@ -98,7 +98,7 @@
      * @memberOf ne.util
      */
     function isArray(obj) {
-        return toString.call(obj) === '[object Array]';
+        return obj instanceof Array;
     }
 
     /**
@@ -118,7 +118,7 @@
      * @memberOf ne.util
      */
     function isFunction(obj) {
-        return toString.call(obj) === '[object Function]';
+        return obj instanceof Function;
     }
 
     /**
@@ -128,7 +128,7 @@
      * @memberOf ne.util
      */
     function isNumber(obj) {
-        return toString.call(obj) === '[object Number]';
+        return typeof obj === 'number' || obj instanceof Number;
     }
 
     /**
@@ -138,7 +138,7 @@
      * @memberOf ne.util
      */
     function isString(obj) {
-        return toString.call(obj) === '[object String]';
+        return typeof obj === 'string' || obj instanceof String;
     }
 
     /**
@@ -148,6 +148,62 @@
      * @memberOf ne.util
      */
     function isBoolean(obj) {
+        return typeof obj === 'boolean' || obj instanceof Boolean;
+    }
+
+
+    /**
+     * 인자가 배열인지 확인.
+     * <br>iframe 사용할 경우 부모 자식 window 간 타입 체크를 위해 사용한다.
+     * @param {*} obj
+     * @return {boolean}
+     * @memberOf ne.util
+     */
+    function isArrayToStr(obj) {
+        return toString.call(obj) === '[object Array]';
+    }
+
+    /**
+     * 인자가 함수인지 확인하는 메서드
+     * <br>iframe 사용할 경우 부모 자식 window 간 타입 체크를 위해 사용한다.
+     * @param {*} obj
+     * @return {boolean}
+     * @memberOf ne.util
+     */
+    function isFunctionToStr(obj) {
+        return toString.call(obj) === '[object Function]';
+    }
+
+    /**
+     * 인자가 숫자인지 확인하는 메서드
+     * <br>iframe 사용할 경우 부모 자식 window 간 타입 체크를 위해 사용한다.
+     * @param {*} obj
+     * @return {boolean}
+     * @memberOf ne.util
+     */
+    function isNumberToStr(obj) {
+        return toString.call(obj) === '[object Number]';
+    }
+
+    /**
+     * 인자가 문자열인지 확인하는 메서드
+     * <br>iframe 사용할 경우 부모 자식 window 간 타입 체크를 위해 사용한다.
+     * @param obj
+     * @return {boolean}
+     * @memberOf ne.util
+     */
+    function isStringToStr(obj) {
+        return toString.call(obj) === '[object String]';
+    }
+
+    /**
+     * 인자가 불리언 타입인지 확인하는 메서드
+     * <br>iframe 사용할 경우 부모 자식 window 간 타입 체크를 위해 사용한다.
+     * @param {*} obj
+     * @return {boolean}
+     * @memberOf ne.util
+     */
+    function isBooleanToStr(obj) {
         return toString.call(obj) === '[object Boolean]';
     }
 
@@ -229,11 +285,16 @@
     ne.util.isFalsy = isFalsy;
     ne.util.isArguments = isArguments;
     ne.util.isArray = Array.isArray || isArray;
+    ne.util.isArrayToStr = Array.isArray || isArrayToStr;
     ne.util.isObject = isObject;
     ne.util.isFunction = isFunction;
+    ne.util.isFunctionToStr = isFunctionToStr;
     ne.util.isNumber = isNumber;
+    ne.util.isNumberToStr = isNumberToStr;
     ne.util.isString = isString;
+    ne.util.isStringToStr = isStringToStr;
     ne.util.isBoolean = isBoolean;
+    ne.util.isBooleanToStr = isBooleanToStr;
     ne.util.isHTMLNode = isHTMLNode;
     ne.util.isHTMLTag = isHTMLTag;
     ne.util.isEmpty = isEmpty;
