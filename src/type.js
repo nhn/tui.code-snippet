@@ -160,7 +160,7 @@
      * @return {boolean}
      * @memberOf ne.util
      */
-    function isArrayToStr(obj) {
+    function isArraySafe(obj) {
         return toString.call(obj) === '[object Array]';
     }
 
@@ -171,7 +171,7 @@
      * @return {boolean}
      * @memberOf ne.util
      */
-    function isFunctionToStr(obj) {
+    function isFunctionSafe(obj) {
         return toString.call(obj) === '[object Function]';
     }
 
@@ -182,7 +182,7 @@
      * @return {boolean}
      * @memberOf ne.util
      */
-    function isNumberToStr(obj) {
+    function isNumberSafe(obj) {
         return toString.call(obj) === '[object Number]';
     }
 
@@ -193,7 +193,7 @@
      * @return {boolean}
      * @memberOf ne.util
      */
-    function isStringToStr(obj) {
+    function isStringSafe(obj) {
         return toString.call(obj) === '[object String]';
     }
 
@@ -204,7 +204,7 @@
      * @return {boolean}
      * @memberOf ne.util
      */
-    function isBooleanToStr(obj) {
+    function isBooleanSafe(obj) {
         return toString.call(obj) === '[object Boolean]';
     }
 
@@ -286,16 +286,16 @@
     ne.util.isFalsy = isFalsy;
     ne.util.isArguments = isArguments;
     ne.util.isArray = Array.isArray || isArray;
-    ne.util.isArrayToStr = Array.isArray || isArrayToStr;
+    ne.util.isArraySafe = Array.isArray || isArraySafe;
     ne.util.isObject = isObject;
     ne.util.isFunction = isFunction;
-    ne.util.isFunctionToStr = isFunctionToStr;
+    ne.util.isFunctionSafe = isFunctionSafe;
     ne.util.isNumber = isNumber;
-    ne.util.isNumberToStr = isNumberToStr;
+    ne.util.isNumberSafe = isNumberSafe;
     ne.util.isString = isString;
-    ne.util.isStringToStr = isStringToStr;
+    ne.util.isStringSafe = isStringSafe;
     ne.util.isBoolean = isBoolean;
-    ne.util.isBooleanToStr = isBooleanToStr;
+    ne.util.isBooleanSafe = isBooleanSafe;
     ne.util.isHTMLNode = isHTMLNode;
     ne.util.isHTMLTag = isHTMLTag;
     ne.util.isEmpty = isEmpty;
