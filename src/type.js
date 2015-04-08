@@ -35,7 +35,7 @@
 
     /**
      * 인자가 undefiend 인지 체크하는 메서드
-     * @param obj
+     * @param {*}  obj 평가할 대상
      * @returns {boolean}
      * @memberOf ne.util
      */
@@ -45,7 +45,7 @@
 
     /**
      * 인자가 null 인지 체크하는 메서드
-     * @param {*} obj
+     * @param {*}  obj 평가할 대상
      * @returns {boolean}
      * @memberOf ne.util
      */
@@ -57,7 +57,7 @@
      * 인자가 null, undefined, false가 아닌지 확인하는 메서드
      * (0도 true로 간주한다)
      *
-     * @param {*} obj
+     * @param {*}  obj 평가할 대상
      * @return {boolean}
      * @memberOf ne.util
      */
@@ -68,7 +68,7 @@
     /**
      * 인자가 null, undefined, false인지 확인하는 메서드
      * (truthy의 반대값)
-     * @param {*} obj
+     * @param {*}  obj 평가할 대상
      * @return {boolean}
      * @memberOf ne.util
      */
@@ -81,7 +81,7 @@
 
     /**
      * 인자가 arguments 객체인지 확인
-     * @param {*} obj
+     * @param {*}  obj 평가할 대상
      * @return {boolean}
      * @memberOf ne.util
      */
@@ -94,7 +94,7 @@
 
     /**
      * 인자가 배열인지 확인
-     * @param {*} obj
+     * @param {*}  obj 평가할 대상
      * @return {boolean}
      * @memberOf ne.util
      */
@@ -104,7 +104,7 @@
 
     /**
      * 인자가 객체인지 확인하는 메서드
-     * @param {*} obj
+     * @param {*}  obj 평가할 대상
      * @return {boolean}
      * @memberOf ne.util
      */
@@ -114,7 +114,7 @@
 
     /**
      * 인자가 함수인지 확인하는 메서드
-     * @param {*} obj
+     * @param {*}  obj 평가할 대상
      * @return {boolean}
      * @memberOf ne.util
      */
@@ -124,7 +124,7 @@
 
     /**
      * 인자가 숫자인지 확인하는 메서드
-     * @param {*} obj
+     * @param {*}  obj 평가할 대상
      * @return {boolean}
      * @memberOf ne.util
      */
@@ -134,7 +134,7 @@
 
     /**
      * 인자가 문자열인지 확인하는 메서드
-     * @param obj
+     * @param {*}  obj 평가할 대상
      * @return {boolean}
      * @memberOf ne.util
      */
@@ -144,7 +144,7 @@
 
     /**
      * 인자가 불리언 타입인지 확인하는 메서드
-     * @param {*} obj
+     * @param {*}  obj 평가할 대상
      * @return {boolean}
      * @memberOf ne.util
      */
@@ -156,7 +156,7 @@
     /**
      * 인자가 배열인지 확인.
      * <br>iframe 사용할 경우 부모 자식 window 간 타입 체크를 위해 사용한다.
-     * @param {*} obj
+     * @param {*}  obj 평가할 대상
      * @return {boolean}
      * @memberOf ne.util
      */
@@ -167,7 +167,7 @@
     /**
      * 인자가 함수인지 확인하는 메서드
      * <br>iframe 사용할 경우 부모 자식 window 간 타입 체크를 위해 사용한다.
-     * @param {*} obj
+     * @param {*}  obj 평가할 대상
      * @return {boolean}
      * @memberOf ne.util
      */
@@ -178,7 +178,7 @@
     /**
      * 인자가 숫자인지 확인하는 메서드
      * <br>iframe 사용할 경우 부모 자식 window 간 타입 체크를 위해 사용한다.
-     * @param {*} obj
+     * @param {*}  obj 평가할 대상
      * @return {boolean}
      * @memberOf ne.util
      */
@@ -189,7 +189,7 @@
     /**
      * 인자가 문자열인지 확인하는 메서드
      * <br>iframe 사용할 경우 부모 자식 window 간 타입 체크를 위해 사용한다.
-     * @param obj
+     * @param {*}  obj 평가할 대상
      * @return {boolean}
      * @memberOf ne.util
      */
@@ -200,7 +200,7 @@
     /**
      * 인자가 불리언 타입인지 확인하는 메서드
      * <br>iframe 사용할 경우 부모 자식 window 간 타입 체크를 위해 사용한다.
-     * @param {*} obj
+     * @param {*}  obj 평가할 대상
      * @return {boolean}
      * @memberOf ne.util
      */
@@ -210,7 +210,7 @@
 
     /**
      * 인자가 HTML Node 인지 검사한다. (Text Node 도 포함)
-     * @param {HTMLElement} html
+     * @param {*}  html 평가할 대상
      * @return {Boolean} HTMLElement 인지 여부
      * @memberOf ne.util
      */
@@ -223,7 +223,7 @@
 
     /**
      * 인자가 HTML Tag 인지 검사한다. (Text Node 제외)
-     * @param {HTMLElement} html
+     * @param {*}  html 평가할 대상
      * @return {Boolean} HTMLElement 인지 여부
      * @memberOf ne.util
      */
