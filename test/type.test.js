@@ -8,7 +8,8 @@ describe('type', function() {
             o4 = {},
             o5 = false,
             o6 = isNaN,
-            o7;
+            o7,
+            o8 = '';
 
 
         expect(ne.util.isExisty(o1)).toBe(false);
@@ -18,19 +19,9 @@ describe('type', function() {
         expect(ne.util.isExisty(o5)).toBe(true);
         expect(ne.util.isExisty(o6)).toBe(true);
         expect(ne.util.isExisty(o7)).toBe(false);
+        expect(ne.util.isExisty(o8)).toBe(true);
     });
 
-    it('isExisty() second params 객체의 내부에 값이 존재하는지 확인', function() {
-        var o1 = { a: 10 },
-            o2 = { a: { b: '10' }};
-
-        expect(ne.util.isExisty(o1, 'a')).toBe(true);
-        expect(ne.util.isExisty(o2, 'a.b')).toBe(true);
-        expect(ne.util.isExisty(o2, ['a','b'])).toBe(true);
-        expect(ne.util.isExisty(o2, 'a.c')).toBe(false);
-        expect(ne.util.isExisty()).toBeFalsy(false);
-
-    });
 
     it('isUndefined() 값이 undefined인지 확인', function() {
         var o1 = 0,

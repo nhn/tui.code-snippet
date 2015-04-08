@@ -14,7 +14,14 @@
     }
 
     /**
-     * 배열나 유사배열를 순회하며 콜백함수에 전달한다.
+     * Array 의 prototype 에 indexOf 가 존재하는지 여부를 저장한다.
+     * 페이지 로드 시 한번만 확인하면 되므로, 변수에 캐싱한다.
+     * @type {boolean}
+     */
+    var hasIndexOf = !!Array.prototype.indexOf;
+
+    /**
+     * 배열이나 유사배열을 순회하며 콜백함수에 전달한다.
      * 콜백함수가 false를 리턴하면 순회를 종료한다.
      * @param {Array} arr
      * @param {Function} iteratee  값이 전달될 콜백함수
@@ -34,8 +41,10 @@
         var index = 0,
             len = arr.length;
 
+        context = context || null;
+
         for (; index < len; index++) {
-            if (iteratee.call(context || null, arr[index], index, arr) === false) {
+            if (iteratee.call(context, arr[index], index, arr) === false) {
                 break;
             }
         }
@@ -61,9 +70,11 @@
     function forEachOwnProperties(obj, iteratee, context) {
         var key;
 
+        context = context || null;
+
         for (key in obj) {
             if (obj.hasOwnProperty(key)) {
-                if (iteratee.call(context || null, obj[key], key, obj) === false) {
+                if (iteratee.call(context, obj[key], key, obj) === false) {
                     break;
                 }
             }
@@ -103,9 +114,11 @@
         var key,
             len;
 
+        context = context || null;
+
         if (ne.util.isArray(obj)) {
             for (key = 0, len = obj.length; key < len; key++) {
-                iteratee.call(context || null, obj[key], key, obj);
+                iteratee.call(context, obj[key], key, obj);
             }
         } else {
             ne.util.forEachOwnProperties(obj, iteratee, context);
@@ -130,8 +143,10 @@
     function map(obj, iteratee, context) {
         var resultArray = [];
 
+        context = context || null;
+
         ne.util.forEach(obj, function() {
-            resultArray.push(iteratee.apply(context || null, arguments));
+            resultArray.push(iteratee.apply(context, arguments));
         });
 
         return resultArray;
@@ -158,6 +173,7 @@
             length,
             store;
 
+        context = context || null;
 
         if (!ne.util.isArray(obj)) {
             keys = ne.util.keys(obj);
@@ -168,7 +184,7 @@
         store = obj[keys ? keys[index++] : index++];
 
         for (; index < length; index++) {
-            store = iteratee.call(context || null, store, obj[keys ? keys[index] : index]);
+            store = iteratee.call(context, store, obj[keys ? keys[index] : index]);
         }
 
         return store;
@@ -227,23 +243,30 @@
      * => {a: 1, c: 3};
      */
     var filter = function(obj, iteratee, context) {
-        var result = ne.util.isArray(obj) ? [] : {},
-            value,
-            key;
+        var result,
+            add;
+
+        context = context || null;
 
         if (!ne.util.isObject(obj) || !ne.util.isFunction(iteratee)) {
             throw new Error('wrong parameter');
         }
 
+        if (ne.util.isArray(obj)) {
+            result = [];
+            add = function(result, args) {
+                result.push(args[0]);
+            };
+        } else {
+            result = {};
+            add = function(result, args) {
+                result[args[1]] = args[0];
+            };
+        }
+
         ne.util.forEach(obj, function() {
-            if (iteratee.apply(context || null, arguments)) {
-                value = arguments[0];
-                key = arguments[1];
-                if (ne.util.isArray(obj)) {
-                    result.push(value);
-                } else {
-                    result[key] = value;
-                }
+            if (iteratee.apply(context, arguments)) {
+                add(result, arguments);
             }
         }, context);
 
@@ -254,7 +277,7 @@
      * 배열 내의 값을 찾아서 인덱스를 반환한다. 찾고자 하는 값이 없으면 -1 반환.
      * @param {*} value 배열 내에서 찾고자 하는 값
      * @param {array} array 검색 대상 배열
-     * @param {number} fromIndex 검색이 시작될 배열 인덱스. 지정하지 않으면 기본은 0이고 전체 배열 검색.
+     * @param {number} index 검색이 시작될 배열 인덱스. 지정하지 않으면 기본은 0이고 전체 배열 검색.
      * @memberof ne.util
      * @return {number} targetValue가 발견된 array내에서의 index값
      * @example
@@ -266,31 +289,27 @@
      *   ne.util.inArray('one', arr);
      *      => return 0
      */
-    var inArray = function(value, array, fromIndex) {
+    var inArray = function(value, array, index) {
         if (!ne.util.isArray(array)) {
             return -1;
         }
 
-        if (Array.prototype.indexOf) {
-            return Array.prototype.indexOf.call(array, value, fromIndex);
+        if (hasIndexOf) {
+            return Array.prototype.indexOf.call(array, value, index);
         }
 
         var i,
-            index,
-            arrLen = array.length;
+            length = array.length;
 
-        //fromIndex를 지정하되 array 길이보다 같거나 큰 숫자로 지정하면 오류이므로 -1을 리턴한다.
-        if (ne.util.isUndefined(fromIndex)) {
-            fromIndex = 0;
-        } else if (fromIndex >= arrLen) {
+        //index를 지정하되 array 길이보다 같거나 큰 숫자로 지정하면 오류이므로 -1을 리턴한다.
+        if (ne.util.isUndefined(index)) {
+            index = 0;
+        } else if (index >= length || index < 0) {
             return -1;
         }
 
-        //fromIndex값을 참고하여 배열을 순회할 시작index를 정한다.
-        index = (fromIndex > -1) ? fromIndex : 0;
-
         //array에서 value 탐색하여 index반환
-        for (i = index; i < arrLen; i++) {
+        for (i = index; i < length; i++) {
             if (array[i] === value) {
                 return i;
             }
