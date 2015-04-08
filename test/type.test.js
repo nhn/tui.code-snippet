@@ -214,7 +214,7 @@ describe('type', function() {
         expect(ne.util.isBoolean(o7)).toBe(false);
     });
 
-    it('isArrayToStr()', function() {
+    it('isArraySafe()', function() {
         var o1 = new Array(3),
             o2 = [],
             o3 = 'array',
@@ -223,16 +223,16 @@ describe('type', function() {
             o6 = new Object(),
             o7 = {};
 
-        expect(ne.util.isArrayToStr(o1)).toBe(true);
-        expect(ne.util.isArrayToStr(o2)).toBe(true);
-        expect(ne.util.isArrayToStr(o3)).toBe(false);
-        expect(ne.util.isArrayToStr(o4)).toBe(false);
-        expect(ne.util.isArrayToStr(o5)).toBe(false);
-        expect(ne.util.isArrayToStr(o6)).toBe(false);
-        expect(ne.util.isArrayToStr(o7)).toBe(false);
+        expect(ne.util.isArraySafe(o1)).toBe(true);
+        expect(ne.util.isArraySafe(o2)).toBe(true);
+        expect(ne.util.isArraySafe(o3)).toBe(false);
+        expect(ne.util.isArraySafe(o4)).toBe(false);
+        expect(ne.util.isArraySafe(o5)).toBe(false);
+        expect(ne.util.isArraySafe(o6)).toBe(false);
+        expect(ne.util.isArraySafe(o7)).toBe(false);
     });
 
-    it('isFunctionToStr()', function() {
+    it('isFunctionSafe()', function() {
         var o1 = function() {},
             o2 = {},
             o3 = '',
@@ -243,18 +243,18 @@ describe('type', function() {
             o8 = new Function(),
             o9 = function test() {};
 
-        expect(ne.util.isFunctionToStr(o1)).toBe(true);
-        expect(ne.util.isFunctionToStr(o2)).toBe(false);
-        expect(ne.util.isFunctionToStr(o3)).toBe(false);
-        expect(ne.util.isFunctionToStr(o4)).toBe(false);
-        expect(ne.util.isFunctionToStr(o5)).toBe(false);
-        expect(ne.util.isFunctionToStr(o6)).toBe(false);
-        expect(ne.util.isFunctionToStr(o7)).toBe(false);
-        expect(ne.util.isFunctionToStr(o8)).toBe(true);
-        expect(ne.util.isFunctionToStr(o9)).toBe(true);
+        expect(ne.util.isFunctionSafe(o1)).toBe(true);
+        expect(ne.util.isFunctionSafe(o2)).toBe(false);
+        expect(ne.util.isFunctionSafe(o3)).toBe(false);
+        expect(ne.util.isFunctionSafe(o4)).toBe(false);
+        expect(ne.util.isFunctionSafe(o5)).toBe(false);
+        expect(ne.util.isFunctionSafe(o6)).toBe(false);
+        expect(ne.util.isFunctionSafe(o7)).toBe(false);
+        expect(ne.util.isFunctionSafe(o8)).toBe(true);
+        expect(ne.util.isFunctionSafe(o9)).toBe(true);
     });
 
-    it('isNumberToStr()', function() {
+    it('isNumberSafe()', function() {
         var o1 = 1,
             o2 = new Number(2),
             o3 = { test: 1 },
@@ -267,21 +267,21 @@ describe('type', function() {
             o10 = 0x15,
             o11 = parseInt('00101', 2);
 
-        expect(ne.util.isNumberToStr(o1)).toBe(true);
-        expect(ne.util.isNumberToStr(o2)).toBe(true);
-        expect(ne.util.isNumberToStr(o3.test)).toBe(true);
-        expect(ne.util.isNumberToStr(o3)).toBe(false);
-        expect(ne.util.isNumberToStr(o4)).toBe(false);
-        expect(ne.util.isNumberToStr(o5)).toBe(false);
-        expect(ne.util.isNumberToStr(o6)).toBe(false);
-        expect(ne.util.isNumberToStr(o7)).toBe(false);
-        expect(ne.util.isNumberToStr(o8)).toBe(true);
-        expect(ne.util.isNumberToStr(o9)).toBe(true);
-        expect(ne.util.isNumberToStr(o11)).toBe(true);
+        expect(ne.util.isNumberSafe(o1)).toBe(true);
+        expect(ne.util.isNumberSafe(o2)).toBe(true);
+        expect(ne.util.isNumberSafe(o3.test)).toBe(true);
+        expect(ne.util.isNumberSafe(o3)).toBe(false);
+        expect(ne.util.isNumberSafe(o4)).toBe(false);
+        expect(ne.util.isNumberSafe(o5)).toBe(false);
+        expect(ne.util.isNumberSafe(o6)).toBe(false);
+        expect(ne.util.isNumberSafe(o7)).toBe(false);
+        expect(ne.util.isNumberSafe(o8)).toBe(true);
+        expect(ne.util.isNumberSafe(o9)).toBe(true);
+        expect(ne.util.isNumberSafe(o11)).toBe(true);
 
     });
 
-    it('isStringToStr()', function() {
+    it('isStringSafe()', function() {
         var o1 = {},
             o2 = new String('a'),
             o3 = 'string',
@@ -290,16 +290,16 @@ describe('type', function() {
             o6 = true,
             o7 = /xyz/g;
 
-        expect(ne.util.isStringToStr(o1)).toBe(false);
-        expect(ne.util.isStringToStr(o2)).toBe(true);
-        expect(ne.util.isStringToStr(o3)).toBe(true);
-        expect(ne.util.isStringToStr(o4)).toBe(false);
-        expect(ne.util.isStringToStr(o5)).toBe(true);
-        expect(ne.util.isStringToStr(o6)).toBe(false);
-        expect(ne.util.isStringToStr(o7)).toBe(false);
+        expect(ne.util.isStringSafe(o1)).toBe(false);
+        expect(ne.util.isStringSafe(o2)).toBe(true);
+        expect(ne.util.isStringSafe(o3)).toBe(true);
+        expect(ne.util.isStringSafe(o4)).toBe(false);
+        expect(ne.util.isStringSafe(o5)).toBe(true);
+        expect(ne.util.isStringSafe(o6)).toBe(false);
+        expect(ne.util.isStringSafe(o7)).toBe(false);
     });
 
-    it('isBooleanToStr()', function() {
+    it('isBooleanSafe()', function() {
         var o1 = {},
             o2 = new Boolean('true'),
             o3 = 1,
@@ -308,13 +308,13 @@ describe('type', function() {
             o6 = undefined,
             o7 = null;
 
-        expect(ne.util.isBooleanToStr(o1)).toBe(false);
-        expect(ne.util.isBooleanToStr(o2)).toBe(true);
-        expect(ne.util.isBooleanToStr(o3)).toBe(false);
-        expect(ne.util.isBooleanToStr(o4)).toBe(true);
-        expect(ne.util.isBooleanToStr(o5)).toBe(true);
-        expect(ne.util.isBooleanToStr(o6)).toBe(false);
-        expect(ne.util.isBooleanToStr(o7)).toBe(false);
+        expect(ne.util.isBooleanSafe(o1)).toBe(false);
+        expect(ne.util.isBooleanSafe(o2)).toBe(true);
+        expect(ne.util.isBooleanSafe(o3)).toBe(false);
+        expect(ne.util.isBooleanSafe(o4)).toBe(true);
+        expect(ne.util.isBooleanSafe(o5)).toBe(true);
+        expect(ne.util.isBooleanSafe(o6)).toBe(false);
+        expect(ne.util.isBooleanSafe(o7)).toBe(false);
     });
 
     it('isHTMLNode() DOM인지 확인', function() {
