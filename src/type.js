@@ -1,6 +1,7 @@
 /**
  * @fileoverview 타입체크 모듈
  * @author FE개발팀
+ * @dependency collection.js
  */
 
 (function(ne) {
