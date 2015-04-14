@@ -88,6 +88,14 @@ describe('object', function() {
 
     describe('pick', function() {
         it('기본 검증', function() {
+            var o1,
+                o2 = null;
+
+            expect(ne.util.pick(o1)).toBeUndefined();
+            expect(ne.util.pick(o1, 'key1')).toBeUndefined();
+            expect(ne.util.pick(o2)).toBeNull();
+            expect(ne.util.pick(o2, 'key1')).toBeUndefined();
+
             expect(ne.util.pick(1)).toBe(1);
             expect(ne.util.pick('key1')).toBe('key1');
             expect(ne.util.pick('key1', 'key2')).toBeUndefined();
