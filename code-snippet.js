@@ -2120,9 +2120,10 @@ ne.util.Enum = Enum;
             i;
 
         for (i = 1; i < length; i++) {
-            target = target[args[i]];
-            if (ne.util.isUndefined(target)){
+            if (!ne.util.isObject(target)) {
                 return;
+            } else {
+                target = target[args[i]];
             }
         }
         return target;
