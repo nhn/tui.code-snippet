@@ -95,6 +95,7 @@ describe('object', function() {
             expect(ne.util.pick(o1, 'key1')).toBeUndefined();
             expect(ne.util.pick(o2)).toBeNull();
             expect(ne.util.pick(o2, 'key1')).toBeUndefined();
+            expect(ne.util.pick(o2, 'key1', 'key2')).toBeUndefined();
 
             expect(ne.util.pick(1)).toBe(1);
             expect(ne.util.pick('key1')).toBe('key1');

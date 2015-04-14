@@ -254,15 +254,14 @@
             target = args[0],
             length = args.length,
             i;
-
-        for (i = 1; i < length; i++) {
-            if (!ne.util.isObject(target)) {
-                return;
-            } else {
+        try {
+            for (i = 1; i < length; i++) {
                 target = target[args[i]];
             }
+            return target;
+        } catch(e) {
+            return;
         }
-        return target;
     }
 
     ne.util.extend = extend;
