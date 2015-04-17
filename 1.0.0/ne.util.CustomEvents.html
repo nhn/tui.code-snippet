@@ -1,0 +1,1965 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Class: CustomEvents</title>
+    <link type="text/css" rel="stylesheet" href="styles/prettify-jsdoc.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-fe2.css">
+</head>
+<body>
+
+<div id="wrap">
+
+    <div class="header">
+
+        <div class="container-fluid">
+            <h3><a href="index.html">API Documentation</a> <small>FE개발팀</small></h3>
+        </div>
+
+    </div>
+
+    <div class="body">
+        <div id="navigation" class="navigation"><h3>Util Classes</h3><ul class="utillist classes"><li><span class="namespace">ne.util.</span><a href="ne.util.CustomEvents.html">CustomEvents</a></li><li><span class="namespace">ne.util.</span><a href="ne.util.Enum.html">Enum</a></li><li><span class="namespace">ne.util.</span><a href="ne.util.HashMap.html">HashMap</a></li><li><span class="namespace">ne.util.</span><a href="ne.util.Popup.html">Popup</a></li></ul><h3>Util Methods</h3><ul class="utillist classes"><h4>browser.js</h4><ul class="utillist modules"><li><span class="namespace">ne.util.</span><a href="ne.util.html#.browser">browser</a><span class="icon blue static">static</span></li></ul><ul class="sublist division ne.util"><li></li></ul><h4>collection.js</h4><ul class="utillist modules"><li><span class="namespace">ne.util.</span><a href="ne.util.html#.filter">filter</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.forEach">forEach</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.forEachArray">forEachArray</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.forEachOwnProperties">forEachOwnProperties</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.inArray">inArray</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.map">map</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.reduce">reduce</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.toArray">toArray</a><span class="icon blue static">static</span></li></ul><h4>defineClass.js</h4><ul class="utillist modules"><li><span class="namespace">ne.util.</span><a href="ne.util.html#.defineClass">defineClass</a><span class="icon blue static">static</span></li></ul><h4>func.js</h4><ul class="utillist modules"><li><span class="namespace">ne.util.</span><a href="ne.util.html#.bind">bind</a><span class="icon blue static">static</span></li></ul><h4>inheritance.js</h4><ul class="utillist modules"><li><span class="namespace">ne.util.</span><a href="ne.util.html#.createObject">createObject</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.inherit">inherit</a><span class="icon blue static">static</span></li></ul><h4>object.js</h4><ul class="utillist modules"><li><span class="namespace">ne.util.</span><a href="ne.util.html#.compareJSON">compareJSON</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.extend">extend</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.hasStamp">hasStamp</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.keys">keys</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.stamp">stamp</a><span class="icon blue static">static</span></li></ul><h4>string.js</h4><ul class="utillist modules"><li><span class="namespace">ne.util.</span><a href="ne.util.html#.decodeHTMLEntity">decodeHTMLEntity</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.encodeHTMLEntity">encodeHTMLEntity</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.hasEncodableString">hasEncodableString</a><span class="icon blue static">static</span></li></ul><h4>type.js</h4><ul class="utillist modules"><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isArguments">isArguments</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isArray">isArray</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isArraySafe">isArraySafe</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isBoolean">isBoolean</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isBooleanSafe">isBooleanSafe</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isEmpty">isEmpty</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isExisty">isExisty</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isFalsy">isFalsy</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isFunction">isFunction</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isFunctionSafe">isFunctionSafe</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isHTMLNode">isHTMLNode</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isHTMLTag">isHTMLTag</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isNotEmpty">isNotEmpty</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isNull">isNull</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isNumber">isNumber</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isNumberSafe">isNumberSafe</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isObject">isObject</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isString">isString</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isStringSafe">isStringSafe</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isTruthy">isTruthy</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isUndefined">isUndefined</a><span class="icon blue static">static</span></li></ul></ul></div>
+        <div id="main" class="main">
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+        
+            <span class="ancestors"><a href="ne.html">ne</a><a href="ne.util.html">.util</a>.</span>
+        
+        CustomEvents
+        
+        
+        </h2>
+        
+    
+</header>
+
+<article>
+    
+    <div class="container-overview">
+    
+        
+<dt>
+    
+        <h4 class="name" id="CustomEvents">
+            <span class="type-signature"></span>new CustomEvents<span class="signature">()</span><span class="type-signature"></span>
+            
+                <div class="container-source method">
+                    <code><a href="customEvent.js.html">customEvent.js</a></code>,
+                    <code><a href="customEvent.js.html#line34">line 34</a></code>
+                </div>
+            
+        </h4>
+
+
+
+        
+    
+</dt>
+<dd>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    <!--
+    
+    -->
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+    
+    </div>
+    
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+
+    
+    <div class="container-methods">
+        <h3 class="subsection-title">Methods</h3>
+
+        <dl>
+            
+<dt>
+    
+        <h4 class="name" id=".mixin">
+            <span class="type-signature"><span class="icon green">static</span> </span>mixin<span class="signature">(func)</span><span class="type-signature"></span>
+            
+                <div class="container-source method">
+                    <code><a href="customEvent.js.html">customEvent.js</a></code>,
+                    <code><a href="customEvent.js.html#line69">line 69</a></code>
+                </div>
+            
+        </h4>
+
+
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>커스텀 이벤트 기능을 믹스인할 때 사용하는 메서드</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-params">
+        <div class="params">
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name first"><code>func</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>생성자 함수</p></td>
+        </tr>
+
+    
+    </tbody>
+</table></div>
+    </div>
+    
+
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    <!--
+    
+    -->
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code>// 모델 클래스 변경 시 컨트롤러에게 알림을 주고 싶은데
+// 그 기능을 모델 클래스 자체에게 주고 싶다
+function Model() {}
+
+// 커스텀 이벤트 믹스인
+ne.util.CustomEvents.mixin(Model);
+
+var model = new Model();
+
+model.on('changed', function() {}, this);</code></pre>
+
+    
+</dd>
+
+        
+            
+<dt>
+    
+        <h4 class="name" id="_forEachArraySplice">
+            <span class="type-signature"></span>_forEachArraySplice<span class="signature">(arr, iteratee)</span><span class="type-signature"></span>
+            
+                <div class="container-source method">
+                    <code><a href="customEvent.js.html">customEvent.js</a></code>,
+                    <code><a href="customEvent.js.html#line82">line 82</a></code>
+                </div>
+            
+        </h4>
+
+
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>배열 반복자를 실행시키되 전체 순회 수를 감소시키는 메서드를 제공한다</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-params">
+        <div class="params">
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name first"><code>arr</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name first"><code>iteratee</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table></div>
+    </div>
+    
+
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    <!--
+    
+    -->
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    
+        <h4 class="name" id="on">
+            <span class="type-signature"></span>on<span class="signature">(name, handler<span class="signature-attributes">opt</span>, context<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span>
+            
+                <div class="container-source method">
+                    <code><a href="customEvent.js.html">customEvent.js</a></code>,
+                    <code><a href="customEvent.js.html#line444">line 444</a></code>
+                </div>
+            
+        </h4>
+
+
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>이벤트를 등록한다</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-params">
+        <div class="params">
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name first"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+|
+
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>등록할 이벤트명 또는 {이벤트명: 핸들러} 객체</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name first"><code>handler</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+|
+
+<span class="param-type">*</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>핸들러 함수 또는 context</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name first"><code>context</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>핸들러 함수의 context 지정 가능</p></td>
+        </tr>
+
+    
+    </tbody>
+</table></div>
+    </div>
+    
+
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    <!--
+    
+    -->
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code>// 1. 기본적인 등록
+customEvent.on('onload', handler);
+
+// 2. 컨텍스트 전달
+customEvent.on('onload', handler, myObj);
+
+// 3. 이벤트명: 핸들러 객체로 등록
+customEvent.on({
+  'play': handler,
+  'pause': handler2
+});
+
+// 4. 이벤트명: 핸들러 + 컨텍스트
+customEvent.on({
+  'play': handler
+}, myObj);</code></pre>
+
+    
+</dd>
+
+        
+            
+<dt>
+    
+        <h4 class="name" id="off">
+            <span class="type-signature"></span>off<span class="signature">(name, handler<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span>
+            
+                <div class="container-source method">
+                    <code><a href="customEvent.js.html">customEvent.js</a></code>,
+                    <code><a href="customEvent.js.html#line510">line 510</a></code>
+                </div>
+            
+        </h4>
+
+
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>등록된 이벤트를 해제한다</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-params">
+        <div class="params">
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name first"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+|
+
+<span class="param-type">function</span>
+|
+
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>이벤트명 또는 핸들러 또는 {이벤트명: 핸들러} 객체</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name first"><code>handler</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>핸들러 함수</p></td>
+        </tr>
+
+    
+    </tbody>
+</table></div>
+    </div>
+    
+
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    <!--
+    
+    -->
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code>// 1. 컨텍스트 전달
+customEvent.off(myObj);
+
+// 2. 이벤트명 전달
+customEvent.off('onload');
+
+// 3. 핸들러 전달
+customEvent.off(handler);
+
+// 4. 이벤트명, 핸들러 전달
+customEvent.off('play', handler);
+
+// 5. 컨텍스트, 핸들러 전달
+customEvent.off(myObj, handler);
+
+// 6. 컨텍스트, 이벤트명 전달
+customEvent.off(myObj, 'onload');
+
+// 7. 이벤트명: 핸들러 전달 (특정 핸들러만 해제 원할때)
+customEvent.off({
+  'play': handler,
+  'pause': handler2
+});
+
+// 8. 모든 등록 핸들러 제거
+customEvent.off();</code></pre>
+
+    
+</dd>
+
+        
+            
+<dt>
+    
+        <h4 class="name" id="getListenerLength">
+            <span class="type-signature"></span>getListenerLength<span class="signature">(eventName)</span><span class="type-signature"> &rarr; {*}</span>
+            
+                <div class="container-source method">
+                    <code><a href="customEvent.js.html">customEvent.js</a></code>,
+                    <code><a href="customEvent.js.html#line545">line 545</a></code>
+                </div>
+            
+        </h4>
+
+
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>이벤트 등록 수 반환</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-params">
+        <div class="params">
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name first"><code>eventName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table></div>
+    </div>
+    
+
+    
+    <div class="container-returns">
+        <div class="returns">
+        <h5>Returns:</h5>
+        <div class="details">
+        
+                
+    
+<span class="param-type">*</span>
+
+
+
+            
+        </div>
+        </div>
+    </div>
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    <!--
+    
+    -->
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    
+        <h4 class="name" id="hasListener">
+            <span class="type-signature"></span>hasListener<span class="signature">(eventName)</span><span class="type-signature"> &rarr; {boolean}</span>
+            
+                <div class="container-source method">
+                    <code><a href="customEvent.js.html">customEvent.js</a></code>,
+                    <code><a href="customEvent.js.html#line562">line 562</a></code>
+                </div>
+            
+        </h4>
+
+
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>이벤트 등록 여부 반환</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-params">
+        <div class="params">
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name first"><code>eventName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>이벤트명</p></td>
+        </tr>
+
+    
+    </tbody>
+</table></div>
+    </div>
+    
+
+    
+    <div class="container-returns">
+        <div class="returns">
+        <h5>Returns:</h5>
+        <div class="details">
+        
+                
+    
+<span class="param-type">boolean</span>
+
+
+
+            
+        </div>
+        </div>
+    </div>
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    <!--
+    
+    -->
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    
+        <h4 class="name" id="invoke">
+            <span class="type-signature"></span>invoke<span class="signature">(eventName, &hellip;data)</span><span class="type-signature"> &rarr; {*}</span>
+            
+                <div class="container-source method">
+                    <code><a href="customEvent.js.html">customEvent.js</a></code>,
+                    <code><a href="customEvent.js.html#line599">line 599</a></code>
+                </div>
+            
+        </h4>
+
+
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>이벤트를 발생시키는 메서드</p>
+<p>등록한 리스너들의 실행 결과를 boolean AND 연산하여</p>
+<p>반환한다는 점에서 <code>CustomEvents#fire</code> 와 차이가 있다</p>
+<p>보통 컴포넌트 레벨에서 before 이벤트로 사용자에게</p>
+<p>이벤트를 취소할 수 있게 해 주는 기능에서 사용한다.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-params">
+        <div class="params">
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name first"><code>eventName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name first"><code>data</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                    &lt;repeatable><br>
+                
+                </td>
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table></div>
+    </div>
+    
+
+    
+    <div class="container-returns">
+        <div class="returns">
+        <h5>Returns:</h5>
+        <div class="details">
+        
+                
+    
+<span class="param-type">*</span>
+
+
+
+            
+        </div>
+        </div>
+    </div>
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    <!--
+    
+    -->
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code>// 확대 기능을 지원하는 컴포넌트 내부 코드라 가정
+if (this.invoke('beforeZoom')) {    // 사용자가 등록한 리스너 결과 체크
+    // 리스너의 실행결과가 true 일 경우
+    // doSomething
+}
+
+//
+// 아래는 사용자의 서비스 코드
+map.on({
+    'beforeZoom': function() {
+        if (that.disabled &amp;&amp; this.getState()) {    //서비스 페이지에서 어떤 조건에 의해 이벤트를 취소해야한다
+            return false;
+        }
+        return true;
+    }
+});</code></pre>
+
+    
+</dd>
+
+        
+            
+<dt>
+    
+        <h4 class="name" id="fire">
+            <span class="type-signature"></span>fire<span class="signature">(eventName, &hellip;data)</span><span class="type-signature"> &rarr; {*}</span>
+            
+                <div class="container-source method">
+                    <code><a href="customEvent.js.html">customEvent.js</a></code>,
+                    <code><a href="customEvent.js.html#line637">line 637</a></code>
+                </div>
+            
+        </h4>
+
+
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>이벤트를 발생시키는 메서드</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-params">
+        <div class="params">
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name first"><code>eventName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>이벤트 이름</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name first"><code>data</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                    &lt;repeatable><br>
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>발생과 함께 전달할 이벤트 데이터 (래핑하지 않고 인자로 전달한다)</p></td>
+        </tr>
+
+    
+    </tbody>
+</table></div>
+    </div>
+    
+
+    
+    <div class="container-returns">
+        <div class="returns">
+        <h5>Returns:</h5>
+        <div class="details">
+        
+                
+    
+<span class="param-type">*</span>
+
+
+
+            
+        </div>
+        </div>
+    </div>
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    <!--
+    
+    -->
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code>instance.fire('move', 'left');
+
+// 이벤트 핸들러 처리
+instance.on('move', function(direction) {
+    var direction = direction;
+});</code></pre>
+
+    
+</dd>
+
+        
+            
+<dt>
+    
+        <h4 class="name" id="once">
+            <span class="type-signature"></span>once<span class="signature">(eventName, fn<span class="signature-attributes">opt</span>, context<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span>
+            
+                <div class="container-source method">
+                    <code><a href="customEvent.js.html">customEvent.js</a></code>,
+                    <code><a href="customEvent.js.html#line648">line 648</a></code>
+                </div>
+            
+        </h4>
+
+
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>단발성 커스텀 이벤트 핸들러 등록 시 사용</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-params">
+        <div class="params">
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name first"><code>eventName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+|
+
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>이벤트명:핸들러 객체 또는 이벤트명</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name first"><code>fn</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>핸들러 함수</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name first"><code>context</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table></div>
+    </div>
+    
+
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    <!--
+    
+    -->
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        </dl>
+    </div>
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+</div>
+        <div class="clearfix"></div>
+    </div>
+
+</div>
+<script>
+(function() {
+// 영역 height 설정
+var height = (window.innerHeight || document.documentElement.clientHeight || document.getElementByTagName('body')[0].clientHeight) - 50;
+var navigation = document.getElementById('navigation');
+var main = document.getElementById('main');
+navigation.style.height = height + 'px';
+main.style.height = height + 'px';
+
+// IE 7,8을 위한 getElementsByClassName 구현
+var getElementsByClassName = function(className, parentElement) {
+	if(document.getElementsByClassName) {
+		return (parentElement || document).getElementsByClassName(className);
+	}
+
+    var regEx = new RegExp('(^| )'+className+'( |$)');
+	var nodes = new Array();
+    var elements = (parentElement || document.body).getElementsByTagName("*");
+    for(var i = 0, len = elements.length; i < len ; i++) {
+        if(regEx.test(elements[i].className)) {
+			nodes.push(elements[i]);
+		}
+	}
+	elements = null;
+    return nodes;
+}
+
+// url 파싱후 해당 카테고리만 display:block 처리
+var url = location.href;
+var path = url.lastIndexOf('/');
+var fileName = url.substring(path+1);
+var fullName = fileName.split('.');
+fullName.length -= 1;
+fullName = fullName.join('.');
+fullName = fullName.split('-');
+fullName = fullName[fullName.length - 1];
+var lnbList = getElementsByClassName(fullName);
+if(lnbList.length && lnbList.length > 0) {
+    for(var i = 0, len = lnbList.length; i < len; i++) {
+        lnbList[i].className += ' selected';
+    }
+}
+
+var title = document.getElementById(fullName);
+if(title) {
+    title.className += ' selected';
+    title.innerHTML = '<span class="arrow">▶</span>' + title.innerHTML;
+
+    var static = getElementsByClassName('static', title);
+    if(static) {
+        static[0].className += ' selected';
+    }
+}
+})();
+</script>
+<script type="text/javascript" src="scripts/prettify/prettify.js"></script>
+<script type="text/javascript" src="scripts/prettify/lang-css.js"></script>
+<script type="text/javascript">prettyPrint();</script>
+<script type="text/javascript" src="scripts/linenumber.js"></script>
+</body>
+</html>
