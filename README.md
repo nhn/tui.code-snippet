@@ -56,7 +56,7 @@ FE개발팀에서 배포하는 모든 컴포넌트 및 Application은 **가독�
 * 자세한 사용법은 별도의 문서로 3월중 배포 예정
 
 ## Documentation
-* **API** - https://github.nhnent.com/pages/fe/share-code-snippet/1.0.0/
+* **API** - https://github.nhnent.com/pages/fe/code-snippet/1.0.0/
 * **Tutorial** - https://github.nhnent.com/fe/javascript/wiki/FE-CodeSnippet
 * **CI** - http://fe.nhnent.com:8080/jenkins/job/share-code-snippet/
 
