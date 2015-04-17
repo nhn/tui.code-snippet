@@ -62,7 +62,7 @@
      * @memberOf ne.util
      */
     function hasStamp(obj) {
-        return ne.util.isExisty(obj, '__fe_id');
+        return ne.util.isExisty(ne.util.pick(obj, '__fe_id'));
     }
 
     function resetLastId() {
@@ -75,7 +75,7 @@
      * @returns {Array}
      * @memberOf ne.util
      */
-    var keys = function(obj) {
+    function keys(obj) {
         var keys = [],
             key;
 
@@ -86,7 +86,7 @@
         }
 
         return keys;
-    };
+    }
 
 
     /**
@@ -221,10 +221,55 @@
         return true;
     }
 
+    /**
+     * 인자로 받은 object 와 하위 프로퍼티 문자열로 해당 위치의 값을 반환한다.
+     * @param {object} 대상 객체
+     * @param {...string}   하위 프로퍼티 문자열
+     * @returns {*} 반환된 값
+     * @example
+     *
+        var obj = {
+            'key1': 1,
+            'nested' : {
+                'key1': 11,
+                'nested': {
+                    'key1': 21
+                }
+            }
+        };
+
+
+         ne.util.pick(obj, 'nested', 'nested', 'key1');
+         => 21
+
+        ne.util.pick(obj, 'nested', 'nested', 'key2');
+        => undefined
+
+        var arr = ['a', 'b', 'c'];
+
+        ne.util.pick(arr, 1);
+         => 'b'
+     */
+    function pick() {
+        var args = arguments,
+            target = args[0],
+            length = args.length,
+            i;
+        try {
+            for (i = 1; i < length; i++) {
+                target = target[args[i]];
+            }
+            return target;
+        } catch(e) {
+            return;
+        }
+    }
+
     ne.util.extend = extend;
     ne.util.stamp = stamp;
     ne.util.hasStamp = hasStamp;
     ne.util._resetLastId = resetLastId;
     ne.util.keys = Object.keys || keys;
     ne.util.compareJSON = compareJSON;
+    ne.util.pick = pick;
 })(window.ne);

@@ -8,7 +8,8 @@ describe('type', function() {
             o4 = {},
             o5 = false,
             o6 = isNaN,
-            o7;
+            o7,
+            o8 = '';
 
 
         expect(ne.util.isExisty(o1)).toBe(false);
@@ -18,19 +19,9 @@ describe('type', function() {
         expect(ne.util.isExisty(o5)).toBe(true);
         expect(ne.util.isExisty(o6)).toBe(true);
         expect(ne.util.isExisty(o7)).toBe(false);
+        expect(ne.util.isExisty(o8)).toBe(true);
     });
 
-    it('isExisty() second params 객체의 내부에 값이 존재하는지 확인', function() {
-        var o1 = { a: 10 },
-            o2 = { a: { b: '10' }};
-
-        expect(ne.util.isExisty(o1, 'a')).toBe(true);
-        expect(ne.util.isExisty(o2, 'a.b')).toBe(true);
-        expect(ne.util.isExisty(o2, ['a','b'])).toBe(true);
-        expect(ne.util.isExisty(o2, 'a.c')).toBe(false);
-        expect(ne.util.isExisty()).toBeFalsy(false);
-
-    });
 
     it('isUndefined() 값이 undefined인지 확인', function() {
         var o1 = 0,
@@ -221,6 +212,109 @@ describe('type', function() {
         expect(ne.util.isBoolean(o5)).toBe(true);
         expect(ne.util.isBoolean(o6)).toBe(false);
         expect(ne.util.isBoolean(o7)).toBe(false);
+    });
+
+    it('isArraySafe()', function() {
+        var o1 = new Array(3),
+            o2 = [],
+            o3 = 'array',
+            o4 = 3,
+            o5 = function() {},
+            o6 = new Object(),
+            o7 = {};
+
+        expect(ne.util.isArraySafe(o1)).toBe(true);
+        expect(ne.util.isArraySafe(o2)).toBe(true);
+        expect(ne.util.isArraySafe(o3)).toBe(false);
+        expect(ne.util.isArraySafe(o4)).toBe(false);
+        expect(ne.util.isArraySafe(o5)).toBe(false);
+        expect(ne.util.isArraySafe(o6)).toBe(false);
+        expect(ne.util.isArraySafe(o7)).toBe(false);
+    });
+
+    it('isFunctionSafe()', function() {
+        var o1 = function() {},
+            o2 = {},
+            o3 = '',
+            o4 = [],
+            o5 = 1,
+            o6 = true,
+            o7 = /xyz/g,
+            o8 = new Function(),
+            o9 = function test() {};
+
+        expect(ne.util.isFunctionSafe(o1)).toBe(true);
+        expect(ne.util.isFunctionSafe(o2)).toBe(false);
+        expect(ne.util.isFunctionSafe(o3)).toBe(false);
+        expect(ne.util.isFunctionSafe(o4)).toBe(false);
+        expect(ne.util.isFunctionSafe(o5)).toBe(false);
+        expect(ne.util.isFunctionSafe(o6)).toBe(false);
+        expect(ne.util.isFunctionSafe(o7)).toBe(false);
+        expect(ne.util.isFunctionSafe(o8)).toBe(true);
+        expect(ne.util.isFunctionSafe(o9)).toBe(true);
+    });
+
+    it('isNumberSafe()', function() {
+        var o1 = 1,
+            o2 = new Number(2),
+            o3 = { test: 1 },
+            o4 = [],
+            o5 = 'string',
+            o6 = true,
+            o7 = /xyz/g,
+            o8 = 4 + 5,
+            o9 = parseFloat('12.5'),
+            o10 = 0x15,
+            o11 = parseInt('00101', 2);
+
+        expect(ne.util.isNumberSafe(o1)).toBe(true);
+        expect(ne.util.isNumberSafe(o2)).toBe(true);
+        expect(ne.util.isNumberSafe(o3.test)).toBe(true);
+        expect(ne.util.isNumberSafe(o3)).toBe(false);
+        expect(ne.util.isNumberSafe(o4)).toBe(false);
+        expect(ne.util.isNumberSafe(o5)).toBe(false);
+        expect(ne.util.isNumberSafe(o6)).toBe(false);
+        expect(ne.util.isNumberSafe(o7)).toBe(false);
+        expect(ne.util.isNumberSafe(o8)).toBe(true);
+        expect(ne.util.isNumberSafe(o9)).toBe(true);
+        expect(ne.util.isNumberSafe(o11)).toBe(true);
+
+    });
+
+    it('isStringSafe()', function() {
+        var o1 = {},
+            o2 = new String('a'),
+            o3 = 'string',
+            o4 = [],
+            o5 = '',
+            o6 = true,
+            o7 = /xyz/g;
+
+        expect(ne.util.isStringSafe(o1)).toBe(false);
+        expect(ne.util.isStringSafe(o2)).toBe(true);
+        expect(ne.util.isStringSafe(o3)).toBe(true);
+        expect(ne.util.isStringSafe(o4)).toBe(false);
+        expect(ne.util.isStringSafe(o5)).toBe(true);
+        expect(ne.util.isStringSafe(o6)).toBe(false);
+        expect(ne.util.isStringSafe(o7)).toBe(false);
+    });
+
+    it('isBooleanSafe()', function() {
+        var o1 = {},
+            o2 = new Boolean('true'),
+            o3 = 1,
+            o4 = true,
+            o5 = false,
+            o6 = undefined,
+            o7 = null;
+
+        expect(ne.util.isBooleanSafe(o1)).toBe(false);
+        expect(ne.util.isBooleanSafe(o2)).toBe(true);
+        expect(ne.util.isBooleanSafe(o3)).toBe(false);
+        expect(ne.util.isBooleanSafe(o4)).toBe(true);
+        expect(ne.util.isBooleanSafe(o5)).toBe(true);
+        expect(ne.util.isBooleanSafe(o6)).toBe(false);
+        expect(ne.util.isBooleanSafe(o7)).toBe(false);
     });
 
     it('isHTMLNode() DOM인지 확인', function() {

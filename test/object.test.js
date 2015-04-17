@@ -84,4 +84,53 @@ describe('object', function() {
             expect(result[1]).toEqual('key2');
         });
     });
+
+
+    describe('pick', function() {
+        it('기본 검증', function() {
+            var o1,
+                o2 = null;
+
+            expect(ne.util.pick(o1)).toBeUndefined();
+            expect(ne.util.pick(o1, 'key1')).toBeUndefined();
+            expect(ne.util.pick(o2)).toBeNull();
+            expect(ne.util.pick(o2, 'key1')).toBeUndefined();
+            expect(ne.util.pick(o2, 'key1', 'key2')).toBeUndefined();
+
+            expect(ne.util.pick(1)).toBe(1);
+            expect(ne.util.pick('key1')).toBe('key1');
+            expect(ne.util.pick('key1', 'key2')).toBeUndefined();
+        });
+        it('Object 인 경우', function() {
+            var obj = {
+                'key1': 1,
+                'nested' : {
+                    'key1': 11,
+                    'nested': {
+                        'key1': 21
+                    }
+                }
+            };
+
+            expect(ne.util.pick(obj, 'key1')).toBe(1);
+            expect(ne.util.pick(obj, 'nested')).toEqual(obj.nested);
+            expect(ne.util.pick(obj, 'nested', 'key1')).toBe(11);
+            expect(ne.util.pick(obj, 'nested', 'nested')).toBe(obj.nested.nested);
+            expect(ne.util.pick(obj, 'nested', 'nested', 'key1')).toBe(21);
+
+            expect(ne.util.pick(obj, 'notFound')).toBeUndefined();
+            expect(ne.util.pick(obj, 'notFound', 'notFound')).toBeUndefined();
+
+        });
+        it('배열인 경우', function() {
+            var arr = [1, [2], {'key1': 3}];
+
+            expect(ne.util.pick(arr, 0)).toBe(1);
+            expect(ne.util.pick(arr, 1)).toBe(arr[1]);
+            expect(ne.util.pick(arr, 1, 0)).toBe(2);
+            expect(ne.util.pick(arr, 2, 'key1')).toBe(3);
+
+            expect(ne.util.pick(arr, 5)).toBeUndefined();
+        });
+    });
 });

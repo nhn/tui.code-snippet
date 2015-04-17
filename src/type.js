@@ -16,53 +16,26 @@
 
     /**
      * 값이 정의되어 있는지 확인(null과 undefined가 아니면 true를 반환한다)
-     * @param {*} obj
-     * @param {(String|Array)} [key]
+     * @param {*} param
      * @returns {boolean}
      * @example
      *
-     * var obj = {a: {b: {c: 1}}};
-     * a 가 존재하는지 확인한다(존재함, true반환)
-     * ne.util.isExisty(a);
-     * => true;
-     * a 에 속성 b 가 존재하는지 확인한다.(존재함, true반환)
-     * ne.util.isExisty(a, 'b');
-     * => true;
-     * a 의 속성 b에 c가 존재하는지 확인한다.(존재함, true반환)
-     * ne.util.isExisty(a, 'b.c');
-     * => true;
-     * a 의 속성 b에 d가 존재하는지 확인한다.(존재하지 않음, false반환)
-     * ne.util.isExisty(a, 'b.d');
-     * => false;
+     *
+     * ne.util.isExisty(''); //true
+     * ne.util.isExisty(0); //true
+     * ne.util.isExisty([]); //true
+     * ne.util.isExisty({}); //true
+     * ne.util.isExisty(null); //false
+     * ne.util.isExisty(undefined); //false
      * @memberOf ne.util
     */
-    function isExisty(obj, key) {
-        if (arguments.length < 2) {
-            return !isNull(obj) && !isUndefined(obj);
-        }
-        if (!isObject(obj)) {
-            return false;
-        }
-
-        key = isString(key) ? key.split('.') : key;
-
-        if (!isArray(key)) {
-            return false;
-        }
-        key.unshift(obj);
-
-        var res = ne.util.reduce(key, function(acc, a) {
-            if (!acc) {
-                return;
-            }
-            return acc[a];
-        });
-        return !isNull(res) && !isUndefined(res);
+    function isExisty(param) {
+        return param != null;
     }
 
     /**
      * 인자가 undefiend 인지 체크하는 메서드
-     * @param obj
+     * @param {*} obj 평가할 대상
      * @returns {boolean}
      * @memberOf ne.util
      */
@@ -72,7 +45,7 @@
 
     /**
      * 인자가 null 인지 체크하는 메서드
-     * @param {*} obj
+     * @param {*} obj 평가할 대상
      * @returns {boolean}
      * @memberOf ne.util
      */
@@ -84,7 +57,7 @@
      * 인자가 null, undefined, false가 아닌지 확인하는 메서드
      * (0도 true로 간주한다)
      *
-     * @param {*} obj
+     * @param {*} obj 평가할 대상
      * @return {boolean}
      * @memberOf ne.util
      */
@@ -95,7 +68,7 @@
     /**
      * 인자가 null, undefined, false인지 확인하는 메서드
      * (truthy의 반대값)
-     * @param {*} obj
+     * @param {*} obj 평가할 대상
      * @return {boolean}
      * @memberOf ne.util
      */
@@ -108,7 +81,7 @@
 
     /**
      * 인자가 arguments 객체인지 확인
-     * @param {*} obj
+     * @param {*} obj 평가할 대상
      * @return {boolean}
      * @memberOf ne.util
      */
@@ -121,17 +94,17 @@
 
     /**
      * 인자가 배열인지 확인
-     * @param {*} obj
+     * @param {*} obj 평가할 대상
      * @return {boolean}
      * @memberOf ne.util
      */
     function isArray(obj) {
-        return toString.call(obj) === '[object Array]';
+        return obj instanceof Array;
     }
 
     /**
      * 인자가 객체인지 확인하는 메서드
-     * @param {*} obj
+     * @param {*} obj 평가할 대상
      * @return {boolean}
      * @memberOf ne.util
      */
@@ -141,47 +114,103 @@
 
     /**
      * 인자가 함수인지 확인하는 메서드
-     * @param {*} obj
+     * @param {*} obj 평가할 대상
      * @return {boolean}
      * @memberOf ne.util
      */
     function isFunction(obj) {
+        return obj instanceof Function;
+    }
+
+    /**
+     * 인자가 숫자인지 확인하는 메서드
+     * @param {*} obj 평가할 대상
+     * @return {boolean}
+     * @memberOf ne.util
+     */
+    function isNumber(obj) {
+        return typeof obj === 'number' || obj instanceof Number;
+    }
+
+    /**
+     * 인자가 문자열인지 확인하는 메서드
+     * @param {*} obj 평가할 대상
+     * @return {boolean}
+     * @memberOf ne.util
+     */
+    function isString(obj) {
+        return typeof obj === 'string' || obj instanceof String;
+    }
+
+    /**
+     * 인자가 불리언 타입인지 확인하는 메서드
+     * @param {*} obj 평가할 대상
+     * @return {boolean}
+     * @memberOf ne.util
+     */
+    function isBoolean(obj) {
+        return typeof obj === 'boolean' || obj instanceof Boolean;
+    }
+
+
+    /**
+     * 인자가 배열인지 확인.
+     * <br>iframe 사용할 경우 부모 자식 window 간 타입 체크를 위해 사용한다.
+     * @param {*} obj 평가할 대상
+     * @return {boolean}
+     * @memberOf ne.util
+     */
+    function isArraySafe(obj) {
+        return toString.call(obj) === '[object Array]';
+    }
+
+    /**
+     * 인자가 함수인지 확인하는 메서드
+     * <br>iframe 사용할 경우 부모 자식 window 간 타입 체크를 위해 사용한다.
+     * @param {*} obj 평가할 대상
+     * @return {boolean}
+     * @memberOf ne.util
+     */
+    function isFunctionSafe(obj) {
         return toString.call(obj) === '[object Function]';
     }
 
     /**
      * 인자가 숫자인지 확인하는 메서드
-     * @param {*} obj
+     * <br>iframe 사용할 경우 부모 자식 window 간 타입 체크를 위해 사용한다.
+     * @param {*} obj 평가할 대상
      * @return {boolean}
      * @memberOf ne.util
      */
-    function isNumber(obj) {
+    function isNumberSafe(obj) {
         return toString.call(obj) === '[object Number]';
     }
 
     /**
      * 인자가 문자열인지 확인하는 메서드
-     * @param obj
+     * <br>iframe 사용할 경우 부모 자식 window 간 타입 체크를 위해 사용한다.
+     * @param {*} obj 평가할 대상
      * @return {boolean}
      * @memberOf ne.util
      */
-    function isString(obj) {
+    function isStringSafe(obj) {
         return toString.call(obj) === '[object String]';
     }
 
     /**
      * 인자가 불리언 타입인지 확인하는 메서드
-     * @param {*} obj
+     * <br>iframe 사용할 경우 부모 자식 window 간 타입 체크를 위해 사용한다.
+     * @param {*} obj 평가할 대상
      * @return {boolean}
      * @memberOf ne.util
      */
-    function isBoolean(obj) {
+    function isBooleanSafe(obj) {
         return toString.call(obj) === '[object Boolean]';
     }
 
     /**
      * 인자가 HTML Node 인지 검사한다. (Text Node 도 포함)
-     * @param {HTMLElement} html
+     * @param {*} html 평가할 대상
      * @return {Boolean} HTMLElement 인지 여부
      * @memberOf ne.util
      */
@@ -191,9 +220,10 @@
         }
         return !!(html && html.nodeType);
     }
+
     /**
      * 인자가 HTML Tag 인지 검사한다. (Text Node 제외)
-     * @param {HTMLElement} html
+     * @param {*} html 평가할 대상
      * @return {Boolean} HTMLElement 인지 여부
      * @memberOf ne.util
      */
@@ -203,6 +233,7 @@
         }
         return !!(html && html.nodeType && html.nodeType === 1);
     }
+
     /**
      * null, undefined 여부와 순회 가능한 객체의 순회가능 갯수가 0인지 체크한다.
      * @param {*} obj 평가할 대상
@@ -210,8 +241,7 @@
      * @memberOf ne.util
      */
     function isEmpty(obj) {
-        var key,
-            hasKey = false;
+        var hasKey = false;
 
         if (!isExisty(obj)) {
             return true;
@@ -256,11 +286,16 @@
     ne.util.isFalsy = isFalsy;
     ne.util.isArguments = isArguments;
     ne.util.isArray = Array.isArray || isArray;
+    ne.util.isArraySafe = Array.isArray || isArraySafe;
     ne.util.isObject = isObject;
     ne.util.isFunction = isFunction;
+    ne.util.isFunctionSafe = isFunctionSafe;
     ne.util.isNumber = isNumber;
+    ne.util.isNumberSafe = isNumberSafe;
     ne.util.isString = isString;
+    ne.util.isStringSafe = isStringSafe;
     ne.util.isBoolean = isBoolean;
+    ne.util.isBooleanSafe = isBooleanSafe;
     ne.util.isHTMLNode = isHTMLNode;
     ne.util.isHTMLTag = isHTMLTag;
     ne.util.isEmpty = isEmpty;
