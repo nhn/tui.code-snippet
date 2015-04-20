@@ -60,6 +60,12 @@ FE개발팀에서 배포하는 모든 컴포넌트 및 Application은 **가독�
 * **Tutorial** - https://github.nhnent.com/fe/javascript/wiki/FE-CodeSnippet
 * **CI** - http://fe.nhnent.com:8080/jenkins/job/share-code-snippet/
 
+## Test environment
+* browser : 
+   * IE7~11
+   * Chrome
+   * Firefox
+
 ## Download/Install
 * Bower: 
    * 최신버전 :  `bower install "git+http://3c672057a1ac16c4e6f1baaba73e24d5270ef453:x-oauth-basic@github.nhnent.com/fe/share-code-snippet.git#master"`
