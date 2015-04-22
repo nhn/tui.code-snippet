@@ -56,7 +56,7 @@ FE개발팀에서 배포하는 모든 컴포넌트 및 Application은 **가독�
 * 자세한 사용법은 별도의 문서로 3월중 배포 예정
 
 ## Documentation
-* **API** - https://github.nhnent.com/pages/fe/code-snippet/1.0.0/
+* **API** - https://github.nhnent.com/pages/fe/code-snippet/1.0.1/
 * **Tutorial** - https://github.nhnent.com/fe/javascript/wiki/FE-CodeSnippet
 * **CI** - http://fe.nhnent.com:8080/jenkins/job/share-code-snippet/
 
@@ -79,3 +79,4 @@ FE개발팀에서 배포하는 모든 컴포넌트 및 Application은 **가독�
 | 1.0.1 | isExisty 스펙 변경, pick 메서드 추가, type 체크 변경 | 2015.04 | FE개발팀 |
 | <a href="https://github.nhnent.com/pages/fe/code-snippet/1.0.0/">1.0.0</a> | jquery dependency 제거 | 2015.03 | FE개발팀 |
 | 0.1.0 | 최초개발 | 2014.09 | FE개발팀 |
+"
