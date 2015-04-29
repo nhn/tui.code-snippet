@@ -37,66 +37,67 @@ describe('module:Map', function() {
             expect(map.get(key2)).toEqual('function');
             expect(map.get(key3)).toEqual('array');
         });
+
+        describe('if the key already exists, set() updates the value', function() {
+            it('with string key', function() {
+                map.set('key', 'once');
+                map.set('key', 'again');
+                expect(map.get('key')).toEqual('again');
+            });
+
+            it('with object key', function() {
+                var key = {};
+                map.set(key, 'once');
+                map.set(key, 'again');
+                expect(map.get(key)).toEqual('again');
+            });
+        });
+
+        describe('get() returns undefined', function() {
+            it('if the key does not exist', function() {
+                expect(map.get('key')).toBeUndefined();
+            });
+
+            it('if the value is undefined', function() {
+                map.set('key', undefined);
+                expect(map.get('key')).toBeUndefined();
+            });
+        });
+
+        describe('primitive values', function(){
+            it('can be used for the key', function() {
+                map.set(null, 'null');
+                map.set(undefined, 'undefined');
+                map.set(true, 'true');
+                map.set(false, 'false');
+                map.set(1, 'one');
+
+                expect(map.get(null)).toEqual('null');
+                expect(map.get(undefined)).toEqual('undefined');
+                expect(map.get(true)).toEqual('true');
+                expect(map.get(false)).toEqual('false');
+                expect(map.get(1)).toEqual('one');
+            });
+
+            it('are not equal to string keys', function() {
+                map.set(null, 'null');
+                map.set('null', 'null string');
+                map.set(1, 'one');
+                map.set('1', 'one string');
+
+                expect(map.get(null)).toEqual('null');
+                expect(map.get('null')).toEqual('null string');
+                expect(map.get(1)).toEqual('one');
+                expect(map.get('1')).toEqual('one string');
+            });
+
+            it('NaN cannot be used for the key', function() {
+                map.set(NaN, 'NaN');
+                expect(map.get(NaN)).toBeUndefined();
+            });
+        });
     });
 
-    describe('if the key already exists, set() updates the value', function() {
-        it('with string key', function() {
-            map.set('key', 'once');
-            map.set('key', 'again');
-            expect(map.get('key')).toEqual('again');
-        });
-
-        it('with object key', function() {
-            var key = {};
-            map.set(key, 'once');
-            map.set(key, 'again');
-            expect(map.get(key)).toEqual('again');
-        });
-    });
-
-    describe('get() returns undefined', function() {
-        it('if the key does not exist', function() {
-            expect(map.get('key')).toBeUndefined();
-        });
-
-        it('if the value is undefined', function() {
-            map.set('key', undefined);
-            expect(map.get('key')).toBeUndefined();
-        });
-    });
-
-    describe('primitive values', function(){
-        it('can be used for the key', function() {
-            map.set(null, 'null');
-            map.set(undefined, 'undefined');
-            map.set(true, 'true');
-            map.set(false, 'false');
-            map.set(1, 'one');
-
-            expect(map.get(null)).toEqual('null');
-            expect(map.get(undefined)).toEqual('undefined');
-            expect(map.get(true)).toEqual('true');
-            expect(map.get(false)).toEqual('false');
-            expect(map.get(1)).toEqual('one');
-        });
-
-        it('are not equal to string key', function() {
-            map.set(null, 'null');
-            map.set('null', 'null string');
-            map.set(1, 'one');
-            map.set('1', 'one string');
-
-            expect(map.get(null)).toEqual('null');
-            expect(map.get('null')).toEqual('null string');
-            expect(map.get(1)).toEqual('one');
-            expect(map.get('1')).toEqual('one string');
-        });
-
-        it('NaN cannot be used for the key', function() {
-            map.set(NaN, 'NaN');
-            expect(map.get(NaN)).toBeUndefined();
-        });
-    });
 
     describe('has()', function() {
         it('returns true if the key exists', function() {
@@ -136,7 +137,7 @@ describe('module:Map', function() {
             map.set(key, 'once');
             map.delete(key);
             map.set(key, 'again');
-            expect(map.get(key)).toEqual('again');
+            expect(map.get(key)).toBe('again');
         });
 
         it('delete and set again with undefined key', function() {
@@ -145,7 +146,15 @@ describe('module:Map', function() {
             expect(map.has(undefined)).toBe(false);
 
             map.set(undefined, 'again');
-            expect(map.get(undefined)).toEqual('again');
+            expect(map.get(undefined)).toBe('again');
+        });
+
+        it('deleted key is not undefined key', function(){
+            map.set(1, 'one');
+            map.set(undefined, 'undefined');
+            map.delete(1);
+
+            expect(map.get(undefined)).toBe('undefined');
         });
     });
 
@@ -179,31 +188,88 @@ describe('module:Map', function() {
         });
     });
 
-    xdescribe('forEach() executes a callback once per each key/value pair', function() {
+    describe('forEach() executes a function once per each key/value pair', function() {
         var string;
 
         beforeEach(function() {
             string = '';
-            map.set(1, 'one');
-            map.set(2, 'two');
-            map.set(3, 'three');
+            map.set(1, '1');
+            map.set(null, '2');
+            map.set('3', '3');
         });
 
-        it('first argument is value', function(){
+        it('in insertion order', function(){
             map.forEach(function(value){
                 string += value;
             });
-            expect(string).toEqual('onetwothree');
+            expect(string).toEqual('123');
         });
 
         it('second argument is key', function(){
-
+            map.forEach(function(value, key){
+                string += key;
+            });
+            expect(string).toEqual('1null3');
         });
 
         it('third argument is map itself', function(){
+            map.forEach(function(value, key, map){
+                string += map.get(key);
+            });
+            expect(string).toEqual('123');
+        });
 
+        it('context can be set', function() {
+            var context = {value : '0'};
+
+            map.forEach(function(value){
+                string += (value + this.value);
+            }, context);
+            expect(string).toEqual('102030');
         });
     });
 
+    describe('keys(), values(), entries() returns Iterator object', function() {
+        beforeEach(function() {
+            map.set(null, '1');
+            map.set(undefined, '2');
+            map.set('3', '3');
+        });
 
+        describe('iterator of keys()', function() {
+            var keys;
+
+            beforeEach(function() {
+                keys = map.keys();
+            });
+
+            it('contains the keys for each element', function() {
+                expect(keys.next().value).toBe(null);
+                expect(keys.next().value).toBe(undefined);
+                expect(keys.next().value).toBe('3');
+            });
+
+            it('done is false if there are more values. otherwise is true', function() {
+                expect(keys.next().done).toBe(false);
+                expect(keys.next().done).toBe(false);
+                expect(keys.next().done).toBe(false);
+                expect(keys.next().done).toBe(true);
+            });
+        });
+
+        xdescribe('iterator of values()', function() {
+            var values;
+
+            beforeEach(function() {
+                values = map.values();
+            });
+
+            it('contains the values for each element', function() {
+                expect(values.next().value).toBe('1');
+                expect(values.next().value).toBe('2');
+                expect(values.next().value).toBe('3');
+            });
+
+        });
+    });
 });
