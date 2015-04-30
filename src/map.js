@@ -17,13 +17,39 @@
 
     var _UNDEFINED_KEY = {};
 
-    function Map() {
+    function Map(initData) {
         this._valuesForString = {};
         this._valuesForIndex = {};
         this._keys = [];
 
+        if (initData) {
+            this._setInitData(initData);
+        }
+
         this.size = 0;
     }
+
+    Map.prototype._setInitData = function(data) {
+        if (ne.util.isArray(data)) {
+            this._setArray(data);
+        } else {
+            this._setIterable(data);
+        }
+    };
+
+    Map.prototype._setArray = function(array) {
+        ne.util.forEachArray(array, function(pair) {
+            this.set(pair[0], pair[1]);
+        }, this);
+    };
+
+    Map.prototype._setIterable = function(data) {
+        var row;
+        do {
+            row = data.next();
+            this.set(row.value[0], row.value[1]);
+        } while (!row.done);
+    };
 
     Map.prototype._getKeyIndex = function(key) {
         var result = -1,
@@ -45,13 +71,17 @@
         return result;
     };
 
-    Map.prototype._getValueObject = function(key) {
-        var keyIndex;
+    Map.prototype._getOriginKey = function(key) {
+        return (key === _UNDEFINED_KEY) ? undefined : key;
+    };
 
+    Map.prototype._getValueObject = function(key, keyIndex) {
         if (typeof key === 'string') {
             return this._valuesForString[key];
         } else {
-            keyIndex = this._getKeyIndex(key);
+            if (keyIndex === undefined) {
+                keyIndex = this._getKeyIndex(key);
+            }
             if (keyIndex >= 0) {
                 return this._valuesForIndex[keyIndex];
             }
@@ -65,9 +95,9 @@
         };
     };
 
-    Map.prototype._createIterator = function() {
-        var keys = this._keys,
-            index = -1,
+    Map.prototype._createIterator = function(valueGetter) {
+        var index = -1,
+            keys = this._keys,
             length = keys.length,
             iterator = {};
 
@@ -76,13 +106,13 @@
 
             do {
                index++;
-            } while (keys[index] === undefined && index < length);
+           } while (keys[index] === undefined && index < length);
 
             if (index >= length) {
                data.done = true;
             } else {
                data.done = false;
-               data.value = (keys[index] === _UNDEFINED_KEY) ? undefined : keys[index];
+               data.value = valueGetter(keys[index], index);
             }
 
             return data;
@@ -92,7 +122,7 @@
 
     Map.prototype.set = function(key, value) {
         var keyIndex,
-            value;
+            valueObject;
 
         if (key === undefined) {
             key = _UNDEFINED_KEY;
@@ -103,12 +133,12 @@
             keyIndex = this._keys.push(key) - 1;
             this.size++;
         }
-        value = this._createValueObject(value, keyIndex);
+        valueObject = this._createValueObject(value, keyIndex);
 
         if (typeof key === 'string') {
-            this._valuesForString[key] = value;
+            this._valuesForString[key] = valueObject;
         } else {
-            this._valuesForIndex[keyIndex] = value;
+            this._valuesForIndex[keyIndex] = valueObject;
         }
     };
 
@@ -121,12 +151,33 @@
     };
 
     Map.prototype.keys = function() {
-        return this._createIterator();
+        var self = this;
+
+        function valueGetter(key) {
+            return self._getOriginKey(key);
+        }
+        return this._createIterator(valueGetter);
     };
 
     Map.prototype.values = function() {
+        var self = this;
 
+        function valueGetter(key, keyIndex) {
+            return self._getValueObject(key, keyIndex).origin;
+        }
+        return this._createIterator(valueGetter);
     };
+
+    Map.prototype.entries = function() {
+        var self = this;
+
+        function valueGetter(key, keyIndex) {
+            var originKey = self._getOriginKey(key);
+            return [originKey, self._getValueObject(key, keyIndex).origin];
+        }
+        return this._createIterator(valueGetter);
+    };
+
 
     Map.prototype.has = function(key) {
         return !!this._getValueObject(key);

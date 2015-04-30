@@ -13,6 +13,42 @@ describe('module:Map', function() {
         it('is a constructor', function() {
             expect(map instanceof ne.util.Map).toBe(true);
         });
+
+        describe('has an argument', function() {
+            var INIT_DATA = [
+                [1, 'one'],
+                [2, 'two'],
+                [3, 'three']
+            ];
+
+            it('that can be an array', function() {
+                map = new ne.util.Map(INIT_DATA);
+
+                expect(map.get(1)).toBe('one');
+                expect(map.get(2)).toBe('two');
+                expect(map.get(3)).toBe('three');
+            });
+
+            it('that can be Iterable', function() {
+                var index = 0,
+                    length = INIT_DATA.length,
+                    iterable = {
+                    next : function() {
+                        if (index >= length) {
+                            return {done: true};
+                        } else {
+                            return {value: INIT_DATA[index], done: false};
+                        }
+                    }
+                };
+
+                map = new ne.util.Map(iterable);
+
+                expect(map.get(1)).toBe('one');
+                expect(map.get(2)).toBe('two');
+                expect(map.get(3)).toBe('three');
+            });
+        });
     });
 
     describe('set() and get()', function() {
@@ -236,7 +272,7 @@ describe('module:Map', function() {
             map.set('3', '3');
         });
 
-        describe('iterator of keys()', function() {
+        describe('Iterator from keys()', function() {
             var keys;
 
             beforeEach(function() {
@@ -257,7 +293,7 @@ describe('module:Map', function() {
             });
         });
 
-        xdescribe('iterator of values()', function() {
+        describe('Iterator from values()', function() {
             var values;
 
             beforeEach(function() {
@@ -270,6 +306,33 @@ describe('module:Map', function() {
                 expect(values.next().value).toBe('3');
             });
 
+            it('done is false if there are more values. otherwise is true', function() {
+                expect(values.next().done).toBe(false);
+                expect(values.next().done).toBe(false);
+                expect(values.next().done).toBe(false);
+                expect(values.next().done).toBe(true);
+            });
+        });
+
+        describe('Iterator from values()', function() {
+            var entries;
+
+            beforeEach(function() {
+                entries = map.entries();
+            });
+
+            it('contains the values for each element', function() {
+                expect(entries.next().value).toEqual([null, '1']);
+                expect(entries.next().value).toEqual([undefined, '2']);
+                expect(entries.next().value).toEqual(['3', '3']);
+            });
+
+            it('done is false if there are more values. otherwise is true', function() {
+                expect(entries.next().done).toBe(false);
+                expect(entries.next().done).toBe(false);
+                expect(entries.next().done).toBe(false);
+                expect(entries.next().done).toBe(true);
+            });
         });
     });
 });
