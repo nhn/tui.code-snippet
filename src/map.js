@@ -1,6 +1,19 @@
 /**
- * @fileoverview This object implements the ES6 Map specification.
- * @author FE개발팀
+ * @fileoverview
+ * This object implements the ES6 Map specification as closely as possible.
+ * For using objects and primitive values as keys, this object uses array internally.
+ * So if the key is not string, get(), set(), has(), delete() will operates in O(n),
+ * and it can cause performance issues with a large dataset.
+ *
+ * Features listed below are not supported. (can't be implented without native support)
+ * - Map is iterable object
+ * - Using iterable object as an argument of constructor
+ * - Using NaN as keys
+ *
+ * If the browser supports full implementation of ES6 Map specification, native Map obejct
+ * will be used internally.
+ *
+ * @author FE Development Team
  * @dependency type.js, collection.js
  */
 
@@ -48,6 +61,9 @@
      * @param  {Array} inidData - Array of key-value pairs to add to the Map object
      */
     Map.prototype._setInitData = function(initData) {
+        if (!ne.util.isArray(initData)) {
+            throw new Error('Only Array is supported.');
+        }
         ne.util.forEachArray(initData, function(pair) {
             this.set(pair[0], pair[1]);
         }, this);
@@ -56,8 +72,8 @@
     /**
      * Returns the index of the specified key.
      * @private
-     * @param  {*} key - key object to search for.
-     * @return {number} Index of specified key
+     * @param  {*} key - The key object to search for.
+     * @return {number} The index of specified key
      */
     Map.prototype._getKeyIndex = function(key) {
         var result = -1,
@@ -83,7 +99,7 @@
      * Returns the original key of the specified key.
      * @private
      * @param  {*} key
-     * @return {*} original key
+     * @return {*} Original key
      */
     Map.prototype._getOriginKey = function(key) {
         return key === _UNDEFINED_KEY ? undefined : key;
@@ -93,7 +109,7 @@
      * Returns the unique key of the specified key.
      * @private
      * @param  {*} key
-     * @return {*} unique key
+     * @return {*} Unique key
      */
     Map.prototype._getUniqueKey = function(key) {
         return ne.util.isUndefined(key) ? _UNDEFINED_KEY : key;
@@ -104,8 +120,8 @@
      * Returns the value object of specified key.
      * @private
      * @param  {*} key - The key of the value object to be returned
-     * @param  {number} keyIndex - Index of the key
-     * @return {{keyIndex: number, origin: *}} value object
+     * @param  {number} keyIndex - The index of the key
+     * @return {{keyIndex: number, origin: *}} Value object
      */
     Map.prototype._getValueObject = function(key, keyIndex) {
         if (ne.util.isString(key)) {
@@ -126,7 +142,7 @@
      * @private
      * @param  {type} origin - Original value
      * @param  {type} keyIndex - Index of the key
-     * @return {{keyIndex: number, origin: *}} value object
+     * @return {{keyIndex: number, origin: *}} Value object
      */
     Map.prototype._createValueObject = function(origin, keyIndex) {
         return {
@@ -196,7 +212,7 @@
     /**
      * Returns the value associated to the key, or undefined if there is none.
      * @param  {*} key - The key of the element to return
-     * @return {*} element associated with the specified key
+     * @return {*} Element associated with the specified key
      */
     Map.prototype.get = function(key) {
         var uniqueKey = this._getUniqueKey(key),
@@ -254,8 +270,8 @@
      * Returns a boolean asserting whether a value has been associated to the key
      * in the Map object or not.
      * @param  {*} key - The key of the element to test for presence
-     * @return {boolean} true if an element with the specified key exists;
-     *          otherwise false
+     * @return {boolean} True if an element with the specified key exists;
+     *          Otherwise false
      */
     Map.prototype.has = function(key) {
         return !!this._getValueObject(key);
@@ -263,7 +279,7 @@
 
     /**
      * Removes the specified element from a Map object.
-     * @param {*} key The key of the element to remove
+     * @param {*} key - The key of the element to remove
      */
      // cannot use reserved keyword as a property name in IE8 and under.
     Map.prototype['delete'] = function(key) {
@@ -290,8 +306,8 @@
     /**
      * Executes a provided function once per each key/value pair in the Map object,
      * in insertion order.
-     * @param  {function} callback Function to execute for each element
-     * @param  {thisArg} thisArg Value to use as this when executing callback
+     * @param  {function} callback - Function to execute for each element
+     * @param  {thisArg} thisArg - Value to use as this when executing callback
      */
     Map.prototype.forEach = function(callback, thisArg) {
         thisArg = thisArg || this;
@@ -311,9 +327,14 @@
 
     // Use native Map object if exists.
     // But only latest versions of Chrome and Firefox support full implementation.
-    if (window.Map && (ne.util.browser.chrome || ne.util.browser.firefox)) {
-        Map = window.Map;
-    }
+    (function() {
+        var browser = ne.util.browser;
+        if (window.Map && (
+            (browser.firefox && browser.version >= 37) ||
+            (browser.chrome && browser.version >= 42) )) {
+            Map = window.Map;
+        }
+    })();
 
     ne.util.Map = Map;
 })(window.ne);
