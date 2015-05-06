@@ -119,9 +119,7 @@ describe('module:Map', function() {
                 expect(map.get('1')).toEqual('one string');
             });
 
-            // This test works only for Native Map Object.
-            // Because NaNs are indistinguishable from each other.
-            xit('NaN can be used for the key', function() {
+            it('NaN can be used for the key', function() {
                 map.set(NaN, 'NaN');
                 expect(map.get(NaN)).toEqual('NaN');
             });

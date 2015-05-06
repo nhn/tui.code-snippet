@@ -2,13 +2,12 @@
  * @fileoverview
  * This object implements the ES6 Map specification as closely as possible.
  * For using objects and primitive values as keys, this object uses array internally.
- * So if the key is not string, get(), set(), has(), delete() will operates in O(n),
+ * So if the key is not a string, get(), set(), has(), delete() will operates in O(n),
  * and it can cause performance issues with a large dataset.
  *
  * Features listed below are not supported. (can't be implented without native support)
- * - Map is iterable object
- * - Using iterable object as an argument of constructor
- * - Using NaN as keys
+ * - Map object is iterable
+ * - Iterable object can be used as an argument of constructor
  *
  * If the browser supports full implementation of ES6 Map specification, native Map obejct
  * will be used internally.
@@ -29,16 +28,63 @@
     }
 
     /**
+     * Caching ne.util for performance enhancing
+     */
+    var util = ne.util;
+
+    /**
      * Using undefined for a key can be ambiguous if there's deleted item in the array,
      * which is also undefined when accessed by index.
      * So use this unique object as an undefined key to distinguish it from deleted keys.
      * @private
      * @constant
      */
-    var _UNDEFINED_KEY = {};
+    var _KEY_FOR_UNDEFINED = {};
 
     /**
-     * Constructor
+     * For using NaN as a key, use this unique object as a NaN key.
+     * This makes it easier and faster to compare an object with each keys in the array
+     * through no exceptional comapring for NaN.
+     */
+    var _KEY_FOR_NAN = {};
+
+    /**
+     * Constructor of MapIterator
+     * Creates iterator object with new keyword.
+     * @constructor
+     * @param  {Array} keys - The array of keys in the map
+     * @param  {function} valueGetter - Function that returns certain value,
+     *      taking key and keyIndex as arguments.
+     */
+    function MapIterator(keys, valueGetter) {
+        this._keys = keys;
+        this._valueGetter = valueGetter;
+        this._length = this._keys.length;
+        this._index = -1;
+        this._done = false;
+    }
+
+    /**
+     * Implementation of Iterator protocol.
+     * @return {{done: boolean, value: *}}
+     */
+    MapIterator.prototype.next = function() {
+        var data = {};
+        do {
+           this._index++;
+       } while (util.isUndefined(this._keys[this._index]) && this._index < this._length);
+
+        if (this._index >= this._length) {
+            data.done = true;
+        } else {
+            data.done = false;
+            data.value = this._valueGetter(this._keys[this._index], this._index);
+        }
+        return data;
+    };
+
+    /**
+     * Map Constructor
      * @constructor
      * @param  {Array} initData - Array of key-value pairs (2-element Arrays).
      *      Each key-value pair will be added to the new Map
@@ -48,7 +94,7 @@
         this._valuesForIndex = {};
         this._keys = [];
 
-        if (initData && ne.util.isArray(initData)) {
+        if (initData) {
             this._setInitData(initData);
         }
 
@@ -61,36 +107,41 @@
      * @param  {Array} inidData - Array of key-value pairs to add to the Map object
      */
     Map.prototype._setInitData = function(initData) {
-        if (!ne.util.isArray(initData)) {
+        if (!util.isArray(initData)) {
             throw new Error('Only Array is supported.');
         }
-        ne.util.forEachArray(initData, function(pair) {
+        util.forEachArray(initData, function(pair) {
             this.set(pair[0], pair[1]);
         }, this);
+    };
+
+    /**
+     * Returns true if the specified value is NaN.
+     * For unsing NaN as a key, use this method to test equality of NaN
+     * because === operator doesn't work for NaN.
+     * @private
+     */
+    Map.prototype._isNaN = function(value) {
+        return typeof value === 'number' && value !== value;
     };
 
     /**
      * Returns the index of the specified key.
      * @private
      * @param  {*} key - The key object to search for.
-     * @return {number} The index of specified key
+     * @return {number} The index of the specified key
      */
     Map.prototype._getKeyIndex = function(key) {
         var result = -1,
             value;
 
-        if (ne.util.isString(key)) {
+        if (util.isString(key)) {
             value = this._valuesForString[key];
             if (value) {
                 result = value.keyIndex;
             }
         } else {
-            ne.util.forEachArray(this._keys, function(keyObject, index) {
-                if (key === keyObject) {
-                    result = index;
-                    return false;
-                }
-            }, this);
+            result = util.inArray(key, this._keys);
         }
         return result;
     };
@@ -102,7 +153,13 @@
      * @return {*} Original key
      */
     Map.prototype._getOriginKey = function(key) {
-        return key === _UNDEFINED_KEY ? undefined : key;
+        var originKey = key;
+        if (key === _KEY_FOR_UNDEFINED) {
+            originKey = undefined;
+        } else if (key === _KEY_FOR_NAN) {
+            originKey = NaN;
+        }
+        return originKey;
     };
 
     /**
@@ -112,28 +169,55 @@
      * @return {*} Unique key
      */
     Map.prototype._getUniqueKey = function(key) {
-        return ne.util.isUndefined(key) ? _UNDEFINED_KEY : key;
+        var uniqueKey = key;
+        if (util.isUndefined(key)) {
+            uniqueKey = _KEY_FOR_UNDEFINED;
+        } else if (this._isNaN(key)) {
+            uniqueKey = _KEY_FOR_NAN;
+        }
+        return uniqueKey;
     };
 
-
     /**
-     * Returns the value object of specified key.
+     * Returns the value object of the specified key.
      * @private
      * @param  {*} key - The key of the value object to be returned
      * @param  {number} keyIndex - The index of the key
      * @return {{keyIndex: number, origin: *}} Value object
      */
     Map.prototype._getValueObject = function(key, keyIndex) {
-        if (ne.util.isString(key)) {
+        if (util.isString(key)) {
             return this._valuesForString[key];
         } else {
-            if (ne.util.isUndefined(keyIndex)) {
+            if (util.isUndefined(keyIndex)) {
                 keyIndex = this._getKeyIndex(key);
             }
             if (keyIndex >= 0) {
                 return this._valuesForIndex[keyIndex];
             }
         }
+    };
+
+    /**
+     * Returns the original value of the specified key.
+     * @private
+     * @param  {*} key - The key of the value object to be returned
+     * @param  {number} keyIndex - The index of the key
+     * @return {*} Original value
+     */
+    Map.prototype._getOriginValue = function(key, keyIndex) {
+        return this._getValueObject(key, keyIndex).origin;
+    };
+
+    /**
+     * Returns key-value pair of the specified key.
+     * @private
+     * @param  {*} key - The key of the value object to be returned
+     * @param  {number} keyIndex - The index of the key
+     * @return {Array} Key-value Pair
+     */
+    Map.prototype._getKeyValuePair = function(key, keyIndex) {
+        return [this._getOriginKey(key), this._getOriginValue(key, keyIndex)];
     };
 
     /**
@@ -149,38 +233,6 @@
             keyIndex : keyIndex,
             origin : origin
         };
-    };
-
-    /**
-     * Creates Iterator object and returns it.
-     * @private
-     * @param  {function} valueGetter - Function that takes the key and the keyIndex
-     *      as arguments and returns the value.
-     * @return {Iterator}
-     */
-    Map.prototype._createIterator = function(valueGetter) {
-        var index = -1,
-            keys = this._keys,
-            length = keys.length,
-            iterator = {};
-
-        iterator.next = function() {
-            var data = {};
-
-            do {
-               index++;
-           } while (ne.util.isUndefined(keys[index]) && index < length);
-
-            if (index >= length) {
-               data.done = true;
-            } else {
-               data.done = false;
-               data.value = valueGetter(keys[index], index);
-            }
-
-            return data;
-       };
-       return iterator;
     };
 
     /**
@@ -200,14 +252,13 @@
         }
         valueObject = this._createValueObject(value, keyIndex);
 
-        if (ne.util.isString(key)) {
+        if (util.isString(key)) {
             this._valuesForString[key] = valueObject;
         } else {
             this._valuesForIndex[keyIndex] = valueObject;
         }
         return this;
     };
-
 
     /**
      * Returns the value associated to the key, or undefined if there is none.
@@ -221,21 +272,14 @@
         return value && value.origin;
     };
 
-
     /**
      * Returns a new Iterator object that contains the keys for each element
      * in the Map object in insertion order.
      * return {Iterator}
      */
     Map.prototype.keys = function() {
-        var self = this;
-
-        function valueGetter(key) {
-            return self._getOriginKey(key);
-        }
-        return this._createIterator(valueGetter);
+        return new MapIterator(this._keys, util.bind(this._getOriginKey, this));
     };
-
 
     /**
      * Returns a new Iterator object that contains the values for each element
@@ -243,12 +287,7 @@
      * @return {Iterator}
      */
     Map.prototype.values = function() {
-        var self = this;
-
-        function valueGetter(key, keyIndex) {
-            return self._getValueObject(key, keyIndex).origin;
-        }
-        return this._createIterator(valueGetter);
+        return new MapIterator(this._keys, util.bind(this._getOriginValue, this));
     };
 
     /*
@@ -257,13 +296,7 @@
      * @return {Iterator}
      */
     Map.prototype.entries = function() {
-        var self = this;
-
-        function valueGetter(key, keyIndex) {
-            var originKey = self._getOriginKey(key);
-            return [originKey, self._getValueObject(key, keyIndex).origin];
-        }
-        return this._createIterator(valueGetter);
+        return new MapIterator(this._keys, util.bind(this._getKeyValuePair, this));
     };
 
     /**
@@ -285,7 +318,7 @@
     Map.prototype['delete'] = function(key) {
         var keyIndex;
 
-        if (ne.util.isString(key)) {
+        if (util.isString(key)) {
             if (this._valuesForString[key]) {
                 keyIndex = this._valuesForString[key].keyIndex;
                 delete this._valuesForString[key];
@@ -311,8 +344,8 @@
      */
     Map.prototype.forEach = function(callback, thisArg) {
         thisArg = thisArg || this;
-        ne.util.forEachArray(this._keys, function(key) {
-            if (!ne.util.isUndefined(key)) {
+        util.forEachArray(this._keys, function(key) {
+            if (!util.isUndefined(key)) {
                 callback.call(thisArg, this._getValueObject(key).origin, key, this);
             }
         }, this);
@@ -328,7 +361,7 @@
     // Use native Map object if exists.
     // But only latest versions of Chrome and Firefox support full implementation.
     (function() {
-        var browser = ne.util.browser;
+        var browser = util.browser;
         if (window.Map && (
             (browser.firefox && browser.version >= 37) ||
             (browser.chrome && browser.version >= 42) )) {
@@ -336,5 +369,5 @@
         }
     })();
 
-    ne.util.Map = Map;
+    util.Map = Map;
 })(window.ne);
