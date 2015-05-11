@@ -1,17 +1,6 @@
 /**
  * @fileoverview
- * This object implements the ES6 Map specification as closely as possible.
- * For using objects and primitive values as keys, this object uses array internally.
- * So if the key is not a string, get(), set(), has(), delete() will operates in O(n),
- * and it can cause performance issues with a large dataset.
- *
- * Features listed below are not supported. (can't be implented without native support)
- * - Map object is iterable
- * - Iterable object can be used as an argument of constructor
- *
- * If the browser supports full implementation of ES6 Map specification, native Map obejct
- * will be used internally.
- *
+ * Implements the Map object.
  * @author FE Development Team
  * @dependency type.js, collection.js
  */
@@ -27,9 +16,8 @@
         ne.util = window.ne.util = {};
     }
 
-    /**
-     * Caching ne.util for performance enhancing
-     */
+
+    // Caching ne.util for performance enhancing
     var util = ne.util;
 
     /**
@@ -66,7 +54,7 @@
 
     /**
      * Implementation of Iterator protocol.
-     * @return {{done: boolean, value: *}}
+     * @return {{done: boolean, value: *}} Object that contains done(boolean) and value.
      */
     MapIterator.prototype.next = function() {
         var data = {};
@@ -84,7 +72,17 @@
     };
 
     /**
-     * Map Constructor
+     * The Map object implements the ES6 Map specification as closely as possible.
+     * For using objects and primitive values as keys, this object uses array internally.
+     * So if the key is not a string, get(), set(), has(), delete() will operates in O(n),
+     * and it can cause performance issues with a large dataset.
+     *
+     * Features listed below are not supported. (can't be implented without native support)
+     * - Map object is iterable
+     * - Iterable object can be used as an argument of constructor
+     *
+     * If the browser supports full implementation of ES6 Map specification, native Map obejct
+     * will be used internally.
      * @constructor
      * @param  {Array} initData - Array of key-value pairs (2-element Arrays).
      *      Each key-value pair will be added to the new Map
@@ -104,7 +102,7 @@
     /**
      * Add all elements in the initData to the Map object.
      * @private
-     * @param  {Array} inidData - Array of key-value pairs to add to the Map object
+     * @param  {Array} initData - Array of key-value pairs to add to the Map object
      */
     Map.prototype._setInitData = function(initData) {
         if (!util.isArray(initData)) {
@@ -120,6 +118,8 @@
      * For unsing NaN as a key, use this method to test equality of NaN
      * because === operator doesn't work for NaN.
      * @private
+     * @param {*} value - Any object to be tested
+     * @return {boolean} True if value is NaN, false otherwise.
      */
     Map.prototype._isNaN = function(value) {
         return typeof value === 'number' && value !== value;
@@ -149,7 +149,7 @@
     /**
      * Returns the original key of the specified key.
      * @private
-     * @param  {*} key
+     * @param  {*} key - key
      * @return {*} Original key
      */
     Map.prototype._getOriginKey = function(key) {
@@ -165,7 +165,7 @@
     /**
      * Returns the unique key of the specified key.
      * @private
-     * @param  {*} key
+     * @param  {*} key - key
      * @return {*} Unique key
      */
     Map.prototype._getUniqueKey = function(key) {
@@ -230,8 +230,8 @@
      */
     Map.prototype._createValueObject = function(origin, keyIndex) {
         return {
-            keyIndex : keyIndex,
-            origin : origin
+            keyIndex: keyIndex,
+            origin: origin
         };
     };
 
@@ -275,7 +275,7 @@
     /**
      * Returns a new Iterator object that contains the keys for each element
      * in the Map object in insertion order.
-     * return {Iterator}
+     * @return {Iterator} A new Iterator object
      */
     Map.prototype.keys = function() {
         return new MapIterator(this._keys, util.bind(this._getOriginKey, this));
@@ -284,7 +284,7 @@
     /**
      * Returns a new Iterator object that contains the values for each element
      * in the Map object in insertion order.
-     * @return {Iterator}
+     * @return {Iterator} A new Iterator object
      */
     Map.prototype.values = function() {
         return new MapIterator(this._keys, util.bind(this._getOriginValue, this));
@@ -293,7 +293,7 @@
     /*
      * Returns a new Iterator object that contains the [key, value] pairs
      * for each element in the Map object in insertion order.
-     * @return {Iterator}
+     * @return {Iterator} A new Iterator object
      */
     Map.prototype.entries = function() {
         return new MapIterator(this._keys, util.bind(this._getKeyValuePair, this));

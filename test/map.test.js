@@ -1,4 +1,6 @@
 describe('module:Map', function() {
+    'use strict';
+
     var map;
 
     beforeEach(function() {
@@ -15,14 +17,14 @@ describe('module:Map', function() {
         });
 
         describe('has an argument', function() {
-            var INIT_DATA = [
-                [1, 'one'],
-                [2, 'two'],
-                [3, 'three']
-            ];
-
             it('that can be an array', function() {
-                map = new ne.util.Map(INIT_DATA);
+                var initData = [
+                    [1, 'one'],
+                    [2, 'two'],
+                    [3, 'three']
+                ];
+
+                map = new ne.util.Map(initData);
 
                 expect(map.get(1)).toBe('one');
                 expect(map.get(2)).toBe('two');
@@ -47,7 +49,7 @@ describe('module:Map', function() {
 
         it('for the object key', function() {
             var key1 = {},
-                key2 = function(){},
+                key2 = function() {},
                 key3 = [];
 
             map.set(key1, 'object');
@@ -226,31 +228,31 @@ describe('module:Map', function() {
             map.set('3', '3');
         });
 
-        it('in insertion order', function(){
-            map.forEach(function(value){
+        it('in insertion order', function() {
+            map.forEach(function(value) {
                 string += value;
             });
             expect(string).toEqual('123');
         });
 
-        it('second argument is key', function(){
-            map.forEach(function(value, key){
+        it('second argument is key', function() {
+            map.forEach(function(value, key) {
                 string += key;
             });
             expect(string).toEqual('1null3');
         });
 
-        it('third argument is map itself', function(){
-            map.forEach(function(value, key, map){
-                string += map.get(key);
+        it('third argument is map itself', function() {
+            map.forEach(function(value, key, thisMap) {
+                string += thisMap.get(key);
             });
             expect(string).toEqual('123');
         });
 
         it('context can be set', function() {
-            var context = {value : '0'};
+            var context = {value: '0'};
 
-            map.forEach(function(value){
+            map.forEach(function(value) {
                 string += (value + this.value);
             }, context);
             expect(string).toEqual('102030');
