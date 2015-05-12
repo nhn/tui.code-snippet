@@ -18,7 +18,7 @@
 
 
     // Caching ne.util for performance enhancing
-    var util = ne.util;
+    var util = ne.util,
 
     /**
      * Using undefined for a key can be ambiguous if there's deleted item in the array,
@@ -27,14 +27,14 @@
      * @private
      * @constant
      */
-    var _KEY_FOR_UNDEFINED = {};
+    _KEY_FOR_UNDEFINED = {},
 
     /**
      * For using NaN as a key, use this unique object as a NaN key.
      * This makes it easier and faster to compare an object with each keys in the array
      * through no exceptional comapring for NaN.
      */
-    var _KEY_FOR_NAN = {};
+    _KEY_FOR_NAN = {};
 
     /**
      * Constructor of MapIterator
@@ -59,7 +59,7 @@
     MapIterator.prototype.next = function() {
         var data = {};
         do {
-           this._index++;
+           this._index += 1;
        } while (util.isUndefined(this._keys[this._index]) && this._index < this._length);
 
         if (this._index >= this._length) {
@@ -248,7 +248,7 @@
 
         if (keyIndex < 0) {
             keyIndex = this._keys.push(uniqueKey) - 1;
-            this.size++;
+            this.size += 1;
         }
         valueObject = this._createValueObject(value, keyIndex);
 
@@ -332,7 +332,7 @@
 
         if (keyIndex >= 0) {
             delete this._keys[keyIndex];
-            this.size--;
+            this.size -= 1;
         }
     };
 
