@@ -16,11 +16,13 @@
     }
 
     var modules = {};
+
     /**
      * define module
      * @param {string} name module name
      * @param {(object|function)} props a set of modules or one module
      * @param {boolean} isOverride flag what if module already define, override or not
+     * @returns {(object|function)} return defined module
      */
     var defineModule = function(name, props, isOverride) {
 
@@ -43,6 +45,8 @@
 
         result[lastspace] = props || {};
         modules[name] = result[lastspace];
+
+        return modules[name];
 
     };
 
