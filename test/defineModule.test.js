@@ -1,19 +1,19 @@
 describe('defineModule', function() {
     var defineModule = ne.util.defineModule;
 
-    it('defineModule', function() {
+    it('define', function() {
         defineModule('aaa.bbb.ccc');
         expect(aaa).toBeDefined();
         expect(aaa.bbb).toBeDefined();
         expect(aaa.bbb.ccc).toBeDefined();
     });
 
-    it('defineModule not define', function() {
+    it('not define', function() {
         defineModule('aaa.bbb');
         expect(aaa.bbb.ddd).not.toBeDefined();
     });
 
-    it('defineModule with props', function() {
+    it('with props', function() {
         var num = 0;
         defineModule('asdf', {
             exec: function() {
@@ -26,18 +26,18 @@ describe('defineModule', function() {
 
     });
 
-    it('defineModule function', function() {
+    it('function', function() {
         var num = 0;
-        defineModule('asdf', function() {
+        defineModule('fdsa', function() {
             num += 100;
         });
 
-        asdf();
+        fdsa();
         expect(num).toBe(100);
 
     });
 
-    it('defineModule for class', function() {
+    it('for class', function() {
         var name = 'nhnent';
         defineModule('asdf.nhnent', function() {
             this.name = name;
@@ -51,7 +51,7 @@ describe('defineModule', function() {
 
     });
 
-    it('defineModule override', function() {
+    it('override', function() {
         defineModule('asdf.over');
 
         expect(asdf.over).toBeDefined();
@@ -61,9 +61,15 @@ describe('defineModule', function() {
             exec: function() {
 
             }
-        });
+        }, true);
         expect(asdf.over.exec).toBeDefined();
 
+    });
+
+    it('invalid props type', function() {
+        defineModule('asdf.hello', 'hello world');
+        expect(asdf.hello).toBeDefined();
+        expect(ne.util.isString(asdf.hello)).toBeFalsy();
     });
 
 });

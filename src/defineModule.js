@@ -31,19 +31,19 @@
             result;
 
         if (isExistModule(name) && !isOverride) {
-            throw new Error('Already defined module');
+            return modules[name];
         }
 
         namespace = name.split('.');
         lastspace = namespace.pop();
-        result = window;
+        namespace.unshift(window);
 
-        ne.util.forEach(namespace, function(name) {
-            result[name] = result[name] || {};
-            result = result[name];
+        result = ne.util.reduce(namespace, function(obj, name) {
+            obj[name] = obj[name] || {};
+            return obj[name];
         });
 
-        result[lastspace] = props || {};
+        result[lastspace] = isValidModule(props) ? props : {};
         modules[name] = result[lastspace];
 
         return modules[name];
@@ -56,9 +56,18 @@
      * @returns {boolean}
      */
     var isExistModule = function(name) {
-        if (modules[name] && (ne.util.isObject(name) || ne.util.isFunction(name))) {
+        if (modules[name] && isValidModule(modules[name])) {
             return true;
         }
+    };
+
+    /**
+     * check valid module type
+     * @param {*} module
+     * @returns {boolean}
+     */
+    var isValidModule = function(module) {
+        return (ne.util.isObject(module) || ne.util.isFunction(module));
     };
 
     ne.util.defineModule = defineModule;
