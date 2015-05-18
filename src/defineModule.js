@@ -28,10 +28,11 @@
 
         var namespace,
             lastspace,
-            result;
+            result,
+            module = getModule(name);
 
-        if (isExistModule(name) && !isOverride) {
-            return modules[name];
+        if (isValidModule(module) && !isOverride) {
+            return module;
         }
 
         namespace = name.split('.');
@@ -44,21 +45,25 @@
         });
 
         result[lastspace] = isValidModule(props) ? props : {};
-        modules[name] = result[lastspace];
 
-        return modules[name];
+        return result[lastspace];
 
     };
 
     /**
-     * check module already defined
-     * @param name
-     * @returns {boolean}
+     * get module in namespace
+     * @param {string} name namespace
+     * @returns {*}
      */
-    var isExistModule = function(name) {
-        if (modules[name] && isValidModule(modules[name])) {
-            return true;
-        }
+    var getModule = function(name) {
+        var namespace,
+            result;
+
+        namespace = name.split(',');
+        result = ne.util.reduce(namespace, function(obj, name) {
+            return obj && obj[name];
+        });
+        return result;
     };
 
     /**
