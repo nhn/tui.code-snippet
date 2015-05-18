@@ -15,8 +15,6 @@
         ne.util = window.ne.util = {};
     }
 
-    var modules = {};
-
     /**
      * define module
      * @param {string} name module name
