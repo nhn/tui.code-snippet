@@ -1263,7 +1263,9 @@
         var namespace,
             result;
 
-        namespace = name.split(',');
+        namespace = name.split('.');
+        namespace.unshift(window);
+
         result = ne.util.reduce(namespace, function(obj, name) {
             return obj && obj[name];
         });
