@@ -72,4 +72,19 @@ describe('defineModule', function() {
         expect(ne.util.isString(asdf.hello)).toBeFalsy();
     });
 
+    it('define double', function() {
+        var feCom = defineModule('fe.component'),
+            feDouble = defineModule('fe.component');
+
+        expect(feCom).toBe(feDouble);
+    });
+
+    it('define double other depth', function() {
+        var feCom = defineModule('fe.comp');
+        defineModule('fe.comp.team');
+
+        expect(feCom).toBe(fe.comp);
+        expect(feCom.team).toBe(fe.comp.team);
+    });
+
 });
