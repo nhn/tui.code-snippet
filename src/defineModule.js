@@ -21,6 +21,13 @@
      * @param {(object|function)} props a set of modules or one module
      * @param {boolean} isOverride flag what if module already define, override or not
      * @returns {(object|function)} return defined module
+     * @example
+     * var neComp = defineModule('ne.component');
+     * neComp.listMenu = ne.util.defineClass({
+     *      init: function() {
+     *          // code
+     *      }
+     * });
      */
     var defineModule = function(name, props, isOverride) {
         var namespace,
