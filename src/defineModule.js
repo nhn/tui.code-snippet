@@ -23,13 +23,12 @@
      * @returns {(object|function)} return defined module
      */
     var defineModule = function(name, props, isOverride) {
-
         var namespace,
             lastspace,
             result,
             module = getModule(name);
 
-        if (isValidModule(module) && !isOverride) {
+        if (!isOverride && isValidModule(module)) {
             return module;
         }
 
