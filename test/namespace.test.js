@@ -1,21 +1,21 @@
-describe('defineModule', function() {
-    var defineModule = ne.util.defineModule;
+describe('namespace', function() {
+    var namespace = ne.util.namespace;
 
     it('define', function() {
-        defineModule('aaa.bbb.ccc');
+        namespace('aaa.bbb.ccc');
         expect(aaa).toBeDefined();
         expect(aaa.bbb).toBeDefined();
         expect(aaa.bbb.ccc).toBeDefined();
     });
 
     it('not define', function() {
-        defineModule('aaa.bbb');
+        namespace('aaa.bbb');
         expect(aaa.bbb.ddd).not.toBeDefined();
     });
 
     it('with props', function() {
         var num = 0;
-        defineModule('asdf', {
+        namespace('asdf', {
             exec: function() {
                 num += 10;
             }
@@ -28,7 +28,7 @@ describe('defineModule', function() {
 
     it('function', function() {
         var num = 0;
-        defineModule('fdsa', function() {
+        namespace('fdsa', function() {
             num += 100;
         });
 
@@ -39,7 +39,7 @@ describe('defineModule', function() {
 
     it('for class', function() {
         var name = 'nhnent';
-        defineModule('asdf.nhnent', function() {
+        namespace('asdf.nhnent', function() {
             this.name = name;
             this.getName = function() {
                 return this.name;
@@ -52,12 +52,12 @@ describe('defineModule', function() {
     });
 
     it('override', function() {
-        defineModule('asdf.over');
+        namespace('asdf.over');
 
         expect(asdf.over).toBeDefined();
         expect(asdf.over.exec).not.toBeDefined();
 
-        defineModule('asdf.over', {
+        namespace('asdf.over', {
             exec: function() {
 
             }
@@ -67,21 +67,21 @@ describe('defineModule', function() {
     });
 
     it('invalid props type', function() {
-        defineModule('asdf.hello', 'hello world');
+        namespace('asdf.hello', 'hello world');
         expect(asdf.hello).toBeDefined();
         expect(ne.util.isString(asdf.hello)).toBeFalsy();
     });
 
     it('define double', function() {
-        var feCom = defineModule('fe.component'),
-            feDouble = defineModule('fe.component');
+        var feCom = namespace('fe.component'),
+            feDouble = namespace('fe.component');
 
         expect(feCom).toBe(feDouble);
     });
 
     it('define double other depth', function() {
-        var feCom = defineModule('fe.comp');
-        defineModule('fe.comp.team');
+        var feCom = namespace('fe.comp');
+        namespace('fe.comp.team');
 
         expect(feCom).toBe(fe.comp);
         expect(feCom.team).toBe(fe.comp.team);
