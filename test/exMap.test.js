@@ -1,12 +1,38 @@
-describe('module:BetterMap', function() {
+describe('module:ExMap', function() {
     'use strict';
 
     var map;
 
     beforeEach(function() {
-        map = new ne.util.BetterMap();
+        map = new ne.util.ExMap();
     });
 
+    describe('The ne.util.ExMap', function() {
+        it('is defined', function() {
+            expect(ne.util.ExMap).toBeDefined();
+        });
+
+        it('is a constructor', function() {
+            expect(map instanceof ne.util.ExMap).toBe(true);
+        });
+
+        describe('has an argument', function() {
+            it('that can be an array', function() {
+                var initData = [
+                    [1, 'one'],
+                    [2, 'two'],
+                    [3, 'three']
+                ];
+
+                map = new ne.util.ExMap(initData);
+
+                expect(map.get(1)).toBe('one');
+                expect(map.get(2)).toBe('two');
+                expect(map.get(3)).toBe('three');
+            });
+        });
+    });
+    
     describe('setObject()', function() {
         it('sets the each key/value pair in the object to the map.', function() {
             map.setObject({
@@ -55,7 +81,7 @@ describe('module:BetterMap', function() {
     });
 
     describe('filter()', function() {
-        it('returns new BetterMap of all key-value pairs that pass a truth test', function() {
+        it('returns new ExMap of all key-value pairs that pass a truth test', function() {
             var filtered;
 
             map.set(1, 1);
