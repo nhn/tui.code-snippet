@@ -22,14 +22,14 @@
      * @param {boolean} isOverride flag what if module already define, override or not
      * @returns {(object|function)} return defined module
      * @example
-     * var neComp = namespace('ne.component');
+     * var neComp = defineNamespace('ne.component');
      * neComp.listMenu = ne.util.defineClass({
      *      init: function() {
      *          // code
      *      }
      * });
      */
-    var namespace = function(name, props, isOverride) {
+    var defineNamespace = function(name, props, isOverride) {
         var namespace,
             lastspace,
             result,
@@ -81,6 +81,6 @@
         return (ne.util.isObject(module) || ne.util.isFunction(module));
     };
 
-    ne.util.namespace = namespace;
+    ne.util.defineNamespace = defineNamespace;
 
 })(window.ne);
