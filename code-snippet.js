@@ -1201,13 +1201,13 @@
 })(window.ne);
 
 /**********
- * defineModule.js
+ * defineNamespace.js
  **********/
 
 /**
- * @fileoverview define module or a set of module with namespace
+ * @fileoverview define namespace
  * @author FE Development Team
- * @dependency inheritance.js, object.js
+ * @dependency inheritance.js, object.js, collection.js
  */
 (function(ne) {
 
@@ -1222,20 +1222,26 @@
     }
 
     /**
-     * define module
+     * define namespace
      * @param {string} name module name
      * @param {(object|function)} props a set of modules or one module
      * @param {boolean} isOverride flag what if module already define, override or not
      * @returns {(object|function)} return defined module
+     * @example
+     * var neComp = defineNamespace('ne.component');
+     * neComp.listMenu = ne.util.defineClass({
+     *      init: function() {
+     *          // code
+     *      }
+     * });
      */
-    var defineModule = function(name, props, isOverride) {
-
+    var defineNamespace = function(name, props, isOverride) {
         var namespace,
             lastspace,
             result,
-            module = getModule(name);
+            module = getNamespace(name);
 
-        if (isValidModule(module) && !isOverride) {
+        if (!isOverride && isValidType(module)) {
             return module;
         }
 
@@ -1248,18 +1254,18 @@
             return obj[name];
         });
 
-        result[lastspace] = isValidModule(props) ? props : {};
+        result[lastspace] = isValidType(props) ? props : {};
 
         return result[lastspace];
 
     };
 
     /**
-     * get module in namespace
+     * get namespace
      * @param {string} name namespace
      * @returns {*}
      */
-    var getModule = function(name) {
+    var getNamespace = function(name) {
         var namespace,
             result;
 
@@ -1273,15 +1279,15 @@
     };
 
     /**
-     * check valid module type
+     * check valid type
      * @param {*} module
      * @returns {boolean}
      */
-    var isValidModule = function(module) {
+    var isValidType = function(module) {
         return (ne.util.isObject(module) || ne.util.isFunction(module));
     };
 
-    ne.util.defineModule = defineModule;
+    ne.util.defineNamespace = defineNamespace;
 
 })(window.ne);
 /**********
