@@ -1,6 +1,7 @@
 /**
  * @fileoverview
  * @author FE개발팀
+ * @dependency type.js, collection.js
  */
 
 (function(ne) {
