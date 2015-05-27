@@ -30,11 +30,6 @@ describe('module:Map', function() {
                 expect(map.get(2)).toBe('two');
                 expect(map.get(3)).toBe('three');
             });
-
-            xit('that can be Iterable', function() {
-                // Can't create this test case.
-                // Because there's no way to create Iterable object without ES6 Symbol object.
-            });
         });
     });
 
@@ -92,8 +87,6 @@ describe('module:Map', function() {
             });
         });
 
-
-
         describe('primitive values', function(){
             it('can be used for the key', function() {
                 map.set(null, 'null');
@@ -128,7 +121,6 @@ describe('module:Map', function() {
         });
     });
 
-
     describe('has()', function() {
         it('returns true if the key exists', function() {
             map.set(1, 'one');
@@ -149,7 +141,7 @@ describe('module:Map', function() {
     describe('delete() removes the element', function() {
         it('for the string key', function() {
             map.set('1', 'one');
-            map.delete('1');
+            map['delete']('1');
             expect(map.has('1')).toBe(false);
         });
 
@@ -157,7 +149,7 @@ describe('module:Map', function() {
             var key = {};
 
             map.set(key, 'value');
-            map.delete(key);
+            map['delete'](key);
             expect(map.has(key)).toBe(false);
         });
 
@@ -165,14 +157,14 @@ describe('module:Map', function() {
             var key = {};
 
             map.set(key, 'once');
-            map.delete(key);
+            map['delete'](key);
             map.set(key, 'again');
             expect(map.get(key)).toBe('again');
         });
 
         it('delete and set again with undefined key', function() {
             map.set(undefined, 'once');
-            map.delete(undefined);
+            map['delete'](undefined);
             expect(map.has(undefined)).toBe(false);
 
             map.set(undefined, 'again');
@@ -182,7 +174,7 @@ describe('module:Map', function() {
         it('deleted key is not undefined key', function(){
             map.set(1, 'one');
             map.set(undefined, 'undefined');
-            map.delete(1);
+            map['delete'](1);
 
             expect(map.get(undefined)).toBe('undefined');
         });
@@ -199,7 +191,7 @@ describe('module:Map', function() {
             map.set(2, 'two again');
             expect(map.size).toEqual(2);
 
-            map.delete(2);
+            map['delete'](2);
             expect(map.size).toEqual(1);
         });
     });
