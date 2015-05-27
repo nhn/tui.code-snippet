@@ -32,7 +32,146 @@ describe('module:ExMap', function() {
             });
         });
     });
-    
+
+    describe('methods from ne.util.Map', function() {
+        describe('set() and get()', function() {
+            it('for the string key', function() {
+                map.set('company', 'nhn ent');
+                map.set('team', 'FE');
+
+                expect(map.get('company')).toEqual('nhn ent');
+                expect(map.get('team')).toEqual('FE');
+            });
+
+            it('for the object key', function() {
+                var key1 = {},
+                    key2 = function() {},
+                    key3 = [];
+
+                map.set(key1, 'object');
+                map.set(key2, 'function');
+                map.set(key3, 'array');
+
+                expect(map.get(key1)).toEqual('object');
+                expect(map.get(key2)).toEqual('function');
+                expect(map.get(key3)).toEqual('array');
+            });
+
+            it('set returns map object', function() {
+                var returned = map.set(1, 'one');
+                expect(returned).toBe(map);
+            });
+        });
+
+        describe('has()', function() {
+            it('returns true if the key exists', function() {
+                map.set(1, 'one');
+                expect(map.has(1)).toBe(true);
+            });
+
+            it('returns false if the key does not exists', function() {
+                expect(map.has(1)).toBe(false);
+            });
+        });
+
+        describe('delete() removes the element', function() {
+            var key = {};
+
+            it('for the object key', function() {
+                map.set(key, 'value');
+                map['delete'](key);
+                expect(map.has(key)).toBe(false);
+            });
+
+            it('delete and set again', function() {
+                map.set(key, 'once');
+                map['delete'](key);
+                map.set(key, 'again');
+                expect(map.get(key)).toBe('again');
+            });
+        });
+
+        describe('size property', function() {
+            it('is the number of elements in a map', function() {
+                expect(map.size).toEqual(0);
+
+                map.set(1, 'one');
+                map.set(2, 'two');
+                expect(map.size).toEqual(2);
+
+                map.set(2, 'two again');
+                expect(map.size).toEqual(2);
+
+                map['delete'](2);
+                expect(map.size).toEqual(1);
+            });
+        });
+
+        describe('clear()', function() {
+            it('removes all elements', function() {
+                map.set(1, 'one');
+                map.set(2, 'two');
+                expect(map.size).toEqual(2);
+
+                map.clear();
+
+                expect(map.size).toEqual(0);
+                expect(map.has(1)).toBe(false);
+                expect(map.has(2)).toBe(false);
+            });
+        });
+
+        describe('forEach()', function() {
+            it('executes a function once per each key/value pair in insertion order', function() {
+                var string = '';
+
+                map.set(1, '1');
+                map.set(null, '2');
+                map.set('3', '3');
+                map.forEach(function(value) {
+                    string += value;
+                });
+
+                expect(string).toEqual('123');
+            });
+        });
+
+        describe('keys(), values(), entries() returns Iterator object in insertion order', function() {
+            beforeEach(function() {
+                map.set(null, '1');
+                map.set(undefined, '2');
+                map.set('3', '3');
+            });
+
+            describe('Iterator from keys()', function() {
+                it('contains the keys for each element', function() {
+                    var keys = map.keys();
+                    expect(keys.next().value).toBe(null);
+                    expect(keys.next().value).toBe(undefined);
+                    expect(keys.next().value).toBe('3');
+                });
+            });
+
+            describe('Iterator from values()', function() {
+                it('contains the values for each element', function() {
+                    var values = map.values();
+                    expect(values.next().value).toBe('1');
+                    expect(values.next().value).toBe('2');
+                    expect(values.next().value).toBe('3');
+                });
+            });
+
+            describe('Iterator from values()', function() {
+                it('contains the values for each element', function() {
+                    var entries = map.entries();
+                    expect(entries.next().value).toEqual([null, '1']);
+                    expect(entries.next().value).toEqual([undefined, '2']);
+                    expect(entries.next().value).toEqual(['3', '3']);
+                });
+            });
+        });
+    });
+
     describe('setObject()', function() {
         it('sets the each key/value pair in the object to the map.', function() {
             map.setObject({

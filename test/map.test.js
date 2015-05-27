@@ -30,11 +30,6 @@ describe('module:Map', function() {
                 expect(map.get(2)).toBe('two');
                 expect(map.get(3)).toBe('three');
             });
-
-            xit('that can be Iterable', function() {
-                // Can't create this test case.
-                // Because there's no way to create Iterable object without ES6 Symbol object.
-            });
         });
     });
 
@@ -92,8 +87,6 @@ describe('module:Map', function() {
             });
         });
 
-
-
         describe('primitive values', function(){
             it('can be used for the key', function() {
                 map.set(null, 'null');
@@ -127,7 +120,6 @@ describe('module:Map', function() {
             });
         });
     });
-
 
     describe('has()', function() {
         it('returns true if the key exists', function() {
