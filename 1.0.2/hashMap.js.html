@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: hashMap.js</title>
+    <link type="text/css" rel="stylesheet" href="styles/prettify-jsdoc.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-fe2.css">
+</head>
+<body>
+
+<div id="wrap">
+
+    <div class="header">
+
+        <div class="container-fluid">
+            <h3><a href="index.html">API Documentation</a> <small>FE개발팀</small></h3>
+        </div>
+
+    </div>
+
+    <div class="body">
+        <div id="navigation" class="navigation"><h3>Util Classes</h3><ul class="utillist classes"><li><span class="namespace">ne.util.</span><a href="ne.util.CustomEvents.html">CustomEvents</a></li><li><span class="namespace">ne.util.</span><a href="ne.util.Enum.html">Enum</a></li><li><span class="namespace">ne.util.</span><a href="ne.util.ExMap.html">ExMap</a></li><li><span class="namespace">ne.util.</span><a href="ne.util.HashMap.html">HashMap</a></li><li><span class="namespace">ne.util.</span><a href="ne.util.Popup.html">Popup</a></li></ul><h3>Util Methods</h3><ul class="utillist classes"><h4>browser.js</h4><ul class="utillist modules"><li><span class="namespace">ne.util.</span><a href="ne.util.html#.browser">browser</a><span class="icon blue static">static</span></li></ul><ul class="sublist division ne.util"><li></li></ul><h4>collection.js</h4><ul class="utillist modules"><li><span class="namespace">ne.util.</span><a href="ne.util.html#.filter">filter</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.forEach">forEach</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.forEachArray">forEachArray</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.forEachOwnProperties">forEachOwnProperties</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.inArray">inArray</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.map">map</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.reduce">reduce</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.toArray">toArray</a><span class="icon blue static">static</span></li></ul><h4>defineClass.js</h4><ul class="utillist modules"><li><span class="namespace">ne.util.</span><a href="ne.util.html#.defineClass">defineClass</a><span class="icon blue static">static</span></li></ul><h4>defineNamespace.js</h4><ul class="utillist modules"><li><span class="namespace">ne.util.</span><a href="ne.util.html#.defineNamespace">defineNamespace</a><span class="icon blue static">static</span></li></ul><h4>func.js</h4><ul class="utillist modules"><li><span class="namespace">ne.util.</span><a href="ne.util.html#.bind">bind</a><span class="icon blue static">static</span></li></ul><h4>inheritance.js</h4><ul class="utillist modules"><li><span class="namespace">ne.util.</span><a href="ne.util.html#.createObject">createObject</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.inherit">inherit</a><span class="icon blue static">static</span></li></ul><h4>object.js</h4><ul class="utillist modules"><li><span class="namespace">ne.util.</span><a href="ne.util.html#.compareJSON">compareJSON</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.extend">extend</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.hasStamp">hasStamp</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.keys">keys</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.stamp">stamp</a><span class="icon blue static">static</span></li></ul><h4>string.js</h4><ul class="utillist modules"><li><span class="namespace">ne.util.</span><a href="ne.util.html#.decodeHTMLEntity">decodeHTMLEntity</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.encodeHTMLEntity">encodeHTMLEntity</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.hasEncodableString">hasEncodableString</a><span class="icon blue static">static</span></li></ul><h4>type.js</h4><ul class="utillist modules"><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isArguments">isArguments</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isArray">isArray</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isArraySafe">isArraySafe</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isBoolean">isBoolean</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isBooleanSafe">isBooleanSafe</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isEmpty">isEmpty</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isExisty">isExisty</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isFalsy">isFalsy</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isFunction">isFunction</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isFunctionSafe">isFunctionSafe</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isHTMLNode">isHTMLNode</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isHTMLTag">isHTMLTag</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isNotEmpty">isNotEmpty</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isNull">isNull</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isNumber">isNumber</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isNumberSafe">isNumberSafe</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isObject">isObject</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isString">isString</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isStringSafe">isStringSafe</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isTruthy">isTruthy</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isUndefined">isUndefined</a><span class="icon blue static">static</span></li></ul></ul></div>
+        <div id="main" class="main">
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @fileoverview Hash Map을 구현한 모듈이 정의 되어있다.
+ * @author FE개발팀
+ * @dependency type, collection.js
+ */
+
+(function(ne) {
+    'use strict';
+
+    /* istanbul ignore if */
+    if (!ne) {
+        ne = window.ne = {};
+    }
+    if (!ne.util) {
+        ne.util = window.ne.util = {};
+    }
+
+    /**
+     * 해쉬맵에서 사용하는 데이터는 _MAPDATAPREFIX로 시작한다.
+     * @type {string}
+     * @private
+     */
+    var _MAPDATAPREFIX = 'å';
+
+    /**
+     * HashMap
+     * 키/밸류로 데이터를 관리할수있다(자바의 hashMap과 유사)
+     * 주의) length프로퍼티를 가지고있어 유사 배열을 length의 유무로 체크하는 로직에서 의도되지 않은 동작을 할수있다.
+     * @param {Object} [obj] 인스턴스가 만들어질때 셋팅할 초기 데이터
+     * @constructor
+     * @memberof ne.util
+     * @example
+     * var hm = new HashMap({
+     *     'mydata': {
+     *          'hello': 'imfine'
+     *      },ne.util.HashMap
+     *     'what': 'time'
+     * });
+     */
+    function HashMap(obj) {
+        /**
+         * 사이즈
+         * @type {number}
+         */
+        this.length = 0;
+
+        if (obj) {
+            this.setObject(obj);
+        }
+    }
+
+    /**
+     * 키/밸류 혹은 Object를 전달하여 데이터를 셋팅한다.
+     * @param {String|Object} key 키에 해당하는 스트링이나 객체
+     * @param {*} [value] 데이터
+     * @example
+     * var hm = new HashMap();
+     *
+     * hm.set('key', 'value');
+     * hm.set({
+     *     'key1': 'data1',
+     *     'key2': 'data2'
+     * });
+     */
+    HashMap.prototype.set = function(key, value) {
+        if(arguments.length === 2) {
+            this.setKeyValue(key, value);
+        } else {
+            this.setObject(key);
+        }
+    };
+
+    /**
+     * 키/밸류로 데이터를 셋팅한다.
+     * @param {String} key 키스트링
+     * @param {*} value 데이터
+     * @example
+     * var hm = new HashMap();
+     * hm.setKeyValue('key', 'value');
+     */
+    HashMap.prototype.setKeyValue = function(key, value) {
+        if (!this.has(key)) {
+            this.length += 1;
+        }
+        this[this.encodeKey(key)] = value;
+    };
+
+    /**
+     * 객체로 데이터를 셋팅한다.
+     * @param {Object} obj
+     * @example
+     * var hm = new HashMap();
+     *
+     * hm.setObject({
+     *     'key1': 'data1',
+     *     'key2': 'data2'
+     * });
+     */
+    HashMap.prototype.setObject = function(obj) {
+        var self = this;
+
+        ne.util.forEachOwnProperties(obj, function(value, key) {
+            self.setKeyValue(key, value);
+        });
+    };
+
+    /**
+     * 해쉬맵을 인자로 받아 병합한다.
+     * @param {HashMap} hashMap
+     */
+    HashMap.prototype.merge = function(hashMap) {
+        var self = this;
+
+        hashMap.each(function(value, key) {
+            self.setKeyValue(key, value);
+        });
+    };
+
+    /**
+     * 해쉬맵에서 사용할 키를 생성한다.
+     * @param {String} key
+     * @returns {string}
+     * @private
+     */
+    HashMap.prototype.encodeKey = function(key) {
+        return _MAPDATAPREFIX + key;
+    };
+
+    /**
+     * 해쉬맵키에서 실제 키를 가져온다.
+     * @param {String} key
+     * @returns {String}
+     * @private
+     */
+    HashMap.prototype.decodeKey = function(key) {
+        var decodedKey = key.split(_MAPDATAPREFIX);
+        return decodedKey[decodedKey.length-1];
+    };
+
+    /**
+     * 키값을 전달하여 데이터를 반환한다.
+     * @param {String} key
+     * @returns {*}
+     * @example
+     * var hm = new HashMap();
+     * hm.set('key', 'value');
+     *
+     * hm.get('key') // value
+     */
+    HashMap.prototype.get = function(key) {
+        return this[this.encodeKey(key)];
+    };
+
+    /**
+     * 키를 전달하여 데이터가 존재하는지 체크한다.
+     * @param {String} key
+     * @returns {boolean}
+     * @example
+     * var hm = new HashMap();
+     * hm.set('key', 'value');
+     *
+     * hm.has('key') // true
+     */
+    HashMap.prototype.has = function(key) {
+        return this.hasOwnProperty(this.encodeKey(key));
+    };
+
+    /**
+     * 키나 키의 목록을 전달하여 데이터를 삭제한다.
+     * @param {...String|String[]} key
+     * @returns {String|String[]}
+     * @example
+     * var hm = new HashMap();
+     * hm.set('key', 'value');
+     * hm.set('key2', 'value');
+     *
+     * //ex1
+     * hm.remove('key');
+     *
+     * //ex2
+     * hm.remove('key', 'key2');
+     *
+     * //ex3
+     * hm.remove(['key', 'key2']);
+     */
+    HashMap.prototype.remove = function(key) {
+        if (arguments.length > 1) {
+            key = ne.util.toArray(arguments);
+        }
+
+        return ne.util.isArray(key) ? this.removeByKeyArray(key) : this.removeByKey(key);
+    };
+
+    /**
+     * 키를 전달하여 데이터를 삭제한다.
+     * @param {String} key
+     * @returns {*|null} 삭제된 데이터
+     * @example
+     * var hm = new HashMap();
+     * hm.set('key', 'value');
+     *
+     * hm.removeByKey('key')
+     */
+    HashMap.prototype.removeByKey = function(key) {
+        var data = this.has(key) ? this.get(key) : null;
+
+        if (data !== null) {
+            delete this[this.encodeKey(key)];
+            this.length -= 1;
+        }
+
+        return data;
+    };
+
+    /**
+     * 키의 목록을 전달하여 데이터를 삭제한다.
+     * @param {String[]} keyArray
+     * @returns {String[]} 삭제된 데이터
+     * @example
+     * var hm = new HashMap();
+     * hm.set('key', 'value');
+     * hm.set('key2', 'value');
+     *
+     * hm.removeByKeyArray(['key', 'key2']);
+     */
+    HashMap.prototype.removeByKeyArray = function(keyArray) {
+        var data = [],
+            self = this;
+
+        ne.util.forEach(keyArray, function(key) {
+            data.push(self.removeByKey(key));
+        });
+
+        return data;
+    };
+
+    /**
+     * 모든데이터를 지운다.
+     */
+    HashMap.prototype.removeAll = function() {
+        var self = this;
+
+        this.each(function(value, key) {
+            self.remove(key);
+        });
+    };
+
+    /**
+     * 데이터를 순회하며 콜백에 전달해준다.
+     * @param {Function} iteratee
+     * @example
+     * var hm = new HashMap();
+     * hm.set('key', 'value');
+     * hm.set('key2', 'value');
+     *
+     * hm.each(function(value, key) {
+     *     //do something...
+     * });
+     */
+    HashMap.prototype.each = function(iteratee) {
+        var self = this,
+            flag;
+
+        ne.util.forEachOwnProperties(this, function(value, key) {
+            if (key.charAt(0) === _MAPDATAPREFIX) {
+                flag = iteratee(value, self.decodeKey(key));
+            }
+
+            if (flag === false) {
+                return flag;
+            }
+        });
+    };
+
+    /**
+     * 저장된 키의 목록을 배열로 리턴해준다.
+     * @returns {Array}
+     * @example
+     * var hm = new HashMap();
+     * hm.set('key', 'value');
+     * hm.set('key2', 'value');
+     *
+     * hm.keys();  //['key', 'key2');
+     */
+    HashMap.prototype.keys = function() {
+        var keys = [],
+            self = this;
+
+        this.each(function(value, key) {
+            keys.push(self.decodeKey(key));
+        });
+
+        return keys;
+    };
+
+    /**
+     * 조건을 체크하는 콜백을 전달받아 데이터를 전달해주고 콜백의 결과가 true인경우의 데이터를 모와 배열로 만들어 리턴해준다.
+     * @param {Function} condition
+     * @returns {Array}
+     * @example
+     *
+     * //ex1
+     * var hm = new HashMap();
+     * hm.set('key', 'value');
+     * hm.set('key2', 'value');
+     *
+     * hm.find(function(value, key) {
+     *     return key === 'key2';
+     * }); // ['value']
+     *
+     * //ex2
+     * var hm = new HashMap({
+     *     'myobj1': {
+     *          visible: true
+     *      },
+     *     'mybobj2': {
+     *          visible: false
+     *      }
+     * });
+     *
+     * hm.find(function(obj, key) {
+     *     return obj.visible === true;
+     * }); // [{visible: true}];
+     */
+    HashMap.prototype.find = function(condition) {
+        var founds = [];
+
+        this.each(function(value, key) {
+            if (condition(value, key)) {
+                founds.push(value);
+            }
+        });
+
+        return founds;
+    };
+
+    /**
+     * 내부의 값들을 순서에 상관없이 배열로 반환한다
+     * @returns {Array}
+     */
+    HashMap.prototype.toArray = function() {
+        var result = [];
+
+        this.each(function(v) {
+            result.push(v);
+        });
+
+        return result;
+    };
+
+    ne.util.HashMap = HashMap;
+
+})(window.ne);
+</code></pre>
+        </article>
+    </section>
+
+
+
+</div>
+        <div class="clearfix"></div>
+    </div>
+
+</div>
+<script>
+(function() {
+// 영역 height 설정
+var height = (window.innerHeight || document.documentElement.clientHeight || document.getElementByTagName('body')[0].clientHeight) - 50;
+var navigation = document.getElementById('navigation');
+var main = document.getElementById('main');
+navigation.style.height = height + 'px';
+main.style.height = height + 'px';
+
+// IE 7,8을 위한 getElementsByClassName 구현
+var getElementsByClassName = function(className, parentElement) {
+	if(document.getElementsByClassName) {
+		return (parentElement || document).getElementsByClassName(className);
+	}
+
+    var regEx = new RegExp('(^| )'+className+'( |$)');
+	var nodes = new Array();
+    var elements = (parentElement || document.body).getElementsByTagName("*");
+    for(var i = 0, len = elements.length; i < len ; i++) {
+        if(regEx.test(elements[i].className)) {
+			nodes.push(elements[i]);
+		}
+	}
+	elements = null;
+    return nodes;
+}
+
+// url 파싱후 해당 카테고리만 display:block 처리
+var url = location.href;
+var path = url.lastIndexOf('/');
+var fileName = url.substring(path+1);
+var fullName = fileName.split('.');
+fullName.length -= 1;
+fullName = fullName.join('.');
+fullName = fullName.split('-');
+fullName = fullName[fullName.length - 1];
+var lnbList = getElementsByClassName(fullName);
+if(lnbList.length && lnbList.length > 0) {
+    for(var i = 0, len = lnbList.length; i < len; i++) {
+        lnbList[i].className += ' selected';
+    }
+}
+
+var title = document.getElementById(fullName);
+if(title) {
+    title.className += ' selected';
+    title.innerHTML = '<span class="arrow">▶</span>' + title.innerHTML;
+
+    var static = getElementsByClassName('static', title);
+    if(static) {
+        static[0].className += ' selected';
+    }
+}
+})();
+</script>
+<script type="text/javascript" src="scripts/prettify/prettify.js"></script>
+<script type="text/javascript" src="scripts/prettify/lang-css.js"></script>
+<script type="text/javascript">prettyPrint();</script>
+<script type="text/javascript" src="scripts/linenumber.js"></script>
+</body>
+</html>
