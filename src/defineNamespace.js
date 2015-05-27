@@ -28,6 +28,7 @@
      *          // code
      *      }
      * });
+     * @memberof ne.util
      */
     var defineNamespace = function(name, props, isOverride) {
         var namespace,
