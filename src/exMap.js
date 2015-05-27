@@ -1,8 +1,8 @@
 /**
  * @fileoverview
  * Implements the ExMap (Extended Map) object.
- * @author FE Development Team
- * @dependency inheritance.js, Map.js, collection.js
+ * @author NHN Ent. FE Development Team
+ * @dependency Map.js, collection.js
  */
 
 (function(ne) {
