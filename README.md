@@ -3,10 +3,10 @@ CodeSnippet
 코드 스니펫<br>
 CodeSnippet이란, <br>
 타입체크나 배열처리와 같이 **자주 사용되는 코드 조각**을 모아둔 것으로,<br>
-아래와 같은 종류의 CodeSnippet이 존재하며 지속적으로 지속적으로 업데이트하고 있습니다.<br>
-FE개발팀에서 배포하는 모든 컴포넌트 및 Application은 **가독성과 중복코드 방지**를 위해 CodeSnippet을 사용하며,<br>
-기본적인 네임스페이스는 **ne.util**을 사용합니다.<br>
-(네임스페이스는 서비스의 성격에 따라 재정의하여 사용할 수 있습니다.)<br>
+아래와 같은 종류의 CodeSnippet이 존재하며 지속적으로 업데이트를 통해 관리되고 있다.<br>
+FE개발팀에서 배포하는 모든 Component 및 Application은 **가독성과 중복코드 방지**를 위해 CodeSnippet을 사용하며,<br>
+기본적인 네임스페이스는 **ne.util**을 사용한다.<br>
+(네임스페이스는 서비스의 성격에 따라 재정의하여 사용할 수 있다.)<br>
 
 ## Feature
 * browser.js
