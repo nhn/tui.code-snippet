@@ -19,17 +19,23 @@ body {
 }
 
 .navigation {
+    min-width: 250px;
     padding: 20px 15px;
     float: left;
     background-color: #f4f7f8;
     overflow: auto;
-    min-width: 250px;
 }
 
 .navigation h3 {
     margin: 0;
     padding: 0;
     font-size: 1.5em;
+}
+
+.navigation h4 {
+    font-weight: normal;
+    padding:0;
+    margin:0;
 }
 
 .navigation ul {
@@ -96,9 +102,6 @@ body {
     margin-left: 250px;
     overflow: auto;
 }
-
-.main { min-width: 800px; }
-.body { min-width: 1090px; }
 
 .main h1,
 .main h2,
@@ -309,3 +312,15 @@ span.arrow {
     font-size: 8pt;
     padding-right: 5px;
 }
+
+
+.main { min-width: 800px; }
+.body { min-width: 1090px; }
+
+
+.navigation ul.utillist {padding: 10px 5px 10px 5px;}
+.navigation ul.utillist li {padding: 5px 0;}
+.navigation ul.utillist li {border-bottom: 1px solid #ddd;  }
+.navigation ul.utillist li .namespace { color:#888; font-size:11px; }
+.utillist {margin-bottom:40px; }
+.utillist .utillist {margin-bottom: 8.5px; }
