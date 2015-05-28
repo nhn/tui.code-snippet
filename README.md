@@ -76,7 +76,7 @@ FE개발팀에서 배포하는 모든 Component 및 Application은 **가독성�
 ## History
 | Version | Description | Date | Developer |
 | ---- | ---- | ---- | ---- |
-| <a href="https://github.nhnent.com/pages/fe/code-snippet/1.0.2/">1.0.2</a> | defineNamespace 추가<br>exMap추가 | 2015.04 | FE개발팀 |
-| 1.0.1 | isExisty 스펙 변경, pick 메서드 추가, type 체크 변경 | 2015.04 | FE개발팀 |
+| <a href="https://github.nhnent.com/pages/fe/code-snippet/1.0.2/">1.0.2</a> | defineNamespace 추가<br>exMap 추가 | 2015.04 | FE개발팀 |
+| 1.0.1 | isExisty 스펙 변경<br>pick 메서드 추가<br>type 체크 변경 | 2015.04 | FE개발팀 |
 | <a href="https://github.nhnent.com/pages/fe/code-snippet/1.0.0/">1.0.0</a> | jquery dependency 제거 | 2015.03 | FE개발팀 |
 | 0.1.0 | 최초개발 | 2014.09 | FE개발팀 |
