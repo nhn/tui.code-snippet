@@ -12,68 +12,73 @@
         MONTH_STR = ["Invalid month", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
         MONTH_DAYS = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
         replaceMap = {
-            M: function(year, month) {
-                return Number(month);
+            M: function(date) {
+                return Number(date.month);
             },
-            MM: function(year, month) {
+            MM: function(date) {
+                var month = date.month;
                 return (Number(month) < 10) ? '0' + month : month;
             },
-            MMM: function(year, month) {
-                return MONTH_STR[Number(month)].substr(0, 3);
+            MMM: function(date) {
+                return MONTH_STR[Number(date.month)].substr(0, 3);
             },
-            MMMM: function(year, month) {
-                return MONTH_STR[Number(month)];
+            MMMM: function(date) {
+                return MONTH_STR[Number(date.month)];
             },
-            D: function(year, month, dayInMonth) {
-                return Number(dayInMonth);
+            D: function(date) {
+                return Number(date.date);
             },
-            d: function(year, month, dayInMonth) {
-                return replaceMap.D(year, month, dayInMonth);
+            d: function(date) {
+                return replaceMap.D(date);
             },
-            DD: function(year, month, dayInMonth) {
+            DD: function(date) {
+                var dayInMonth = date.date;
                 return (Number(dayInMonth) < 10) ? '0' + dayInMonth : dayInMonth;
             },
-            dd: function(year, month, dayInMonth) {
-                return replaceMap.DD(year, month, dayInMonth);
+            dd: function(date) {
+                return replaceMap.DD(date);
             },
-            YY: function(year) {
-                return Number(year) % 100;
+            YY: function(date) {
+                return Number(date.year) % 100;
             },
-            yy: function(year) {
-                return replaceMap.YY(year);
+            yy: function(date) {
+                return replaceMap.YY(date);
             },
-            YYYY: function(year) {
-                var prefix = '20';
+            YYYY: function(date) {
+                var prefix = '20',
+                    year = date.year;
                 if (year > 69 && year < 100) {
                     prefix = '19';
                 }
                 return (Number(year) < 100) ? prefix + String(year) : year;
             },
-            yyyy: function(year) {
-                return replaceMap.YYYY(year);
+            yyyy: function(date) {
+                return replaceMap.YYYY(date);
             },
-            A: function(year, month, dayInMonth, hour, minute, meridian) {
-                return meridian;
+            A: function(date) {
+                return date.meridian;
             },
-            a: function(year, month, dayInMonth, hour, minute, meridian) {
-                return meridian.toLowerCase();
+            a: function(date) {
+                return date.meridian.toLowerCase();
             },
-            hh: function(year, month, dayInMonth, hour) {
+            hh: function(date) {
+                var hour = date.hour;
                 return (Number(hour) < 10) ? '0' + hour : hour;
             },
-            HH: function(year, month, dayInMonth, hour) {
-                return replaceMap.hh(year, month, dayInMonth, hour);
+            HH: function(date) {
+                return replaceMap.hh(date);
             },
-            h: function(year, month, dayInMonth, hour) {
-                return String(Number(hour));
+            h: function(date) {
+                return String(Number(date.hour));
             },
-            H: function(year, month, dayInMonth, hour) {
-                return replaceMap.h(year, month, dayInMonth, hour);
+            H: function(date) {
+                return replaceMap.h(date);
             },
-            m: function(year, month, dayInMonth, hour, minute) {
-                return String(Number(minute));
+            m: function(date) {
+                return String(Number(date.minute));
             },
-            mm: function(year, month, dayInMonth, hour, minute) {
+            mm: function(date) {
+                var minute = date.minute;
                 return (Number(minute) < 10) ? '0' + minute : minute;
             }
         },
@@ -110,6 +115,7 @@
             isValidMonth,
             isValid,
             lastDayInMonth;
+
         year = Number(year);
         month = Number(month);
         date = Number(date);
@@ -149,46 +155,51 @@
      *      minutes     | m / mm
      *      AM/PM       | A / a
      */
-    function formDate(form, date) {
-        var year,
-            month,
-            dayInMonth,
-            hour,
-            minute,
-            isDefined,
-            meridian;
+    function formatDate(form, date) {
+        var meridian,
+            nDate,
+            resultStr;
 
         if (isDate(date)) {
-            year = date.getFullYear();
-            month = date.getMonth() + 1;
-            dayInMonth = date.getDate();
-            hour = date.getHours();
-            minute = date.getMinutes();
+            nDate = {
+                year: date.getFullYear(),
+                month: date.getMonth() + 1,
+                date: date.getDate(),
+                hour: date.getHours(),
+                minute: date.getMinutes()
+            };
         } else {
-            year = date.year;
-            month = date.month;
-            dayInMonth = date.date;
-            hour = date.hour;
-            minute = date.minute;
-        }
-        isDefined = !!(year && month && dayInMonth);
-
-        if (/[^\\][aA]/g.test(form)) {
-            meridian = (hour > 12) ? 'PM' : 'AM';
-            hour %= 12;
+            nDate = {
+                year: date.year,
+                month: date.month,
+                date: date.date,
+                hour: date.hour,
+                minute: date.minute
+            };
         }
 
-        return isDefined && isValidDate(year, month, dayInMonth) &&
-            form.replace(tokens, function(key) {
-                if (key.indexOf('\\') > -1) {
-                    return key.replace(/\\/g, '');
-                } else {
-                    return replaceMap[key](year, month, dayInMonth, hour, minute, meridian) || '';
-                }
-            });
+        if (!isValidDate(nDate.year, nDate.month, nDate.date)) {
+            return false;
+        }
+
+        nDate.meridian = '';
+        if (/[^\\][aA]\b/g.test(form)) {
+            meridian = (nDate.hour > 12) ? 'PM' : 'AM';
+            nDate.hour %= 12;
+            nDate.meridian = meridian;
+        }
+
+        resultStr = form.replace(tokens, function(key) {
+            if (key.indexOf('\\') > -1) {
+                return key.replace(/\\/g, '');
+            } else {
+                return replaceMap[key](nDate) || '';
+            }
+        });
+        return resultStr;
     }
 
     ne.util.isDate = isDate;
-    ne.util.formDate = formDate;
+    ne.util.formatDate = formatDate;
 })(window.ne);
 
