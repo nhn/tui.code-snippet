@@ -114,7 +114,7 @@
         month = Number(month);
         date = Number(date);
 
-        isValidYear = (year > 9 && year < 100) || (year > 1969) && (year < 2070);
+        isValidYear = (year > -1 && year < 100) || (year > 1969) && (year < 2070);
         isValidMonth = (month > 0) && (month < 13);
 
         if (!isValidYear || !isValidMonth) {
