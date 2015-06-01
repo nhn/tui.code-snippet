@@ -220,7 +220,7 @@ describe('date format', function() {
                 });
             });
 
-            describe('{year: 2010, month: 12, date: 13, hour: 10, minute: 0}', function() {
+            describe('new Date(2010, 11, 13, 10, 0)', function() {
                 it('-> yyyy-MM-dd', function() {
                     var date = inputs[1],
                         nYear = (date.year < 100) ? date.year + 2000 : date.year,
@@ -313,7 +313,7 @@ describe('date format', function() {
                 });
             });
 
-            describe('{year: 12, month: 1, date: 29, hour: 23, minute: 40}', function() {
+            describe('new Date(2012, 0, 29, 23, 40)', function() {
                 it('-> yyyy-MM-dd', function() {
                     var date = inputs[2],
                         nYear = (date.year < 100) ? date.year + 2000 : date.year,
