@@ -4,8 +4,6 @@ describe('`defineModule` function', function() {
     it('should set namespace', function() {
         var definedModule = ne.util.defineModule('foo.bar', {});
 
-        expect(window.foo).toEqual(jasmine.any(Object));
-        expect(window.foo.bar).toEqual(jasmine.any(Object));
         expect(window.foo.bar).toBe(definedModule);
     });
 
@@ -20,7 +18,7 @@ describe('`defineModule` function', function() {
             baseModule = {
                 _privateData: messagesForVerifying.privateData,
                 publicData: messagesForVerifying.publicData,
-                initializationMessage: null,
+                initializationMessage: '',
 
                 _privateMethod: function() {
                     return messagesForVerifying.privateMethod;
@@ -52,7 +50,6 @@ describe('`defineModule` function', function() {
         });
 
         it('that should have public properties', function() {
-            expect(definedModule.publicData).toBeDefined();
             expect(definedModule.publicData).toEqual(messagesForVerifying.publicData);
 
             expect(definedModule.publicMethod).toEqual(jasmine.any(Function));
@@ -75,7 +72,6 @@ describe('`defineModule` function', function() {
 
         it('that should have `__initialize` method', function() {
             if (baseModule.initialize) {
-                expect(definedModule.__initialize).toBeDefined();
                 expect(definedModule.__initialize).toEqual(jasmine.any(Function));
             }
         });

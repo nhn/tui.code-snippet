@@ -35,7 +35,7 @@
 
         publicBase = util.filter(base, function(item, key) {
             var isPublic = (key.charAt(0) !== '_');
-            
+
             return isPublic;
         });
 
