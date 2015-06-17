@@ -34,7 +34,9 @@
         }
 
         publicBase = util.filter(base, function(item, key) {
-            return key.charAt(0) !== '_';
+            var isPublic = (key.charAt(0) !== '_');
+            
+            return isPublic;
         });
 
         util.forEach(publicBase, function(item, key) {
