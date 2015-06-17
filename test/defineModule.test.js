@@ -81,8 +81,10 @@ describe('`defineModule` function', function() {
         });
 
         it('that should have `__initialize` method', function() {
-            expect(definedModule.__initialize).toBeDefined();
-            expect(definedModule.__initialize).toEqual(jasmine.any(Function));
+            if (baseModule.initialize) {
+                expect(definedModule.__initialize).toBeDefined();
+                expect(definedModule.__initialize).toEqual(jasmine.any(Function));
+            }
         });
     });
 });
