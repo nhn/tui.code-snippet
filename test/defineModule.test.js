@@ -51,8 +51,6 @@ describe('`defineModule` function', function() {
 
         it('that should have public properties', function() {
             expect(definedModule.publicData).toEqual(messagesForVerifying.publicData);
-
-            expect(definedModule.publicMethod).toEqual(jasmine.any(Function));
             expect(definedModule.publicMethod()).toEqual(messagesForVerifying.publicMethod);
         });
 
