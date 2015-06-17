@@ -4,7 +4,6 @@
  * @dependency defineNamespace.js, func.js, collection.js, type.js
  */
 (function(ne) {
-
     'use strict';
     /* istanbul ignore if */
     if (!ne) {
@@ -26,22 +25,20 @@
      */
     function defineModule(namespace, moduleDefinition) {
         var target = util.defineNamespace(namespace),
-            base = util.extend({}, moduleDefinition);
+            base = util.extend({}, moduleDefinition),
+            publicBase;
 
         if (util.isFunction(base[INITIALIZATION_METHOD_NAME])) {
             base[INITIALIZATION_METHOD_NAME]();
             target['__' + INITIALIZATION_METHOD_NAME] = base[INITIALIZATION_METHOD_NAME];
         }
 
-        util.forEach(base, function(item, key) {
-            if (/^[^_]\w+$/.test(key)) {
-                // public
-                if (util.isFunction(item)) {
-                    target[key] = util.bind(item, base); // method
-                } else {
-                    target[key] = item;  // property
-                }
-            }
+        publicBase = util.filter(base, function(item, key) {
+            return key.charAt(0) !== '_';
+        });
+
+        util.forEach(publicBase, function(item, key) {
+            target[key] = (util.isFunction(item) ? util.bind(item, base) : item);
         });
 
         return target

@@ -1,13 +1,6 @@
 
 describe('`defineModule` function', function() {
 
-    it('should be defined', function() {
-        var defineModule = ne.util.defineModule;
-
-        expect(defineModule).toBeDefined();
-        expect(defineModule).toEqual(jasmine.any(Function));
-    });
-
     it('should set namespace', function() {
         var definedModule = ne.util.defineModule('foo.bar', {});
 
