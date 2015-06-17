@@ -79,6 +79,11 @@ describe('`defineModule` function', function() {
             expect(definedModule.getPrivateData()).toEqual(messagesForVerifying.privateData);
             expect(definedModule.callPrivateMethod()).toEqual(messagesForVerifying.privateMethod)
         });
+
+        it('that should have `__initialize` method', function() {
+            expect(definedModule.__initialize).toBeDefined();
+            expect(definedModule.__initialize).toEqual(jasmine.any(Function));
+        });
     });
 });
 

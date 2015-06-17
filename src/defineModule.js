@@ -30,9 +30,8 @@
 
         if (util.isFunction(base[INITIALIZATION_METHOD_NAME])) {
             base[INITIALIZATION_METHOD_NAME]();
+            target['__' + INITIALIZATION_METHOD_NAME] = base[INITIALIZATION_METHOD_NAME];
         }
-        base['__' + INITIALIZATION_METHOD_NAME] = base[INITIALIZATION_METHOD_NAME];
-        delete base[INITIALIZATION_METHOD_NAME];
 
         util.forEach(base, function(item, key) {
             if (/^[^_]\w+$/.test(key)) {
