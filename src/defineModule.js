@@ -30,7 +30,7 @@
 
         if (util.isFunction(base[INITIALIZATION_METHOD_NAME])) {
             base[INITIALIZATION_METHOD_NAME]();
-            target['__' + INITIALIZATION_METHOD_NAME] = base[INITIALIZATION_METHOD_NAME];
+            target['__' + INITIALIZATION_METHOD_NAME] = util.bind(base[INITIALIZATION_METHOD_NAME], base);
         }
 
         publicBase = util.filter(base, function(item, key) {
