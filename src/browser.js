@@ -1,5 +1,5 @@
 /**
- * @fileoverview Module for detecting a kind of well-known browser and version
+ * @fileoverview It is a module that detect a kind of well-known browser and version
  * @author NHN Ent.
  *         FE Development Team <e0242@nhnent.com>
  */
@@ -16,14 +16,14 @@
     }
 
     /**
-     * This object has an information that indicate what kind of browser.
+     * This object has an information that indicate the kind of browser.
      * The list below is a detectable browser list.
      * - ie7 ~ ie11
      * - chrome
      * - firefox
      * - safari
      *
-     * @member ne.util
+     * @memberof ne.util
      * @example
      *  ne.util.browser.chrome === true;    // chrome
      *  ne.util.browser.firefox === true;    // firefox
