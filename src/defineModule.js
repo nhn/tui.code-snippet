@@ -1,7 +1,8 @@
 /**
  * @fileoverview Define module
- * @author FE Development Team
- * @dependency defineNamespace.js, func.js, collection.js, type.js
+ * @author NHN Ent.
+ *         FE Development Team <e0242@nhnent.com>
+ * @dependency object.js, type.js, defineNamespace.js
  */
 (function(ne) {
     'use strict';
@@ -22,30 +23,30 @@
      * @param {string} namespace - Namespace of module
      * @param {Object} moduleDefinition - Object literal for module
      * @returns {Object} Defined module
+     * @example
+     *     var myModule = ne.util.defineModule('modules.myModule', {
+     *          name: 'john',
+     *          message: '',
+     *          initialize: function() {
+     *              this.message = 'hello world';
+     *          },
+     *          getMessage: function() {
+     *              return this.name + ': ' + this.message
+     *          }
+     *     });
+     *
+     *     console.log(myModule.getMessage());  // 'john: hello world';
+     *     console.log(window.modules.myModule.getMessage());   // 'john: hello world';
      */
     function defineModule(namespace, moduleDefinition) {
-        var target = util.defineNamespace(namespace),
-            base = util.extend({}, moduleDefinition),
-            publicBase;
+        var base = util.extend({}, moduleDefinition);
 
         if (util.isFunction(base[INITIALIZATION_METHOD_NAME])) {
             base[INITIALIZATION_METHOD_NAME]();
-            target['__' + INITIALIZATION_METHOD_NAME] = util.bind(base[INITIALIZATION_METHOD_NAME], base);
+            delete base[INITIALIZATION_METHOD_NAME];
         }
 
-        publicBase = util.filter(base, function(item, key) {
-            var isPublic = (key.charAt(0) !== '_');
-
-            return isPublic;
-        });
-
-        util.forEach(publicBase, function(item, key) {
-            target[key] = (util.isFunction(item) ? util.bind(item, base) : item);
-        });
-
-        return target
+        return util.defineNamespace(namespace, base, true);
     }
-
     ne.util.defineModule = defineModule;
 })(window.ne);
-
