@@ -17,7 +17,7 @@
 
     /**
      * This object has an information that indicate what kind of browser.
-     * The list below is detectable browser list.
+     * The list below is a detectable browser list.
      * - ie7 ~ ie11
      * - chrome
      * - firefox
