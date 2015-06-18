@@ -53,10 +53,6 @@ describe('`defineModule` function', function() {
             definedModule = ne.util.defineModule('foo.bar', base);
         });
 
-        it('that should not be equal to `base` object', function() {
-            expect(definedModule).not.toEqual(base);
-        });
-
         it('that should be initialized', function() {
             expect(definedModule.initializationMessage).toEqual(messagesForVerifying.initializeMethod);
         });
