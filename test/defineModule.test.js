@@ -77,6 +77,5 @@ describe('`defineModule` function', function() {
             definedModule.changePublicData('foo');
             expect(definedModule.publicData).toEqual('foo');
         });
-
     });
 });

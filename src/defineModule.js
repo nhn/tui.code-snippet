@@ -2,7 +2,7 @@
  * @fileoverview Define module
  * @author NHN Ent.
  *         FE Development Team <e0242@nhnent.com>
- * @dependency object.js, type.js, defineNamespace.js
+ * @dependency type.js, defineNamespace.js
  */
 (function(ne) {
     'use strict';
@@ -39,7 +39,7 @@
      *     console.log(window.modules.myModule.getMessage());   // 'john: hello world';
      */
     function defineModule(namespace, moduleDefinition) {
-        var base = util.extend({}, moduleDefinition);
+        var base = moduleDefinition || {};
 
         if (util.isFunction(base[INITIALIZATION_METHOD_NAME])) {
             base[INITIALIZATION_METHOD_NAME]();
