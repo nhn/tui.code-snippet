@@ -49,7 +49,8 @@ describe('`defineModule` function', function() {
                 }
             };
 
-        beforeEach(function() {
+
+        beforeAll(function() {
             definedModule = ne.util.defineModule('foo.bar', base);
         });
 
