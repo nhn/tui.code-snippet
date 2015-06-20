@@ -1,6 +1,8 @@
 /**
- * @fileoverview 클래스와 비슷한방식으로 생성자를 만들고 상속을 구현할 수 있는 메소드를 제공하는 모듈
- * @author FE개발팀
+ * @fileoverview
+ *  This module provides a function to make a constructor that can inherit from the other constructors like the CLASS easily.
+ * @author NHN Ent.
+ *         FE Development Team <e0242@nhnent.com>
  * @dependency inheritance.js, object.js
  */
 
@@ -16,45 +18,44 @@
     }
 
     /**
-     * 객체의 생성및 상속을 편하게 도와주는 메소드
-     * @param {*} [parent] 상속받을 생성자.
-     * @param {Object} props 생성할 생성자의프로토타입에 들어갈 멤버들
-     * @param {Function} props.init 인스턴스가 생성될때 실행됨
-     * @param {Object} props.static 생성자의 클래스 맴버형태로 들어갈 멤버들
-     * @returns {*}
+     * defineClass() function helps a constructor to be defined and to inherit from the other constructors
+     * @param {*} [parent] Parent constructor
+     * @param {Object} props Members of constructor
+     *  @param {Function} props.init Initialization method
+     *  @param {Object} [props.static] Static members of constructor
+     * @returns {*} Constructor
+     * @memberof ne.util
      * @example
      *
-     * var Parent = defineClasss({
-     *     init: function() {
-     *         this.name = 'made by def';
-     *     },
-     *     method: function() {
-     *         //..can do something with this
-     *     },
-     *     static: {
-     *         staticMethod: function() {
-     *              //..do something
-     *         }
-     *     }
-     * });
+     *  var Parent = defineClass({
+     *      init: function() {
+     *          this.name = 'made by def';
+     *      },
+     *      method: function() {
+     *          //..can do something with this
+     *      },
+     *      static: {
+     *          staticMethod: function() {
+     *               //..do something
+     *          }
+     *      }
+     *  });
      *
-     * var Child = defineClass(Parent, {
-     *     method2: function() {}
-     * });
-     *
-     *
-     * Parent.staticMethod();
-     *
-     * var parentInstance = new Parent();
-     * console.log(parentInstance.name); //made by def
-     * parentInstance.staticMethod(); // Error
+     *  var Child = defineClass(Parent, {
+     *      method2: function() {}
+     *  });
      *
      *
-     * var childInstance = new Child();
-     * childInstance.method();
-     * childInstance.method2();
-     * @memberof ne.util
+     *  Parent.staticMethod();
      *
+     *  var parentInstance = new Parent();
+     *  console.log(parentInstance.name); //made by def
+     *  parentInstance.staticMethod(); // Error
+     *
+     *
+     *  var childInstance = new Child();
+     *  childInstance.method();
+     *  childInstance.method2();
      */
     var defineClass = function(parent, props) {
         var obj;

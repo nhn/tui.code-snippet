@@ -1,5 +1,5 @@
 /**
- * @fileoverview It is a module that detect a kind of well-known browser and version
+ * @fileoverview This module detects the kind of well-known browser and version.
  * @author NHN Ent.
  *         FE Development Team <e0242@nhnent.com>
  */

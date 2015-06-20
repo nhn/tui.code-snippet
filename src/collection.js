@@ -1,5 +1,5 @@
 /**
- * @fileoverview Module having some functions for handling object as collection.
+ * @fileoverview This module has some functions for handling object as collection.
  * @author NHN Ent.
  *         FE Development Team <e0242@nhnent.com>
  * @dependency type.js, object.js
@@ -29,7 +29,7 @@
      *  - The index of the element
      *  - The array(or Array-like object) being traversed
      * @param {Array} arr The array(or Array-like object) that will be traversed
-     * @param {Function} iteratee Callback function
+     * @param {function} iteratee Callback function
      * @param {Object} [context] Context(this) of callback function
      * @memberof ne.util
      * @example
@@ -62,7 +62,7 @@
      *  - The name of the property
      *  - The object being traversed
      * @param {Object} obj The object that will be traversed
-     * @param {Function} iteratee  Callback function
+     * @param {function} iteratee  Callback function
      * @param {Object} [context] Context(this) of callback function
      * @memberof ne.util
      * @example
@@ -96,7 +96,7 @@
      *  - The name of the property(or The index of the element)
      *  - The object being traversed
      * @param {Object} obj The object that will be traversed
-     * @param {Function} iteratee Callback function
+     * @param {function} iteratee Callback function
      * @param {Object} [context] Context(this) of callback function
      * @memberof ne.util
      * @example
@@ -132,7 +132,7 @@
      *  - The name of the property(or The index of the element)
      *  - The object being traversed
      * @param {Object} obj The object that will be traversed
-     * @param {Function} iteratee Callback function
+     * @param {function} iteratee Callback function
      * @param {Object} [context] Context(this) of callback function
      * @returns {Array} A new array composed of returned values from callback function
      * @memberof ne.util
@@ -164,7 +164,7 @@
      *  - The index
      *  - The object being traversed
      * @param {Object} obj The object that will be traversed
-     * @param {Function} iteratee Callback function
+     * @param {function} iteratee Callback function
      * @param {Object} [context] Context(this) of callback function
      * @returns {*} The result value
      * @memberof ne.util
@@ -236,7 +236,7 @@
      *  - The name of the property(or The index of the element)
      *  - The object being traversed
      * @param {Object} obj Object(plain object or Array) that will be traversed
-     * @param {Function} iteratee Callback function
+     * @param {function} iteratee Callback function
      * @param {Object} [context] Context(this) of callback function
      * @returns {Object} plain object or Array
      * @memberof ne.util
