@@ -1,6 +1,7 @@
 /**
- * @fileoverview Enum을 구현한 모듈이 정의 되어있다.
- * @author 김성호 sungho-kim@nhnent.com
+ * @fileoverview This module provides a Enum Constructor.
+ * @author NHN Ent.
+ *         FE Development Team <e0242@nhnent.com>
  * @dependency type, collection.js
  */
 
@@ -17,8 +18,8 @@ if (!ne.util) {
 }
 
 /**
- * definedProperty지원 여부 체크
- * @returns {boolean}
+ * Check whether the defineProperty() method is supported.
+ * @type {boolean}
  */
 var isSupportDefinedProperty = (function () {
     try {
@@ -30,43 +31,42 @@ var isSupportDefinedProperty = (function () {
 }());
 
 /**
- * 상수에 들어갈 임의의 값
+ * A unique value of a constant.
  * @type {number}
  */
 var enumValue = 0;
 
 /**
- * Enum
- * 임의의 값이지만 중복되지 않는 값을 갖는 상수의 목록을 만든다
- * IE8이하를 제외한 모던브라우저에서는
- * 한번 결정된값은 추후 변경될수 없다(바꾸려고 시도해도 원래 값을 유지한다)
+ * Enum() makes a constant-list that has unique values.
+ * In modern browsers (except IE8 and lower),
+ *  a value defined once can not be changed.
  *
- * @param {...string | string[]} itemList 상수목록, 스트링 배열 가능
+ * @param {...string | string[]} itemList Constant-list (An array of string is available)
  * @exports Enum
  * @constructor
  * @class
  * @memberof ne.util
  * @examples
  *
- * //생성
- * var MYENUM = new Enum('TYPE1', 'TYPE2');
- * var MYENUM2 = new Enum(['TYPE1', 'TYPE2']);
+ *  //create
+ *  var MYENUM = new Enum('TYPE1', 'TYPE2');
+ *  var MYENUM2 = new Enum(['TYPE1', 'TYPE2']);
  *
- * //사용
- * if (value === MYENUM.TYPE1) {
- *      ....
- * }
+ *  //usage
+ *  if (value === MYENUM.TYPE1) {
+ *       ....
+ *  }
  *
- * //추가하기(이미 정해진 상수명을 입력하는경우 무시된다)
- * MYENUM.set('TYPE3', 'TYPE4');
+ *  //add (If a duplicate name is inputted, will be disregarded.)
+ *  MYENUM.set('TYPE3', 'TYPE4');
  *
- * //값을 이용해 상수명을 얻어오는 방법
- * MYENUM.getName(MYENUM.TYPE1); // 'TYPE1'이 리턴된다.
+ *  //get name of a constant by a value
+ *  MYENUM.getName(MYENUM.TYPE1); // 'TYPE1'이 리턴된다.
  *
- * //IE9이상의 브라우저와 기타 모던브라우저에서는 값이 변경되지 않는다.
- * var originalValue = MYENUM.TYPE1;
- * MYENUM.TYPE1 = 1234; // maybe TypeError
- * MYENUM.TYPE1 === originalValue; // true
+ *  // In modern browsers (except IE8 and lower), a value can not be changed in constants.
+ *  var originalValue = MYENUM.TYPE1;
+ *  MYENUM.TYPE1 = 1234; // maybe TypeError
+ *  MYENUM.TYPE1 === originalValue; // true
  *
  **/
 function Enum(itemList) {
@@ -76,9 +76,8 @@ function Enum(itemList) {
 }
 
 /**
- * set
- * 상수를 정의한다.
- * @param {...string| string[]} itemList 상수목록, 스트링 배열도
+ * set() method defines a Constants-list
+ * @param {...string| string[]} itemList Constant-list (An array of string is available)
  */
 Enum.prototype.set = function(itemList) {
     var self = this;
@@ -93,10 +92,9 @@ Enum.prototype.set = function(itemList) {
 };
 
 /**
- * getName
- * 값을 넘기면 해당하는 상수의 키값을 리턴해준다.
- * @param {number} value 비교할 값
- * @returns {string} 상수의 키값
+ * getName() method returns a key of the constant.
+ * @param {number} value A value of the constant.
+ * @returns {string|undefined} Key of the constant.
  */
 Enum.prototype.getName = function(value) {
     var foundedKey,
@@ -113,10 +111,9 @@ Enum.prototype.getName = function(value) {
 };
 
 /**
- * _addItem
- * 상수를 생성한다
+ * _addItem() method creates a constant.
  * @private
- * @param {string} name 상수명
+ * @param {string} name Constant name. (It will be a key of a constant)
  */
 Enum.prototype._addItem = function(name) {
     var value;
@@ -138,10 +135,9 @@ Enum.prototype._addItem = function(name) {
 };
 
 /**
- * _makeEnumValue
- * 상수에 대입할 임의의 중복되지 않는 값을 구한다.
+ * _makeEnumValue() method returns a unique value for assigning to a constant.
  * @private
- * @returns {number} 상수에 대입될 값
+ * @returns {number} A unique value
  */
 Enum.prototype._makeEnumValue = function() {
     var value;
@@ -153,10 +149,9 @@ Enum.prototype._makeEnumValue = function() {
 };
 
 /**
- * _isEnumItem
- * 키의 이름을 입력받아 이 키에 해당하는 내용이 상수인지 아닌지를 판별한다
- * @param {string} key 프로퍼티 키값
- * @returns {boolean} 결과
+ * _isEnumItem() method returns whether the key of a constant.
+ * @param {string} key Name
+ * @returns {boolean} Result
  * @private
  */
 Enum.prototype._isEnumItem = function(key) {

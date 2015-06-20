@@ -1,6 +1,9 @@
 /**
- * @fileoverview 옵저버 패턴을 이용하여 객체 간 커스텀 이벤트를 전달할 수 있는 기능을 제공하는 모듈
- * @author FE개발팀
+ * @fileoverview
+ *  This module provides some functions for custom events.
+ *  And it is implemented in the observer design pattern.
+ * @author NHN Ent.
+ *         FE Development Team <e0242@nhnent.com>
  * @dependency type.js, collection.js object.js
  */
 
@@ -10,22 +13,35 @@
     if (!ne) {
         ne = window.ne = {};
     }
+
     /* istanbul ignore if */
     if (!ne.util) {
         ne.util = window.ne.util = {};
     }
 
     /**
-     * 이벤트 핸들러 저장 단위
+     * A unit of event handler.
      * @ignore
      * @typedef {{fn: function, ctx: *}} handlerItem
      */
 
     /**
-     * 컨텍스트 별로 저장하기 위한 데이터 구조
+     * A data structure for storing handlerItems for each context.
      * @ignore
      * @typedef {object.<string, handlerItem>} ctxEvents
+     * @example
+     *  ctxEvents = {
+     *      1_1: {
+     *          fn: function(){...},
+     *          ctx: context1
+     *      },
+     *      2_1: {
+     *          fn: function(){...},
+     *          ctx: context1
+     *      }
+     *  };
      */
+
 
     /**
      * @constructor
@@ -33,51 +49,82 @@
      */
     function CustomEvents() {
         /**
-         * 일반 핸들러 캐싱
+         * Caching a data structure that has normal event handlers which are not bound with a specific context.
          * @type {object.<string, handlerItem[]>}
          * @private
          */
         this._events = null;
 
         /**
-         * 컨텍스트 핸들러 캐싱
+         * Caching a data structure that has {ctxEvents} which are bound with event name.
          * @type {ctxEvents}
          * @private
+         * @example
+         *  ctxEvents = {
+         *      eventName1_idx: {
+         *          1_1: {
+         *              fn: function(){...},
+         *              ctx: context1
+         *          },
+         *          2_1: {
+         *              fn: function(){...},
+         *              ctx: context1
+         *          }
+         *      },
+         *      eventName1_len: 2,
+         *      eventName2_idx: {
+         *          3_2: {
+         *              fn: function(){...},
+         *              ctx: context2
+         *          },
+         *          4_2: {
+         *              fn: function(){...},
+         *              ctx: context2
+         *          }
+         *      },
+         *      eventName2_len: 2
+         *  };
          */
         this._ctxEvents = null;
     }
 
+
     /**********
-     * static props
+     * static
      **********/
 
     /**
-     * 커스텀 이벤트 기능을 믹스인할 때 사용하는 메서드
-     * @param {function()} func 생성자 함수
+     * mixin() method is used for making a constructor being able to do CustomEvent's functions.
+     * @param {function} func Constructor Function
      * @example
-     * // 모델 클래스 변경 시 컨트롤러에게 알림을 주고 싶은데
-     * // 그 기능을 모델 클래스 자체에게 주고 싶다
-     * function Model() {}
+     *  function Model() {
+     *      this.name = '';
+     *  }
+     *  ne.util.CustomEvents.mixin(Model);
      *
-     * // 커스텀 이벤트 믹스인
-     * ne.util.CustomEvents.mixin(Model);
-     *
-     * var model = new Model();
-     *
-     * model.on('changed', function() {}, this);
+     *  var model = new Model();
+     *  model.on('change', function() { this.name = 'model'; }, this);
+     *  model.fire('change');
+     *  alert(model.name); // 'model';
      */
     CustomEvents.mixin = function(func) {
         ne.util.extend(func.prototype, CustomEvents.prototype);
     };
 
     /**********
-     * private props
+     * private
      **********/
 
     /**
-     * 배열 반복자를 실행시키되 전체 순회 수를 감소시키는 메서드를 제공한다
-     * @param {Array} arr
-     * @param {function} iteratee
+     * _forEachArraySplice() method is similar to Array.prototype.forEach(),
+     *  however does Array.prototype.splice() additionally.
+     * Callback(iteratee) function is invoked with three arguments and a specific callback function decreasing the length of array:
+     *  - The value of the element
+     *  - The index of the element
+     *  - The array being traversed
+     *  - A specific callback function that decrease the length of array
+     * @param {Array} arr Array that will be traversed
+     * @param {function} iteratee Callback function
      */
     CustomEvents.prototype._forEachArraySplice = function(arr, iteratee) {
         var i,
@@ -107,8 +154,12 @@
      **********/
 
     /**
-     * 컨텍스트 핸들러 캐시 데이터 구조를 순회하며 반복자 수행
-     * @param {function(ctxEvents, eventKey)} iteratee
+     * _eachCtxEvents() method executes a callback once for each property of {this._ctxEvents}.
+     * Callback function(iteratee) is invoked with three arguments.
+     *  - {ctxEvents} - A data structure that has handler items bound with context
+     *  - {string} - A key (ex - 'eventName_idx' or 'eventName_len' )
+     *  - {this._ctxEvents}
+     * @param {function} iteratee Callback function
      * @private
      */
     CustomEvents.prototype._eachCtxEvents = function(iteratee) {
@@ -116,13 +167,17 @@
         ne.util.forEachOwnProperties(events, iteratee);
     };
 
+    // 여기서부터 다시 수정
+
     /**
-     * ctxEvents 구조에서 id문자열을 포함하는 핸들러를 순회하며 반복자를 수행
-     *
-     * 커스텀 이벤트 데이터 내에서 각 핸들러를 순회할 때 사용한다
-     * @param {ctxEvents} ctxEvents
-     * @param {string} id
-     * @param {function(handlerItem, handlerItemId)} iteratee
+     * _eachCtxHandlerItemByContainId() method executes a callback once
+     *  for each handler item including the specific string(=id, in arguments) in `this._ctxEvents[eventName_idx]`.
+     * Callback function(iteratee) is invoked with two arguments:
+     *  - handlerItem
+     *  - handlerItemId
+     * @param {ctxEvents} ctxEvents A data structure storing handlerItems. (It is not equal to `this._ctxEvents`)
+     * @param {string} id An id of handler for searching
+     * @param {function} iteratee Callback function
      * @private
      */
     CustomEvents.prototype._eachCtxHandlerItemByContainId = function(ctxEvents, id, iteratee) {
@@ -134,9 +189,15 @@
     };
 
     /**
-     * 핸들러를 받아 핸들러가 포함된 컨텍스트 이벤트 핸들러를 순회하며 반복자를 실행함
-     * @param {function} handler
-     * @param {function(handlerItem, ctxEventId, ctxEvents, eventKey)} iteratee
+     * _eachCtxEventByHandler() method executes a callback once
+     *  for each case when the handler in arguments is equal to a handler in `this._ctxEvents`.
+     * Callback function(iteratee) is invoked with four arguments:
+     *  - handlerItem
+     *  - handlerItemId
+     *  - ctxEvents
+     *  - eventKey, A Name of custom event
+     * @param {function} handler Event handler
+     * @param {function} iteratee Callback function
      * @private
      */
     CustomEvents.prototype._eachCtxEventByHandler = function(handler, iteratee) {
@@ -151,9 +212,15 @@
     };
 
     /**
-     * 컨텍스트를 기준으로 할당된 이벤트 핸들러를 순회하며 반복자를 수행
-     * @param {*} context
-     * @param {function(handlerItem, ctxEventId, ctxEvents, eventKey)} iteratee
+     * _eachCtxEventByContext() method executes a callback once
+     *  for each case when the context(in arguments) is equal to a bound context of a handler in `this._ctxEvents`.
+     * Callback function(iteratee) is invoked with four arguments:
+     *  - handlerItem
+     *  - handlerItemId
+     *  - ctxEvents
+     *  - eventKey, A Name of custom event
+     * @param {*} context A context for searching
+     * @param {function} iteratee Callback function
      * @private
      */
     CustomEvents.prototype._eachCtxEventByContext = function(context, iteratee) {
@@ -169,8 +236,13 @@
 
     /**
      * 이벤트 이름 기준으로 컨텍스트 이벤트 핸들러를 순회하며 반복자를 실행
-     * @param {string} name
-     * @param {function(handlerItem, handlerItemId, ctxEvents, eventKey)} iteratee
+     * Callback function(iteratee) is invoked with four arguments:
+     *  - handlerItem
+     *  - handlerItemId
+     *  - ctxEvents
+     *  - eventKey, A Name of custom event
+     * @param {string} name Custom event name
+     * @param {function} iteratee Callback function
      * @private
      */
     CustomEvents.prototype._eachCtxEventByEventName = function(name, iteratee) {
@@ -196,7 +268,7 @@
     /**
      * 핸들러를 받아 핸들러가 포함된 일반 이벤트 핸들러를 순회하며 반복자를 수행
      * @param {function} handler
-     * @param {function(handlerItem, index, eventList[], eventKey, decrease)} iteratee
+     * @param {function(handlerItem, index, eventList, eventKey, decrease)} iteratee
      * @private
      */
     CustomEvents.prototype._eachEventByHandler = function(handler, iteratee) {
@@ -415,7 +487,7 @@
     };
 
     /**********
-     * public props
+     * public
      **********/
 
     /**
