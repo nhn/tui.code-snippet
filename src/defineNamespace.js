@@ -1,6 +1,7 @@
 /**
  * @fileoverview define namespace
- * @author FE Development Team
+ * @author NHN Ent.
+ *         FE Development Team <e0242@nhnent.com>
  * @dependency inheritance.js, object.js, collection.js
  */
 (function(ne) {

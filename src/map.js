@@ -1,7 +1,8 @@
 /**
  * @fileoverview
- * Implements the Map object.
- * @author NHN Ent. FE Development Team
+ *  Implements the Map object.
+ * @author NHN Ent.
+ *         FE Development Team <e0242@nhnent.com>
  * @dependency type.js, collection.js
  */
 

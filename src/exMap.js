@@ -1,7 +1,8 @@
 /**
  * @fileoverview
- * Implements the ExMap (Extended Map) object.
- * @author NHN Ent. FE Development Team
+ *  Implements the ExMap (Extended Map) object.
+ * @author NHN Ent.
+ *         FE Development Team <e0242@nhnent.com>
  * @dependency Map.js, collection.js
  */
 
