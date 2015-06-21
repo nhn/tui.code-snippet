@@ -1,6 +1,7 @@
 /**
- * @fileoverview 함수관련 메서드 모음
- * @author FE개발팀
+ * @fileoverview This module provides a bind() function for context binding.
+ * @author NHN Ent.
+ *         FE Development Team <e0242@nhnent.com>
  */
 
 (function(ne) {
@@ -15,10 +16,10 @@
     }
 
     /**
-     * 커링 메서드
-     * @param {function()} fn
-     * @param {*} obj - this로 사용될 객체
-     * @return {function()}
+     * bind() function creates a new function that, when called, has its this keyword set to the provided value.
+     * @param {function} fn A original function before binding
+     * @param {*} obj context of function in arguments[0]
+     * @return {function()} A new bound function with context that is in arguments[1]
      * @memberof ne.util
      */
     function bind(fn, obj) {
