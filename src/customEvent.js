@@ -20,17 +20,21 @@
     }
 
     /**
-     * A unit of event handler.
+     * A unit of event handler item.
      * @ignore
-     * @typedef {{fn: function, ctx: *}} handlerItem
+     * @typedef {Object} handlerItem
+     * @property {function} fn - event handler
+     * @property {*} ctx - context of event handler
      */
 
     /**
-     * A data structure for storing handlerItems for each context.
+     * This object is a data structure for storing handlerItems bound with a specific context
+     *  and is a unit item of ctxEvents.
+     * Handlers in this item, will be executed with same event.
      * @ignore
-     * @typedef {object.<string, handlerItem>} ctxEvents
+     * @typedef {Object.<string, handlerItem>} ctxEventsItem
      * @example
-     *  ctxEvents = {
+     *  ctxEventsItem = {
      *      1_1: {
      *          fn: function(){...},
      *          ctx: context1
@@ -39,6 +43,37 @@
      *          fn: function(){...},
      *          ctx: context1
      *      }
+     *  }
+     */
+
+    /**
+     * A data structure for storing ctxEventsItem and length for each event(or event name).
+     * @ignore
+     * @typedef {Object.<string, (ctxEventsItem|number)>} ctxEvents
+     * @example
+     *  ctxEvents = {
+     *      eventName1_idx: {
+     *          1_1: {
+     *              fn: function(){...},
+     *              ctx: context1
+     *          },
+     *          2_1: {
+     *              fn: function(){...},
+     *              ctx: context1
+     *          }
+     *      },
+     *      eventName1_len: 2,
+     *      eventName2_idx: {
+     *          3_2: {
+     *              fn: function(){...},
+     *              ctx: context2
+     *          },
+     *          4_2: {
+     *              fn: function(){...},
+     *              ctx: context2
+     *          }
+     *      },
+     *      eventName2_len: 2
      *  };
      */
 
@@ -56,34 +91,9 @@
         this._events = null;
 
         /**
-         * Caching a data structure that has {ctxEvents} which are bound with event name.
+         * Caching a {ctxEvents}
          * @type {ctxEvents}
          * @private
-         * @example
-         *  ctxEvents = {
-         *      eventName1_idx: {
-         *          1_1: {
-         *              fn: function(){...},
-         *              ctx: context1
-         *          },
-         *          2_1: {
-         *              fn: function(){...},
-         *              ctx: context1
-         *          }
-         *      },
-         *      eventName1_len: 2,
-         *      eventName2_idx: {
-         *          3_2: {
-         *              fn: function(){...},
-         *              ctx: context2
-         *          },
-         *          4_2: {
-         *              fn: function(){...},
-         *              ctx: context2
-         *          }
-         *      },
-         *      eventName2_len: 2
-         *  };
          */
         this._ctxEvents = null;
     }
@@ -95,7 +105,7 @@
 
     /**
      * mixin() method is used for making a constructor being able to do CustomEvent's functions.
-     * @param {function} func Constructor Function
+     * @param {function} func - Constructor
      * @example
      *  function Model() {
      *      this.name = '';
@@ -118,13 +128,13 @@
     /**
      * _forEachArraySplice() method is similar to Array.prototype.forEach(),
      *  however does Array.prototype.splice() additionally.
-     * Callback(iteratee) function is invoked with three arguments and a specific callback function decreasing the length of array:
+     * Callback(iteratee) function is invoked with four argument:
      *  - The value of the element
      *  - The index of the element
      *  - The array being traversed
-     *  - A specific callback function that decrease the length of array
-     * @param {Array} arr Array that will be traversed
-     * @param {function} iteratee Callback function
+     *  - A special callback function that decreases the length of array
+     * @param {Array} arr - Array that will be traversed
+     * @param {function} iteratee - Callback function
      */
     CustomEvents.prototype._forEachArraySplice = function(arr, iteratee) {
         var i,
@@ -154,12 +164,12 @@
      **********/
 
     /**
-     * _eachCtxEvents() method executes a callback once for each property of {this._ctxEvents}.
+     * _eachCtxEvents() method executes the callback once for each ctxEventsItem.
      * Callback function(iteratee) is invoked with three arguments.
-     *  - {ctxEvents} - A data structure that has handler items bound with context
-     *  - {string} - A key (ex - 'eventName_idx' or 'eventName_len' )
-     *  - {this._ctxEvents}
-     * @param {function} iteratee Callback function
+     *  - {ctxEventsItem} A unit item of ctxEvents
+     *  - {string} A key (ex - 'eventName_idx' or 'eventName_len')
+     *  - {ctxEvents} A ctxEvents being traversed
+     * @param {function} iteratee - Callback function
      * @private
      */
     CustomEvents.prototype._eachCtxEvents = function(iteratee) {
@@ -167,21 +177,19 @@
         ne.util.forEachOwnProperties(events, iteratee);
     };
 
-    // 여기서부터 다시 수정
-
     /**
-     * _eachCtxHandlerItemByContainId() method executes a callback once
-     *  for each handler item including the specific string(=id, in arguments) in `this._ctxEvents[eventName_idx]`.
+     * _eachCtxHandlerItemByContainId() method executes the callback once
+     *  for each handler item that is value of the key including a specific string(=id, arguments[1]).
      * Callback function(iteratee) is invoked with two arguments:
      *  - handlerItem
      *  - handlerItemId
-     * @param {ctxEvents} ctxEvents A data structure storing handlerItems. (It is not equal to `this._ctxEvents`)
-     * @param {string} id An id of handler for searching
-     * @param {function} iteratee Callback function
+     * @param {ctxEventsItem} ctxEventsItem - A data structure storing handlerItems.
+     * @param {string} id - An id of handler for searching
+     * @param {function} iteratee - Callback function
      * @private
      */
-    CustomEvents.prototype._eachCtxHandlerItemByContainId = function(ctxEvents, id, iteratee) {
-        ne.util.forEachOwnProperties(ctxEvents, function(handlerItem, handlerItemId) {
+    CustomEvents.prototype._eachCtxHandlerItemByContainId = function(ctxEventsItem, id, iteratee) {
+        ne.util.forEachOwnProperties(ctxEventsItem, function(handlerItem, handlerItemId) {
             if (handlerItemId.indexOf(id) > -1) {
                 iteratee(handlerItem, handlerItemId);
             }
@@ -189,72 +197,72 @@
     };
 
     /**
-     * _eachCtxEventByHandler() method executes a callback once
-     *  for each case when the handler in arguments is equal to a handler in `this._ctxEvents`.
+     * _eachCtxEventByHandler() method executes the callback once
+     *  for each case of when the provided handler(arguments[0]) is equal to a handler in ctxEventsItem.
      * Callback function(iteratee) is invoked with four arguments:
      *  - handlerItem
      *  - handlerItemId
-     *  - ctxEvents
-     *  - eventKey, A Name of custom event
-     * @param {function} handler Event handler
-     * @param {function} iteratee Callback function
+     *  - ctxEventsItem
+     *  - eventKey, A Name of custom event (ex - 'eventName_idx')
+     * @param {function} handler - Event handler
+     * @param {function} iteratee - Callback function
      * @private
      */
     CustomEvents.prototype._eachCtxEventByHandler = function(handler, iteratee) {
         var handlerId = ne.util.stamp(handler),
             eachById = this._eachCtxHandlerItemByContainId;
 
-        this._eachCtxEvents(function(ctxEvents, eventKey) {
-            eachById(ctxEvents, handlerId, function(handlerItem, handlerItemId) {
-                iteratee(handlerItem, handlerItemId, ctxEvents, eventKey);
+        this._eachCtxEvents(function(ctxEventsItem, eventKey) {
+            eachById(ctxEventsItem, handlerId, function(handlerItem, handlerItemId) {
+                iteratee(handlerItem, handlerItemId, ctxEventsItem, eventKey);
             });
         });
     };
 
     /**
-     * _eachCtxEventByContext() method executes a callback once
-     *  for each case when the context(in arguments) is equal to a bound context of a handler in `this._ctxEvents`.
+     * _eachCtxEventByContext() method executes the callback once
+     *  for each case of when the provided context(arguments[0]) is equal to a context in ctxEventsItem.
      * Callback function(iteratee) is invoked with four arguments:
      *  - handlerItem
      *  - handlerItemId
-     *  - ctxEvents
-     *  - eventKey, A Name of custom event
-     * @param {*} context A context for searching
-     * @param {function} iteratee Callback function
+     *  - ctxEventsItem
+     *  - eventKey, A Name of custom event with postfix (ex - 'eventName_idx')
+     * @param {*} context - Context for searching
+     * @param {function} iteratee - Callback function
      * @private
      */
     CustomEvents.prototype._eachCtxEventByContext = function(context, iteratee) {
         var contextId = ne.util.stamp(context),
             eachById = this._eachCtxHandlerItemByContainId;
 
-        this._eachCtxEvents(function(ctxEvents, eventKey) {
-            eachById(ctxEvents, contextId, function(handlerItem, handlerItemId) {
-                iteratee(handlerItem, handlerItemId, ctxEvents, eventKey);
+        this._eachCtxEvents(function(ctxEventsItem, eventKey) {
+            eachById(ctxEventsItem, contextId, function(handlerItem, handlerItemId) {
+                iteratee(handlerItem, handlerItemId, ctxEventsItem, eventKey);
             });
         });
     };
 
     /**
-     * 이벤트 이름 기준으로 컨텍스트 이벤트 핸들러를 순회하며 반복자를 실행
+     * _eachCtxEventByEventName() method executes the callback once for each handler of ctxEventsItem of the provided eventName(arguments[0]).
      * Callback function(iteratee) is invoked with four arguments:
      *  - handlerItem
      *  - handlerItemId
-     *  - ctxEvents
-     *  - eventKey, A Name of custom event
-     * @param {string} name Custom event name
-     * @param {function} iteratee Callback function
+     *  - ctxEventsItem
+     *  - eventKey, A Name of custom event with postfix (ex - 'eventName_idx')
+     * @param {string} eventName - Custom event name
+     * @param {function} iteratee - Callback function
      * @private
      */
-    CustomEvents.prototype._eachCtxEventByEventName = function(name, iteratee) {
+    CustomEvents.prototype._eachCtxEventByEventName = function(eventName, iteratee) {
         if (!this._ctxEvents) {
             return;
         }
 
-        var key = this._getCtxKey(name),
-            ctxEvents = this._ctxEvents[key],
+        var key = this._getCtxKey(eventName),
+            ctxEventsItem = this._ctxEvents[key],
             args;
 
-        ne.util.forEachOwnProperties(ctxEvents, function() {
+        ne.util.forEachOwnProperties(ctxEventsItem, function() {
             args = Array.prototype.slice.call(arguments);
             args.push(key);
             iteratee.apply(null, args);
@@ -266,9 +274,16 @@
      **********/
 
     /**
-     * 핸들러를 받아 핸들러가 포함된 일반 이벤트 핸들러를 순회하며 반복자를 수행
-     * @param {function} handler
-     * @param {function(handlerItem, index, eventList, eventKey, decrease)} iteratee
+     * _eachEventByHandler() method executes the callback once
+     *  for each handler in instance equal to the provided handler(arguments[0]).
+     * Callback function(iteratee) is invoked with five arguments:
+     *  - handlerItem
+     *  - index of handlerItem array
+     *  - eventList by handler
+     *  - eventKey, A Name of custom event with postfix (ex - 'eventName_idx')
+     *  - decrease, A special callback function that decreases the length of array.
+     * @param {function} handler - A handler for searching
+     * @param {function} iteratee - Callback function
      * @private
      */
     CustomEvents.prototype._eachEventByHandler = function(handler, iteratee) {
@@ -279,25 +294,32 @@
         ne.util.forEachOwnProperties(events, function(eventList, eventKey) {
             forEachArrayDecrease(eventList, function(handlerItem, index, eventList, decrease) {
                 if (handlerItem.fn === handler) {
-                    iteratee(handlerItem, idx++, eventList, eventKey, decrease);
+                    iteratee(handlerItem, idx, eventList, eventKey, decrease);
+                    idx += 1;
                 }
             });
         });
     };
 
     /**
-     * 이벤트명 기준으로 일반 이벤트를 순회하며 반복자를 수행
-     * @param {string} name
-     * @param {function(handlerItem, index, itemList[], decrease)} iteratee
+     * _eachEventByEventName() method executes the callback once for each handler.
+     * Callback function(iteratee) is invoked with four arguments:
+     *  - handlerItem
+     *  - index of handlerItem array
+     *  - eventList by eventName
+     *  - decrease, A special callback function that decreases the length of array
+     * @param {string} eventName - Custom event name
+     * @param {function} iteratee - Callback function
      * @private
      */
-    CustomEvents.prototype._eachEventByEventName = function(name, iteratee) {
+    CustomEvents.prototype._eachEventByEventName = function(eventName, iteratee) {
+        var events;
+
         if (!this._events) {
             return;
         }
 
-        var events = this._events[name];
-
+        events = this._events[eventName];
         if (!ne.util.isExisty(events)) {
             return;
         }
@@ -306,30 +328,30 @@
     };
 
     /**
-     * 컨텍스트 핸들러 저장용 키를 만든다
-     * @param {string} name 이벤트명
-     * @returns {string}
+     * _getCtxKey() method returns a new key for saving a handler with a context in event name.
+     * @param {string} eventName A event name
+     * @returns {string} Key
      * @private
      */
-    CustomEvents.prototype._getCtxKey = function(name) {
-        return name + '_idx';
+    CustomEvents.prototype._getCtxKey = function(eventName) {
+        return eventName + '_idx';
     };
 
     /**
-     * 컨텍스트 핸들러 등록 개수 저장용 키를 만든다
-     * @param {string} name 이벤트명
-     * @returns {string}
+     * _getCtxLenKey() method returns a new key for saving length of handlers in event name.
+     * @param {string} eventName A event name
+     * @returns {string} Key
      * @private
      */
-    CustomEvents.prototype._getCtxLenKey = function(name) {
-        return name + '_len';
+    CustomEvents.prototype._getCtxLenKey = function(eventName) {
+        return eventName + '_len';
     };
 
     /**
-     * 핸들러 저장용 키를 만든다
-     * @param {function} func 이벤트 핸들러
-     * @param {*} ctx 핸들러 실행 컨텍스트
-     * @returns {string}
+     * _getHandlerKey() method returns a new key for storing to ctxEventsItem.
+     * @param {function} func A event handler
+     * @param {*} ctx A context in handler
+     * @returns {string} Key
      * @private
      */
     CustomEvents.prototype._getHandlerKey = function(func, ctx) {
@@ -338,9 +360,9 @@
 
 
     /**
-     * 컨텍스트 이벤트 핸들러의 갯수를 카운팅
-     * @param {string} lenKey 컨텍스트 이벤트 갯수를 저장하기 위한 프로퍼티 명 (getCtxLenKey메서드로 계산가능)
-     * @param {number} change 증감 값
+     * _setCtxLen() method sets the length of handlers in ctxEventsItem.
+     * @param {string} lenKey - A key for saving the length of handlers in `this._ctxEvents`
+     * @param {number} change - A variation value of length
      * @private
      */
     CustomEvents.prototype._setCtxLen = function(lenKey, change) {
@@ -355,18 +377,17 @@
 
 
     /**
-     * 컨텍스트용 이벤트 캐시 구조로 저장한다
-     * @param {string} name 이벤트명
-     * @param {*} context 핸들러에 바인딩할 컨텍스트
-     * @param {function} handler 핸들러 함수
+     * _addCtxEvent() method stores a {handlerItem} to instance.
+     * @param {string} eventName - Custom event name
+     * @param {*} context - Context for binding
+     * @param {function} handler - Handler function
      * @private
      */
-    CustomEvents.prototype._addCtxEvent = function(name, context, handler) {
+    CustomEvents.prototype._addCtxEvent = function(eventName, context, handler) {
         var events = this._ctxEvents,
-            key = this._getCtxKey(name),
+            key = this._getCtxKey(eventName),
             event;
 
-        // 핸들러 등록
         if (!ne.util.isExisty(events)) {
             events = this._ctxEvents = {};
         }
@@ -376,7 +397,7 @@
             event = events[key] = {};
         }
 
-        var lenKey = this._getCtxLenKey(name),
+        var lenKey = this._getCtxLenKey(eventName),
             handlerItemId = this._getHandlerKey(handler, context);
 
         event[handlerItemId] = {
@@ -384,17 +405,16 @@
             ctx: context
         };
 
-        // 핸들러 갯수 설정
         this._setCtxLen(lenKey, +1);
     };
 
     /**
-     * 일반 이벤트 등록
-     * @param {string} name 이벤트명
-     * @param {function} handler 이벤트 핸들러
+     * _addNormalEvent() method stores a event handler without context to instance.
+     * @param {string} eventName - Custom event name
+     * @param {function} handler - Handler function
      * @private
      */
-    CustomEvents.prototype._addNormalEvent = function(name, handler) {
+    CustomEvents.prototype._addNormalEvent = function(eventName, handler) {
         var events = this._events,
             event;
 
@@ -402,9 +422,9 @@
             events = this._events = {};
         }
 
-        event = events[name];
+        event = events[eventName];
         if (!ne.util.isExisty(event)) {
-            event = events[name] = [];
+            event = events[eventName] = [];
         }
 
         event.push({ fn: handler });
@@ -412,8 +432,8 @@
 
 
     /**
-     * 핸들러 함수로 이벤트 해제
-     * @param {function} handler 이벤트 핸들러 함수
+     * _offByHandler() method takes the event handler off by handler(arguments[0])
+     * @param {function} handler - Handler for offing
      * @private
      */
     CustomEvents.prototype._offByHandler = function(handler) {
@@ -433,9 +453,9 @@
     };
 
     /**
-     * 컨텍스트로 이벤트 해제
-     * @param {*} context
-     * @param {(string|function)} [eventName]
+     * _offByHandler() method takes the event handler off by context with event name
+     * @param {*} context - Context
+     * @param {(string|function)} [eventName] - Custom event name
      * @private
      */
     CustomEvents.prototype._offByContext = function(context, eventName) {
@@ -459,9 +479,9 @@
     };
 
     /**
-     * 이벤트명으로 이벤트 해제
-     * @param {string} eventName 이벤트명
-     * @param {function} [handler] 이벤트 핸들러
+     * _offByEventName method takes the event handler off by event name with handler
+     * @param {string} eventName - Custom event name
+     * @param {function} [handler] - Event handler
      * @private
      */
     CustomEvents.prototype._offByEventName = function(eventName, handler) {
@@ -491,42 +511,42 @@
      **********/
 
     /**
-     * 이벤트를 등록한다
-     * @param {(string|{name:string, handler:function})} name 등록할 이벤트명 또는 {이벤트명: 핸들러} 객체
-     * @param {(function|*)} [handler] 핸들러 함수 또는 context
-     * @param {*} [context] 핸들러 함수의 context 지정 가능
+     * on() method attaches the event handler with event name and context.
+     * @param {(string|{name:string, handler:function})} eventName - Custom event name or an object {eventName: handler}
+     * @param {(function|*)} [handler] - Handler function or context
+     * @param {*} [context] - Context for binding
      * @example
-     * // 1. 기본적인 등록
-     * customEvent.on('onload', handler);
+     *  // 1. Basic
+     *  customEvent.on('onload', handler);
      *
-     * // 2. 컨텍스트 전달
-     * customEvent.on('onload', handler, myObj);
+     *  // 2. With context
+     *  customEvent.on('onload', handler, myObj);
      *
-     * // 3. 이벤트명: 핸들러 객체로 등록
-     * customEvent.on({
-     *   'play': handler,
-     *   'pause': handler2
-     * });
+     *  // 3. Attach with an object
+     *  customEvent.on({
+     *    'play': handler,
+     *    'pause': handler2
+     *  });
      *
-     * // 4. 이벤트명: 핸들러 + 컨텍스트
-     * customEvent.on({
-     *   'play': handler
-     * }, myObj);
+     *  // 4. Attach with an object with context
+     *  customEvent.on({
+     *    'play': handler
+     *  }, myObj);
      */
-    CustomEvents.prototype.on = function(name, handler, context) {
-        var names;
+    CustomEvents.prototype.on = function(eventName, handler, context) {
+        var eventNameList;
 
-        if (ne.util.isObject(name)) {
-            // 이벤트명: 핸들러 전달
+        if (ne.util.isObject(eventName)) {
+            // {eventName: handler}
             context = handler;
-            ne.util.forEachOwnProperties(name, function(handler, name) {
+            ne.util.forEachOwnProperties(eventName, function(handler, name) {
                  this.on(name, handler, context);
             }, this);
             return;
-        } else if (ne.util.isString(name) && name.indexOf(' ') > -1) {
-            // 공백으로 여러 이벤트 처리
-            names = name.split(' ');
-            ne.util.forEachArray(names, function(name) {
+        } else if (ne.util.isString(eventName) && eventName.indexOf(' ') > -1) {
+            // processing of multiple events by split event name
+            eventNameList = eventName.split(' ');
+            ne.util.forEachArray(eventNameList, function(name) {
                 this.on(name, handler, context);
             }, this);
             return;
@@ -539,79 +559,77 @@
         }
 
         if (ne.util.isExisty(ctxId)) {
-            // 컨텍스트 전달
-            this._addCtxEvent(name, context, handler);
+            this._addCtxEvent(eventName, context, handler);
         } else {
-            // 일반 이벤트 등록
-            this._addNormalEvent(name, handler);
+            this._addNormalEvent(eventName, handler);
         }
     };
 
     /**
-     * 등록된 이벤트를 해제한다
-     * @param {(string|function|{name:string, handler:function})} name 이벤트명 또는 핸들러 또는 {이벤트명: 핸들러} 객체
-     * @param {function} [handler] 핸들러 함수
+     * off() method detaches the event handler.
+     * @param {(string|{name:string, handler:function})} eventName - Custom event name or an object {eventName: handler}
+     * @param {function} [handler] Handler function
      * @example
-     * // 1. 컨텍스트 전달
+     * // 1. off by context
      * customEvent.off(myObj);
      *
-     * // 2. 이벤트명 전달
+     * // 2. off by event name
      * customEvent.off('onload');
      *
-     * // 3. 핸들러 전달
+     * // 3. off by handler
      * customEvent.off(handler);
      *
-     * // 4. 이벤트명, 핸들러 전달
+     * // 4. off by event name and handler
      * customEvent.off('play', handler);
      *
-     * // 5. 컨텍스트, 핸들러 전달
+     * // 5. off by context and handler
      * customEvent.off(myObj, handler);
      *
-     * // 6. 컨텍스트, 이벤트명 전달
+     * // 6. off by context and event name
      * customEvent.off(myObj, 'onload');
      *
-     * // 7. 이벤트명: 핸들러 전달 (특정 핸들러만 해제 원할때)
+     * // 7. off by an Object.<string, function> that is {eventName: handler}
      * customEvent.off({
      *   'play': handler,
      *   'pause': handler2
      * });
      *
-     * // 8. 모든 등록 핸들러 제거
+     * // 8. off the all events
      * customEvent.off();
      */
-    CustomEvents.prototype.off = function(name, handler) {
+    CustomEvents.prototype.off = function(eventName, handler) {
         if (!arguments.length) {
-            // 8. 모든 핸들러 제거
+            // 8. off the all events
             this._events = null;
             this._ctxEvents = null;
             return;
         }
 
-        if (ne.util.isFunction(name)) {
-            // 3. 핸들러 기준
-            this._offByHandler(name);
+        if (ne.util.isFunction(eventName)) {
+            // 3. off by handler
+            this._offByHandler(eventName);
 
-        } else if (ne.util.isObject(name)) {
-            if (ne.util.hasStamp(name)) {
-                // 1, 5, 6 컨텍스트 기준
-                this._offByContext(name, handler);
+        } else if (ne.util.isObject(eventName)) {
+            if (ne.util.hasStamp(eventName)) {
+                // 1, 5, 6 off by context
+                this._offByContext(eventName, handler);
             } else {
-                // 4. 이벤트명: 핸들러 전달
-                ne.util.forEachOwnProperties(name, function(handler, name) {
+                // 4. off by an Object.<string, function>
+                ne.util.forEachOwnProperties(eventName, function(handler, name) {
                     this.off(name, handler);
                 }, this);
             }
 
         } else {
-            // 2, 4 이벤트명 기준
-            this._offByEventName(name, handler);
+            // 2, 4 off by event name
+            this._offByEventName(eventName, handler);
 
         }
     };
 
     /**
-     * 이벤트 등록 수 반환
-     * @param {string} eventName
+     * getListenerLength() method returns a count of events registered.
+     * @param {string} eventName - Custom event name
      * @returns {*}
      */
     CustomEvents.prototype.getListenerLength = function(eventName) {
@@ -627,9 +645,9 @@
     };
 
     /**
-     * 이벤트 등록 여부 반환
-     * @param {string} eventName 이벤트명
-     * @returns {boolean}
+     * hasListener() method returns whether at least one handler is registered in event name.
+     * @param {string} eventName - Custom event name
+     * @returns {boolean} Is there at least one handler in event name?
      */
     CustomEvents.prototype.hasListener = function(eventName) {
         return this.getListenerLength(eventName) > 0;
@@ -638,35 +656,28 @@
 
 
     /**
-     * 이벤트를 발생시키는 메서드
-     *
-     * 등록한 리스너들의 실행 결과를 boolean AND 연산하여
-     *
-     * 반환한다는 점에서 {@link CustomEvents#fire} 와 차이가 있다
-     *
-     * 보통 컴포넌트 레벨에서 before 이벤트로 사용자에게
-     *
-     * 이벤트를 취소할 수 있게 해 주는 기능에서 사용한다.
-     * @param {string} eventName
-     * @param {...*} data
-     * @returns {*}
+     * invoke() method fires a event and returns the result of operation 'boolean AND' with all listener's results.
+     * So, It is different from {@link CustomEvents#fire}.
+     * In service code,
+     *  use this as a before event in component level usually for notifying that the event is cancelable.
+     * @param {string} eventName - Custom event name
+     * @param {...*} data - Data for event
+     * @returns {boolean} The result of operation 'boolean AND'
      * @example
-     * // 확대 기능을 지원하는 컴포넌트 내부 코드라 가정
-     * if (this.invoke('beforeZoom')) {    // 사용자가 등록한 리스너 결과 체크
-     *     // 리스너의 실행결과가 true 일 경우
-     *     // doSomething
-     * }
+     *  if (this.invoke('beforeZoom')) {    // check the result of 'beforeZoom'
+     *      // if true,
+     *      // doSomething
+     *  }
      *
-     * //
-     * // 아래는 사용자의 서비스 코드
-     * map.on({
-     *     'beforeZoom': function() {
-     *         if (that.disabled && this.getState()) {    //서비스 페이지에서 어떤 조건에 의해 이벤트를 취소해야한다
-     *             return false;
-     *         }
-     *         return true;
-     *     }
-     * });
+     *  // In service code,
+     *  map.on({
+     *      'beforeZoom': function() {
+     *          if (that.disabled && this.getState()) {    // It should cancel the 'zoom' event by some conditions.
+     *              return false;
+     *          }
+     *          return true;
+     *      }
+     *  });
      */
     CustomEvents.prototype.invoke = function(eventName, data) {
         if (!this.hasListener(eventName)) {
@@ -694,17 +705,15 @@
     };
 
     /**
-     * 이벤트를 발생시키는 메서드
-     * @param {string} eventName 이벤트 이름
-     * @param {...*} data 발생과 함께 전달할 이벤트 데이터 (래핑하지 않고 인자로 전달한다)
-     * @return {*}
+     * fire() method fires a event by event name with data.
+     * @param {string} eventName - Custom event name
+     * @param {...*} data - Data for event
+     * @return {Object} this
      * @example
-     * instance.fire('move', 'left');
-     *
-     * // 이벤트 핸들러 처리
-     * instance.on('move', function(direction) {
-     *     var direction = direction;
-     * });
+     *  instance.on('move', function(direction) {
+     *      var direction = direction;
+     *  });
+     *  instance.fire('move', 'left');
      */
     CustomEvents.prototype.fire = function(eventName, data) {
         this.invoke.apply(this, arguments);
@@ -712,10 +721,10 @@
     };
 
     /**
-     * 단발성 커스텀 이벤트 핸들러 등록 시 사용
-     * @param {(object|string)} eventName 이벤트명:핸들러 객체 또는 이벤트명
-     * @param {function()=} fn 핸들러 함수
-     * @param {*=} context
+     * once() method attaches a one-shot events.
+     * @param {(object|string)} eventName - Custom event name or an object {eventName: handler}
+     * @param {function} fn - Handler function
+     * @param {*} [context] - Context for binding
      */
     CustomEvents.prototype.once = function(eventName, fn, context) {
         var that = this;
