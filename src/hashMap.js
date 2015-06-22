@@ -1,6 +1,7 @@
 /**
- * @fileoverview Hash Map을 구현한 모듈이 정의 되어있다.
- * @author FE개발팀
+ * @fileoverview This module provides the HashMap constructor.
+ * @author NHN Ent.
+ *         FE Development Team <e0242@nhnent.com>
  * @dependency type, collection.js
  */
 
@@ -16,30 +17,30 @@
     }
 
     /**
-     * 해쉬맵에서 사용하는 데이터는 _MAPDATAPREFIX로 시작한다.
+     * All the data in hashMap begin with _MAPDATAPREFIX;
      * @type {string}
      * @private
      */
     var _MAPDATAPREFIX = 'å';
 
     /**
-     * HashMap
-     * 키/밸류로 데이터를 관리할수있다(자바의 hashMap과 유사)
-     * 주의) length프로퍼티를 가지고있어 유사 배열을 length의 유무로 체크하는 로직에서 의도되지 않은 동작을 할수있다.
-     * @param {Object} [obj] 인스턴스가 만들어질때 셋팅할 초기 데이터
+     * HashMap can handle the key-value pairs.
+     * Caution:
+     *  HashMap instance has a length property but is not an instance of Array.
+     * @param {Object} [obj] A initial data for creation.
      * @constructor
      * @memberof ne.util
      * @example
-     * var hm = new HashMap({
-     *     'mydata': {
-     *          'hello': 'imfine'
-     *      },ne.util.HashMap
-     *     'what': 'time'
-     * });
+     *  var hm = new ne.util.HashMap({
+     *      'mydata': {
+     *           'hello': 'imfine'
+     *       },
+     *      'what': 'time'
+     *  });
      */
     function HashMap(obj) {
         /**
-         * 사이즈
+         * size
          * @type {number}
          */
         this.length = 0;
@@ -50,17 +51,17 @@
     }
 
     /**
-     * 키/밸류 혹은 Object를 전달하여 데이터를 셋팅한다.
-     * @param {String|Object} key 키에 해당하는 스트링이나 객체
-     * @param {*} [value] 데이터
+     * set() method sets the data from key-value pair or object.
+     * @param {string|Object} key A string or object for key
+     * @param {*} [value] A data
      * @example
-     * var hm = new HashMap();
+     *  var hm = new HashMap();
      *
-     * hm.set('key', 'value');
-     * hm.set({
-     *     'key1': 'data1',
-     *     'key2': 'data2'
-     * });
+     *  hm.set('key', 'value');
+     *  hm.set({
+     *      'key1': 'data1',
+     *      'key2': 'data2'
+     *  });
      */
     HashMap.prototype.set = function(key, value) {
         if(arguments.length === 2) {
@@ -71,12 +72,12 @@
     };
 
     /**
-     * 키/밸류로 데이터를 셋팅한다.
-     * @param {String} key 키스트링
-     * @param {*} value 데이터
+     * setKeyValue() method sets the data from key-value pair.
+     * @param {string} key A string for key
+     * @param {*} value A data
      * @example
-     * var hm = new HashMap();
-     * hm.setKeyValue('key', 'value');
+     *  var hm = new HashMap();
+     *  hm.setKeyValue('key', 'value');
      */
     HashMap.prototype.setKeyValue = function(key, value) {
         if (!this.has(key)) {
@@ -86,15 +87,15 @@
     };
 
     /**
-     * 객체로 데이터를 셋팅한다.
-     * @param {Object} obj
+     * setObject() method sets the data from object.
+     * @param {Object} obj A object for data
      * @example
-     * var hm = new HashMap();
+     *  var hm = new HashMap();
      *
-     * hm.setObject({
-     *     'key1': 'data1',
-     *     'key2': 'data2'
-     * });
+     *  hm.setObject({
+     *      'key1': 'data1',
+     *      'key2': 'data2'
+     *  });
      */
     HashMap.prototype.setObject = function(obj) {
         var self = this;
@@ -105,8 +106,8 @@
     };
 
     /**
-     * 해쉬맵을 인자로 받아 병합한다.
-     * @param {HashMap} hashMap
+     * merge() method merges with another hashMap.
+     * @param {HashMap} hashMap Another hashMap instance
      */
     HashMap.prototype.merge = function(hashMap) {
         var self = this;
@@ -117,9 +118,9 @@
     };
 
     /**
-     * 해쉬맵에서 사용할 키를 생성한다.
-     * @param {String} key
-     * @returns {string}
+     * encodeKey() method encodes a key for hashMap.
+     * @param {string} key A string for key
+     * @returns {string} A encoded key
      * @private
      */
     HashMap.prototype.encodeKey = function(key) {
@@ -127,9 +128,9 @@
     };
 
     /**
-     * 해쉬맵키에서 실제 키를 가져온다.
-     * @param {String} key
-     * @returns {String}
+     * decodeKey() method decodes a key in hashMap.
+     * @param {string} key A string for key
+     * @returns {string} A decoded key
      * @private
      */
     HashMap.prototype.decodeKey = function(key) {
@@ -138,50 +139,50 @@
     };
 
     /**
-     * 키값을 전달하여 데이터를 반환한다.
-     * @param {String} key
-     * @returns {*}
+     * get() method returns the value from a key.
+     * @param {string} key A string for key
+     * @returns {*} The value from a key
      * @example
-     * var hm = new HashMap();
-     * hm.set('key', 'value');
+     *  var hm = new HashMap();
+     *  hm.set('key', 'value');
      *
-     * hm.get('key') // value
+     *  hm.get('key') // value
      */
     HashMap.prototype.get = function(key) {
         return this[this.encodeKey(key)];
     };
 
     /**
-     * 키를 전달하여 데이터가 존재하는지 체크한다.
-     * @param {String} key
-     * @returns {boolean}
+     * has() method checks existence of a value from the key.
+     * @param {string} key A string for key
+     * @returns {boolean} Indicating whether the value exists or not.
      * @example
-     * var hm = new HashMap();
-     * hm.set('key', 'value');
+     *  var hm = new HashMap();
+     *  hm.set('key', 'value');
      *
-     * hm.has('key') // true
+     *  hm.has('key') // true
      */
     HashMap.prototype.has = function(key) {
         return this.hasOwnProperty(this.encodeKey(key));
     };
 
     /**
-     * 키나 키의 목록을 전달하여 데이터를 삭제한다.
-     * @param {...String|String[]} key
-     * @returns {String|String[]}
+     * remove() method removes data(key-value pairs) from the key or key-list.
+     * @param {...string|string[]} key A string for key
+     * @returns {string|string[]} A removed data
      * @example
-     * var hm = new HashMap();
-     * hm.set('key', 'value');
-     * hm.set('key2', 'value');
+     *  var hm = new HashMap();
+     *  hm.set('key', 'value');
+     *  hm.set('key2', 'value');
      *
-     * //ex1
-     * hm.remove('key');
+     *  //ex1
+     *  hm.remove('key');
      *
-     * //ex2
-     * hm.remove('key', 'key2');
+     *  //ex2
+     *  hm.remove('key', 'key2');
      *
-     * //ex3
-     * hm.remove(['key', 'key2']);
+     *  //ex3
+     *  hm.remove(['key', 'key2']);
      */
     HashMap.prototype.remove = function(key) {
         if (arguments.length > 1) {
@@ -192,14 +193,14 @@
     };
 
     /**
-     * 키를 전달하여 데이터를 삭제한다.
-     * @param {String} key
-     * @returns {*|null} 삭제된 데이터
+     * removeByKey() method removes data(key-value pair) from the key.
+     * @param {string} key A string for key
+     * @returns {*|null} A removed data
      * @example
-     * var hm = new HashMap();
-     * hm.set('key', 'value');
+     *  var hm = new HashMap();
+     *  hm.set('key', 'value');
      *
-     * hm.removeByKey('key')
+     *  hm.removeByKey('key')
      */
     HashMap.prototype.removeByKey = function(key) {
         var data = this.has(key) ? this.get(key) : null;
@@ -213,15 +214,15 @@
     };
 
     /**
-     * 키의 목록을 전달하여 데이터를 삭제한다.
-     * @param {String[]} keyArray
-     * @returns {String[]} 삭제된 데이터
+     * removeByKeyArray() method removes data(key-value pairs) from the key-list.
+     * @param {string[]} keyArray An array of keys
+     * @returns {string[]} A removed data
      * @example
-     * var hm = new HashMap();
-     * hm.set('key', 'value');
-     * hm.set('key2', 'value');
+     *  var hm = new HashMap();
+     *  hm.set('key', 'value');
+     *  hm.set('key2', 'value');
      *
-     * hm.removeByKeyArray(['key', 'key2']);
+     *  hm.removeByKeyArray(['key', 'key2']);
      */
     HashMap.prototype.removeByKeyArray = function(keyArray) {
         var data = [],
@@ -235,7 +236,7 @@
     };
 
     /**
-     * 모든데이터를 지운다.
+     * removeAll() method removes all the data
      */
     HashMap.prototype.removeAll = function() {
         var self = this;
@@ -246,16 +247,16 @@
     };
 
     /**
-     * 데이터를 순회하며 콜백에 전달해준다.
-     * @param {Function} iteratee
+     * each() method executes the provided callback once for each all the data.
+     * @param {Function} iteratee Callback function
      * @example
-     * var hm = new HashMap();
-     * hm.set('key', 'value');
-     * hm.set('key2', 'value');
+     *  var hm = new HashMap();
+     *  hm.set('key', 'value');
+     *  hm.set('key2', 'value');
      *
-     * hm.each(function(value, key) {
-     *     //do something...
-     * });
+     *  hm.each(function(value, key) {
+     *      //do something...
+     *  });
      */
     HashMap.prototype.each = function(iteratee) {
         var self = this,
@@ -273,14 +274,14 @@
     };
 
     /**
-     * 저장된 키의 목록을 배열로 리턴해준다.
-     * @returns {Array}
+     * keys() method returns the key-list stored.
+     * @returns {Array} A key-list
      * @example
-     * var hm = new HashMap();
-     * hm.set('key', 'value');
-     * hm.set('key2', 'value');
+     *  var hm = new HashMap();
+     *  hm.set('key', 'value');
+     *  hm.set('key2', 'value');
      *
-     * hm.keys();  //['key', 'key2');
+     *  hm.keys();  //['key', 'key2');
      */
     HashMap.prototype.keys = function() {
         var keys = [],
@@ -294,33 +295,34 @@
     };
 
     /**
-     * 조건을 체크하는 콜백을 전달받아 데이터를 전달해주고 콜백의 결과가 true인경우의 데이터를 모와 배열로 만들어 리턴해준다.
-     * @param {Function} condition
-     * @returns {Array}
+     * find() method is similar to map().
+     * It executes the callback that checks conditions once for each element of hashMap,
+     *  and returns a new array having elements satisfying the conditions
+     * @param {Function} condition A function that checks conditions
+     * @returns {Array} A new array having elements satisfying the conditions
      * @example
+     *  //ex1
+     *  var hm = new HashMap();
+     *  hm.set('key', 'value');
+     *  hm.set('key2', 'value');
      *
-     * //ex1
-     * var hm = new HashMap();
-     * hm.set('key', 'value');
-     * hm.set('key2', 'value');
+     *  hm.find(function(value, key) {
+     *      return key === 'key2';
+     *  }); // ['value']
      *
-     * hm.find(function(value, key) {
-     *     return key === 'key2';
-     * }); // ['value']
+     *  //ex2
+     *  var hm = new HashMap({
+     *      'myobj1': {
+     *           visible: true
+     *       },
+     *      'mybobj2': {
+     *           visible: false
+     *       }
+     *  });
      *
-     * //ex2
-     * var hm = new HashMap({
-     *     'myobj1': {
-     *          visible: true
-     *      },
-     *     'mybobj2': {
-     *          visible: false
-     *      }
-     * });
-     *
-     * hm.find(function(obj, key) {
-     *     return obj.visible === true;
-     * }); // [{visible: true}];
+     *  hm.find(function(obj, key) {
+     *      return obj.visible === true;
+     *  }); // [{visible: true}];
      */
     HashMap.prototype.find = function(condition) {
         var founds = [];
@@ -335,8 +337,8 @@
     };
 
     /**
-     * 내부의 값들을 순서에 상관없이 배열로 반환한다
-     * @returns {Array}
+     * toArray() method returns a new Array having all values.
+     * @returns {Array} A new array having all values
      */
     HashMap.prototype.toArray = function() {
         var result = [];
