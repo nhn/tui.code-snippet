@@ -128,7 +128,7 @@
     /**
      * _forEachArraySplice() method is similar to Array.prototype.forEach(),
      *  however does Array.prototype.splice() additionally.
-     * Callback(iteratee) function is invoked with four argument:
+     * Callback(iteratee) function is invoked with four arguments:
      *  - The value of the element
      *  - The index of the element
      *  - The array being traversed
@@ -165,7 +165,7 @@
 
     /**
      * _eachCtxEvents() method executes the callback once for each ctxEventsItem.
-     * Callback function(iteratee) is invoked with three arguments.
+     * Callback function(iteratee) is invoked with three arguments:
      *  - {ctxEventsItem} A unit item of ctxEvents
      *  - {string} A key (ex - 'eventName_idx' or 'eventName_len')
      *  - {ctxEvents} A ctxEvents being traversed
