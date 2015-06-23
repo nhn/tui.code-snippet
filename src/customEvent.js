@@ -628,7 +628,7 @@
     };
 
     /**
-     * getListenerLength() method returns a count of events registered.
+     * Return a count of events registered.
      * @param {string} eventName - Custom event name
      * @returns {*}
      */
@@ -645,7 +645,7 @@
     };
 
     /**
-     * hasListener() method returns whether at least one handler is registered in event name.
+     * Return whether at least one of the handlers is registered in the given event name.
      * @param {string} eventName - Custom event name
      * @returns {boolean} Is there at least one handler in event name?
      */
@@ -656,7 +656,7 @@
 
 
     /**
-     * invoke() method fires a event and returns the result of operation 'boolean AND' with all listener's results.
+     * Fire a event and returns the result of operation 'boolean AND' with all listener's results.
      * So, It is different from {@link CustomEvents#fire}.
      * In service code,
      *  use this as a before event in component level usually for notifying that the event is cancelable.
@@ -705,7 +705,7 @@
     };
 
     /**
-     * fire() method fires a event by event name with data.
+     * Fire a event by event name with data.
      * @param {string} eventName - Custom event name
      * @param {...*} data - Data for event
      * @return {Object} this
@@ -721,7 +721,7 @@
     };
 
     /**
-     * once() method attaches a one-shot events.
+     * Attache a one-shot event.
      * @param {(object|string)} eventName - Custom event name or an object {eventName: handler}
      * @param {function} fn - Handler function
      * @param {*} [context] - Context for binding

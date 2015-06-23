@@ -58,7 +58,7 @@
     }
 
     /**
-     * Verify the whether an object has a stamped id or not.
+     * Verify whether an object has a stamped id or not.
      * @param {object} obj
      * @returns {boolean}
      * @memberOf ne.util

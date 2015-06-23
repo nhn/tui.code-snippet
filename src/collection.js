@@ -15,7 +15,7 @@
     }
 
     /**
-     * This variable saves the whether the 'indexOf' method is in Array.prototype or not.
+     * This variable saves whether the 'indexOf' method is in Array.prototype or not.
      * And it will be checked only once when the page is loaded.
      * @type {boolean}
      */

@@ -148,7 +148,7 @@ Enum.prototype._makeEnumValue = function() {
 };
 
 /**
- * Return the whether a constant from the given key is in instance or not.
+ * Return whether a constant from the given key is in instance or not.
  * @param {string} key - A constant key
  * @returns {boolean} Result
  * @private

@@ -47,7 +47,7 @@
     }
 
     /**
-     * Return the whether the string capable to transform into plain string is in the given string or not.
+     * Return whether the string capable to transform into plain string is in the given string or not.
      * @param {String} string
      * @memberof ne.util
      * @return {boolean}

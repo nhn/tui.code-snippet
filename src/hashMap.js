@@ -155,7 +155,7 @@
     /**
      * Check the existence of a value from the key.
      * @param {string} key A string for key
-     * @returns {boolean} Indicating whether the value exists or not.
+     * @returns {boolean} Indicating whether a value exists or not.
      * @example
      *  var hm = new HashMap();
      *  hm.set('key', 'value');
