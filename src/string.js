@@ -1,6 +1,7 @@
 /**
- * @fileoverview 문자열 조작 모듈
- * @author FE개발팀
+ * @fileoverview This module has some functions for handling the string.
+ * @author NHN Ent.
+ *         FE Development Team <e0242@nhnent.com>
  */
 
 (function(ne) {
@@ -14,13 +15,13 @@
     }
 
     /**
-     * 전달된 문자열에 모든 HTML Entity 타입의 문자열을 원래의 문자로 반환
-     * @param {String} htmlEntity HTML Entity 타입의 문자열
-     * @return {String} 원래 문자로 변환된 문자열
+     * Transform the given HTML Entity string into plain string
+     * @param {String} htmlEntity - HTML Entity type string
+     * @return {String} Plain string
      * @memberof ne.util
      * @example
-     var htmlEntityString = "A &#39;quote&#39; is &lt;b&gt;bold&lt;/b&gt;"
-     var result = decodeHTMLEntity(htmlEntityString); //결과값 : "A 'quote' is <b>bold</b>"
+     *  var htmlEntityString = "A &#39;quote&#39; is &lt;b&gt;bold&lt;/b&gt;"
+     *  var result = decodeHTMLEntity(htmlEntityString); //"A 'quote' is <b>bold</b>"
      */
     function decodeHTMLEntity(htmlEntity) {
         var entities = {'&quot;' : '"', '&amp;' : '&', '&lt;' : '<', '&gt;' : '>', '&#39;' : '\'', '&nbsp;' : ' '};
@@ -30,14 +31,13 @@
     }
 
     /**
-     * 전달된 문자열을 HTML Entity 타입의 문자열로 반환
-     * @param {String} html HTML 문자열
-     * @return {String} HTML Entity 타입의 문자열로 변환된 문자열
+     * Transform the given string into HTML Entity string
+     * @param {String} html - String for encoding
+     * @return {String} HTML Entity
      * @memberof ne.util
      * @example
-     var htmlEntityString = "<script> alert('test');</script><a href='test'>";
-     var result = encodeHTMLEntity(htmlEntityString);
-     //결과값 : "&lt;script&gt; alert(&#39;test&#39;);&lt;/script&gt;&lt;a href=&#39;test&#39;&gt;"
+     *  var htmlEntityString = "<script> alert('test');</script><a href='test'>";
+     *  var result = encodeHTMLEntity(htmlEntityString); //"&lt;script&gt; alert(&#39;test&#39;);&lt;/script&gt;&lt;a href=&#39;test&#39;&gt;"
      */
     function encodeHTMLEntity(html) {
         var entities = {'"': 'quot', '&': 'amp', '<': 'lt', '>': 'gt', '\'': '#39'};
@@ -47,7 +47,7 @@
     }
 
     /**
-     * html Entity 로 변환할 수 있는 문자가 포함되었는지 확인
+     * Return the whether the string capable to transform into plain string is in the given string or not.
      * @param {String} string
      * @memberof ne.util
      * @return {boolean}
