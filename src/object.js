@@ -16,7 +16,7 @@
     }
 
     /**
-     * extend() function extends the target object from other objects.
+     * Extend the target object from other objects.
      * @param {object} target - Object that will be extended
      * @param {...object} objects - Objects as sources
      * @return {object} Extended object
@@ -47,7 +47,7 @@
     var lastId = 0;
 
     /**
-     * stamp() function assigns a unique id to an object
+     * Assign a unique id to an object
      * @param {object} obj - Object that will be assigned id.
      * @return {number} Stamped id
      * @memberOf ne.util
@@ -58,7 +58,7 @@
     }
 
     /**
-     * hasStamp() function verifies whether an object has a stamped id or not.
+     * Verify the whether an object has a stamped id or not.
      * @param {object} obj
      * @returns {boolean}
      * @memberOf ne.util
@@ -75,7 +75,7 @@
     }
 
     /**
-     * keys() function returns a key-list(array) of an object
+     * Return a key-list(array) of a given object
      * @param {object} obj - Object from which a key-list will be extracted
      * @returns {Array} A key-list(array)
      * @memberOf ne.util
@@ -94,7 +94,7 @@
     }
 
     /**
-     * compareJSON() function returns equality for multiple objects(jsonObjects).
+     * Return the equality for multiple objects(jsonObjects).
      *  (Reference) http://stackoverflow.com/questions/1068834/object-comparison-in-javascript
      * @param {...object} object - Multiple objects for comparing.
      * @return {boolean} Equality
@@ -223,7 +223,7 @@
     }
 
     /**
-     * pick() function retrieves nested item from object/array
+     * Retrieve a nested item from the given object/array
      * @param {object|Array} obj - Object for retrieving
      * @param {...string|number} paths - Paths of property
      * @returns {*} Value

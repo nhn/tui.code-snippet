@@ -28,7 +28,7 @@
      */
 
     /**
-     * This object is a data structure for storing handlerItems bound with a specific context
+     * A data structure for storing handlerItems bound with a specific context
      *  and is a unit item of ctxEvents.
      * Handlers in this item, will be executed with same event.
      * @ignore
@@ -104,7 +104,7 @@
      **********/
 
     /**
-     * mixin() method is used for making a constructor being able to do CustomEvent's functions.
+     * Use for making a constructor to be able to do CustomEvent's functions.
      * @param {function} func - Constructor
      * @example
      *  function Model() {
@@ -126,7 +126,7 @@
      **********/
 
     /**
-     * _forEachArraySplice() method is similar to Array.prototype.forEach(),
+     * Work similarly to Array.prototype.forEach(),
      *  however does Array.prototype.splice() additionally.
      * Callback(iteratee) function is invoked with four arguments:
      *  - The value of the element
@@ -164,7 +164,7 @@
      **********/
 
     /**
-     * _eachCtxEvents() method executes the callback once for each ctxEventsItem.
+     * Execute the callback once for each ctxEventsItem.
      * Callback function(iteratee) is invoked with three arguments:
      *  - {ctxEventsItem} A unit item of ctxEvents
      *  - {string} A key (ex - 'eventName_idx' or 'eventName_len')
@@ -178,7 +178,7 @@
     };
 
     /**
-     * _eachCtxHandlerItemByContainId() method executes the callback once
+     * Execute the callback once
      *  for each handler item that is value of the key including a specific string(=id, arguments[1]).
      * Callback function(iteratee) is invoked with two arguments:
      *  - handlerItem
@@ -197,7 +197,7 @@
     };
 
     /**
-     * _eachCtxEventByHandler() method executes the callback once
+     * Execute the callback once
      *  for each case of when the provided handler(arguments[0]) is equal to a handler in ctxEventsItem.
      * Callback function(iteratee) is invoked with four arguments:
      *  - handlerItem
@@ -220,7 +220,7 @@
     };
 
     /**
-     * _eachCtxEventByContext() method executes the callback once
+     * Execute the callback once
      *  for each case of when the provided context(arguments[0]) is equal to a context in ctxEventsItem.
      * Callback function(iteratee) is invoked with four arguments:
      *  - handlerItem
@@ -243,7 +243,7 @@
     };
 
     /**
-     * _eachCtxEventByEventName() method executes the callback once for each handler of ctxEventsItem of the provided eventName(arguments[0]).
+     * Execute the callback once for each handler of ctxEventsItem of the provided eventName(arguments[0]).
      * Callback function(iteratee) is invoked with four arguments:
      *  - handlerItem
      *  - handlerItemId
@@ -274,7 +274,7 @@
      **********/
 
     /**
-     * _eachEventByHandler() method executes the callback once
+     * Execute the callback once
      *  for each handler in instance equal to the provided handler(arguments[0]).
      * Callback function(iteratee) is invoked with five arguments:
      *  - handlerItem
@@ -302,11 +302,11 @@
     };
 
     /**
-     * _eachEventByEventName() method executes the callback once for each handler.
+     * Execute the callback once for each handler of normal events of the provided eventName.
      * Callback function(iteratee) is invoked with four arguments:
-     *  - handlerItem
-     *  - index of handlerItem array
-     *  - eventList by eventName
+     *  - handler
+     *  - index of handler-list
+     *  - handler-list
      *  - decrease, A special callback function that decreases the length of array
      * @param {string} eventName - Custom event name
      * @param {function} iteratee - Callback function
@@ -328,7 +328,7 @@
     };
 
     /**
-     * _getCtxKey() method returns a new key for saving a handler with a context in event name.
+     * Return a new key for saving a handler with a context in event name.
      * @param {string} eventName A event name
      * @returns {string} Key
      * @private
@@ -338,7 +338,7 @@
     };
 
     /**
-     * _getCtxLenKey() method returns a new key for saving length of handlers in event name.
+     * Return a new key for saving length of handlers in event name.
      * @param {string} eventName A event name
      * @returns {string} Key
      * @private
@@ -348,7 +348,7 @@
     };
 
     /**
-     * _getHandlerKey() method returns a new key for storing to ctxEventsItem.
+     * Return a new key for storing to ctxEventsItem.
      * @param {function} func A event handler
      * @param {*} ctx A context in handler
      * @returns {string} Key
@@ -360,7 +360,7 @@
 
 
     /**
-     * _setCtxLen() method sets the length of handlers in ctxEventsItem.
+     * Set the length of handlers in ctxEventsItem.
      * @param {string} lenKey - A key for saving the length of handlers in `this._ctxEvents`
      * @param {number} change - A variation value of length
      * @private
@@ -377,7 +377,7 @@
 
 
     /**
-     * _addCtxEvent() method stores a {handlerItem} to instance.
+     * Store a {handlerItem} to instance.
      * @param {string} eventName - Custom event name
      * @param {*} context - Context for binding
      * @param {function} handler - Handler function
@@ -409,7 +409,7 @@
     };
 
     /**
-     * _addNormalEvent() method stores a event handler without context to instance.
+     * Store a event handler without context to instance.
      * @param {string} eventName - Custom event name
      * @param {function} handler - Handler function
      * @private
@@ -432,7 +432,7 @@
 
 
     /**
-     * _offByHandler() method takes the event handler off by handler(arguments[0])
+     * Take the event handler off by handler(arguments[0])
      * @param {function} handler - Handler for offing
      * @private
      */
@@ -453,7 +453,7 @@
     };
 
     /**
-     * _offByHandler() method takes the event handler off by context with event name
+     * Take the event handler off by context with event name
      * @param {*} context - Context
      * @param {(string|function)} [eventName] - Custom event name
      * @private
@@ -479,7 +479,7 @@
     };
 
     /**
-     * _offByEventName method takes the event handler off by event name with handler
+     * Take the event handler off by event name with handler
      * @param {string} eventName - Custom event name
      * @param {function} [handler] - Event handler
      * @private
@@ -511,7 +511,7 @@
      **********/
 
     /**
-     * on() method attaches the event handler with event name and context.
+     * Attach the event handler with event name and context.
      * @param {(string|{name:string, handler:function})} eventName - Custom event name or an object {eventName: handler}
      * @param {(function|*)} [handler] - Handler function or context
      * @param {*} [context] - Context for binding
@@ -566,7 +566,7 @@
     };
 
     /**
-     * off() method detaches the event handler.
+     * Detach the event handler.
      * @param {(string|{name:string, handler:function})} eventName - Custom event name or an object {eventName: handler}
      * @param {function} [handler] Handler function
      * @example

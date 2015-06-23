@@ -18,7 +18,7 @@
 
 
     /**
-     * createObject() function creates a new object with the specified prototype object and properties.
+     * Create a new object with the specified prototype object and properties.
      * @param {Object} obj This object will be a prototype of the newly-created object.
      * @return {Object}
      * @memberof ne.util
@@ -33,7 +33,7 @@
     }
 
     /**
-     * inherit() function provides a simple inheritance in prototype-oriented.
+     * Provide a simple inheritance in prototype-oriented.
      * Caution :
      *  Don't overwrite the prototype of child constructor.
      *

@@ -37,7 +37,7 @@ var isSupportDefinedProperty = (function () {
 var enumValue = 0;
 
 /**
- * Enum() makes a constant-list that has unique values.
+ * Make a constant-list that has unique values.
  * In modern browsers (except IE8 and lower),
  *  a value defined once can not be changed.
  *
@@ -47,7 +47,6 @@ var enumValue = 0;
  * @class
  * @memberof ne.util
  * @examples
- *
  *  //create
  *  var MYENUM = new Enum('TYPE1', 'TYPE2');
  *  var MYENUM2 = new Enum(['TYPE1', 'TYPE2']);
@@ -76,7 +75,7 @@ function Enum(itemList) {
 }
 
 /**
- * set() method defines a Constants-list
+ * Define a constants-list
  * @param {...string| string[]} itemList Constant-list (An array of string is available)
  */
 Enum.prototype.set = function(itemList) {
@@ -92,7 +91,7 @@ Enum.prototype.set = function(itemList) {
 };
 
 /**
- * getName() method returns a key of the constant.
+ * Return a key of the constant.
  * @param {number} value A value of the constant.
  * @returns {string|undefined} Key of the constant.
  */
@@ -111,7 +110,7 @@ Enum.prototype.getName = function(value) {
 };
 
 /**
- * _addItem() method creates a constant.
+ * Create a constant.
  * @private
  * @param {string} name Constant name. (It will be a key of a constant)
  */
@@ -135,7 +134,7 @@ Enum.prototype._addItem = function(name) {
 };
 
 /**
- * _makeEnumValue() method returns a unique value for assigning to a constant.
+ * Return a unique value for assigning to a constant.
  * @private
  * @returns {number} A unique value
  */
@@ -149,8 +148,8 @@ Enum.prototype._makeEnumValue = function() {
 };
 
 /**
- * _isEnumItem() method returns whether the key of a constant.
- * @param {string} key Name
+ * Return the whether a constant from the given key is in instance or not.
+ * @param {string} key - A constant key
  * @returns {boolean} Result
  * @private
  */

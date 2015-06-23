@@ -15,14 +15,14 @@
     }
 
     /**
-     * It saves whether the 'indexOf' method is in Array.prototype or not.
+     * This variable saves the whether the 'indexOf' method is in Array.prototype or not.
      * And it will be checked only once when the page is loaded.
      * @type {boolean}
      */
     var hasIndexOf = !!Array.prototype.indexOf;
 
     /**
-     * forEachArray() function executes the provided callback once for each element present in the array(or Array-like object) in ascending order.
+     * Execute the provided callback once for each element present in the array(or Array-like object) in ascending order.
      * If the callback function returns false, the loop will be stopped.
      * Callback function(iteratee) is invoked with three arguments:
      *  - The value of the element
@@ -55,7 +55,7 @@
 
 
     /**
-     * forEachOwnProperties() function executes the provided callback once for each property of object which actually exist.
+     * Execute the provided callback once for each property of object which actually exist.
      * If the callback function returns false, the loop will be stopped.
      * Callback function(iteratee) is invoked with three arguments:
      *  - The value of the property
@@ -88,8 +88,8 @@
     }
 
     /**
-     * forEach() function executes the provided callback once for each property of object(or element of array) which actually exist.
-     * If the object is Array-like object(ex-arguments object), It needs to transform to Array.(see 'ex2' of example)
+     * Execute the provided callback once for each property of object(or element of array) which actually exist.
+     * If the object is Array-like object(ex-arguments object), It needs to transform to Array.(see 'ex2' of example).
      * If the callback function returns false, the loop will be stopped.
      * Callback function(iteratee) is invoked with three arguments:
      *  - The value of the property(or The value of the element)
@@ -125,7 +125,7 @@
     }
 
     /**
-     * map() function calls a provided callback function once for each element in an array, in order, and constructs a new array from the results.
+     * Execute the provided callback function once for each element in an array, in order, and constructs a new array from the results.
      * If the object is Array-like object(ex-arguments object), It needs to transform to Array.(see 'ex2' of forEach example)
      * Callback function(iteratee) is invoked with three arguments:
      *  - The value of the property(or The value of the element)
@@ -156,7 +156,7 @@
     }
 
     /**
-     * reduce() executes the callback function once for each element present in the array(or Array-like object or plain object).
+     * Execute the callback function once for each element present in the array(or Array-like object or plain object).
      * If the object is Array-like object(ex-arguments object), It needs to transform to Array.(see 'ex2' of forEach example)
      * Callback function(iteratee) is invoked with four arguments:
      *  - The previousValue
@@ -198,7 +198,7 @@
         return store;
     }
     /**
-     * toArray() function transforms the Array-like object to real Array.
+     * Transform the Array-like object to Array.
      * In low IE (below 8), Array.prototype.slice.call is not perfect. So, try-catch statement is used.
      * @param {*} arrayLike Array-like object
      * @return {Array} Array
@@ -230,7 +230,7 @@
     }
 
     /**
-     * filter() method creates a new array or plain object with all elements(or properties) that pass the test implemented by the provided function.
+     * Create a new array or plain object with all elements(or properties) that pass the test implemented by the provided function.
      * Callback function(iteratee) is invoked with three arguments:
      *  - The value of the property(or The value of the element)
      *  - The name of the property(or The index of the element)
@@ -285,8 +285,8 @@
     };
 
     /**
-     * inArray() method returns the first index at which a given element can be found in the array from start index(default 0), or -1 if it is not present.
-     * and it compares searchElement to elements of the Array using strict equality (the same method used by the ===, or triple-equals, operator).
+     * Returns the first index at which a given element can be found in the array from start index(default 0), or -1 if it is not present.
+     * It compares searchElement to elements of the Array using strict equality (the same method used by the ===, or triple-equals, operator).
      * @param {*} searchElement Element to locate in the array
      * @param {Array} array Array that will be traversed.
      * @param {number} startIndex Start index in array for searching (default 0)

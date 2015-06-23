@@ -51,7 +51,7 @@
     }
 
     /**
-     * set() method sets the data from key-value pair or object.
+     * Set a data from the given key with value or the given object.
      * @param {string|Object} key A string or object for key
      * @param {*} [value] A data
      * @example
@@ -72,7 +72,7 @@
     };
 
     /**
-     * setKeyValue() method sets the data from key-value pair.
+     * Set a data from the given key with value.
      * @param {string} key A string for key
      * @param {*} value A data
      * @example
@@ -87,7 +87,7 @@
     };
 
     /**
-     * setObject() method sets the data from object.
+     * Set a data from the given object.
      * @param {Object} obj A object for data
      * @example
      *  var hm = new HashMap();
@@ -106,7 +106,7 @@
     };
 
     /**
-     * merge() method merges with another hashMap.
+     * Merge with the given another hashMap.
      * @param {HashMap} hashMap Another hashMap instance
      */
     HashMap.prototype.merge = function(hashMap) {
@@ -118,7 +118,7 @@
     };
 
     /**
-     * encodeKey() method encodes a key for hashMap.
+     * Encode the given key for hashMap.
      * @param {string} key A string for key
      * @returns {string} A encoded key
      * @private
@@ -128,7 +128,7 @@
     };
 
     /**
-     * decodeKey() method decodes a key in hashMap.
+     * Decode the given key in hashMap.
      * @param {string} key A string for key
      * @returns {string} A decoded key
      * @private
@@ -139,7 +139,7 @@
     };
 
     /**
-     * get() method returns the value from a key.
+     * Return the value from the given key.
      * @param {string} key A string for key
      * @returns {*} The value from a key
      * @example
@@ -153,7 +153,7 @@
     };
 
     /**
-     * has() method checks existence of a value from the key.
+     * Check the existence of a value from the key.
      * @param {string} key A string for key
      * @returns {boolean} Indicating whether the value exists or not.
      * @example
@@ -167,7 +167,7 @@
     };
 
     /**
-     * remove() method removes data(key-value pairs) from the key or key-list.
+     * Remove a data(key-value pairs) from the given key or the given key-list.
      * @param {...string|string[]} key A string for key
      * @returns {string|string[]} A removed data
      * @example
@@ -193,7 +193,7 @@
     };
 
     /**
-     * removeByKey() method removes data(key-value pair) from the key.
+     * Remove data(key-value pair) from the given key.
      * @param {string} key A string for key
      * @returns {*|null} A removed data
      * @example
@@ -214,7 +214,7 @@
     };
 
     /**
-     * removeByKeyArray() method removes data(key-value pairs) from the key-list.
+     * Remove a data(key-value pairs) from the given key-list.
      * @param {string[]} keyArray An array of keys
      * @returns {string[]} A removed data
      * @example
@@ -236,7 +236,7 @@
     };
 
     /**
-     * removeAll() method removes all the data
+     * Remove all the data
      */
     HashMap.prototype.removeAll = function() {
         var self = this;
@@ -247,7 +247,7 @@
     };
 
     /**
-     * each() method executes the provided callback once for each all the data.
+     * Execute the provided callback once for each all the data.
      * @param {Function} iteratee Callback function
      * @example
      *  var hm = new HashMap();
@@ -274,7 +274,7 @@
     };
 
     /**
-     * keys() method returns the key-list stored.
+     * Return the key-list stored.
      * @returns {Array} A key-list
      * @example
      *  var hm = new HashMap();
@@ -295,8 +295,8 @@
     };
 
     /**
-     * find() method is similar to map().
-     * It executes the callback that checks conditions once for each element of hashMap,
+     * Work similarly to Array.prototype.map().
+     * It executes the provided callback that checks conditions once for each element of hashMap,
      *  and returns a new array having elements satisfying the conditions
      * @param {Function} condition A function that checks conditions
      * @returns {Array} A new array having elements satisfying the conditions
@@ -337,7 +337,7 @@
     };
 
     /**
-     * toArray() method returns a new Array having all values.
+     * Return a new Array having all values.
      * @returns {Array} A new array having all values
      */
     HashMap.prototype.toArray = function() {

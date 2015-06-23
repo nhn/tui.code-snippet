@@ -18,7 +18,7 @@
     }
 
     /**
-     * defineClass() function helps a constructor to be defined and to inherit from the other constructors
+     * Help a constructor to be defined and to inherit from the other constructors
      * @param {*} [parent] Parent constructor
      * @param {Object} props Members of constructor
      *  @param {Function} props.init Initialization method
@@ -26,7 +26,6 @@
      * @returns {*} Constructor
      * @memberof ne.util
      * @example
-     *
      *  var Parent = defineClass({
      *      init: function() {
      *          this.name = 'made by def';
@@ -45,19 +44,17 @@
      *      method2: function() {}
      *  });
      *
-     *
      *  Parent.staticMethod();
      *
      *  var parentInstance = new Parent();
      *  console.log(parentInstance.name); //made by def
      *  parentInstance.staticMethod(); // Error
      *
-     *
      *  var childInstance = new Child();
      *  childInstance.method();
      *  childInstance.method2();
      */
-    var defineClass = function(parent, props) {
+    ne.util.defineClass = function(parent, props) {
         var obj;
 
         if (!props) {
@@ -80,7 +77,5 @@
 
         return obj;
     };
-
-    ne.util.defineClass = defineClass;
 
 })(window.ne);

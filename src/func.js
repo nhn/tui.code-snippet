@@ -16,7 +16,7 @@
     }
 
     /**
-     * bind() function creates a new function that, when called, has its this keyword set to the provided value.
+     * Create a new function that, when called, has its this keyword set to the provided value.
      * @param {function} fn A original function before binding
      * @param {*} obj context of function in arguments[0]
      * @return {function()} A new bound function with context that is in arguments[1]
