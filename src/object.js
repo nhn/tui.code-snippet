@@ -223,7 +223,7 @@
     }
 
     /**
-     * Retrieve nested item from object/array
+     * pick() function retrieves nested item from object/array
      * @param {object|Array} obj - Object for retrieving
      * @param {...string|number} paths - Paths of property
      * @returns {*} Value
