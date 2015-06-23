@@ -1,6 +1,7 @@
 /**
- * @fileoverview
- * @author FE개발팀
+ * @fileoverview This module has some functions for handling a plain object, json.
+ * @author NHN Ent.
+ *         FE Development Team <e0242@nhnent.com>
  * @dependency type.js, collection.js
  */
 
@@ -15,10 +16,10 @@
     }
 
     /**
-     * 데이터 객체를 확장하는 메서드 (deep copy 는 하지 않는다)
-     * @param {object} target - 확장될 객체
-     * @param {...object} objects - 프로퍼티를 복사할 객체들
-     * @return {object}
+     * extend() function extends the target object from other objects.
+     * @param {object} target - Object that will be extended
+     * @param {...object} objects - Objects as sources
+     * @return {object} Extended object
      * @memberOf ne.util
      */
     function extend(target, objects) {
@@ -40,14 +41,15 @@
     }
 
     /**
+     * The last id of stamp
      * @type {number}
      */
     var lastId = 0;
 
     /**
-     * 객체에 unique한 ID를 프로퍼티로 할당한다.
-     * @param {object} obj - ID를 할당할 객체
-     * @return {number}
+     * stamp() function assigns a unique id to an object
+     * @param {object} obj - Object that will be assigned id.
+     * @return {number} Stamped id
      * @memberOf ne.util
      */
     function stamp(obj) {
@@ -56,7 +58,7 @@
     }
 
     /**
-     * object#stamp로 UniqueID를 부여했었는지 여부 확인
+     * hasStamp() function verifies whether an object has a stamped id or not.
      * @param {object} obj
      * @returns {boolean}
      * @memberOf ne.util
@@ -65,14 +67,17 @@
         return ne.util.isExisty(ne.util.pick(obj, '__fe_id'));
     }
 
+    /**
+     * Reset the last id of stamp
+     */
     function resetLastId() {
         lastId = 0;
     }
 
     /**
-     * 객체를 전달받아 객체의 키목록을 배열로만들어 리턴해준다.
-     * @param obj
-     * @returns {Array}
+     * keys() function returns a key-list(array) of an object
+     * @param {object} obj - Object from which a key-list will be extracted
+     * @returns {Array} A key-list(array)
      * @memberOf ne.util
      */
     function keys(obj) {
@@ -88,28 +93,24 @@
         return keys;
     }
 
-
     /**
-     *
-     * 여러개의 json객체들을 대상으로 그것들이 동일한지 비교하여 리턴한다.
-     * (출처) http://stackoverflow.com/questions/1068834/object-comparison-in-javascript
-     *
-     * @param {...object} object 비교할 객체 목록
-     * @return {boolean} 파라미터로 전달받은 json객체들의 동일 여부
+     * compareJSON() function returns equality for multiple objects(jsonObjects).
+     *  (Reference) http://stackoverflow.com/questions/1068834/object-comparison-in-javascript
+     * @param {...object} object - Multiple objects for comparing.
+     * @return {boolean} Equality
      * @example
      *
-       var jsonObj1 = {name:'milk', price: 1000},
-           jsonObj2 = {name:'milk', price: 1000},
-           jsonObj3 = {name:'milk', price: 1000}
-
-       ne.util.compareJSON(jsonObj1, jsonObj2, jsonObj3);
-           => return true
-
-       var jsonObj4 = {name:'milk', price: 1000},
-           jsonObj5 = {name:'beer', price: 3000}
-
-       ne.util.compareJSON(jsonObj4, jsonObj5);
-          => return false
+     *  var jsonObj1 = {name:'milk', price: 1000},
+     *      jsonObj2 = {name:'milk', price: 1000},
+     *      jsonObj3 = {name:'milk', price: 1000};
+     *
+     *  ne.util.compareJSON(jsonObj1, jsonObj2, jsonObj3);   // true
+     *
+     *
+     *  var jsonObj4 = {name:'milk', price: 1000},
+     *      jsonObj5 = {name:'beer', price: 3000};
+     *
+     *      ne.util.compareJSON(jsonObj4, jsonObj5); // false
 
      * @memberOf ne.util
      */
@@ -177,8 +178,8 @@
                 }
             }
 
-            //인풋 데이터 x의 오브젝트 키값으로 값을 순회하면서
-            //hasOwnProperty, typeof 체크를 해서 비교하고 x[prop]값과 y[prop] 가 같은 객체인지 판별한다.
+            //This for loop executes comparing with hasOwnProperty() and typeof for each property in 'x' object,
+            //and verifying equality for x[property] and y[property].
             for (p in x) {
                 if (y.hasOwnProperty(p) !== x.hasOwnProperty(p)) {
                     return false;
@@ -222,35 +223,27 @@
     }
 
     /**
-     * 인자로 받은 object 와 하위 프로퍼티 문자열로 해당 위치의 값을 반환한다.
-     * @param {object} 대상 객체
-     * @param {...string}   하위 프로퍼티 문자열
-     * @returns {*} 반환된 값
+     * Retrieve nested item from object/array
+     * @param {object|Array} obj - Object for retrieving
+     * @param {...string|number} paths - Paths of property
+     * @returns {*} Value
      * @example
+     *  var obj = {
+     *      'key1': 1,
+     *      'nested' : {
+     *          'key1': 11,
+     *          'nested': {
+     *              'key1': 21
+     *          }
+     *      }
+     *  };
+     *  ne.util.pick(obj, 'nested', 'nested', 'key1'); // 21
+     *  ne.util.pick(obj, 'nested', 'nested', 'key2'); // undefined
      *
-        var obj = {
-            'key1': 1,
-            'nested' : {
-                'key1': 11,
-                'nested': {
-                    'key1': 21
-                }
-            }
-        };
-
-
-         ne.util.pick(obj, 'nested', 'nested', 'key1');
-         => 21
-
-        ne.util.pick(obj, 'nested', 'nested', 'key2');
-        => undefined
-
-        var arr = ['a', 'b', 'c'];
-
-        ne.util.pick(arr, 1);
-         => 'b'
+     *  var arr = ['a', 'b', 'c'];
+     *  ne.util.pick(arr, 1); // 'b'
      */
-    function pick() {
+    function pick(obj, paths) {
         var args = arguments,
             target = args[0],
             length = args.length,
