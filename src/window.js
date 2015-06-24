@@ -1,6 +1,7 @@
 /**
- * @fileoverview 팝업 윈도우 관리 모듈
- * @author FE개발팀
+ * @fileoverview This module has some methods for handling popup-window
+ * @author NHN Ent.
+ *         FE Development Team <e0242@nhnent.com>
  * @dependency browser.js, type.js, object.js, collection.js, func.js, window.js
  */
 
@@ -16,27 +17,27 @@
     var popup_id = 0;
 
     /**
-     * 팝업 컨트롤 클래스
+     * Popup management class
      * @constructor
      * @memberof ne.util
      */
     function Popup() {
 
         /**
-         * 팝업창 캐시용 객체 프로퍼티
-         * @type {object}
+         * Caching the window-contexts of opened popups
+         * @type {Object}
          */
         this.openedPopup = {};
 
         /**
-         * IE7 에서 부모창과 함께 팝업이 닫힐 지 여부를 가리는 closeWithParent프로퍼티를 Window객체에 추가하면
-         * 오류가 발생하는 문제가 있어서, 이를 저장하기 위한 별개의 프로퍼티를 만듦.
-         * @type {object}
+         * In IE7, an error occurs when the closeWithParent property attaches to window object.
+         * So, It is for saving the value of closeWithParent instead of attaching to window object.
+         * @type {Object}
          */
         this.closeWithParentPopup = {};
 
         /**
-         * IE11 팝업 POST 데이터 브릿지
+         * Post data bridge for IE11 popup
          * @type {string}
          */
         this.postDataBridgeUrl = '';
@@ -47,8 +48,8 @@
      **********/
 
     /**
-     * 현재 윈도우가 관리하는 팝업 창 리스트를 반환합니다.
-     * @param {String} [key] key에 해당하는 팝업을 반환한다
+     * Returns a popup-list administered by current window.
+     * @param {string} [key] The key of popup.
      * @returns {Object} popup window list object
      */
     Popup.prototype.getPopupList = function(key) {
@@ -62,45 +63,41 @@
     };
 
     /**
-     * 팝업창을 여는 메서드
+     * Open popup
+     * Caution:
+     *  In IE11, when transfer data to popup by POST, must set the postDataBridgeUrl.
+     *  Additionally, when open the popup with another domain, can not control the popup because of security.
      *
-     * IE11에서 POST를 사용해 팝업에 값을 전달할 땐 꼭 postDataBridgeUrl을 설정해야 한다
+     * @param {string} url - popup url
+     * @param {Object} options
+     *     @param {string} [options.popupName] - Key of popup window.
+     *      If the key is set, when you try to open by this key, the popup of this key is focused.
+     *      Or else a new popup window having this key is opened.
      *
-     * 주의: 다른 도메인을 팝업으로 띄울 경우 보안 문제로 팝업 컨트롤 기능을 사용할 수 없다.
+     *     @param {string} [options.popupOptionStr=""] - Option string of popup window
+     *      It is same with the third parameter of window.open() method.
+     *      See {@link http://www.w3schools.com/jsref/met_win_open.asp}
      *
-     * @param {String} url 팝업 URL
-     * @param {object} options
-     *     @param {String} [options.popupName]
-     *     팝업창의 key를 설정할 수 있습니다.
-     *     이 key를 지정하면 같은 key로 팝업을 열려 할 때 이미 열려있는 경우에는 포커스를 주고, 없는 경우 같은 key로 팝업을 엽니다.
+     *     @param {boolean} [options.closeWithParent=true] - Is closed when parent window closed?
      *
-     *     @param {String} [options.popupOptionStr=""]
-     *     팝업 윈도우의 기능을 설정할 수 있습니다. window.open() 메서드의 세 번째 인자를 그대로 전달하면 됩니다.
-     *     이 기능의 적용에는 브라우저마다 차이가 있습니다. http://www.w3schools.com/jsref/met_win_open.asp 를 참고하시기 바랍니다.
+     *     @param {boolean} [options.useReload=false] - This property indicates whether reload the popup or not.
+     *      If true, the popup will be reloaded when you try to re-open the popup that has been opened.
+     *      When transmit the POST-data, some browsers alert a message for confirming whether retransmit or not.
      *
-     *     @param {Boolean} [options.closeWithParent=true]
-     *     팝업 윈도우를 연 윈도우가 닫힐 때 같이 닫힐 지 여부를 설정할 수 있습니다.
+     *     @param {string} [options.postDataBridgeUrl=''] - Use this url to avoid a certain bug occuring when transmitting POST data to the popup in IE11.
+     *      This specific buggy situation is known to happen because IE11 tries to open the requested url not in a new popup window as intended, but in a new tab.
+     *      See {@link http://wiki.nhnent.com/pages/viewpage.action?pageId=240562844}
      *
-     *     @param {Boolean} [options.useReload=false]
-     *     이미 열린 팝업 윈도우를 다시 열 때 새로고침 할 것인지를 설정할 수 있습니다. post 데이터를 전송하는 경우 일부 브라우저에서는 다시 전송 여
-     *     부를 묻는 메시지가 출력될 수 있습니다.
+     *     @param {string} [options.method=get] - The method of transmission when the form-data is transmitted to popup-window.
      *
-     *     @param {string} [options.postDataBridgeUrl='']
-     *     IE11 에서 POST로 팝업에 데이터를 전송할 때 팝업이 아닌 새 탭으로 열리는 버그를 우회하기 위한 페이지의 url을 입력합니다.
-     *     참고: http://wiki.nhnent.com/pages/viewpage.action?pageId=240562844
-     *
-     *     @param {String} [options.method=get]
-     *     팝업 윈도우에 폼 데이터 자동 전송 기능 이용 시, 데이터 전달 방식을 지정할 수 있습니다.
-     *
-     *     @param {object} [options.param=null]
-     *     팝업 윈도우에 폼 데이터 자동 전송 기능 이용 시, 전달할 데이터를 객체로 넘겨주시면 됩니다.
+     *     @param {Object} [options.param=null] - Using as parameters for transmission when the form-data is transmitted to popup-window.
      */
     Popup.prototype.openPopup = function(url, options) {
         options = ne.util.extend({
             popupName: 'popup_' + popup_id + '_' + (+new Date()),
-            popupOptionStr: '', // 팝업 옵션
-            useReload: true, // 팝업이 열린 상태에서 다시 열려고 할 때 새로고침 하는지 여부
-            closeWithParent: true, // 부모창 닫힐때 팝업 닫기 여부
+            popupOptionStr: '',
+            useReload: true,
+            closeWithParent: true,
             method: 'get',
             param: {}
         }, options || {});
@@ -120,7 +117,12 @@
 
         popup_id += 1;
 
-        // 폼 전송 기능 이용 시 팝업 열기 전 폼을 생성하고 팝업이 열림과 동시에 폼을 전송한 후 폼을 제거한다.
+        /**
+         * In form-data transmission
+         * 1. Create a form before opening a popup.
+         * 2. Transmit the form-data.
+         * 3. Remove the form after transmission.
+         */
         if (options.param) {
             if (options.method === 'GET') {
                 url = url + (/\?/.test(url) ? '&' : '?') + this._parameterize(options.param);
@@ -170,9 +172,9 @@
     };
 
     /**
-     * 팝업 윈도우를 닫습니다.
-     * @param {Boolean} [skipBeforeUnload]
-     * @param {Window} [popup] 닫을 윈도우 객체. 생략하면 현재 윈도우를 닫습니다
+     * Close the popup
+     * @param {boolean} [skipBeforeUnload] - If true, the 'window.onunload' will be null and skip unload event.
+     * @param {Window} [popup] - Window-context of popup for closing. If omit this, current window-context will be closed.
      */
     Popup.prototype.close = function(skipBeforeUnload, popup) {
         skipBeforeUnload = ne.util.isExisty(skipBeforeUnload) ? skipBeforeUnload : false;
@@ -190,8 +192,8 @@
     };
 
     /**
-     * 이 창에서 열린 모든 팝업을 닫습니다.
-     * @param {Boolean} closeWithParent true 면 openPopup 메서드 호출 시 부모창과 함께 닫기로 설정된 팝업들만 닫습니다.
+     * Close all the popups in current window.
+     * @param {boolean} closeWithParent - If true, popups having the closeWithParentPopup property as true will be closed.
      */
     Popup.prototype.closeAllPopup = function(closeWithParent) {
         var hasArg = ne.util.isExisty(closeWithParent);
@@ -204,16 +206,16 @@
     };
 
     /**
-     * 해당 팝업 윈도우를 활성화 시킨다.
-     * @param {String} popupName 활성화 시킬 팝업 윈도우 이름
+     * Activate(or focus) the popup of the given name.
+     * @param {string} popupName - Name of popup for activation
      */
     Popup.prototype.focus = function(popupName) {
         this.getPopupList(popupName).focus();
     };
 
     /**
-     * 브라우저의 query string을 파싱해 객체 형태로 반환
-     * @return {object}
+     * Return an object made of parsing the query string.
+     * @return {Object} An object having some information of the query string.
      * @private
      */
     Popup.prototype.parseQuery = function() {
@@ -231,13 +233,13 @@
     };
 
     /**
-     * 주어진 인자로 숨겨진 폼을 생성하여 문서에 추가하고 반환
-     * @param {string} action 폼 전송 URL
-     * @param {object} [data] 폼 전송 시 보내질 데이터
-     * @param {string} [method]
-     * @param {string} [target]
-     * @param {HTMLElement} [container]
-     * @returns {HTMLElement}
+     * Create a hidden form from the given arguments and return this form.
+     * @param {string} action - URL for form transmission
+     * @param {Object} [data] - Data for form transmission
+     * @param {Otring} [method] - Method of transmission
+     * @param {string} [target] - Target of transmission
+     * @param {HTMLElement} [container] - Container element of form.
+     * @returns {HTMLElement} Form element
      */
     Popup.prototype.createForm = function(action, data, method, target, container) {
         var form = document.createElement('form'),
@@ -268,9 +270,9 @@
      **********/
 
     /**
-     * 객체를 쿼리스트링 형태로 변환
-     * @param {object} object
-     * @returns {string}
+     * Return an query string made by parsing the given object
+     * @param {Object} object - An object that has information for query string
+     * @returns {string} - Query string
      * @private
      */
     Popup.prototype._parameterize = function(object) {
@@ -284,13 +286,13 @@
     };
 
     /**
-     * 실제 팝업을 여는 메서드
-     * @param {Boolean} useIEPostBridge IE11에서 팝업에 포스트 데이터를 전달할 때 우회 기능 사용 여부
-     * @param {object} param 팝업에 전달할 데이터
-     * @param {String} url 팝업 URL
-     * @param {String} popupName 팝업 이름
-     * @param {String} optionStr 팝업 기능 설정용 value ex) 'width=640,height=320,scrollbars=yes'
-     * @returns {Window}
+     * Open popup
+     * @param {boolean} useIEPostBridge - A switch option whether to use alternative of tossing POST data to the popup window in IE11
+     * @param {Object} param - A data for tossing to popup
+     * @param {string} url - Popup url
+     * @param {string} popupName - Popup name
+     * @param {string} optionStr - Setting for popup, ex) 'width=640,height=320,scrollbars=yes'
+     * @returns {Window} Window context of popup
      * @private
      */
     Popup.prototype._open = function(useIEPostBridge, param, url, popupName, optionStr) {
