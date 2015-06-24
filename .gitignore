@@ -55,3 +55,4 @@ report
 dist
 *.swp
 karma.local.conf.js
+*.vim
