@@ -1,6 +1,6 @@
 /**
  * @fileoverview
- *  This module provides some functions for custom events.
+ *  This module provides some functions for custom events.<br>
  *  And it is implemented in the observer design pattern.
  * @author NHN Ent.
  *         FE Development Team <e0242@nhnent.com>
@@ -29,7 +29,7 @@
 
     /**
      * A data structure for storing handlerItems bound with a specific context
-     *  and is a unit item of ctxEvents.
+     *  and is a unit item of ctxEvents.<br>
      * Handlers in this item, will be executed with same event.
      * @ignore
      * @typedef {Object.<string, handlerItem>} ctxEventsItem
@@ -127,7 +127,7 @@
 
     /**
      * Work similarly to Array.prototype.forEach(),
-     *  however does Array.prototype.splice() additionally.
+     *  however does Array.prototype.splice() additionally.<br>
      * Callback(iteratee) function is invoked with four arguments:
      *  - The value of the element
      *  - The index of the element
@@ -164,7 +164,7 @@
      **********/
 
     /**
-     * Execute the callback once for each ctxEventsItem.
+     * Execute the callback once for each ctxEventsItem.<br>
      * Callback function(iteratee) is invoked with three arguments:
      *  - {ctxEventsItem} A unit item of ctxEvents
      *  - {string} A key (ex - 'eventName_idx' or 'eventName_len')
@@ -179,7 +179,7 @@
 
     /**
      * Execute the callback once
-     *  for each handler item that is value of the key including a specific string(=id, arguments[1]).
+     *  for each handler item that is value of the key including a specific string(=id, arguments[1]).<br>
      * Callback function(iteratee) is invoked with two arguments:
      *  - handlerItem
      *  - handlerItemId
@@ -198,7 +198,7 @@
 
     /**
      * Execute the callback once
-     *  for each case of when the provided handler(arguments[0]) is equal to a handler in ctxEventsItem.
+     *  for each case of when the provided handler(arguments[0]) is equal to a handler in ctxEventsItem.<br>
      * Callback function(iteratee) is invoked with four arguments:
      *  - handlerItem
      *  - handlerItemId
@@ -221,7 +221,7 @@
 
     /**
      * Execute the callback once
-     *  for each case of when the provided context(arguments[0]) is equal to a context in ctxEventsItem.
+     *  for each case of when the provided context(arguments[0]) is equal to a context in ctxEventsItem.<br>
      * Callback function(iteratee) is invoked with four arguments:
      *  - handlerItem
      *  - handlerItemId
@@ -243,7 +243,7 @@
     };
 
     /**
-     * Execute the callback once for each handler of ctxEventsItem of the provided eventName(arguments[0]).
+     * Execute the callback once for each handler of ctxEventsItem of the provided eventName(arguments[0]).<br>
      * Callback function(iteratee) is invoked with four arguments:
      *  - handlerItem
      *  - handlerItemId
@@ -275,7 +275,7 @@
 
     /**
      * Execute the callback once
-     *  for each handler in instance equal to the provided handler(arguments[0]).
+     *  for each handler in instance equal to the provided handler(arguments[0]).<br>
      * Callback function(iteratee) is invoked with five arguments:
      *  - handlerItem
      *  - index of handlerItem array
@@ -302,7 +302,7 @@
     };
 
     /**
-     * Execute the callback once for each handler of normal events of the provided eventName.
+     * Execute the callback once for each handler of normal events of the provided eventName.<br>
      * Callback function(iteratee) is invoked with four arguments:
      *  - handler
      *  - index of handler-list
@@ -656,8 +656,8 @@
 
 
     /**
-     * Fire a event and returns the result of operation 'boolean AND' with all listener's results.
-     * So, It is different from {@link CustomEvents#fire}.
+     * Fire a event and returns the result of operation 'boolean AND' with all listener's results.<br>
+     * So, It is different from {@link CustomEvents#fire}.<br>
      * In service code,
      *  use this as a before event in component level usually for notifying that the event is cancelable.
      * @param {string} eventName - Custom event name

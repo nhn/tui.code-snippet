@@ -16,7 +16,7 @@
     }
 
     /**
-     * Check whether the given variable is existing or not.
+     * Check whether the given variable is existing or not.<br>
      *  If the given variable is not null and not undefined, returns true.
      * @param {*} param - Target for checking
      * @returns {boolean} Is existy?
@@ -34,7 +34,7 @@
     }
 
     /**
-     * Check whether the given variable is undefined or not.
+     * Check whether the given variable is undefined or not.<br>
      *  If the given variable is undefined, returns true.
      * @param {*} obj - Target for checking
      * @returns {boolean} Is undefined?
@@ -45,7 +45,7 @@
     }
 
     /**
-     * Check whether the given variable is null or not.
+     * Check whether the given variable is null or not.<br>
      *  If the given variable(arguments[0]) is null, returns true.
      * @param {*} obj - Target for checking
      * @returns {boolean} Is null?
@@ -56,8 +56,8 @@
     }
 
     /**
-     * Check whether the given variable is truthy or not.
-     *  If the given variable is not null or not undefined or not false, returns true.
+     * Check whether the given variable is truthy or not.<br>
+     *  If the given variable is not null or not undefined or not false, returns true.<br>
      *  (It regards 0 as true)
      * @param {*} obj - Target for checking
      * @return {boolean} Is truthy?
@@ -68,7 +68,7 @@
     }
 
     /**
-     * Check whether the given variable is falsy or not.
+     * Check whether the given variable is falsy or not.<br>
      *  If the given variable is null or undefined or false, returns true.
      * @param {*} obj - Target for checking
      * @return {boolean} Is falsy?
@@ -82,7 +82,7 @@
     var toString = Object.prototype.toString;
 
     /**
-     * Check whether the given variable is an arguments object or not.
+     * Check whether the given variable is an arguments object or not.<br>
      *  If the given variable is an arguments object, return true.
      * @param {*} obj - Target for checking
      * @return {boolean} Is arguments?
@@ -96,7 +96,7 @@
     }
 
     /**
-     * Check whether the given variable is an instance of Array or not.
+     * Check whether the given variable is an instance of Array or not.<br>
      *  If the given variable is an instance of Array, return true.
      * @param {*} obj - Target for checking
      * @return {boolean} Is array instance?
@@ -107,7 +107,7 @@
     }
 
     /**
-     * Check whether the given variable is an object or not.
+     * Check whether the given variable is an object or not.<br>
      *  If the given variable is an object, return true.
      * @param {*} obj - Target for checking
      * @return {boolean} Is object?
@@ -118,7 +118,7 @@
     }
 
     /**
-     * Check whether the given variable is a function or not.
+     * Check whether the given variable is a function or not.<br>
      *  If the given variable is a function, return true.
      * @param {*} obj - Target for checking
      * @return {boolean} Is function?
@@ -129,7 +129,7 @@
     }
 
     /**
-     * Check whether the given variable is a number or not.
+     * Check whether the given variable is a number or not.<br>
      *  If the given variable is a number, return true.
      * @param {*} obj - Target for checking
      * @return {boolean} Is number?
@@ -140,7 +140,7 @@
     }
 
     /**
-     * Check whether the given variable is a string or not.
+     * Check whether the given variable is a string or not.<br>
      *  If the given variable is a string, return true.
      * @param {*} obj - Target for checking
      * @return {boolean} Is string?
@@ -151,7 +151,7 @@
     }
 
     /**
-     * Check whether the given variable is a boolean or not.
+     * Check whether the given variable is a boolean or not.<br>
      *  If the given variable is a boolean, return true.
      * @param {*} obj - Target for checking
      * @return {boolean} Is boolean?
@@ -163,8 +163,8 @@
 
 
     /**
-     * Check whether the given variable is an instance of Array or not.
-     *  If the given variable is an instance of Array, return true.
+     * Check whether the given variable is an instance of Array or not.<br>
+     *  If the given variable is an instance of Array, return true.<br>
      *  (It is used for multiple frame environments)
      * @param {*} obj - Target for checking
      * @return {boolean} Is an instance of array?
@@ -175,8 +175,8 @@
     }
 
     /**
-     * Check whether the given variable is a function or not.
-     *  If the given variable is a function, return true.
+     * Check whether the given variable is a function or not.<br>
+     *  If the given variable is a function, return true.<br>
      *  (It is used for multiple frame environments)
      * @param {*} obj - Target for checking
      * @return {boolean} Is a function?
@@ -187,8 +187,8 @@
     }
 
     /**
-     * Check whether the given variable is a number or not.
-     *  If the given variable is a number, return true.
+     * Check whether the given variable is a number or not.<br>
+     *  If the given variable is a number, return true.<br>
      *  (It is used for multiple frame environments)
      * @param {*} obj - Target for checking
      * @return {boolean} Is a number?
@@ -199,8 +199,8 @@
     }
 
     /**
-     * Check whether the given variable is a string or not.
-     *  If the given variable is a string, return true.
+     * Check whether the given variable is a string or not.<br>
+     *  If the given variable is a string, return true.<br>
      *  (It is used for multiple frame environments)
      * @param {*} obj - Target for checking
      * @return {boolean} Is a string?
@@ -211,8 +211,8 @@
     }
 
     /**
-     * Check whether the given variable is a boolean or not.
-     *  If the given variable is a boolean, return true.
+     * Check whether the given variable is a boolean or not.<br>
+     *  If the given variable is a boolean, return true.<br>
      *  (It is used for multiple frame environments)
      * @param {*} obj - Target for checking
      * @return {boolean} Is a boolean?
@@ -223,7 +223,7 @@
     }
 
     /**
-     * Check whether the given variable is a instance of HTMLNode or not.
+     * Check whether the given variable is a instance of HTMLNode or not.<br>
      *  If the given variables is a instance of HTMLNode, return true.
      * @param {*} html - Target for checking
      * @return {boolean} Is HTMLNode ?
@@ -237,7 +237,7 @@
     }
 
     /**
-     * Check whether the given variable is a HTML tag or not.
+     * Check whether the given variable is a HTML tag or not.<br>
      *  If the given variables is a HTML tag, return true.
      * @param {*} html - Target for checking
      * @return {Boolean} Is HTML tag?
@@ -251,7 +251,7 @@
     }
 
     /**
-     * Check whether the given variable is empty(null, undefined, or empty array, empty object) or not.
+     * Check whether the given variable is empty(null, undefined, or empty array, empty object) or not.<br>
      *  If the given variables is empty, return true.
      * @param {*} obj - Target for checking
      * @return {boolean} Is empty?
@@ -286,7 +286,7 @@
     }
 
     /**
-     * Check whether the given variable is not empty(not null, not undefined, or not empty array, not empty object) or not.
+     * Check whether the given variable is not empty(not null, not undefined, or not empty array, not empty object) or not.<br>
      *  If the given variables is not empty, return true.
      * @param {*} obj - Target for checking
      * @return {boolean} Is not empty?
@@ -297,7 +297,7 @@
     }
 
     /**
-     * Check whether the given variable is an instance of Date or not.
+     * Check whether the given variable is an instance of Date or not.<br>
      *  If the given variables is an instance of Date, return true.
      * @param {*} obj - Target for checking
      * @returns {boolean} Is an instance of Date?
@@ -308,8 +308,8 @@
     }
 
     /**
-     * Check whether the given variable is an instance of Date or not.
-     *  If the given variables is an instance of Date, return true.
+     * Check whether the given variable is an instance of Date or not.<br>
+     *  If the given variables is an instance of Date, return true.<br>
      *  (It is used for multiple frame environments)
      * @param {*} obj - Target for checking
      * @returns {boolean} Is an instance of Date?

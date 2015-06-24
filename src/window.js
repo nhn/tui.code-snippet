@@ -30,7 +30,7 @@
         this.openedPopup = {};
 
         /**
-         * In IE7, an error occurs when the closeWithParent property attaches to window object.
+         * In IE7, an error occurs when the closeWithParent property attaches to window object.<br>
          * So, It is for saving the value of closeWithParent instead of attaching to window object.
          * @type {Object}
          */
@@ -69,22 +69,22 @@
      *
      * @param {string} url - popup url
      * @param {Object} options
-     *     @param {string} [options.popupName] - Key of popup window.
-     *      If the key is set, when you try to open by this key, the popup of this key is focused.
+     *     @param {string} [options.popupName] - Key of popup window.<br>
+     *      If the key is set, when you try to open by this key, the popup of this key is focused.<br>
      *      Or else a new popup window having this key is opened.
      *
-     *     @param {string} [options.popupOptionStr=""] - Option string of popup window
-     *      It is same with the third parameter of window.open() method.
+     *     @param {string} [options.popupOptionStr=""] - Option string of popup window<br>
+     *      It is same with the third parameter of window.open() method.<br>
      *      See {@link http://www.w3schools.com/jsref/met_win_open.asp}
      *
      *     @param {boolean} [options.closeWithParent=true] - Is closed when parent window closed?
      *
-     *     @param {boolean} [options.useReload=false] - This property indicates whether reload the popup or not.
-     *      If true, the popup will be reloaded when you try to re-open the popup that has been opened.
+     *     @param {boolean} [options.useReload=false] - This property indicates whether reload the popup or not.<br>
+     *      If true, the popup will be reloaded when you try to re-open the popup that has been opened.<br>
      *      When transmit the POST-data, some browsers alert a message for confirming whether retransmit or not.
      *
-     *     @param {string} [options.postDataBridgeUrl=''] - Use this url to avoid a certain bug occuring when transmitting POST data to the popup in IE11.
-     *      This specific buggy situation is known to happen because IE11 tries to open the requested url not in a new popup window as intended, but in a new tab.
+     *     @param {string} [options.postDataBridgeUrl=''] - Use this url to avoid a certain bug occuring when transmitting POST data to the popup in IE11.<br>
+     *      This specific buggy situation is known to happen because IE11 tries to open the requested url not in a new popup window as intended, but in a new tab.<br>
      *      See {@link http://wiki.nhnent.com/pages/viewpage.action?pageId=240562844}
      *
      *     @param {string} [options.method=get] - The method of transmission when the form-data is transmitted to popup-window.
@@ -116,7 +116,7 @@
 
         popup_id += 1;
 
-        /**
+        /*
          * In form-data transmission
          * 1. Create a form before opening a popup.
          * 2. Transmit the form-data.

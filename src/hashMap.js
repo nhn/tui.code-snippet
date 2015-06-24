@@ -24,8 +24,8 @@
     var _MAPDATAPREFIX = 'å';
 
     /**
-     * HashMap can handle the key-value pairs.
-     * Caution:
+     * HashMap can handle the key-value pairs.<br>
+     * Caution:<br>
      *  HashMap instance has a length property but is not an instance of Array.
      * @param {Object} [obj] A initial data for creation.
      * @constructor
@@ -295,8 +295,8 @@
     };
 
     /**
-     * Work similarly to Array.prototype.map().
-     * It executes the provided callback that checks conditions once for each element of hashMap,
+     * Work similarly to Array.prototype.map().<br>
+     * It executes the provided callback that checks conditions once for each element of hashMap,<br>
      *  and returns a new array having elements satisfying the conditions
      * @param {Function} condition A function that checks conditions
      * @returns {Array} A new array having elements satisfying the conditions

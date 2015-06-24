@@ -37,8 +37,8 @@ var isSupportDefinedProperty = (function () {
 var enumValue = 0;
 
 /**
- * Make a constant-list that has unique values.
- * In modern browsers (except IE8 and lower),
+ * Make a constant-list that has unique values.<br>
+ * In modern browsers (except IE8 and lower),<br>
  *  a value defined once can not be changed.
  *
  * @param {...string | string[]} itemList Constant-list (An array of string is available)

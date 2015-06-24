@@ -17,13 +17,12 @@
     }
 
     /**
-     * This object has an information that indicate the kind of browser.
+     * This object has an information that indicate the kind of browser.<br>
      * The list below is a detectable browser list.
-     * - ie7 ~ ie11
-     * - chrome
-     * - firefox
-     * - safari
-     *
+     *  - ie7 ~ ie11
+     *  - chrome
+     *  - firefox
+     *  - safari
      * @memberof ne.util
      * @example
      *  ne.util.browser.chrome === true;    // chrome

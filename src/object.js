@@ -94,8 +94,8 @@
     }
 
     /**
-     * Return the equality for multiple objects(jsonObjects).
-     *  (Reference) http://stackoverflow.com/questions/1068834/object-comparison-in-javascript
+     * Return the equality for multiple objects(jsonObjects).<br>
+     *  See {@link http://stackoverflow.com/questions/1068834/object-comparison-in-javascript}
      * @param {...object} object - Multiple objects for comparing.
      * @return {boolean} Equality
      * @example
