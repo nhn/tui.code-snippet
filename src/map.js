@@ -87,6 +87,7 @@
      * @constructor
      * @param  {Array} initData - Array of key-value pairs (2-element Arrays).
      *      Each key-value pair will be added to the new Map
+     * @memberof ne.util
      */
     function Map(initData) {
         this._valuesForString = {};

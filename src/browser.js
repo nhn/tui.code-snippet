@@ -2,6 +2,7 @@
  * @fileoverview This module detects the kind of well-known browser and version.
  * @author NHN Ent.
  *         FE Development Team <e0242@nhnent.com>
+ * @namespace ne.util
  */
 
 (function(ne) {
