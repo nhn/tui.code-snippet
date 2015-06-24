@@ -94,11 +94,11 @@
     }
 
     /**
-     * year, month, date가 유효한지 확인
-     * @param {number} year  년도
-     * @param {number} month 월
-     * @param {number} date 일
-     * @returns {boolean} 결과
+     * Check whether the given variables are valid date or not.
+     * @param {number} year - Year
+     * @param {number} month - Month
+     * @param {number} date - Day in month.
+     * @returns {boolean} Is valid?
      */
     function isValidDate(year, month, date) {
         var isValidYear,
@@ -129,28 +129,49 @@
     }
 
     /**
-     * 해당 form 형식으로 날짜 문자열을 만들어서 반환
-     * @param {string} form 날짜 형식 문자열
-     * @param {Date|Object} date 날짜 객체
-     * @returns {boolean|string} 결과, false 또는 문자열
+     * Return a string that transformed from the given form and date.
+     * @param {string} form - Date form
+     * @param {Date|Object} date - Date object
+     * @returns {boolean|string} A transformed string or false.
      * @memberOf ne.util
      * @example
-     *      key         | Shorthand
-     *      ------------|-----------------------
-     *      years       | YY / YYYY / yy / yyyy
-     *      months(n)   | M / MM
-     *      months(str) | MMM / MMMM
-     *      days        | D / DD / d / dd
-     *      hours       | H / HH / h / hh
-     *      minutes     | m / mm
-     *      AM/PM       | A / a
+     *  // key         | Shorthand
+     *  // ------------|-----------------------
+     *  // years       | YY / YYYY / yy / yyyy
+     *  // months(n)   | M / MM
+     *  // months(str) | MMM / MMMM
+     *  // days        | D / DD / d / dd
+     *  // hours       | H / HH / h / hh
+     *  // minutes     | m / mm
+     *  // AM/PM       | A / a
+     *
+     *  var dateStr1 = formatDate('yyyy-MM-dd', {
+     *      year: 2014,
+     *      month: 12,
+     *      date: 12
+     *  });
+     *  alert(dateStr1); // '2014-12-12'
+     *
+     *  var dateStr2 = formatDate('MMM DD YYYY HH:mm', {
+     *      year: 1999,
+     *      month: 9,
+     *      date: 9,
+     *      hour: 0,
+     *      minute: 2
+     *  })
+     *  alert(dateStr2); // 'Sep 09 1999 00:02'
+     *
+     *  var dt = new Date(2010, 2, 13),
+     *      dateStr3 = formatDate('yyyy년 M월 dd일', dt);
+     *
+     *  alert(dateStr3); // '2010년 3월 13일'
      */
     function formatDate(form, date) {
         var meridian,
             nDate,
             resultStr;
 
-        if (isDate(date)) {
+        if (ne.util.isDate(date)) {
             nDate = {
                 year: date.getFullYear(),
                 month: date.getMonth() + 1,
