@@ -23,6 +23,7 @@
      * @param {string} namespace - Namespace of module
      * @param {Object} moduleDefinition - Object literal for module
      * @returns {Object} Defined module
+     * @memberof ne.util
      * @example
      *     var myModule = ne.util.defineModule('modules.myModule', {
      *          name: 'john',

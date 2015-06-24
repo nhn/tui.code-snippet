@@ -721,7 +721,7 @@
     };
 
     /**
-     * Attache a one-shot event.
+     * Attach a one-shot event.
      * @param {(object|string)} eventName - Custom event name or an object {eventName: handler}
      * @param {function} fn - Handler function
      * @param {*} [context] - Context for binding

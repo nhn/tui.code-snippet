@@ -66,7 +66,6 @@
      * Open popup
      * Caution:
      *  In IE11, when transfer data to popup by POST, must set the postDataBridgeUrl.
-     *  Additionally, when open the popup with another domain, can not control the popup because of security.
      *
      * @param {string} url - popup url
      * @param {Object} options
@@ -236,7 +235,7 @@
      * Create a hidden form from the given arguments and return this form.
      * @param {string} action - URL for form transmission
      * @param {Object} [data] - Data for form transmission
-     * @param {Otring} [method] - Method of transmission
+     * @param {string} [method] - Method of transmission
      * @param {string} [target] - Target of transmission
      * @param {HTMLElement} [container] - Container element of form.
      * @returns {HTMLElement} Form element
