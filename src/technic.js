@@ -22,7 +22,22 @@
      * since the last time the debouced function was invoked.
      * @param {function} fn The function to debounce.
      * @param {number} [delay=0] The number of milliseconds to delay
-     * @return {function} debounced function.
+     * @returns {function} debounced function.
+     * @example
+     *
+     * function someMethodToInvokeDebounced() {}
+     *
+     * var debounced = ne.util.debounce(someMethodToInvokeDebounced, 300);
+     *
+     * // invoke repeatedly
+     * debounced();
+     * debounced();
+     * debounced();
+     * debounced();
+     * debounced();
+     * debounced();    // last invoke of debounced()
+     *
+     * // invoke someMethodToInvokeDebounced() after 300 milliseconds.
      */
     function debounce(fn, delay) {
         var timer,
@@ -55,7 +70,21 @@
      * Creates a throttled function that only invokes fn at most once per every interval milliseconds.
      * @param {function} fn function to throttle
      * @param {number} [interval=0] the number of milliseconds to throttle invocations to.
-     * @return {function} throttled function
+     * @returns {function} throttled function
+     * @example
+     *
+     * function someMethodToInvokeThrottled() {}
+     *
+     * var throttled = ne.util.throttle(someMethodToInvokeThrottled, 300);
+     *
+     * // invoke repeatedly
+     * throttled();
+     * throttled();
+     * throttled();    // invoke (near 300 milliseconds)
+     * throttled();
+     * throttled();
+     * throttled();    // invoke (near 600 milliseconds)
+     * // ...
      */
     function throttle(fn, interval) {
         var base,
