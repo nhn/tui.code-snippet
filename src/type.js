@@ -296,6 +296,29 @@
         return !isEmpty(obj);
     }
 
+    /**
+     * Check whether the given variable is an instance of Date or not.
+     *  If the given variables is an instance of Date, return true.
+     * @param {*} obj - Target for checking
+     * @returns {boolean} Is an instance of Date?
+     * @memberOf ne.util
+     */
+    function isDate(obj) {
+        return obj instanceof Date;
+    }
+
+    /**
+     * Check whether the given variable is an instance of Date or not.
+     *  If the given variables is an instance of Date, return true.
+     *  (It is used for multiple frame environments)
+     * @param {*} obj - Target for checking
+     * @returns {boolean} Is an instance of Date?
+     * @memberOf ne.util
+     */
+    function isDateSafe(obj) {
+        return toString.call(obj) === '[object Date]';
+    }
+
 
     ne.util.isExisty = isExisty;
     ne.util.isUndefined = isUndefined;
@@ -310,6 +333,8 @@
     ne.util.isFunctionSafe = isFunctionSafe;
     ne.util.isNumber = isNumber;
     ne.util.isNumberSafe = isNumberSafe;
+    ne.util.isDate = isDate;
+    ne.util.isDateSafe = isDateSafe;
     ne.util.isString = isString;
     ne.util.isStringSafe = isStringSafe;
     ne.util.isBoolean = isBoolean;

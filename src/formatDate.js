@@ -1,7 +1,8 @@
 
 /**
- * @fileoverview 타입체크 모듈
- * @author FE개발팀
+ * @fileoverview This module has a function for date format.
+ * @author NHN Ent.
+ *         FE Development Team <e0242@nhnent.com>
  * @dependency type.js
  */
 
@@ -81,8 +82,7 @@
                 var minute = date.minute;
                 return (Number(minute) < 10) ? '0' + minute : minute;
             }
-        },
-        toString = Object.prototype.toString;
+        };
 
     /* istanbul ignore if */
     if (!ne) {
@@ -91,16 +91,6 @@
     /* istanbul ignore if */
     if (!ne.util) {
         ne.util = window.ne.util = {};
-    }
-
-    /**
-     * 인자가 Date 객체인지 확인
-     * @param {*} obj  평가할 대상
-     * @returns {boolean} 결과
-     * @memberOf ne.util
-     */
-    function isDate(obj) {
-        return toString.call(obj) === '[object Date]';
     }
 
     /**
@@ -199,7 +189,6 @@
         return resultStr;
     }
 
-    ne.util.isDate = isDate;
     ne.util.formatDate = formatDate;
 })(window.ne);
 
