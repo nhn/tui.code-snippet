@@ -1,4 +1,3 @@
-
 /**
  * @fileoverview This module has a function for date format.
  * @author NHN Ent.
