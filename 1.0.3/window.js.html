@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: window.js</title>
+    <link type="text/css" rel="stylesheet" href="styles/prettify-jsdoc.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-fe2.css">
+</head>
+<body>
+
+<div id="wrap">
+
+    <div class="header">
+
+        <div class="container-fluid">
+            <h3><a href="index.html">API Documentation</a> <small>FE개발팀</small></h3>
+        </div>
+
+    </div>
+
+    <div class="body">
+        <div id="navigation" class="navigation"><h3>Util Classes</h3><ul class="utillist classes"><li><span class="namespace">ne.util.</span><a href="ne.util.CustomEvents.html">CustomEvents</a></li><li><span class="namespace">ne.util.</span><a href="ne.util.Enum.html">Enum</a></li><li><span class="namespace">ne.util.</span><a href="ne.util.ExMap.html">ExMap</a></li><li><span class="namespace">ne.util.</span><a href="ne.util.HashMap.html">HashMap</a></li><li><span class="namespace">ne.util.</span><a href="ne.util.Map.html">Map</a></li><li><span class="namespace">ne.util.</span><a href="ne.util.Popup.html">Popup</a></li></ul><h3>Util Methods</h3><ul class="utillist classes"><h4>browser.js</h4><ul class="utillist modules"><li><span class="namespace">ne.util.</span><a href="ne.util.html#.browser">browser</a><span class="icon blue static">static</span></li></ul><ul class="sublist division ne.util"><li></li></ul><h4>collection.js</h4><ul class="utillist modules"><li><span class="namespace">ne.util.</span><a href="ne.util.html#.filter">filter</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.forEach">forEach</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.forEachArray">forEachArray</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.forEachOwnProperties">forEachOwnProperties</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.inArray">inArray</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.map">map</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.reduce">reduce</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.toArray">toArray</a><span class="icon blue static">static</span></li></ul><h4>defineClass.js</h4><ul class="utillist modules"><li><span class="namespace">ne.util.</span><a href="ne.util.html#.defineClass">defineClass</a><span class="icon blue static">static</span></li></ul><h4>defineModule.js</h4><ul class="utillist modules"><li><span class="namespace">ne.util.</span><a href="ne.util.html#.defineModule">defineModule</a><span class="icon blue static">static</span></li></ul><h4>defineNamespace.js</h4><ul class="utillist modules"><li><span class="namespace">ne.util.</span><a href="ne.util.html#.defineNamespace">defineNamespace</a><span class="icon blue static">static</span></li></ul><h4>formatDate.js</h4><ul class="utillist modules"><li><span class="namespace">ne.util.</span><a href="ne.util.html#.formatDate">formatDate</a><span class="icon blue static">static</span></li></ul><h4>func.js</h4><ul class="utillist modules"><li><span class="namespace">ne.util.</span><a href="ne.util.html#.bind">bind</a><span class="icon blue static">static</span></li></ul><h4>inheritance.js</h4><ul class="utillist modules"><li><span class="namespace">ne.util.</span><a href="ne.util.html#.createObject">createObject</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.inherit">inherit</a><span class="icon blue static">static</span></li></ul><h4>object.js</h4><ul class="utillist modules"><li><span class="namespace">ne.util.</span><a href="ne.util.html#.compareJSON">compareJSON</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.extend">extend</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.hasStamp">hasStamp</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.keys">keys</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.stamp">stamp</a><span class="icon blue static">static</span></li></ul><h4>string.js</h4><ul class="utillist modules"><li><span class="namespace">ne.util.</span><a href="ne.util.html#.decodeHTMLEntity">decodeHTMLEntity</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.encodeHTMLEntity">encodeHTMLEntity</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.hasEncodableString">hasEncodableString</a><span class="icon blue static">static</span></li></ul><h4>type.js</h4><ul class="utillist modules"><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isArguments">isArguments</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isArray">isArray</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isArraySafe">isArraySafe</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isBoolean">isBoolean</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isBooleanSafe">isBooleanSafe</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isDate">isDate</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isDateSafe">isDateSafe</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isEmpty">isEmpty</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isExisty">isExisty</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isFalsy">isFalsy</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isFunction">isFunction</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isFunctionSafe">isFunctionSafe</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isHTMLNode">isHTMLNode</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isHTMLTag">isHTMLTag</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isNotEmpty">isNotEmpty</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isNull">isNull</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isNumber">isNumber</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isNumberSafe">isNumberSafe</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isObject">isObject</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isString">isString</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isStringSafe">isStringSafe</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isTruthy">isTruthy</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isUndefined">isUndefined</a><span class="icon blue static">static</span></li></ul></ul></div>
+        <div id="main" class="main">
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @fileoverview This module has some methods for handling popup-window
+ * @author NHN Ent.
+ *         FE Development Team &lt;e0242@nhnent.com>
+ * @dependency browser.js, type.js, object.js, collection.js, func.js, window.js
+ */
+
+(function(ne) {
+    'use strict';
+    if (!ne) {
+        ne = window.ne = {};
+    }
+    if (!ne.util) {
+        ne.util = window.ne.util = {};
+    }
+
+    var popup_id = 0;
+
+    /**
+     * Popup management class
+     * @constructor
+     * @memberof ne.util
+     */
+    function Popup() {
+
+        /**
+         * Caching the window-contexts of opened popups
+         * @type {Object}
+         */
+        this.openedPopup = {};
+
+        /**
+         * In IE7, an error occurs when the closeWithParent property attaches to window object.&lt;br>
+         * So, It is for saving the value of closeWithParent instead of attaching to window object.
+         * @type {Object}
+         */
+        this.closeWithParentPopup = {};
+
+        /**
+         * Post data bridge for IE11 popup
+         * @type {string}
+         */
+        this.postDataBridgeUrl = '';
+    }
+
+    /**********
+     * public methods
+     **********/
+
+    /**
+     * Returns a popup-list administered by current window.
+     * @param {string} [key] The key of popup.
+     * @returns {Object} popup window list object
+     */
+    Popup.prototype.getPopupList = function(key) {
+        var target;
+        if (ne.util.isExisty(key)) {
+            target = this.openedPopup[key];
+        } else {
+            target = this.openedPopup;
+        }
+        return target;
+    };
+
+    /**
+     * Open popup
+     * Caution:
+     *  In IE11, when transfer data to popup by POST, must set the postDataBridgeUrl.
+     *
+     * @param {string} url - popup url
+     * @param {Object} options
+     *     @param {string} [options.popupName] - Key of popup window.&lt;br>
+     *      If the key is set, when you try to open by this key, the popup of this key is focused.&lt;br>
+     *      Or else a new popup window having this key is opened.
+     *
+     *     @param {string} [options.popupOptionStr=""] - Option string of popup window&lt;br>
+     *      It is same with the third parameter of window.open() method.&lt;br>
+     *      See {@link http://www.w3schools.com/jsref/met_win_open.asp}
+     *
+     *     @param {boolean} [options.closeWithParent=true] - Is closed when parent window closed?
+     *
+     *     @param {boolean} [options.useReload=false] - This property indicates whether reload the popup or not.&lt;br>
+     *      If true, the popup will be reloaded when you try to re-open the popup that has been opened.&lt;br>
+     *      When transmit the POST-data, some browsers alert a message for confirming whether retransmit or not.
+     *
+     *     @param {string} [options.postDataBridgeUrl=''] - Use this url to avoid a certain bug occuring when transmitting POST data to the popup in IE11.&lt;br>
+     *      This specific buggy situation is known to happen because IE11 tries to open the requested url not in a new popup window as intended, but in a new tab.&lt;br>
+     *      See {@link http://wiki.nhnent.com/pages/viewpage.action?pageId=240562844}
+     *
+     *     @param {string} [options.method=get] - The method of transmission when the form-data is transmitted to popup-window.
+     *
+     *     @param {Object} [options.param=null] - Using as parameters for transmission when the form-data is transmitted to popup-window.
+     */
+    Popup.prototype.openPopup = function(url, options) {
+        options = ne.util.extend({
+            popupName: 'popup_' + popup_id + '_' + (+new Date()),
+            popupOptionStr: '',
+            useReload: true,
+            closeWithParent: true,
+            method: 'get',
+            param: {}
+        }, options || {});
+
+        options.method = options.method.toUpperCase();
+
+        this.postDataBridgeUrl = options.postDataBridgeUrl || this.postDataBridgeUrl;
+
+        var popup,
+            formElement,
+            useIEPostBridge = options.method === 'POST' &amp;&amp; options.param &amp;&amp;
+                ne.util.browser.msie &amp;&amp; ne.util.browser.version === 11;
+
+        if (!ne.util.isExisty(url)) {
+            throw new Error('Popup#open() 팝업 URL이 입력되지 않았습니다');
+        }
+
+        popup_id += 1;
+
+        /*
+         * In form-data transmission
+         * 1. Create a form before opening a popup.
+         * 2. Transmit the form-data.
+         * 3. Remove the form after transmission.
+         */
+        if (options.param) {
+            if (options.method === 'GET') {
+                url = url + (/\?/.test(url) ? '&amp;' : '?') + this._parameterize(options.param);
+            } else if (options.method === 'POST') {
+                if (!useIEPostBridge) {
+                    formElement = this.createForm(url, options.param, options.method, options.popupName);
+                    url = 'about:blank';
+                }
+            }
+        }
+
+        popup = this.openedPopup[options.popupName];
+
+        if (!ne.util.isExisty(popup)) {
+            this.openedPopup[options.popupName] = popup = this._open(useIEPostBridge, options.param,
+                url, options.popupName, options.popupOptionStr);
+
+        } else {
+            if (popup.closed) {
+                this.openedPopup[options.popupName] = popup = this._open(useIEPostBridge, options.param,
+                    url, options.popupName, options.popupOptionStr);
+
+            } else {
+                if (options.useReload) {
+                    popup.location.replace(url);
+                }
+                popup.focus();
+            }
+        }
+
+        this.closeWithParentPopup[options.popupName] = options.closeWithParent;
+
+        if (!popup || popup.closed || ne.util.isUndefined(popup.closed)) {
+            alert('브라우저에 팝업을 막는 기능이 활성화 상태이기 때문에 서비스 이용에 문제가 있을 수 있습니다. 해당 기능을 비활성화 해 주세요');
+        }
+
+        if (options.param &amp;&amp; options.method === 'POST' &amp;&amp; !useIEPostBridge) {
+            if (popup) {
+                formElement.submit();
+            }
+            if (formElement.parentNode) {
+                formElement.parentNode.removeChild(formElement);
+            }
+        }
+
+        window.onunload = ne.util.bind(this.closeAllPopup, this);
+    };
+
+    /**
+     * Close the popup
+     * @param {boolean} [skipBeforeUnload] - If true, the 'window.onunload' will be null and skip unload event.
+     * @param {Window} [popup] - Window-context of popup for closing. If omit this, current window-context will be closed.
+     */
+    Popup.prototype.close = function(skipBeforeUnload, popup) {
+        skipBeforeUnload = ne.util.isExisty(skipBeforeUnload) ? skipBeforeUnload : false;
+
+        var target = popup || window;
+
+        if (skipBeforeUnload) {
+            window.onunload = null;
+        }
+
+        if (!target.closed) {
+            target.opener = window.location.href;
+            target.close();
+        }
+    };
+
+    /**
+     * Close all the popups in current window.
+     * @param {boolean} closeWithParent - If true, popups having the closeWithParentPopup property as true will be closed.
+     */
+    Popup.prototype.closeAllPopup = function(closeWithParent) {
+        var hasArg = ne.util.isExisty(closeWithParent);
+
+        ne.util.forEachOwnProperties(this.openedPopup, function(popup, key) {
+            if ((hasArg &amp;&amp; this.closeWithParentPopup[key]) || !hasArg) {
+                this.close(false, popup);
+            }
+        }, this);
+    };
+
+    /**
+     * Activate(or focus) the popup of the given name.
+     * @param {string} popupName - Name of popup for activation
+     */
+    Popup.prototype.focus = function(popupName) {
+        this.getPopupList(popupName).focus();
+    };
+
+    /**
+     * Return an object made of parsing the query string.
+     * @return {Object} An object having some information of the query string.
+     * @private
+     */
+    Popup.prototype.parseQuery = function() {
+        var search,
+            pair,
+            param = {};
+
+        search = window.location.search.substr(1);
+        ne.util.forEachArray(search.split('&amp;'), function(part) {
+            pair = part.split('=');
+            param[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]);
+        });
+
+        return param;
+    };
+
+    /**
+     * Create a hidden form from the given arguments and return this form.
+     * @param {string} action - URL for form transmission
+     * @param {Object} [data] - Data for form transmission
+     * @param {string} [method] - Method of transmission
+     * @param {string} [target] - Target of transmission
+     * @param {HTMLElement} [container] - Container element of form.
+     * @returns {HTMLElement} Form element
+     */
+    Popup.prototype.createForm = function(action, data, method, target, container) {
+        var form = document.createElement('form'),
+            input;
+
+        container = container || document.body;
+
+        form.method = method || 'POST';
+        form.action = action || '';
+        form.target = target || '';
+        form.style.display = 'none';
+
+        ne.util.forEachOwnProperties(data, function(value, key) {
+            input = document.createElement('input');
+            input.name = key;
+            input.type = 'hidden';
+            input.value = value;
+            form.appendChild(input);
+        });
+
+        container.appendChild(form);
+
+        return form;
+    };
+
+    /**********
+     * private methods
+     **********/
+
+    /**
+     * Return an query string made by parsing the given object
+     * @param {Object} object - An object that has information for query string
+     * @returns {string} - Query string
+     * @private
+     */
+    Popup.prototype._parameterize = function(object) {
+        var query = [];
+
+        ne.util.forEachOwnProperties(object, function(value, key) {
+            query.push(encodeURIComponent(key) + '=' + encodeURIComponent(value));
+        });
+
+        return query.join('&amp;');
+    };
+
+    /**
+     * Open popup
+     * @param {boolean} useIEPostBridge - A switch option whether to use alternative of tossing POST data to the popup window in IE11
+     * @param {Object} param - A data for tossing to popup
+     * @param {string} url - Popup url
+     * @param {string} popupName - Popup name
+     * @param {string} optionStr - Setting for popup, ex) 'width=640,height=320,scrollbars=yes'
+     * @returns {Window} Window context of popup
+     * @private
+     */
+    Popup.prototype._open = function(useIEPostBridge, param, url, popupName, optionStr) {
+        var popup;
+
+        if (useIEPostBridge) {
+            url = this.postDataBridgeUrl + '?storageKey=' + encodeURIComponent(popupName) +
+            '&amp;redirectUrl=' + encodeURIComponent(url);
+            if (!window.localStorage) {
+                alert('IE11브라우저의 문제로 인해 이 기능은 브라우저의 LocalStorage 기능을 활성화 하셔야 이용하실 수 있습니다');
+            } else {
+                localStorage.removeItem(popupName);
+                localStorage.setItem(popupName, JSON.stringify(param));
+
+                popup = window.open(url, popupName, optionStr);
+            }
+        } else {
+            popup = window.open(url, popupName, optionStr);
+        }
+
+        return popup;
+    };
+
+    ne.util.popup = new Popup();
+
+})(window.ne);
+</code></pre>
+        </article>
+    </section>
+
+
+
+</div>
+        <div class="clearfix"></div>
+    </div>
+
+</div>
+<script>
+(function() {
+// 영역 height 설정
+var height = (window.innerHeight || document.documentElement.clientHeight || document.getElementByTagName('body')[0].clientHeight) - 50;
+var navigation = document.getElementById('navigation');
+var main = document.getElementById('main');
+navigation.style.height = height + 'px';
+main.style.height = height + 'px';
+
+// IE 7,8을 위한 getElementsByClassName 구현
+var getElementsByClassName = function(className, parentElement) {
+	if(document.getElementsByClassName) {
+		return (parentElement || document).getElementsByClassName(className);
+	}
+
+    var regEx = new RegExp('(^| )'+className+'( |$)');
+	var nodes = new Array();
+    var elements = (parentElement || document.body).getElementsByTagName("*");
+    for(var i = 0, len = elements.length; i < len ; i++) {
+        if(regEx.test(elements[i].className)) {
+			nodes.push(elements[i]);
+		}
+	}
+	elements = null;
+    return nodes;
+}
+
+// url 파싱후 해당 카테고리만 display:block 처리
+var url = location.href;
+var path = url.lastIndexOf('/');
+var fileName = url.substring(path+1);
+var fullName = fileName.split('.');
+fullName.length -= 1;
+fullName = fullName.join('.');
+fullName = fullName.split('-');
+fullName = fullName[fullName.length - 1];
+var lnbList = getElementsByClassName(fullName);
+if(lnbList.length && lnbList.length > 0) {
+    for(var i = 0, len = lnbList.length; i < len; i++) {
+        lnbList[i].className += ' selected';
+    }
+}
+
+var title = document.getElementById(fullName);
+if(title) {
+    title.className += ' selected';
+    title.innerHTML = '<span class="arrow">▶</span>' + title.innerHTML;
+
+    var static = getElementsByClassName('static', title);
+    if(static) {
+        static[0].className += ' selected';
+    }
+}
+})();
+</script>
+<script type="text/javascript" src="scripts/prettify/prettify.js"></script>
+<script type="text/javascript" src="scripts/prettify/lang-css.js"></script>
+<script type="text/javascript">prettyPrint();</script>
+<script type="text/javascript" src="scripts/linenumber.js"></script>
+</body>
+</html>

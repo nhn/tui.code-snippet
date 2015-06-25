@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: type.js</title>
+    <link type="text/css" rel="stylesheet" href="styles/prettify-jsdoc.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-fe2.css">
+</head>
+<body>
+
+<div id="wrap">
+
+    <div class="header">
+
+        <div class="container-fluid">
+            <h3><a href="index.html">API Documentation</a> <small>FE개발팀</small></h3>
+        </div>
+
+    </div>
+
+    <div class="body">
+        <div id="navigation" class="navigation"><h3>Util Classes</h3><ul class="utillist classes"><li><span class="namespace">ne.util.</span><a href="ne.util.CustomEvents.html">CustomEvents</a></li><li><span class="namespace">ne.util.</span><a href="ne.util.Enum.html">Enum</a></li><li><span class="namespace">ne.util.</span><a href="ne.util.ExMap.html">ExMap</a></li><li><span class="namespace">ne.util.</span><a href="ne.util.HashMap.html">HashMap</a></li><li><span class="namespace">ne.util.</span><a href="ne.util.Map.html">Map</a></li><li><span class="namespace">ne.util.</span><a href="ne.util.Popup.html">Popup</a></li></ul><h3>Util Methods</h3><ul class="utillist classes"><h4>browser.js</h4><ul class="utillist modules"><li><span class="namespace">ne.util.</span><a href="ne.util.html#.browser">browser</a><span class="icon blue static">static</span></li></ul><ul class="sublist division ne.util"><li></li></ul><h4>collection.js</h4><ul class="utillist modules"><li><span class="namespace">ne.util.</span><a href="ne.util.html#.filter">filter</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.forEach">forEach</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.forEachArray">forEachArray</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.forEachOwnProperties">forEachOwnProperties</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.inArray">inArray</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.map">map</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.reduce">reduce</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.toArray">toArray</a><span class="icon blue static">static</span></li></ul><h4>defineClass.js</h4><ul class="utillist modules"><li><span class="namespace">ne.util.</span><a href="ne.util.html#.defineClass">defineClass</a><span class="icon blue static">static</span></li></ul><h4>defineModule.js</h4><ul class="utillist modules"><li><span class="namespace">ne.util.</span><a href="ne.util.html#.defineModule">defineModule</a><span class="icon blue static">static</span></li></ul><h4>defineNamespace.js</h4><ul class="utillist modules"><li><span class="namespace">ne.util.</span><a href="ne.util.html#.defineNamespace">defineNamespace</a><span class="icon blue static">static</span></li></ul><h4>formatDate.js</h4><ul class="utillist modules"><li><span class="namespace">ne.util.</span><a href="ne.util.html#.formatDate">formatDate</a><span class="icon blue static">static</span></li></ul><h4>func.js</h4><ul class="utillist modules"><li><span class="namespace">ne.util.</span><a href="ne.util.html#.bind">bind</a><span class="icon blue static">static</span></li></ul><h4>inheritance.js</h4><ul class="utillist modules"><li><span class="namespace">ne.util.</span><a href="ne.util.html#.createObject">createObject</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.inherit">inherit</a><span class="icon blue static">static</span></li></ul><h4>object.js</h4><ul class="utillist modules"><li><span class="namespace">ne.util.</span><a href="ne.util.html#.compareJSON">compareJSON</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.extend">extend</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.hasStamp">hasStamp</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.keys">keys</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.stamp">stamp</a><span class="icon blue static">static</span></li></ul><h4>string.js</h4><ul class="utillist modules"><li><span class="namespace">ne.util.</span><a href="ne.util.html#.decodeHTMLEntity">decodeHTMLEntity</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.encodeHTMLEntity">encodeHTMLEntity</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.hasEncodableString">hasEncodableString</a><span class="icon blue static">static</span></li></ul><h4>type.js</h4><ul class="utillist modules"><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isArguments">isArguments</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isArray">isArray</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isArraySafe">isArraySafe</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isBoolean">isBoolean</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isBooleanSafe">isBooleanSafe</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isDate">isDate</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isDateSafe">isDateSafe</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isEmpty">isEmpty</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isExisty">isExisty</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isFalsy">isFalsy</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isFunction">isFunction</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isFunctionSafe">isFunctionSafe</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isHTMLNode">isHTMLNode</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isHTMLTag">isHTMLTag</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isNotEmpty">isNotEmpty</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isNull">isNull</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isNumber">isNumber</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isNumberSafe">isNumberSafe</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isObject">isObject</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isString">isString</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isStringSafe">isStringSafe</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isTruthy">isTruthy</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isUndefined">isUndefined</a><span class="icon blue static">static</span></li></ul></ul></div>
+        <div id="main" class="main">
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @fileoverview This module provides some functions to check the type of variable
+ * @author NHN Ent.
+ *         FE Development Team &lt;e0242@nhnent.com>
+ * @dependency collection.js
+ */
+
+(function(ne) {
+    'use strict';
+    /* istanbul ignore if */
+    if (!ne) {
+        ne = window.ne = {};
+    }
+    if (!ne.util) {
+        ne.util = window.ne.util = {};
+    }
+
+    /**
+     * Check whether the given variable is existing or not.&lt;br>
+     *  If the given variable is not null and not undefined, returns true.
+     * @param {*} param - Target for checking
+     * @returns {boolean} Is existy?
+     * @memberOf ne.util
+     * @example
+     *  ne.util.isExisty(''); //true
+     *  ne.util.isExisty(0); //true
+     *  ne.util.isExisty([]); //true
+     *  ne.util.isExisty({}); //true
+     *  ne.util.isExisty(null); //false
+     *  ne.util.isExisty(undefined); //false
+    */
+    function isExisty(param) {
+        return param != null;
+    }
+
+    /**
+     * Check whether the given variable is undefined or not.&lt;br>
+     *  If the given variable is undefined, returns true.
+     * @param {*} obj - Target for checking
+     * @returns {boolean} Is undefined?
+     * @memberOf ne.util
+     */
+    function isUndefined(obj) {
+        return obj === undefined;
+    }
+
+    /**
+     * Check whether the given variable is null or not.&lt;br>
+     *  If the given variable(arguments[0]) is null, returns true.
+     * @param {*} obj - Target for checking
+     * @returns {boolean} Is null?
+     * @memberOf ne.util
+     */
+    function isNull(obj) {
+        return obj === null;
+    }
+
+    /**
+     * Check whether the given variable is truthy or not.&lt;br>
+     *  If the given variable is not null or not undefined or not false, returns true.&lt;br>
+     *  (It regards 0 as true)
+     * @param {*} obj - Target for checking
+     * @return {boolean} Is truthy?
+     * @memberOf ne.util
+     */
+    function isTruthy(obj) {
+        return isExisty(obj) &amp;&amp; obj !== false;
+    }
+
+    /**
+     * Check whether the given variable is falsy or not.&lt;br>
+     *  If the given variable is null or undefined or false, returns true.
+     * @param {*} obj - Target for checking
+     * @return {boolean} Is falsy?
+     * @memberOf ne.util
+     */
+    function isFalsy(obj) {
+        return !isTruthy(obj);
+    }
+
+
+    var toString = Object.prototype.toString;
+
+    /**
+     * Check whether the given variable is an arguments object or not.&lt;br>
+     *  If the given variable is an arguments object, return true.
+     * @param {*} obj - Target for checking
+     * @return {boolean} Is arguments?
+     * @memberOf ne.util
+     */
+    function isArguments(obj) {
+        var result = isExisty(obj) &amp;&amp;
+            ((toString.call(obj) === '[object Arguments]') || !!obj.callee);
+
+        return result;
+    }
+
+    /**
+     * Check whether the given variable is an instance of Array or not.&lt;br>
+     *  If the given variable is an instance of Array, return true.
+     * @param {*} obj - Target for checking
+     * @return {boolean} Is array instance?
+     * @memberOf ne.util
+     */
+    function isArray(obj) {
+        return obj instanceof Array;
+    }
+
+    /**
+     * Check whether the given variable is an object or not.&lt;br>
+     *  If the given variable is an object, return true.
+     * @param {*} obj - Target for checking
+     * @return {boolean} Is object?
+     * @memberOf ne.util
+     */
+    function isObject(obj) {
+        return obj === Object(obj);
+    }
+
+    /**
+     * Check whether the given variable is a function or not.&lt;br>
+     *  If the given variable is a function, return true.
+     * @param {*} obj - Target for checking
+     * @return {boolean} Is function?
+     * @memberOf ne.util
+     */
+    function isFunction(obj) {
+        return obj instanceof Function;
+    }
+
+    /**
+     * Check whether the given variable is a number or not.&lt;br>
+     *  If the given variable is a number, return true.
+     * @param {*} obj - Target for checking
+     * @return {boolean} Is number?
+     * @memberOf ne.util
+     */
+    function isNumber(obj) {
+        return typeof obj === 'number' || obj instanceof Number;
+    }
+
+    /**
+     * Check whether the given variable is a string or not.&lt;br>
+     *  If the given variable is a string, return true.
+     * @param {*} obj - Target for checking
+     * @return {boolean} Is string?
+     * @memberOf ne.util
+     */
+    function isString(obj) {
+        return typeof obj === 'string' || obj instanceof String;
+    }
+
+    /**
+     * Check whether the given variable is a boolean or not.&lt;br>
+     *  If the given variable is a boolean, return true.
+     * @param {*} obj - Target for checking
+     * @return {boolean} Is boolean?
+     * @memberOf ne.util
+     */
+    function isBoolean(obj) {
+        return typeof obj === 'boolean' || obj instanceof Boolean;
+    }
+
+
+    /**
+     * Check whether the given variable is an instance of Array or not.&lt;br>
+     *  If the given variable is an instance of Array, return true.&lt;br>
+     *  (It is used for multiple frame environments)
+     * @param {*} obj - Target for checking
+     * @return {boolean} Is an instance of array?
+     * @memberOf ne.util
+     */
+    function isArraySafe(obj) {
+        return toString.call(obj) === '[object Array]';
+    }
+
+    /**
+     * Check whether the given variable is a function or not.&lt;br>
+     *  If the given variable is a function, return true.&lt;br>
+     *  (It is used for multiple frame environments)
+     * @param {*} obj - Target for checking
+     * @return {boolean} Is a function?
+     * @memberOf ne.util
+     */
+    function isFunctionSafe(obj) {
+        return toString.call(obj) === '[object Function]';
+    }
+
+    /**
+     * Check whether the given variable is a number or not.&lt;br>
+     *  If the given variable is a number, return true.&lt;br>
+     *  (It is used for multiple frame environments)
+     * @param {*} obj - Target for checking
+     * @return {boolean} Is a number?
+     * @memberOf ne.util
+     */
+    function isNumberSafe(obj) {
+        return toString.call(obj) === '[object Number]';
+    }
+
+    /**
+     * Check whether the given variable is a string or not.&lt;br>
+     *  If the given variable is a string, return true.&lt;br>
+     *  (It is used for multiple frame environments)
+     * @param {*} obj - Target for checking
+     * @return {boolean} Is a string?
+     * @memberOf ne.util
+     */
+    function isStringSafe(obj) {
+        return toString.call(obj) === '[object String]';
+    }
+
+    /**
+     * Check whether the given variable is a boolean or not.&lt;br>
+     *  If the given variable is a boolean, return true.&lt;br>
+     *  (It is used for multiple frame environments)
+     * @param {*} obj - Target for checking
+     * @return {boolean} Is a boolean?
+     * @memberOf ne.util
+     */
+    function isBooleanSafe(obj) {
+        return toString.call(obj) === '[object Boolean]';
+    }
+
+    /**
+     * Check whether the given variable is a instance of HTMLNode or not.&lt;br>
+     *  If the given variables is a instance of HTMLNode, return true.
+     * @param {*} html - Target for checking
+     * @return {boolean} Is HTMLNode ?
+     * @memberOf ne.util
+     */
+    function isHTMLNode(html) {
+        if (typeof(HTMLElement) === 'object') {
+            return (html &amp;&amp; (html instanceof HTMLElement || !!html.nodeType));
+        }
+        return !!(html &amp;&amp; html.nodeType);
+    }
+
+    /**
+     * Check whether the given variable is a HTML tag or not.&lt;br>
+     *  If the given variables is a HTML tag, return true.
+     * @param {*} html - Target for checking
+     * @return {Boolean} Is HTML tag?
+     * @memberOf ne.util
+     */
+    function isHTMLTag(html) {
+        if (typeof(HTMLElement) === 'object') {
+            return (html &amp;&amp; (html instanceof HTMLElement));
+        }
+        return !!(html &amp;&amp; html.nodeType &amp;&amp; html.nodeType === 1);
+    }
+
+    /**
+     * Check whether the given variable is empty(null, undefined, or empty array, empty object) or not.&lt;br>
+     *  If the given variables is empty, return true.
+     * @param {*} obj - Target for checking
+     * @return {boolean} Is empty?
+     * @memberOf ne.util
+     */
+    function isEmpty(obj) {
+        var hasKey = false;
+
+        if (!isExisty(obj)) {
+            return true;
+        }
+
+        if (isString(obj) &amp;&amp; obj === '') {
+            return true;
+        }
+
+        if (isArray(obj) || isArguments(obj)) {
+            return obj.length === 0;
+        }
+
+        if (isObject(obj) &amp;&amp; !isFunction(obj)) {
+            ne.util.forEachOwnProperties(obj, function() {
+                hasKey = true;
+                return false;
+            });
+
+            return !hasKey;
+        }
+
+        return true;
+
+    }
+
+    /**
+     * Check whether the given variable is not empty(not null, not undefined, or not empty array, not empty object) or not.&lt;br>
+     *  If the given variables is not empty, return true.
+     * @param {*} obj - Target for checking
+     * @return {boolean} Is not empty?
+     * @memberOf ne.util
+     */
+    function isNotEmpty(obj) {
+        return !isEmpty(obj);
+    }
+
+    /**
+     * Check whether the given variable is an instance of Date or not.&lt;br>
+     *  If the given variables is an instance of Date, return true.
+     * @param {*} obj - Target for checking
+     * @returns {boolean} Is an instance of Date?
+     * @memberOf ne.util
+     */
+    function isDate(obj) {
+        return obj instanceof Date;
+    }
+
+    /**
+     * Check whether the given variable is an instance of Date or not.&lt;br>
+     *  If the given variables is an instance of Date, return true.&lt;br>
+     *  (It is used for multiple frame environments)
+     * @param {*} obj - Target for checking
+     * @returns {boolean} Is an instance of Date?
+     * @memberOf ne.util
+     */
+    function isDateSafe(obj) {
+        return toString.call(obj) === '[object Date]';
+    }
+
+
+    ne.util.isExisty = isExisty;
+    ne.util.isUndefined = isUndefined;
+    ne.util.isNull = isNull;
+    ne.util.isTruthy = isTruthy;
+    ne.util.isFalsy = isFalsy;
+    ne.util.isArguments = isArguments;
+    ne.util.isArray = Array.isArray || isArray;
+    ne.util.isArraySafe = Array.isArray || isArraySafe;
+    ne.util.isObject = isObject;
+    ne.util.isFunction = isFunction;
+    ne.util.isFunctionSafe = isFunctionSafe;
+    ne.util.isNumber = isNumber;
+    ne.util.isNumberSafe = isNumberSafe;
+    ne.util.isDate = isDate;
+    ne.util.isDateSafe = isDateSafe;
+    ne.util.isString = isString;
+    ne.util.isStringSafe = isStringSafe;
+    ne.util.isBoolean = isBoolean;
+    ne.util.isBooleanSafe = isBooleanSafe;
+    ne.util.isHTMLNode = isHTMLNode;
+    ne.util.isHTMLTag = isHTMLTag;
+    ne.util.isEmpty = isEmpty;
+    ne.util.isNotEmpty = isNotEmpty;
+
+})(window.ne);
+</code></pre>
+        </article>
+    </section>
+
+
+
+</div>
+        <div class="clearfix"></div>
+    </div>
+
+</div>
+<script>
+(function() {
+// 영역 height 설정
+var height = (window.innerHeight || document.documentElement.clientHeight || document.getElementByTagName('body')[0].clientHeight) - 50;
+var navigation = document.getElementById('navigation');
+var main = document.getElementById('main');
+navigation.style.height = height + 'px';
+main.style.height = height + 'px';
+
+// IE 7,8을 위한 getElementsByClassName 구현
+var getElementsByClassName = function(className, parentElement) {
+	if(document.getElementsByClassName) {
+		return (parentElement || document).getElementsByClassName(className);
+	}
+
+    var regEx = new RegExp('(^| )'+className+'( |$)');
+	var nodes = new Array();
+    var elements = (parentElement || document.body).getElementsByTagName("*");
+    for(var i = 0, len = elements.length; i < len ; i++) {
+        if(regEx.test(elements[i].className)) {
+			nodes.push(elements[i]);
+		}
+	}
+	elements = null;
+    return nodes;
+}
+
+// url 파싱후 해당 카테고리만 display:block 처리
+var url = location.href;
+var path = url.lastIndexOf('/');
+var fileName = url.substring(path+1);
+var fullName = fileName.split('.');
+fullName.length -= 1;
+fullName = fullName.join('.');
+fullName = fullName.split('-');
+fullName = fullName[fullName.length - 1];
+var lnbList = getElementsByClassName(fullName);
+if(lnbList.length && lnbList.length > 0) {
+    for(var i = 0, len = lnbList.length; i < len; i++) {
+        lnbList[i].className += ' selected';
+    }
+}
+
+var title = document.getElementById(fullName);
+if(title) {
+    title.className += ' selected';
+    title.innerHTML = '<span class="arrow">▶</span>' + title.innerHTML;
+
+    var static = getElementsByClassName('static', title);
+    if(static) {
+        static[0].className += ' selected';
+    }
+}
+})();
+</script>
+<script type="text/javascript" src="scripts/prettify/prettify.js"></script>
+<script type="text/javascript" src="scripts/prettify/lang-css.js"></script>
+<script type="text/javascript">prettyPrint();</script>
+<script type="text/javascript" src="scripts/linenumber.js"></script>
+</body>
+</html>
