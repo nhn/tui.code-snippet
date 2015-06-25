@@ -49,7 +49,7 @@ FE개발팀에서 배포하는 모든 Component 및 Application은 **가독성�
  * 네임 스페이스를 쉽게 정의해주는 유틸성 메서드 제공
 * formatDate.js
  * 날짜를 문자열 형식으로 변환해주는 모듈
-* defineModule
+* defineModule.js
  * 서비스코드상의 모듈을 쉽게 정의해주는 유틸성 메서드 제공
 
 ## CodeSnippet 사용법
