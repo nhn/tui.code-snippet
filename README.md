@@ -72,7 +72,7 @@ FE개발팀에서 배포하는 모든 Component 및 Application은 **가독성�
 
 ## Download/Install
 * Bower: 
-   * 최신버전 :  `bower install ne-code-snippet"`
+   * 최신버전 :  `bower install ne-code-snippet`
    * 특정버전 : `bower install ne-code-snippet[#tag]`
 * Download : https://github.com/nhnent/fe.code-snippet
 
