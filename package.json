@@ -1,6 +1,6 @@
 {
   "name": "code-snippet",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "useful code snippets from frontend development team",
   "private": true,
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "http://github.nhnent.com/fe/share-code-snippet.git"
+    "url": "https://github.com/nhnent/fe.code-snippet.git"
   },
   "author": "FE",
   "license": "MIT",
