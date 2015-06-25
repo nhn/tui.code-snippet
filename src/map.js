@@ -1,7 +1,8 @@
 /**
  * @fileoverview
- * Implements the Map object.
- * @author NHN Ent. FE Development Team
+ *  Implements the Map object.
+ * @author NHN Ent.
+ *         FE Development Team <e0242@nhnent.com>
  * @dependency type.js, collection.js
  */
 
@@ -21,8 +22,8 @@
     var util = ne.util,
 
     /**
-     * Using undefined for a key can be ambiguous if there's deleted item in the array,
-     * which is also undefined when accessed by index.
+     * Using undefined for a key can be ambiguous if there's deleted item in the array,<br>
+     * which is also undefined when accessed by index.<br>
      * So use this unique object as an undefined key to distinguish it from deleted keys.
      * @private
      * @constant
@@ -30,14 +31,14 @@
     _KEY_FOR_UNDEFINED = {},
 
     /**
-     * For using NaN as a key, use this unique object as a NaN key.
-     * This makes it easier and faster to compare an object with each keys in the array
+     * For using NaN as a key, use this unique object as a NaN key.<br>
+     * This makes it easier and faster to compare an object with each keys in the array<br>
      * through no exceptional comapring for NaN.
      */
     _KEY_FOR_NAN = {};
 
     /**
-     * Constructor of MapIterator
+     * Constructor of MapIterator<br>
      * Creates iterator object with new keyword.
      * @constructor
      * @param  {Array} keys - The array of keys in the map
@@ -72,13 +73,13 @@
     };
 
     /**
-     * The Map object implements the ES6 Map specification as closely as possible.
-     * For using objects and primitive values as keys, this object uses array internally.
-     * So if the key is not a string, get(), set(), has(), delete() will operates in O(n),
+     * The Map object implements the ES6 Map specification as closely as possible.<br>
+     * For using objects and primitive values as keys, this object uses array internally.<br>
+     * So if the key is not a string, get(), set(), has(), delete() will operates in O(n),<br>
      * and it can cause performance issues with a large dataset.
      *
      * Features listed below are not supported. (can't be implented without native support)
-     * - Map object is iterable
+     * - Map object is iterable<br>
      * - Iterable object can be used as an argument of constructor
      *
      * If the browser supports full implementation of ES6 Map specification, native Map obejct
@@ -86,6 +87,7 @@
      * @constructor
      * @param  {Array} initData - Array of key-value pairs (2-element Arrays).
      *      Each key-value pair will be added to the new Map
+     * @memberof ne.util
      */
     function Map(initData) {
         this._valuesForString = {};
@@ -114,8 +116,8 @@
     };
 
     /**
-     * Returns true if the specified value is NaN.
-     * For unsing NaN as a key, use this method to test equality of NaN
+     * Returns true if the specified value is NaN.<br>
+     * For unsing NaN as a key, use this method to test equality of NaN<br>
      * because === operator doesn't work for NaN.
      * @private
      * @param {*} value - Any object to be tested
@@ -290,7 +292,7 @@
         return new MapIterator(this._keys, util.bind(this._getOriginValue, this));
     };
 
-    /*
+    /**
      * Returns a new Iterator object that contains the [key, value] pairs
      * for each element in the Map object in insertion order.
      * @return {Iterator} A new Iterator object

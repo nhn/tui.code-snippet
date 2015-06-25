@@ -1,6 +1,7 @@
 /**
- * @fileoverview 객체나 배열을 다루기위한 펑션들이 정의 되어있는 모듈
- * @author FE개발팀
+ * @fileoverview This module has some functions for handling object as collection.
+ * @author NHN Ent.
+ *         FE Development Team <e0242@nhnent.com>
  * @dependency type.js, object.js
  */
 
@@ -14,28 +15,30 @@
     }
 
     /**
-     * Array 의 prototype 에 indexOf 가 존재하는지 여부를 저장한다.
-     * 페이지 로드 시 한번만 확인하면 되므로, 변수에 캐싱한다.
+     * This variable saves whether the 'indexOf' method is in Array.prototype or not.<br>
+     * And it will be checked only once when the page is loaded.
      * @type {boolean}
      */
     var hasIndexOf = !!Array.prototype.indexOf;
 
     /**
-     * 배열이나 유사배열을 순회하며 콜백함수에 전달한다.
-     * 콜백함수가 false를 리턴하면 순회를 종료한다.
-     * @param {Array} arr
-     * @param {Function} iteratee  값이 전달될 콜백함수
-     * @param {*} [context] 콜백함수의 컨텍스트
+     * Execute the provided callback once for each element present in the array(or Array-like object) in ascending order.<br>
+     * If the callback function returns false, the loop will be stopped.<br>
+     * Callback function(iteratee) is invoked with three arguments:
+     *  - The value of the element
+     *  - The index of the element
+     *  - The array(or Array-like object) being traversed
+     * @param {Array} arr The array(or Array-like object) that will be traversed
+     * @param {function} iteratee Callback function
+     * @param {Object} [context] Context(this) of callback function
      * @memberof ne.util
      * @example
+     *  var sum = 0;
      *
-     * var sum = 0;
-     *
-     * forEachArray([1,2,3], function(value){
-     *     sum += value;
-     * });
-     *
-     * => sum == 6
+     *  forEachArray([1,2,3], function(value){
+     *      sum += value;
+     *   });
+     *  alert(sum); // 6
      */
     function forEachArray(arr, iteratee, context) {
         var index = 0,
@@ -52,20 +55,23 @@
 
 
     /**
-     * obj에 상속된 프로퍼티를 제외한 obj의 고유의 프로퍼티만 순회하며 콜백함수에 전달한다.
-     * 콜백함수가 false를 리턴하면 순회를 중료한다.
-     * @param {object} obj
-     * @param {Function} iteratee  프로퍼티가 전달될 콜백함수
-     * @param {*} [context] 콜백함수의 컨텍스트
+     * Execute the provided callback once for each property of object which actually exist.<br>
+     * If the callback function returns false, the loop will be stopped.<br>
+     * Callback function(iteratee) is invoked with three arguments:
+     *  - The value of the property
+     *  - The name of the property
+     *  - The object being traversed
+     * @param {Object} obj The object that will be traversed
+     * @param {function} iteratee  Callback function
+     * @param {Object} [context] Context(this) of callback function
      * @memberof ne.util
      * @example
-     * var sum = 0;
+     *  var sum = 0;
      *
-     * forEachOwnProperties({a:1,b:2,c:3}, function(value){
-     *     sum += value;
-     * });
-     *
-     * => sum == 6
+     *  forEachOwnProperties({a:1,b:2,c:3}, function(value){
+     *      sum += value;
+     *  });
+     *  alert(sum); // 6
      **/
     function forEachOwnProperties(obj, iteratee, context) {
         var key;
@@ -82,63 +88,60 @@
     }
 
     /**
-     * 파라메터로 전달된 객체나 배열를 순회하며 데이터를 콜백함수에 전달한다.
-     * 유사배열의 경우 배열로 전환후 사용해야함.(ex2 참고)
-     * 콜백함수가 false를 리턴하면 순회를 종료한다.
-     * @param {*} obj 순회할 객체
-     * @param {Function} iteratee 데이터가 전달될 콜백함수
-     * @param {*} [context] 콜백함수의 컨텍스트
+     * Execute the provided callback once for each property of object(or element of array) which actually exist.<br>
+     * If the object is Array-like object(ex-arguments object), It needs to transform to Array.(see 'ex2' of example).<br>
+     * If the callback function returns false, the loop will be stopped.<br>
+     * Callback function(iteratee) is invoked with three arguments:
+     *  - The value of the property(or The value of the element)
+     *  - The name of the property(or The index of the element)
+     *  - The object being traversed
+     * @param {Object} obj The object that will be traversed
+     * @param {function} iteratee Callback function
+     * @param {Object} [context] Context(this) of callback function
      * @memberof ne.util
      * @example
+     *  //ex1
+     *  var sum = 0;
      *
-     * //ex1)
-     * var sum = 0;
+     *  forEach([1,2,3], function(value){
+     *      sum += value;
+     *  });
+     *  alert(sum); // 6
      *
-     * forEach([1,2,3], function(value){
-     *     sum += value;
-     * });
-     *
-     * => sum == 6
-     *
-     * //ex2) 유사 배열사용
-     * function sum(){
-     *     var factors = Array.prototype.slice.call(arguments); //arguments를 배열로 변환, arguments와 같은정보를 가진 새 배열 리턴
-     *
-     *     forEach(factors, function(value){
-     *          ......
-     *     });
-     * }
-     *
-     **/
+     *  //ex2 - In case of Array-like object
+     *  function sum(){
+     *      var factors = Array.prototype.slice.call(arguments);
+     *      forEach(factors, function(value){
+     *           //......
+     *      });
+     *  }
+     */
     function forEach(obj, iteratee, context) {
-        var key,
-            len;
-
-        context = context || null;
-
         if (ne.util.isArray(obj)) {
-            for (key = 0, len = obj.length; key < len; key++) {
-                iteratee.call(context, obj[key], key, obj);
-            }
+            ne.util.forEachArray(obj, iteratee, context);
         } else {
             ne.util.forEachOwnProperties(obj, iteratee, context);
         }
     }
 
     /**
-     * 파라메터로 전달된 객체나 배열를 순회하며 콜백을 실행한 리턴값을 배열로 만들어 리턴한다.
-     * 유사배열의 경우 배열로 전환후 사용해야함.(forEach example참고)
-     * @param {*} obj 순회할 객체
-     * @param {Function} iteratee 데이터가 전달될 콜백함수
-     * @param {*} [context] 콜백함수의 컨텍스트
-     * @returns {Array}
+     * Execute the provided callback function once for each element in an array, in order, and constructs a new array from the results.<br>
+     * If the object is Array-like object(ex-arguments object), It needs to transform to Array.(see 'ex2' of forEach example)<br>
+     * Callback function(iteratee) is invoked with three arguments:
+     *  - The value of the property(or The value of the element)
+     *  - The name of the property(or The index of the element)
+     *  - The object being traversed
+     * @param {Object} obj The object that will be traversed
+     * @param {function} iteratee Callback function
+     * @param {Object} [context] Context(this) of callback function
+     * @returns {Array} A new array composed of returned values from callback function
      * @memberof ne.util
      * @example
-     * map([0,1,2,3], function(value) {
-     *     return value + 1;
-     * });
+     *  var result = map([0,1,2,3], function(value) {
+     *      return value + 1;
+     *  });
      *
-     * => [1,2,3,4];
+     *  alert(result);  // 1,2,3,4
      */
     function map(obj, iteratee, context) {
         var resultArray = [];
@@ -153,19 +156,24 @@
     }
 
     /**
-     * 파라메터로 전달된 객체나 배열를 순회하며 콜백을 실행한 리턴값을 다음 콜백의 첫번째 인자로 넘겨준다.
-     * 유사배열의 경우 배열로 전환후 사용해야함.(forEach example참고)
-     * @param {*} obj 순회할 객체
-     * @param {Function} iteratee 데이터가 전달될 콜백함수
-     * @param {*} [context] 콜백함수의 컨텍스트
-     * @returns {*}
+     * Execute the callback function once for each element present in the array(or Array-like object or plain object).<br>
+     * If the object is Array-like object(ex-arguments object), It needs to transform to Array.(see 'ex2' of forEach example)<br>
+     * Callback function(iteratee) is invoked with four arguments:
+     *  - The previousValue
+     *  - The currentValue
+     *  - The index
+     *  - The object being traversed
+     * @param {Object} obj The object that will be traversed
+     * @param {function} iteratee Callback function
+     * @param {Object} [context] Context(this) of callback function
+     * @returns {*} The result value
      * @memberof ne.util
      * @example
-     * reduce([0,1,2,3], function(stored, value) {
-     *     return stored + value;
-     * });
+     *  var result = reduce([0,1,2,3], function(stored, value) {
+     *      return stored + value;
+     *  });
      *
-     * => 6;
+     *  alert(result); // 6
      */
     function reduce(obj, iteratee, context) {
         var keys,
@@ -190,24 +198,23 @@
         return store;
     }
     /**
-     * 유사배열을 배열 형태로 변환한다.
-     * - IE 8 이하 버전에서 Array.prototype.slice.call 이 오류가 나는 경우가 있어 try-catch 로 예외 처리를 한다.
-     * @param {*} arrayLike 유사배열
-     * @return {Array}
+     * Transform the Array-like object to Array.<br>
+     * In low IE (below 8), Array.prototype.slice.call is not perfect. So, try-catch statement is used.
+     * @param {*} arrayLike Array-like object
+     * @return {Array} Array
      * @memberof ne.util
      * @example
-
-
-     var arrayLike = {
-        0: 'one',
-        1: 'two',
-        2: 'three',
-        3: 'four',
-        length: 4
-    };
-     var result = toArray(arrayLike);
-
-     => ['one', 'two', 'three', 'four'];
+     *  var arrayLike = {
+     *      0: 'one',
+     *      1: 'two',
+     *      2: 'three',
+     *      3: 'four',
+     *      length: 4
+     *  };
+     *  var result = toArray(arrayLike);
+     *
+     *  alert(result instanceof Array); // true
+     *  alert(result); // one,two,three,four
      */
     function toArray(arrayLike) {
         var arr;
@@ -223,24 +230,28 @@
     }
 
     /**
-     * 파라메터로 전달된 객체나 어레이를 순회하며 콜백을 실행한 리턴값이 참일 경우의 모음을 만들어서 리턴한다.
-     *
-     * @param {*} obj 순회할 객체나 배열
-     * @param {Function} iteratee 데이터가 전달될 콜백함수
-     * @param {*} [context] 콜백함수의 컨텍스트
-     * @returns {*}
+     * Create a new array or plain object with all elements(or properties) that pass the test implemented by the provided function.<br>
+     * Callback function(iteratee) is invoked with three arguments:
+     *  - The value of the property(or The value of the element)
+     *  - The name of the property(or The index of the element)
+     *  - The object being traversed
+     * @param {Object} obj Object(plain object or Array) that will be traversed
+     * @param {function} iteratee Callback function
+     * @param {Object} [context] Context(this) of callback function
+     * @returns {Object} plain object or Array
      * @memberof ne.util
      * @example
-     * filter([0,1,2,3], function(value) {
-     *     return (value % 2 === 0);
-     * });
+     *  var result1 = filter([0,1,2,3], function(value) {
+     *      return (value % 2 === 0);
+     *  });
+     *  alert(result1); // 0,2
      *
-     * => [0, 2];
-     * filter({a : 1, b: 2, c: 3}, function(value) {
-     *     return (value % 2 !== 0);
-     * });
-     *
-     * => {a: 1, c: 3};
+     *  var result2 = filter({a : 1, b: 2, c: 3}, function(value) {
+     *      return (value % 2 !== 0);
+     *  });
+     *  alert(result2.a); // 1
+     *  alert(result2.b); // undefined
+     *  alert(result2.c); // 3
      */
     var filter = function(obj, iteratee, context) {
         var result,
@@ -274,43 +285,47 @@
     };
 
     /**
-     * 배열 내의 값을 찾아서 인덱스를 반환한다. 찾고자 하는 값이 없으면 -1 반환.
-     * @param {*} value 배열 내에서 찾고자 하는 값
-     * @param {array} array 검색 대상 배열
-     * @param {number} index 검색이 시작될 배열 인덱스. 지정하지 않으면 기본은 0이고 전체 배열 검색.
+     * Returns the first index at which a given element can be found in the array from start index(default 0), or -1 if it is not present.<br>
+     * It compares searchElement to elements of the Array using strict equality (the same method used by the ===, or triple-equals, operator).
+     * @param {*} searchElement Element to locate in the array
+     * @param {Array} array Array that will be traversed.
+     * @param {number} startIndex Start index in array for searching (default 0)
      * @memberof ne.util
-     * @return {number} targetValue가 발견된 array내에서의 index값
+     * @return {number} the First index at which a given element, or -1 if it is not present
      * @example
      *
-     *   var arr = ['one', 'two', 'three', 'four'];
-     *   ne.util.inArray('one', arr, 3);
-     *      => return -1;
+     *   var arr = ['one', 'two', 'three', 'four'],
+     *       idx1,
+     *       idx2;
      *
-     *   ne.util.inArray('one', arr);
-     *      => return 0
+     *   idx1 = ne.util.inArray('one', arr, 3);
+     *   alert(idx1); // -1
+     *
+     *   idx2 = ne.util.inArray('one', arr);
+     *   alert(idx2); // 0
      */
-    var inArray = function(value, array, index) {
+    var inArray = function(searchElement, array, startIndex) {
         if (!ne.util.isArray(array)) {
             return -1;
         }
 
         if (hasIndexOf) {
-            return Array.prototype.indexOf.call(array, value, index);
+            return Array.prototype.indexOf.call(array, searchElement, startIndex);
         }
 
         var i,
             length = array.length;
 
-        //index를 지정하되 array 길이보다 같거나 큰 숫자로 지정하면 오류이므로 -1을 리턴한다.
-        if (ne.util.isUndefined(index)) {
-            index = 0;
-        } else if (index >= length || index < 0) {
+        // set startIndex
+        if (ne.util.isUndefined(startIndex)) {
+            startIndex = 0;
+        } else if (startIndex >= length || startIndex < 0) {
             return -1;
         }
 
-        //array에서 value 탐색하여 index반환
-        for (i = index; i < length; i++) {
-            if (array[i] === value) {
+        // search
+        for (i = startIndex; i < length; i++) {
+            if (array[i] === searchElement) {
                 return i;
             }
         }

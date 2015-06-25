@@ -1,6 +1,7 @@
 /**
- * @fileoverview 타입체크 모듈
- * @author FE개발팀
+ * @fileoverview This module provides some functions to check the type of variable
+ * @author NHN Ent.
+ *         FE Development Team <e0242@nhnent.com>
  * @dependency collection.js
  */
 
@@ -15,28 +16,28 @@
     }
 
     /**
-     * 값이 정의되어 있는지 확인(null과 undefined가 아니면 true를 반환한다)
-     * @param {*} param
-     * @returns {boolean}
-     * @example
-     *
-     *
-     * ne.util.isExisty(''); //true
-     * ne.util.isExisty(0); //true
-     * ne.util.isExisty([]); //true
-     * ne.util.isExisty({}); //true
-     * ne.util.isExisty(null); //false
-     * ne.util.isExisty(undefined); //false
+     * Check whether the given variable is existing or not.<br>
+     *  If the given variable is not null and not undefined, returns true.
+     * @param {*} param - Target for checking
+     * @returns {boolean} Is existy?
      * @memberOf ne.util
+     * @example
+     *  ne.util.isExisty(''); //true
+     *  ne.util.isExisty(0); //true
+     *  ne.util.isExisty([]); //true
+     *  ne.util.isExisty({}); //true
+     *  ne.util.isExisty(null); //false
+     *  ne.util.isExisty(undefined); //false
     */
     function isExisty(param) {
         return param != null;
     }
 
     /**
-     * 인자가 undefiend 인지 체크하는 메서드
-     * @param {*} obj 평가할 대상
-     * @returns {boolean}
+     * Check whether the given variable is undefined or not.<br>
+     *  If the given variable is undefined, returns true.
+     * @param {*} obj - Target for checking
+     * @returns {boolean} Is undefined?
      * @memberOf ne.util
      */
     function isUndefined(obj) {
@@ -44,9 +45,10 @@
     }
 
     /**
-     * 인자가 null 인지 체크하는 메서드
-     * @param {*} obj 평가할 대상
-     * @returns {boolean}
+     * Check whether the given variable is null or not.<br>
+     *  If the given variable(arguments[0]) is null, returns true.
+     * @param {*} obj - Target for checking
+     * @returns {boolean} Is null?
      * @memberOf ne.util
      */
     function isNull(obj) {
@@ -54,11 +56,11 @@
     }
 
     /**
-     * 인자가 null, undefined, false가 아닌지 확인하는 메서드
-     * (0도 true로 간주한다)
-     *
-     * @param {*} obj 평가할 대상
-     * @return {boolean}
+     * Check whether the given variable is truthy or not.<br>
+     *  If the given variable is not null or not undefined or not false, returns true.<br>
+     *  (It regards 0 as true)
+     * @param {*} obj - Target for checking
+     * @return {boolean} Is truthy?
      * @memberOf ne.util
      */
     function isTruthy(obj) {
@@ -66,10 +68,10 @@
     }
 
     /**
-     * 인자가 null, undefined, false인지 확인하는 메서드
-     * (truthy의 반대값)
-     * @param {*} obj 평가할 대상
-     * @return {boolean}
+     * Check whether the given variable is falsy or not.<br>
+     *  If the given variable is null or undefined or false, returns true.
+     * @param {*} obj - Target for checking
+     * @return {boolean} Is falsy?
      * @memberOf ne.util
      */
     function isFalsy(obj) {
@@ -80,9 +82,10 @@
     var toString = Object.prototype.toString;
 
     /**
-     * 인자가 arguments 객체인지 확인
-     * @param {*} obj 평가할 대상
-     * @return {boolean}
+     * Check whether the given variable is an arguments object or not.<br>
+     *  If the given variable is an arguments object, return true.
+     * @param {*} obj - Target for checking
+     * @return {boolean} Is arguments?
      * @memberOf ne.util
      */
     function isArguments(obj) {
@@ -93,9 +96,10 @@
     }
 
     /**
-     * 인자가 배열인지 확인
-     * @param {*} obj 평가할 대상
-     * @return {boolean}
+     * Check whether the given variable is an instance of Array or not.<br>
+     *  If the given variable is an instance of Array, return true.
+     * @param {*} obj - Target for checking
+     * @return {boolean} Is array instance?
      * @memberOf ne.util
      */
     function isArray(obj) {
@@ -103,9 +107,10 @@
     }
 
     /**
-     * 인자가 객체인지 확인하는 메서드
-     * @param {*} obj 평가할 대상
-     * @return {boolean}
+     * Check whether the given variable is an object or not.<br>
+     *  If the given variable is an object, return true.
+     * @param {*} obj - Target for checking
+     * @return {boolean} Is object?
      * @memberOf ne.util
      */
     function isObject(obj) {
@@ -113,9 +118,10 @@
     }
 
     /**
-     * 인자가 함수인지 확인하는 메서드
-     * @param {*} obj 평가할 대상
-     * @return {boolean}
+     * Check whether the given variable is a function or not.<br>
+     *  If the given variable is a function, return true.
+     * @param {*} obj - Target for checking
+     * @return {boolean} Is function?
      * @memberOf ne.util
      */
     function isFunction(obj) {
@@ -123,9 +129,10 @@
     }
 
     /**
-     * 인자가 숫자인지 확인하는 메서드
-     * @param {*} obj 평가할 대상
-     * @return {boolean}
+     * Check whether the given variable is a number or not.<br>
+     *  If the given variable is a number, return true.
+     * @param {*} obj - Target for checking
+     * @return {boolean} Is number?
      * @memberOf ne.util
      */
     function isNumber(obj) {
@@ -133,9 +140,10 @@
     }
 
     /**
-     * 인자가 문자열인지 확인하는 메서드
-     * @param {*} obj 평가할 대상
-     * @return {boolean}
+     * Check whether the given variable is a string or not.<br>
+     *  If the given variable is a string, return true.
+     * @param {*} obj - Target for checking
+     * @return {boolean} Is string?
      * @memberOf ne.util
      */
     function isString(obj) {
@@ -143,9 +151,10 @@
     }
 
     /**
-     * 인자가 불리언 타입인지 확인하는 메서드
-     * @param {*} obj 평가할 대상
-     * @return {boolean}
+     * Check whether the given variable is a boolean or not.<br>
+     *  If the given variable is a boolean, return true.
+     * @param {*} obj - Target for checking
+     * @return {boolean} Is boolean?
      * @memberOf ne.util
      */
     function isBoolean(obj) {
@@ -154,10 +163,11 @@
 
 
     /**
-     * 인자가 배열인지 확인.
-     * <br>iframe 사용할 경우 부모 자식 window 간 타입 체크를 위해 사용한다.
-     * @param {*} obj 평가할 대상
-     * @return {boolean}
+     * Check whether the given variable is an instance of Array or not.<br>
+     *  If the given variable is an instance of Array, return true.<br>
+     *  (It is used for multiple frame environments)
+     * @param {*} obj - Target for checking
+     * @return {boolean} Is an instance of array?
      * @memberOf ne.util
      */
     function isArraySafe(obj) {
@@ -165,10 +175,11 @@
     }
 
     /**
-     * 인자가 함수인지 확인하는 메서드
-     * <br>iframe 사용할 경우 부모 자식 window 간 타입 체크를 위해 사용한다.
-     * @param {*} obj 평가할 대상
-     * @return {boolean}
+     * Check whether the given variable is a function or not.<br>
+     *  If the given variable is a function, return true.<br>
+     *  (It is used for multiple frame environments)
+     * @param {*} obj - Target for checking
+     * @return {boolean} Is a function?
      * @memberOf ne.util
      */
     function isFunctionSafe(obj) {
@@ -176,10 +187,11 @@
     }
 
     /**
-     * 인자가 숫자인지 확인하는 메서드
-     * <br>iframe 사용할 경우 부모 자식 window 간 타입 체크를 위해 사용한다.
-     * @param {*} obj 평가할 대상
-     * @return {boolean}
+     * Check whether the given variable is a number or not.<br>
+     *  If the given variable is a number, return true.<br>
+     *  (It is used for multiple frame environments)
+     * @param {*} obj - Target for checking
+     * @return {boolean} Is a number?
      * @memberOf ne.util
      */
     function isNumberSafe(obj) {
@@ -187,10 +199,11 @@
     }
 
     /**
-     * 인자가 문자열인지 확인하는 메서드
-     * <br>iframe 사용할 경우 부모 자식 window 간 타입 체크를 위해 사용한다.
-     * @param {*} obj 평가할 대상
-     * @return {boolean}
+     * Check whether the given variable is a string or not.<br>
+     *  If the given variable is a string, return true.<br>
+     *  (It is used for multiple frame environments)
+     * @param {*} obj - Target for checking
+     * @return {boolean} Is a string?
      * @memberOf ne.util
      */
     function isStringSafe(obj) {
@@ -198,10 +211,11 @@
     }
 
     /**
-     * 인자가 불리언 타입인지 확인하는 메서드
-     * <br>iframe 사용할 경우 부모 자식 window 간 타입 체크를 위해 사용한다.
-     * @param {*} obj 평가할 대상
-     * @return {boolean}
+     * Check whether the given variable is a boolean or not.<br>
+     *  If the given variable is a boolean, return true.<br>
+     *  (It is used for multiple frame environments)
+     * @param {*} obj - Target for checking
+     * @return {boolean} Is a boolean?
      * @memberOf ne.util
      */
     function isBooleanSafe(obj) {
@@ -209,9 +223,10 @@
     }
 
     /**
-     * 인자가 HTML Node 인지 검사한다. (Text Node 도 포함)
-     * @param {*} html 평가할 대상
-     * @return {Boolean} HTMLElement 인지 여부
+     * Check whether the given variable is a instance of HTMLNode or not.<br>
+     *  If the given variables is a instance of HTMLNode, return true.
+     * @param {*} html - Target for checking
+     * @return {boolean} Is HTMLNode ?
      * @memberOf ne.util
      */
     function isHTMLNode(html) {
@@ -222,9 +237,10 @@
     }
 
     /**
-     * 인자가 HTML Tag 인지 검사한다. (Text Node 제외)
-     * @param {*} html 평가할 대상
-     * @return {Boolean} HTMLElement 인지 여부
+     * Check whether the given variable is a HTML tag or not.<br>
+     *  If the given variables is a HTML tag, return true.
+     * @param {*} html - Target for checking
+     * @return {Boolean} Is HTML tag?
      * @memberOf ne.util
      */
     function isHTMLTag(html) {
@@ -235,9 +251,10 @@
     }
 
     /**
-     * null, undefined 여부와 순회 가능한 객체의 순회가능 갯수가 0인지 체크한다.
-     * @param {*} obj 평가할 대상
-     * @return {boolean}
+     * Check whether the given variable is empty(null, undefined, or empty array, empty object) or not.<br>
+     *  If the given variables is empty, return true.
+     * @param {*} obj - Target for checking
+     * @return {boolean} Is empty?
      * @memberOf ne.util
      */
     function isEmpty(obj) {
@@ -269,13 +286,37 @@
     }
 
     /**
-     * isEmpty 메서드와 반대로 동작한다.
-     * @param {*} obj 평가할 대상
-     * @return {boolean}
+     * Check whether the given variable is not empty(not null, not undefined, or not empty array, not empty object) or not.<br>
+     *  If the given variables is not empty, return true.
+     * @param {*} obj - Target for checking
+     * @return {boolean} Is not empty?
      * @memberOf ne.util
      */
     function isNotEmpty(obj) {
         return !isEmpty(obj);
+    }
+
+    /**
+     * Check whether the given variable is an instance of Date or not.<br>
+     *  If the given variables is an instance of Date, return true.
+     * @param {*} obj - Target for checking
+     * @returns {boolean} Is an instance of Date?
+     * @memberOf ne.util
+     */
+    function isDate(obj) {
+        return obj instanceof Date;
+    }
+
+    /**
+     * Check whether the given variable is an instance of Date or not.<br>
+     *  If the given variables is an instance of Date, return true.<br>
+     *  (It is used for multiple frame environments)
+     * @param {*} obj - Target for checking
+     * @returns {boolean} Is an instance of Date?
+     * @memberOf ne.util
+     */
+    function isDateSafe(obj) {
+        return toString.call(obj) === '[object Date]';
     }
 
 
@@ -292,6 +333,8 @@
     ne.util.isFunctionSafe = isFunctionSafe;
     ne.util.isNumber = isNumber;
     ne.util.isNumberSafe = isNumberSafe;
+    ne.util.isDate = isDate;
+    ne.util.isDateSafe = isDateSafe;
     ne.util.isString = isString;
     ne.util.isStringSafe = isStringSafe;
     ne.util.isBoolean = isBoolean;

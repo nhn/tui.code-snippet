@@ -1,7 +1,8 @@
 /**
  * @fileoverview
- * Implements the ExMap (Extended Map) object.
- * @author NHN Ent. FE Development Team
+ *  Implements the ExMap (Extended Map) object.
+ * @author NHN Ent.
+ *         FE Development Team <e0242@nhnent.com>
  * @dependency Map.js, collection.js
  */
 
@@ -22,7 +23,7 @@
         mapAPIsForDelete = ['delete', 'clear'];
 
     /**
-     * The ExMap object is Extended Version of the ne.util.Map object.
+     * The ExMap object is Extended Version of the ne.util.Map object.<br>
      * and added some useful feature to make it easy to manage the Map object.
      * @constructor
      * @param {Array} initData - Array of key-value pairs (2-element Arrays).
@@ -87,7 +88,7 @@
     /**
      * Looks through each key-value pair in the map and returns the new ExMap object of
      * all key-value pairs that pass a truth test implemented by the provided function.
-     * @param  {function} predicate - Function to test each key-value pair of the Map object.
+     * @param  {function} predicate - Function to test each key-value pair of the Map object.<br>
      *      Invoked with arguments (value, key). Return true to keep the element, false otherwise.
      * @return {ExMap} A new ExMap object
      */
