@@ -45,20 +45,24 @@ FE개발팀에서 배포하는 모든 Component 및 Application은 **가독성�
  * 윈도우 팝업등 window객체와 관련 모듈
  * IE11에서 POST를 사용해 팝업에 값을 전달시 postDataBridgeUrl 설정 필요
  * 다른 도메인을 팝업으로 띄울 경우 보안 문제로 팝업 컨트롤 불가
+* defineNamespace.js
+ * 네임 스페이스를 쉽게 정의해주는 유틸성 메서드 제공
+* formatDate.js
+ * 날짜를 문자열 형식으로 변환해주는 모듈
+* defineModule.js
+ * 서비스코드상의 모듈을 쉽게 정의해주는 유틸성 메서드 제공
 
 ## CodeSnippet 사용법
 * 전체 CodeSnippet 모듈이 빌드된 파일 사용하기
- * [[master branch]](https://github.com/nhnent/fe/code-snippet)에서 code-snippet.js 또는 code-snippet.min.js을 다운로드 받아 사용
+ * [[master branch]](https://github.com/nhnent/fe.code-snippet)에서 code-snippet.js 또는 code-snippet.min.js을 다운로드 받아 사용
  * 혼란을 줄이기위해 파일명(code-snippet.js 또는 code-snippet.min.js)은 그대로 사용하기를 권장
 * 필요한 부분만 복사하여 사용하기
  * 각 모듈에 명시된 **의존성을 확인**하여 필요한 모듈을 함께 복사해서 사용
  * 가급적이면 유지보수 등의 관리를 위하여 빌드된 버전 사용을 권장
-* 자세한 사용법은 별도의 문서로 3월중 배포 예정
 
 ## Documentation
-* **API** - https://nhnent.github.io/fe.code-snippet/1.0.2/
+* **API** - https://nhnent.github.io/fe.code-snippet/1.0.3/
 * **Tutorial** - https://github.com/nhnent/fe.javascript/wiki/FE-CodeSnippet
-* **CI** - http://fe.nhnent.com:8080/jenkins/job/code-snippet/
 
 ## Test environment
 * browser : 
@@ -68,15 +72,16 @@ FE개발팀에서 배포하는 모든 Component 및 Application은 **가독성�
 
 ## Download/Install
 * Bower: 
-   * 최신버전 :  `bower install "ne-code-snippet#master"`
-   * 특정버전 : `bower install "ne-code-snippet[#tag]"`
-* Download: https://github.com/nhnent/fe.code-snippet
+   * 최신버전 :  `bower install ne-code-snippet"`
+   * 특정버전 : `bower install ne-code-snippet[#tag]`
+* Download : https://github.com/nhnent/fe.code-snippet
 
 
 ## History
 | Version | Description | Date | Developer |
 | ---- | ---- | ---- | ---- |
-| <a href="https://nhnent.github.io/fe.code-snippet/1.0.2/">1.0.2</a> | defineNamespace 추가<br>exMap 추가 | 2015.04 | FE개발팀 |
+| <a href="https://nhnent.github.io/fe.code-snippet/1.0.3/">1.0.3</a> | defineModule 추가<br>formatDate 추가 | 2015.06 | FE개발팀 |
+| <a href="https://nhnent.github.io/fe.code-snippet/1.0.2/">1.0.2</a> | defineNamespace 추가<br>map, exMap 추가 | 2015.04 | FE개발팀 |
 | 1.0.1 | isExisty 스펙 변경<br>pick 메서드 추가<br>type 체크 변경 | 2015.04 | FE개발팀 |
 | <a href="https://nhnent.github.io/fe.code-snippet/1.0.0/">1.0.0</a> | jquery dependency 제거 | 2015.03 | FE개발팀 |
 | 0.1.0 | 최초개발 | 2014.09 | FE개발팀 |

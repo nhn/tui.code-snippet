@@ -1,6 +1,7 @@
 /**
- * @fileoverview define namespace
- * @author FE Development Team
+ * @fileoverview Define namespace
+ * @author NHN Ent.
+ *         FE Development Team <e0242@nhnent.com>
  * @dependency inheritance.js, object.js, collection.js
  */
 (function(ne) {
@@ -16,11 +17,12 @@
     }
 
     /**
-     * define namespace
-     * @param {string} name module name
-     * @param {(object|function)} props a set of modules or one module
-     * @param {boolean} isOverride flag what if module already define, override or not
-     * @returns {(object|function)} return defined module
+     * Define namespace
+     * @param {string} name - Module name
+     * @param {(object|function)} props - A set of modules or one module
+     * @param {boolean} isOverride flag - What if module already define, override or not
+     * @returns {(object|function)} Defined namespace
+     * @memberof ne.util
      * @example
      * var neComp = defineNamespace('ne.component');
      * neComp.listMenu = ne.util.defineClass({
@@ -28,7 +30,6 @@
      *          // code
      *      }
      * });
-     * @memberof ne.util
      */
     var defineNamespace = function(name, props, isOverride) {
         var namespace,
@@ -56,8 +57,8 @@
     };
 
     /**
-     * get namespace
-     * @param {string} name namespace
+     * Get namespace
+     * @param {string} name - namespace
      * @returns {*}
      */
     var getNamespace = function(name) {
@@ -74,7 +75,7 @@
     };
 
     /**
-     * check valid type
+     * Check valid type
      * @param {*} module
      * @returns {boolean}
      */
