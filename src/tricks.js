@@ -44,7 +44,7 @@
             args;
 
         /* istanbul ignore next */
-        delay = ne.util.isExisty(delay) ? delay : 0;
+        delay = delay || 0;
 
         function debounced() {
             args = arguments;
@@ -88,19 +88,16 @@
      */
     function throttle(fn, interval) {
         var base,
-            existy = ne.util.isExisty,
             _timestamp = ne.util.timestamp,
             stamp;
 
         /* istanbul ignore next */
-        interval = existy(interval) ? interval : 0;
+        interval = interval || 0;
 
         function throttled() {
             stamp = _timestamp();
 
-            if (!existy(base)) {
-                base = stamp;
-            }
+            base = base || stamp;
 
             if ((stamp - base) >= interval) {
                 fn.apply(null, arguments);

@@ -1,5 +1,5 @@
 /*eslint-disable*/
-describe('technics', function() {
+describe('tricks', function() {
     describe('debounce', function() {
         var spy;
 
