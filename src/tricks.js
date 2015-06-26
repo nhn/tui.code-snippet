@@ -68,6 +68,10 @@
 
     /**
      * Creates a throttled function that only invokes fn at most once per every interval milliseconds.
+     *
+     * You can use this throttle short time repeatedly invoking functions. (e.g MouseMove, Resize ...)
+     *
+     * **This method not support leading (0ms) and trailing throttled method. Take care to use.**
      * @param {function} fn function to throttle
      * @param {number} [interval=0] the number of milliseconds to throttle invocations to.
      * @returns {function} throttled function
