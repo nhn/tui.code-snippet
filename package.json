@@ -2,7 +2,6 @@
   "name": "code-snippet",
   "version": "1.0.2",
   "description": "useful code snippets from frontend development team",
-  "private": true,
   "main": "code-snippet.js",
   "scripts": {
     "doc": "./node_modules/.bin/jsdoc -c conf.json"
