@@ -8,6 +8,8 @@
 
 (function(ne) {
     'use strict';
+    var aps = Array.prototype.slice;
+
     /* istanbul ignore if */
     if (!ne) {
         ne = window.ne = {};
@@ -60,7 +62,7 @@
 
     /**
      * return timestamp
-     * @returns {number} The number of milliseconds from Jan. 1970 00:00:00
+     * @returns {number} The number of milliseconds from Jan. 1970 00:00:00 (GMT)
      */
     function timestamp() {
         return +(new Date());
@@ -71,7 +73,7 @@
      *
      * You can use this throttle short time repeatedly invoking functions. (e.g MouseMove, Resize ...)
      *
-     * **This method not support leading (0ms) and trailing throttled method. Take care to use.**
+     * if you need reuse throttled method. you must remove slugs (e.g. flag variable) related with throttling.
      * @param {function} fn function to throttle
      * @param {number} [interval=0] the number of milliseconds to throttle invocations to.
      * @returns {function} throttled function
@@ -82,33 +84,61 @@
      * var throttled = ne.util.throttle(someMethodToInvokeThrottled, 300);
      *
      * // invoke repeatedly
-     * throttled();
+     * throttled();    // invoke (leading)
      * throttled();
      * throttled();    // invoke (near 300 milliseconds)
      * throttled();
      * throttled();
      * throttled();    // invoke (near 600 milliseconds)
      * // ...
+     * // invoke (trailing)
+     *
+     * // if you need reuse throttled method. then invoke reset()
+     * throttled.reset();
      */
     function throttle(fn, interval) {
         var base,
             _timestamp = ne.util.timestamp,
-            stamp;
+            debounced,
+            isLeading = true,
+            stamp,
+            args,
+            tick = function(_args) {
+                fn.apply(null, _args);
+                base = null;
+            };
 
         /* istanbul ignore next */
         interval = interval || 0;
 
+        debounced = ne.util.debounce(tick, interval);
+
         function throttled() {
+            args = aps.call(arguments);
+
+            if (isLeading) {
+                tick(args);
+                isLeading = false;
+                return;
+            }
+
             stamp = _timestamp();
 
             base = base || stamp;
 
+            debounced();
+
             if ((stamp - base) >= interval) {
-                fn.apply(null, arguments);
-                base = null;
+                tick(args);
             }
         }
 
+        function reset() {
+            isLeading = true;
+            base = null;
+        }
+
+        throttled.reset = reset;
         return throttled;
     }
 

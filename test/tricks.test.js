@@ -67,6 +67,8 @@ describe('tricks', function() {
                 return fireGun();
             });
 
+            spyOn(ne.util, 'debounce').and.returnValue(function() {});
+
             fn = ne.util.throttle(spy, 7);
 
             fn();
@@ -75,7 +77,31 @@ describe('tricks', function() {
             fn();
             fn();
 
+            expect(spy.calls.count()).toBe(2);
+            expect(ne.util.debounce).toHaveBeenCalled();
+        });
+
+        it('reset can remove slugs related with throttling.', function() {
+            var magazine = [1, 3, 6, 8, 9],
+                fireGun = reload(magazine),
+                fn;
+
+            spyOn(ne.util, 'timestamp').and.callFake(function() {
+                return fireGun();
+            });
+
+            fn = ne.util.throttle(spy, 7);
+
+            fn();
+
             expect(spy.calls.count()).toBe(1);
+
+            fn.reset();
+            fireGun = reload(magazine);
+
+            fn();
+
+            expect(spy.calls.count()).toBe(2);
         });
 
         it('throttled functions can accept parameters.', function() {
