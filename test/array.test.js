@@ -12,10 +12,10 @@ describe('module:array', function() {
         });
 
         it('start, stop, step', function() {
-            var arr = ne.util.range(2, 5, 2);
-            expect(arr.join(',')).toEqual('2,4');
-            arr = ne.util.range(10, 0, -2);
-            expect(arr.join(',')).toEqual('10,8,6,4,2');
+            var arr = ne.util.range(2, 10, 2);
+            expect(arr.join(',')).toEqual('2,4,6,8');
+            arr = ne.util.range(10, 2, -2);
+            expect(arr.join(',')).toEqual('10,8,6,4');
         });
     });
 });
