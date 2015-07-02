@@ -34,8 +34,7 @@
      *   arr = ne.util.range(10, 2, -2);
      *   console.log(arr); // [10,8,6,4]
      */
-
-    function range(start, stop, step) {
+    var range = function(start, stop, step) {
         var arr = [],
             flag;
 
@@ -53,7 +52,35 @@
         }
 
         return arr;
-    }
+    };
+
+    /**
+     * Zip together multiple lists into a single array
+     * @returns {Array}
+     * @example
+     *
+     *   var result = ne.util.zip([1, 2, 3], ['a', 'b','c'], [true, false, true]);
+     *
+     *   console.log(result[0]); // [1, 'a', true]
+     *   console.log(result[1]); // [2, 'b', false]
+     *   console.log(result[2]); // [3, 'c', true]
+     */
+    var zip = function() {
+        var arr2 = Array.prototype.slice.call(arguments),
+            result = [];
+
+        ne.util.forEach(arr2, function(arr) {
+            ne.util.forEach(arr, function(value, index) {
+                if (!result[index]) {
+                    result[index] = [];
+                }
+                result[index].push(value);
+            });
+        });
+
+        return result;
+    };
 
     ne.util.range = range;
+    ne.util.zip = zip;
 })(window.ne);
