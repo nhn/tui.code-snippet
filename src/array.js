@@ -48,9 +48,8 @@
         flag = step < 0 ? -1 : 1;
         stop *= flag;
 
-        while(start * flag < stop) {
+        for(; start * flag < stop; start += step) {
             arr.push(start);
-            start += step;
         }
 
         return arr;
