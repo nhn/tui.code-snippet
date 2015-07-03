@@ -66,10 +66,10 @@
      *   console.log(result[2]); // [3, 'c', true]
      */
     var zip = function() {
-        var arr2 = Array.prototype.slice.call(arguments),
+        var arr2d = Array.prototype.slice.call(arguments),
             result = [];
 
-        ne.util.forEach(arr2, function(arr) {
+        ne.util.forEach(arr2d, function(arr) {
             ne.util.forEach(arr, function(value, index) {
                 if (!result[index]) {
                     result[index] = [];

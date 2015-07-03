@@ -339,22 +339,22 @@
      * @param property property name
      * @returns {Array}
      * @example
-     *   var arr = [
+     *   var objArr = [
      *         {'abc': 1, 'def': 2, 'ghi': 3},
      *         {'abc': 4, 'def': 5, 'ghi': 6},
      *         {'abc': 7, 'def': 8, 'ghi': 9}
      *       ],
-     *       arr2 = [
+     *       arr2d = [
      *         [1, 2, 3],
      *         [4, 5, 6],
      *         [7, 8, 9]
      *       ],
      *       result;
      *
-     *   result = ne.util.pluck(arr, 'abc');
+     *   result = ne.util.pluck(objArr, 'abc');
      *   console.log(result) // [1, 4, 7]
      *
-     *   result = ne.util.pluck(arr2, 2);
+     *   result = ne.util.pluck(arr2d, 2);
      *   console.log(result) // [3, 6, 9]
      */
     var pluck = function(arr, property) {

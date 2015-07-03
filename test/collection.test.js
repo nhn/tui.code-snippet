@@ -241,24 +241,24 @@ describe('module:collection', function() {
     });
 
     describe('pluck', function() {
-        var arr = [
+        var objArr = [
                 {'abc': 1, 'def': 2, 'ghi': 3},
                 {'abc': 4, 'def': 5, 'ghi': 6},
                 {'abc': 7, 'def': 8, 'ghi': 9}
             ],
-            arr2 = [
+            arr2d = [
                 [1, 2, 3],
                 [4, 5, 6],
                 [7, 8, 9]
             ];
 
         it('test object array', function() {
-            var result = ne.util.pluck(arr, 'abc');
+            var result = ne.util.pluck(objArr, 'abc');
             expect(result).toEqual([1, 4, 7]);
         });
 
         it('test 2depth array', function() {
-            var result = ne.util.pluck(arr2, 2);
+            var result = ne.util.pluck(arr2d, 2);
             expect(result).toEqual([3, 6, 9]);
         });
     });
