@@ -18,4 +18,15 @@ describe('module:array', function() {
             expect(arr.join(',')).toEqual('10,8,6,4');
         });
     });
+
+    describe('zip', function() {
+        it('test zip', function() {
+            var result = ne.util.zip([1, 2, 3], ['a', 'b','c'], [true, false, true]);
+            expect(result).toEqual([
+                [1, 'a', true],
+                [2, 'b', false],
+                [3, 'c', true]
+            ])
+        });
+    });
 });

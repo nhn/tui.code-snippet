@@ -204,39 +204,62 @@ describe('module:collection', function() {
     });
 
     describe('inArray', function() {
-       it('배열 내의 값을 찾아서 인덱스를 반환한다', function() {
+        it('배열 내의 값을 찾아서 인덱스를 반환한다', function() {
            var arr = ['java', 'javascript', 'c#', 'basic'];
            var result;
            result = ne.util.inArray('javascript', arr);
            expect(result).toBe(1);
-       });
-       it('배열내에 없는 값을 찾으려고 하면 -1을 반환한다.', function() {
+        });
+        it('배열내에 없는 값을 찾으려고 하면 -1을 반환한다.', function() {
            var arr = ['java', 'javascript', 'c#', 'basic'];
            var result;
            result = ne.util.inArray('php', arr);
            expect(result).toBe(-1);
-       });
-       it('배열내에서 찾고자 하는 값과 fromIndex의 범위가 맞지 않으면 -1을 반환한다.', function() {
+        });
+        it('배열내에서 찾고자 하는 값과 fromIndex의 범위가 맞지 않으면 -1을 반환한다.', function() {
            var arr = ['one', 'two', 'three', 'four'];
            var result;
 
            //'one' 이라는 값을 3번째 인덱스에서부터 찾음
            result = ne.util.inArray('one', arr, 3);
            expect(result).toBe(-1);
-       });
-       it('array가 아닌 다른 객체를 넘기면 -1을 반환한다.', function() {
+        });
+        it('array가 아닌 다른 객체를 넘기면 -1을 반환한다.', function() {
            var dummyObj = {};
            var result;
 
            result = ne.util.inArray('four', dummyObj);
            expect(result).toBe(-1);
-       });
-       it('fromIndex의 범위가 초과하면 -1을 리턴한다', function() {
+        });
+        it('fromIndex의 범위가 초과하면 -1을 리턴한다', function() {
            var arr = ['one', 'two', 'three', 'four'];
            var result;
 
            result = ne.util.inArray('two', arr, 10);
            expect(result).toBe(-1);
-       });
+        });
+    });
+
+    describe('pluck', function() {
+        var objArr = [
+                {'abc': 1, 'def': 2, 'ghi': 3},
+                {'abc': 4, 'def': 5, 'ghi': 6},
+                {'abc': 7, 'def': 8, 'ghi': 9}
+            ],
+            arr2d = [
+                [1, 2, 3],
+                [4, 5, 6],
+                [7, 8, 9]
+            ];
+
+        it('test object array', function() {
+            var result = ne.util.pluck(objArr, 'abc');
+            expect(result).toEqual([1, 4, 7]);
+        });
+
+        it('test two dimensional array', function() {
+            var result = ne.util.pluck(arr2d, 2);
+            expect(result).toEqual([3, 6, 9]);
+        });
     });
 });
