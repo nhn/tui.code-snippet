@@ -335,8 +335,8 @@
 
     /**
      * fetching a property
-     * @param arr target collection
-     * @param property property name
+     * @param {Array} arr target collection
+     * @param {String|Number} property property name
      * @returns {Array}
      * @example
      *   var objArr = [

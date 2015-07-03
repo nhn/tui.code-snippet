@@ -56,6 +56,7 @@
 
     /**
      * Zip together multiple lists into a single array
+     * @param {...Array}
      * @returns {Array}
      * @example
      *
