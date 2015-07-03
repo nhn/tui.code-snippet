@@ -257,7 +257,7 @@ describe('module:collection', function() {
             expect(result).toEqual([1, 4, 7]);
         });
 
-        it('test 2depth array', function() {
+        it('test two dimensional array', function() {
             var result = ne.util.pluck(arr2d, 2);
             expect(result).toEqual([3, 6, 9]);
         });
