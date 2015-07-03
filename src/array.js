@@ -14,6 +14,8 @@
         ne.util = window.ne.util = {};
     }
 
+    var aps = Array.prototype.slice;
+
     /**
      * Generate an integer Array containing an arithmetic progression.
      * @param {number} start
@@ -67,7 +69,7 @@
      *   console.log(result[2]); // [3, 'c', true]
      */
     var zip = function() {
-        var arr2d = Array.prototype.slice.call(arguments),
+        var arr2d = aps.call(arguments),
             result = [];
 
         ne.util.forEach(arr2d, function(arr) {

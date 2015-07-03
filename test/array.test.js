@@ -20,11 +20,13 @@ describe('module:array', function() {
     });
 
     describe('zip', function() {
-        it('', function() {
+        it('test zip', function() {
             var result = ne.util.zip([1, 2, 3], ['a', 'b','c'], [true, false, true]);
-            expect(result[0].join(',')).toEqual('1,a,true');
-            expect(result[1].join(',')).toEqual('2,b,false');
-            expect(result[2].join(',')).toEqual('3,c,true');
+            expect(result).toEqual([
+                [1, 'a', true],
+                [2, 'b', false],
+                [3, 'c', true]
+            ])
         });
     });
 });
