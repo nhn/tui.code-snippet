@@ -75,9 +75,6 @@
             len = operandStr1.length,
             pool = {};
 
-        operandStr1 = operandStr1.replace(/ /g, '');
-        operandStr2 = operandStr2.replace(/ /g, '');
-
         for (; i < len; i += 1) {
             key = operandStr1.charAt(i);
             pool[key] = 1;
