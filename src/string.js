@@ -56,7 +56,50 @@
         return /[<>&"']/.test(string);
     }
 
+    /**
+     * Return duplicate charters
+     * @param {string} operandStr1 The operand string
+     * @param {string} operandStr2 The operand string
+     * @private
+     * @returns {string}
+     * @example
+     * ne.util.getDuplicatedChar('fe dev', 'nhn entertainment');
+     * => 'e'
+     * ne.util.getDuplicatedChar('fdsa', 'asdf');
+     * => 'asdf'
+     */
+    function getDuplicatedChar(operandStr1, operandStr2) {
+        var dupl,
+            key,
+            i = 0,
+            len = operandStr1.length,
+            pool = {};
+
+        for (; i < len; i += 1) {
+            key = operandStr1.charAt(i);
+            pool[key] = 1;
+        }
+
+        for (i = 0, len = operandStr2.length; i < len; i += 1) {
+            key = operandStr2.charAt(i);
+            if(pool[key]) {
+                pool[key] += 1;
+            }
+        }
+
+        pool = ne.util.filter(pool, function(item) {
+            return item > 1;
+        });
+
+        pool = ne.util.keys(pool).sort();
+        dupl = pool.join('');
+
+        return dupl;
+    }
+
     ne.util.decodeHTMLEntity = decodeHTMLEntity;
     ne.util.encodeHTMLEntity = encodeHTMLEntity;
     ne.util.hasEncodableString = hasEncodableString;
+    ne.util.getDuplicatedChar = getDuplicatedChar;
+
 })(window.ne);
