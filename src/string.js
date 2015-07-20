@@ -63,12 +63,12 @@
      * @private
      * @returns {string}
      * @example
-     * ne.util.getDuplicatedString('fe dev', 'nhn entertainment');
+     * ne.util.getDuplicatedChar('fe dev', 'nhn entertainment');
      * => 'e'
-     * ne.util.getDuplicatedString('fdsa', 'asdf');
+     * ne.util.getDuplicatedChar('fdsa', 'asdf');
      * => 'asdf'
      */
-    function getDuplicatedString(operandStr1, operandStr2) {
+    function getDuplicatedChar(operandStr1, operandStr2) {
         var dupl,
             key,
             i = 0,
@@ -83,7 +83,7 @@
             pool[key] = 1;
         }
 
-        for (i = 0, len = operandStr2.length; i < len; i++) {
+        for (i = 0, len = operandStr2.length; i < len; i += 1) {
             key = operandStr2.charAt(i);
             if(pool[key]) {
                 pool[key] += 1;
@@ -103,6 +103,6 @@
     ne.util.decodeHTMLEntity = decodeHTMLEntity;
     ne.util.encodeHTMLEntity = encodeHTMLEntity;
     ne.util.hasEncodableString = hasEncodableString;
-    ne.util.getDuplicatedString = getDuplicatedString;
+    ne.util.getDuplicatedChar = getDuplicatedChar;
 
 })(window.ne);
