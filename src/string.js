@@ -58,10 +58,15 @@
 
     /**
      * Return duplicate charters
-     * @param {string} compareStr1 The operand string
-     * @param {string} compareStr2 The operand string
+     * @param {string} operandStr1 The operand string
+     * @param {string} operandStr2 The operand string
      * @private
      * @returns {string}
+     * @example
+     * ne.util.getDuplicatedString('fe dev', 'nhn entertainment');
+     * => 'e'
+     * ne.util.getDuplicatedString('fdsa', 'asdf');
+     * => 'asdf'
      */
     function getDuplicatedString(operandStr1, operandStr2) {
         var dupl,
