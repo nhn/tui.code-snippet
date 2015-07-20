@@ -56,7 +56,48 @@
         return /[<>&"']/.test(string);
     }
 
+    /**
+     * Return duplicate charters
+     * @param {string} compareStr1 The operand string
+     * @param {string} compareStr2 The operand string
+     * @private
+     * @returns {string}
+     */
+    function getDuplicatedString(operandStr1, operandStr2) {
+        var dupl,
+            key,
+            i = 0,
+            len = operandStr1.length,
+            pool = {};
+
+        operandStr1 = operandStr1.replace(/ /g, '');
+        operandStr2 = operandStr2.replace(/ /g, '');
+
+        for (; i < len; i++) {
+            key = operandStr1.charAt(i);
+            pool[key] = 1;
+        }
+
+        for (i = 0, len = operandStr2.length; i < len; i++) {
+            key = operandStr2.charAt(i);
+            if(pool[key]) {
+                pool[key] += 1;
+            }
+        }
+
+        pool = ne.util.filter(pool, function(item) {
+            return item > 1;
+        });
+
+        pool = ne.util.keys(pool).sort();
+        dupl = pool.join('');
+
+        return dupl;
+    }
+
     ne.util.decodeHTMLEntity = decodeHTMLEntity;
     ne.util.encodeHTMLEntity = encodeHTMLEntity;
     ne.util.hasEncodableString = hasEncodableString;
+    ne.util.getDuplicatedString = getDuplicatedString;
+
 })(window.ne);

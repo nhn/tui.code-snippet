@@ -25,4 +25,13 @@ describe('type', function() {
         expect(ne.util.hasEncodableString(s5)).toBe(true);
         expect(ne.util.hasEncodableString(s6)).toBe(true);
     });
+    it('getDuplicatedString() not include blank', function() {
+        var str1 = 'abcdefghijk',
+            str2 = 'fe team',
+            str3 = 'nhn entertainment',
+            str4 = 'will be success finally';
+        expect(ne.util.getDuplicatedString(str1, str2)).toBe('aef');
+        expect(ne.util.getDuplicatedString(str1, str3)).toBe('aehi');
+        expect(ne.util.getDuplicatedString(str3, str4)).toBe('aein');
+    });
 });
