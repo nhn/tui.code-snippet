@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: object.js</title>
+    <link type="text/css" rel="stylesheet" href="styles/prettify-jsdoc.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-fe2.css">
+</head>
+<body>
+
+<div id="wrap">
+
+    <div class="header">
+
+        <div class="container-fluid">
+            <h3><a href="index.html">API Documentation</a> <small>FE개발팀</small></h3>
+        </div>
+
+    </div>
+
+    <div class="body">
+        <div id="navigation" class="navigation"><h3>Util Classes</h3><ul class="utillist classes"><li><span class="namespace">ne.util.</span><a href="ne.util.CustomEvents.html">CustomEvents</a></li><li><span class="namespace">ne.util.</span><a href="ne.util.Enum.html">Enum</a></li><li><span class="namespace">ne.util.</span><a href="ne.util.ExMap.html">ExMap</a></li><li><span class="namespace">ne.util.</span><a href="ne.util.HashMap.html">HashMap</a></li><li><span class="namespace">ne.util.</span><a href="ne.util.Map.html">Map</a></li><li><span class="namespace">ne.util.</span><a href="ne.util.Popup.html">Popup</a></li></ul><h3>Util Methods</h3><ul class="utillist classes"><h4>browser.js</h4><ul class="utillist modules"><li><span class="namespace">ne.util.</span><a href="ne.util.html#.browser">browser</a><span class="icon blue static">static</span></li></ul><ul class="sublist division ne.util"><li></li></ul><h4>collection.js</h4><ul class="utillist modules"><li><span class="namespace">ne.util.</span><a href="ne.util.html#.filter">filter</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.forEach">forEach</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.forEachArray">forEachArray</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.forEachOwnProperties">forEachOwnProperties</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.inArray">inArray</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.map">map</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.reduce">reduce</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.toArray">toArray</a><span class="icon blue static">static</span></li></ul><h4>defineClass.js</h4><ul class="utillist modules"><li><span class="namespace">ne.util.</span><a href="ne.util.html#.defineClass">defineClass</a><span class="icon blue static">static</span></li></ul><h4>defineModule.js</h4><ul class="utillist modules"><li><span class="namespace">ne.util.</span><a href="ne.util.html#.defineModule">defineModule</a><span class="icon blue static">static</span></li></ul><h4>defineNamespace.js</h4><ul class="utillist modules"><li><span class="namespace">ne.util.</span><a href="ne.util.html#.defineNamespace">defineNamespace</a><span class="icon blue static">static</span></li></ul><h4>formatDate.js</h4><ul class="utillist modules"><li><span class="namespace">ne.util.</span><a href="ne.util.html#.formatDate">formatDate</a><span class="icon blue static">static</span></li></ul><h4>func.js</h4><ul class="utillist modules"><li><span class="namespace">ne.util.</span><a href="ne.util.html#.bind">bind</a><span class="icon blue static">static</span></li></ul><h4>inheritance.js</h4><ul class="utillist modules"><li><span class="namespace">ne.util.</span><a href="ne.util.html#.createObject">createObject</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.inherit">inherit</a><span class="icon blue static">static</span></li></ul><h4>object.js</h4><ul class="utillist modules"><li><span class="namespace">ne.util.</span><a href="ne.util.html#.compareJSON">compareJSON</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.extend">extend</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.hasStamp">hasStamp</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.keys">keys</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.stamp">stamp</a><span class="icon blue static">static</span></li></ul><h4>string.js</h4><ul class="utillist modules"><li><span class="namespace">ne.util.</span><a href="ne.util.html#.decodeHTMLEntity">decodeHTMLEntity</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.encodeHTMLEntity">encodeHTMLEntity</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.hasEncodableString">hasEncodableString</a><span class="icon blue static">static</span></li></ul><h4>type.js</h4><ul class="utillist modules"><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isArguments">isArguments</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isArray">isArray</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isArraySafe">isArraySafe</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isBoolean">isBoolean</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isBooleanSafe">isBooleanSafe</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isDate">isDate</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isDateSafe">isDateSafe</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isEmpty">isEmpty</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isExisty">isExisty</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isFalsy">isFalsy</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isFunction">isFunction</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isFunctionSafe">isFunctionSafe</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isHTMLNode">isHTMLNode</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isHTMLTag">isHTMLTag</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isNotEmpty">isNotEmpty</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isNull">isNull</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isNumber">isNumber</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isNumberSafe">isNumberSafe</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isObject">isObject</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isString">isString</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isStringSafe">isStringSafe</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isTruthy">isTruthy</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isUndefined">isUndefined</a><span class="icon blue static">static</span></li></ul><h4>browser.js</h4><ul class="utillist modules"><li><span class="namespace">ne.util.</span><a href="ne.util.html#.browser">browser</a><span class="icon blue static">static</span></li></ul><ul class="sublist division ne.util"><li></li></ul><h4>collection.js</h4><ul class="utillist modules"><li><span class="namespace">ne.util.</span><a href="ne.util.html#.filter">filter</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.forEach">forEach</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.forEachArray">forEachArray</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.forEachOwnProperties">forEachOwnProperties</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.inArray">inArray</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.map">map</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.reduce">reduce</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.toArray">toArray</a><span class="icon blue static">static</span></li></ul><h4>defineClass.js</h4><ul class="utillist modules"><li><span class="namespace">ne.util.</span><a href="ne.util.html#.defineClass">defineClass</a><span class="icon blue static">static</span></li></ul><h4>defineModule.js</h4><ul class="utillist modules"><li><span class="namespace">ne.util.</span><a href="ne.util.html#.defineModule">defineModule</a><span class="icon blue static">static</span></li></ul><h4>defineNamespace.js</h4><ul class="utillist modules"><li><span class="namespace">ne.util.</span><a href="ne.util.html#.defineNamespace">defineNamespace</a><span class="icon blue static">static</span></li></ul><h4>formatDate.js</h4><ul class="utillist modules"><li><span class="namespace">ne.util.</span><a href="ne.util.html#.formatDate">formatDate</a><span class="icon blue static">static</span></li></ul><h4>func.js</h4><ul class="utillist modules"><li><span class="namespace">ne.util.</span><a href="ne.util.html#.bind">bind</a><span class="icon blue static">static</span></li></ul><h4>inheritance.js</h4><ul class="utillist modules"><li><span class="namespace">ne.util.</span><a href="ne.util.html#.createObject">createObject</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.inherit">inherit</a><span class="icon blue static">static</span></li></ul><h4>object.js</h4><ul class="utillist modules"><li><span class="namespace">ne.util.</span><a href="ne.util.html#.compareJSON">compareJSON</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.extend">extend</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.hasStamp">hasStamp</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.keys">keys</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.stamp">stamp</a><span class="icon blue static">static</span></li></ul><h4>string.js</h4><ul class="utillist modules"><li><span class="namespace">ne.util.</span><a href="ne.util.html#.decodeHTMLEntity">decodeHTMLEntity</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.encodeHTMLEntity">encodeHTMLEntity</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.hasEncodableString">hasEncodableString</a><span class="icon blue static">static</span></li></ul><h4>type.js</h4><ul class="utillist modules"><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isArguments">isArguments</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isArray">isArray</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isArraySafe">isArraySafe</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isBoolean">isBoolean</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isBooleanSafe">isBooleanSafe</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isDate">isDate</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isDateSafe">isDateSafe</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isEmpty">isEmpty</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isExisty">isExisty</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isFalsy">isFalsy</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isFunction">isFunction</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isFunctionSafe">isFunctionSafe</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isHTMLNode">isHTMLNode</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isHTMLTag">isHTMLTag</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isNotEmpty">isNotEmpty</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isNull">isNull</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isNumber">isNumber</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isNumberSafe">isNumberSafe</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isObject">isObject</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isString">isString</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isStringSafe">isStringSafe</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isTruthy">isTruthy</a><span class="icon blue static">static</span></li><li><span class="namespace">ne.util.</span><a href="ne.util.html#.isUndefined">isUndefined</a><span class="icon blue static">static</span></li></ul></ul></div>
+        <div id="main" class="main">
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @fileoverview This module has some functions for handling a plain object, json.
+ * @author NHN Ent.
+ *         FE Development Team &lt;e0242@nhnent.com>
+ * @dependency type.js, collection.js
+ */
+
+(function(ne) {
+    'use strict';
+    /* istanbul ignore if */
+    if (!ne) {
+        ne = window.ne = {};
+    }
+    if (!ne.util) {
+        ne.util = window.ne.util = {};
+    }
+
+    /**
+     * Extend the target object from other objects.
+     * @param {object} target - Object that will be extended
+     * @param {...object} objects - Objects as sources
+     * @return {object} Extended object
+     * @memberOf ne.util
+     */
+    function extend(target, objects) {
+        var source,
+            prop,
+            hasOwnProp = Object.prototype.hasOwnProperty,
+            i,
+            len;
+
+        for (i = 1, len = arguments.length; i &lt; len; i++) {
+            source = arguments[i];
+            for (prop in source) {
+                if (hasOwnProp.call(source, prop)) {
+                    target[prop] = source[prop];
+                }
+            }
+        }
+        return target;
+    }
+
+    /**
+     * The last id of stamp
+     * @type {number}
+     */
+    var lastId = 0;
+
+    /**
+     * Assign a unique id to an object
+     * @param {object} obj - Object that will be assigned id.
+     * @return {number} Stamped id
+     * @memberOf ne.util
+     */
+    function stamp(obj) {
+        obj.__fe_id = obj.__fe_id || ++lastId;
+        return obj.__fe_id;
+    }
+
+    /**
+     * Verify whether an object has a stamped id or not.
+     * @param {object} obj
+     * @returns {boolean}
+     * @memberOf ne.util
+     */
+    function hasStamp(obj) {
+        return ne.util.isExisty(ne.util.pick(obj, '__fe_id'));
+    }
+
+    /**
+     * Reset the last id of stamp
+     */
+    function resetLastId() {
+        lastId = 0;
+    }
+
+    /**
+     * Return a key-list(array) of a given object
+     * @param {object} obj - Object from which a key-list will be extracted
+     * @returns {Array} A key-list(array)
+     * @memberOf ne.util
+     */
+    function keys(obj) {
+        var keys = [],
+            key;
+
+        for (key in obj) {
+            if (obj.hasOwnProperty(key)) {
+                keys.push(key);
+            }
+        }
+
+        return keys;
+    }
+
+    /**
+     * Return the equality for multiple objects(jsonObjects).&lt;br>
+     *  See {@link http://stackoverflow.com/questions/1068834/object-comparison-in-javascript}
+     * @param {...object} object - Multiple objects for comparing.
+     * @return {boolean} Equality
+     * @example
+     *
+     *  var jsonObj1 = {name:'milk', price: 1000},
+     *      jsonObj2 = {name:'milk', price: 1000},
+     *      jsonObj3 = {name:'milk', price: 1000};
+     *
+     *  ne.util.compareJSON(jsonObj1, jsonObj2, jsonObj3);   // true
+     *
+     *
+     *  var jsonObj4 = {name:'milk', price: 1000},
+     *      jsonObj5 = {name:'beer', price: 3000};
+     *
+     *      ne.util.compareJSON(jsonObj4, jsonObj5); // false
+
+     * @memberOf ne.util
+     */
+    function compareJSON(object) {
+        var leftChain,
+            rightChain,
+            argsLen = arguments.length,
+            i;
+
+        function isSameObject(x, y) {
+            var p;
+
+            // remember that NaN === NaN returns false
+            // and isNaN(undefined) returns true
+            if (isNaN(x) &amp;&amp;
+                isNaN(y) &amp;&amp;
+                ne.util.isNumber(x) &amp;&amp;
+                ne.util.isNumber(y)) {
+                return true;
+            }
+
+            // Compare primitives and functions.
+            // Check if both arguments link to the same object.
+            // Especially useful on step when comparing prototypes
+            if (x === y) {
+                return true;
+            }
+
+            // Works in case when functions are created in constructor.
+            // Comparing dates is a common scenario. Another built-ins?
+            // We can even handle functions passed across iframes
+            if ((ne.util.isFunction(x) &amp;&amp; ne.util.isFunction(y)) ||
+                (x instanceof Date &amp;&amp; y instanceof Date) ||
+                (x instanceof RegExp &amp;&amp; y instanceof RegExp) ||
+                (x instanceof String &amp;&amp; y instanceof String) ||
+                (x instanceof Number &amp;&amp; y instanceof Number)) {
+                return x.toString() === y.toString();
+            }
+
+            // At last checking prototypes as good a we can
+            if (!(x instanceof Object &amp;&amp; y instanceof Object)) {
+                return false;
+            }
+
+            if (x.isPrototypeOf(y) ||
+                y.isPrototypeOf(x) ||
+                x.constructor !== y.constructor ||
+                x.prototype !== y.prototype) {
+                return false;
+            }
+
+            // check for infinitive linking loops
+            if (ne.util.inArray(x, leftChain) > -1 ||
+                ne.util.inArray(y, rightChain) > -1) {
+                return false;
+            }
+
+            // Quick checking of one object beeing a subset of another.
+            for (p in y) {
+                if (y.hasOwnProperty(p) !== x.hasOwnProperty(p)) {
+                    return false;
+                }
+                else if (typeof y[p] !== typeof x[p]) {
+                    return false;
+                }
+            }
+
+            //This for loop executes comparing with hasOwnProperty() and typeof for each property in 'x' object,
+            //and verifying equality for x[property] and y[property].
+            for (p in x) {
+                if (y.hasOwnProperty(p) !== x.hasOwnProperty(p)) {
+                    return false;
+                }
+                else if (typeof y[p] !== typeof x[p]) {
+                    return false;
+                }
+
+                if (typeof(x[p]) === 'object' || typeof(x[p]) === 'function') {
+                    leftChain.push(x);
+                    rightChain.push(y);
+
+                    if (!isSameObject(x[p], y[p])) {
+                        return false;
+                    }
+
+                    leftChain.pop();
+                    rightChain.pop();
+                } else if (x[p] !== y[p]) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        if (argsLen &lt; 1) {
+            return true;
+        }
+
+        for (i = 1; i &lt; argsLen; i++) {
+            leftChain = [];
+            rightChain = [];
+
+            if (!isSameObject(arguments[0], arguments[i])) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Retrieve a nested item from the given object/array
+     * @param {object|Array} obj - Object for retrieving
+     * @param {...string|number} paths - Paths of property
+     * @returns {*} Value
+     * @example
+     *  var obj = {
+     *      'key1': 1,
+     *      'nested' : {
+     *          'key1': 11,
+     *          'nested': {
+     *              'key1': 21
+     *          }
+     *      }
+     *  };
+     *  ne.util.pick(obj, 'nested', 'nested', 'key1'); // 21
+     *  ne.util.pick(obj, 'nested', 'nested', 'key2'); // undefined
+     *
+     *  var arr = ['a', 'b', 'c'];
+     *  ne.util.pick(arr, 1); // 'b'
+     */
+    function pick(obj, paths) {
+        var args = arguments,
+            target = args[0],
+            length = args.length,
+            i;
+        try {
+            for (i = 1; i &lt; length; i++) {
+                target = target[args[i]];
+            }
+            return target;
+        } catch(e) {
+            return;
+        }
+    }
+
+    ne.util.extend = extend;
+    ne.util.stamp = stamp;
+    ne.util.hasStamp = hasStamp;
+    ne.util._resetLastId = resetLastId;
+    ne.util.keys = Object.keys || keys;
+    ne.util.compareJSON = compareJSON;
+    ne.util.pick = pick;
+})(window.ne);
+</code></pre>
+        </article>
+    </section>
+
+
+
+</div>
+        <div class="clearfix"></div>
+    </div>
+
+</div>
+<script>
+(function() {
+// 영역 height 설정
+var height = (window.innerHeight || document.documentElement.clientHeight || document.getElementByTagName('body')[0].clientHeight) - 50;
+var navigation = document.getElementById('navigation');
+var main = document.getElementById('main');
+navigation.style.height = height + 'px';
+main.style.height = height + 'px';
+
+// IE 7,8을 위한 getElementsByClassName 구현
+var getElementsByClassName = function(className, parentElement) {
+	if(document.getElementsByClassName) {
+		return (parentElement || document).getElementsByClassName(className);
+	}
+
+    var regEx = new RegExp('(^| )'+className+'( |$)');
+	var nodes = new Array();
+    var elements = (parentElement || document.body).getElementsByTagName("*");
+    for(var i = 0, len = elements.length; i < len ; i++) {
+        if(regEx.test(elements[i].className)) {
+			nodes.push(elements[i]);
+		}
+	}
+	elements = null;
+    return nodes;
+}
+
+// url 파싱후 해당 카테고리만 display:block 처리
+var url = location.href;
+var path = url.lastIndexOf('/');
+var fileName = url.substring(path+1);
+var fullName = fileName.split('.');
+fullName.length -= 1;
+fullName = fullName.join('.');
+fullName = fullName.split('-');
+fullName = fullName[fullName.length - 1];
+var lnbList = getElementsByClassName(fullName);
+if(lnbList.length && lnbList.length > 0) {
+    for(var i = 0, len = lnbList.length; i < len; i++) {
+        lnbList[i].className += ' selected';
+    }
+}
+
+var title = document.getElementById(fullName);
+if(title) {
+    title.className += ' selected';
+    title.innerHTML = '<span class="arrow">▶</span>' + title.innerHTML;
+
+    var static = getElementsByClassName('static', title);
+    if(static) {
+        static[0].className += ' selected';
+    }
+}
+})();
+</script>
+<script type="text/javascript" src="scripts/prettify/prettify.js"></script>
+<script type="text/javascript" src="scripts/prettify/lang-css.js"></script>
+<script type="text/javascript">prettyPrint();</script>
+<script type="text/javascript" src="scripts/linenumber.js"></script>
+</body>
+</html>
