@@ -80,7 +80,7 @@ FE개발팀에서 배포하는 모든 Component 및 Application은 **가독성�
 ## History
 | Version | Description | Date | Developer |
 | ---- | ---- | ---- | ---- |
-| <a href="https://nhnent.github.io/fe.code-snippet/1.0.4/">1.0.4</a> | getDuplicatedChar 추가 | 2015.07 | FE개발팀 |
+| <a href="https://nhnent.github.io/fe.code-snippet/1.0.4/">1.0.4</a> | getDuplicatedChar,  추가 | 2015.07 | FE개발팀 |
 | <a href="https://nhnent.github.io/fe.code-snippet/1.0.3/">1.0.3</a> | defineModule 추가<br>formatDate 추가 | 2015.06 | FE개발팀 |
 | <a href="https://nhnent.github.io/fe.code-snippet/1.0.2/">1.0.2</a> | defineNamespace 추가<br>map, exMap 추가 | 2015.04 | FE개발팀 |
 | 1.0.1 | isExisty 스펙 변경<br>pick 메서드 추가<br>type 체크 변경 | 2015.04 | FE개발팀 |

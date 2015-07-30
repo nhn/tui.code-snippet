@@ -61,6 +61,7 @@
      * @param {string} operandStr1 The operand string
      * @param {string} operandStr2 The operand string
      * @private
+     * @memberof ne.util
      * @returns {string}
      * @example
      * ne.util.getDuplicatedChar('fe dev', 'nhn entertainment');

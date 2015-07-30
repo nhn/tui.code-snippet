@@ -24,6 +24,7 @@
      * since the last time the debouced function was invoked.
      * @param {function} fn The function to debounce.
      * @param {number} [delay=0] The number of milliseconds to delay
+     * @memberof ne.util
      * @returns {function} debounced function.
      * @example
      *
@@ -62,6 +63,7 @@
 
     /**
      * return timestamp
+     * @memberof ne.util
      * @returns {number} The number of milliseconds from Jan. 1970 00:00:00 (GMT)
      */
     function timestamp() {
@@ -76,6 +78,7 @@
      * if you need reuse throttled method. you must remove slugs (e.g. flag variable) related with throttling.
      * @param {function} fn function to throttle
      * @param {number} [interval=0] the number of milliseconds to throttle invocations to.
+     * @memberof ne.util
      * @returns {function} throttled function
      * @example
      *

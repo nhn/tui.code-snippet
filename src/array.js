@@ -21,6 +21,7 @@
      * @param {number} start
      * @param {number} stop
      * @param {number} step
+     * @memberof ne.util
      * @returns {Array}
      * @example
      *
@@ -59,6 +60,7 @@
     /**
      * Zip together multiple lists into a single array
      * @param {...Array}
+     * @memberof ne.util
      * @returns {Array}
      * @example
      *

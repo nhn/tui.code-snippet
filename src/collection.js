@@ -337,6 +337,7 @@
      * fetching a property
      * @param {Array} arr target collection
      * @param {String|Number} property property name
+     * @memberof ne.util
      * @returns {Array}
      * @example
      *   var objArr = [
