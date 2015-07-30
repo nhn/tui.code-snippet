@@ -61,7 +61,7 @@ FE개발팀에서 배포하는 모든 Component 및 Application은 **가독성�
  * 가급적이면 유지보수 등의 관리를 위하여 빌드된 버전 사용을 권장
 
 ## Documentation
-* **API** - https://nhnent.github.io/fe.code-snippet/1.0.3/
+* **API** - https://nhnent.github.io/fe.code-snippet/latest/
 * **Tutorial** - https://github.com/nhnent/fe.javascript/wiki/FE-CodeSnippet
 
 ## Test environment
