@@ -1,4 +1,99 @@
-/*!code-snippet v1.0.3 | NHN Entertainment*/
+/*!code-snippet v1.0.4 | NHN Entertainment*/
+/**********
+ * array.js
+ **********/
+
+/**
+ * @fileoverview This module has some functions for handling array.
+ * @author NHN Ent.
+ *         FE Development Team <jiung.kang@nhnent.com>
+ * @dependency type.js
+ */
+
+(function(ne) {
+    'use strict';
+    if (!ne) {
+        ne = window.ne = {};
+    }
+    if (!ne.util) {
+        ne.util = window.ne.util = {};
+    }
+
+    var aps = Array.prototype.slice;
+
+    /**
+     * Generate an integer Array containing an arithmetic progression.
+     * @param {number} start
+     * @param {number} stop
+     * @param {number} step
+     * @memberof ne.util
+     * @returns {Array}
+     * @example
+     *
+     *   var arr = ne.util.range(5);
+     *   console.log(arr); // [0,1,2,3,4]
+     *
+     *   arr = ne.util.range(1, 5);
+     *   console.log(arr); // [1,2,3,4]
+     *
+     *   arr = ne.util.range(2, 10, 2);
+     *   console.log(arr); // [2,4,6,8]
+     *
+     *   arr = ne.util.range(10, 2, -2);
+     *   console.log(arr); // [10,8,6,4]
+     */
+    var range = function(start, stop, step) {
+        var arr = [],
+            flag;
+
+        if (ne.util.isUndefined(stop)) {
+            stop = start || 0;
+            start = 0;
+        }
+
+        step = step || 1;
+        flag = step < 0 ? -1 : 1;
+        stop *= flag;
+
+        for(; start * flag < stop; start += step) {
+            arr.push(start);
+        }
+
+        return arr;
+    };
+
+    /**
+     * Zip together multiple lists into a single array
+     * @param {...Array}
+     * @memberof ne.util
+     * @returns {Array}
+     * @example
+     *
+     *   var result = ne.util.zip([1, 2, 3], ['a', 'b','c'], [true, false, true]);
+     *
+     *   console.log(result[0]); // [1, 'a', true]
+     *   console.log(result[1]); // [2, 'b', false]
+     *   console.log(result[2]); // [3, 'c', true]
+     */
+    var zip = function() {
+        var arr2d = aps.call(arguments),
+            result = [];
+
+        ne.util.forEach(arr2d, function(arr) {
+            ne.util.forEach(arr, function(value, index) {
+                if (!result[index]) {
+                    result[index] = [];
+                }
+                result[index].push(value);
+            });
+        });
+
+        return result;
+    };
+
+    ne.util.range = range;
+    ne.util.zip = zip;
+})(window.ne);
 /**********
  * browser.js
  **********/
@@ -433,6 +528,38 @@
         return -1;
     };
 
+    /**
+     * fetching a property
+     * @param {Array} arr target collection
+     * @param {String|Number} property property name
+     * @memberof ne.util
+     * @returns {Array}
+     * @example
+     *   var objArr = [
+     *         {'abc': 1, 'def': 2, 'ghi': 3},
+     *         {'abc': 4, 'def': 5, 'ghi': 6},
+     *         {'abc': 7, 'def': 8, 'ghi': 9}
+     *       ],
+     *       arr2d = [
+     *         [1, 2, 3],
+     *         [4, 5, 6],
+     *         [7, 8, 9]
+     *       ],
+     *       result;
+     *
+     *   result = ne.util.pluck(objArr, 'abc');
+     *   console.log(result) // [1, 4, 7]
+     *
+     *   result = ne.util.pluck(arr2d, 2);
+     *   console.log(result) // [3, 6, 9]
+     */
+    var pluck = function(arr, property) {
+        var result = ne.util.map(arr, function(item) {
+            return item[property];
+        });
+        return result;
+    };
+
     ne.util.forEachOwnProperties = forEachOwnProperties;
     ne.util.forEachArray = forEachArray;
     ne.util.forEach = forEach;
@@ -441,6 +568,7 @@
     ne.util.reduce = reduce;
     ne.util.filter = filter;
     ne.util.inArray = inArray;
+    ne.util.pluck = pluck;
 
 })(window.ne);
 
@@ -3144,6 +3272,7 @@ ne.util.Enum = Enum;
      * @param {string} operandStr1 The operand string
      * @param {string} operandStr2 The operand string
      * @private
+     * @memberof ne.util
      * @returns {string}
      * @example
      * ne.util.getDuplicatedChar('fe dev', 'nhn entertainment');
@@ -3186,6 +3315,163 @@ ne.util.Enum = Enum;
     ne.util.getDuplicatedChar = getDuplicatedChar;
 
 })(window.ne);
+
+/**********
+ * tricks.js
+ **********/
+
+/**
+ * @fileoverview collections of some technic methods.
+ * @author NHN Ent. FE Development Team <e0242.nhnent.com>
+ */
+
+/** @namespace ne */
+/** @namespace ne.util */
+
+(function(ne) {
+    'use strict';
+    var aps = Array.prototype.slice;
+
+    /* istanbul ignore if */
+    if (!ne) {
+        ne = window.ne = {};
+    }
+    /* istanbul ignore if */
+    if (!ne.util) {
+        ne.util = window.ne.util = {};
+    }
+
+    /**
+     * Creates a debounced function that delays invoking fn until after delay milliseconds has elapsed
+     * since the last time the debouced function was invoked.
+     * @param {function} fn The function to debounce.
+     * @param {number} [delay=0] The number of milliseconds to delay
+     * @memberof ne.util
+     * @returns {function} debounced function.
+     * @example
+     *
+     * function someMethodToInvokeDebounced() {}
+     *
+     * var debounced = ne.util.debounce(someMethodToInvokeDebounced, 300);
+     *
+     * // invoke repeatedly
+     * debounced();
+     * debounced();
+     * debounced();
+     * debounced();
+     * debounced();
+     * debounced();    // last invoke of debounced()
+     *
+     * // invoke someMethodToInvokeDebounced() after 300 milliseconds.
+     */
+    function debounce(fn, delay) {
+        var timer,
+            args;
+
+        /* istanbul ignore next */
+        delay = delay || 0;
+
+        function debounced() {
+            args = arguments;
+
+            window.clearTimeout(timer);
+            timer = window.setTimeout(function() {
+                fn.apply(null, args);
+            }, delay);
+        }
+
+        return debounced;
+    }
+
+    /**
+     * return timestamp
+     * @memberof ne.util
+     * @returns {number} The number of milliseconds from Jan. 1970 00:00:00 (GMT)
+     */
+    function timestamp() {
+        return +(new Date());
+    }
+
+    /**
+     * Creates a throttled function that only invokes fn at most once per every interval milliseconds.
+     *
+     * You can use this throttle short time repeatedly invoking functions. (e.g MouseMove, Resize ...)
+     *
+     * if you need reuse throttled method. you must remove slugs (e.g. flag variable) related with throttling.
+     * @param {function} fn function to throttle
+     * @param {number} [interval=0] the number of milliseconds to throttle invocations to.
+     * @memberof ne.util
+     * @returns {function} throttled function
+     * @example
+     *
+     * function someMethodToInvokeThrottled() {}
+     *
+     * var throttled = ne.util.throttle(someMethodToInvokeThrottled, 300);
+     *
+     * // invoke repeatedly
+     * throttled();    // invoke (leading)
+     * throttled();
+     * throttled();    // invoke (near 300 milliseconds)
+     * throttled();
+     * throttled();
+     * throttled();    // invoke (near 600 milliseconds)
+     * // ...
+     * // invoke (trailing)
+     *
+     * // if you need reuse throttled method. then invoke reset()
+     * throttled.reset();
+     */
+    function throttle(fn, interval) {
+        var base,
+            _timestamp = ne.util.timestamp,
+            debounced,
+            isLeading = true,
+            stamp,
+            args,
+            tick = function(_args) {
+                fn.apply(null, _args);
+                base = null;
+            };
+
+        /* istanbul ignore next */
+        interval = interval || 0;
+
+        debounced = ne.util.debounce(tick, interval);
+
+        function throttled() {
+            args = aps.call(arguments);
+
+            if (isLeading) {
+                tick(args);
+                isLeading = false;
+                return;
+            }
+
+            stamp = _timestamp();
+
+            base = base || stamp;
+
+            debounced();
+
+            if ((stamp - base) >= interval) {
+                tick(args);
+            }
+        }
+
+        function reset() {
+            isLeading = true;
+            base = null;
+        }
+
+        throttled.reset = reset;
+        return throttled;
+    }
+
+    ne.util.timestamp = timestamp;
+    ne.util.debounce = debounce;
+    ne.util.throttle = throttle;
+})(window.ne);
+
 
 /**********
  * type.js
