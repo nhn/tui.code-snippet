@@ -1,4 +1,4 @@
-/*!code-snippet v1.0.2 | NHN Entertainment*/
+/*!code-snippet v1.0.3 | NHN Entertainment*/
 /**********
  * browser.js
  **********/
@@ -7,6 +7,7 @@
  * @fileoverview This module detects the kind of well-known browser and version.
  * @author NHN Ent.
  *         FE Development Team <e0242@nhnent.com>
+ * @namespace ne.util
  */
 
 (function(ne) {
@@ -21,13 +22,12 @@
     }
 
     /**
-     * This object has an information that indicate the kind of browser.
+     * This object has an information that indicate the kind of browser.<br>
      * The list below is a detectable browser list.
-     * - ie7 ~ ie11
-     * - chrome
-     * - firefox
-     * - safari
-     *
+     *  - ie7 ~ ie11
+     *  - chrome
+     *  - firefox
+     *  - safari
      * @memberof ne.util
      * @example
      *  ne.util.browser.chrome === true;    // chrome
@@ -115,15 +115,15 @@
     }
 
     /**
-     * This variable saves whether the 'indexOf' method is in Array.prototype or not.
+     * This variable saves whether the 'indexOf' method is in Array.prototype or not.<br>
      * And it will be checked only once when the page is loaded.
      * @type {boolean}
      */
     var hasIndexOf = !!Array.prototype.indexOf;
 
     /**
-     * Execute the provided callback once for each element present in the array(or Array-like object) in ascending order.
-     * If the callback function returns false, the loop will be stopped.
+     * Execute the provided callback once for each element present in the array(or Array-like object) in ascending order.<br>
+     * If the callback function returns false, the loop will be stopped.<br>
      * Callback function(iteratee) is invoked with three arguments:
      *  - The value of the element
      *  - The index of the element
@@ -155,8 +155,8 @@
 
 
     /**
-     * Execute the provided callback once for each property of object which actually exist.
-     * If the callback function returns false, the loop will be stopped.
+     * Execute the provided callback once for each property of object which actually exist.<br>
+     * If the callback function returns false, the loop will be stopped.<br>
      * Callback function(iteratee) is invoked with three arguments:
      *  - The value of the property
      *  - The name of the property
@@ -188,9 +188,9 @@
     }
 
     /**
-     * Execute the provided callback once for each property of object(or element of array) which actually exist.
-     * If the object is Array-like object(ex-arguments object), It needs to transform to Array.(see 'ex2' of example).
-     * If the callback function returns false, the loop will be stopped.
+     * Execute the provided callback once for each property of object(or element of array) which actually exist.<br>
+     * If the object is Array-like object(ex-arguments object), It needs to transform to Array.(see 'ex2' of example).<br>
+     * If the callback function returns false, the loop will be stopped.<br>
      * Callback function(iteratee) is invoked with three arguments:
      *  - The value of the property(or The value of the element)
      *  - The name of the property(or The index of the element)
@@ -225,8 +225,8 @@
     }
 
     /**
-     * Execute the provided callback function once for each element in an array, in order, and constructs a new array from the results.
-     * If the object is Array-like object(ex-arguments object), It needs to transform to Array.(see 'ex2' of forEach example)
+     * Execute the provided callback function once for each element in an array, in order, and constructs a new array from the results.<br>
+     * If the object is Array-like object(ex-arguments object), It needs to transform to Array.(see 'ex2' of forEach example)<br>
      * Callback function(iteratee) is invoked with three arguments:
      *  - The value of the property(or The value of the element)
      *  - The name of the property(or The index of the element)
@@ -256,8 +256,8 @@
     }
 
     /**
-     * Execute the callback function once for each element present in the array(or Array-like object or plain object).
-     * If the object is Array-like object(ex-arguments object), It needs to transform to Array.(see 'ex2' of forEach example)
+     * Execute the callback function once for each element present in the array(or Array-like object or plain object).<br>
+     * If the object is Array-like object(ex-arguments object), It needs to transform to Array.(see 'ex2' of forEach example)<br>
      * Callback function(iteratee) is invoked with four arguments:
      *  - The previousValue
      *  - The currentValue
@@ -298,7 +298,7 @@
         return store;
     }
     /**
-     * Transform the Array-like object to Array.
+     * Transform the Array-like object to Array.<br>
      * In low IE (below 8), Array.prototype.slice.call is not perfect. So, try-catch statement is used.
      * @param {*} arrayLike Array-like object
      * @return {Array} Array
@@ -330,7 +330,7 @@
     }
 
     /**
-     * Create a new array or plain object with all elements(or properties) that pass the test implemented by the provided function.
+     * Create a new array or plain object with all elements(or properties) that pass the test implemented by the provided function.<br>
      * Callback function(iteratee) is invoked with three arguments:
      *  - The value of the property(or The value of the element)
      *  - The name of the property(or The index of the element)
@@ -385,7 +385,7 @@
     };
 
     /**
-     * Returns the first index at which a given element can be found in the array from start index(default 0), or -1 if it is not present.
+     * Returns the first index at which a given element can be found in the array from start index(default 0), or -1 if it is not present.<br>
      * It compares searchElement to elements of the Array using strict equality (the same method used by the ===, or triple-equals, operator).
      * @param {*} searchElement Element to locate in the array
      * @param {Array} array Array that will be traversed.
@@ -450,7 +450,7 @@
 
 /**
  * @fileoverview
- *  This module provides some functions for custom events.
+ *  This module provides some functions for custom events.<br>
  *  And it is implemented in the observer design pattern.
  * @author NHN Ent.
  *         FE Development Team <e0242@nhnent.com>
@@ -479,7 +479,7 @@
 
     /**
      * A data structure for storing handlerItems bound with a specific context
-     *  and is a unit item of ctxEvents.
+     *  and is a unit item of ctxEvents.<br>
      * Handlers in this item, will be executed with same event.
      * @ignore
      * @typedef {Object.<string, handlerItem>} ctxEventsItem
@@ -577,7 +577,7 @@
 
     /**
      * Work similarly to Array.prototype.forEach(),
-     *  however does Array.prototype.splice() additionally.
+     *  however does Array.prototype.splice() additionally.<br>
      * Callback(iteratee) function is invoked with four arguments:
      *  - The value of the element
      *  - The index of the element
@@ -614,7 +614,7 @@
      **********/
 
     /**
-     * Execute the callback once for each ctxEventsItem.
+     * Execute the callback once for each ctxEventsItem.<br>
      * Callback function(iteratee) is invoked with three arguments:
      *  - {ctxEventsItem} A unit item of ctxEvents
      *  - {string} A key (ex - 'eventName_idx' or 'eventName_len')
@@ -629,7 +629,7 @@
 
     /**
      * Execute the callback once
-     *  for each handler item that is value of the key including a specific string(=id, arguments[1]).
+     *  for each handler item that is value of the key including a specific string(=id, arguments[1]).<br>
      * Callback function(iteratee) is invoked with two arguments:
      *  - handlerItem
      *  - handlerItemId
@@ -648,7 +648,7 @@
 
     /**
      * Execute the callback once
-     *  for each case of when the provided handler(arguments[0]) is equal to a handler in ctxEventsItem.
+     *  for each case of when the provided handler(arguments[0]) is equal to a handler in ctxEventsItem.<br>
      * Callback function(iteratee) is invoked with four arguments:
      *  - handlerItem
      *  - handlerItemId
@@ -671,7 +671,7 @@
 
     /**
      * Execute the callback once
-     *  for each case of when the provided context(arguments[0]) is equal to a context in ctxEventsItem.
+     *  for each case of when the provided context(arguments[0]) is equal to a context in ctxEventsItem.<br>
      * Callback function(iteratee) is invoked with four arguments:
      *  - handlerItem
      *  - handlerItemId
@@ -693,7 +693,7 @@
     };
 
     /**
-     * Execute the callback once for each handler of ctxEventsItem of the provided eventName(arguments[0]).
+     * Execute the callback once for each handler of ctxEventsItem of the provided eventName(arguments[0]).<br>
      * Callback function(iteratee) is invoked with four arguments:
      *  - handlerItem
      *  - handlerItemId
@@ -725,7 +725,7 @@
 
     /**
      * Execute the callback once
-     *  for each handler in instance equal to the provided handler(arguments[0]).
+     *  for each handler in instance equal to the provided handler(arguments[0]).<br>
      * Callback function(iteratee) is invoked with five arguments:
      *  - handlerItem
      *  - index of handlerItem array
@@ -752,7 +752,7 @@
     };
 
     /**
-     * Execute the callback once for each handler of normal events of the provided eventName.
+     * Execute the callback once for each handler of normal events of the provided eventName.<br>
      * Callback function(iteratee) is invoked with four arguments:
      *  - handler
      *  - index of handler-list
@@ -1106,8 +1106,8 @@
 
 
     /**
-     * Fire a event and returns the result of operation 'boolean AND' with all listener's results.
-     * So, It is different from {@link CustomEvents#fire}.
+     * Fire a event and returns the result of operation 'boolean AND' with all listener's results.<br>
+     * So, It is different from {@link CustomEvents#fire}.<br>
      * In service code,
      *  use this as a before event in component level usually for notifying that the event is cancelable.
      * @param {string} eventName - Custom event name
@@ -1171,7 +1171,7 @@
     };
 
     /**
-     * Attache a one-shot event.
+     * Attach a one-shot event.
      * @param {(object|string)} eventName - Custom event name or an object {eventName: handler}
      * @param {function} fn - Handler function
      * @param {*} [context] - Context for binding
@@ -1314,6 +1314,7 @@
      * @param {string} namespace - Namespace of module
      * @param {Object} moduleDefinition - Object literal for module
      * @returns {Object} Defined module
+     * @memberof ne.util
      * @example
      *     var myModule = ne.util.defineModule('modules.myModule', {
      *          name: 'john',
@@ -1378,7 +1379,6 @@
      *          // code
      *      }
      * });
-     * @memberof ne.util
      */
     var defineNamespace = function(name, props, isOverride) {
         var namespace,
@@ -1478,8 +1478,8 @@ var isSupportDefinedProperty = (function () {
 var enumValue = 0;
 
 /**
- * Make a constant-list that has unique values.
- * In modern browsers (except IE8 and lower),
+ * Make a constant-list that has unique values.<br>
+ * In modern browsers (except IE8 and lower),<br>
  *  a value defined once can not be changed.
  *
  * @param {...string | string[]} itemList Constant-list (An array of string is available)
@@ -1631,7 +1631,7 @@ ne.util.Enum = Enum;
         mapAPIsForDelete = ['delete', 'clear'];
 
     /**
-     * The ExMap object is Extended Version of the ne.util.Map object.
+     * The ExMap object is Extended Version of the ne.util.Map object.<br>
      * and added some useful feature to make it easy to manage the Map object.
      * @constructor
      * @param {Array} initData - Array of key-value pairs (2-element Arrays).
@@ -1696,7 +1696,7 @@ ne.util.Enum = Enum;
     /**
      * Looks through each key-value pair in the map and returns the new ExMap object of
      * all key-value pairs that pass a truth test implemented by the provided function.
-     * @param  {function} predicate - Function to test each key-value pair of the Map object.
+     * @param  {function} predicate - Function to test each key-value pair of the Map object.<br>
      *      Invoked with arguments (value, key). Return true to keep the element, false otherwise.
      * @return {ExMap} A new ExMap object
      */
@@ -2013,8 +2013,8 @@ ne.util.Enum = Enum;
     var _MAPDATAPREFIX = 'å';
 
     /**
-     * HashMap can handle the key-value pairs.
-     * Caution:
+     * HashMap can handle the key-value pairs.<br>
+     * Caution:<br>
      *  HashMap instance has a length property but is not an instance of Array.
      * @param {Object} [obj] A initial data for creation.
      * @constructor
@@ -2284,8 +2284,8 @@ ne.util.Enum = Enum;
     };
 
     /**
-     * Work similarly to Array.prototype.map().
-     * It executes the provided callback that checks conditions once for each element of hashMap,
+     * Work similarly to Array.prototype.map().<br>
+     * It executes the provided callback that checks conditions once for each element of hashMap,<br>
      *  and returns a new array having elements satisfying the conditions
      * @param {Function} condition A function that checks conditions
      * @returns {Array} A new array having elements satisfying the conditions
@@ -2452,8 +2452,8 @@ ne.util.Enum = Enum;
     var util = ne.util,
 
     /**
-     * Using undefined for a key can be ambiguous if there's deleted item in the array,
-     * which is also undefined when accessed by index.
+     * Using undefined for a key can be ambiguous if there's deleted item in the array,<br>
+     * which is also undefined when accessed by index.<br>
      * So use this unique object as an undefined key to distinguish it from deleted keys.
      * @private
      * @constant
@@ -2461,14 +2461,14 @@ ne.util.Enum = Enum;
     _KEY_FOR_UNDEFINED = {},
 
     /**
-     * For using NaN as a key, use this unique object as a NaN key.
-     * This makes it easier and faster to compare an object with each keys in the array
+     * For using NaN as a key, use this unique object as a NaN key.<br>
+     * This makes it easier and faster to compare an object with each keys in the array<br>
      * through no exceptional comapring for NaN.
      */
     _KEY_FOR_NAN = {};
 
     /**
-     * Constructor of MapIterator
+     * Constructor of MapIterator<br>
      * Creates iterator object with new keyword.
      * @constructor
      * @param  {Array} keys - The array of keys in the map
@@ -2503,13 +2503,13 @@ ne.util.Enum = Enum;
     };
 
     /**
-     * The Map object implements the ES6 Map specification as closely as possible.
-     * For using objects and primitive values as keys, this object uses array internally.
-     * So if the key is not a string, get(), set(), has(), delete() will operates in O(n),
+     * The Map object implements the ES6 Map specification as closely as possible.<br>
+     * For using objects and primitive values as keys, this object uses array internally.<br>
+     * So if the key is not a string, get(), set(), has(), delete() will operates in O(n),<br>
      * and it can cause performance issues with a large dataset.
      *
      * Features listed below are not supported. (can't be implented without native support)
-     * - Map object is iterable
+     * - Map object is iterable<br>
      * - Iterable object can be used as an argument of constructor
      *
      * If the browser supports full implementation of ES6 Map specification, native Map obejct
@@ -2517,6 +2517,7 @@ ne.util.Enum = Enum;
      * @constructor
      * @param  {Array} initData - Array of key-value pairs (2-element Arrays).
      *      Each key-value pair will be added to the new Map
+     * @memberof ne.util
      */
     function Map(initData) {
         this._valuesForString = {};
@@ -2545,8 +2546,8 @@ ne.util.Enum = Enum;
     };
 
     /**
-     * Returns true if the specified value is NaN.
-     * For unsing NaN as a key, use this method to test equality of NaN
+     * Returns true if the specified value is NaN.<br>
+     * For unsing NaN as a key, use this method to test equality of NaN<br>
      * because === operator doesn't work for NaN.
      * @private
      * @param {*} value - Any object to be tested
@@ -2721,7 +2722,7 @@ ne.util.Enum = Enum;
         return new MapIterator(this._keys, util.bind(this._getOriginValue, this));
     };
 
-    /*
+    /**
      * Returns a new Iterator object that contains the [key, value] pairs
      * for each element in the Map object in insertion order.
      * @return {Iterator} A new Iterator object
@@ -2903,8 +2904,8 @@ ne.util.Enum = Enum;
     }
 
     /**
-     * Return the equality for multiple objects(jsonObjects).
-     *  (Reference) http://stackoverflow.com/questions/1068834/object-comparison-in-javascript
+     * Return the equality for multiple objects(jsonObjects).<br>
+     *  See {@link http://stackoverflow.com/questions/1068834/object-comparison-in-javascript}
      * @param {...object} object - Multiple objects for comparing.
      * @return {boolean} Equality
      * @example
@@ -3165,7 +3166,7 @@ ne.util.Enum = Enum;
     }
 
     /**
-     * Check whether the given variable is existing or not.
+     * Check whether the given variable is existing or not.<br>
      *  If the given variable is not null and not undefined, returns true.
      * @param {*} param - Target for checking
      * @returns {boolean} Is existy?
@@ -3183,7 +3184,7 @@ ne.util.Enum = Enum;
     }
 
     /**
-     * Check whether the given variable is undefined or not.
+     * Check whether the given variable is undefined or not.<br>
      *  If the given variable is undefined, returns true.
      * @param {*} obj - Target for checking
      * @returns {boolean} Is undefined?
@@ -3194,7 +3195,7 @@ ne.util.Enum = Enum;
     }
 
     /**
-     * Check whether the given variable is null or not.
+     * Check whether the given variable is null or not.<br>
      *  If the given variable(arguments[0]) is null, returns true.
      * @param {*} obj - Target for checking
      * @returns {boolean} Is null?
@@ -3205,8 +3206,8 @@ ne.util.Enum = Enum;
     }
 
     /**
-     * Check whether the given variable is truthy or not.
-     *  If the given variable is not null or not undefined or not false, returns true.
+     * Check whether the given variable is truthy or not.<br>
+     *  If the given variable is not null or not undefined or not false, returns true.<br>
      *  (It regards 0 as true)
      * @param {*} obj - Target for checking
      * @return {boolean} Is truthy?
@@ -3217,7 +3218,7 @@ ne.util.Enum = Enum;
     }
 
     /**
-     * Check whether the given variable is falsy or not.
+     * Check whether the given variable is falsy or not.<br>
      *  If the given variable is null or undefined or false, returns true.
      * @param {*} obj - Target for checking
      * @return {boolean} Is falsy?
@@ -3231,7 +3232,7 @@ ne.util.Enum = Enum;
     var toString = Object.prototype.toString;
 
     /**
-     * Check whether the given variable is an arguments object or not.
+     * Check whether the given variable is an arguments object or not.<br>
      *  If the given variable is an arguments object, return true.
      * @param {*} obj - Target for checking
      * @return {boolean} Is arguments?
@@ -3245,7 +3246,7 @@ ne.util.Enum = Enum;
     }
 
     /**
-     * Check whether the given variable is an instance of Array or not.
+     * Check whether the given variable is an instance of Array or not.<br>
      *  If the given variable is an instance of Array, return true.
      * @param {*} obj - Target for checking
      * @return {boolean} Is array instance?
@@ -3256,7 +3257,7 @@ ne.util.Enum = Enum;
     }
 
     /**
-     * Check whether the given variable is an object or not.
+     * Check whether the given variable is an object or not.<br>
      *  If the given variable is an object, return true.
      * @param {*} obj - Target for checking
      * @return {boolean} Is object?
@@ -3267,7 +3268,7 @@ ne.util.Enum = Enum;
     }
 
     /**
-     * Check whether the given variable is a function or not.
+     * Check whether the given variable is a function or not.<br>
      *  If the given variable is a function, return true.
      * @param {*} obj - Target for checking
      * @return {boolean} Is function?
@@ -3278,7 +3279,7 @@ ne.util.Enum = Enum;
     }
 
     /**
-     * Check whether the given variable is a number or not.
+     * Check whether the given variable is a number or not.<br>
      *  If the given variable is a number, return true.
      * @param {*} obj - Target for checking
      * @return {boolean} Is number?
@@ -3289,7 +3290,7 @@ ne.util.Enum = Enum;
     }
 
     /**
-     * Check whether the given variable is a string or not.
+     * Check whether the given variable is a string or not.<br>
      *  If the given variable is a string, return true.
      * @param {*} obj - Target for checking
      * @return {boolean} Is string?
@@ -3300,7 +3301,7 @@ ne.util.Enum = Enum;
     }
 
     /**
-     * Check whether the given variable is a boolean or not.
+     * Check whether the given variable is a boolean or not.<br>
      *  If the given variable is a boolean, return true.
      * @param {*} obj - Target for checking
      * @return {boolean} Is boolean?
@@ -3312,8 +3313,8 @@ ne.util.Enum = Enum;
 
 
     /**
-     * Check whether the given variable is an instance of Array or not.
-     *  If the given variable is an instance of Array, return true.
+     * Check whether the given variable is an instance of Array or not.<br>
+     *  If the given variable is an instance of Array, return true.<br>
      *  (It is used for multiple frame environments)
      * @param {*} obj - Target for checking
      * @return {boolean} Is an instance of array?
@@ -3324,8 +3325,8 @@ ne.util.Enum = Enum;
     }
 
     /**
-     * Check whether the given variable is a function or not.
-     *  If the given variable is a function, return true.
+     * Check whether the given variable is a function or not.<br>
+     *  If the given variable is a function, return true.<br>
      *  (It is used for multiple frame environments)
      * @param {*} obj - Target for checking
      * @return {boolean} Is a function?
@@ -3336,8 +3337,8 @@ ne.util.Enum = Enum;
     }
 
     /**
-     * Check whether the given variable is a number or not.
-     *  If the given variable is a number, return true.
+     * Check whether the given variable is a number or not.<br>
+     *  If the given variable is a number, return true.<br>
      *  (It is used for multiple frame environments)
      * @param {*} obj - Target for checking
      * @return {boolean} Is a number?
@@ -3348,8 +3349,8 @@ ne.util.Enum = Enum;
     }
 
     /**
-     * Check whether the given variable is a string or not.
-     *  If the given variable is a string, return true.
+     * Check whether the given variable is a string or not.<br>
+     *  If the given variable is a string, return true.<br>
      *  (It is used for multiple frame environments)
      * @param {*} obj - Target for checking
      * @return {boolean} Is a string?
@@ -3360,8 +3361,8 @@ ne.util.Enum = Enum;
     }
 
     /**
-     * Check whether the given variable is a boolean or not.
-     *  If the given variable is a boolean, return true.
+     * Check whether the given variable is a boolean or not.<br>
+     *  If the given variable is a boolean, return true.<br>
      *  (It is used for multiple frame environments)
      * @param {*} obj - Target for checking
      * @return {boolean} Is a boolean?
@@ -3372,7 +3373,7 @@ ne.util.Enum = Enum;
     }
 
     /**
-     * Check whether the given variable is a instance of HTMLNode or not.
+     * Check whether the given variable is a instance of HTMLNode or not.<br>
      *  If the given variables is a instance of HTMLNode, return true.
      * @param {*} html - Target for checking
      * @return {boolean} Is HTMLNode ?
@@ -3386,7 +3387,7 @@ ne.util.Enum = Enum;
     }
 
     /**
-     * Check whether the given variable is a HTML tag or not.
+     * Check whether the given variable is a HTML tag or not.<br>
      *  If the given variables is a HTML tag, return true.
      * @param {*} html - Target for checking
      * @return {Boolean} Is HTML tag?
@@ -3400,7 +3401,7 @@ ne.util.Enum = Enum;
     }
 
     /**
-     * Check whether the given variable is empty(null, undefined, or empty array, empty object) or not.
+     * Check whether the given variable is empty(null, undefined, or empty array, empty object) or not.<br>
      *  If the given variables is empty, return true.
      * @param {*} obj - Target for checking
      * @return {boolean} Is empty?
@@ -3435,7 +3436,7 @@ ne.util.Enum = Enum;
     }
 
     /**
-     * Check whether the given variable is not empty(not null, not undefined, or not empty array, not empty object) or not.
+     * Check whether the given variable is not empty(not null, not undefined, or not empty array, not empty object) or not.<br>
      *  If the given variables is not empty, return true.
      * @param {*} obj - Target for checking
      * @return {boolean} Is not empty?
@@ -3446,7 +3447,7 @@ ne.util.Enum = Enum;
     }
 
     /**
-     * Check whether the given variable is an instance of Date or not.
+     * Check whether the given variable is an instance of Date or not.<br>
      *  If the given variables is an instance of Date, return true.
      * @param {*} obj - Target for checking
      * @returns {boolean} Is an instance of Date?
@@ -3457,8 +3458,8 @@ ne.util.Enum = Enum;
     }
 
     /**
-     * Check whether the given variable is an instance of Date or not.
-     *  If the given variables is an instance of Date, return true.
+     * Check whether the given variable is an instance of Date or not.<br>
+     *  If the given variables is an instance of Date, return true.<br>
      *  (It is used for multiple frame environments)
      * @param {*} obj - Target for checking
      * @returns {boolean} Is an instance of Date?
@@ -3531,7 +3532,7 @@ ne.util.Enum = Enum;
         this.openedPopup = {};
 
         /**
-         * In IE7, an error occurs when the closeWithParent property attaches to window object.
+         * In IE7, an error occurs when the closeWithParent property attaches to window object.<br>
          * So, It is for saving the value of closeWithParent instead of attaching to window object.
          * @type {Object}
          */
@@ -3567,26 +3568,25 @@ ne.util.Enum = Enum;
      * Open popup
      * Caution:
      *  In IE11, when transfer data to popup by POST, must set the postDataBridgeUrl.
-     *  Additionally, when open the popup with another domain, can not control the popup because of security.
      *
      * @param {string} url - popup url
      * @param {Object} options
-     *     @param {string} [options.popupName] - Key of popup window.
-     *      If the key is set, when you try to open by this key, the popup of this key is focused.
+     *     @param {string} [options.popupName] - Key of popup window.<br>
+     *      If the key is set, when you try to open by this key, the popup of this key is focused.<br>
      *      Or else a new popup window having this key is opened.
      *
-     *     @param {string} [options.popupOptionStr=""] - Option string of popup window
-     *      It is same with the third parameter of window.open() method.
+     *     @param {string} [options.popupOptionStr=""] - Option string of popup window<br>
+     *      It is same with the third parameter of window.open() method.<br>
      *      See {@link http://www.w3schools.com/jsref/met_win_open.asp}
      *
      *     @param {boolean} [options.closeWithParent=true] - Is closed when parent window closed?
      *
-     *     @param {boolean} [options.useReload=false] - This property indicates whether reload the popup or not.
-     *      If true, the popup will be reloaded when you try to re-open the popup that has been opened.
+     *     @param {boolean} [options.useReload=false] - This property indicates whether reload the popup or not.<br>
+     *      If true, the popup will be reloaded when you try to re-open the popup that has been opened.<br>
      *      When transmit the POST-data, some browsers alert a message for confirming whether retransmit or not.
      *
-     *     @param {string} [options.postDataBridgeUrl=''] - Use this url to avoid a certain bug occuring when transmitting POST data to the popup in IE11.
-     *      This specific buggy situation is known to happen because IE11 tries to open the requested url not in a new popup window as intended, but in a new tab.
+     *     @param {string} [options.postDataBridgeUrl=''] - Use this url to avoid a certain bug occuring when transmitting POST data to the popup in IE11.<br>
+     *      This specific buggy situation is known to happen because IE11 tries to open the requested url not in a new popup window as intended, but in a new tab.<br>
      *      See {@link http://wiki.nhnent.com/pages/viewpage.action?pageId=240562844}
      *
      *     @param {string} [options.method=get] - The method of transmission when the form-data is transmitted to popup-window.
@@ -3618,7 +3618,7 @@ ne.util.Enum = Enum;
 
         popup_id += 1;
 
-        /**
+        /*
          * In form-data transmission
          * 1. Create a form before opening a popup.
          * 2. Transmit the form-data.
@@ -3737,7 +3737,7 @@ ne.util.Enum = Enum;
      * Create a hidden form from the given arguments and return this form.
      * @param {string} action - URL for form transmission
      * @param {Object} [data] - Data for form transmission
-     * @param {Otring} [method] - Method of transmission
+     * @param {string} [method] - Method of transmission
      * @param {string} [target] - Target of transmission
      * @param {HTMLElement} [container] - Container element of form.
      * @returns {HTMLElement} Form element
