@@ -1,11 +1,10 @@
 {
   "name": "code-snippet",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "authors": [
-    "FE"
+    "NHN Ent. FE dev team(dl_javascript@nhnent.com)"
   ],
-  "license": "PRIVATE",
-  "private": true,
+  "license": "MIT",
   "main": "code-snippet.js",
   "ignore": [
     "**/.*",
