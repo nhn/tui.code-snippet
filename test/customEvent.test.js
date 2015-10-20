@@ -1,5 +1,5 @@
 describe('CustomEvents2', function() {
-    var CustomEvents = ne.util.CustomEvents,
+    var CustomEvents = tui.util.CustomEvents,
         ce;
 
     beforeEach(function() {
@@ -392,7 +392,7 @@ describe('CustomEvents2', function() {
 
         function MockComponent() {}
 
-        ne.util.CustomEvents.mixin(MockComponent);
+        tui.util.CustomEvents.mixin(MockComponent);
 
         MockComponent.prototype.work = function() {
             if (this.invoke('beforeZoom')) {
@@ -499,7 +499,7 @@ describe('CustomEvents2', function() {
             spyObj;
 
         beforeEach(function() {
-            component = new ne.util.CustomEvents();
+            component = new tui.util.CustomEvents();
             spyObj = jasmine.createSpyObj('handler', ['foo', 'bar']);
             component.on({
                 'foo': spyObj.foo,
@@ -554,7 +554,7 @@ describe('CustomEvents2', function() {
     });
 
     var Animal = function() {};
-    ne.util.CustomEvents.mixin(Animal);
+    tui.util.CustomEvents.mixin(Animal);
 
     describe('once()', function() {
         var lion,
@@ -742,9 +742,9 @@ describe('CustomEvents2', function() {
 
                 ce.on({ 'myE myE2': handler }, myObj);
 
-                expect(ne.util.keys(ce._ctxEvents['myE_idx']).length).toBe(1);
+                expect(tui.util.keys(ce._ctxEvents['myE_idx']).length).toBe(1);
                 expect(ce._ctxEvents['myE_len']).toBe(1);
-                expect(ne.util.keys(ce._ctxEvents['myE2_idx']).length).toBe(1);
+                expect(tui.util.keys(ce._ctxEvents['myE2_idx']).length).toBe(1);
                 expect(ce._ctxEvents['myE2_len']).toBe(1);
             });
 
@@ -950,7 +950,7 @@ describe('CustomEvents2', function() {
 
         describe('예외 테스트', function() {
             beforeEach(function() {
-                customEvent = new ne.util.CustomEvents();
+                customEvent = new tui.util.CustomEvents();
             });
 
             it('이벤트를 등록하지 않았을 경우 0', function() {
@@ -979,7 +979,7 @@ describe('CustomEvents2', function() {
 
                     customEvent.on('zoom', spyObj.zoom, thisObj);
                     customEvent.off('zoom', spyObj.zoom, thisObj);
-                    customEvent2 = new ne.util.CustomEvents();
+                    customEvent2 = new tui.util.CustomEvents();
                     customEvent2.on('zoom', spy);
                     customEvent2.off('zoom', spy);
                 });
@@ -996,7 +996,7 @@ describe('CustomEvents2', function() {
 
         describe('갯수 테스트', function() {
             beforeEach(function() {
-                customEvent = new ne.util.CustomEvents();
+                customEvent = new tui.util.CustomEvents();
                 spy = jasmine.createSpy('zoom');
                 spyObj = jasmine.createSpyObj('spy', ['pan', 'zoom']);
 
@@ -1041,7 +1041,7 @@ describe('CustomEvents2', function() {
 
         beforeEach(function() {
             Animal = function() {
-                this.events = new ne.util.CustomEvents();
+                this.events = new tui.util.CustomEvents();
             };
 
             Animal.prototype.fire = function(type, data) {

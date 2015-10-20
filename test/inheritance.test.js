@@ -9,7 +9,7 @@ describe('inheritance', function() {
                 arr: [1, 2, 3]
             };
 
-            var newObj = ne.util.createObject(obj);
+            var newObj = tui.util.createObject(obj);
 
             expect(newObj.say).toBeDefined();
         });
@@ -20,7 +20,7 @@ describe('inheritance', function() {
                 arr: [1, 3, 4]
             };
 
-            var newObj = ne.util.createObject(obj);
+            var newObj = tui.util.createObject(obj);
 
             obj.arr.push(5);
 
@@ -48,7 +48,7 @@ describe('inheritance', function() {
                 Animal.call(this, leg);
             }
 
-            ne.util.inherit(Person, Animal);
+            tui.util.inherit(Person, Animal);
 
             Person.prototype.say = function(word) {
                 return '"' + word + '"';
@@ -79,7 +79,7 @@ describe('inheritance', function() {
                 //Animal.call(this, leg); 주석처리함
             }
 
-            ne.util.inherit(Person, Animal);
+            tui.util.inherit(Person, Animal);
 
             Person.prototype.say = function(word) {
                 return '"' + word + '"';
@@ -107,7 +107,7 @@ describe('inheritance', function() {
                 Animal.call(this, leg);
             }
 
-            ne.util.inherit(Person, Animal);
+            tui.util.inherit(Person, Animal);
 
             Person.prototype.say = function(word) {
                 return '"' + word + '"';
@@ -119,7 +119,7 @@ describe('inheritance', function() {
                 this.name = name;
             }
 
-            ne.util.inherit(Programmer, Person);
+            tui.util.inherit(Programmer, Person);
 
             Programmer.prototype.coding = function(language) {
                 return this.name + ' coding with ' + language;
@@ -149,7 +149,7 @@ describe('inheritance', function() {
                 Animal.call(this, leg);
             }
 
-            ne.util.inherit(Person, Animal);
+            tui.util.inherit(Person, Animal);
 
             Person.prototype.say = function(word) {
                 return '"' + word + '"';
@@ -159,7 +159,7 @@ describe('inheritance', function() {
             ant.move(10);
 
             var person = new Person(2);
-            ne.util.inherit(Person, Animal);
+            tui.util.inherit(Person, Animal);
 
             expect(ant.leg).toBe(6);
             expect(person.leg).toBe(2);

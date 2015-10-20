@@ -5,13 +5,13 @@
  * @dependency type.js, object.js
  */
 
-(function(ne) {
+(function(tui) {
     'use strict';
-    if (!ne) {
-        ne = window.ne = {};
+    if (!tui) {
+        tui = window.tui = {};
     }
-    if (!ne.util) {
-        ne.util = window.ne.util = {};
+    if (!tui.util) {
+        tui.util = window.tui.util = {};
     }
 
     /**
@@ -31,7 +31,7 @@
      * @param {Array} arr The array(or Array-like object) that will be traversed
      * @param {function} iteratee Callback function
      * @param {Object} [context] Context(this) of callback function
-     * @memberof ne.util
+     * @memberof tui.util
      * @example
      *  var sum = 0;
      *
@@ -64,7 +64,7 @@
      * @param {Object} obj The object that will be traversed
      * @param {function} iteratee  Callback function
      * @param {Object} [context] Context(this) of callback function
-     * @memberof ne.util
+     * @memberof tui.util
      * @example
      *  var sum = 0;
      *
@@ -98,7 +98,7 @@
      * @param {Object} obj The object that will be traversed
      * @param {function} iteratee Callback function
      * @param {Object} [context] Context(this) of callback function
-     * @memberof ne.util
+     * @memberof tui.util
      * @example
      *  //ex1
      *  var sum = 0;
@@ -117,10 +117,10 @@
      *  }
      */
     function forEach(obj, iteratee, context) {
-        if (ne.util.isArray(obj)) {
-            ne.util.forEachArray(obj, iteratee, context);
+        if (tui.util.isArray(obj)) {
+            tui.util.forEachArray(obj, iteratee, context);
         } else {
-            ne.util.forEachOwnProperties(obj, iteratee, context);
+            tui.util.forEachOwnProperties(obj, iteratee, context);
         }
     }
 
@@ -135,7 +135,7 @@
      * @param {function} iteratee Callback function
      * @param {Object} [context] Context(this) of callback function
      * @returns {Array} A new array composed of returned values from callback function
-     * @memberof ne.util
+     * @memberof tui.util
      * @example
      *  var result = map([0,1,2,3], function(value) {
      *      return value + 1;
@@ -148,7 +148,7 @@
 
         context = context || null;
 
-        ne.util.forEach(obj, function() {
+        tui.util.forEach(obj, function() {
             resultArray.push(iteratee.apply(context, arguments));
         });
 
@@ -167,7 +167,7 @@
      * @param {function} iteratee Callback function
      * @param {Object} [context] Context(this) of callback function
      * @returns {*} The result value
-     * @memberof ne.util
+     * @memberof tui.util
      * @example
      *  var result = reduce([0,1,2,3], function(stored, value) {
      *      return stored + value;
@@ -183,8 +183,8 @@
 
         context = context || null;
 
-        if (!ne.util.isArray(obj)) {
-            keys = ne.util.keys(obj);
+        if (!tui.util.isArray(obj)) {
+            keys = tui.util.keys(obj);
         }
 
         length = keys ? keys.length : obj.length;
@@ -202,7 +202,7 @@
      * In low IE (below 8), Array.prototype.slice.call is not perfect. So, try-catch statement is used.
      * @param {*} arrayLike Array-like object
      * @return {Array} Array
-     * @memberof ne.util
+     * @memberof tui.util
      * @example
      *  var arrayLike = {
      *      0: 'one',
@@ -239,7 +239,7 @@
      * @param {function} iteratee Callback function
      * @param {Object} [context] Context(this) of callback function
      * @returns {Object} plain object or Array
-     * @memberof ne.util
+     * @memberof tui.util
      * @example
      *  var result1 = filter([0,1,2,3], function(value) {
      *      return (value % 2 === 0);
@@ -259,11 +259,11 @@
 
         context = context || null;
 
-        if (!ne.util.isObject(obj) || !ne.util.isFunction(iteratee)) {
+        if (!tui.util.isObject(obj) || !tui.util.isFunction(iteratee)) {
             throw new Error('wrong parameter');
         }
 
-        if (ne.util.isArray(obj)) {
+        if (tui.util.isArray(obj)) {
             result = [];
             add = function(result, args) {
                 result.push(args[0]);
@@ -275,7 +275,7 @@
             };
         }
 
-        ne.util.forEach(obj, function() {
+        tui.util.forEach(obj, function() {
             if (iteratee.apply(context, arguments)) {
                 add(result, arguments);
             }
@@ -290,7 +290,7 @@
      * @param {*} searchElement Element to locate in the array
      * @param {Array} array Array that will be traversed.
      * @param {number} startIndex Start index in array for searching (default 0)
-     * @memberof ne.util
+     * @memberof tui.util
      * @return {number} the First index at which a given element, or -1 if it is not present
      * @example
      *
@@ -298,14 +298,14 @@
      *       idx1,
      *       idx2;
      *
-     *   idx1 = ne.util.inArray('one', arr, 3);
+     *   idx1 = tui.util.inArray('one', arr, 3);
      *   alert(idx1); // -1
      *
-     *   idx2 = ne.util.inArray('one', arr);
+     *   idx2 = tui.util.inArray('one', arr);
      *   alert(idx2); // 0
      */
     var inArray = function(searchElement, array, startIndex) {
-        if (!ne.util.isArray(array)) {
+        if (!tui.util.isArray(array)) {
             return -1;
         }
 
@@ -317,7 +317,7 @@
             length = array.length;
 
         // set startIndex
-        if (ne.util.isUndefined(startIndex)) {
+        if (tui.util.isUndefined(startIndex)) {
             startIndex = 0;
         } else if (startIndex >= length || startIndex < 0) {
             return -1;
@@ -337,7 +337,7 @@
      * fetching a property
      * @param {Array} arr target collection
      * @param {String|Number} property property name
-     * @memberof ne.util
+     * @memberof tui.util
      * @returns {Array}
      * @example
      *   var objArr = [
@@ -352,27 +352,27 @@
      *       ],
      *       result;
      *
-     *   result = ne.util.pluck(objArr, 'abc');
+     *   result = tui.util.pluck(objArr, 'abc');
      *   console.log(result) // [1, 4, 7]
      *
-     *   result = ne.util.pluck(arr2d, 2);
+     *   result = tui.util.pluck(arr2d, 2);
      *   console.log(result) // [3, 6, 9]
      */
     var pluck = function(arr, property) {
-        var result = ne.util.map(arr, function(item) {
+        var result = tui.util.map(arr, function(item) {
             return item[property];
         });
         return result;
     };
 
-    ne.util.forEachOwnProperties = forEachOwnProperties;
-    ne.util.forEachArray = forEachArray;
-    ne.util.forEach = forEach;
-    ne.util.toArray = toArray;
-    ne.util.map = map;
-    ne.util.reduce = reduce;
-    ne.util.filter = filter;
-    ne.util.inArray = inArray;
-    ne.util.pluck = pluck;
+    tui.util.forEachOwnProperties = forEachOwnProperties;
+    tui.util.forEachArray = forEachArray;
+    tui.util.forEach = forEach;
+    tui.util.toArray = toArray;
+    tui.util.map = map;
+    tui.util.reduce = reduce;
+    tui.util.filter = filter;
+    tui.util.inArray = inArray;
+    tui.util.pluck = pluck;
 
-})(window.ne);
+})(window.tui);

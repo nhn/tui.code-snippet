@@ -1,5 +1,5 @@
 describe('module:def', function() {
-    var defineClass = ne.util.defineClass;
+    var defineClass = tui.util.defineClass;
 
     describe('def()', function() {
         var props1,

@@ -6,15 +6,15 @@
  * @dependency inheritance.js, object.js
  */
 
-(function(ne) {
+(function(tui) {
     'use strict';
     /* istanbul ignore if */
-    if (!ne) {
-        ne = window.ne = {};
+    if (!tui) {
+        tui = window.tui = {};
     }
     /* istanbul ignore if */
-    if (!ne.util) {
-        ne.util = window.ne.util = {};
+    if (!tui.util) {
+        tui.util = window.tui.util = {};
     }
 
     /**
@@ -24,7 +24,7 @@
      *  @param {Function} props.init Initialization method
      *  @param {Object} [props.static] Static members of constructor
      * @returns {*} Constructor
-     * @memberof ne.util
+     * @memberof tui.util
      * @example
      *  var Parent = defineClass({
      *      init: function() {
@@ -54,7 +54,7 @@
      *  childInstance.method();
      *  childInstance.method2();
      */
-    ne.util.defineClass = function(parent, props) {
+    tui.util.defineClass = function(parent, props) {
         var obj;
 
         if (!props) {
@@ -65,17 +65,17 @@
         obj = props.init || function(){};
 
         if(parent) {
-            ne.util.inherit(obj, parent);
+            tui.util.inherit(obj, parent);
         }
 
         if (props.hasOwnProperty('static')) {
-            ne.util.extend(obj, props.static);
+            tui.util.extend(obj, props.static);
             delete props.static;
         }
 
-        ne.util.extend(obj.prototype, props);
+        tui.util.extend(obj.prototype, props);
 
         return obj;
     };
 
-})(window.ne);
+})(window.tui);

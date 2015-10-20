@@ -2,12 +2,12 @@ describe('module:hashMap', function() {
     var hashMap;
 
     beforeEach(function() {
-        hashMap = new ne.util.HashMap();
+        hashMap = new tui.util.HashMap();
     });
 
     describe('HashMap이 존재한다.', function() {
         it('HashMap은 정의되어있다.', function() {
-            expect(ne.util.HashMap).toBeDefined();
+            expect(tui.util.HashMap).toBeDefined();
         });
 
         it('hashMap의 인스턴스가 존재한다.', function() {
@@ -44,7 +44,7 @@ describe('module:hashMap', function() {
 
     describe('merge()', function() {
         it('해쉬맵을 인자로 받아 병합한다.', function() {
-            var mergedHashMap = new ne.util.HashMap();
+            var mergedHashMap = new tui.util.HashMap();
 
             hashMap.setObject({
                 'dataKey': 'data',

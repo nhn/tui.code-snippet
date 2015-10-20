@@ -5,16 +5,16 @@
  * @dependency type, collection.js
  */
 
-(function(ne) {
+(function(tui) {
 
 'use strict';
 
 /* istanbul ignore if */
-if (!ne) {
-    ne = window.ne = {};
+if (!tui) {
+    tui = window.tui = {};
 }
-if (!ne.util) {
-    ne.util = window.ne.util = {};
+if (!tui.util) {
+    tui.util = window.tui.util = {};
 }
 
 /**
@@ -45,7 +45,7 @@ var enumValue = 0;
  * @exports Enum
  * @constructor
  * @class
- * @memberof ne.util
+ * @memberof tui.util
  * @examples
  *  //create
  *  var MYENUM = new Enum('TYPE1', 'TYPE2');
@@ -81,11 +81,11 @@ function Enum(itemList) {
 Enum.prototype.set = function(itemList) {
     var self = this;
 
-    if (!ne.util.isArray(itemList)) {
-        itemList = ne.util.toArray(arguments);
+    if (!tui.util.isArray(itemList)) {
+        itemList = tui.util.toArray(arguments);
     }
 
-    ne.util.forEach(itemList, function itemListIteratee(item) {
+    tui.util.forEach(itemList, function itemListIteratee(item) {
         self._addItem(item);
     });
 };
@@ -99,7 +99,7 @@ Enum.prototype.getName = function(value) {
     var foundedKey,
         self = this;
 
-    ne.util.forEach(this, function(itemValue, key) {
+    tui.util.forEach(this, function(itemValue, key) {
         if (self._isEnumItem(key) && value === itemValue) {
             foundedKey = key;
             return false;
@@ -154,9 +154,9 @@ Enum.prototype._makeEnumValue = function() {
  * @private
  */
 Enum.prototype._isEnumItem = function(key) {
-    return ne.util.isNumber(this[key]);
+    return tui.util.isNumber(this[key]);
 };
 
-ne.util.Enum = Enum;
+tui.util.Enum = Enum;
 
-})(window.ne);
+})(window.tui);

@@ -1,7 +1,7 @@
 describe('module:Enum', function() {
     'use strict';
 
-    var Enum = ne.util.Enum,
+    var Enum = tui.util.Enum,
         enumO;
 
 

@@ -4,15 +4,15 @@
  *         FE Development Team <e0242@nhnent.com>
  */
 
-(function(ne) {
+(function(tui) {
     'use strict';
     /* istanbul ignore if */
-    if (!ne) {
-        ne = window.ne = {};
+    if (!tui) {
+        tui = window.tui = {};
     }
     /* istanbul ignore if */
-    if (!ne.util) {
-        ne.util = window.ne.util = {};
+    if (!tui.util) {
+        tui.util = window.tui.util = {};
     }
 
 
@@ -21,7 +21,7 @@
      * Create a new object with the specified prototype object and properties.
      * @param {Object} obj This object will be a prototype of the newly-created object.
      * @return {Object}
-     * @memberof ne.util
+     * @memberof tui.util
      */
     function createObject() {
         function F() {}
@@ -39,7 +39,7 @@
      *
      * @param {function} subType Child constructor
      * @param {function} superType Parent constructor
-     * @memberof ne.util
+     * @memberof tui.util
      * @example
      *  // Parent constructor
      *  function Animal(leg) {
@@ -65,12 +65,12 @@
      *  };
      */
     function inherit(subType, superType) {
-        var prototype = ne.util.createObject(superType.prototype);
+        var prototype = tui.util.createObject(superType.prototype);
         prototype.constructor = subType;
         subType.prototype = prototype;
     }
 
-    ne.util.createObject = createObject();
-    ne.util.inherit = inherit;
+    tui.util.createObject = createObject();
+    tui.util.inherit = inherit;
 
-})(window.ne);
+})(window.tui);

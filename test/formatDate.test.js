@@ -2,11 +2,11 @@
 
 describe('date format', function() {
     it('date format function is defined', function() {
-        expect(ne.util.formatDate).toBeDefined();
+        expect(tui.util.formatDate).toBeDefined();
     });
 
     describe('test various inputs', function() {
-        var formatDate = ne.util.formatDate,
+        var formatDate = tui.util.formatDate,
             inputs = [
                 {year: 1999, month: 9, date: 9, hour: 0, minute: 2},
                 {year: 2010, month: 12, date: 13, hour: 10, minute: 0},

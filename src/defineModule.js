@@ -4,18 +4,18 @@
  *         FE Development Team <e0242@nhnent.com>
  * @dependency type.js, defineNamespace.js
  */
-(function(ne) {
+(function(tui) {
     'use strict';
     /* istanbul ignore if */
-    if (!ne) {
-        ne = window.ne = {};
+    if (!tui) {
+        tui = window.tui = {};
     }
     /* istanbul ignore if */
-    if (!ne.util) {
-        ne.util = window.ne.util = {};
+    if (!tui.util) {
+        tui.util = window.tui.util = {};
     }
 
-    var util = ne.util,
+    var util = tui.util,
         INITIALIZATION_METHOD_NAME = 'initialize';
 
     /**
@@ -23,9 +23,9 @@
      * @param {string} namespace - Namespace of module
      * @param {Object} moduleDefinition - Object literal for module
      * @returns {Object} Defined module
-     * @memberof ne.util
+     * @memberof tui.util
      * @example
-     *     var myModule = ne.util.defineModule('modules.myModule', {
+     *     var myModule = tui.util.defineModule('modules.myModule', {
      *          name: 'john',
      *          message: '',
      *          initialize: function() {
@@ -49,5 +49,5 @@
 
         return util.defineNamespace(namespace, base, true);
     }
-    ne.util.defineModule = defineModule;
-})(window.ne);
+    tui.util.defineModule = defineModule;
+})(window.tui);

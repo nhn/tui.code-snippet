@@ -7,16 +7,16 @@
  * @dependency type.js, collection.js object.js
  */
 
-(function(ne) {
+(function(tui) {
     'use strict';
     /* istanbul ignore if */
-    if (!ne) {
-        ne = window.ne = {};
+    if (!tui) {
+        tui = window.tui = {};
     }
 
     /* istanbul ignore if */
-    if (!ne.util) {
-        ne.util = window.ne.util = {};
+    if (!tui.util) {
+        tui.util = window.tui.util = {};
     }
 
     /**
@@ -80,7 +80,7 @@
 
     /**
      * @constructor
-     * @memberof ne.util
+     * @memberof tui.util
      */
     function CustomEvents() {
         /**
@@ -110,7 +110,7 @@
      *  function Model() {
      *      this.name = '';
      *  }
-     *  ne.util.CustomEvents.mixin(Model);
+     *  tui.util.CustomEvents.mixin(Model);
      *
      *  var model = new Model();
      *  model.on('change', function() { this.name = 'model'; }, this);
@@ -118,7 +118,7 @@
      *  alert(model.name); // 'model';
      */
     CustomEvents.mixin = function(func) {
-        ne.util.extend(func.prototype, CustomEvents.prototype);
+        tui.util.extend(func.prototype, CustomEvents.prototype);
     };
 
     /**********
@@ -146,7 +146,7 @@
                 i -= 1;
             };
 
-        if (!ne.util.isExisty(arr) || !ne.util.isArray(arr)) {
+        if (!tui.util.isExisty(arr) || !tui.util.isArray(arr)) {
             return;
         }
 
@@ -174,7 +174,7 @@
      */
     CustomEvents.prototype._eachCtxEvents = function(iteratee) {
         var events = this._ctxEvents;
-        ne.util.forEachOwnProperties(events, iteratee);
+        tui.util.forEachOwnProperties(events, iteratee);
     };
 
     /**
@@ -189,7 +189,7 @@
      * @private
      */
     CustomEvents.prototype._eachCtxHandlerItemByContainId = function(ctxEventsItem, id, iteratee) {
-        ne.util.forEachOwnProperties(ctxEventsItem, function(handlerItem, handlerItemId) {
+        tui.util.forEachOwnProperties(ctxEventsItem, function(handlerItem, handlerItemId) {
             if (handlerItemId.indexOf(id) > -1) {
                 iteratee(handlerItem, handlerItemId);
             }
@@ -209,7 +209,7 @@
      * @private
      */
     CustomEvents.prototype._eachCtxEventByHandler = function(handler, iteratee) {
-        var handlerId = ne.util.stamp(handler),
+        var handlerId = tui.util.stamp(handler),
             eachById = this._eachCtxHandlerItemByContainId;
 
         this._eachCtxEvents(function(ctxEventsItem, eventKey) {
@@ -232,7 +232,7 @@
      * @private
      */
     CustomEvents.prototype._eachCtxEventByContext = function(context, iteratee) {
-        var contextId = ne.util.stamp(context),
+        var contextId = tui.util.stamp(context),
             eachById = this._eachCtxHandlerItemByContainId;
 
         this._eachCtxEvents(function(ctxEventsItem, eventKey) {
@@ -262,7 +262,7 @@
             ctxEventsItem = this._ctxEvents[key],
             args;
 
-        ne.util.forEachOwnProperties(ctxEventsItem, function() {
+        tui.util.forEachOwnProperties(ctxEventsItem, function() {
             args = Array.prototype.slice.call(arguments);
             args.push(key);
             iteratee.apply(null, args);
@@ -291,7 +291,7 @@
             forEachArrayDecrease = this._forEachArraySplice,
             idx = 0;
 
-        ne.util.forEachOwnProperties(events, function(eventList, eventKey) {
+        tui.util.forEachOwnProperties(events, function(eventList, eventKey) {
             forEachArrayDecrease(eventList, function(handlerItem, index, eventList, decrease) {
                 if (handlerItem.fn === handler) {
                     iteratee(handlerItem, idx, eventList, eventKey, decrease);
@@ -320,7 +320,7 @@
         }
 
         events = this._events[eventName];
-        if (!ne.util.isExisty(events)) {
+        if (!tui.util.isExisty(events)) {
             return;
         }
 
@@ -355,7 +355,7 @@
      * @private
      */
     CustomEvents.prototype._getHandlerKey = function(func, ctx) {
-        return ne.util.stamp(func) + '_' + ne.util.stamp(ctx);
+        return tui.util.stamp(func) + '_' + tui.util.stamp(ctx);
     };
 
 
@@ -368,7 +368,7 @@
     CustomEvents.prototype._setCtxLen = function(lenKey, change) {
         var events = this._ctxEvents;
 
-        if (!ne.util.isExisty(events[lenKey])) {
+        if (!tui.util.isExisty(events[lenKey])) {
             events[lenKey] = 0;
         }
 
@@ -388,12 +388,12 @@
             key = this._getCtxKey(eventName),
             event;
 
-        if (!ne.util.isExisty(events)) {
+        if (!tui.util.isExisty(events)) {
             events = this._ctxEvents = {};
         }
 
         event = events[key];
-        if (!ne.util.isExisty(event)) {
+        if (!tui.util.isExisty(event)) {
             event = events[key] = {};
         }
 
@@ -418,12 +418,12 @@
         var events = this._events,
             event;
 
-        if (!ne.util.isExisty(events)) {
+        if (!tui.util.isExisty(events)) {
             events = this._events = {};
         }
 
         event = events[eventName];
-        if (!ne.util.isExisty(event)) {
+        if (!tui.util.isExisty(event)) {
             event = events[eventName] = [];
         }
 
@@ -460,7 +460,7 @@
      */
     CustomEvents.prototype._offByContext = function(context, eventName) {
         var ctxEvents = this._ctxEvents,
-            hasArgs = ne.util.isExisty(eventName),
+            hasArgs = tui.util.isExisty(eventName),
             matchEventName,
             matchHandler,
             lenKey;
@@ -468,8 +468,8 @@
         this._eachCtxEventByContext(context, function(handlerItem, hanId, ctxItems, eventKey) {
             lenKey = eventKey.replace('_idx', '_len');
 
-            matchEventName = hasArgs && ne.util.isString(eventName) && eventKey.indexOf(eventName) > -1;
-            matchHandler = hasArgs && ne.util.isFunction(eventName) && handlerItem.fn === eventName;
+            matchEventName = hasArgs && tui.util.isString(eventName) && eventKey.indexOf(eventName) > -1;
+            matchHandler = hasArgs && tui.util.isFunction(eventName) && handlerItem.fn === eventName;
 
             if (!hasArgs || (matchEventName || matchHandler)) {
                 delete ctxItems[hanId];
@@ -486,7 +486,7 @@
      */
     CustomEvents.prototype._offByEventName = function(eventName, handler) {
         var ctxEvents = this._ctxEvents,
-            hasHandler = ne.util.isExisty(handler),
+            hasHandler = tui.util.isExisty(handler),
             lenKey;
 
         this._eachCtxEventByEventName(eventName, function(handlerItem, hanId, ctxItems, eventKey) {
@@ -536,17 +536,17 @@
     CustomEvents.prototype.on = function(eventName, handler, context) {
         var eventNameList;
 
-        if (ne.util.isObject(eventName)) {
+        if (tui.util.isObject(eventName)) {
             // {eventName: handler}
             context = handler;
-            ne.util.forEachOwnProperties(eventName, function(handler, name) {
+            tui.util.forEachOwnProperties(eventName, function(handler, name) {
                  this.on(name, handler, context);
             }, this);
             return;
-        } else if (ne.util.isString(eventName) && eventName.indexOf(' ') > -1) {
+        } else if (tui.util.isString(eventName) && eventName.indexOf(' ') > -1) {
             // processing of multiple events by split event name
             eventNameList = eventName.split(' ');
-            ne.util.forEachArray(eventNameList, function(name) {
+            tui.util.forEachArray(eventNameList, function(name) {
                 this.on(name, handler, context);
             }, this);
             return;
@@ -554,11 +554,11 @@
 
         var ctxId;
 
-        if (ne.util.isExisty(context)) {
-            ctxId = ne.util.stamp(context);
+        if (tui.util.isExisty(context)) {
+            ctxId = tui.util.stamp(context);
         }
 
-        if (ne.util.isExisty(ctxId)) {
+        if (tui.util.isExisty(ctxId)) {
             this._addCtxEvent(eventName, context, handler);
         } else {
             this._addNormalEvent(eventName, handler);
@@ -605,17 +605,17 @@
             return;
         }
 
-        if (ne.util.isFunction(eventName)) {
+        if (tui.util.isFunction(eventName)) {
             // 3. off by handler
             this._offByHandler(eventName);
 
-        } else if (ne.util.isObject(eventName)) {
-            if (ne.util.hasStamp(eventName)) {
+        } else if (tui.util.isObject(eventName)) {
+            if (tui.util.hasStamp(eventName)) {
                 // 1, 5, 6 off by context
                 this._offByContext(eventName, handler);
             } else {
                 // 4. off by an Object.<string, function>
-                ne.util.forEachOwnProperties(eventName, function(handler, name) {
+                tui.util.forEachOwnProperties(eventName, function(handler, name) {
                     this.off(name, handler);
                 }, this);
             }
@@ -635,10 +635,10 @@
     CustomEvents.prototype.getListenerLength = function(eventName) {
         var ctxEvents = this._ctxEvents,
             events = this._events,
-            existy = ne.util.isExisty,
+            existy = tui.util.isExisty,
             lenKey = this._getCtxLenKey(eventName);
 
-        var normal = (existy(events) && ne.util.isArray(events[eventName])) ? events[eventName].length : 0,
+        var normal = (existy(events) && tui.util.isArray(events[eventName])) ? events[eventName].length : 0,
             ctx = (existy(ctxEvents) && existy(ctxEvents[lenKey])) ? ctxEvents[lenKey] : 0;
 
         return normal + ctx;
@@ -687,7 +687,7 @@
         var args = Array.prototype.slice.call(arguments, 1),
             self = this,
             result = true,
-            existy = ne.util.isExisty;
+            existy = tui.util.isExisty;
 
         this._eachEventByEventName(eventName, function(item) {
             if (existy(item) && item.fn.apply(self, args) === false) {
@@ -729,8 +729,8 @@
     CustomEvents.prototype.once = function(eventName, fn, context) {
         var that = this;
 
-        if (ne.util.isObject(eventName)) {
-            ne.util.forEachOwnProperties(eventName, function(handler, eventName) {
+        if (tui.util.isObject(eventName)) {
+            tui.util.forEachOwnProperties(eventName, function(handler, eventName) {
                 this.once(eventName, handler, fn);
             }, this);
 
@@ -745,6 +745,6 @@
         this.on(eventName, onceHandler, context);
     };
 
-    ne.util.CustomEvents = CustomEvents;
+    tui.util.CustomEvents = CustomEvents;
 
-})(window.ne);
+})(window.tui);

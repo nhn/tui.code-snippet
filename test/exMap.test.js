@@ -4,16 +4,16 @@ describe('module:ExMap', function() {
     var map;
 
     beforeEach(function() {
-        map = new ne.util.ExMap();
+        map = new tui.util.ExMap();
     });
 
-    describe('The ne.util.ExMap', function() {
+    describe('The tui.util.ExMap', function() {
         it('is defined', function() {
-            expect(ne.util.ExMap).toBeDefined();
+            expect(tui.util.ExMap).toBeDefined();
         });
 
         it('is a constructor', function() {
-            expect(map instanceof ne.util.ExMap).toBe(true);
+            expect(map instanceof tui.util.ExMap).toBe(true);
         });
 
         describe('has an argument', function() {
@@ -24,7 +24,7 @@ describe('module:ExMap', function() {
                     [3, 'three']
                 ];
 
-                map = new ne.util.ExMap(initData);
+                map = new tui.util.ExMap(initData);
 
                 expect(map.get(1)).toBe('one');
                 expect(map.get(2)).toBe('two');
@@ -33,7 +33,7 @@ describe('module:ExMap', function() {
         });
     });
 
-    describe('methods from ne.util.Map', function() {
+    describe('methods from tui.util.Map', function() {
         describe('set() and get()', function() {
             it('for the string key', function() {
                 map.set('company', 'nhn ent');
@@ -203,7 +203,7 @@ describe('module:ExMap', function() {
 
     describe('merge()', function() {
         it('sets all of the key-value pairs in the specified map to this map', function() {
-            var anotherMap = new ne.util.Map();
+            var anotherMap = new tui.util.Map();
 
             map.set(1, 'one');
             map.set(2, 'two');

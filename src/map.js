@@ -6,20 +6,20 @@
  * @dependency type.js, collection.js
  */
 
-(function(ne) {
+(function(tui) {
     'use strict';
 
     /* istanbul ignore if */
-    if (!ne) {
-        ne = window.ne = {};
+    if (!tui) {
+        tui = window.tui = {};
     }
-    if (!ne.util) {
-        ne.util = window.ne.util = {};
+    if (!tui.util) {
+        tui.util = window.tui.util = {};
     }
 
 
-    // Caching ne.util for performance enhancing
-    var util = ne.util,
+    // Caching tui.util for performance enhancing
+    var util = tui.util,
 
     /**
      * Using undefined for a key can be ambiguous if there's deleted item in the array,<br>
@@ -87,7 +87,7 @@
      * @constructor
      * @param  {Array} initData - Array of key-value pairs (2-element Arrays).
      *      Each key-value pair will be added to the new Map
-     * @memberof ne.util
+     * @memberof tui.util
      */
     function Map(initData) {
         this._valuesForString = {};
@@ -372,4 +372,4 @@
     })();
 
     util.Map = Map;
-})(window.ne);
+})(window.tui);

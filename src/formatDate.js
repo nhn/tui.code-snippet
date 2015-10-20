@@ -5,7 +5,7 @@
  * @dependency type.js
  */
 
-(function(ne) {
+(function(tui) {
     'use strict';
 
     var tokens = /[\\]*YYYY|[\\]*YY|[\\]*MMMM|[\\]*MMM|[\\]*MM|[\\]*M|[\\]*DD|[\\]*D|[\\]*HH|[\\]*H|[\\]*A/gi,
@@ -84,12 +84,12 @@
         };
 
     /* istanbul ignore if */
-    if (!ne) {
-        ne = window.ne = {};
+    if (!tui) {
+        tui = window.tui = {};
     }
     /* istanbul ignore if */
-    if (!ne.util) {
-        ne.util = window.ne.util = {};
+    if (!tui.util) {
+        tui.util = window.tui.util = {};
     }
 
     /**
@@ -132,7 +132,7 @@
      * @param {string} form - Date form
      * @param {Date|Object} date - Date object
      * @returns {boolean|string} A transformed string or false.
-     * @memberOf ne.util
+     * @memberOf tui.util
      * @example
      *  // key         | Shorthand
      *  // ------------|-----------------------
@@ -170,7 +170,7 @@
             nDate,
             resultStr;
 
-        if (ne.util.isDate(date)) {
+        if (tui.util.isDate(date)) {
             nDate = {
                 year: date.getFullYear(),
                 month: date.getMonth() + 1,
@@ -209,6 +209,6 @@
         return resultStr;
     }
 
-    ne.util.formatDate = formatDate;
-})(window.ne);
+    tui.util.formatDate = formatDate;
+})(window.tui);
 

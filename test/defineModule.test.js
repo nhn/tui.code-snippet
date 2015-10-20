@@ -3,10 +3,10 @@ describe('`defineModule` function', function() {
     var definedModule;
 
     it('should set namespace and override', function() {
-        definedModule = ne.util.defineModule('foo.bar', {a: 'a'});
+        definedModule = tui.util.defineModule('foo.bar', {a: 'a'});
         expect(window.foo.bar).toBe(definedModule);
 
-        definedModule = ne.util.defineModule('foo.bar', {b: 'b'});
+        definedModule = tui.util.defineModule('foo.bar', {b: 'b'});
         expect(window.foo.bar).toBe(definedModule);
         expect(window.foo.bar.a).not.toBeDefined();
         expect(window.foo.bar.b).toBeDefined();
@@ -51,7 +51,7 @@ describe('`defineModule` function', function() {
 
 
         beforeAll(function() {
-            definedModule = ne.util.defineModule('foo.bar', base);
+            definedModule = tui.util.defineModule('foo.bar', base);
         });
 
         it('that should be initialized', function() {

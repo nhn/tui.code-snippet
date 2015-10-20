@@ -5,14 +5,14 @@
  * @dependency collection.js
  */
 
-(function(ne) {
+(function(tui) {
     'use strict';
     /* istanbul ignore if */
-    if (!ne) {
-        ne = window.ne = {};
+    if (!tui) {
+        tui = window.tui = {};
     }
-    if (!ne.util) {
-        ne.util = window.ne.util = {};
+    if (!tui.util) {
+        tui.util = window.tui.util = {};
     }
 
     /**
@@ -20,14 +20,14 @@
      *  If the given variable is not null and not undefined, returns true.
      * @param {*} param - Target for checking
      * @returns {boolean} Is existy?
-     * @memberOf ne.util
+     * @memberOf tui.util
      * @example
-     *  ne.util.isExisty(''); //true
-     *  ne.util.isExisty(0); //true
-     *  ne.util.isExisty([]); //true
-     *  ne.util.isExisty({}); //true
-     *  ne.util.isExisty(null); //false
-     *  ne.util.isExisty(undefined); //false
+     *  tui.util.isExisty(''); //true
+     *  tui.util.isExisty(0); //true
+     *  tui.util.isExisty([]); //true
+     *  tui.util.isExisty({}); //true
+     *  tui.util.isExisty(null); //false
+     *  tui.util.isExisty(undefined); //false
     */
     function isExisty(param) {
         return param != null;
@@ -38,7 +38,7 @@
      *  If the given variable is undefined, returns true.
      * @param {*} obj - Target for checking
      * @returns {boolean} Is undefined?
-     * @memberOf ne.util
+     * @memberOf tui.util
      */
     function isUndefined(obj) {
         return obj === undefined;
@@ -49,7 +49,7 @@
      *  If the given variable(arguments[0]) is null, returns true.
      * @param {*} obj - Target for checking
      * @returns {boolean} Is null?
-     * @memberOf ne.util
+     * @memberOf tui.util
      */
     function isNull(obj) {
         return obj === null;
@@ -61,7 +61,7 @@
      *  (It regards 0 as true)
      * @param {*} obj - Target for checking
      * @return {boolean} Is truthy?
-     * @memberOf ne.util
+     * @memberOf tui.util
      */
     function isTruthy(obj) {
         return isExisty(obj) && obj !== false;
@@ -72,7 +72,7 @@
      *  If the given variable is null or undefined or false, returns true.
      * @param {*} obj - Target for checking
      * @return {boolean} Is falsy?
-     * @memberOf ne.util
+     * @memberOf tui.util
      */
     function isFalsy(obj) {
         return !isTruthy(obj);
@@ -86,7 +86,7 @@
      *  If the given variable is an arguments object, return true.
      * @param {*} obj - Target for checking
      * @return {boolean} Is arguments?
-     * @memberOf ne.util
+     * @memberOf tui.util
      */
     function isArguments(obj) {
         var result = isExisty(obj) &&
@@ -100,7 +100,7 @@
      *  If the given variable is an instance of Array, return true.
      * @param {*} obj - Target for checking
      * @return {boolean} Is array instance?
-     * @memberOf ne.util
+     * @memberOf tui.util
      */
     function isArray(obj) {
         return obj instanceof Array;
@@ -111,7 +111,7 @@
      *  If the given variable is an object, return true.
      * @param {*} obj - Target for checking
      * @return {boolean} Is object?
-     * @memberOf ne.util
+     * @memberOf tui.util
      */
     function isObject(obj) {
         return obj === Object(obj);
@@ -122,7 +122,7 @@
      *  If the given variable is a function, return true.
      * @param {*} obj - Target for checking
      * @return {boolean} Is function?
-     * @memberOf ne.util
+     * @memberOf tui.util
      */
     function isFunction(obj) {
         return obj instanceof Function;
@@ -133,7 +133,7 @@
      *  If the given variable is a number, return true.
      * @param {*} obj - Target for checking
      * @return {boolean} Is number?
-     * @memberOf ne.util
+     * @memberOf tui.util
      */
     function isNumber(obj) {
         return typeof obj === 'number' || obj instanceof Number;
@@ -144,7 +144,7 @@
      *  If the given variable is a string, return true.
      * @param {*} obj - Target for checking
      * @return {boolean} Is string?
-     * @memberOf ne.util
+     * @memberOf tui.util
      */
     function isString(obj) {
         return typeof obj === 'string' || obj instanceof String;
@@ -155,7 +155,7 @@
      *  If the given variable is a boolean, return true.
      * @param {*} obj - Target for checking
      * @return {boolean} Is boolean?
-     * @memberOf ne.util
+     * @memberOf tui.util
      */
     function isBoolean(obj) {
         return typeof obj === 'boolean' || obj instanceof Boolean;
@@ -168,7 +168,7 @@
      *  (It is used for multiple frame environments)
      * @param {*} obj - Target for checking
      * @return {boolean} Is an instance of array?
-     * @memberOf ne.util
+     * @memberOf tui.util
      */
     function isArraySafe(obj) {
         return toString.call(obj) === '[object Array]';
@@ -180,7 +180,7 @@
      *  (It is used for multiple frame environments)
      * @param {*} obj - Target for checking
      * @return {boolean} Is a function?
-     * @memberOf ne.util
+     * @memberOf tui.util
      */
     function isFunctionSafe(obj) {
         return toString.call(obj) === '[object Function]';
@@ -192,7 +192,7 @@
      *  (It is used for multiple frame environments)
      * @param {*} obj - Target for checking
      * @return {boolean} Is a number?
-     * @memberOf ne.util
+     * @memberOf tui.util
      */
     function isNumberSafe(obj) {
         return toString.call(obj) === '[object Number]';
@@ -204,7 +204,7 @@
      *  (It is used for multiple frame environments)
      * @param {*} obj - Target for checking
      * @return {boolean} Is a string?
-     * @memberOf ne.util
+     * @memberOf tui.util
      */
     function isStringSafe(obj) {
         return toString.call(obj) === '[object String]';
@@ -216,7 +216,7 @@
      *  (It is used for multiple frame environments)
      * @param {*} obj - Target for checking
      * @return {boolean} Is a boolean?
-     * @memberOf ne.util
+     * @memberOf tui.util
      */
     function isBooleanSafe(obj) {
         return toString.call(obj) === '[object Boolean]';
@@ -227,7 +227,7 @@
      *  If the given variables is a instance of HTMLNode, return true.
      * @param {*} html - Target for checking
      * @return {boolean} Is HTMLNode ?
-     * @memberOf ne.util
+     * @memberOf tui.util
      */
     function isHTMLNode(html) {
         if (typeof(HTMLElement) === 'object') {
@@ -241,7 +241,7 @@
      *  If the given variables is a HTML tag, return true.
      * @param {*} html - Target for checking
      * @return {Boolean} Is HTML tag?
-     * @memberOf ne.util
+     * @memberOf tui.util
      */
     function isHTMLTag(html) {
         if (typeof(HTMLElement) === 'object') {
@@ -255,7 +255,7 @@
      *  If the given variables is empty, return true.
      * @param {*} obj - Target for checking
      * @return {boolean} Is empty?
-     * @memberOf ne.util
+     * @memberOf tui.util
      */
     function isEmpty(obj) {
         var hasKey = false;
@@ -273,7 +273,7 @@
         }
 
         if (isObject(obj) && !isFunction(obj)) {
-            ne.util.forEachOwnProperties(obj, function() {
+            tui.util.forEachOwnProperties(obj, function() {
                 hasKey = true;
                 return false;
             });
@@ -290,7 +290,7 @@
      *  If the given variables is not empty, return true.
      * @param {*} obj - Target for checking
      * @return {boolean} Is not empty?
-     * @memberOf ne.util
+     * @memberOf tui.util
      */
     function isNotEmpty(obj) {
         return !isEmpty(obj);
@@ -301,7 +301,7 @@
      *  If the given variables is an instance of Date, return true.
      * @param {*} obj - Target for checking
      * @returns {boolean} Is an instance of Date?
-     * @memberOf ne.util
+     * @memberOf tui.util
      */
     function isDate(obj) {
         return obj instanceof Date;
@@ -313,35 +313,35 @@
      *  (It is used for multiple frame environments)
      * @param {*} obj - Target for checking
      * @returns {boolean} Is an instance of Date?
-     * @memberOf ne.util
+     * @memberOf tui.util
      */
     function isDateSafe(obj) {
         return toString.call(obj) === '[object Date]';
     }
 
 
-    ne.util.isExisty = isExisty;
-    ne.util.isUndefined = isUndefined;
-    ne.util.isNull = isNull;
-    ne.util.isTruthy = isTruthy;
-    ne.util.isFalsy = isFalsy;
-    ne.util.isArguments = isArguments;
-    ne.util.isArray = Array.isArray || isArray;
-    ne.util.isArraySafe = Array.isArray || isArraySafe;
-    ne.util.isObject = isObject;
-    ne.util.isFunction = isFunction;
-    ne.util.isFunctionSafe = isFunctionSafe;
-    ne.util.isNumber = isNumber;
-    ne.util.isNumberSafe = isNumberSafe;
-    ne.util.isDate = isDate;
-    ne.util.isDateSafe = isDateSafe;
-    ne.util.isString = isString;
-    ne.util.isStringSafe = isStringSafe;
-    ne.util.isBoolean = isBoolean;
-    ne.util.isBooleanSafe = isBooleanSafe;
-    ne.util.isHTMLNode = isHTMLNode;
-    ne.util.isHTMLTag = isHTMLTag;
-    ne.util.isEmpty = isEmpty;
-    ne.util.isNotEmpty = isNotEmpty;
+    tui.util.isExisty = isExisty;
+    tui.util.isUndefined = isUndefined;
+    tui.util.isNull = isNull;
+    tui.util.isTruthy = isTruthy;
+    tui.util.isFalsy = isFalsy;
+    tui.util.isArguments = isArguments;
+    tui.util.isArray = Array.isArray || isArray;
+    tui.util.isArraySafe = Array.isArray || isArraySafe;
+    tui.util.isObject = isObject;
+    tui.util.isFunction = isFunction;
+    tui.util.isFunctionSafe = isFunctionSafe;
+    tui.util.isNumber = isNumber;
+    tui.util.isNumberSafe = isNumberSafe;
+    tui.util.isDate = isDate;
+    tui.util.isDateSafe = isDateSafe;
+    tui.util.isString = isString;
+    tui.util.isStringSafe = isStringSafe;
+    tui.util.isBoolean = isBoolean;
+    tui.util.isBooleanSafe = isBooleanSafe;
+    tui.util.isHTMLNode = isHTMLNode;
+    tui.util.isHTMLTag = isHTMLTag;
+    tui.util.isEmpty = isEmpty;
+    tui.util.isNotEmpty = isNotEmpty;
 
-})(window.ne);
+})(window.tui);

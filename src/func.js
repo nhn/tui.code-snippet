@@ -4,15 +4,15 @@
  *         FE Development Team <e0242@nhnent.com>
  */
 
-(function(ne) {
+(function(tui) {
     'use strict';
 
     /* istanbul ignore if */
-    if (!ne) {
-        ne = window.ne = {};
+    if (!tui) {
+        tui = window.tui = {};
     }
-    if (!ne.util) {
-        ne.util = window.ne.util = {};
+    if (!tui.util) {
+        tui.util = window.tui.util = {};
     }
 
     /**
@@ -20,7 +20,7 @@
      * @param {function} fn A original function before binding
      * @param {*} obj context of function in arguments[0]
      * @return {function()} A new bound function with context that is in arguments[1]
-     * @memberof ne.util
+     * @memberof tui.util
      */
     function bind(fn, obj) {
         var slice = Array.prototype.slice;
@@ -39,6 +39,6 @@
         };
     }
 
-    ne.util.bind = bind;
+    tui.util.bind = bind;
 
-})(window.ne);
+})(window.tui);

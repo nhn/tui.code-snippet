@@ -4,16 +4,16 @@ describe('module:Map', function() {
     var map;
 
     beforeEach(function() {
-        map = new ne.util.Map();
+        map = new tui.util.Map();
     });
 
-    describe('The ne.util.Map', function() {
+    describe('The tui.util.Map', function() {
         it('is defined', function() {
-            expect(ne.util.Map).toBeDefined();
+            expect(tui.util.Map).toBeDefined();
         });
 
         it('is a constructor', function() {
-            expect(map instanceof ne.util.Map).toBe(true);
+            expect(map instanceof tui.util.Map).toBe(true);
         });
 
         describe('has an argument', function() {
@@ -24,7 +24,7 @@ describe('module:Map', function() {
                     [3, 'three']
                 ];
 
-                map = new ne.util.Map(initData);
+                map = new tui.util.Map(initData);
 
                 expect(map.get(1)).toBe('one');
                 expect(map.get(2)).toBe('two');

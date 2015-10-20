@@ -2,18 +2,18 @@
  * @fileoverview This module detects the kind of well-known browser and version.
  * @author NHN Ent.
  *         FE Development Team <e0242@nhnent.com>
- * @namespace ne.util
+ * @namespace tui.util
  */
 
-(function(ne) {
+(function(tui) {
     'use strict';
     /* istanbul ignore if */
-    if (!ne) {
-        ne = window.ne = {};
+    if (!tui) {
+        tui = window.tui = {};
     }
     /* istanbul ignore if */
-    if (!ne.util) {
-        ne.util = window.ne.util = {};
+    if (!tui.util) {
+        tui.util = window.tui.util = {};
     }
 
     /**
@@ -23,14 +23,14 @@
      *  - chrome
      *  - firefox
      *  - safari
-     * @memberof ne.util
+     * @memberof tui.util
      * @example
-     *  ne.util.browser.chrome === true;    // chrome
-     *  ne.util.browser.firefox === true;    // firefox
-     *  ne.util.browser.safari === true;    // safari
-     *  ne.util.browser.msie === true;    // IE
-     *  ne.util.browser.other === true;    // other browser
-     *  ne.util.browser.version;    // browser version
+     *  tui.util.browser.chrome === true;    // chrome
+     *  tui.util.browser.firefox === true;    // firefox
+     *  tui.util.browser.safari === true;    // safari
+     *  tui.util.browser.msie === true;    // IE
+     *  tui.util.browser.other === true;    // other browser
+     *  tui.util.browser.version;    // browser version
      */
     var browser = {
         chrome: false,
@@ -86,5 +86,5 @@
     };
 
     detector[appName]();
-    ne.util.browser = browser;
-})(window.ne);
+    tui.util.browser = browser;
+})(window.tui);

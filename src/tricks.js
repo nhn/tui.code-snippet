@@ -3,20 +3,20 @@
  * @author NHN Ent. FE Development Team <e0242.nhnent.com>
  */
 
-/** @namespace ne */
-/** @namespace ne.util */
+/** @namespace tui */
+/** @namespace tui.util */
 
-(function(ne) {
+(function(tui) {
     'use strict';
     var aps = Array.prototype.slice;
 
     /* istanbul ignore if */
-    if (!ne) {
-        ne = window.ne = {};
+    if (!tui) {
+        tui = window.tui = {};
     }
     /* istanbul ignore if */
-    if (!ne.util) {
-        ne.util = window.ne.util = {};
+    if (!tui.util) {
+        tui.util = window.tui.util = {};
     }
 
     /**
@@ -24,13 +24,13 @@
      * since the last time the debouced function was invoked.
      * @param {function} fn The function to debounce.
      * @param {number} [delay=0] The number of milliseconds to delay
-     * @memberof ne.util
+     * @memberof tui.util
      * @returns {function} debounced function.
      * @example
      *
      * function someMethodToInvokeDebounced() {}
      *
-     * var debounced = ne.util.debounce(someMethodToInvokeDebounced, 300);
+     * var debounced = tui.util.debounce(someMethodToInvokeDebounced, 300);
      *
      * // invoke repeatedly
      * debounced();
@@ -63,7 +63,7 @@
 
     /**
      * return timestamp
-     * @memberof ne.util
+     * @memberof tui.util
      * @returns {number} The number of milliseconds from Jan. 1970 00:00:00 (GMT)
      */
     function timestamp() {
@@ -78,13 +78,13 @@
      * if you need reuse throttled method. you must remove slugs (e.g. flag variable) related with throttling.
      * @param {function} fn function to throttle
      * @param {number} [interval=0] the number of milliseconds to throttle invocations to.
-     * @memberof ne.util
+     * @memberof tui.util
      * @returns {function} throttled function
      * @example
      *
      * function someMethodToInvokeThrottled() {}
      *
-     * var throttled = ne.util.throttle(someMethodToInvokeThrottled, 300);
+     * var throttled = tui.util.throttle(someMethodToInvokeThrottled, 300);
      *
      * // invoke repeatedly
      * throttled();    // invoke (leading)
@@ -101,7 +101,7 @@
      */
     function throttle(fn, interval) {
         var base,
-            _timestamp = ne.util.timestamp,
+            _timestamp = tui.util.timestamp,
             debounced,
             isLeading = true,
             stamp,
@@ -114,7 +114,7 @@
         /* istanbul ignore next */
         interval = interval || 0;
 
-        debounced = ne.util.debounce(tick, interval);
+        debounced = tui.util.debounce(tick, interval);
 
         function throttled() {
             args = aps.call(arguments);
@@ -145,8 +145,8 @@
         return throttled;
     }
 
-    ne.util.timestamp = timestamp;
-    ne.util.debounce = debounce;
-    ne.util.throttle = throttle;
-})(window.ne);
+    tui.util.timestamp = timestamp;
+    tui.util.debounce = debounce;
+    tui.util.throttle = throttle;
+})(window.tui);
 

@@ -12,7 +12,7 @@ describe('module:collection', function() {
         it('어레이나 유사어레이와 콜백펑션을 입력받아 객체의 내용을 순회할수있다.', function() {
             var oSum = 0;
 
-            ne.util.forEachArray(arrayDummy, function(value) {
+            tui.util.forEachArray(arrayDummy, function(value) {
                 oSum += value;
             });
 
@@ -23,7 +23,7 @@ describe('module:collection', function() {
         it('콜백펑션이 false를 리턴하면 순회를 종료한다.', function() {
             var oSum = 0;
 
-            ne.util.forEachArray(arrayDummy, function(value) {
+            tui.util.forEachArray(arrayDummy, function(value) {
                 oSum += value;
 
                 if(oSum === 3){
@@ -41,7 +41,7 @@ describe('module:collection', function() {
         it('객체와 콜백펑션을 입력받아 객체의 내용을 순회할수있다.', function() {
             var oSum = 0;
 
-            ne.util.forEachOwnProperties(objDummy, function(value) {
+            tui.util.forEachOwnProperties(objDummy, function(value) {
                 oSum += value;
             });
 
@@ -51,7 +51,7 @@ describe('module:collection', function() {
         it('콜백펑션이 false를 리턴하면 순회를 종료한다.', function() {
             var oSum = 0;
 
-            ne.util.forEachOwnProperties(objDummy, function(value) {
+            tui.util.forEachOwnProperties(objDummy, function(value) {
                 oSum += value;
 
                 if(oSum === 3){
@@ -68,7 +68,7 @@ describe('module:collection', function() {
         it('배열과 콜백펑션을 입력받아 배열의 내용을 순회할수있다.', function() {
             var aSum = 0;
 
-            ne.util.forEach(arrayDummy, function(value) {
+            tui.util.forEach(arrayDummy, function(value) {
                 aSum += value;
             });
 
@@ -78,7 +78,7 @@ describe('module:collection', function() {
         it('객체와 콜백펑션을 입력받아 객체의 내용을 순회할수있다.', function() {
             var oSum = 0;
 
-            ne.util.forEach(objDummy, function(value) {
+            tui.util.forEach(objDummy, function(value) {
                 oSum += value;
             });
 
@@ -90,7 +90,7 @@ describe('module:collection', function() {
             var aSum = 1,
                 resultArray;
 
-            resultArray = ne.util.map(arrayDummy, function(value) {
+            resultArray = tui.util.map(arrayDummy, function(value) {
                 return value + aSum;
             });
 
@@ -106,7 +106,7 @@ describe('module:collection', function() {
             var aSum = 1,
                 resultArray;
 
-            resultArray = ne.util.map(objDummy, function(value) {
+            resultArray = tui.util.map(objDummy, function(value) {
                 return value + aSum;
             });
 
@@ -122,7 +122,7 @@ describe('module:collection', function() {
         it('배열을 순회하여 콜백의 실행결과를 다음 콜백에 전달해 연산한다.', function() {
             var result;
 
-            result = ne.util.reduce(arrayDummy, function(stored, value) {
+            result = tui.util.reduce(arrayDummy, function(stored, value) {
                 return stored + value;
             });
 
@@ -132,7 +132,7 @@ describe('module:collection', function() {
         it('객체를 순회하여 콜백의 실행결과를 다음 콜백에 전달해 연산한다.', function() {
             var result;
 
-            result = ne.util.reduce(objDummy, function(stored, value) {
+            result = tui.util.reduce(objDummy, function(stored, value) {
                 return stored + value;
             });
 
@@ -149,11 +149,11 @@ describe('module:collection', function() {
                     3: 'four',
                     length: 4
                 };
-            result = ne.util.toArray(arrayLike);
+            result = tui.util.toArray(arrayLike);
             expect(arrayLike instanceof Array).toBe(false);
             expect(result instanceof Array).toBe(true);
 
-            result = ne.util.toArray(arguments);
+            result = tui.util.toArray(arguments);
             expect(arguments instanceof Array).toBe(false);
             expect(result instanceof Array).toBe(true);
 
@@ -168,15 +168,15 @@ describe('module:collection', function() {
                     3: 'four',
                     length: 2
                 };
-            result = ne.util.toArray(arrayLike);
+            result = tui.util.toArray(arrayLike);
             expect(result instanceof Array).toBe(true);
             expect(result.length).toBe(2);
 
-            result = ne.util.toArray('abcde');
+            result = tui.util.toArray('abcde');
             expect(result instanceof Array).toBe(true);
             expect(result.length).toBe(5);
 
-            result = ne.util.toArray(1);
+            result = tui.util.toArray(1);
             expect(result instanceof Array).toBe(true);
             expect(result.length).toBe(0);
         });
@@ -187,7 +187,7 @@ describe('module:collection', function() {
         it('배열을 순회하여, 콜백 실행 결과가 참인 새로울 배열을 만들어 리턴한다.', function() {
             var result;
 
-            result = ne.util.filter(arrayDummy, function(value) {
+            result = tui.util.filter(arrayDummy, function(value) {
                 return (value % 2) === 0;
             });
 
@@ -196,7 +196,7 @@ describe('module:collection', function() {
         it('객체를 순회하여 콜백 실행 결과가 참인 새로운 객체를 만들어 리턴한다.', function() {
             var result;
 
-            result = ne.util.filter(objDummy, function(value) {
+            result = tui.util.filter(objDummy, function(value) {
                 return (value % 2) === 0;
             });
             expect(result).toEqual({_0: 0, _2: 2, _4: 4});
@@ -207,13 +207,13 @@ describe('module:collection', function() {
         it('배열 내의 값을 찾아서 인덱스를 반환한다', function() {
            var arr = ['java', 'javascript', 'c#', 'basic'];
            var result;
-           result = ne.util.inArray('javascript', arr);
+           result = tui.util.inArray('javascript', arr);
            expect(result).toBe(1);
         });
         it('배열내에 없는 값을 찾으려고 하면 -1을 반환한다.', function() {
            var arr = ['java', 'javascript', 'c#', 'basic'];
            var result;
-           result = ne.util.inArray('php', arr);
+           result = tui.util.inArray('php', arr);
            expect(result).toBe(-1);
         });
         it('배열내에서 찾고자 하는 값과 fromIndex의 범위가 맞지 않으면 -1을 반환한다.', function() {
@@ -221,21 +221,21 @@ describe('module:collection', function() {
            var result;
 
            //'one' 이라는 값을 3번째 인덱스에서부터 찾음
-           result = ne.util.inArray('one', arr, 3);
+           result = tui.util.inArray('one', arr, 3);
            expect(result).toBe(-1);
         });
         it('array가 아닌 다른 객체를 넘기면 -1을 반환한다.', function() {
            var dummyObj = {};
            var result;
 
-           result = ne.util.inArray('four', dummyObj);
+           result = tui.util.inArray('four', dummyObj);
            expect(result).toBe(-1);
         });
         it('fromIndex의 범위가 초과하면 -1을 리턴한다', function() {
            var arr = ['one', 'two', 'three', 'four'];
            var result;
 
-           result = ne.util.inArray('two', arr, 10);
+           result = tui.util.inArray('two', arr, 10);
            expect(result).toBe(-1);
         });
     });
@@ -253,12 +253,12 @@ describe('module:collection', function() {
             ];
 
         it('test object array', function() {
-            var result = ne.util.pluck(objArr, 'abc');
+            var result = tui.util.pluck(objArr, 'abc');
             expect(result).toEqual([1, 4, 7]);
         });
 
         it('test two dimensional array', function() {
-            var result = ne.util.pluck(arr2d, 2);
+            var result = tui.util.pluck(arr2d, 2);
             expect(result).toEqual([3, 6, 9]);
         });
     });

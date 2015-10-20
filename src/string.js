@@ -4,21 +4,21 @@
  *         FE Development Team <e0242@nhnent.com>
  */
 
-(function(ne) {
+(function(tui) {
     'use strict';
 
-    if (!ne) {
-        ne = window.ne = {};
+    if (!tui) {
+        tui = window.tui = {};
     }
-    if (!ne.util) {
-        ne.util = window.ne.util = {};
+    if (!tui.util) {
+        tui.util = window.tui.util = {};
     }
 
     /**
      * Transform the given HTML Entity string into plain string
      * @param {String} htmlEntity - HTML Entity type string
      * @return {String} Plain string
-     * @memberof ne.util
+     * @memberof tui.util
      * @example
      *  var htmlEntityString = "A &#39;quote&#39; is &lt;b&gt;bold&lt;/b&gt;"
      *  var result = decodeHTMLEntity(htmlEntityString); //"A 'quote' is <b>bold</b>"
@@ -34,7 +34,7 @@
      * Transform the given string into HTML Entity string
      * @param {String} html - String for encoding
      * @return {String} HTML Entity
-     * @memberof ne.util
+     * @memberof tui.util
      * @example
      *  var htmlEntityString = "<script> alert('test');</script><a href='test'>";
      *  var result = encodeHTMLEntity(htmlEntityString); //"&lt;script&gt; alert(&#39;test&#39;);&lt;/script&gt;&lt;a href=&#39;test&#39;&gt;"
@@ -49,7 +49,7 @@
     /**
      * Return whether the string capable to transform into plain string is in the given string or not.
      * @param {String} string
-     * @memberof ne.util
+     * @memberof tui.util
      * @return {boolean}
      */
     function hasEncodableString(string) {
@@ -61,12 +61,12 @@
      * @param {string} operandStr1 The operand string
      * @param {string} operandStr2 The operand string
      * @private
-     * @memberof ne.util
+     * @memberof tui.util
      * @returns {string}
      * @example
-     * ne.util.getDuplicatedChar('fe dev', 'nhn entertainment');
+     * tui.util.getDuplicatedChar('fe dev', 'nhn entertainment');
      * => 'e'
-     * ne.util.getDuplicatedChar('fdsa', 'asdf');
+     * tui.util.getDuplicatedChar('fdsa', 'asdf');
      * => 'asdf'
      */
     function getDuplicatedChar(operandStr1, operandStr2) {
@@ -88,19 +88,19 @@
             }
         }
 
-        pool = ne.util.filter(pool, function(item) {
+        pool = tui.util.filter(pool, function(item) {
             return item > 1;
         });
 
-        pool = ne.util.keys(pool).sort();
+        pool = tui.util.keys(pool).sort();
         dupl = pool.join('');
 
         return dupl;
     }
 
-    ne.util.decodeHTMLEntity = decodeHTMLEntity;
-    ne.util.encodeHTMLEntity = encodeHTMLEntity;
-    ne.util.hasEncodableString = hasEncodableString;
-    ne.util.getDuplicatedChar = getDuplicatedChar;
+    tui.util.decodeHTMLEntity = decodeHTMLEntity;
+    tui.util.encodeHTMLEntity = encodeHTMLEntity;
+    tui.util.hasEncodableString = hasEncodableString;
+    tui.util.getDuplicatedChar = getDuplicatedChar;
 
-})(window.ne);
+})(window.tui);

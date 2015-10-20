@@ -1,6 +1,6 @@
 describe('object', function() {
     beforeEach(function() {
-        ne.util._resetLastId();
+        tui.util._resetLastId();
     });
 
     it('compareJSON()은 json객체가 같은지 비교한다.', function() {
@@ -9,19 +9,19 @@ describe('object', function() {
             obj3 = {url: "http://119.205.249.132/ac", st: 1, r_lt: 1, r_enc: "UTF-8", q_enc: "UTF-8"},
             obj4 = {url: "http://119.205.249.132/ac", st: 1, r_lt: 1, r_enc: "UTF-8", q_enc: "UTF-8"};
 
-        expect(ne.util.compareJSON(obj1, obj2, obj3, obj4)).toBe(true);
+        expect(tui.util.compareJSON(obj1, obj2, obj3, obj4)).toBe(true);
 
         var objA = {url: "http://119.205.249.132/ac", st: 1, r_lt: 1, r_enc: "UTF-8", q_enc: "UTF-8"},
             objB = {url: "http://120.120.266.1/", st: 11, r_lt: 2, r_enc: "UTF-8", q_enc: "UTF-8"};
 
-        expect(ne.util.compareJSON(objA, objB)).toBe(false);
+        expect(tui.util.compareJSON(objA, objB)).toBe(false);
 
         var objC = {a: 100, b: [1,2,3], dt: {age: 12}},
             objD = {a: 100, b: [1,2,3], dt: {age: 1222}},
             objE = {a: 100, b: [1,2,3], dt: {age: 12}};
 
-        expect(ne.util.compareJSON(objC, objD)).toBe(false);
-        expect(ne.util.compareJSON(objC, objE)).toBe(true);
+        expect(tui.util.compareJSON(objC, objD)).toBe(false);
+        expect(tui.util.compareJSON(objC, objE)).toBe(true);
     });
 
 
@@ -43,7 +43,7 @@ describe('object', function() {
             }
         };
 
-        ne.util.extend(target, source);
+        tui.util.extend(target, source);
 
         expect(target.middleName).toEqual('-');
         expect(target.lastName).toEqual('Kim');
@@ -57,27 +57,27 @@ describe('object', function() {
 
         var myObj = {};
 
-        ne.util.stamp(myFn);
-        ne.util.stamp(myObj);
+        tui.util.stamp(myFn);
+        tui.util.stamp(myObj);
 
-        expect(ne.util.stamp(myFn)).toBeDefined();
-        expect(ne.util.stamp(myFn)).toBe(1);
-        expect(ne.util.stamp(myObj)).toBe(2);
+        expect(tui.util.stamp(myFn)).toBeDefined();
+        expect(tui.util.stamp(myFn)).toBe(1);
+        expect(tui.util.stamp(myObj)).toBe(2);
     });
 
     it('hasStamp() 는 stamp()로 ID부여 여부를 확인가능', function() {
         var myFn = function() {};
 
-        expect(ne.util.hasStamp(myFn)).not.toBe(true);
+        expect(tui.util.hasStamp(myFn)).not.toBe(true);
 
-        ne.util.stamp(myFn);
+        tui.util.stamp(myFn);
 
-        expect(ne.util.hasStamp(myFn)).toBe(true);
+        expect(tui.util.hasStamp(myFn)).toBe(true);
     });
 
     describe('keys', function() {
         it('객체를 전달받아 키만 따로 배열로 만들어 리턴해준다.', function() {
-            var result = ne.util.keys({'key1': 1, 'key2': 2});
+            var result = tui.util.keys({'key1': 1, 'key2': 2});
 
             expect(result.length).toEqual(2);
             expect(result[0]).toEqual('key1');
@@ -91,15 +91,15 @@ describe('object', function() {
             var o1,
                 o2 = null;
 
-            expect(ne.util.pick(o1)).toBeUndefined();
-            expect(ne.util.pick(o1, 'key1')).toBeUndefined();
-            expect(ne.util.pick(o2)).toBeNull();
-            expect(ne.util.pick(o2, 'key1')).toBeUndefined();
-            expect(ne.util.pick(o2, 'key1', 'key2')).toBeUndefined();
+            expect(tui.util.pick(o1)).toBeUndefined();
+            expect(tui.util.pick(o1, 'key1')).toBeUndefined();
+            expect(tui.util.pick(o2)).toBeNull();
+            expect(tui.util.pick(o2, 'key1')).toBeUndefined();
+            expect(tui.util.pick(o2, 'key1', 'key2')).toBeUndefined();
 
-            expect(ne.util.pick(1)).toBe(1);
-            expect(ne.util.pick('key1')).toBe('key1');
-            expect(ne.util.pick('key1', 'key2')).toBeUndefined();
+            expect(tui.util.pick(1)).toBe(1);
+            expect(tui.util.pick('key1')).toBe('key1');
+            expect(tui.util.pick('key1', 'key2')).toBeUndefined();
         });
         it('Object 인 경우', function() {
             var obj = {
@@ -112,25 +112,25 @@ describe('object', function() {
                 }
             };
 
-            expect(ne.util.pick(obj, 'key1')).toBe(1);
-            expect(ne.util.pick(obj, 'nested')).toEqual(obj.nested);
-            expect(ne.util.pick(obj, 'nested', 'key1')).toBe(11);
-            expect(ne.util.pick(obj, 'nested', 'nested')).toBe(obj.nested.nested);
-            expect(ne.util.pick(obj, 'nested', 'nested', 'key1')).toBe(21);
+            expect(tui.util.pick(obj, 'key1')).toBe(1);
+            expect(tui.util.pick(obj, 'nested')).toEqual(obj.nested);
+            expect(tui.util.pick(obj, 'nested', 'key1')).toBe(11);
+            expect(tui.util.pick(obj, 'nested', 'nested')).toBe(obj.nested.nested);
+            expect(tui.util.pick(obj, 'nested', 'nested', 'key1')).toBe(21);
 
-            expect(ne.util.pick(obj, 'notFound')).toBeUndefined();
-            expect(ne.util.pick(obj, 'notFound', 'notFound')).toBeUndefined();
+            expect(tui.util.pick(obj, 'notFound')).toBeUndefined();
+            expect(tui.util.pick(obj, 'notFound', 'notFound')).toBeUndefined();
 
         });
         it('배열인 경우', function() {
             var arr = [1, [2], {'key1': 3}];
 
-            expect(ne.util.pick(arr, 0)).toBe(1);
-            expect(ne.util.pick(arr, 1)).toBe(arr[1]);
-            expect(ne.util.pick(arr, 1, 0)).toBe(2);
-            expect(ne.util.pick(arr, 2, 'key1')).toBe(3);
+            expect(tui.util.pick(arr, 0)).toBe(1);
+            expect(tui.util.pick(arr, 1)).toBe(arr[1]);
+            expect(tui.util.pick(arr, 1, 0)).toBe(2);
+            expect(tui.util.pick(arr, 2, 'key1')).toBe(3);
 
-            expect(ne.util.pick(arr, 5)).toBeUndefined();
+            expect(tui.util.pick(arr, 5)).toBeUndefined();
         });
     });
 });

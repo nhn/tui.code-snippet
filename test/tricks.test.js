@@ -11,7 +11,7 @@ describe('tricks', function() {
         it('test debounced functions.', function() {
             var fn;
 
-            fn = ne.util.debounce(spy, 50);
+            fn = tui.util.debounce(spy, 50);
             fn();
 
             expect(window.setTimeout).toHaveBeenCalledWith(jasmine.any(Function), 50);
@@ -26,7 +26,7 @@ describe('tricks', function() {
                 func();
             });
 
-            fn = ne.util.debounce(spy);
+            fn = tui.util.debounce(spy);
             fn('hello world!');
 
             expect(spy.calls.argsFor(0)).toEqual(['hello world!']);
@@ -37,7 +37,7 @@ describe('tricks', function() {
         var spy;
 
         /**
-         * util method for ne.util.timestamp spying.
+         * util method for tui.util.timestamp spying.
          *
          * get an array and return each element at every invokes.
          */
@@ -63,13 +63,13 @@ describe('tricks', function() {
                 fireGun = reload(magazine),
                 fn;
 
-            spyOn(ne.util, 'timestamp').and.callFake(function() {
+            spyOn(tui.util, 'timestamp').and.callFake(function() {
                 return fireGun();
             });
 
-            spyOn(ne.util, 'debounce').and.returnValue(function() {});
+            spyOn(tui.util, 'debounce').and.returnValue(function() {});
 
-            fn = ne.util.throttle(spy, 7);
+            fn = tui.util.throttle(spy, 7);
 
             fn();
             fn();
@@ -78,7 +78,7 @@ describe('tricks', function() {
             fn();
 
             expect(spy.calls.count()).toBe(2);
-            expect(ne.util.debounce).toHaveBeenCalled();
+            expect(tui.util.debounce).toHaveBeenCalled();
         });
 
         it('reset can remove slugs related with throttling.', function() {
@@ -86,11 +86,11 @@ describe('tricks', function() {
                 fireGun = reload(magazine),
                 fn;
 
-            spyOn(ne.util, 'timestamp').and.callFake(function() {
+            spyOn(tui.util, 'timestamp').and.callFake(function() {
                 return fireGun();
             });
 
-            fn = ne.util.throttle(spy, 7);
+            fn = tui.util.throttle(spy, 7);
 
             fn();
 
@@ -107,7 +107,7 @@ describe('tricks', function() {
         it('throttled functions can accept parameters.', function() {
             var fn;
 
-            fn = ne.util.throttle(spy);
+            fn = tui.util.throttle(spy);
 
             fn('hello world!');
 

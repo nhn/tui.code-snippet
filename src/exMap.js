@@ -6,29 +6,29 @@
  * @dependency Map.js, collection.js
  */
 
-(function(ne) {
+(function(tui) {
     'use strict';
 
     /* istanbul ignore if */
-    if (!ne) {
-        ne = window.ne = {};
+    if (!tui) {
+        tui = window.tui = {};
     }
-    if (!ne.util) {
-        ne.util = window.ne.util = {};
+    if (!tui.util) {
+        tui.util = window.tui.util = {};
     }
 
-    // Caching ne.util for performance enhancing
-    var util = ne.util,
+    // Caching tui.util for performance enhancing
+    var util = tui.util,
         mapAPIsForRead = ['get', 'has', 'forEach', 'keys', 'values', 'entries'],
         mapAPIsForDelete = ['delete', 'clear'];
 
     /**
-     * The ExMap object is Extended Version of the ne.util.Map object.<br>
+     * The ExMap object is Extended Version of the tui.util.Map object.<br>
      * and added some useful feature to make it easy to manage the Map object.
      * @constructor
      * @param {Array} initData - Array of key-value pairs (2-element Arrays).
      *      Each key-value pair will be added to the new Map
-     * @memberof ne.util
+     * @memberof tui.util
      */
     function ExMap(initData) {
         this._map = new util.Map(initData);
@@ -105,4 +105,4 @@
     };
 
     util.ExMap = ExMap;
-})(window.ne);
+})(window.tui);

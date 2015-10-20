@@ -1,5 +1,5 @@
 describe('defineNamespace', function() {
-    var defineNamespace = ne.util.defineNamespace;
+    var defineNamespace = tui.util.defineNamespace;
 
     it('define', function() {
         defineNamespace('aaa.bbb.ccc');
@@ -69,7 +69,7 @@ describe('defineNamespace', function() {
     it('invalid props type', function() {
         defineNamespace('asdf.hello', 'hello world');
         expect(asdf.hello).toBeDefined();
-        expect(ne.util.isString(asdf.hello)).toBeFalsy();
+        expect(tui.util.isString(asdf.hello)).toBeFalsy();
     });
 
     it('define double', function() {

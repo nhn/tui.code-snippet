@@ -4,16 +4,16 @@
  *         FE Development Team <e0242@nhnent.com>
  * @dependency inheritance.js, object.js, collection.js
  */
-(function(ne) {
+(function(tui) {
 
     'use strict';
     /* istanbul ignore if */
-    if (!ne) {
-        ne = window.ne = {};
+    if (!tui) {
+        tui = window.tui = {};
     }
     /* istanbul ignore if */
-    if (!ne.util) {
-        ne.util = window.ne.util = {};
+    if (!tui.util) {
+        tui.util = window.tui.util = {};
     }
 
     /**
@@ -22,10 +22,10 @@
      * @param {(object|function)} props - A set of modules or one module
      * @param {boolean} isOverride flag - What if module already define, override or not
      * @returns {(object|function)} Defined namespace
-     * @memberof ne.util
+     * @memberof tui.util
      * @example
      * var neComp = defineNamespace('ne.component');
-     * neComp.listMenu = ne.util.defineClass({
+     * neComp.listMenu = tui.util.defineClass({
      *      init: function() {
      *          // code
      *      }
@@ -45,7 +45,7 @@
         lastspace = namespace.pop();
         namespace.unshift(window);
 
-        result = ne.util.reduce(namespace, function(obj, name) {
+        result = tui.util.reduce(namespace, function(obj, name) {
             obj[name] = obj[name] || {};
             return obj[name];
         });
@@ -68,7 +68,7 @@
         namespace = name.split('.');
         namespace.unshift(window);
 
-        result = ne.util.reduce(namespace, function(obj, name) {
+        result = tui.util.reduce(namespace, function(obj, name) {
             return obj && obj[name];
         });
         return result;
@@ -80,9 +80,9 @@
      * @returns {boolean}
      */
     var isValidType = function(module) {
-        return (ne.util.isObject(module) || ne.util.isFunction(module));
+        return (tui.util.isObject(module) || tui.util.isFunction(module));
     };
 
-    ne.util.defineNamespace = defineNamespace;
+    tui.util.defineNamespace = defineNamespace;
 
-})(window.ne);
+})(window.tui);

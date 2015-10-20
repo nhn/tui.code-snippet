@@ -5,13 +5,13 @@
  * @dependency browser.js, type.js, object.js, collection.js, func.js, window.js
  */
 
-(function(ne) {
+(function(tui) {
     'use strict';
-    if (!ne) {
-        ne = window.ne = {};
+    if (!tui) {
+        tui = window.tui = {};
     }
-    if (!ne.util) {
-        ne.util = window.ne.util = {};
+    if (!tui.util) {
+        tui.util = window.tui.util = {};
     }
 
     var popup_id = 0;
@@ -19,7 +19,7 @@
     /**
      * Popup management class
      * @constructor
-     * @memberof ne.util
+     * @memberof tui.util
      */
     function Popup() {
 
@@ -54,7 +54,7 @@
      */
     Popup.prototype.getPopupList = function(key) {
         var target;
-        if (ne.util.isExisty(key)) {
+        if (tui.util.isExisty(key)) {
             target = this.openedPopup[key];
         } else {
             target = this.openedPopup;
@@ -92,7 +92,7 @@
      *     @param {Object} [options.param=null] - Using as parameters for transmission when the form-data is transmitted to popup-window.
      */
     Popup.prototype.openPopup = function(url, options) {
-        options = ne.util.extend({
+        options = tui.util.extend({
             popupName: 'popup_' + popup_id + '_' + (+new Date()),
             popupOptionStr: '',
             useReload: true,
@@ -108,9 +108,9 @@
         var popup,
             formElement,
             useIEPostBridge = options.method === 'POST' && options.param &&
-                ne.util.browser.msie && ne.util.browser.version === 11;
+                tui.util.browser.msie && tui.util.browser.version === 11;
 
-        if (!ne.util.isExisty(url)) {
+        if (!tui.util.isExisty(url)) {
             throw new Error('Popup#open() 팝업 URL이 입력되지 않았습니다');
         }
 
@@ -135,7 +135,7 @@
 
         popup = this.openedPopup[options.popupName];
 
-        if (!ne.util.isExisty(popup)) {
+        if (!tui.util.isExisty(popup)) {
             this.openedPopup[options.popupName] = popup = this._open(useIEPostBridge, options.param,
                 url, options.popupName, options.popupOptionStr);
 
@@ -154,7 +154,7 @@
 
         this.closeWithParentPopup[options.popupName] = options.closeWithParent;
 
-        if (!popup || popup.closed || ne.util.isUndefined(popup.closed)) {
+        if (!popup || popup.closed || tui.util.isUndefined(popup.closed)) {
             alert('브라우저에 팝업을 막는 기능이 활성화 상태이기 때문에 서비스 이용에 문제가 있을 수 있습니다. 해당 기능을 비활성화 해 주세요');
         }
 
@@ -167,7 +167,7 @@
             }
         }
 
-        window.onunload = ne.util.bind(this.closeAllPopup, this);
+        window.onunload = tui.util.bind(this.closeAllPopup, this);
     };
 
     /**
@@ -176,7 +176,7 @@
      * @param {Window} [popup] - Window-context of popup for closing. If omit this, current window-context will be closed.
      */
     Popup.prototype.close = function(skipBeforeUnload, popup) {
-        skipBeforeUnload = ne.util.isExisty(skipBeforeUnload) ? skipBeforeUnload : false;
+        skipBeforeUnload = tui.util.isExisty(skipBeforeUnload) ? skipBeforeUnload : false;
 
         var target = popup || window;
 
@@ -195,9 +195,9 @@
      * @param {boolean} closeWithParent - If true, popups having the closeWithParentPopup property as true will be closed.
      */
     Popup.prototype.closeAllPopup = function(closeWithParent) {
-        var hasArg = ne.util.isExisty(closeWithParent);
+        var hasArg = tui.util.isExisty(closeWithParent);
 
-        ne.util.forEachOwnProperties(this.openedPopup, function(popup, key) {
+        tui.util.forEachOwnProperties(this.openedPopup, function(popup, key) {
             if ((hasArg && this.closeWithParentPopup[key]) || !hasArg) {
                 this.close(false, popup);
             }
@@ -223,7 +223,7 @@
             param = {};
 
         search = window.location.search.substr(1);
-        ne.util.forEachArray(search.split('&'), function(part) {
+        tui.util.forEachArray(search.split('&'), function(part) {
             pair = part.split('=');
             param[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]);
         });
@@ -251,7 +251,7 @@
         form.target = target || '';
         form.style.display = 'none';
 
-        ne.util.forEachOwnProperties(data, function(value, key) {
+        tui.util.forEachOwnProperties(data, function(value, key) {
             input = document.createElement('input');
             input.name = key;
             input.type = 'hidden';
@@ -277,7 +277,7 @@
     Popup.prototype._parameterize = function(object) {
         var query = [];
 
-        ne.util.forEachOwnProperties(object, function(value, key) {
+        tui.util.forEachOwnProperties(object, function(value, key) {
             query.push(encodeURIComponent(key) + '=' + encodeURIComponent(value));
         });
 
@@ -315,6 +315,6 @@
         return popup;
     };
 
-    ne.util.popup = new Popup();
+    tui.util.popup = new Popup();
 
-})(window.ne);
+})(window.tui);

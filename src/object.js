@@ -5,14 +5,14 @@
  * @dependency type.js, collection.js
  */
 
-(function(ne) {
+(function(tui) {
     'use strict';
     /* istanbul ignore if */
-    if (!ne) {
-        ne = window.ne = {};
+    if (!tui) {
+        tui = window.tui = {};
     }
-    if (!ne.util) {
-        ne.util = window.ne.util = {};
+    if (!tui.util) {
+        tui.util = window.tui.util = {};
     }
 
     /**
@@ -20,7 +20,7 @@
      * @param {object} target - Object that will be extended
      * @param {...object} objects - Objects as sources
      * @return {object} Extended object
-     * @memberOf ne.util
+     * @memberOf tui.util
      */
     function extend(target, objects) {
         var source,
@@ -50,7 +50,7 @@
      * Assign a unique id to an object
      * @param {object} obj - Object that will be assigned id.
      * @return {number} Stamped id
-     * @memberOf ne.util
+     * @memberOf tui.util
      */
     function stamp(obj) {
         obj.__fe_id = obj.__fe_id || ++lastId;
@@ -61,10 +61,10 @@
      * Verify whether an object has a stamped id or not.
      * @param {object} obj
      * @returns {boolean}
-     * @memberOf ne.util
+     * @memberOf tui.util
      */
     function hasStamp(obj) {
-        return ne.util.isExisty(ne.util.pick(obj, '__fe_id'));
+        return tui.util.isExisty(tui.util.pick(obj, '__fe_id'));
     }
 
     /**
@@ -78,7 +78,7 @@
      * Return a key-list(array) of a given object
      * @param {object} obj - Object from which a key-list will be extracted
      * @returns {Array} A key-list(array)
-     * @memberOf ne.util
+     * @memberOf tui.util
      */
     function keys(obj) {
         var keys = [],
@@ -104,15 +104,15 @@
      *      jsonObj2 = {name:'milk', price: 1000},
      *      jsonObj3 = {name:'milk', price: 1000};
      *
-     *  ne.util.compareJSON(jsonObj1, jsonObj2, jsonObj3);   // true
+     *  tui.util.compareJSON(jsonObj1, jsonObj2, jsonObj3);   // true
      *
      *
      *  var jsonObj4 = {name:'milk', price: 1000},
      *      jsonObj5 = {name:'beer', price: 3000};
      *
-     *      ne.util.compareJSON(jsonObj4, jsonObj5); // false
+     *      tui.util.compareJSON(jsonObj4, jsonObj5); // false
 
-     * @memberOf ne.util
+     * @memberOf tui.util
      */
     function compareJSON(object) {
         var leftChain,
@@ -127,8 +127,8 @@
             // and isNaN(undefined) returns true
             if (isNaN(x) &&
                 isNaN(y) &&
-                ne.util.isNumber(x) &&
-                ne.util.isNumber(y)) {
+                tui.util.isNumber(x) &&
+                tui.util.isNumber(y)) {
                 return true;
             }
 
@@ -142,7 +142,7 @@
             // Works in case when functions are created in constructor.
             // Comparing dates is a common scenario. Another built-ins?
             // We can even handle functions passed across iframes
-            if ((ne.util.isFunction(x) && ne.util.isFunction(y)) ||
+            if ((tui.util.isFunction(x) && tui.util.isFunction(y)) ||
                 (x instanceof Date && y instanceof Date) ||
                 (x instanceof RegExp && y instanceof RegExp) ||
                 (x instanceof String && y instanceof String) ||
@@ -163,8 +163,8 @@
             }
 
             // check for infinitive linking loops
-            if (ne.util.inArray(x, leftChain) > -1 ||
-                ne.util.inArray(y, rightChain) > -1) {
+            if (tui.util.inArray(x, leftChain) > -1 ||
+                tui.util.inArray(y, rightChain) > -1) {
                 return false;
             }
 
@@ -237,11 +237,11 @@
      *          }
      *      }
      *  };
-     *  ne.util.pick(obj, 'nested', 'nested', 'key1'); // 21
-     *  ne.util.pick(obj, 'nested', 'nested', 'key2'); // undefined
+     *  tui.util.pick(obj, 'nested', 'nested', 'key1'); // 21
+     *  tui.util.pick(obj, 'nested', 'nested', 'key2'); // undefined
      *
      *  var arr = ['a', 'b', 'c'];
-     *  ne.util.pick(arr, 1); // 'b'
+     *  tui.util.pick(arr, 1); // 'b'
      */
     function pick(obj, paths) {
         var args = arguments,
@@ -258,11 +258,11 @@
         }
     }
 
-    ne.util.extend = extend;
-    ne.util.stamp = stamp;
-    ne.util.hasStamp = hasStamp;
-    ne.util._resetLastId = resetLastId;
-    ne.util.keys = Object.keys || keys;
-    ne.util.compareJSON = compareJSON;
-    ne.util.pick = pick;
-})(window.ne);
+    tui.util.extend = extend;
+    tui.util.stamp = stamp;
+    tui.util.hasStamp = hasStamp;
+    tui.util._resetLastId = resetLastId;
+    tui.util.keys = Object.keys || keys;
+    tui.util.compareJSON = compareJSON;
+    tui.util.pick = pick;
+})(window.tui);

@@ -5,15 +5,15 @@
  * @dependency type, collection.js
  */
 
-(function(ne) {
+(function(tui) {
     'use strict';
 
     /* istanbul ignore if */
-    if (!ne) {
-        ne = window.ne = {};
+    if (!tui) {
+        tui = window.tui = {};
     }
-    if (!ne.util) {
-        ne.util = window.ne.util = {};
+    if (!tui.util) {
+        tui.util = window.tui.util = {};
     }
 
     /**
@@ -29,9 +29,9 @@
      *  HashMap instance has a length property but is not an instance of Array.
      * @param {Object} [obj] A initial data for creation.
      * @constructor
-     * @memberof ne.util
+     * @memberof tui.util
      * @example
-     *  var hm = new ne.util.HashMap({
+     *  var hm = new tui.util.HashMap({
      *      'mydata': {
      *           'hello': 'imfine'
      *       },
@@ -100,7 +100,7 @@
     HashMap.prototype.setObject = function(obj) {
         var self = this;
 
-        ne.util.forEachOwnProperties(obj, function(value, key) {
+        tui.util.forEachOwnProperties(obj, function(value, key) {
             self.setKeyValue(key, value);
         });
     };
@@ -186,10 +186,10 @@
      */
     HashMap.prototype.remove = function(key) {
         if (arguments.length > 1) {
-            key = ne.util.toArray(arguments);
+            key = tui.util.toArray(arguments);
         }
 
-        return ne.util.isArray(key) ? this.removeByKeyArray(key) : this.removeByKey(key);
+        return tui.util.isArray(key) ? this.removeByKeyArray(key) : this.removeByKey(key);
     };
 
     /**
@@ -228,7 +228,7 @@
         var data = [],
             self = this;
 
-        ne.util.forEach(keyArray, function(key) {
+        tui.util.forEach(keyArray, function(key) {
             data.push(self.removeByKey(key));
         });
 
@@ -262,7 +262,7 @@
         var self = this,
             flag;
 
-        ne.util.forEachOwnProperties(this, function(value, key) {
+        tui.util.forEachOwnProperties(this, function(value, key) {
             if (key.charAt(0) === _MAPDATAPREFIX) {
                 flag = iteratee(value, self.decodeKey(key));
             }
@@ -350,6 +350,6 @@
         return result;
     };
 
-    ne.util.HashMap = HashMap;
+    tui.util.HashMap = HashMap;
 
-})(window.ne);
+})(window.tui);

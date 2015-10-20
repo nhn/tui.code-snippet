@@ -10,13 +10,13 @@
  * @dependency type.js
  */
 
-(function(ne) {
+(function(tui) {
     'use strict';
-    if (!ne) {
-        ne = window.ne = {};
+    if (!tui) {
+        tui = window.tui = {};
     }
-    if (!ne.util) {
-        ne.util = window.ne.util = {};
+    if (!tui.util) {
+        tui.util = window.tui.util = {};
     }
 
     var aps = Array.prototype.slice;
@@ -26,27 +26,27 @@
      * @param {number} start
      * @param {number} stop
      * @param {number} step
-     * @memberof ne.util
+     * @memberof tui.util
      * @returns {Array}
      * @example
      *
-     *   var arr = ne.util.range(5);
+     *   var arr = tui.util.range(5);
      *   console.log(arr); // [0,1,2,3,4]
      *
-     *   arr = ne.util.range(1, 5);
+     *   arr = tui.util.range(1, 5);
      *   console.log(arr); // [1,2,3,4]
      *
-     *   arr = ne.util.range(2, 10, 2);
+     *   arr = tui.util.range(2, 10, 2);
      *   console.log(arr); // [2,4,6,8]
      *
-     *   arr = ne.util.range(10, 2, -2);
+     *   arr = tui.util.range(10, 2, -2);
      *   console.log(arr); // [10,8,6,4]
      */
     var range = function(start, stop, step) {
         var arr = [],
             flag;
 
-        if (ne.util.isUndefined(stop)) {
+        if (tui.util.isUndefined(stop)) {
             stop = start || 0;
             start = 0;
         }
@@ -65,11 +65,11 @@
     /**
      * Zip together multiple lists into a single array
      * @param {...Array}
-     * @memberof ne.util
+     * @memberof tui.util
      * @returns {Array}
      * @example
      *
-     *   var result = ne.util.zip([1, 2, 3], ['a', 'b','c'], [true, false, true]);
+     *   var result = tui.util.zip([1, 2, 3], ['a', 'b','c'], [true, false, true]);
      *
      *   console.log(result[0]); // [1, 'a', true]
      *   console.log(result[1]); // [2, 'b', false]
@@ -79,8 +79,8 @@
         var arr2d = aps.call(arguments),
             result = [];
 
-        ne.util.forEach(arr2d, function(arr) {
-            ne.util.forEach(arr, function(value, index) {
+        tui.util.forEach(arr2d, function(arr) {
+            tui.util.forEach(arr, function(value, index) {
                 if (!result[index]) {
                     result[index] = [];
                 }
@@ -91,9 +91,10 @@
         return result;
     };
 
-    ne.util.range = range;
-    ne.util.zip = zip;
-})(window.ne);
+    tui.util.range = range;
+    tui.util.zip = zip;
+})(window.tui);
+
 /**********
  * browser.js
  **********/
@@ -102,18 +103,18 @@
  * @fileoverview This module detects the kind of well-known browser and version.
  * @author NHN Ent.
  *         FE Development Team <e0242@nhnent.com>
- * @namespace ne.util
+ * @namespace tui.util
  */
 
-(function(ne) {
+(function(tui) {
     'use strict';
     /* istanbul ignore if */
-    if (!ne) {
-        ne = window.ne = {};
+    if (!tui) {
+        tui = window.tui = {};
     }
     /* istanbul ignore if */
-    if (!ne.util) {
-        ne.util = window.ne.util = {};
+    if (!tui.util) {
+        tui.util = window.tui.util = {};
     }
 
     /**
@@ -123,14 +124,14 @@
      *  - chrome
      *  - firefox
      *  - safari
-     * @memberof ne.util
+     * @memberof tui.util
      * @example
-     *  ne.util.browser.chrome === true;    // chrome
-     *  ne.util.browser.firefox === true;    // firefox
-     *  ne.util.browser.safari === true;    // safari
-     *  ne.util.browser.msie === true;    // IE
-     *  ne.util.browser.other === true;    // other browser
-     *  ne.util.browser.version;    // browser version
+     *  tui.util.browser.chrome === true;    // chrome
+     *  tui.util.browser.firefox === true;    // firefox
+     *  tui.util.browser.safari === true;    // safari
+     *  tui.util.browser.msie === true;    // IE
+     *  tui.util.browser.other === true;    // other browser
+     *  tui.util.browser.version;    // browser version
      */
     var browser = {
         chrome: false,
@@ -186,8 +187,8 @@
     };
 
     detector[appName]();
-    ne.util.browser = browser;
-})(window.ne);
+    tui.util.browser = browser;
+})(window.tui);
 
 /**********
  * collection.js
@@ -200,13 +201,13 @@
  * @dependency type.js, object.js
  */
 
-(function(ne) {
+(function(tui) {
     'use strict';
-    if (!ne) {
-        ne = window.ne = {};
+    if (!tui) {
+        tui = window.tui = {};
     }
-    if (!ne.util) {
-        ne.util = window.ne.util = {};
+    if (!tui.util) {
+        tui.util = window.tui.util = {};
     }
 
     /**
@@ -226,7 +227,7 @@
      * @param {Array} arr The array(or Array-like object) that will be traversed
      * @param {function} iteratee Callback function
      * @param {Object} [context] Context(this) of callback function
-     * @memberof ne.util
+     * @memberof tui.util
      * @example
      *  var sum = 0;
      *
@@ -259,7 +260,7 @@
      * @param {Object} obj The object that will be traversed
      * @param {function} iteratee  Callback function
      * @param {Object} [context] Context(this) of callback function
-     * @memberof ne.util
+     * @memberof tui.util
      * @example
      *  var sum = 0;
      *
@@ -293,7 +294,7 @@
      * @param {Object} obj The object that will be traversed
      * @param {function} iteratee Callback function
      * @param {Object} [context] Context(this) of callback function
-     * @memberof ne.util
+     * @memberof tui.util
      * @example
      *  //ex1
      *  var sum = 0;
@@ -312,10 +313,10 @@
      *  }
      */
     function forEach(obj, iteratee, context) {
-        if (ne.util.isArray(obj)) {
-            ne.util.forEachArray(obj, iteratee, context);
+        if (tui.util.isArray(obj)) {
+            tui.util.forEachArray(obj, iteratee, context);
         } else {
-            ne.util.forEachOwnProperties(obj, iteratee, context);
+            tui.util.forEachOwnProperties(obj, iteratee, context);
         }
     }
 
@@ -330,7 +331,7 @@
      * @param {function} iteratee Callback function
      * @param {Object} [context] Context(this) of callback function
      * @returns {Array} A new array composed of returned values from callback function
-     * @memberof ne.util
+     * @memberof tui.util
      * @example
      *  var result = map([0,1,2,3], function(value) {
      *      return value + 1;
@@ -343,7 +344,7 @@
 
         context = context || null;
 
-        ne.util.forEach(obj, function() {
+        tui.util.forEach(obj, function() {
             resultArray.push(iteratee.apply(context, arguments));
         });
 
@@ -362,7 +363,7 @@
      * @param {function} iteratee Callback function
      * @param {Object} [context] Context(this) of callback function
      * @returns {*} The result value
-     * @memberof ne.util
+     * @memberof tui.util
      * @example
      *  var result = reduce([0,1,2,3], function(stored, value) {
      *      return stored + value;
@@ -378,8 +379,8 @@
 
         context = context || null;
 
-        if (!ne.util.isArray(obj)) {
-            keys = ne.util.keys(obj);
+        if (!tui.util.isArray(obj)) {
+            keys = tui.util.keys(obj);
         }
 
         length = keys ? keys.length : obj.length;
@@ -397,7 +398,7 @@
      * In low IE (below 8), Array.prototype.slice.call is not perfect. So, try-catch statement is used.
      * @param {*} arrayLike Array-like object
      * @return {Array} Array
-     * @memberof ne.util
+     * @memberof tui.util
      * @example
      *  var arrayLike = {
      *      0: 'one',
@@ -434,7 +435,7 @@
      * @param {function} iteratee Callback function
      * @param {Object} [context] Context(this) of callback function
      * @returns {Object} plain object or Array
-     * @memberof ne.util
+     * @memberof tui.util
      * @example
      *  var result1 = filter([0,1,2,3], function(value) {
      *      return (value % 2 === 0);
@@ -454,11 +455,11 @@
 
         context = context || null;
 
-        if (!ne.util.isObject(obj) || !ne.util.isFunction(iteratee)) {
+        if (!tui.util.isObject(obj) || !tui.util.isFunction(iteratee)) {
             throw new Error('wrong parameter');
         }
 
-        if (ne.util.isArray(obj)) {
+        if (tui.util.isArray(obj)) {
             result = [];
             add = function(result, args) {
                 result.push(args[0]);
@@ -470,7 +471,7 @@
             };
         }
 
-        ne.util.forEach(obj, function() {
+        tui.util.forEach(obj, function() {
             if (iteratee.apply(context, arguments)) {
                 add(result, arguments);
             }
@@ -485,7 +486,7 @@
      * @param {*} searchElement Element to locate in the array
      * @param {Array} array Array that will be traversed.
      * @param {number} startIndex Start index in array for searching (default 0)
-     * @memberof ne.util
+     * @memberof tui.util
      * @return {number} the First index at which a given element, or -1 if it is not present
      * @example
      *
@@ -493,14 +494,14 @@
      *       idx1,
      *       idx2;
      *
-     *   idx1 = ne.util.inArray('one', arr, 3);
+     *   idx1 = tui.util.inArray('one', arr, 3);
      *   alert(idx1); // -1
      *
-     *   idx2 = ne.util.inArray('one', arr);
+     *   idx2 = tui.util.inArray('one', arr);
      *   alert(idx2); // 0
      */
     var inArray = function(searchElement, array, startIndex) {
-        if (!ne.util.isArray(array)) {
+        if (!tui.util.isArray(array)) {
             return -1;
         }
 
@@ -512,7 +513,7 @@
             length = array.length;
 
         // set startIndex
-        if (ne.util.isUndefined(startIndex)) {
+        if (tui.util.isUndefined(startIndex)) {
             startIndex = 0;
         } else if (startIndex >= length || startIndex < 0) {
             return -1;
@@ -532,7 +533,7 @@
      * fetching a property
      * @param {Array} arr target collection
      * @param {String|Number} property property name
-     * @memberof ne.util
+     * @memberof tui.util
      * @returns {Array}
      * @example
      *   var objArr = [
@@ -547,30 +548,30 @@
      *       ],
      *       result;
      *
-     *   result = ne.util.pluck(objArr, 'abc');
+     *   result = tui.util.pluck(objArr, 'abc');
      *   console.log(result) // [1, 4, 7]
      *
-     *   result = ne.util.pluck(arr2d, 2);
+     *   result = tui.util.pluck(arr2d, 2);
      *   console.log(result) // [3, 6, 9]
      */
     var pluck = function(arr, property) {
-        var result = ne.util.map(arr, function(item) {
+        var result = tui.util.map(arr, function(item) {
             return item[property];
         });
         return result;
     };
 
-    ne.util.forEachOwnProperties = forEachOwnProperties;
-    ne.util.forEachArray = forEachArray;
-    ne.util.forEach = forEach;
-    ne.util.toArray = toArray;
-    ne.util.map = map;
-    ne.util.reduce = reduce;
-    ne.util.filter = filter;
-    ne.util.inArray = inArray;
-    ne.util.pluck = pluck;
+    tui.util.forEachOwnProperties = forEachOwnProperties;
+    tui.util.forEachArray = forEachArray;
+    tui.util.forEach = forEach;
+    tui.util.toArray = toArray;
+    tui.util.map = map;
+    tui.util.reduce = reduce;
+    tui.util.filter = filter;
+    tui.util.inArray = inArray;
+    tui.util.pluck = pluck;
 
-})(window.ne);
+})(window.tui);
 
 /**********
  * customEvent.js
@@ -585,16 +586,16 @@
  * @dependency type.js, collection.js object.js
  */
 
-(function(ne) {
+(function(tui) {
     'use strict';
     /* istanbul ignore if */
-    if (!ne) {
-        ne = window.ne = {};
+    if (!tui) {
+        tui = window.tui = {};
     }
 
     /* istanbul ignore if */
-    if (!ne.util) {
-        ne.util = window.ne.util = {};
+    if (!tui.util) {
+        tui.util = window.tui.util = {};
     }
 
     /**
@@ -658,7 +659,7 @@
 
     /**
      * @constructor
-     * @memberof ne.util
+     * @memberof tui.util
      */
     function CustomEvents() {
         /**
@@ -688,7 +689,7 @@
      *  function Model() {
      *      this.name = '';
      *  }
-     *  ne.util.CustomEvents.mixin(Model);
+     *  tui.util.CustomEvents.mixin(Model);
      *
      *  var model = new Model();
      *  model.on('change', function() { this.name = 'model'; }, this);
@@ -696,7 +697,7 @@
      *  alert(model.name); // 'model';
      */
     CustomEvents.mixin = function(func) {
-        ne.util.extend(func.prototype, CustomEvents.prototype);
+        tui.util.extend(func.prototype, CustomEvents.prototype);
     };
 
     /**********
@@ -724,7 +725,7 @@
                 i -= 1;
             };
 
-        if (!ne.util.isExisty(arr) || !ne.util.isArray(arr)) {
+        if (!tui.util.isExisty(arr) || !tui.util.isArray(arr)) {
             return;
         }
 
@@ -752,7 +753,7 @@
      */
     CustomEvents.prototype._eachCtxEvents = function(iteratee) {
         var events = this._ctxEvents;
-        ne.util.forEachOwnProperties(events, iteratee);
+        tui.util.forEachOwnProperties(events, iteratee);
     };
 
     /**
@@ -767,7 +768,7 @@
      * @private
      */
     CustomEvents.prototype._eachCtxHandlerItemByContainId = function(ctxEventsItem, id, iteratee) {
-        ne.util.forEachOwnProperties(ctxEventsItem, function(handlerItem, handlerItemId) {
+        tui.util.forEachOwnProperties(ctxEventsItem, function(handlerItem, handlerItemId) {
             if (handlerItemId.indexOf(id) > -1) {
                 iteratee(handlerItem, handlerItemId);
             }
@@ -787,7 +788,7 @@
      * @private
      */
     CustomEvents.prototype._eachCtxEventByHandler = function(handler, iteratee) {
-        var handlerId = ne.util.stamp(handler),
+        var handlerId = tui.util.stamp(handler),
             eachById = this._eachCtxHandlerItemByContainId;
 
         this._eachCtxEvents(function(ctxEventsItem, eventKey) {
@@ -810,7 +811,7 @@
      * @private
      */
     CustomEvents.prototype._eachCtxEventByContext = function(context, iteratee) {
-        var contextId = ne.util.stamp(context),
+        var contextId = tui.util.stamp(context),
             eachById = this._eachCtxHandlerItemByContainId;
 
         this._eachCtxEvents(function(ctxEventsItem, eventKey) {
@@ -840,7 +841,7 @@
             ctxEventsItem = this._ctxEvents[key],
             args;
 
-        ne.util.forEachOwnProperties(ctxEventsItem, function() {
+        tui.util.forEachOwnProperties(ctxEventsItem, function() {
             args = Array.prototype.slice.call(arguments);
             args.push(key);
             iteratee.apply(null, args);
@@ -869,7 +870,7 @@
             forEachArrayDecrease = this._forEachArraySplice,
             idx = 0;
 
-        ne.util.forEachOwnProperties(events, function(eventList, eventKey) {
+        tui.util.forEachOwnProperties(events, function(eventList, eventKey) {
             forEachArrayDecrease(eventList, function(handlerItem, index, eventList, decrease) {
                 if (handlerItem.fn === handler) {
                     iteratee(handlerItem, idx, eventList, eventKey, decrease);
@@ -898,7 +899,7 @@
         }
 
         events = this._events[eventName];
-        if (!ne.util.isExisty(events)) {
+        if (!tui.util.isExisty(events)) {
             return;
         }
 
@@ -933,7 +934,7 @@
      * @private
      */
     CustomEvents.prototype._getHandlerKey = function(func, ctx) {
-        return ne.util.stamp(func) + '_' + ne.util.stamp(ctx);
+        return tui.util.stamp(func) + '_' + tui.util.stamp(ctx);
     };
 
 
@@ -946,7 +947,7 @@
     CustomEvents.prototype._setCtxLen = function(lenKey, change) {
         var events = this._ctxEvents;
 
-        if (!ne.util.isExisty(events[lenKey])) {
+        if (!tui.util.isExisty(events[lenKey])) {
             events[lenKey] = 0;
         }
 
@@ -966,12 +967,12 @@
             key = this._getCtxKey(eventName),
             event;
 
-        if (!ne.util.isExisty(events)) {
+        if (!tui.util.isExisty(events)) {
             events = this._ctxEvents = {};
         }
 
         event = events[key];
-        if (!ne.util.isExisty(event)) {
+        if (!tui.util.isExisty(event)) {
             event = events[key] = {};
         }
 
@@ -996,12 +997,12 @@
         var events = this._events,
             event;
 
-        if (!ne.util.isExisty(events)) {
+        if (!tui.util.isExisty(events)) {
             events = this._events = {};
         }
 
         event = events[eventName];
-        if (!ne.util.isExisty(event)) {
+        if (!tui.util.isExisty(event)) {
             event = events[eventName] = [];
         }
 
@@ -1038,7 +1039,7 @@
      */
     CustomEvents.prototype._offByContext = function(context, eventName) {
         var ctxEvents = this._ctxEvents,
-            hasArgs = ne.util.isExisty(eventName),
+            hasArgs = tui.util.isExisty(eventName),
             matchEventName,
             matchHandler,
             lenKey;
@@ -1046,8 +1047,8 @@
         this._eachCtxEventByContext(context, function(handlerItem, hanId, ctxItems, eventKey) {
             lenKey = eventKey.replace('_idx', '_len');
 
-            matchEventName = hasArgs && ne.util.isString(eventName) && eventKey.indexOf(eventName) > -1;
-            matchHandler = hasArgs && ne.util.isFunction(eventName) && handlerItem.fn === eventName;
+            matchEventName = hasArgs && tui.util.isString(eventName) && eventKey.indexOf(eventName) > -1;
+            matchHandler = hasArgs && tui.util.isFunction(eventName) && handlerItem.fn === eventName;
 
             if (!hasArgs || (matchEventName || matchHandler)) {
                 delete ctxItems[hanId];
@@ -1064,7 +1065,7 @@
      */
     CustomEvents.prototype._offByEventName = function(eventName, handler) {
         var ctxEvents = this._ctxEvents,
-            hasHandler = ne.util.isExisty(handler),
+            hasHandler = tui.util.isExisty(handler),
             lenKey;
 
         this._eachCtxEventByEventName(eventName, function(handlerItem, hanId, ctxItems, eventKey) {
@@ -1114,17 +1115,17 @@
     CustomEvents.prototype.on = function(eventName, handler, context) {
         var eventNameList;
 
-        if (ne.util.isObject(eventName)) {
+        if (tui.util.isObject(eventName)) {
             // {eventName: handler}
             context = handler;
-            ne.util.forEachOwnProperties(eventName, function(handler, name) {
+            tui.util.forEachOwnProperties(eventName, function(handler, name) {
                  this.on(name, handler, context);
             }, this);
             return;
-        } else if (ne.util.isString(eventName) && eventName.indexOf(' ') > -1) {
+        } else if (tui.util.isString(eventName) && eventName.indexOf(' ') > -1) {
             // processing of multiple events by split event name
             eventNameList = eventName.split(' ');
-            ne.util.forEachArray(eventNameList, function(name) {
+            tui.util.forEachArray(eventNameList, function(name) {
                 this.on(name, handler, context);
             }, this);
             return;
@@ -1132,11 +1133,11 @@
 
         var ctxId;
 
-        if (ne.util.isExisty(context)) {
-            ctxId = ne.util.stamp(context);
+        if (tui.util.isExisty(context)) {
+            ctxId = tui.util.stamp(context);
         }
 
-        if (ne.util.isExisty(ctxId)) {
+        if (tui.util.isExisty(ctxId)) {
             this._addCtxEvent(eventName, context, handler);
         } else {
             this._addNormalEvent(eventName, handler);
@@ -1183,17 +1184,17 @@
             return;
         }
 
-        if (ne.util.isFunction(eventName)) {
+        if (tui.util.isFunction(eventName)) {
             // 3. off by handler
             this._offByHandler(eventName);
 
-        } else if (ne.util.isObject(eventName)) {
-            if (ne.util.hasStamp(eventName)) {
+        } else if (tui.util.isObject(eventName)) {
+            if (tui.util.hasStamp(eventName)) {
                 // 1, 5, 6 off by context
                 this._offByContext(eventName, handler);
             } else {
                 // 4. off by an Object.<string, function>
-                ne.util.forEachOwnProperties(eventName, function(handler, name) {
+                tui.util.forEachOwnProperties(eventName, function(handler, name) {
                     this.off(name, handler);
                 }, this);
             }
@@ -1213,10 +1214,10 @@
     CustomEvents.prototype.getListenerLength = function(eventName) {
         var ctxEvents = this._ctxEvents,
             events = this._events,
-            existy = ne.util.isExisty,
+            existy = tui.util.isExisty,
             lenKey = this._getCtxLenKey(eventName);
 
-        var normal = (existy(events) && ne.util.isArray(events[eventName])) ? events[eventName].length : 0,
+        var normal = (existy(events) && tui.util.isArray(events[eventName])) ? events[eventName].length : 0,
             ctx = (existy(ctxEvents) && existy(ctxEvents[lenKey])) ? ctxEvents[lenKey] : 0;
 
         return normal + ctx;
@@ -1265,7 +1266,7 @@
         var args = Array.prototype.slice.call(arguments, 1),
             self = this,
             result = true,
-            existy = ne.util.isExisty;
+            existy = tui.util.isExisty;
 
         this._eachEventByEventName(eventName, function(item) {
             if (existy(item) && item.fn.apply(self, args) === false) {
@@ -1307,8 +1308,8 @@
     CustomEvents.prototype.once = function(eventName, fn, context) {
         var that = this;
 
-        if (ne.util.isObject(eventName)) {
-            ne.util.forEachOwnProperties(eventName, function(handler, eventName) {
+        if (tui.util.isObject(eventName)) {
+            tui.util.forEachOwnProperties(eventName, function(handler, eventName) {
                 this.once(eventName, handler, fn);
             }, this);
 
@@ -1323,9 +1324,9 @@
         this.on(eventName, onceHandler, context);
     };
 
-    ne.util.CustomEvents = CustomEvents;
+    tui.util.CustomEvents = CustomEvents;
 
-})(window.ne);
+})(window.tui);
 
 /**********
  * defineClass.js
@@ -1339,15 +1340,15 @@
  * @dependency inheritance.js, object.js
  */
 
-(function(ne) {
+(function(tui) {
     'use strict';
     /* istanbul ignore if */
-    if (!ne) {
-        ne = window.ne = {};
+    if (!tui) {
+        tui = window.tui = {};
     }
     /* istanbul ignore if */
-    if (!ne.util) {
-        ne.util = window.ne.util = {};
+    if (!tui.util) {
+        tui.util = window.tui.util = {};
     }
 
     /**
@@ -1357,7 +1358,7 @@
      *  @param {Function} props.init Initialization method
      *  @param {Object} [props.static] Static members of constructor
      * @returns {*} Constructor
-     * @memberof ne.util
+     * @memberof tui.util
      * @example
      *  var Parent = defineClass({
      *      init: function() {
@@ -1387,7 +1388,7 @@
      *  childInstance.method();
      *  childInstance.method2();
      */
-    ne.util.defineClass = function(parent, props) {
+    tui.util.defineClass = function(parent, props) {
         var obj;
 
         if (!props) {
@@ -1398,20 +1399,20 @@
         obj = props.init || function(){};
 
         if(parent) {
-            ne.util.inherit(obj, parent);
+            tui.util.inherit(obj, parent);
         }
 
         if (props.hasOwnProperty('static')) {
-            ne.util.extend(obj, props.static);
+            tui.util.extend(obj, props.static);
             delete props.static;
         }
 
-        ne.util.extend(obj.prototype, props);
+        tui.util.extend(obj.prototype, props);
 
         return obj;
     };
 
-})(window.ne);
+})(window.tui);
 
 /**********
  * defineModule.js
@@ -1423,18 +1424,18 @@
  *         FE Development Team <e0242@nhnent.com>
  * @dependency type.js, defineNamespace.js
  */
-(function(ne) {
+(function(tui) {
     'use strict';
     /* istanbul ignore if */
-    if (!ne) {
-        ne = window.ne = {};
+    if (!tui) {
+        tui = window.tui = {};
     }
     /* istanbul ignore if */
-    if (!ne.util) {
-        ne.util = window.ne.util = {};
+    if (!tui.util) {
+        tui.util = window.tui.util = {};
     }
 
-    var util = ne.util,
+    var util = tui.util,
         INITIALIZATION_METHOD_NAME = 'initialize';
 
     /**
@@ -1442,9 +1443,9 @@
      * @param {string} namespace - Namespace of module
      * @param {Object} moduleDefinition - Object literal for module
      * @returns {Object} Defined module
-     * @memberof ne.util
+     * @memberof tui.util
      * @example
-     *     var myModule = ne.util.defineModule('modules.myModule', {
+     *     var myModule = tui.util.defineModule('modules.myModule', {
      *          name: 'john',
      *          message: '',
      *          initialize: function() {
@@ -1468,8 +1469,8 @@
 
         return util.defineNamespace(namespace, base, true);
     }
-    ne.util.defineModule = defineModule;
-})(window.ne);
+    tui.util.defineModule = defineModule;
+})(window.tui);
 
 /**********
  * defineNamespace.js
@@ -1481,16 +1482,16 @@
  *         FE Development Team <e0242@nhnent.com>
  * @dependency inheritance.js, object.js, collection.js
  */
-(function(ne) {
+(function(tui) {
 
     'use strict';
     /* istanbul ignore if */
-    if (!ne) {
-        ne = window.ne = {};
+    if (!tui) {
+        tui = window.tui = {};
     }
     /* istanbul ignore if */
-    if (!ne.util) {
-        ne.util = window.ne.util = {};
+    if (!tui.util) {
+        tui.util = window.tui.util = {};
     }
 
     /**
@@ -1499,10 +1500,10 @@
      * @param {(object|function)} props - A set of modules or one module
      * @param {boolean} isOverride flag - What if module already define, override or not
      * @returns {(object|function)} Defined namespace
-     * @memberof ne.util
+     * @memberof tui.util
      * @example
      * var neComp = defineNamespace('ne.component');
-     * neComp.listMenu = ne.util.defineClass({
+     * neComp.listMenu = tui.util.defineClass({
      *      init: function() {
      *          // code
      *      }
@@ -1522,7 +1523,7 @@
         lastspace = namespace.pop();
         namespace.unshift(window);
 
-        result = ne.util.reduce(namespace, function(obj, name) {
+        result = tui.util.reduce(namespace, function(obj, name) {
             obj[name] = obj[name] || {};
             return obj[name];
         });
@@ -1545,7 +1546,7 @@
         namespace = name.split('.');
         namespace.unshift(window);
 
-        result = ne.util.reduce(namespace, function(obj, name) {
+        result = tui.util.reduce(namespace, function(obj, name) {
             return obj && obj[name];
         });
         return result;
@@ -1557,12 +1558,13 @@
      * @returns {boolean}
      */
     var isValidType = function(module) {
-        return (ne.util.isObject(module) || ne.util.isFunction(module));
+        return (tui.util.isObject(module) || tui.util.isFunction(module));
     };
 
-    ne.util.defineNamespace = defineNamespace;
+    tui.util.defineNamespace = defineNamespace;
 
-})(window.ne);
+})(window.tui);
+
 /**********
  * enum.js
  **********/
@@ -1574,16 +1576,16 @@
  * @dependency type, collection.js
  */
 
-(function(ne) {
+(function(tui) {
 
 'use strict';
 
 /* istanbul ignore if */
-if (!ne) {
-    ne = window.ne = {};
+if (!tui) {
+    tui = window.tui = {};
 }
-if (!ne.util) {
-    ne.util = window.ne.util = {};
+if (!tui.util) {
+    tui.util = window.tui.util = {};
 }
 
 /**
@@ -1614,7 +1616,7 @@ var enumValue = 0;
  * @exports Enum
  * @constructor
  * @class
- * @memberof ne.util
+ * @memberof tui.util
  * @examples
  *  //create
  *  var MYENUM = new Enum('TYPE1', 'TYPE2');
@@ -1650,11 +1652,11 @@ function Enum(itemList) {
 Enum.prototype.set = function(itemList) {
     var self = this;
 
-    if (!ne.util.isArray(itemList)) {
-        itemList = ne.util.toArray(arguments);
+    if (!tui.util.isArray(itemList)) {
+        itemList = tui.util.toArray(arguments);
     }
 
-    ne.util.forEach(itemList, function itemListIteratee(item) {
+    tui.util.forEach(itemList, function itemListIteratee(item) {
         self._addItem(item);
     });
 };
@@ -1668,7 +1670,7 @@ Enum.prototype.getName = function(value) {
     var foundedKey,
         self = this;
 
-    ne.util.forEach(this, function(itemValue, key) {
+    tui.util.forEach(this, function(itemValue, key) {
         if (self._isEnumItem(key) && value === itemValue) {
             foundedKey = key;
             return false;
@@ -1723,12 +1725,12 @@ Enum.prototype._makeEnumValue = function() {
  * @private
  */
 Enum.prototype._isEnumItem = function(key) {
-    return ne.util.isNumber(this[key]);
+    return tui.util.isNumber(this[key]);
 };
 
-ne.util.Enum = Enum;
+tui.util.Enum = Enum;
 
-})(window.ne);
+})(window.tui);
 
 /**********
  * exMap.js
@@ -1742,29 +1744,29 @@ ne.util.Enum = Enum;
  * @dependency Map.js, collection.js
  */
 
-(function(ne) {
+(function(tui) {
     'use strict';
 
     /* istanbul ignore if */
-    if (!ne) {
-        ne = window.ne = {};
+    if (!tui) {
+        tui = window.tui = {};
     }
-    if (!ne.util) {
-        ne.util = window.ne.util = {};
+    if (!tui.util) {
+        tui.util = window.tui.util = {};
     }
 
-    // Caching ne.util for performance enhancing
-    var util = ne.util,
+    // Caching tui.util for performance enhancing
+    var util = tui.util,
         mapAPIsForRead = ['get', 'has', 'forEach', 'keys', 'values', 'entries'],
         mapAPIsForDelete = ['delete', 'clear'];
 
     /**
-     * The ExMap object is Extended Version of the ne.util.Map object.<br>
+     * The ExMap object is Extended Version of the tui.util.Map object.<br>
      * and added some useful feature to make it easy to manage the Map object.
      * @constructor
      * @param {Array} initData - Array of key-value pairs (2-element Arrays).
      *      Each key-value pair will be added to the new Map
-     * @memberof ne.util
+     * @memberof tui.util
      */
     function ExMap(initData) {
         this._map = new util.Map(initData);
@@ -1841,7 +1843,7 @@ ne.util.Enum = Enum;
     };
 
     util.ExMap = ExMap;
-})(window.ne);
+})(window.tui);
 
 /**********
  * formatDate.js
@@ -1854,7 +1856,7 @@ ne.util.Enum = Enum;
  * @dependency type.js
  */
 
-(function(ne) {
+(function(tui) {
     'use strict';
 
     var tokens = /[\\]*YYYY|[\\]*YY|[\\]*MMMM|[\\]*MMM|[\\]*MM|[\\]*M|[\\]*DD|[\\]*D|[\\]*HH|[\\]*H|[\\]*A/gi,
@@ -1933,12 +1935,12 @@ ne.util.Enum = Enum;
         };
 
     /* istanbul ignore if */
-    if (!ne) {
-        ne = window.ne = {};
+    if (!tui) {
+        tui = window.tui = {};
     }
     /* istanbul ignore if */
-    if (!ne.util) {
-        ne.util = window.ne.util = {};
+    if (!tui.util) {
+        tui.util = window.tui.util = {};
     }
 
     /**
@@ -1981,7 +1983,7 @@ ne.util.Enum = Enum;
      * @param {string} form - Date form
      * @param {Date|Object} date - Date object
      * @returns {boolean|string} A transformed string or false.
-     * @memberOf ne.util
+     * @memberOf tui.util
      * @example
      *  // key         | Shorthand
      *  // ------------|-----------------------
@@ -2019,7 +2021,7 @@ ne.util.Enum = Enum;
             nDate,
             resultStr;
 
-        if (ne.util.isDate(date)) {
+        if (tui.util.isDate(date)) {
             nDate = {
                 year: date.getFullYear(),
                 month: date.getMonth() + 1,
@@ -2058,8 +2060,8 @@ ne.util.Enum = Enum;
         return resultStr;
     }
 
-    ne.util.formatDate = formatDate;
-})(window.ne);
+    tui.util.formatDate = formatDate;
+})(window.tui);
 
 
 /**********
@@ -2072,15 +2074,15 @@ ne.util.Enum = Enum;
  *         FE Development Team <e0242@nhnent.com>
  */
 
-(function(ne) {
+(function(tui) {
     'use strict';
 
     /* istanbul ignore if */
-    if (!ne) {
-        ne = window.ne = {};
+    if (!tui) {
+        tui = window.tui = {};
     }
-    if (!ne.util) {
-        ne.util = window.ne.util = {};
+    if (!tui.util) {
+        tui.util = window.tui.util = {};
     }
 
     /**
@@ -2088,7 +2090,7 @@ ne.util.Enum = Enum;
      * @param {function} fn A original function before binding
      * @param {*} obj context of function in arguments[0]
      * @return {function()} A new bound function with context that is in arguments[1]
-     * @memberof ne.util
+     * @memberof tui.util
      */
     function bind(fn, obj) {
         var slice = Array.prototype.slice;
@@ -2107,9 +2109,9 @@ ne.util.Enum = Enum;
         };
     }
 
-    ne.util.bind = bind;
+    tui.util.bind = bind;
 
-})(window.ne);
+})(window.tui);
 
 /**********
  * hashMap.js
@@ -2122,15 +2124,15 @@ ne.util.Enum = Enum;
  * @dependency type, collection.js
  */
 
-(function(ne) {
+(function(tui) {
     'use strict';
 
     /* istanbul ignore if */
-    if (!ne) {
-        ne = window.ne = {};
+    if (!tui) {
+        tui = window.tui = {};
     }
-    if (!ne.util) {
-        ne.util = window.ne.util = {};
+    if (!tui.util) {
+        tui.util = window.tui.util = {};
     }
 
     /**
@@ -2146,9 +2148,9 @@ ne.util.Enum = Enum;
      *  HashMap instance has a length property but is not an instance of Array.
      * @param {Object} [obj] A initial data for creation.
      * @constructor
-     * @memberof ne.util
+     * @memberof tui.util
      * @example
-     *  var hm = new ne.util.HashMap({
+     *  var hm = new tui.util.HashMap({
      *      'mydata': {
      *           'hello': 'imfine'
      *       },
@@ -2217,7 +2219,7 @@ ne.util.Enum = Enum;
     HashMap.prototype.setObject = function(obj) {
         var self = this;
 
-        ne.util.forEachOwnProperties(obj, function(value, key) {
+        tui.util.forEachOwnProperties(obj, function(value, key) {
             self.setKeyValue(key, value);
         });
     };
@@ -2303,10 +2305,10 @@ ne.util.Enum = Enum;
      */
     HashMap.prototype.remove = function(key) {
         if (arguments.length > 1) {
-            key = ne.util.toArray(arguments);
+            key = tui.util.toArray(arguments);
         }
 
-        return ne.util.isArray(key) ? this.removeByKeyArray(key) : this.removeByKey(key);
+        return tui.util.isArray(key) ? this.removeByKeyArray(key) : this.removeByKey(key);
     };
 
     /**
@@ -2345,7 +2347,7 @@ ne.util.Enum = Enum;
         var data = [],
             self = this;
 
-        ne.util.forEach(keyArray, function(key) {
+        tui.util.forEach(keyArray, function(key) {
             data.push(self.removeByKey(key));
         });
 
@@ -2379,7 +2381,7 @@ ne.util.Enum = Enum;
         var self = this,
             flag;
 
-        ne.util.forEachOwnProperties(this, function(value, key) {
+        tui.util.forEachOwnProperties(this, function(value, key) {
             if (key.charAt(0) === _MAPDATAPREFIX) {
                 flag = iteratee(value, self.decodeKey(key));
             }
@@ -2467,9 +2469,9 @@ ne.util.Enum = Enum;
         return result;
     };
 
-    ne.util.HashMap = HashMap;
+    tui.util.HashMap = HashMap;
 
-})(window.ne);
+})(window.tui);
 
 /**********
  * inheritance.js
@@ -2481,15 +2483,15 @@ ne.util.Enum = Enum;
  *         FE Development Team <e0242@nhnent.com>
  */
 
-(function(ne) {
+(function(tui) {
     'use strict';
     /* istanbul ignore if */
-    if (!ne) {
-        ne = window.ne = {};
+    if (!tui) {
+        tui = window.tui = {};
     }
     /* istanbul ignore if */
-    if (!ne.util) {
-        ne.util = window.ne.util = {};
+    if (!tui.util) {
+        tui.util = window.tui.util = {};
     }
 
 
@@ -2498,7 +2500,7 @@ ne.util.Enum = Enum;
      * Create a new object with the specified prototype object and properties.
      * @param {Object} obj This object will be a prototype of the newly-created object.
      * @return {Object}
-     * @memberof ne.util
+     * @memberof tui.util
      */
     function createObject() {
         function F() {}
@@ -2516,7 +2518,7 @@ ne.util.Enum = Enum;
      *
      * @param {function} subType Child constructor
      * @param {function} superType Parent constructor
-     * @memberof ne.util
+     * @memberof tui.util
      * @example
      *  // Parent constructor
      *  function Animal(leg) {
@@ -2542,15 +2544,15 @@ ne.util.Enum = Enum;
      *  };
      */
     function inherit(subType, superType) {
-        var prototype = ne.util.createObject(superType.prototype);
+        var prototype = tui.util.createObject(superType.prototype);
         prototype.constructor = subType;
         subType.prototype = prototype;
     }
 
-    ne.util.createObject = createObject();
-    ne.util.inherit = inherit;
+    tui.util.createObject = createObject();
+    tui.util.inherit = inherit;
 
-})(window.ne);
+})(window.tui);
 
 /**********
  * map.js
@@ -2564,20 +2566,20 @@ ne.util.Enum = Enum;
  * @dependency type.js, collection.js
  */
 
-(function(ne) {
+(function(tui) {
     'use strict';
 
     /* istanbul ignore if */
-    if (!ne) {
-        ne = window.ne = {};
+    if (!tui) {
+        tui = window.tui = {};
     }
-    if (!ne.util) {
-        ne.util = window.ne.util = {};
+    if (!tui.util) {
+        tui.util = window.tui.util = {};
     }
 
 
-    // Caching ne.util for performance enhancing
-    var util = ne.util,
+    // Caching tui.util for performance enhancing
+    var util = tui.util,
 
     /**
      * Using undefined for a key can be ambiguous if there's deleted item in the array,<br>
@@ -2645,7 +2647,7 @@ ne.util.Enum = Enum;
      * @constructor
      * @param  {Array} initData - Array of key-value pairs (2-element Arrays).
      *      Each key-value pair will be added to the new Map
-     * @memberof ne.util
+     * @memberof tui.util
      */
     function Map(initData) {
         this._valuesForString = {};
@@ -2930,7 +2932,7 @@ ne.util.Enum = Enum;
     })();
 
     util.Map = Map;
-})(window.ne);
+})(window.tui);
 
 /**********
  * object.js
@@ -2943,14 +2945,14 @@ ne.util.Enum = Enum;
  * @dependency type.js, collection.js
  */
 
-(function(ne) {
+(function(tui) {
     'use strict';
     /* istanbul ignore if */
-    if (!ne) {
-        ne = window.ne = {};
+    if (!tui) {
+        tui = window.tui = {};
     }
-    if (!ne.util) {
-        ne.util = window.ne.util = {};
+    if (!tui.util) {
+        tui.util = window.tui.util = {};
     }
 
     /**
@@ -2958,7 +2960,7 @@ ne.util.Enum = Enum;
      * @param {object} target - Object that will be extended
      * @param {...object} objects - Objects as sources
      * @return {object} Extended object
-     * @memberOf ne.util
+     * @memberOf tui.util
      */
     function extend(target, objects) {
         var source,
@@ -2988,7 +2990,7 @@ ne.util.Enum = Enum;
      * Assign a unique id to an object
      * @param {object} obj - Object that will be assigned id.
      * @return {number} Stamped id
-     * @memberOf ne.util
+     * @memberOf tui.util
      */
     function stamp(obj) {
         obj.__fe_id = obj.__fe_id || ++lastId;
@@ -2999,10 +3001,10 @@ ne.util.Enum = Enum;
      * Verify whether an object has a stamped id or not.
      * @param {object} obj
      * @returns {boolean}
-     * @memberOf ne.util
+     * @memberOf tui.util
      */
     function hasStamp(obj) {
-        return ne.util.isExisty(ne.util.pick(obj, '__fe_id'));
+        return tui.util.isExisty(tui.util.pick(obj, '__fe_id'));
     }
 
     /**
@@ -3016,7 +3018,7 @@ ne.util.Enum = Enum;
      * Return a key-list(array) of a given object
      * @param {object} obj - Object from which a key-list will be extracted
      * @returns {Array} A key-list(array)
-     * @memberOf ne.util
+     * @memberOf tui.util
      */
     function keys(obj) {
         var keys = [],
@@ -3042,15 +3044,15 @@ ne.util.Enum = Enum;
      *      jsonObj2 = {name:'milk', price: 1000},
      *      jsonObj3 = {name:'milk', price: 1000};
      *
-     *  ne.util.compareJSON(jsonObj1, jsonObj2, jsonObj3);   // true
+     *  tui.util.compareJSON(jsonObj1, jsonObj2, jsonObj3);   // true
      *
      *
      *  var jsonObj4 = {name:'milk', price: 1000},
      *      jsonObj5 = {name:'beer', price: 3000};
      *
-     *      ne.util.compareJSON(jsonObj4, jsonObj5); // false
+     *      tui.util.compareJSON(jsonObj4, jsonObj5); // false
 
-     * @memberOf ne.util
+     * @memberOf tui.util
      */
     function compareJSON(object) {
         var leftChain,
@@ -3065,8 +3067,8 @@ ne.util.Enum = Enum;
             // and isNaN(undefined) returns true
             if (isNaN(x) &&
                 isNaN(y) &&
-                ne.util.isNumber(x) &&
-                ne.util.isNumber(y)) {
+                tui.util.isNumber(x) &&
+                tui.util.isNumber(y)) {
                 return true;
             }
 
@@ -3080,7 +3082,7 @@ ne.util.Enum = Enum;
             // Works in case when functions are created in constructor.
             // Comparing dates is a common scenario. Another built-ins?
             // We can even handle functions passed across iframes
-            if ((ne.util.isFunction(x) && ne.util.isFunction(y)) ||
+            if ((tui.util.isFunction(x) && tui.util.isFunction(y)) ||
                 (x instanceof Date && y instanceof Date) ||
                 (x instanceof RegExp && y instanceof RegExp) ||
                 (x instanceof String && y instanceof String) ||
@@ -3101,8 +3103,8 @@ ne.util.Enum = Enum;
             }
 
             // check for infinitive linking loops
-            if (ne.util.inArray(x, leftChain) > -1 ||
-                ne.util.inArray(y, rightChain) > -1) {
+            if (tui.util.inArray(x, leftChain) > -1 ||
+                tui.util.inArray(y, rightChain) > -1) {
                 return false;
             }
 
@@ -3175,11 +3177,11 @@ ne.util.Enum = Enum;
      *          }
      *      }
      *  };
-     *  ne.util.pick(obj, 'nested', 'nested', 'key1'); // 21
-     *  ne.util.pick(obj, 'nested', 'nested', 'key2'); // undefined
+     *  tui.util.pick(obj, 'nested', 'nested', 'key1'); // 21
+     *  tui.util.pick(obj, 'nested', 'nested', 'key2'); // undefined
      *
      *  var arr = ['a', 'b', 'c'];
-     *  ne.util.pick(arr, 1); // 'b'
+     *  tui.util.pick(arr, 1); // 'b'
      */
     function pick(obj, paths) {
         var args = arguments,
@@ -3196,14 +3198,14 @@ ne.util.Enum = Enum;
         }
     }
 
-    ne.util.extend = extend;
-    ne.util.stamp = stamp;
-    ne.util.hasStamp = hasStamp;
-    ne.util._resetLastId = resetLastId;
-    ne.util.keys = Object.keys || keys;
-    ne.util.compareJSON = compareJSON;
-    ne.util.pick = pick;
-})(window.ne);
+    tui.util.extend = extend;
+    tui.util.stamp = stamp;
+    tui.util.hasStamp = hasStamp;
+    tui.util._resetLastId = resetLastId;
+    tui.util.keys = Object.keys || keys;
+    tui.util.compareJSON = compareJSON;
+    tui.util.pick = pick;
+})(window.tui);
 
 /**********
  * string.js
@@ -3215,21 +3217,21 @@ ne.util.Enum = Enum;
  *         FE Development Team <e0242@nhnent.com>
  */
 
-(function(ne) {
+(function(tui) {
     'use strict';
 
-    if (!ne) {
-        ne = window.ne = {};
+    if (!tui) {
+        tui = window.tui = {};
     }
-    if (!ne.util) {
-        ne.util = window.ne.util = {};
+    if (!tui.util) {
+        tui.util = window.tui.util = {};
     }
 
     /**
      * Transform the given HTML Entity string into plain string
      * @param {String} htmlEntity - HTML Entity type string
      * @return {String} Plain string
-     * @memberof ne.util
+     * @memberof tui.util
      * @example
      *  var htmlEntityString = "A &#39;quote&#39; is &lt;b&gt;bold&lt;/b&gt;"
      *  var result = decodeHTMLEntity(htmlEntityString); //"A 'quote' is <b>bold</b>"
@@ -3245,7 +3247,7 @@ ne.util.Enum = Enum;
      * Transform the given string into HTML Entity string
      * @param {String} html - String for encoding
      * @return {String} HTML Entity
-     * @memberof ne.util
+     * @memberof tui.util
      * @example
      *  var htmlEntityString = "<script> alert('test');</script><a href='test'>";
      *  var result = encodeHTMLEntity(htmlEntityString); //"&lt;script&gt; alert(&#39;test&#39;);&lt;/script&gt;&lt;a href=&#39;test&#39;&gt;"
@@ -3260,7 +3262,7 @@ ne.util.Enum = Enum;
     /**
      * Return whether the string capable to transform into plain string is in the given string or not.
      * @param {String} string
-     * @memberof ne.util
+     * @memberof tui.util
      * @return {boolean}
      */
     function hasEncodableString(string) {
@@ -3272,12 +3274,12 @@ ne.util.Enum = Enum;
      * @param {string} operandStr1 The operand string
      * @param {string} operandStr2 The operand string
      * @private
-     * @memberof ne.util
+     * @memberof tui.util
      * @returns {string}
      * @example
-     * ne.util.getDuplicatedChar('fe dev', 'nhn entertainment');
+     * tui.util.getDuplicatedChar('fe dev', 'nhn entertainment');
      * => 'e'
-     * ne.util.getDuplicatedChar('fdsa', 'asdf');
+     * tui.util.getDuplicatedChar('fdsa', 'asdf');
      * => 'asdf'
      */
     function getDuplicatedChar(operandStr1, operandStr2) {
@@ -3299,22 +3301,22 @@ ne.util.Enum = Enum;
             }
         }
 
-        pool = ne.util.filter(pool, function(item) {
+        pool = tui.util.filter(pool, function(item) {
             return item > 1;
         });
 
-        pool = ne.util.keys(pool).sort();
+        pool = tui.util.keys(pool).sort();
         dupl = pool.join('');
 
         return dupl;
     }
 
-    ne.util.decodeHTMLEntity = decodeHTMLEntity;
-    ne.util.encodeHTMLEntity = encodeHTMLEntity;
-    ne.util.hasEncodableString = hasEncodableString;
-    ne.util.getDuplicatedChar = getDuplicatedChar;
+    tui.util.decodeHTMLEntity = decodeHTMLEntity;
+    tui.util.encodeHTMLEntity = encodeHTMLEntity;
+    tui.util.hasEncodableString = hasEncodableString;
+    tui.util.getDuplicatedChar = getDuplicatedChar;
 
-})(window.ne);
+})(window.tui);
 
 /**********
  * tricks.js
@@ -3325,20 +3327,20 @@ ne.util.Enum = Enum;
  * @author NHN Ent. FE Development Team <e0242.nhnent.com>
  */
 
-/** @namespace ne */
-/** @namespace ne.util */
+/** @namespace tui */
+/** @namespace tui.util */
 
-(function(ne) {
+(function(tui) {
     'use strict';
     var aps = Array.prototype.slice;
 
     /* istanbul ignore if */
-    if (!ne) {
-        ne = window.ne = {};
+    if (!tui) {
+        tui = window.tui = {};
     }
     /* istanbul ignore if */
-    if (!ne.util) {
-        ne.util = window.ne.util = {};
+    if (!tui.util) {
+        tui.util = window.tui.util = {};
     }
 
     /**
@@ -3346,13 +3348,13 @@ ne.util.Enum = Enum;
      * since the last time the debouced function was invoked.
      * @param {function} fn The function to debounce.
      * @param {number} [delay=0] The number of milliseconds to delay
-     * @memberof ne.util
+     * @memberof tui.util
      * @returns {function} debounced function.
      * @example
      *
      * function someMethodToInvokeDebounced() {}
      *
-     * var debounced = ne.util.debounce(someMethodToInvokeDebounced, 300);
+     * var debounced = tui.util.debounce(someMethodToInvokeDebounced, 300);
      *
      * // invoke repeatedly
      * debounced();
@@ -3385,7 +3387,7 @@ ne.util.Enum = Enum;
 
     /**
      * return timestamp
-     * @memberof ne.util
+     * @memberof tui.util
      * @returns {number} The number of milliseconds from Jan. 1970 00:00:00 (GMT)
      */
     function timestamp() {
@@ -3400,13 +3402,13 @@ ne.util.Enum = Enum;
      * if you need reuse throttled method. you must remove slugs (e.g. flag variable) related with throttling.
      * @param {function} fn function to throttle
      * @param {number} [interval=0] the number of milliseconds to throttle invocations to.
-     * @memberof ne.util
+     * @memberof tui.util
      * @returns {function} throttled function
      * @example
      *
      * function someMethodToInvokeThrottled() {}
      *
-     * var throttled = ne.util.throttle(someMethodToInvokeThrottled, 300);
+     * var throttled = tui.util.throttle(someMethodToInvokeThrottled, 300);
      *
      * // invoke repeatedly
      * throttled();    // invoke (leading)
@@ -3423,7 +3425,7 @@ ne.util.Enum = Enum;
      */
     function throttle(fn, interval) {
         var base,
-            _timestamp = ne.util.timestamp,
+            _timestamp = tui.util.timestamp,
             debounced,
             isLeading = true,
             stamp,
@@ -3436,7 +3438,7 @@ ne.util.Enum = Enum;
         /* istanbul ignore next */
         interval = interval || 0;
 
-        debounced = ne.util.debounce(tick, interval);
+        debounced = tui.util.debounce(tick, interval);
 
         function throttled() {
             args = aps.call(arguments);
@@ -3467,10 +3469,10 @@ ne.util.Enum = Enum;
         return throttled;
     }
 
-    ne.util.timestamp = timestamp;
-    ne.util.debounce = debounce;
-    ne.util.throttle = throttle;
-})(window.ne);
+    tui.util.timestamp = timestamp;
+    tui.util.debounce = debounce;
+    tui.util.throttle = throttle;
+})(window.tui);
 
 
 /**********
@@ -3484,14 +3486,14 @@ ne.util.Enum = Enum;
  * @dependency collection.js
  */
 
-(function(ne) {
+(function(tui) {
     'use strict';
     /* istanbul ignore if */
-    if (!ne) {
-        ne = window.ne = {};
+    if (!tui) {
+        tui = window.tui = {};
     }
-    if (!ne.util) {
-        ne.util = window.ne.util = {};
+    if (!tui.util) {
+        tui.util = window.tui.util = {};
     }
 
     /**
@@ -3499,14 +3501,14 @@ ne.util.Enum = Enum;
      *  If the given variable is not null and not undefined, returns true.
      * @param {*} param - Target for checking
      * @returns {boolean} Is existy?
-     * @memberOf ne.util
+     * @memberOf tui.util
      * @example
-     *  ne.util.isExisty(''); //true
-     *  ne.util.isExisty(0); //true
-     *  ne.util.isExisty([]); //true
-     *  ne.util.isExisty({}); //true
-     *  ne.util.isExisty(null); //false
-     *  ne.util.isExisty(undefined); //false
+     *  tui.util.isExisty(''); //true
+     *  tui.util.isExisty(0); //true
+     *  tui.util.isExisty([]); //true
+     *  tui.util.isExisty({}); //true
+     *  tui.util.isExisty(null); //false
+     *  tui.util.isExisty(undefined); //false
     */
     function isExisty(param) {
         return param != null;
@@ -3517,7 +3519,7 @@ ne.util.Enum = Enum;
      *  If the given variable is undefined, returns true.
      * @param {*} obj - Target for checking
      * @returns {boolean} Is undefined?
-     * @memberOf ne.util
+     * @memberOf tui.util
      */
     function isUndefined(obj) {
         return obj === undefined;
@@ -3528,7 +3530,7 @@ ne.util.Enum = Enum;
      *  If the given variable(arguments[0]) is null, returns true.
      * @param {*} obj - Target for checking
      * @returns {boolean} Is null?
-     * @memberOf ne.util
+     * @memberOf tui.util
      */
     function isNull(obj) {
         return obj === null;
@@ -3540,7 +3542,7 @@ ne.util.Enum = Enum;
      *  (It regards 0 as true)
      * @param {*} obj - Target for checking
      * @return {boolean} Is truthy?
-     * @memberOf ne.util
+     * @memberOf tui.util
      */
     function isTruthy(obj) {
         return isExisty(obj) && obj !== false;
@@ -3551,7 +3553,7 @@ ne.util.Enum = Enum;
      *  If the given variable is null or undefined or false, returns true.
      * @param {*} obj - Target for checking
      * @return {boolean} Is falsy?
-     * @memberOf ne.util
+     * @memberOf tui.util
      */
     function isFalsy(obj) {
         return !isTruthy(obj);
@@ -3565,7 +3567,7 @@ ne.util.Enum = Enum;
      *  If the given variable is an arguments object, return true.
      * @param {*} obj - Target for checking
      * @return {boolean} Is arguments?
-     * @memberOf ne.util
+     * @memberOf tui.util
      */
     function isArguments(obj) {
         var result = isExisty(obj) &&
@@ -3579,7 +3581,7 @@ ne.util.Enum = Enum;
      *  If the given variable is an instance of Array, return true.
      * @param {*} obj - Target for checking
      * @return {boolean} Is array instance?
-     * @memberOf ne.util
+     * @memberOf tui.util
      */
     function isArray(obj) {
         return obj instanceof Array;
@@ -3590,7 +3592,7 @@ ne.util.Enum = Enum;
      *  If the given variable is an object, return true.
      * @param {*} obj - Target for checking
      * @return {boolean} Is object?
-     * @memberOf ne.util
+     * @memberOf tui.util
      */
     function isObject(obj) {
         return obj === Object(obj);
@@ -3601,7 +3603,7 @@ ne.util.Enum = Enum;
      *  If the given variable is a function, return true.
      * @param {*} obj - Target for checking
      * @return {boolean} Is function?
-     * @memberOf ne.util
+     * @memberOf tui.util
      */
     function isFunction(obj) {
         return obj instanceof Function;
@@ -3612,7 +3614,7 @@ ne.util.Enum = Enum;
      *  If the given variable is a number, return true.
      * @param {*} obj - Target for checking
      * @return {boolean} Is number?
-     * @memberOf ne.util
+     * @memberOf tui.util
      */
     function isNumber(obj) {
         return typeof obj === 'number' || obj instanceof Number;
@@ -3623,7 +3625,7 @@ ne.util.Enum = Enum;
      *  If the given variable is a string, return true.
      * @param {*} obj - Target for checking
      * @return {boolean} Is string?
-     * @memberOf ne.util
+     * @memberOf tui.util
      */
     function isString(obj) {
         return typeof obj === 'string' || obj instanceof String;
@@ -3634,7 +3636,7 @@ ne.util.Enum = Enum;
      *  If the given variable is a boolean, return true.
      * @param {*} obj - Target for checking
      * @return {boolean} Is boolean?
-     * @memberOf ne.util
+     * @memberOf tui.util
      */
     function isBoolean(obj) {
         return typeof obj === 'boolean' || obj instanceof Boolean;
@@ -3647,7 +3649,7 @@ ne.util.Enum = Enum;
      *  (It is used for multiple frame environments)
      * @param {*} obj - Target for checking
      * @return {boolean} Is an instance of array?
-     * @memberOf ne.util
+     * @memberOf tui.util
      */
     function isArraySafe(obj) {
         return toString.call(obj) === '[object Array]';
@@ -3659,7 +3661,7 @@ ne.util.Enum = Enum;
      *  (It is used for multiple frame environments)
      * @param {*} obj - Target for checking
      * @return {boolean} Is a function?
-     * @memberOf ne.util
+     * @memberOf tui.util
      */
     function isFunctionSafe(obj) {
         return toString.call(obj) === '[object Function]';
@@ -3671,7 +3673,7 @@ ne.util.Enum = Enum;
      *  (It is used for multiple frame environments)
      * @param {*} obj - Target for checking
      * @return {boolean} Is a number?
-     * @memberOf ne.util
+     * @memberOf tui.util
      */
     function isNumberSafe(obj) {
         return toString.call(obj) === '[object Number]';
@@ -3683,7 +3685,7 @@ ne.util.Enum = Enum;
      *  (It is used for multiple frame environments)
      * @param {*} obj - Target for checking
      * @return {boolean} Is a string?
-     * @memberOf ne.util
+     * @memberOf tui.util
      */
     function isStringSafe(obj) {
         return toString.call(obj) === '[object String]';
@@ -3695,7 +3697,7 @@ ne.util.Enum = Enum;
      *  (It is used for multiple frame environments)
      * @param {*} obj - Target for checking
      * @return {boolean} Is a boolean?
-     * @memberOf ne.util
+     * @memberOf tui.util
      */
     function isBooleanSafe(obj) {
         return toString.call(obj) === '[object Boolean]';
@@ -3706,7 +3708,7 @@ ne.util.Enum = Enum;
      *  If the given variables is a instance of HTMLNode, return true.
      * @param {*} html - Target for checking
      * @return {boolean} Is HTMLNode ?
-     * @memberOf ne.util
+     * @memberOf tui.util
      */
     function isHTMLNode(html) {
         if (typeof(HTMLElement) === 'object') {
@@ -3720,7 +3722,7 @@ ne.util.Enum = Enum;
      *  If the given variables is a HTML tag, return true.
      * @param {*} html - Target for checking
      * @return {Boolean} Is HTML tag?
-     * @memberOf ne.util
+     * @memberOf tui.util
      */
     function isHTMLTag(html) {
         if (typeof(HTMLElement) === 'object') {
@@ -3734,7 +3736,7 @@ ne.util.Enum = Enum;
      *  If the given variables is empty, return true.
      * @param {*} obj - Target for checking
      * @return {boolean} Is empty?
-     * @memberOf ne.util
+     * @memberOf tui.util
      */
     function isEmpty(obj) {
         var hasKey = false;
@@ -3752,7 +3754,7 @@ ne.util.Enum = Enum;
         }
 
         if (isObject(obj) && !isFunction(obj)) {
-            ne.util.forEachOwnProperties(obj, function() {
+            tui.util.forEachOwnProperties(obj, function() {
                 hasKey = true;
                 return false;
             });
@@ -3769,7 +3771,7 @@ ne.util.Enum = Enum;
      *  If the given variables is not empty, return true.
      * @param {*} obj - Target for checking
      * @return {boolean} Is not empty?
-     * @memberOf ne.util
+     * @memberOf tui.util
      */
     function isNotEmpty(obj) {
         return !isEmpty(obj);
@@ -3780,7 +3782,7 @@ ne.util.Enum = Enum;
      *  If the given variables is an instance of Date, return true.
      * @param {*} obj - Target for checking
      * @returns {boolean} Is an instance of Date?
-     * @memberOf ne.util
+     * @memberOf tui.util
      */
     function isDate(obj) {
         return obj instanceof Date;
@@ -3792,38 +3794,38 @@ ne.util.Enum = Enum;
      *  (It is used for multiple frame environments)
      * @param {*} obj - Target for checking
      * @returns {boolean} Is an instance of Date?
-     * @memberOf ne.util
+     * @memberOf tui.util
      */
     function isDateSafe(obj) {
         return toString.call(obj) === '[object Date]';
     }
 
 
-    ne.util.isExisty = isExisty;
-    ne.util.isUndefined = isUndefined;
-    ne.util.isNull = isNull;
-    ne.util.isTruthy = isTruthy;
-    ne.util.isFalsy = isFalsy;
-    ne.util.isArguments = isArguments;
-    ne.util.isArray = Array.isArray || isArray;
-    ne.util.isArraySafe = Array.isArray || isArraySafe;
-    ne.util.isObject = isObject;
-    ne.util.isFunction = isFunction;
-    ne.util.isFunctionSafe = isFunctionSafe;
-    ne.util.isNumber = isNumber;
-    ne.util.isNumberSafe = isNumberSafe;
-    ne.util.isDate = isDate;
-    ne.util.isDateSafe = isDateSafe;
-    ne.util.isString = isString;
-    ne.util.isStringSafe = isStringSafe;
-    ne.util.isBoolean = isBoolean;
-    ne.util.isBooleanSafe = isBooleanSafe;
-    ne.util.isHTMLNode = isHTMLNode;
-    ne.util.isHTMLTag = isHTMLTag;
-    ne.util.isEmpty = isEmpty;
-    ne.util.isNotEmpty = isNotEmpty;
+    tui.util.isExisty = isExisty;
+    tui.util.isUndefined = isUndefined;
+    tui.util.isNull = isNull;
+    tui.util.isTruthy = isTruthy;
+    tui.util.isFalsy = isFalsy;
+    tui.util.isArguments = isArguments;
+    tui.util.isArray = Array.isArray || isArray;
+    tui.util.isArraySafe = Array.isArray || isArraySafe;
+    tui.util.isObject = isObject;
+    tui.util.isFunction = isFunction;
+    tui.util.isFunctionSafe = isFunctionSafe;
+    tui.util.isNumber = isNumber;
+    tui.util.isNumberSafe = isNumberSafe;
+    tui.util.isDate = isDate;
+    tui.util.isDateSafe = isDateSafe;
+    tui.util.isString = isString;
+    tui.util.isStringSafe = isStringSafe;
+    tui.util.isBoolean = isBoolean;
+    tui.util.isBooleanSafe = isBooleanSafe;
+    tui.util.isHTMLNode = isHTMLNode;
+    tui.util.isHTMLTag = isHTMLTag;
+    tui.util.isEmpty = isEmpty;
+    tui.util.isNotEmpty = isNotEmpty;
 
-})(window.ne);
+})(window.tui);
 
 /**********
  * window.js
@@ -3836,13 +3838,13 @@ ne.util.Enum = Enum;
  * @dependency browser.js, type.js, object.js, collection.js, func.js, window.js
  */
 
-(function(ne) {
+(function(tui) {
     'use strict';
-    if (!ne) {
-        ne = window.ne = {};
+    if (!tui) {
+        tui = window.tui = {};
     }
-    if (!ne.util) {
-        ne.util = window.ne.util = {};
+    if (!tui.util) {
+        tui.util = window.tui.util = {};
     }
 
     var popup_id = 0;
@@ -3850,7 +3852,7 @@ ne.util.Enum = Enum;
     /**
      * Popup management class
      * @constructor
-     * @memberof ne.util
+     * @memberof tui.util
      */
     function Popup() {
 
@@ -3885,7 +3887,7 @@ ne.util.Enum = Enum;
      */
     Popup.prototype.getPopupList = function(key) {
         var target;
-        if (ne.util.isExisty(key)) {
+        if (tui.util.isExisty(key)) {
             target = this.openedPopup[key];
         } else {
             target = this.openedPopup;
@@ -3923,7 +3925,7 @@ ne.util.Enum = Enum;
      *     @param {Object} [options.param=null] - Using as parameters for transmission when the form-data is transmitted to popup-window.
      */
     Popup.prototype.openPopup = function(url, options) {
-        options = ne.util.extend({
+        options = tui.util.extend({
             popupName: 'popup_' + popup_id + '_' + (+new Date()),
             popupOptionStr: '',
             useReload: true,
@@ -3939,9 +3941,9 @@ ne.util.Enum = Enum;
         var popup,
             formElement,
             useIEPostBridge = options.method === 'POST' && options.param &&
-                ne.util.browser.msie && ne.util.browser.version === 11;
+                tui.util.browser.msie && tui.util.browser.version === 11;
 
-        if (!ne.util.isExisty(url)) {
+        if (!tui.util.isExisty(url)) {
             throw new Error('Popup#open() 팝업 URL이 입력되지 않았습니다');
         }
 
@@ -3966,7 +3968,7 @@ ne.util.Enum = Enum;
 
         popup = this.openedPopup[options.popupName];
 
-        if (!ne.util.isExisty(popup)) {
+        if (!tui.util.isExisty(popup)) {
             this.openedPopup[options.popupName] = popup = this._open(useIEPostBridge, options.param,
                 url, options.popupName, options.popupOptionStr);
 
@@ -3985,7 +3987,7 @@ ne.util.Enum = Enum;
 
         this.closeWithParentPopup[options.popupName] = options.closeWithParent;
 
-        if (!popup || popup.closed || ne.util.isUndefined(popup.closed)) {
+        if (!popup || popup.closed || tui.util.isUndefined(popup.closed)) {
             alert('브라우저에 팝업을 막는 기능이 활성화 상태이기 때문에 서비스 이용에 문제가 있을 수 있습니다. 해당 기능을 비활성화 해 주세요');
         }
 
@@ -3998,7 +4000,7 @@ ne.util.Enum = Enum;
             }
         }
 
-        window.onunload = ne.util.bind(this.closeAllPopup, this);
+        window.onunload = tui.util.bind(this.closeAllPopup, this);
     };
 
     /**
@@ -4007,7 +4009,7 @@ ne.util.Enum = Enum;
      * @param {Window} [popup] - Window-context of popup for closing. If omit this, current window-context will be closed.
      */
     Popup.prototype.close = function(skipBeforeUnload, popup) {
-        skipBeforeUnload = ne.util.isExisty(skipBeforeUnload) ? skipBeforeUnload : false;
+        skipBeforeUnload = tui.util.isExisty(skipBeforeUnload) ? skipBeforeUnload : false;
 
         var target = popup || window;
 
@@ -4026,9 +4028,9 @@ ne.util.Enum = Enum;
      * @param {boolean} closeWithParent - If true, popups having the closeWithParentPopup property as true will be closed.
      */
     Popup.prototype.closeAllPopup = function(closeWithParent) {
-        var hasArg = ne.util.isExisty(closeWithParent);
+        var hasArg = tui.util.isExisty(closeWithParent);
 
-        ne.util.forEachOwnProperties(this.openedPopup, function(popup, key) {
+        tui.util.forEachOwnProperties(this.openedPopup, function(popup, key) {
             if ((hasArg && this.closeWithParentPopup[key]) || !hasArg) {
                 this.close(false, popup);
             }
@@ -4054,7 +4056,7 @@ ne.util.Enum = Enum;
             param = {};
 
         search = window.location.search.substr(1);
-        ne.util.forEachArray(search.split('&'), function(part) {
+        tui.util.forEachArray(search.split('&'), function(part) {
             pair = part.split('=');
             param[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]);
         });
@@ -4082,7 +4084,7 @@ ne.util.Enum = Enum;
         form.target = target || '';
         form.style.display = 'none';
 
-        ne.util.forEachOwnProperties(data, function(value, key) {
+        tui.util.forEachOwnProperties(data, function(value, key) {
             input = document.createElement('input');
             input.name = key;
             input.type = 'hidden';
@@ -4108,7 +4110,7 @@ ne.util.Enum = Enum;
     Popup.prototype._parameterize = function(object) {
         var query = [];
 
-        ne.util.forEachOwnProperties(object, function(value, key) {
+        tui.util.forEachOwnProperties(object, function(value, key) {
             query.push(encodeURIComponent(key) + '=' + encodeURIComponent(value));
         });
 
@@ -4146,6 +4148,6 @@ ne.util.Enum = Enum;
         return popup;
     };
 
-    ne.util.popup = new Popup();
+    tui.util.popup = new Popup();
 
-})(window.ne);
+})(window.tui);
