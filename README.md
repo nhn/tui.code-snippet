@@ -54,14 +54,14 @@ CodeSnippet use namespace "tui.util".(But you can redefind it on your project)
 
 ## How to use CodeSnippet 
 * Using CodeSnippet build file
- * Download code-snippet.js or code-snippet.min.js from [[master branch]](https://github.com/nhnent/fe.code-snippet)
+ * Download code-snippet.js or code-snippet.min.js from [[master branch]](https://github.com/nhnent/tui.code-snippet)
  * It's better that you do not change the file name. 
 * Using the copy only the necesary parts
  * Check dependency before copy the codes
  * Use build file as you can
 
 ## Documentation
-* **API** - https://nhnent.github.io/fe.code-snippet/latest/
+* **API** - https://nhnent.github.io/tui.code-snippet/latest/
 * **Tutorial** - https://github.com/nhnent/fe.javascript/wiki/FE-CodeSnippet
 
 ## Test environment
@@ -72,16 +72,16 @@ CodeSnippet use namespace "tui.util".(But you can redefind it on your project)
 
 ## Download/Install
 * Bower: 
-   * latest :  `bower install ne-code-snippet`
-   * each version : `bower install ne-code-snippet[#tag]`
-* Download : https://github.com/nhnent/fe.code-snippet
+   * latest :  `bower install tui-code-snippet`
+   * each version : `bower install tui-code-snippet[#tag]`
+* Download : https://github.com/nhnent/tui.code-snippet
 
 
 ## History
 | Version | Description | Date | Developer |
 | ---- | ---- | ---- | ---- |
-| <a href="https://nhnent.github.io/fe.code-snippet/1.0.4/">1.0.4</a> | getDuplicatedChar added | 2015.07 | NHN Entertainment FE Dev team<dl_javascript@nhnent.com> |
-| <a href="https://nhnent.github.io/fe.code-snippet/1.0.3/">1.0.3</a> | defineModule,<br>formatDate added | 2015.06 | NHN Entertainment FE Dev team<dl_javascript@nhnent.com> |
-| <a href="https://nhnent.github.io/fe.code-snippet/1.0.2/">1.0.2</a> | defineNamespace,<br>map, exMap added | 2015.04 | NHN Entertainment FE Dev team<dl_javascript@nhnent.com> |
+| <a href="https://nhnent.github.io/tui.code-snippet/1.0.4/">1.0.4</a> | getDuplicatedChar added | 2015.07 | NHN Entertainment FE Dev team<dl_javascript@nhnent.com> |
+| <a href="https://nhnent.github.io/tui.code-snippet/1.0.3/">1.0.3</a> | defineModule,<br>formatDate added | 2015.06 | NHN Entertainment FE Dev team<dl_javascript@nhnent.com> |
+| <a href="https://nhnent.github.io/tui.code-snippet/1.0.2/">1.0.2</a> | defineNamespace,<br>map, exMap added | 2015.04 | NHN Entertainment FE Dev team<dl_javascript@nhnent.com> |
 | 1.0.1 | isExisty modified,<br>pick added<br>type modifyied | 2015.04 | NHN Entertainment FE Dev team<dl_javascript@nhnent.com> |
-| <a href="https://nhnent.github.io/fe.code-snippet/1.0.0/">1.0.0</a> | jquery dependency removed | 2015.03 | NHN Entertainment FE Dev team<dl_javascript@nhnent.com> |
+| <a href="https://nhnent.github.io/tui.code-snippet/1.0.0/">1.0.0</a> | jquery dependency removed | 2015.03 | NHN Entertainment FE Dev team<dl_javascript@nhnent.com> |

@@ -1,5 +1,5 @@
 {
-  "name": "code-snippet",
+  "name": "tui-code-snippet",
   "version": "1.0.4",
   "description": "useful code snippets from frontend development team",
   "main": "code-snippet.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/nhnent/fe.code-snippet.git"
+    "url": "https://github.com/nhnent/tui.code-snippet.git"
   },
   "author": "FE",
   "license": "MIT",
