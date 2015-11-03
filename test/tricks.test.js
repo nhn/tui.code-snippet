@@ -81,6 +81,40 @@ describe('tricks', function() {
             expect(tui.util.debounce).toHaveBeenCalled();
         });
 
+        it('debounced method must invoke with additional parameter', function() {
+            var magazine = [1, 3, 6, 8, 9],
+                fireGun = reload(magazine),
+                fn;
+
+            spyOn(tui.util, 'timestamp').and.callFake(function() {
+                return fireGun();
+            });
+
+            var debounced = jasmine.createSpy('debounced');
+            spyOn(tui.util, 'debounce').and.returnValue(debounced);
+
+            fn = tui.util.throttle(spy, 7);
+
+            fn('hello');
+            fn('hello');
+            fn('hello');
+            fn('hello');
+            fn('hello');
+
+            expect(spy.calls.count()).toBe(2);
+            expect(tui.util.debounce).toHaveBeenCalled();
+
+            expect(debounced.calls.count()).toBe(4);
+            // debounce가 이미 콜백을 apply 처리하고 있는데, Mock을 했기 때문에
+            // args 를 그냥 넘겨준다 따라서 TC에서만은 각 debounce의 파라미터가 배열 형태임.
+            expect(debounced.calls.allArgs()).toEqual([
+                [['hello']],
+                [['hello']],
+                [['hello']],
+                [['hello']]
+            ]);
+        });
+
         it('reset can remove slugs related with throttling.', function() {
             var magazine = [1, 3, 6, 8, 9],
                 fireGun = reload(magazine),
