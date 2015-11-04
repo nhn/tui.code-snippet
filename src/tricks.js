@@ -50,7 +50,7 @@
         delay = delay || 0;
 
         function debounced() {
-            args = arguments;
+            args = aps.call(arguments);
 
             window.clearTimeout(timer);
             timer = window.setTimeout(function() {
@@ -129,7 +129,12 @@
 
             base = base || stamp;
 
-            debounced();
+            // pass array directly because `debounce()`, `tick()` are already use
+            // `apply()` method to invoke developer's `fn` handler.
+            //
+            // also, this `debounced` line invoked every time for implements 
+            // `trailing` features.
+            debounced(args);
 
             if ((stamp - base) >= interval) {
                 tick(args);
