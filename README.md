@@ -73,7 +73,7 @@ Toast UI CodeSnippet
 ## History
 | Version | Description | Date | Developer |
 | ---- | ---- | ---- | ---- |
-| <a href="https://nhnent.github.io/tui.code-snippet/1.0.5/">1.0.5</a> | Fix throttle bug. 9b753707ad6e7f3f0cbd4d0968e69d20342cec3f | 2015.11 | NHN Entertainment FE Dev team<dl_javascript@nhnent.com> |
+| <a href="https://nhnent.github.io/tui.code-snippet/1.0.5/">1.0.5</a> | Fix throttle bug. 9b753707ad6e7f3f0cbd4d0968e69d20342cec3f<br>Remove JSON2 deps and use of LocalStorage for popup postBridge features. 672fc9bfae34ee5d0e4e182353befcca76f19c21| 2015.11 | NHN Entertainment FE Dev team<dl_javascript@nhnent.com> |
 | <a href="https://nhnent.github.io/tui.code-snippet/1.0.4/">1.0.4</a> | getDuplicatedChar added | 2015.07 | NHN Entertainment FE Dev team<dl_javascript@nhnent.com> |
 | <a href="https://nhnent.github.io/tui.code-snippet/1.0.3/">1.0.3</a> | defineModule,<br>formatDate added | 2015.06 | NHN Entertainment FE Dev team<dl_javascript@nhnent.com> |
 | <a href="https://nhnent.github.io/tui.code-snippet/1.0.2/">1.0.2</a> | defineNamespace,<br>map, exMap added | 2015.04 | NHN Entertainment FE Dev team<dl_javascript@nhnent.com> |
