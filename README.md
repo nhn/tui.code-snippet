@@ -1,13 +1,7 @@
-CodeSnippet
+Toast UI CodeSnippet
 ======================
-**CodeSnippet**<br>
-CodeSnippet is **set of code snippet that is used alot**, This include next.<br>
-Check data type.<br>
-Processing collections, strings.<br>
-Check browser<br>
-CodeSnippet served some profit such as preveing repeat code, making readablility codes.<br>
-CodeSnippet use namespace "tui.util".(But you can redefind it on your project)
 
+`tui-code-snippet` is group of utility method to make ease with developing javascript applications. this includes several features `class simulation`, `browser detecting`, `type checking` and +30 more. `tui-code-snippet` is support IE7+ and modern browsers. this already used for [open source javascript components](http://github.com/nhnent/) and many commercial projects in [NHNEnt](http://www.nhnent.com/en/index.nhn) corporation.
 
 ## Feature
 * browser.js
@@ -64,9 +58,9 @@ CodeSnippet use namespace "tui.util".(But you can redefind it on your project)
 * **API** - https://nhnent.github.io/tui.code-snippet/latest/
 * **Tutorial** - https://github.com/nhnent/fe.javascript/wiki/FE-CodeSnippet
 
-## Test environment
+## Tested browsers
 * browser : 
-   * IE7~11
+   * IE7+
    * Chrome
    * Firefox
 
@@ -76,10 +70,10 @@ CodeSnippet use namespace "tui.util".(But you can redefind it on your project)
    * each version : `bower install tui-code-snippet[#tag]`
 * Download : https://github.com/nhnent/tui.code-snippet
 
-
 ## History
 | Version | Description | Date | Developer |
 | ---- | ---- | ---- | ---- |
+| <a href="https://nhnent.github.io/tui.code-snippet/1.0.5/">1.0.5</a> | Fix throttle bug. 9b753707ad6e7f3f0cbd4d0968e69d20342cec3f | 2015.11 | NHN Entertainment FE Dev team<dl_javascript@nhnent.com> |
 | <a href="https://nhnent.github.io/tui.code-snippet/1.0.4/">1.0.4</a> | getDuplicatedChar added | 2015.07 | NHN Entertainment FE Dev team<dl_javascript@nhnent.com> |
 | <a href="https://nhnent.github.io/tui.code-snippet/1.0.3/">1.0.3</a> | defineModule,<br>formatDate added | 2015.06 | NHN Entertainment FE Dev team<dl_javascript@nhnent.com> |
 | <a href="https://nhnent.github.io/tui.code-snippet/1.0.2/">1.0.2</a> | defineNamespace,<br>map, exMap added | 2015.04 | NHN Entertainment FE Dev team<dl_javascript@nhnent.com> |
