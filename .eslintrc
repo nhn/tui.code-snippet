@@ -68,6 +68,7 @@
         "no-mixed-requires": [2, true],
 
         //Legacy
-        "no-plusplus": 2
+        "no-plusplus": 2,
+        "comma-dangle": [2, "never"]
     }
 }
