@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: defineModule.js</title>
+    <title>JSDoc: Namespace: tui</title>
     <link type="text/css" rel="stylesheet" href="styles/prettify-jsdoc.css">
     <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
     <link type="text/css" rel="stylesheet" href="styles/bootstrap.min.css">
@@ -26,65 +26,102 @@
 
 
 
+
+<section>
+
+<header>
     
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/**
- * @fileoverview Define module
- * @author NHN Ent.
- *         FE Development Team &lt;e0242@nhnent.com>
- * @dependency type.js, defineNamespace.js
- */
-(function(tui) {
-    'use strict';
-    /* istanbul ignore if */
-    if (!tui) {
-        tui = window.tui = {};
-    }
-    /* istanbul ignore if */
-    if (!tui.util) {
-        tui.util = window.tui.util = {};
-    }
+        <h2>
+        
+        tui
+        
+        
+        </h2>
+        
+    
+</header>
 
-    var util = tui.util,
-        INITIALIZATION_METHOD_NAME = 'initialize';
+<article>
+    
+    <div class="container-overview">
+    
+        
 
-    /**
-     * Define module
-     * @param {string} namespace - Namespace of module
-     * @param {Object} moduleDefinition - Object literal for module
-     * @returns {Object} Defined module
-     * @memberof tui.util
-     * @example
-     *     var myModule = tui.util.defineModule('modules.myModule', {
-     *          name: 'john',
-     *          message: '',
-     *          initialize: function() {
-     *              this.message = 'hello world';
-     *          },
-     *          getMessage: function() {
-     *              return this.name + ': ' + this.message
-     *          }
-     *     });
-     *
-     *     console.log(myModule.getMessage());  // 'john: hello world';
-     *     console.log(window.modules.myModule.getMessage());   // 'john: hello world';
-     */
-    function defineModule(namespace, moduleDefinition) {
-        var base = moduleDefinition || {};
+        
 
-        if (util.isFunction(base[INITIALIZATION_METHOD_NAME])) {
-            base[INITIALIZATION_METHOD_NAME]();
-            delete base[INITIALIZATION_METHOD_NAME];
-        }
 
-        return util.defineNamespace(namespace, base, true);
-    }
-    tui.util.defineModule = defineModule;
-})(window.tui);
-</code></pre>
-        </article>
-    </section>
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+        <dd class="tag-source"><ul class="dummy"><li>
+            <a href="tricks.js.html">tricks.js</a>, <a href="tricks.js.html#line6">line 6</a>
+        </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+        
+    
+    </div>
+    
+
+    
+
+    
+
+    
+
+     
+
+    
+        <h3 class="subsection-title">Namespaces</h3>
+
+        <dl>
+            <dt><a href="tui.util.html">util</a></dt>
+            <dd></dd>
+        </dl>
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 

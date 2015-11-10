@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: defineModule.js</title>
+    <title>JSDoc: Class: Enum</title>
     <link type="text/css" rel="stylesheet" href="styles/prettify-jsdoc.css">
     <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
     <link type="text/css" rel="stylesheet" href="styles/bootstrap.min.css">
@@ -26,65 +26,496 @@
 
 
 
+
+<section>
+
+<header>
     
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/**
- * @fileoverview Define module
- * @author NHN Ent.
- *         FE Development Team &lt;e0242@nhnent.com>
- * @dependency type.js, defineNamespace.js
- */
-(function(tui) {
-    'use strict';
-    /* istanbul ignore if */
-    if (!tui) {
-        tui = window.tui = {};
-    }
-    /* istanbul ignore if */
-    if (!tui.util) {
-        tui.util = window.tui.util = {};
-    }
+        <h2>
+        
+            <span class="ancestors"><a href="tui.util.html">tui.util</a>.</span>
+        
+        Enum
+        
+        
+        </h2>
+        
+    
+</header>
 
-    var util = tui.util,
-        INITIALIZATION_METHOD_NAME = 'initialize';
+<article>
+    
+    <div class="container-overview">
+    
+        
+<dt>
+    
+        <h4 class="name" id="Enum">
+            <span class="type-signature"></span>new Enum<span class="signature">(itemList)</span><span class="type-signature"></span>
+            
+                <div class="container-source method">
+                    <code><a href="enum.js.html">enum.js</a></code>,
+                    <code><a href="enum.js.html#line71">line 71</a></code>
+                </div>
+            
+        </h4>
 
-    /**
-     * Define module
-     * @param {string} namespace - Namespace of module
-     * @param {Object} moduleDefinition - Object literal for module
-     * @returns {Object} Defined module
-     * @memberof tui.util
-     * @example
-     *     var myModule = tui.util.defineModule('modules.myModule', {
-     *          name: 'john',
-     *          message: '',
-     *          initialize: function() {
-     *              this.message = 'hello world';
-     *          },
-     *          getMessage: function() {
-     *              return this.name + ': ' + this.message
-     *          }
-     *     });
-     *
-     *     console.log(myModule.getMessage());  // 'john: hello world';
-     *     console.log(window.modules.myModule.getMessage());   // 'john: hello world';
-     */
-    function defineModule(namespace, moduleDefinition) {
-        var base = moduleDefinition || {};
 
-        if (util.isFunction(base[INITIALIZATION_METHOD_NAME])) {
-            base[INITIALIZATION_METHOD_NAME]();
-            delete base[INITIALIZATION_METHOD_NAME];
-        }
 
-        return util.defineNamespace(namespace, base, true);
-    }
-    tui.util.defineModule = defineModule;
-})(window.tui);
-</code></pre>
-        </article>
-    </section>
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Make a constant-list that has unique values.<br>
+In modern browsers (except IE8 and lower),<br>
+ a value defined once can not be changed.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-params">
+        <div class="params">
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name first"><code>itemList</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+|
+
+<span class="param-type">Array.&lt;string></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Constant-list (An array of string is available)</p></td>
+        </tr>
+
+    
+    </tbody>
+</table></div>
+    </div>
+    
+
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    <!--
+    
+    -->
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+    
+    </div>
+    
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+
+    
+    <div class="container-methods">
+        <h3 class="subsection-title">Methods</h3>
+
+        <dl>
+            
+<dt>
+    
+        <h4 class="name" id="set">
+            <span class="type-signature"></span>set<span class="signature">(itemList)</span><span class="type-signature"></span>
+            
+                <div class="container-source method">
+                    <code><a href="enum.js.html">enum.js</a></code>,
+                    <code><a href="enum.js.html#line81">line 81</a></code>
+                </div>
+            
+        </h4>
+
+
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Define a constants-list</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-params">
+        <div class="params">
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name first"><code>itemList</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+|
+
+<span class="param-type">Array.&lt;string></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Constant-list (An array of string is available)</p></td>
+        </tr>
+
+    
+    </tbody>
+</table></div>
+    </div>
+    
+
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    <!--
+    
+    -->
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    
+        <h4 class="name" id="getName">
+            <span class="type-signature"></span>getName<span class="signature">(value)</span><span class="type-signature"> &rarr; {string|undefined}</span>
+            
+                <div class="container-source method">
+                    <code><a href="enum.js.html">enum.js</a></code>,
+                    <code><a href="enum.js.html#line98">line 98</a></code>
+                </div>
+            
+        </h4>
+
+
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Return a key of the constant.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-params">
+        <div class="params">
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name first"><code>value</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>A value of the constant.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table></div>
+    </div>
+    
+
+    
+    <div class="container-returns">
+        <div class="returns">
+        <h5>Returns:</h5>
+        <div class="details">
+        
+                
+<div class="param-desc">
+    <p>Key of the constant.</p>
+</div>
+
+            
+        </div>
+        </div>
+    </div>
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    <!--
+    
+    -->
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        </dl>
+    </div>
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 

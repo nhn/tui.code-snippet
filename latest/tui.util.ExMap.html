@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: defineModule.js</title>
+    <title>JSDoc: Class: ExMap</title>
     <link type="text/css" rel="stylesheet" href="styles/prettify-jsdoc.css">
     <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
     <link type="text/css" rel="stylesheet" href="styles/bootstrap.min.css">
@@ -26,65 +26,770 @@
 
 
 
+
+<section>
+
+<header>
     
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/**
- * @fileoverview Define module
- * @author NHN Ent.
- *         FE Development Team &lt;e0242@nhnent.com>
- * @dependency type.js, defineNamespace.js
- */
-(function(tui) {
-    'use strict';
-    /* istanbul ignore if */
-    if (!tui) {
-        tui = window.tui = {};
-    }
-    /* istanbul ignore if */
-    if (!tui.util) {
-        tui.util = window.tui.util = {};
-    }
+        <h2>
+        
+            <span class="ancestors"><a href="tui.util.html">tui.util</a>.</span>
+        
+        ExMap
+        
+        
+        </h2>
+        
+    
+</header>
 
-    var util = tui.util,
-        INITIALIZATION_METHOD_NAME = 'initialize';
+<article>
+    
+    <div class="container-overview">
+    
+        
+<dt>
+    
+        <h4 class="name" id="ExMap">
+            <span class="type-signature"></span>new ExMap<span class="signature">(initData)</span><span class="type-signature"></span>
+            
+                <div class="container-source method">
+                    <code><a href="exMap.js.html">exMap.js</a></code>,
+                    <code><a href="exMap.js.html#line33">line 33</a></code>
+                </div>
+            
+        </h4>
 
-    /**
-     * Define module
-     * @param {string} namespace - Namespace of module
-     * @param {Object} moduleDefinition - Object literal for module
-     * @returns {Object} Defined module
-     * @memberof tui.util
-     * @example
-     *     var myModule = tui.util.defineModule('modules.myModule', {
-     *          name: 'john',
-     *          message: '',
-     *          initialize: function() {
-     *              this.message = 'hello world';
-     *          },
-     *          getMessage: function() {
-     *              return this.name + ': ' + this.message
-     *          }
-     *     });
-     *
-     *     console.log(myModule.getMessage());  // 'john: hello world';
-     *     console.log(window.modules.myModule.getMessage());   // 'john: hello world';
-     */
-    function defineModule(namespace, moduleDefinition) {
-        var base = moduleDefinition || {};
 
-        if (util.isFunction(base[INITIALIZATION_METHOD_NAME])) {
-            base[INITIALIZATION_METHOD_NAME]();
-            delete base[INITIALIZATION_METHOD_NAME];
-        }
 
-        return util.defineNamespace(namespace, base, true);
-    }
-    tui.util.defineModule = defineModule;
-})(window.tui);
-</code></pre>
-        </article>
-    </section>
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>The ExMap object is Extended Version of the tui.util.Map object.<br>
+and added some useful feature to make it easy to manage the Map object.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-params">
+        <div class="params">
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name first"><code>initData</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Array of key-value pairs (2-element Arrays).
+     Each key-value pair will be added to the new Map</p></td>
+        </tr>
+
+    
+    </tbody>
+</table></div>
+    </div>
+    
+
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    <!--
+    
+    -->
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+    
+    </div>
+    
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+
+    
+    <div class="container-methods">
+        <h3 class="subsection-title">Methods</h3>
+
+        <dl>
+            
+<dt>
+    
+        <h4 class="name" id="setObject">
+            <span class="type-signature"></span>setObject<span class="signature">(object)</span><span class="type-signature"></span>
+            
+                <div class="container-source method">
+                    <code><a href="exMap.js.html">exMap.js</a></code>,
+                    <code><a href="exMap.js.html#line62">line 62</a></code>
+                </div>
+            
+        </h4>
+
+
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Sets all of the key-value pairs in the specified object to the Map object.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-params">
+        <div class="params">
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name first"><code>object</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Plain object that has a key-value pair</p></td>
+        </tr>
+
+    
+    </tbody>
+</table></div>
+    </div>
+    
+
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    <!--
+    
+    -->
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    
+        <h4 class="name" id="deleteByKeys">
+            <span class="type-signature"></span>deleteByKeys<span class="signature">(keys)</span><span class="type-signature"></span>
+            
+                <div class="container-source method">
+                    <code><a href="exMap.js.html">exMap.js</a></code>,
+                    <code><a href="exMap.js.html#line72">line 72</a></code>
+                </div>
+            
+        </h4>
+
+
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Removes the elements associated with keys in the specified array.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-params">
+        <div class="params">
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name first"><code>keys</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Array that contains keys of the element to remove</p></td>
+        </tr>
+
+    
+    </tbody>
+</table></div>
+    </div>
+    
+
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    <!--
+    
+    -->
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    
+        <h4 class="name" id="merge">
+            <span class="type-signature"></span>merge<span class="signature">(map)</span><span class="type-signature"></span>
+            
+                <div class="container-source method">
+                    <code><a href="exMap.js.html">exMap.js</a></code>,
+                    <code><a href="exMap.js.html#line82">line 82</a></code>
+                </div>
+            
+        </h4>
+
+
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Sets all of the key-value pairs in the specified Map object to this Map object.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-params">
+        <div class="params">
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name first"><code>map</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Map</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Map object to be merged into this Map object</p></td>
+        </tr>
+
+    
+    </tbody>
+</table></div>
+    </div>
+    
+
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    <!--
+    
+    -->
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    
+        <h4 class="name" id="filter">
+            <span class="type-signature"></span>filter<span class="signature">(predicate)</span><span class="type-signature"> &rarr; {ExMap}</span>
+            
+                <div class="container-source method">
+                    <code><a href="exMap.js.html">exMap.js</a></code>,
+                    <code><a href="exMap.js.html#line95">line 95</a></code>
+                </div>
+            
+        </h4>
+
+
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Looks through each key-value pair in the map and returns the new ExMap object of
+all key-value pairs that pass a truth test implemented by the provided function.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-params">
+        <div class="params">
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name first"><code>predicate</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Function to test each key-value pair of the Map object.<br>
+     Invoked with arguments (value, key). Return true to keep the element, false otherwise.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table></div>
+    </div>
+    
+
+    
+    <div class="container-returns">
+        <div class="returns">
+        <h5>Returns:</h5>
+        <div class="details">
+        
+                
+<div class="param-desc">
+    <p>A new ExMap object</p>
+</div>
+
+            
+        </div>
+        </div>
+    </div>
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    <!--
+    
+    -->
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        </dl>
+    </div>
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 
