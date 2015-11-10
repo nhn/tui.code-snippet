@@ -77,7 +77,7 @@ It includes several features like `class simulation`, `browser detecting`, `type
 ## History
 | Version | Description | Date | Developer |
 | ---- | ---- | ---- | ---- |
-| <a href="https://nhnent.github.io/tui.code-snippet/1.0.5/">1.0.5</a> | Fix throttle bug. 9b753707ad6e7f3f0cbd4d0968e69d20342cec3f<br>Remove JSON2 deps and use of LocalStorage for popup postBridge features. 672fc9bfae34ee5d0e4e182353befcca76f19c21<br>Add demo for IE11 popup postBridge options d664a12b51b04e399158138bb5c7b9e85ca6f750| 2015.11 | NHN Entertainment FE Dev team<dl_javascript@nhnent.com> |
+| <a href="https://nhnent.github.io/tui.code-snippet/1.0.6/">1.0.6</a> | Please see github release page after this versions. | 2015.11 | NHN Entertainment FE Dev team<dl_javascript@nhnent.com> |
 | <a href="https://nhnent.github.io/tui.code-snippet/1.0.4/">1.0.4</a> | getDuplicatedChar added | 2015.07 | NHN Entertainment FE Dev team<dl_javascript@nhnent.com> |
 | <a href="https://nhnent.github.io/tui.code-snippet/1.0.3/">1.0.3</a> | defineModule,<br>formatDate added | 2015.06 | NHN Entertainment FE Dev team<dl_javascript@nhnent.com> |
 | <a href="https://nhnent.github.io/tui.code-snippet/1.0.2/">1.0.2</a> | defineNamespace,<br>map, exMap added | 2015.04 | NHN Entertainment FE Dev team<dl_javascript@nhnent.com> |
