@@ -1,4 +1,4 @@
-/*!code-snippet v1.0.4 | NHN Entertainment*/
+/*!code-snippet v1.0.5 | NHN Entertainment*/
 /**********
  * array.js
  **********/
@@ -3374,7 +3374,7 @@ tui.util.Enum = Enum;
         delay = delay || 0;
 
         function debounced() {
-            args = arguments;
+            args = aps.call(arguments);
 
             window.clearTimeout(timer);
             timer = window.setTimeout(function() {
@@ -3453,7 +3453,12 @@ tui.util.Enum = Enum;
 
             base = base || stamp;
 
-            debounced();
+            // pass array directly because `debounce()`, `tick()` are already use
+            // `apply()` method to invoke developer's `fn` handler.
+            //
+            // also, this `debounced` line invoked every time for implements 
+            // `trailing` features.
+            debounced(args);
 
             if ((stamp - base) >= interval) {
                 tick(args);
@@ -3873,7 +3878,7 @@ tui.util.Enum = Enum;
          * Post data bridge for IE11 popup
          * @type {string}
          */
-        this.postDataBridgeUrl = '';
+        this.postBridgeUrl = '';
     }
 
     /**********
@@ -3898,7 +3903,7 @@ tui.util.Enum = Enum;
     /**
      * Open popup
      * Caution:
-     *  In IE11, when transfer data to popup by POST, must set the postDataBridgeUrl.
+     *  In IE11, when transfer data to popup by POST, must set the postBridgeUrl.
      *
      * @param {string} url - popup url
      * @param {Object} options
@@ -3916,7 +3921,7 @@ tui.util.Enum = Enum;
      *      If true, the popup will be reloaded when you try to re-open the popup that has been opened.<br>
      *      When transmit the POST-data, some browsers alert a message for confirming whether retransmit or not.
      *
-     *     @param {string} [options.postDataBridgeUrl=''] - Use this url to avoid a certain bug occuring when transmitting POST data to the popup in IE11.<br>
+     *     @param {string} [options.postBridgeUrl=''] - Use this url to avoid a certain bug occuring when transmitting POST data to the popup in IE11.<br>
      *      This specific buggy situation is known to happen because IE11 tries to open the requested url not in a new popup window as intended, but in a new tab.<br>
      *      See {@link http://wiki.nhnent.com/pages/viewpage.action?pageId=240562844}
      *
@@ -3936,7 +3941,7 @@ tui.util.Enum = Enum;
 
         options.method = options.method.toUpperCase();
 
-        this.postDataBridgeUrl = options.postDataBridgeUrl || this.postDataBridgeUrl;
+        this.postBridgeUrl = options.postBridgeUrl || this.postBridgeUrl;
 
         var popup,
             formElement,
@@ -3944,7 +3949,7 @@ tui.util.Enum = Enum;
                 tui.util.browser.msie && tui.util.browser.version === 11;
 
         if (!tui.util.isExisty(url)) {
-            throw new Error('Popup#open() 팝업 URL이 입력되지 않았습니다');
+            throw new Error('Popup#open() need popup url.');
         }
 
         popup_id += 1;
@@ -3988,7 +3993,7 @@ tui.util.Enum = Enum;
         this.closeWithParentPopup[options.popupName] = options.closeWithParent;
 
         if (!popup || popup.closed || tui.util.isUndefined(popup.closed)) {
-            alert('브라우저에 팝업을 막는 기능이 활성화 상태이기 때문에 서비스 이용에 문제가 있을 수 있습니다. 해당 기능을 비활성화 해 주세요');
+            alert('please enable popup windows for this website');
         }
 
         if (options.param && options.method === 'POST' && !useIEPostBridge) {
@@ -4131,16 +4136,10 @@ tui.util.Enum = Enum;
         var popup;
 
         if (useIEPostBridge) {
-            url = this.postDataBridgeUrl + '?storageKey=' + encodeURIComponent(popupName) +
-            '&redirectUrl=' + encodeURIComponent(url);
-            if (!window.localStorage) {
-                alert('IE11브라우저의 문제로 인해 이 기능은 브라우저의 LocalStorage 기능을 활성화 하셔야 이용하실 수 있습니다');
-            } else {
-                localStorage.removeItem(popupName);
-                localStorage.setItem(popupName, JSON.stringify(param));
-
-                popup = window.open(url, popupName, optionStr);
-            }
+            popup = window.open(this.postBridgeUrl, popupName, optionStr);
+            setTimeout(function() {
+                popup.redirect(url, param);
+            }, 100);
         } else {
             popup = window.open(url, popupName, optionStr);
         }
@@ -4149,5 +4148,4 @@ tui.util.Enum = Enum;
     };
 
     tui.util.popup = new Popup();
-
 })(window.tui);
