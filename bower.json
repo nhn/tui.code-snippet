@@ -1,25 +1,25 @@
 {
-    "name": "tui-code-snippet",
-    "version": "1.0.5",
-    "authors": [
-        "NHN Ent. FE dev team(dl_javascript@nhnent.com)"
-    ],
-    "license": "MIT",
-    "main": "code-snippet.js",
-    "ignore": [
-        "**/.*",
-        ".*",
-        "src",
-        "bin",
-        "node_modules",
-        "bower_components",
-        "test",
-        "bower.json",
-        "conf.json",
-        "Gruntfile.js",
-        "karma.conf.js",
-        "package.json",
-        "karma.local.conf.js",
-        "tutorial"
-    ]
+  "name": "tui-code-snippet",
+  "version": "1.0.6",
+  "authors": [
+    "NHN Ent. FE dev team(dl_javascript@nhnent.com)"
+  ],
+  "license": "MIT",
+  "main": "code-snippet.js",
+  "ignore": [
+    "**/.*",
+    ".*",
+    "src",
+    "bin",
+    "node_modules",
+    "bower_components",
+    "test",
+    "bower.json",
+    "conf.json",
+    "Gruntfile.js",
+    "karma.conf.js",
+    "package.json",
+    "karma.local.conf.js",
+    "tutorial"
+  ]
 }
