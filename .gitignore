@@ -50,7 +50,6 @@ bin
 temp
 tmp
 doc
-demo
 report
 dist
 *.swp

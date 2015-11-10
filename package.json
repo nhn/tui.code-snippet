@@ -1,35 +1,38 @@
 {
-  "name": "tui-code-snippet",
-  "version": "1.0.4",
-  "description": "useful code snippets from frontend development team",
-  "main": "code-snippet.js",
-  "scripts": {
-    "doc": "./node_modules/.bin/jsdoc -c conf.json"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/nhnent/tui.code-snippet.git"
-  },
-  "author": "FE",
-  "license": "MIT",
-  "devDependencies": {
-    "fedoc-template": "git+http://14bfd38a036366f7ca90355d202038126127bd01:x-oauth-basic@github.nhnent.com/fe/share-fedoc-template.git#snippet",
-    "grunt": "^0.4.5",
-    "grunt-contrib-concat": "^0.5.0",
-    "grunt-contrib-uglify": "^0.6.0",
-    "jasmine-ajax": "^2.0.1",
-    "jasmine-core": "^2.2.0",
-    "jasmine-jquery": "^2.0.5",
-    "jquery": "1.8.3",
-    "jsdoc": "git+https://github.com/jsdoc3/jsdoc.git",
-    "karma": "^0.12.31",
-    "karma-chrome-launcher": "^0.1.5",
-    "karma-coverage": "^0.2.6",
-    "karma-jasmine": "^0.3.5",
-    "karma-junit-reporter": "^0.2.2",
-    "karma-mocha-reporter": "^1.0.2",
-    "karma-phantomjs-launcher": "^0.2.0",
-    "karma-webdriver-launcher": "git+https://github.com/everedifice/karma-webdriver-launcher.git",
-    "phantomjs": "^1.9.17"
-  }
+    "name": "tui-code-snippet",
+    "version": "1.0.5",
+    "description": "useful code snippets from frontend development team",
+    "main": "code-snippet.js",
+    "scripts": {
+        "doc": "./node_modules/.bin/jsdoc -c conf.json"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/nhnent/tui.code-snippet.git"
+    },
+    "author": "FE",
+    "license": "MIT",
+    "dependencies": {
+        "fedoc-template": "git+http://14bfd38a036366f7ca90355d202038126127bd01:x-oauth-basic@github.nhnent.com/fe/share-fedoc-template.git#snippet",
+        "grunt": "^0.4.5",
+        "grunt-contrib-concat": "^0.5.0",
+        "grunt-contrib-uglify": "^0.6.0",
+        "jasmine-ajax": "^2.0.1",
+        "jasmine-core": "^2.2.0",
+        "jasmine-jquery": "^2.0.5",
+        "jquery": "1.8.3",
+        "jsdoc": "git+https://github.com/jsdoc3/jsdoc.git",
+        "karma": "^0.12.31",
+        "karma-chrome-launcher": "^0.1.5",
+        "karma-coverage": "^0.2.6",
+        "karma-jasmine": "^0.3.5",
+        "karma-junit-reporter": "^0.2.2",
+        "karma-mocha-reporter": "^1.0.2",
+        "karma-phantomjs-launcher": "^0.2.0",
+        "karma-webdriver-launcher": "git+https://github.com/everedifice/karma-webdriver-launcher.git",
+        "phantomjs": "^1.9.17",
+        "body-parser": "^1.14.1",
+        "express": "^4.13.3",
+        "serve-static": "^1.10.0"
+    }
 }
