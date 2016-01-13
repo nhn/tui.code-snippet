@@ -361,6 +361,17 @@ describe('CustomEvents2', function() {
 
             expect(ce._ctxEvents['play_len']).toBe(1);
         });
+
+        it('should unbind custom event by event name properly.', function() {
+            ce.off();
+
+            ce.on('play', handler, myObj);
+            ce.on('_play', handler, myObj);
+
+            ce.off(myObj, 'play');
+
+            expect(ce._ctxEvents['_play_len']).toBe(1);
+        });
     });
     
     describe('_offByEventName()', function() {

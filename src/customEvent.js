@@ -463,13 +463,13 @@
         var ctxEvents = this._ctxEvents,
             hasArgs = tui.util.isExisty(eventName),
             matchEventName,
-            matchHandler,
-            lenKey;
+            matchHandler;
 
         this._eachCtxEventByContext(context, function(handlerItem, hanId, ctxItems, eventKey) {
-            lenKey = eventKey.replace('_idx', '_len');
+            var lenKey = eventKey.replace('_idx', '_len'),
+                originEventName = eventKey.replace(/(_idx|_len)$/, ''); 
 
-            matchEventName = hasArgs && tui.util.isString(eventName) && eventKey.indexOf(eventName) > -1;
+            matchEventName = hasArgs && tui.util.isString(eventName) && originEventName === eventName;
             matchHandler = hasArgs && tui.util.isFunction(eventName) && handlerItem.fn === eventName;
 
             if (!hasArgs || (matchEventName || matchHandler)) {
