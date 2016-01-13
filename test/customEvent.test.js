@@ -338,6 +338,29 @@ describe('CustomEvents2', function() {
             // 제거된 이벤트
             expect(ce._ctxEvents['pause_idx'][ce._getHandlerKey(handler2, myObj2)]).toBeUndefined();
         });
+
+        it('컨텍스트 또는 핸들러로 해제할 때 handlerID 를 파싱해서 정확히 비교한다', function() {
+            // _offByContext는 대상 핸들러 또는 컨텍스트의 ID를 기준으로 검색해
+            // 해제를 수행한다. 이 때 '{handlerID}_{contextID}' 포멧을 키로 사용하는
+            // 객체를 순회하는데 *handlerID 또는 contextID*가 일치하는지 확인하는 조
+            // 건을 indexOf 로 했기 때문에 '200_110', '200_1' 두 핸들러가 등록된 상
+            // 태에서 contextID '1' 이라는 값으로 찾으면 둘 다 매칭되는 버그가 있었음
+            //
+            // split으로 잘라 각 요소와 직접 비교하도록 변경함.
+            var hand = function() {};
+            hand.__fe_id = 200;
+            var obj = {__fe_id: 110};
+            var obj2 = {__fe_id: 1};
+            
+            ce.off();
+
+            ce.on('play', hand, obj);
+            ce.on('play', hand, obj2);
+
+            ce.off(obj2, 'play');
+
+            expect(ce._ctxEvents['play_len']).toBe(1);
+        });
     });
     
     describe('_offByEventName()', function() {

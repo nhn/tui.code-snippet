@@ -190,7 +190,8 @@
      */
     CustomEvents.prototype._eachCtxHandlerItemByContainId = function(ctxEventsItem, id, iteratee) {
         tui.util.forEachOwnProperties(ctxEventsItem, function(handlerItem, handlerItemId) {
-            if (handlerItemId.indexOf(id) > -1) {
+            var keyPair = handlerItemId.split('_');
+            if (keyPair[0] === id || keyPair[1] === id) {
                 iteratee(handlerItem, handlerItemId);
             }
         });
@@ -209,7 +210,7 @@
      * @private
      */
     CustomEvents.prototype._eachCtxEventByHandler = function(handler, iteratee) {
-        var handlerId = tui.util.stamp(handler),
+        var handlerId = tui.util.stamp(handler) + '',
             eachById = this._eachCtxHandlerItemByContainId;
 
         this._eachCtxEvents(function(ctxEventsItem, eventKey) {
@@ -232,7 +233,7 @@
      * @private
      */
     CustomEvents.prototype._eachCtxEventByContext = function(context, iteratee) {
-        var contextId = tui.util.stamp(context),
+        var contextId = tui.util.stamp(context) + '',
             eachById = this._eachCtxHandlerItemByContainId;
 
         this._eachCtxEvents(function(ctxEventsItem, eventKey) {
