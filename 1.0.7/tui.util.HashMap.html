@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: CustomEvents</title>
+    <title>JSDoc: Class: HashMap</title>
     <link type="text/css" rel="stylesheet" href="styles/prettify-jsdoc.css">
     <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
     <link type="text/css" rel="stylesheet" href="styles/bootstrap.min.css">
@@ -35,7 +35,7 @@
         
             <span class="ancestors"><a href="tui.util.html">tui.util</a>.</span>
         
-        CustomEvents
+        HashMap
         
         
         </h2>
@@ -50,118 +50,12 @@
         
 <dt>
     
-        <h4 class="name" id="CustomEvents">
-            <span class="type-signature"></span>new CustomEvents<span class="signature">()</span><span class="type-signature"></span>
+        <h4 class="name" id="HashMap">
+            <span class="type-signature"></span>new HashMap<span class="signature">(obj<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span>
             
                 <div class="container-source method">
-                    <code><a href="customEvent.js.html">customEvent.js</a></code>,
-                    <code><a href="customEvent.js.html#line85">line 85</a></code>
-                </div>
-            
-        </h4>
-
-
-
-        
-    
-</dt>
-<dd>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-
-<dl class="details">
-
-    
-
-    
-
-    <!--
-    
-    -->
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-    
-    </div>
-    
-
-    
-
-    
-
-    
-
-     
-
-    
-
-    
-
-    
-    <div class="container-methods">
-        <h3 class="subsection-title">Methods</h3>
-
-        <dl>
-            
-<dt>
-    
-        <h4 class="name" id=".mixin">
-            <span class="type-signature"><span class="icon green">static</span> </span>mixin<span class="signature">(func)</span><span class="type-signature"></span>
-            
-                <div class="container-source method">
-                    <code><a href="customEvent.js.html">customEvent.js</a></code>,
-                    <code><a href="customEvent.js.html#line120">line 120</a></code>
+                    <code><a href="hashMap.js.html">hashMap.js</a></code>,
+                    <code><a href="hashMap.js.html#line41">line 41</a></code>
                 </div>
             
         </h4>
@@ -175,7 +69,9 @@
 
     
     <div class="description">
-        <p>Use for making a constructor to be able to do CustomEvent's functions.</p>
+        <p>HashMap can handle the key-value pairs.<br>
+Caution:<br>
+ HashMap instance has a length property but is not an instance of Array.</p>
     </div>
     
 
@@ -199,6 +95,8 @@
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
         
 
@@ -211,23 +109,33 @@
 
         <tr>
             
-                <td class="name first"><code>func</code></td>
+                <td class="name first"><code>obj</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">function</span>
+<span class="param-type">Object</span>
 
 
             
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last"><p>Constructor</p></td>
+            <td class="description last"><p>A initial data for creation.</p></td>
         </tr>
 
     
@@ -291,29 +199,133 @@
     
         <h5>Example</h5>
         
-    <pre class="prettyprint"><code>function Model() {
-     this.name = '';
- }
- tui.util.CustomEvents.mixin(Model);
-
- var model = new Model();
- model.on('change', function() { this.name = 'model'; }, this);
- model.fire('change');
- alert(model.name); // 'model';</code></pre>
+    <pre class="prettyprint"><code>var hm = new tui.util.HashMap({
+     'mydata': {
+          'hello': 'imfine'
+      },
+     'what': 'time'
+ });</code></pre>
 
     
 </dd>
 
+    
+    </div>
+    
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+    <div class="container-members">
+        <h3 class="subsection-title">Members</h3>
+
+        <dl>
+            
+<dt>
+    <h4 class="name" id="length">
+        <span class="type-signature"></span>length<span class="type-signature"> :number</span>
         
+        <div class="container-source members">
+            <code><a href="hashMap.js.html">hashMap.js</a></code>,
+            <code><a href="hashMap.js.html#line46">line 46</a></code>
+        </div>
+        
+    </h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>size</p>
+    </div>
+    
+
+    <!--
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">number</span>
+
+
+            </li>
+        </ul>
+    
+    -->
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    <!--
+    
+    -->
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    
+
+    
+</dd>
+
+        </dl>
+    </div>
+    
+
+    
+    <div class="container-methods">
+        <h3 class="subsection-title">Methods</h3>
+
+        <dl>
             
 <dt>
     
-        <h4 class="name" id="_forEachArraySplice">
-            <span class="type-signature"></span>_forEachArraySplice<span class="signature">(arr, iteratee)</span><span class="type-signature"></span>
+        <h4 class="name" id="set">
+            <span class="type-signature"></span>set<span class="signature">(key, value<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span>
             
                 <div class="container-source method">
-                    <code><a href="customEvent.js.html">customEvent.js</a></code>,
-                    <code><a href="customEvent.js.html#line139">line 139</a></code>
+                    <code><a href="hashMap.js.html">hashMap.js</a></code>,
+                    <code><a href="hashMap.js.html#line66">line 66</a></code>
                 </div>
             
         </h4>
@@ -327,15 +339,203 @@
 
     
     <div class="description">
-        <p>Work similarly to Array.prototype.forEach(),
- however does Array.prototype.splice() additionally.<br>
-Callback(iteratee) function is invoked with four arguments:</p>
-<ul>
-<li>The value of the element</li>
-<li>The index of the element</li>
-<li>The array being traversed</li>
-<li>A special callback function that decreases the length of array</li>
-</ul>
+        <p>Set a data from the given key with value or the given object.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-params">
+        <div class="params">
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name first"><code>key</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+|
+
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>A string or object for key</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name first"><code>value</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>A data</p></td>
+        </tr>
+
+    
+    </tbody>
+</table></div>
+    </div>
+    
+
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    <!--
+    
+    -->
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code>var hm = new HashMap();
+
+ hm.set('key', 'value');
+ hm.set({
+     'key1': 'data1',
+     'key2': 'data2'
+ });</code></pre>
+
+    
+</dd>
+
+        
+            
+<dt>
+    
+        <h4 class="name" id="setKeyValue">
+            <span class="type-signature"></span>setKeyValue<span class="signature">(key, value)</span><span class="type-signature"></span>
+            
+                <div class="container-source method">
+                    <code><a href="hashMap.js.html">hashMap.js</a></code>,
+                    <code><a href="hashMap.js.html#line82">line 82</a></code>
+                </div>
+            
+        </h4>
+
+
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Set a data from the given key with value.</p>
     </div>
     
 
@@ -371,13 +571,13 @@ Callback(iteratee) function is invoked with four arguments:</p>
 
         <tr>
             
-                <td class="name first"><code>arr</code></td>
+                <td class="name first"><code>key</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Array</span>
+<span class="param-type">string</span>
 
 
             
@@ -387,9 +587,1354 @@ Callback(iteratee) function is invoked with four arguments:</p>
 
             
 
-            <td class="description last"><p>Array that will be traversed</p></td>
+            <td class="description last"><p>A string for key</p></td>
         </tr>
 
+    
+
+        <tr>
+            
+                <td class="name first"><code>value</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>A data</p></td>
+        </tr>
+
+    
+    </tbody>
+</table></div>
+    </div>
+    
+
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    <!--
+    
+    -->
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code>var hm = new HashMap();
+ hm.setKeyValue('key', 'value');</code></pre>
+
+    
+</dd>
+
+        
+            
+<dt>
+    
+        <h4 class="name" id="setObject">
+            <span class="type-signature"></span>setObject<span class="signature">(obj)</span><span class="type-signature"></span>
+            
+                <div class="container-source method">
+                    <code><a href="hashMap.js.html">hashMap.js</a></code>,
+                    <code><a href="hashMap.js.html#line100">line 100</a></code>
+                </div>
+            
+        </h4>
+
+
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Set a data from the given object.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-params">
+        <div class="params">
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name first"><code>obj</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>A object for data</p></td>
+        </tr>
+
+    
+    </tbody>
+</table></div>
+    </div>
+    
+
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    <!--
+    
+    -->
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code>var hm = new HashMap();
+
+ hm.setObject({
+     'key1': 'data1',
+     'key2': 'data2'
+ });</code></pre>
+
+    
+</dd>
+
+        
+            
+<dt>
+    
+        <h4 class="name" id="merge">
+            <span class="type-signature"></span>merge<span class="signature">(hashMap)</span><span class="type-signature"></span>
+            
+                <div class="container-source method">
+                    <code><a href="hashMap.js.html">hashMap.js</a></code>,
+                    <code><a href="hashMap.js.html#line112">line 112</a></code>
+                </div>
+            
+        </h4>
+
+
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Merge with the given another hashMap.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-params">
+        <div class="params">
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name first"><code>hashMap</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">HashMap</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Another hashMap instance</p></td>
+        </tr>
+
+    
+    </tbody>
+</table></div>
+    </div>
+    
+
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    <!--
+    
+    -->
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    
+        <h4 class="name" id="get">
+            <span class="type-signature"></span>get<span class="signature">(key)</span><span class="type-signature"> &rarr; {*}</span>
+            
+                <div class="container-source method">
+                    <code><a href="hashMap.js.html">hashMap.js</a></code>,
+                    <code><a href="hashMap.js.html#line151">line 151</a></code>
+                </div>
+            
+        </h4>
+
+
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Return the value from the given key.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-params">
+        <div class="params">
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name first"><code>key</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>A string for key</p></td>
+        </tr>
+
+    
+    </tbody>
+</table></div>
+    </div>
+    
+
+    
+    <div class="container-returns">
+        <div class="returns">
+        <h5>Returns:</h5>
+        <div class="details">
+        
+                
+<div class="param-desc">
+    <p>The value from a key</p>
+</div>
+
+            
+        </div>
+        </div>
+    </div>
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    <!--
+    
+    -->
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code>var hm = new HashMap();
+ hm.set('key', 'value');
+
+ hm.get('key') // value</code></pre>
+
+    
+</dd>
+
+        
+            
+<dt>
+    
+        <h4 class="name" id="has">
+            <span class="type-signature"></span>has<span class="signature">(key)</span><span class="type-signature"> &rarr; {boolean}</span>
+            
+                <div class="container-source method">
+                    <code><a href="hashMap.js.html">hashMap.js</a></code>,
+                    <code><a href="hashMap.js.html#line165">line 165</a></code>
+                </div>
+            
+        </h4>
+
+
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Check the existence of a value from the key.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-params">
+        <div class="params">
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name first"><code>key</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>A string for key</p></td>
+        </tr>
+
+    
+    </tbody>
+</table></div>
+    </div>
+    
+
+    
+    <div class="container-returns">
+        <div class="returns">
+        <h5>Returns:</h5>
+        <div class="details">
+        
+                
+<div class="param-desc">
+    <p>Indicating whether a value exists or not.</p>
+</div>
+
+            
+        </div>
+        </div>
+    </div>
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    <!--
+    
+    -->
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code>var hm = new HashMap();
+ hm.set('key', 'value');
+
+ hm.has('key') // true</code></pre>
+
+    
+</dd>
+
+        
+            
+<dt>
+    
+        <h4 class="name" id="remove">
+            <span class="type-signature"></span>remove<span class="signature">(key)</span><span class="type-signature"> &rarr; {string|Array.&lt;string>}</span>
+            
+                <div class="container-source method">
+                    <code><a href="hashMap.js.html">hashMap.js</a></code>,
+                    <code><a href="hashMap.js.html#line187">line 187</a></code>
+                </div>
+            
+        </h4>
+
+
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Remove a data(key-value pairs) from the given key or the given key-list.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-params">
+        <div class="params">
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name first"><code>key</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+|
+
+<span class="param-type">Array.&lt;string></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>A string for key</p></td>
+        </tr>
+
+    
+    </tbody>
+</table></div>
+    </div>
+    
+
+    
+    <div class="container-returns">
+        <div class="returns">
+        <h5>Returns:</h5>
+        <div class="details">
+        
+                
+<div class="param-desc">
+    <p>A removed data</p>
+</div>
+
+            
+        </div>
+        </div>
+    </div>
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    <!--
+    
+    -->
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code>var hm = new HashMap();
+ hm.set('key', 'value');
+ hm.set('key2', 'value');
+
+ //ex1
+ hm.remove('key');
+
+ //ex2
+ hm.remove('key', 'key2');
+
+ //ex3
+ hm.remove(['key', 'key2']);</code></pre>
+
+    
+</dd>
+
+        
+            
+<dt>
+    
+        <h4 class="name" id="removeByKey">
+            <span class="type-signature"></span>removeByKey<span class="signature">(key)</span><span class="type-signature"> &rarr; {*|null}</span>
+            
+                <div class="container-source method">
+                    <code><a href="hashMap.js.html">hashMap.js</a></code>,
+                    <code><a href="hashMap.js.html#line205">line 205</a></code>
+                </div>
+            
+        </h4>
+
+
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Remove data(key-value pair) from the given key.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-params">
+        <div class="params">
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name first"><code>key</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>A string for key</p></td>
+        </tr>
+
+    
+    </tbody>
+</table></div>
+    </div>
+    
+
+    
+    <div class="container-returns">
+        <div class="returns">
+        <h5>Returns:</h5>
+        <div class="details">
+        
+                
+<div class="param-desc">
+    <p>A removed data</p>
+</div>
+
+            
+        </div>
+        </div>
+    </div>
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    <!--
+    
+    -->
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code>var hm = new HashMap();
+ hm.set('key', 'value');
+
+ hm.removeByKey('key')</code></pre>
+
+    
+</dd>
+
+        
+            
+<dt>
+    
+        <h4 class="name" id="removeByKeyArray">
+            <span class="type-signature"></span>removeByKeyArray<span class="signature">(keyArray)</span><span class="type-signature"> &rarr; {Array.&lt;string>}</span>
+            
+                <div class="container-source method">
+                    <code><a href="hashMap.js.html">hashMap.js</a></code>,
+                    <code><a href="hashMap.js.html#line227">line 227</a></code>
+                </div>
+            
+        </h4>
+
+
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Remove a data(key-value pairs) from the given key-list.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-params">
+        <div class="params">
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name first"><code>keyArray</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;string></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>An array of keys</p></td>
+        </tr>
+
+    
+    </tbody>
+</table></div>
+    </div>
+    
+
+    
+    <div class="container-returns">
+        <div class="returns">
+        <h5>Returns:</h5>
+        <div class="details">
+        
+                
+<div class="param-desc">
+    <p>A removed data</p>
+</div>
+
+            
+        </div>
+        </div>
+    </div>
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    <!--
+    
+    -->
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code>var hm = new HashMap();
+ hm.set('key', 'value');
+ hm.set('key2', 'value');
+
+ hm.removeByKeyArray(['key', 'key2']);</code></pre>
+
+    
+</dd>
+
+        
+            
+<dt>
+    
+        <h4 class="name" id="removeAll">
+            <span class="type-signature"></span>removeAll<span class="signature">()</span><span class="type-signature"></span>
+            
+                <div class="container-source method">
+                    <code><a href="hashMap.js.html">hashMap.js</a></code>,
+                    <code><a href="hashMap.js.html#line241">line 241</a></code>
+                </div>
+            
+        </h4>
+
+
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Remove all the data</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    <!--
+    
+    -->
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    
+        <h4 class="name" id="each">
+            <span class="type-signature"></span>each<span class="signature">(iteratee)</span><span class="type-signature"></span>
+            
+                <div class="container-source method">
+                    <code><a href="hashMap.js.html">hashMap.js</a></code>,
+                    <code><a href="hashMap.js.html#line261">line 261</a></code>
+                </div>
+            
+        </h4>
+
+
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Execute the provided callback once for each all the data.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-params">
+        <div class="params">
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
     
 
         <tr>
@@ -472,986 +2017,14 @@ Callback(iteratee) function is invoked with four arguments:</p>
     
 
     
-</dd>
-
-        
-            
-<dt>
-    
-        <h4 class="name" id="on">
-            <span class="type-signature"></span>on<span class="signature">(eventName, handler<span class="signature-attributes">opt</span>, context<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span>
-            
-                <div class="container-source method">
-                    <code><a href="customEvent.js.html">customEvent.js</a></code>,
-                    <code><a href="customEvent.js.html#line537">line 537</a></code>
-                </div>
-            
-        </h4>
-
-
-
-        
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Attach the event handler with event name and context.</p>
-    </div>
-    
-
-    
-
-    
-
-    
-
-    
-    <div class="container-params">
-        <div class="params">
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name first"><code>eventName</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-|
-
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>Custom event name or an object {eventName: handler}</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name first"><code>handler</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">function</span>
-|
-
-<span class="param-type">*</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>Handler function or context</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name first"><code>context</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">*</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>Context for binding</p></td>
-        </tr>
-
-    
-    </tbody>
-</table></div>
-    </div>
-    
-
-    
-
-    
-
-
-<dl class="details">
-
-    
-
-    
-
-    <!--
-    
-    -->
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
         <h5>Example</h5>
         
-    <pre class="prettyprint"><code>// 1. Basic
- customEvent.on('onload', handler);
-
- // 2. With context
- customEvent.on('onload', handler, myObj);
-
- // 3. Attach with an object
- customEvent.on({
-   'play': handler,
-   'pause': handler2
- });
-
- // 4. Attach with an object with context
- customEvent.on({
-   'play': handler
- }, myObj);</code></pre>
-
-    
-</dd>
-
-        
-            
-<dt>
-    
-        <h4 class="name" id="off">
-            <span class="type-signature"></span>off<span class="signature">(eventName, handler<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span>
-            
-                <div class="container-source method">
-                    <code><a href="customEvent.js.html">customEvent.js</a></code>,
-                    <code><a href="customEvent.js.html#line601">line 601</a></code>
-                </div>
-            
-        </h4>
-
-
-
-        
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Detach the event handler.</p>
-    </div>
-    
-
-    
-
-    
-
-    
-
-    
-    <div class="container-params">
-        <div class="params">
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name first"><code>eventName</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-|
-
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>Custom event name or an object {eventName: handler}</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name first"><code>handler</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">function</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>Handler function</p></td>
-        </tr>
-
-    
-    </tbody>
-</table></div>
-    </div>
-    
-
-    
-
-    
-
-
-<dl class="details">
-
-    
-
-    
-
-    <!--
-    
-    -->
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <h5>Example</h5>
-        
-    <pre class="prettyprint"><code>// 1. off by context
-customEvent.off(myObj);
-
-// 2. off by event name
-customEvent.off('onload');
-
-// 3. off by handler
-customEvent.off(handler);
-
-// 4. off by event name and handler
-customEvent.off('play', handler);
-
-// 5. off by context and handler
-customEvent.off(myObj, handler);
-
-// 6. off by context and event name
-customEvent.off(myObj, 'onload');
-
-// 7. off by an Object.&lt;string, function> that is {eventName: handler}
-customEvent.off({
-  'play': handler,
-  'pause': handler2
-});
-
-// 8. off the all events
-customEvent.off();</code></pre>
-
-    
-</dd>
-
-        
-            
-<dt>
-    
-        <h4 class="name" id="getListenerLength">
-            <span class="type-signature"></span>getListenerLength<span class="signature">(eventName)</span><span class="type-signature"> &rarr; {*}</span>
-            
-                <div class="container-source method">
-                    <code><a href="customEvent.js.html">customEvent.js</a></code>,
-                    <code><a href="customEvent.js.html#line636">line 636</a></code>
-                </div>
-            
-        </h4>
-
-
-
-        
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Return a count of events registered.</p>
-    </div>
-    
-
-    
-
-    
-
-    
-
-    
-    <div class="container-params">
-        <div class="params">
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name first"><code>eventName</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Custom event name</p></td>
-        </tr>
-
-    
-    </tbody>
-</table></div>
-    </div>
-    
-
-    
-    <div class="container-returns">
-        <div class="returns">
-        <h5>Returns:</h5>
-        <div class="details">
-        
-                
-    
-<span class="param-type">*</span>
-
-
-
-            
-        </div>
-        </div>
-    </div>
-    
-
-    
-
-
-<dl class="details">
-
-    
-
-    
-
-    <!--
-    
-    -->
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        
-            
-<dt>
-    
-        <h4 class="name" id="hasListener">
-            <span class="type-signature"></span>hasListener<span class="signature">(eventName)</span><span class="type-signature"> &rarr; {boolean}</span>
-            
-                <div class="container-source method">
-                    <code><a href="customEvent.js.html">customEvent.js</a></code>,
-                    <code><a href="customEvent.js.html#line653">line 653</a></code>
-                </div>
-            
-        </h4>
-
-
-
-        
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Return whether at least one of the handlers is registered in the given event name.</p>
-    </div>
-    
-
-    
-
-    
-
-    
-
-    
-    <div class="container-params">
-        <div class="params">
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name first"><code>eventName</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Custom event name</p></td>
-        </tr>
-
-    
-    </tbody>
-</table></div>
-    </div>
-    
-
-    
-    <div class="container-returns">
-        <div class="returns">
-        <h5>Returns:</h5>
-        <div class="details">
-        
-                
-<div class="param-desc">
-    <p>Is there at least one handler in event name?</p>
-</div>
-
-            
-        </div>
-        </div>
-    </div>
-    
-
-    
-
-
-<dl class="details">
-
-    
-
-    
-
-    <!--
-    
-    -->
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        
-            
-<dt>
-    
-        <h4 class="name" id="invoke">
-            <span class="type-signature"></span>invoke<span class="signature">(eventName, &hellip;data)</span><span class="type-signature"> &rarr; {boolean}</span>
-            
-                <div class="container-source method">
-                    <code><a href="customEvent.js.html">customEvent.js</a></code>,
-                    <code><a href="customEvent.js.html#line683">line 683</a></code>
-                </div>
-            
-        </h4>
-
-
-
-        
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Fire a event and returns the result of operation 'boolean AND' with all listener's results.<br>
-So, It is different from <code>CustomEvents#fire</code>.<br>
-In service code,
- use this as a before event in component level usually for notifying that the event is cancelable.</p>
-    </div>
-    
-
-    
-
-    
-
-    
-
-    
-    <div class="container-params">
-        <div class="params">
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name first"><code>eventName</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>Custom event name</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name first"><code>data</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">*</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                    &lt;repeatable><br>
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>Data for event</p></td>
-        </tr>
-
-    
-    </tbody>
-</table></div>
-    </div>
-    
-
-    
-    <div class="container-returns">
-        <div class="returns">
-        <h5>Returns:</h5>
-        <div class="details">
-        
-                
-<div class="param-desc">
-    <p>The result of operation 'boolean AND'</p>
-</div>
-
-            
-        </div>
-        </div>
-    </div>
-    
-
-    
-
-
-<dl class="details">
-
-    
-
-    
-
-    <!--
-    
-    -->
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <h5>Example</h5>
-        
-    <pre class="prettyprint"><code>if (this.invoke('beforeZoom')) {    // check the result of 'beforeZoom'
-     // if true,
-     // doSomething
- }
-
- // In service code,
- map.on({
-     'beforeZoom': function() {
-         if (that.disabled &amp;&amp; this.getState()) {    // It should cancel the 'zoom' event by some conditions.
-             return false;
-         }
-         return true;
-     }
+    <pre class="prettyprint"><code>var hm = new HashMap();
+ hm.set('key', 'value');
+ hm.set('key2', 'value');
+
+ hm.each(function(value, key) {
+     //do something...
  });</code></pre>
 
     
@@ -1461,12 +2034,12 @@ In service code,
             
 <dt>
     
-        <h4 class="name" id="fire">
-            <span class="type-signature"></span>fire<span class="signature">(eventName, &hellip;data)</span><span class="type-signature"> &rarr; {Object}</span>
+        <h4 class="name" id="keys">
+            <span class="type-signature"></span>keys<span class="signature">()</span><span class="type-signature"> &rarr; {Array}</span>
             
                 <div class="container-source method">
-                    <code><a href="customEvent.js.html">customEvent.js</a></code>,
-                    <code><a href="customEvent.js.html#line719">line 719</a></code>
+                    <code><a href="hashMap.js.html">hashMap.js</a></code>,
+                    <code><a href="hashMap.js.html#line286">line 286</a></code>
                 </div>
             
         </h4>
@@ -1480,7 +2053,7 @@ In service code,
 
     
     <div class="description">
-        <p>Fire a event by event name with data.</p>
+        <p>Return the key-list stored.</p>
     </div>
     
 
@@ -1490,98 +2063,6 @@ In service code,
 
     
 
-    
-    <div class="container-params">
-        <div class="params">
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name first"><code>eventName</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>Custom event name</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name first"><code>data</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">*</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                    &lt;repeatable><br>
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>Data for event</p></td>
-        </tr>
-
-    
-    </tbody>
-</table></div>
-    </div>
     
 
     
@@ -1592,7 +2073,7 @@ In service code,
         
                 
 <div class="param-desc">
-    <p>this</p>
+    <p>A key-list</p>
 </div>
 
             
@@ -1654,10 +2135,11 @@ In service code,
     
         <h5>Example</h5>
         
-    <pre class="prettyprint"><code>instance.on('move', function(direction) {
-     var direction = direction;
- });
- instance.fire('move', 'left');</code></pre>
+    <pre class="prettyprint"><code>var hm = new HashMap();
+ hm.set('key', 'value');
+ hm.set('key2', 'value');
+
+ hm.keys();  //['key', 'key2');</code></pre>
 
     
 </dd>
@@ -1666,12 +2148,12 @@ In service code,
             
 <dt>
     
-        <h4 class="name" id="once">
-            <span class="type-signature"></span>once<span class="signature">(eventName, fn, context<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span>
+        <h4 class="name" id="find">
+            <span class="type-signature"></span>find<span class="signature">(condition)</span><span class="type-signature"> &rarr; {Array}</span>
             
                 <div class="container-source method">
-                    <code><a href="customEvent.js.html">customEvent.js</a></code>,
-                    <code><a href="customEvent.js.html#line730">line 730</a></code>
+                    <code><a href="hashMap.js.html">hashMap.js</a></code>,
+                    <code><a href="hashMap.js.html#line327">line 327</a></code>
                 </div>
             
         </h4>
@@ -1685,7 +2167,9 @@ In service code,
 
     
     <div class="description">
-        <p>Attach a one-shot event.</p>
+        <p>Work similarly to Array.prototype.map().<br>
+It executes the provided callback that checks conditions once for each element of hashMap,<br>
+ and returns a new array having elements satisfying the conditions</p>
     </div>
     
 
@@ -1709,8 +2193,6 @@ In service code,
         <th>Type</th>
 
         
-        <th>Attributes</th>
-        
 
         
 
@@ -1723,41 +2205,7 @@ In service code,
 
         <tr>
             
-                <td class="name first"><code>eventName</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-|
-
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>Custom event name or an object {eventName: handler}</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name first"><code>fn</code></td>
+                <td class="name first"><code>condition</code></td>
             
 
             <td class="type">
@@ -1770,51 +2218,10 @@ In service code,
             </td>
 
             
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
 
             
 
-            <td class="description last"><p>Handler function</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name first"><code>context</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">*</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>Context for binding</p></td>
+            <td class="description last"><p>A function that checks conditions</p></td>
         </tr>
 
     
@@ -1823,6 +2230,152 @@ In service code,
     </div>
     
 
+    
+    <div class="container-returns">
+        <div class="returns">
+        <h5>Returns:</h5>
+        <div class="details">
+        
+                
+<div class="param-desc">
+    <p>A new array having elements satisfying the conditions</p>
+</div>
+
+            
+        </div>
+        </div>
+    </div>
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    <!--
+    
+    -->
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code>//ex1
+ var hm = new HashMap();
+ hm.set('key', 'value');
+ hm.set('key2', 'value');
+
+ hm.find(function(value, key) {
+     return key === 'key2';
+ }); // ['value']
+
+ //ex2
+ var hm = new HashMap({
+     'myobj1': {
+          visible: true
+      },
+     'mybobj2': {
+          visible: false
+      }
+ });
+
+ hm.find(function(obj, key) {
+     return obj.visible === true;
+ }); // [{visible: true}];</code></pre>
+
+    
+</dd>
+
+        
+            
+<dt>
+    
+        <h4 class="name" id="toArray">
+            <span class="type-signature"></span>toArray<span class="signature">()</span><span class="type-signature"> &rarr; {Array}</span>
+            
+                <div class="container-source method">
+                    <code><a href="hashMap.js.html">hashMap.js</a></code>,
+                    <code><a href="hashMap.js.html#line343">line 343</a></code>
+                </div>
+            
+        </h4>
+
+
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Return a new Array having all values.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-returns">
+        <div class="returns">
+        <h5>Returns:</h5>
+        <div class="details">
+        
+                
+<div class="param-desc">
+    <p>A new array having all values</p>
+</div>
+
+            
+        </div>
+        </div>
+    </div>
     
 
     
