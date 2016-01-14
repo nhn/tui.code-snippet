@@ -769,7 +769,8 @@
      */
     CustomEvents.prototype._eachCtxHandlerItemByContainId = function(ctxEventsItem, id, iteratee) {
         tui.util.forEachOwnProperties(ctxEventsItem, function(handlerItem, handlerItemId) {
-            if (handlerItemId.indexOf(id) > -1) {
+            var keyPair = handlerItemId.split('_');
+            if (keyPair[0] === id || keyPair[1] === id) {
                 iteratee(handlerItem, handlerItemId);
             }
         });
@@ -788,7 +789,7 @@
      * @private
      */
     CustomEvents.prototype._eachCtxEventByHandler = function(handler, iteratee) {
-        var handlerId = tui.util.stamp(handler),
+        var handlerId = tui.util.stamp(handler) + '',
             eachById = this._eachCtxHandlerItemByContainId;
 
         this._eachCtxEvents(function(ctxEventsItem, eventKey) {
@@ -811,7 +812,7 @@
      * @private
      */
     CustomEvents.prototype._eachCtxEventByContext = function(context, iteratee) {
-        var contextId = tui.util.stamp(context),
+        var contextId = tui.util.stamp(context) + '',
             eachById = this._eachCtxHandlerItemByContainId;
 
         this._eachCtxEvents(function(ctxEventsItem, eventKey) {
@@ -1041,13 +1042,13 @@
         var ctxEvents = this._ctxEvents,
             hasArgs = tui.util.isExisty(eventName),
             matchEventName,
-            matchHandler,
-            lenKey;
+            matchHandler;
 
         this._eachCtxEventByContext(context, function(handlerItem, hanId, ctxItems, eventKey) {
-            lenKey = eventKey.replace('_idx', '_len');
+            var lenKey = eventKey.replace('_idx', '_len'),
+                originEventName = eventKey.replace(/(_idx|_len)$/, ''); 
 
-            matchEventName = hasArgs && tui.util.isString(eventName) && eventKey.indexOf(eventName) > -1;
+            matchEventName = hasArgs && tui.util.isString(eventName) && originEventName === eventName;
             matchHandler = hasArgs && tui.util.isFunction(eventName) && handlerItem.fn === eventName;
 
             if (!hasArgs || (matchEventName || matchHandler)) {
