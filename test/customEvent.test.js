@@ -1,4 +1,4 @@
-describe('CustomEvents2', function() {
+describe('CustomEvents module', function() {
     var CustomEvents = tui.util.CustomEvents,
         ce;
 
@@ -6,422 +6,18 @@ describe('CustomEvents2', function() {
         ce = new CustomEvents();
     });
 
-    describe('_forEachArraySplice()', function() {
-        var arr,
-            result,
-            count;
+    it('should transform array by omit callback.', function() {
+        var arr = [1, 2, 3, 4, 5];
 
-        beforeEach(function() {
-            arr = [1, 2, 3, 4, 5];
-            result = [];
-            count = 0;
+        ce._spliceArray(arr, function(num) {
+            return num % 2 === 0;
         });
 
-        it('forEach와 같지만 전체 순회 수를 감소시키는 메서드를 제공한다', function() {
-            ce._forEachArraySplice(arr, function(num, index, arr, decrease) {
-                if (num % 2 === 0) {
-                    decrease();
-                }
-                count += 1;
-            });
-
-            expect(arr).toEqual([1, 3, 5]);
-            expect(count).toBe(5);
-        });
-
-        it('decrease를 사용하면 전체 순회 수를 감소시킨다', function() {
-            var arr = ['mike', 'jane', 'mike', 'foo', 'bar'];
-
-            ce._forEachArraySplice(arr, function(name, i, arr, decrease) {
-                if (name === 'mike') {
-                    decrease();
-                }
-            });
-
-            expect(arr).toEqual(['jane', 'foo', 'bar']);
-        });
+        expect(arr).toEqual([1, 3, 5]);
     });
 
-    describe('_eachCtxEventByHandler()', function() {
-        var myObj,
-            myObj2,
-            handler,
-            handler2,
-            spy;
-
-        beforeEach(function() {
-            myObj = { name: 'good' };
-            myObj2 = { name: 'cony' };
-            handler = function() { return this.name; };
-            handler2 = function() {};
-
-            ce.on('play', handler, myObj);
-            ce.on('play', handler2, myObj);
-            ce.on('play', handler2);
-
-            // 일반 이벤트도 등록해본다
-            ce.on('play', function() {});
-            ce.on('play', handler2, myObj2);
-
-            spy = jasmine.createSpy('playHandler');
-        });
-
-        it('컨텍스트 핸들러를 순회한다', function() {
-            ce._eachCtxEventByHandler(handler2, spy);
-
-            expect(spy.calls.count()).toBe(2);
-            expect(spy.calls.argsFor(0)).toEqual([
-                { fn: handler2, ctx: myObj },
-                ce._getHandlerKey(handler2, myObj),
-                ce._ctxEvents['play_idx'],
-                'play_idx'
-            ]);
-            expect(spy.calls.argsFor(1)).toEqual([
-                { fn: handler2, ctx: myObj2 },
-                ce._getHandlerKey(handler2, myObj2),
-                ce._ctxEvents['play_idx'],
-                'play_idx'
-            ]);
-        });
-    });
-
-    describe('_eachCtxEventByContext()', function() {
-        var handler,
-            handler2,
-            myObj,
-            myObj2,
-            spy;
-
-        beforeEach(function() {
-            handler = function() { return this.name; };
-            handler2 = function() {};
-            myObj = { name: 'cony' };
-            myObj2 = { name: 'good' };
-
-            ce.on('play', handler, myObj);
-            ce.on('play', handler2, myObj);
-            ce.on('play', handler, myObj2);
-
-            spy = jasmine.createSpy('play');
-        });
-
-        it('컨텍스트를 기준으로 핸들러를 순회', function() {
-            ce._eachCtxEventByContext(myObj, spy);
-
-            expect(spy.calls.count()).toBe(2);
-            expect(spy.calls.argsFor(0)).toEqual([
-                { fn: handler, ctx: myObj },
-                ce._getHandlerKey(handler, myObj),
-                ce._ctxEvents['play_idx'],
-                'play_idx'
-            ]);
-            expect(spy.calls.argsFor(1)).toEqual([
-                { fn: handler2, ctx: myObj },
-                ce._getHandlerKey(handler2, myObj),
-                ce._ctxEvents['play_idx'],
-                'play_idx'
-            ]);
-        });
-    });
-
-    describe('_eachCtxEventByEventName()', function() {
-        var handler,
-            handler2,
-            myObj,
-            myObj2,
-            spy;
-
-        beforeEach(function() {
-            handler = function() { return this.name; };
-            handler2 = function() {};
-            myObj = { name: 'cony' };
-            myObj2 = { name: 'good' };
-
-            ce.on('play', handler, myObj);
-            ce.on('play', handler2, myObj);
-            ce.on('play', handler, myObj2);
-            ce.on('pause', handler);
-
-            spy = jasmine.createSpy('play');
-        });
-
-        it('이벤트명 기준으로 핸들러를 순회', function() {
-            ce._eachCtxEventByEventName('play', spy);
-
-            expect(spy.calls.count()).toBe(3);
-            expect(spy.calls.argsFor(0)).toEqual([
-                { fn: handler, ctx: myObj },
-                ce._getHandlerKey(handler, myObj),
-                ce._ctxEvents['play_idx'],
-                'play_idx'
-            ]);
-            expect(spy.calls.argsFor(1)).toEqual([
-                { fn: handler2, ctx: myObj },
-                ce._getHandlerKey(handler2, myObj),
-                ce._ctxEvents['play_idx'],
-                'play_idx'
-            ]);
-            expect(spy.calls.argsFor(2)).toEqual([
-                { fn: handler, ctx: myObj2 },
-                ce._getHandlerKey(handler, myObj2),
-                ce._ctxEvents['play_idx'],
-                'play_idx'
-            ]);
-        });
-    });
-
-    describe('_eachEventByHandler()', function() {
-        var myObj,
-            myObj2,
-            handler,
-            handler2,
-            spy;
-
-        beforeEach(function() {
-            myObj = { name: 'good' };
-            myObj2 = { name: 'cony' };
-            handler = function() { return this.name; };
-            handler2 = function() {};
-
-            ce.on('play', handler, myObj);
-            ce.on('play', handler2, myObj);
-            ce.on('play', handler2);
-
-            // 일반 이벤트도 등록해본다
-            ce.on('play', handler);
-
-            spy = jasmine.createSpy('playHandler');
-        });
-
-        it('일반 이벤트 핸들러를 순회한다', function() {
-            ce._eachEventByHandler(handler, spy);
-
-            expect(spy.calls.count()).toBe(1);
-            expect(spy.calls.argsFor(0)).toEqual([
-                { fn: handler },
-                0,
-                ce._events['play'],
-                'play',
-                spy.calls.argsFor(0)[4]
-            ]);
-        });
-    });
-
-    describe('_eachEventByEventName()', function() {
-        var handler,
-            handler2,
-            myObj,
-            spy;
-
-        beforeEach(function() {
-            handler = function() {};
-            handler2 = function() {};
-            myObj = {};
-
-            ce.on('play', handler);
-            ce.on('play', handler2);
-            ce.on('play', function() {}, myObj);
-
-            spy = jasmine.createSpy('play');
-        });
-
-        it('이벤트명으로 일반 이벤트를 순회하며 반복자를 수행한다', function() {
-            ce._eachEventByEventName('play', spy);
-
-            expect(spy.calls.count()).toBe(2);
-            expect(spy.calls.argsFor(0)).toEqual([
-                { fn: handler },
-                0,
-                ce._events['play'],
-                spy.calls.argsFor(0)[3]
-            ]);
-            expect(spy.calls.argsFor(1)).toEqual([
-                { fn: handler2 },
-                1,
-                ce._events['play'],
-                spy.calls.argsFor(1)[3]
-            ]);
-        });
-
-
-    });
-
-    describe('_offByHandler()', function() {
-        var handler,
-            handler2,
-            myObj;
-
-        beforeEach(function() {
-            handler = function() { return this.name; };
-            handler2 = function() {};
-            myObj = { name: 'cony' };
-
-            ce.on('play', handler, myObj);
-            ce.on('pause', handler2);
-            ce.on('play', handler2, myObj);
-            ce.on('play', handler);
-        });
-
-        it('핸들러 함수를 넘겨 이벤트를 해제할 수 있음', function() {
-            ce._offByHandler(handler2);
-
-            expect(ce._events['pause'].length).toBe(0);
-            expect(ce._events['play'].length).toBe(1);
-            expect(ce._ctxEvents['play_len']).toBe(1);
-        });
-
-        it('전부 제거', function() {
-            ce._offByHandler(handler2);
-            ce._offByHandler(handler);
-
-            expect(ce._events['pause'].length).toBe(0);
-            expect(ce._events['play'].length).toBe(0);
-            expect(ce._ctxEvents['play_len']).toBe(0);
-        });
-    });
-
-    describe('_offByContext()', function() {
-        var handler,
-            handler2,
-            myObj,
-            myObj2;
-
-        beforeEach(function() {
-            handler = function() {};
-            handler2 = function() {};
-            myObj = {};
-            myObj2 = {};
-
-            ce.on('play', handler, myObj);
-            ce.on('play', handler2, myObj);
-            ce.on('play', handler);
-            ce.on('pause', handler2, myObj2);
-            ce.on('play', handler, myObj2);
-            ce.on('pause', handler, myObj);
-        });
-
-        it('컨텍스트로 이벤트를 해제할 수 있다', function() {
-            ce._offByContext(myObj);
-
-            // 남은 이벤트
-            expect(ce._events['play'].length).toBe(1);
-            expect(ce._ctxEvents['play_len']).toBe(1);
-            expect(ce._ctxEvents['pause_len']).toBe(1);
-
-            // 제거된 이벤트
-            expect(ce._ctxEvents['play_idx'][ce._getHandlerKey(handler2, myObj)]).toBeUndefined();
-            expect(ce._ctxEvents['play_idx'][ce._getHandlerKey(handler, myObj)]).toBeUndefined();
-            expect(ce._ctxEvents['pause_idx'][ce._getHandlerKey(handler, myObj)]).toBeUndefined();
-        });
-
-        it('이벤트 명을 추가로 전달해 해당하는 이벤트만 해제 가능', function() {
-            ce._offByContext(myObj, 'play');
-
-            // 남은 이벤트
-            expect(ce._events['play'].length).toBe(1);
-            expect(ce._ctxEvents['play_len']).toBe(1);
-            expect(ce._ctxEvents['pause_len']).toBe(2);
-
-            // 제거된 이벤트
-            expect(ce._ctxEvents['play_idx'][ce._getHandlerKey(handler, myObj)]).toBeUndefined();
-            expect(ce._ctxEvents['play_idx'][ce._getHandlerKey(handler2, myObj)]).toBeUndefined();
-        });
-
-        it('핸들러 함수를 추가로 전달해 해당하는 이벤트만 제거 가능', function() {
-            ce._offByContext(myObj2, handler2);
-
-            // 남은 이벤트
-            expect(ce._events['play'].length).toBe(1);
-            expect(ce._ctxEvents['play_len']).toBe(3);
-            expect(ce._ctxEvents['pause_len']).toBe(1);
-
-            // 제거된 이벤트
-            expect(ce._ctxEvents['pause_idx'][ce._getHandlerKey(handler2, myObj2)]).toBeUndefined();
-        });
-
-        it('컨텍스트 또는 핸들러로 해제할 때 handlerID 를 파싱해서 정확히 비교한다', function() {
-            // _offByContext는 대상 핸들러 또는 컨텍스트의 ID를 기준으로 검색해
-            // 해제를 수행한다. 이 때 '{handlerID}_{contextID}' 포멧을 키로 사용하는
-            // 객체를 순회하는데 *handlerID 또는 contextID*가 일치하는지 확인하는 조
-            // 건을 indexOf 로 했기 때문에 '200_110', '200_1' 두 핸들러가 등록된 상
-            // 태에서 contextID '1' 이라는 값으로 찾으면 둘 다 매칭되는 버그가 있었음
-            //
-            // split으로 잘라 각 요소와 직접 비교하도록 변경함.
-            var hand = function() {};
-            hand.__fe_id = 200;
-            var obj = {__fe_id: 110};
-            var obj2 = {__fe_id: 1};
-            
-            ce.off();
-
-            ce.on('play', hand, obj);
-            ce.on('play', hand, obj2);
-
-            ce.off(obj2, 'play');
-
-            expect(ce._ctxEvents['play_len']).toBe(1);
-        });
-
-        it('should unbind custom event by event name properly.', function() {
-            ce.off();
-
-            ce.on('play', handler, myObj);
-            ce.on('_play', handler, myObj);
-
-            ce.off(myObj, 'play');
-
-            expect(ce._ctxEvents['_play_len']).toBe(1);
-        });
-    });
-    
-    describe('_offByEventName()', function() {
-        var handler,
-            handler2,
-            myObj,
-            myObj2;
-
-        beforeEach(function() {
-            handler = function() {};
-            handler2 = function() {};
-            myObj = {};
-            myObj2 = {};
-
-            ce.on('play', handler, myObj);
-            ce.on('play', handler2, myObj);
-            ce.on('play', handler);
-            ce.on('pause', handler2, myObj2);
-            ce.on('play', handler, myObj2);
-            ce.on('pause', handler, myObj);
-        });
-
-        it('이벤트명으로 이벤트를 제거한다', function() {
-            ce.off('play');
-
-            // 남은 이벤트
-            expect(ce._ctxEvents['pause_len']).toBe(2);
-
-            // 제거된 이벤트
-            expect(ce._events['play'].length).toBe(0);
-            expect(ce._ctxEvents['play_len']).toBe(0);
-        });
-
-        it('핸들러를 전달해 해당하는 이벤트만 제거 가능', function() {
-            ce.off('play', handler);
-            ce.off('pause', handler2);
-
-            // 남은 이벤트
-            expect(ce._ctxEvents['pause_len']).toBe(1);
-            expect(ce._ctxEvents['play_len']).toBe(1);
-
-            // 제거된 이벤트
-            expect(ce._ctxEvents['play_idx'][ce._getHandlerKey(handler, myObj)]).toBeUndefined();
-            expect(ce._events['play'].length).toBe(0);
-        });
-
-    });
-
-    describe('invoke()', function() {
-        var component,
+    describe('should return AND conditions for all of handler\' result', function() {
+        var inst,
             spy;
 
         function MockComponent() {}
@@ -434,98 +30,67 @@ describe('CustomEvents2', function() {
             }
         };
 
-        describe('리스너의 실행결과를 AND연산하여 반환', function() {
-            beforeEach(function() {
-                component = new MockComponent();
-                spy = jasmine.createSpy('handler');
-            });
-
-            describe('명시적으로 false를 반환하지 않으면 모두 true로 간주한다', function() {
-                beforeEach(function() {
-                    component.on('zoom', spy);
-                });
-
-                it('빈 문자열 반환은 true로 간주', function() {
-                    component.on('beforeZoom', function() { return ''; });
-
-                    component.work();
-
-                    expect(spy).toHaveBeenCalled();
-                });
-
-                it('undefined도 true로 간주', function() {
-                    component.on('beforeZoom', function() { return void 0; });
-
-                    component.work();
-
-                    expect(spy).toHaveBeenCalled();
-                });
-
-                it('null도 true로 간주', function() {
-                    component.on('beforeZoom', function() { return null; });
-
-                    component.work();
-
-                    expect(spy).toHaveBeenCalled();
-                });
-            });
-
-            describe('리스너의 실행결과를 AND연산하여 반환한다', function() {
-                var cnt;
-                beforeEach(function() {
-                    component.on('zoom', spy);
-                    cnt = 0;
-                });
-
-                it('리스너 중 하나라도 명시적 false이면 false를 반환', function() {
-                    component.on('beforeZoom', function() { cnt += 1; return true; });
-                    component.on('beforeZoom', function() { cnt += 1; return false; });
-                    component.on('beforeZoom', function() { cnt += 1; return null; });
-
-                    component.work();
-
-                    expect(spy).not.toHaveBeenCalled();
-                    expect(cnt).toBe(3);
-                });
-
-                it('그렇지 않으면 true반환', function() {
-                    component.on('beforeZoom', function() { cnt += 1; return true; });
-                    component.on('beforeZoom', function() { cnt += 1; return void 0; });
-                    component.on('beforeZoom', function() { cnt += 1; });
-
-                    component.work();
-
-                    expect(spy).toHaveBeenCalled();
-                    expect(cnt).toBe(3);
-                });
-
-            });
-
-            describe('리스너를 등록하지 않으면 true', function() {
-                beforeEach(function() {
-                    component.on('zoom', spy);
-                });
-
-                it('하나도 등록하지 않았으므로 true', function() {
-                    component.work();
-
-                    expect(spy).toHaveBeenCalled();
-                });
-
-                it('등록했다가 제거해도 true', function() {
-                    var falseFn = function() { return false };
-                    component.on('beforeZoom', falseFn);
-                    component.off('beforeZoom', falseFn);
-
-                    component.work();
-
-                    expect(spy).toHaveBeenCalled();
-                });
-
-            });
-
+        beforeEach(function() {
+            spy = jasmine.createSpy('handler');
+            inst = new MockComponent();
+            inst.on('zoom', spy);
         });
 
+        describe('need return "false" explicitly for stop other event calls.', function() {
+            it('empty string can\' stop event calls.', function() {
+                inst.on('beforeZoom', function() { return ''; });
+                inst.work();
+                expect(spy).toHaveBeenCalled();
+            });
+
+            it('undefined can\'t stop event calls.', function() {
+                inst.on('beforeZoom', function() { return void 0; });
+                inst.work();
+                expect(spy).toHaveBeenCalled();
+            });
+
+            it('null can\' stop event calls.', function() {
+                inst.on('beforeZoom', function() { return null; });
+                inst.work();
+                expect(spy).toHaveBeenCalled();
+            });
+        });
+
+        describe('return AND condition value for result of all handlers.', function() {
+            it('at least one handler must return \'false\' to make invoke() return false.', function() {
+                inst.on('beforeZoom', function() { return true; });
+                inst.on('beforeZoom', function() { return false; });
+                inst.on('beforeZoom', function() { return null; });
+
+                inst.work();
+
+                expect(spy).not.toHaveBeenCalled();
+            });
+
+            it('if not, invoke() will return true.', function() {
+                inst.on('beforeZoom', function() { return true; });
+                inst.on('beforeZoom', function() { return void 0; });
+                inst.on('beforeZoom', function() {});
+
+                inst.work();
+
+                expect(spy).toHaveBeenCalled();
+            });
+        });
+
+        it('return true when no handler binded.', function() {
+            inst.work();
+            expect(spy).toHaveBeenCalled();
+
+            var falseFn = function() { return false };
+            inst.on('beforeZoom', falseFn);
+            inst.off('beforeZoom', falseFn);
+
+            inst.work();
+
+            expect(spy).toHaveBeenCalled();
+
+        });
     });
 
     describe('fire()', function() {
@@ -656,7 +221,7 @@ describe('CustomEvents2', function() {
             it('두 번 호출되어도 문제가 없다', function() {
                 expect(spy.move.calls.count()).toBe(2);
             });
-            
+
         });
 
     });
@@ -671,115 +236,122 @@ describe('CustomEvents2', function() {
             });
 
             it('이름, 핸들러 전달', function() {
-                ce.on('myE', handler);
-                expect(ce._events['myE'][0]).toEqual({ fn: handler });
-                expect(ce._events['myE'][0].fn).toBe(handler);
+                ce.on('test', handler);
+
+                expect(ce.events['test'].length).toBe(1);
+                expect(ce.events['test'][0]).toEqual({handler: handler});
             });
 
             it('이름, 핸들러 두번전달', function() {
                 function handler2() {}
-                ce.on('myE', handler);
-                ce.on('myE', handler2);
+                ce.on('test', handler);
+                ce.on('test', handler2);
 
-                expect(ce._events['myE'][0].fn).toBe(handler);
-                expect(ce._events['myE'][1].fn).toBe(handler2);
+                expect(ce.events['test'][0].handler).toBe(handler);
+                expect(ce.events['test'][1].handler).toBe(handler2);
+            });
+
+            it('같은 이름, 같은 핸들러 두번 전달', function() {
+                ce.on('test', handler);
+                ce.on('test', handler);
+
+                expect(ce.events['test'].length).toBe(2);
+                expect(ce.events['test'][0].handler).toBe(handler);
+                expect(ce.events['test'][1].handler).toBe(handler);
             });
 
             it('공백으로 여러 이름 전달', function() {
-                ce.on('myE myE2', handler);
+                ce.on('test test2', handler);
 
-                expect(ce._events['myE'].length).toBe(1);
-                expect(ce._events['myE2'].length).toBe(1);
+                expect(ce.events['test'].length).toBe(1);
+                expect(ce.events['test'][0].handler).toBe(handler);
+                expect(ce.events['test2'].length).toBe(1);
+                expect(ce.events['test2'][0].handler).toBe(handler);
             });
 
             it('컨텍스트 전달', function() {
-                var myObj = {
-                    name: 'good'
-                };
-
-                ce.on('myE', handler, myObj);
-
-                var ctxId = myObj.__fe_id,
-                    handlerId = handler.__fe_id,
-                    id = handlerId + '_' + ctxId;
-
-                var expectObj = {};
-                expectObj[id] = { fn: handler, ctx: myObj };
-
-                expect(ce._ctxEvents['myE_idx']).toEqual(expectObj);
+                var obj = {};
+                ce.on('test', handler, obj);
+                expect(ce.events['test'][0]).toEqual({
+                    handler: handler,
+                    context: obj
+                });
             });
 
             it('이벤트명: 핸들러 객체 전달', function() {
                 function handler2() {}
 
                 ce.on({
-                    'myE': handler,
-                    'myE2': handler2
+                    'test': handler,
+                    'test2': handler2
                 });
 
-                expect(ce._events['myE'][0]).toEqual({ fn: handler });
-                expect(ce._events['myE2'][0]).toEqual({ fn: handler2 });
+                expect(ce.events).toEqual({
+                    'test': jasmine.any(Array),
+                    'test2':jasmine.any(Array)
+                });
+                expect(ce.events['test'][0]).toEqual({handler: handler});
+                expect(ce.events['test2'][0]).toEqual({handler: handler2});
             });
 
             it('이벤트명: 핸들러 객체 두번 전달', function() {
                 function handler2() {}
 
-                ce.on({ 'myE': handler });
-                ce.on({ 'myE': handler2 });
+                ce.on({'test': handler});
+                ce.on({'test': handler2});
 
-                expect(ce._events['myE'].length).toBe(2);
+                expect(ce.events['test'].length).toBe(2);
             });
 
             it('이벤트명(공백포함 2개): 핸들러 객체 전달', function() {
-                ce.on({ 'myE myE2': handler });
+                ce.on({'test test2': handler});
 
-                expect(ce._events['myE'].length).toBe(1);
-                expect(ce._events['myE2'].length).toBe(1);
+                expect(ce.events['test'].length).toBe(1);
+                expect(ce.events['test2'].length).toBe(1);
             });
 
             it('이벤트명: 핸들러, 컨텍스트 전달', function() {
-                var myObj = {
-                    name: 'good'
-                };
+                var obj = {};
                 function handler2() {}
 
                 ce.on({
-                    'myE': handler,
-                    'myE2': handler2
-                }, myObj);
+                    'test': handler,
+                    'test2': handler2
+                }, obj);
 
-                var ctxId = myObj.__fe_id,
-                    handlerId = handler.__fe_id;
-
-                var expectedMyE = {};
-                expectedMyE[handlerId + '_' + ctxId] = { fn: handler, ctx: myObj };
-
-                expect(ce._ctxEvents['myE_idx']).toEqual(expectedMyE);
+                expect(ce.events).toEqual({
+                    'test': [{handler: handler, context: obj}],
+                    'test2': [{handler: handler2, context: obj}]
+                });
             });
 
             it('이벤트명: 핸들러, 컨텍스트 두개이상 등록', function() {
-                var myObj = {
-                    name: 'good'
-                };
+                var obj = {};
                 function handler2() {}
 
-                ce.on({ 'myE': handler }, myObj);
-                ce.on({ 'myE': handler2 }, myObj);
+                ce.on({'test': handler}, obj);
+                ce.on({'test': handler2}, obj);
 
-                expect(ce._ctxEvents['myE_len']).toBe(2);
+                expect(ce.events).toEqual({
+                    'test': [{
+                        handler: handler,
+                        context: obj
+                    }, {
+                        handler: handler2,
+                        context: obj
+                    }]
+                });
             });
 
             it('이벤트명(공백포함 2개): 핸들러, 컨텍스트 등록', function() {
-                var myObj = {
-                    name: 'good'
-                };
+                var obj = {};
 
-                ce.on({ 'myE myE2': handler }, myObj);
+                ce.on({'test test2': handler}, obj);
 
-                expect(tui.util.keys(ce._ctxEvents['myE_idx']).length).toBe(1);
-                expect(ce._ctxEvents['myE_len']).toBe(1);
-                expect(tui.util.keys(ce._ctxEvents['myE2_idx']).length).toBe(1);
-                expect(ce._ctxEvents['myE2_len']).toBe(1);
+                expect(ce.events).toEqual({
+                    'test': [{handler: handler, context: obj}],
+                    'test2': [{handler: handler, context: obj}]
+                });
             });
 
         });
@@ -799,65 +371,65 @@ describe('CustomEvents2', function() {
                 obj2 = {};
             });
 
-            it('컨텍스트 전달하여 해제 가능', function() {
+            it('shuold unbind custom event only context.', function() {
                 ce.on('play', spy, obj);
                 ce.off(obj);
-                ce.fire('play');
 
-                expect(spy).not.toHaveBeenCalled();
+                expect(ce.events).toEqual({'play': []});
             });
 
-            it('이벤트명을 넘겨 해제 가능', function() {
-                ce.on('play', spy);
+            it('should unbind custom event only event name.', function() {
+                ce.on('play', spy, obj);
                 ce.off('play');
-                ce.fire('play');
 
-                expect(spy).not.toHaveBeenCalled();
+                expect(ce.events).toEqual({'play': []});
             });
 
-            it('핸들러만 전달하여 해제 가능', function() {
+            it('should unbind custom event only handler function.', function() {
                 ce.on('play', spy);
                 ce.off(spy);
-                ce.fire('play');
 
-                expect(spy).not.toHaveBeenCalled();
+                expect(ce.events).toEqual({'play': []});
             });
 
-            it('이벤트명, 핸들러를 전달하여 해제 가능', function() {
+            it('should unbind by event name and handler function.', function() {
                 ce.on('play', spy);
                 ce.on('pause', spy);
                 ce.off('play', spy);
 
-                ce.fire('play');
-                ce.fire('pause');
-
-                expect(spy.calls.count()).toBe(1);
+                expect(ce.events).toEqual({
+                    'play': [],
+                    'pause': [{handler: spy}]
+                });
             });
 
-            it('컨텍스트, 핸들러 전달하여 해제 가능', function() {
+            it('should unbind by context and handler.', function() {
                 ce.on('play', spy, obj);
                 ce.on('pause', spy, obj);
                 ce.off(obj, spy);
 
-                ce.fire('play');
-                ce.fire('pause');
-
-                expect(spy).not.toHaveBeenCalled();
+                expect(ce.events).toEqual({
+                    play: [],
+                    pause: []
+                });
             });
 
-            it('컨텍스트, 이벤트명 전달하여 해제 가능', function() {
+            it('should unbind by context and event name.', function() {
                 ce.on('play', spy, obj);
                 ce.on('play', spy, obj2);
                 ce.on('pause', spy, obj);
                 ce.off(obj, 'pause');
 
-                ce.fire('play');
-                ce.fire('pause');
-
-                expect(spy.calls.count()).toBe(2);
+                expect(ce.events).toEqual({
+                    play: [
+                        {handler: spy, context: obj},
+                        {handler: spy, context: obj2}
+                    ],
+                    pause: []
+                });
             });
 
-            it('이벤트명: 핸들러 객체를 전달하여 해제 가능', function() {
+            it('should unbind by object with event name and handler pairs.', function() {
                 ce.on('play', spy, obj);
                 ce.on('pause', spy, obj);
                 ce.on('play', spy2);
@@ -869,15 +441,14 @@ describe('CustomEvents2', function() {
                     'delay': spy2
                 });
 
-                ce.fire('play');
-                ce.fire('pause');
-
-                expect(spy).not.toHaveBeenCalled();
-                expect(spy2).toHaveBeenCalled();
-                expect(spy2.calls.count()).toBe(1);
+                expect(ce.events).toEqual({
+                    play: [{handler: spy2}],
+                    pause: [],
+                    delay: []
+                });
             });
 
-            it('인자 없이 몽땅 해제가능', function() {
+            it('should unbind all event with no arguments.', function() {
                 ce.on('play', spy, obj);
                 ce.on('pause', spy, obj);
                 ce.on('play', spy2);
@@ -885,13 +456,8 @@ describe('CustomEvents2', function() {
 
                 ce.off();
 
-                ce.fire('play');
-                ce.fire('pause');
-
-                expect(spy).not.toHaveBeenCalled();
-                expect(spy2).not.toHaveBeenCalled();
+                expect(ce.events).toEqual({});
             });
-
         });
 
         describe('통합 테스트', function() {
@@ -956,9 +522,7 @@ describe('CustomEvents2', function() {
 
                 expect(spy.calls.count()).toBe(1);
             });
-
         })
-
     });
 
     describe('hasListener()', function() {
@@ -1067,67 +631,5 @@ describe('CustomEvents2', function() {
                 expect(customEvent.getListenerLength('zoom')).toBe(0);
             });
         });
-
     });
-
-    describe('인스턴스 자체로 사용', function() {
-        var Animal;
-
-        beforeEach(function() {
-            Animal = function() {
-                this.events = new tui.util.CustomEvents();
-            };
-
-            Animal.prototype.fire = function(type, data) {
-                this.events.fire(type, data);
-            };
-        });
-
-        describe('명시적으로 context를 넘기지 않으면 이벤트 객체가 context가 된다', function() {
-            var lion,
-                spy;
-
-            beforeEach(function() {
-                // 컨텍스트를 넘기지 않는 이벤트 사용 코드
-                Animal.prototype.on = function(type, handler) {
-                    this.events.on(type, handler);
-                };
-
-                spy = jasmine.createSpy('test');
-
-                lion = new Animal();
-                lion.on('growl', spy);
-                lion.fire('growl');
-            });
-
-            it('this는 CustomEvents객체', function() {
-                expect(spy.calls.all()[0].object).not.toBe(lion);
-                expect(spy.calls.all()[0].object).toBe(lion.events);
-            });
-        });
-
-        describe('명시적으로 context를 넘기도록 개발해야 한다', function() {
-            var lion,
-                spy;
-
-            beforeEach(function() {
-                // 컨텍스트를 넘기지 않는 이벤트 사용 코드
-                Animal.prototype.on = function(type, handler) {
-                    this.events.on(type, handler, this);
-                };
-
-                spy = jasmine.createSpy('test');
-
-                lion = new Animal();
-                lion.on('growl', spy);
-                lion.fire('growl');
-            });
-
-            it('this는 lion', function() {
-                expect(spy.calls.all()[0].object).not.toBe(lion.events);
-                expect(spy.calls.all()[0].object).toBe(lion);
-            });
-        });
-    });
-
 });
