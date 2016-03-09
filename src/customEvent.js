@@ -199,9 +199,9 @@
      * @private
      */
     CustomEvents.prototype._bindEvent = function(eventName, handler, context) {
-        var event = this._safeEvent(eventName);
+        var events = this._safeEvent(eventName);
         this._memorizeContext(context);
-        event.push(this._getHandlerItem(handler, context));
+        events.push(this._getHandlerItem(handler, context));
     };
 
     /**

@@ -1,4 +1,4 @@
-fdescribe('CustomEvents', function() {
+describe('CustomEvents', function() {
     var CustomEvents = tui.util.CustomEvents,
         ce;
 
