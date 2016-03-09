@@ -111,6 +111,10 @@
         return events;
     };
 
+    /**
+     * Get context array safely
+     * @returns {array} context array
+     */
     CustomEvents.prototype._safeContext = function() {
         var context = this.context;
 
