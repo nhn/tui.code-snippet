@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: customEvent.js</title>
+    <title>JSDoc: Source: map.js</title>
     <link type="text/css" rel="stylesheet" href="styles/prettify-jsdoc.css">
     <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
     <link type="text/css" rel="stylesheet" href="styles/bootstrap.min.css">
@@ -31,570 +31,378 @@
         <article>
             <pre class="prettyprint source linenums"><code>/**
  * @fileoverview
- *  This module provides some functions for custom events.&lt;br>
- *  And it is implemented in the observer design pattern.
+ *  Implements the Map object.
  * @author NHN Ent.
  *         FE Development Team &lt;e0242@nhnent.com>
- * @dependency type.js, collection.js object.js
+ * @dependency type.js, collection.js
  */
 
 (function(tui) {
     'use strict';
+
     /* istanbul ignore if */
     if (!tui) {
         tui = window.tui = {};
     }
-
-    /* istanbul ignore if */
     if (!tui.util) {
         tui.util = window.tui.util = {};
     }
 
-    var R_EVENTNAME_SPLIT = /\s+/g;  // eslint-disable-line
+
+    // Caching tui.util for performance enhancing
+    var util = tui.util,
 
     /**
-     * A unit of event handler item.
-     * @ignore
-     * @typedef {object} HandlerItem
-     * @property {function} fn - event handler
-     * @property {object} ctx - context of event handler
+     * Using undefined for a key can be ambiguous if there's deleted item in the array,&lt;br>
+     * which is also undefined when accessed by index.&lt;br>
+     * So use this unique object as an undefined key to distinguish it from deleted keys.
+     * @private
+     * @constant
      */
+    _KEY_FOR_UNDEFINED = {},
 
     /**
+     * For using NaN as a key, use this unique object as a NaN key.&lt;br>
+     * This makes it easier and faster to compare an object with each keys in the array&lt;br>
+     * through no exceptional comapring for NaN.
+     */
+    _KEY_FOR_NAN = {};
+
+    /**
+     * Constructor of MapIterator&lt;br>
+     * Creates iterator object with new keyword.
      * @constructor
-     * @memberof tui.util
+     * @param  {Array} keys - The array of keys in the map
+     * @param  {function} valueGetter - Function that returns certain value,
+     *      taking key and keyIndex as arguments.
      */
-    function CustomEvents() {
-        /**
-         * @type {HandlerItem[]}
-         */
-        this.events = null;
-
-        /**
-         * only for checking specific context event was binded
-         * @type {object[]}
-         */
-        this.contexts = null;
+    function MapIterator(keys, valueGetter) {
+        this._keys = keys;
+        this._valueGetter = valueGetter;
+        this._length = this._keys.length;
+        this._index = -1;
+        this._done = false;
     }
 
     /**
-     * Mixin custom events feature to specific constructor
-     * @param {function} func - constructor
-     * @example
-     *  function Model() {
-     *      this.name = '';
-     *  }
-     *  tui.util.CustomEvents.mixin(Model);
-     *
-     *  var model = new Model();
-     *  model.on('change', function() { this.name = 'model'; }, this);
-     *
-     *  model.fire('change');
-     *  alert(model.name); // 'model';
+     * Implementation of Iterator protocol.
+     * @return {{done: boolean, value: *}} Object that contains done(boolean) and value.
      */
-    CustomEvents.mixin = function(func) {
-        tui.util.extend(func.prototype, CustomEvents.prototype);
-    };
+    MapIterator.prototype.next = function() {
+        var data = {};
+        do {
+           this._index += 1;
+       } while (util.isUndefined(this._keys[this._index]) &amp;&amp; this._index &lt; this._length);
 
-    /**
-     * Get HandlerItem object
-     * @param {function} handler - handler function
-     * @param {object} [context] - context for handler
-     * @returns {HandlerItem} HandlerItem object
-     * @private
-     */
-    CustomEvents.prototype._getHandlerItem = function(handler, context) {
-        var item = {handler: handler};
-
-        if (context) {
-            item.context = context;
-        }
-
-        return item;
-    };
-
-    /**
-     * Get event object safely
-     * @param {string} [eventName] - create sub event map if not exist.
-     * @returns {(object|array)} event object. if you supplied `eventName`
-     *  parameter then make new array and return it
-     * @private
-     */
-    CustomEvents.prototype._safeEvent = function(eventName) {
-        var events = this.events,
-            byName;
-
-        if (!events) {
-            events = this.events = {};
-        }
-
-        if (eventName) {
-            byName = events[eventName];
-
-            if (!byName) {
-                byName = [];
-                events[eventName] = byName;
-            }
-
-            events = byName;
-        }
-
-        return events;
-    };
-
-    /**
-     * Get context array safely
-     * @returns {array} context array
-     */
-    CustomEvents.prototype._safeContext = function() {
-        var context = this.contexts;
-
-        if (!context) {
-            context = this.contexts = [];
-        }
-
-        return context;
-    };
-
-    /**
-     * Get index of context
-     * @param {object} ctx - context that used for bind custom event
-     * @returns {number} index of context
-     */
-    CustomEvents.prototype._indexOfContext = function(ctx) {
-        var context = this._safeContext(),
-            index = 0;
-
-        while (context[index]) {
-            if (ctx === context[index][0]) {
-                return index;
-            }
-
-            index += 1;
-        }
-
-        return -1;
-    };
-
-    /**
-     * Memorize supplied context for recognize supplied object is context or
-     *  name: handler pair object when off()
-     * @param {object} ctx - context object to memorize
-     */
-    CustomEvents.prototype._memorizeContext = function(ctx) {
-        var context, index;
-
-        if (!tui.util.isExisty(ctx)) {
-            return;
-        }
-
-        context = this._safeContext();
-        index = this._indexOfContext(ctx);
-
-        if (index > -1) {
-            context[index][1] += 1;
+        if (this._index >= this._length) {
+            data.done = true;
         } else {
-            context.push([ctx, 1]);
+            data.done = false;
+            data.value = this._valueGetter(this._keys[this._index], this._index);
         }
+        return data;
     };
 
     /**
-     * Forget supplied context object
-     * @param {object} ctx - context object to forget
-     */
-    CustomEvents.prototype._forgetContext = function(ctx) {
-        var context, contextIndex;
-
-        if (!tui.util.isExisty(ctx)) {
-            return;
-        }
-
-        context = this._safeContext();
-        contextIndex = this._indexOfContext(ctx);
-
-        if (contextIndex > -1) {
-            context[contextIndex][1] -= 1;
-
-            if (context[contextIndex][1] &lt;= 0) {
-                context.splice(contextIndex, 1);
-            }
-        }
-    };
-
-    /**
-     * Bind event handler
-     * @param {(string|{name:string, handler:function})} eventName - custom
-     *  event name or an object {eventName: handler}
-     * @param {(function|object)} [handler] - handler function or context
-     * @param {object} [context] - context for binding
-     * @private
-     */
-    CustomEvents.prototype._bindEvent = function(eventName, handler, context) {
-        var events = this._safeEvent(eventName);
-        this._memorizeContext(context);
-        events.push(this._getHandlerItem(handler, context));
-    };
-
-    /**
-     * Bind event handlers
-     * @param {(string|{name:string, handler:function})} eventName - custom
-     *  event name or an object {eventName: handler}
-     * @param {(function|object)} [handler] - handler function or context
-     * @param {object} [context] - context for binding
-     * @example
-     *  // 1. Basic
-     *  customEvent.on('onload', handler);
+     * The Map object implements the ES6 Map specification as closely as possible.&lt;br>
+     * For using objects and primitive values as keys, this object uses array internally.&lt;br>
+     * So if the key is not a string, get(), set(), has(), delete() will operates in O(n),&lt;br>
+     * and it can cause performance issues with a large dataset.
      *
-     *  // 2. With context
-     *  customEvent.on('onload', handler, myObj);
+     * Features listed below are not supported. (can't be implented without native support)
+     * - Map object is iterable&lt;br>
+     * - Iterable object can be used as an argument of constructor
      *
-     *  // 3. Bind by object that name, handler pairs
-     *  customEvent.on({
-     *    'play': handler,
-     *    'pause': handler2
-     *  });
-     *
-     *  // 4. Bind by object that name, handler pairs with context object
-     *  customEvent.on({
-     *    'play': handler
-     *  }, myObj);
+     * If the browser supports full implementation of ES6 Map specification, native Map obejct
+     * will be used internally.
+     * @constructor
+     * @param  {Array} initData - Array of key-value pairs (2-element Arrays).
+     *      Each key-value pair will be added to the new Map
+     * @memberof tui.util
      */
-    CustomEvents.prototype.on = function(eventName, handler, context) {
-        var self = this;
+    function Map(initData) {
+        this._valuesForString = {};
+        this._valuesForIndex = {};
+        this._keys = [];
 
-        if (tui.util.isString(eventName)) {
-            // [syntax 1, 2]
-            eventName = eventName.split(R_EVENTNAME_SPLIT);
-            tui.util.forEach(eventName, function(name) {
-                self._bindEvent(name, handler, context);
-            });
-        } else if (tui.util.isObject(eventName)) {
-            // [syntax 3, 4]
-            context = handler;
-            tui.util.forEach(eventName, function(func, name) {
-                self.on(name, func, context);
-            });
-        }
-    };
-
-    /**
-     * Bind one-shot event handlers
-     * @param {(string|{name:string, handler:function})} eventName - custom
-     *  event name or an object {eventName: handler}
-     * @param {(function|object)} [handler] - handler function or context
-     * @param {object} [context] - context for binding
-     */
-    CustomEvents.prototype.once = function(eventName, handler, context) {
-        var self = this;
-
-        if (tui.util.isObject(eventName)) {
-            context = handler;
-            tui.util.forEach(eventName, function(func, name) {
-                self.once(name, func, context);
-            });
-            return;
+        if (initData) {
+            this._setInitData(initData);
         }
 
-        function onceHandler() {
-            handler.apply(context, arguments);
-            self.off(eventName, onceHandler, context);
+        this.size = 0;
+    }
+
+    /**
+     * Add all elements in the initData to the Map object.
+     * @private
+     * @param  {Array} initData - Array of key-value pairs to add to the Map object
+     */
+    Map.prototype._setInitData = function(initData) {
+        if (!util.isArray(initData)) {
+            throw new Error('Only Array is supported.');
         }
-
-        this.on(eventName, onceHandler, context);
+        util.forEachArray(initData, function(pair) {
+            this.set(pair[0], pair[1]);
+        }, this);
     };
 
     /**
-     * Splice supplied array by callback result
-     * @param {array} arr - array to splice
-     * @param {function} predicate - function return boolean
+     * Returns true if the specified value is NaN.&lt;br>
+     * For unsing NaN as a key, use this method to test equality of NaN&lt;br>
+     * because === operator doesn't work for NaN.
      * @private
+     * @param {*} value - Any object to be tested
+     * @return {boolean} True if value is NaN, false otherwise.
      */
-    CustomEvents.prototype._spliceMatches = function(arr, predicate) {
-        var i, len;
+    Map.prototype._isNaN = function(value) {
+        return typeof value === 'number' &amp;&amp; value !== value;
+    };
 
-        if (!tui.util.isArray(arr)) {
-            return;
-        }
+    /**
+     * Returns the index of the specified key.
+     * @private
+     * @param  {*} key - The key object to search for.
+     * @return {number} The index of the specified key
+     */
+    Map.prototype._getKeyIndex = function(key) {
+        var result = -1,
+            value;
 
-        for (i = 0, len = arr.length; i &lt; len; i += 1) {
-            if (predicate(arr[i]) === true) {
-                arr.splice(i, 1);
-                len -= 1;
-                i -= 1;
+        if (util.isString(key)) {
+            value = this._valuesForString[key];
+            if (value) {
+                result = value.keyIndex;
             }
-        }
-    };
-
-    /**
-     * Get matcher for unbind specific handler events
-     * @param {function} handler - handler function
-     * @returns {function} handler matcher
-     * @private
-     */
-    CustomEvents.prototype._matchHandler = function(handler) {
-        var self = this;
-
-        return function(item) {
-            var needRemove = handler === item.handler;
-
-            if (needRemove) {
-                self._forgetContext(item.context);
-            }
-
-            return needRemove;
-        };
-    };
-
-    /**
-     * Get matcher for unbind specific context events
-     * @param {object} context - context
-     * @returns {function} object matcher
-     * @private
-     */
-    CustomEvents.prototype._matchContext = function(context) {
-        var self = this;
-
-        return function(item) {
-            var needRemove = context === item.context;
-
-            if (needRemove) {
-                self._forgetContext(item.context);
-            }
-
-            return needRemove;
-        };
-    };
-
-    /**
-     * Get matcher for unbind specific hander, context pair events
-     * @param {function} handler - handler function
-     * @param {object} context - context
-     * @returns {function} handler, context matcher
-     * @private
-     */
-    CustomEvents.prototype._matchHandlerAndContext = function(handler, context) {
-        var self = this;
-
-        return function(item) {
-            var matchHandler = (handler === item.handler),
-                matchContext = (context === item.context),
-                needRemove = (matchHandler &amp;&amp; matchContext);
-
-            if (needRemove) {
-                self._forgetContext(item.context);
-            }
-
-            return needRemove;
-        };
-    };
-
-    /**
-     * Unbind event by event name
-     * @param {string} eventName - custom event name to unbind
-     * @param {function} [handler] - handler function
-     * @private
-     */
-    CustomEvents.prototype._offByEventName = function(eventName, handler) {
-        var self = this,
-            forEach = tui.util.forEachArray,
-            andByHandler = tui.util.isFunction(handler),
-            matchHandler = self._matchHandler(handler);
-
-        eventName = eventName.split(R_EVENTNAME_SPLIT);
-
-        forEach(eventName, function(name) {
-            var handlerItems = self._safeEvent(name);
-
-            if (andByHandler) {
-                self._spliceMatches(handlerItems, matchHandler);
-            } else {
-                forEach(handlerItems, function(item) {
-                    self._forgetContext(item.context);
-                });
-
-                self.events[name] = [];
-            }
-        });
-    };
-
-    /**
-     * Unbind event by handler function
-     * @param {function} handler - handler function
-     * @private
-     */
-    CustomEvents.prototype._offByHandler = function(handler) {
-        var self = this,
-            matchHandler = this._matchHandler(handler);
-
-        tui.util.forEach(this._safeEvent(), function(handlerItems) {
-            self._spliceMatches(handlerItems, matchHandler);
-        });
-    };
-
-    /**
-     * Unbind event by object(name: handler pair object or context object)
-     * @param {object} obj - context or {name: handler} pair object
-     * @param {function} handler - handler function
-     * @private
-     */
-    CustomEvents.prototype._offByObject = function(obj, handler) {
-        var self = this,
-            matchFunc;
-
-        if (this._indexOfContext(obj) &lt; 0) {
-            tui.util.forEach(obj, function(func, name) {
-                self.off(name, func);
-            });
-        } else if (tui.util.isString(handler)) {
-            matchFunc = this._matchContext(obj);
-
-            self._spliceMatches(this._safeEvent(handler), matchFunc);
-        } else if (tui.util.isFunction(handler)) {
-            matchFunc = this._matchHandlerAndContext(handler, obj);
-
-            tui.util.forEach(this._safeEvent(), function(handlerItems) {
-                self._spliceMatches(handlerItems, matchFunc);
-            });
         } else {
-            matchFunc = this._matchContext(obj);
-
-            tui.util.forEach(this._safeEvent(), function(handlerItems) {
-                self._spliceMatches(handlerItems, matchFunc);
-            });
+            result = util.inArray(key, this._keys);
         }
+        return result;
     };
 
     /**
-     * Unbind custom events
-     * @param {(string|object|function)} eventName - event name or context or
-     *  {name: handler} pair object or handler function
-     * @param {(function)} handler - handler function
-     * @example
-     * // 1. off by event name
-     * customEvent.off('onload');
-     *
-     * // 2. off by event name and handler
-     * customEvent.off('play', handler);
-     *
-     * // 3. off by handler
-     * customEvent.off(handler);
-     *
-     * // 4. off by context
-     * customEvent.off(myObj);
-     *
-     * // 5. off by context and handler
-     * customEvent.off(myObj, handler);
-     *
-     * // 6. off by context and event name
-     * customEvent.off(myObj, 'onload');
-     *
-     * // 7. off by an Object.&lt;string, function> that is {eventName: handler}
-     * customEvent.off({
-     *   'play': handler,
-     *   'pause': handler2
-     * });
-     *
-     * // 8. off the all events
-     * customEvent.off();
+     * Returns the original key of the specified key.
+     * @private
+     * @param  {*} key - key
+     * @return {*} Original key
      */
-    CustomEvents.prototype.off = function(eventName, handler) {
-        if (tui.util.isString(eventName)) {
-            // [syntax 1, 2]
-            this._offByEventName(eventName, handler);
-        } else if (!arguments.length) {
-            // [syntax 8]
-            this.events = {};
-            this.contexts = [];
-        } else if (tui.util.isFunction(eventName)) {
-            // [syntax 3]
-            this._offByHandler(eventName);
-        } else if (tui.util.isObject(eventName)) {
-            // [syntax 4, 5, 6]
-            this._offByObject(eventName, handler);
+    Map.prototype._getOriginKey = function(key) {
+        var originKey = key;
+        if (key === _KEY_FOR_UNDEFINED) {
+            originKey = undefined;
+        } else if (key === _KEY_FOR_NAN) {
+            originKey = NaN;
         }
+        return originKey;
     };
 
     /**
-     * Fire custom event
-     * @param {string} eventName - name of custom event
+     * Returns the unique key of the specified key.
+     * @private
+     * @param  {*} key - key
+     * @return {*} Unique key
      */
-    CustomEvents.prototype.fire = function(eventName) {  // eslint-disable-line
-        this.invoke.apply(this, arguments);
+    Map.prototype._getUniqueKey = function(key) {
+        var uniqueKey = key;
+        if (util.isUndefined(key)) {
+            uniqueKey = _KEY_FOR_UNDEFINED;
+        } else if (this._isNaN(key)) {
+            uniqueKey = _KEY_FOR_NAN;
+        }
+        return uniqueKey;
     };
 
     /**
-     * Fire a event and returns the result of operation 'boolean AND' with all
-     *  listener's results.
-     *
-     * So, It is different from {@link CustomEvents#fire}.
-     *
-     * In service code, use this as a before event in component level usually
-     *  for notifying that the event is cancelable.
-     * @param {string} eventName - Custom event name
-     * @param {...*} data - Data for event
-     * @returns {boolean} The result of operation 'boolean AND'
-     * @example
-     *  if (this.invoke('beforeZoom')) {    // check the result of 'beforeZoom'
-     *      // if true,
-     *      // doSomething
-     *  }
-     *
-     *  // In service code,
-     *  map.on({
-     *      'beforeZoom': function() {
-     *          // It should cancel the 'zoom' event by some conditions.
-     *          if (that.disabled &amp;&amp; this.getState()) {
-     *              return false;
-     *          }
-     *          return true;
-     *      }
-     *  });
+     * Returns the value object of the specified key.
+     * @private
+     * @param  {*} key - The key of the value object to be returned
+     * @param  {number} keyIndex - The index of the key
+     * @return {{keyIndex: number, origin: *}} Value object
      */
-    CustomEvents.prototype.invoke = function(eventName) {
-        var events, args, index, item;
-
-        if (!this.hasListener(eventName)) {
-            return true;
-        }
-
-        events = this._safeEvent(eventName);
-        args = Array.prototype.slice.call(arguments, 1);
-        index = 0;
-
-        while (events[index]) {
-            item = events[index];
-
-            if (item.handler.apply(item.context, args) === false) {
-                return false;
+    Map.prototype._getValueObject = function(key, keyIndex) {
+        if (util.isString(key)) {
+            return this._valuesForString[key];
+        } else {
+            if (util.isUndefined(keyIndex)) {
+                keyIndex = this._getKeyIndex(key);
             }
+            if (keyIndex >= 0) {
+                return this._valuesForIndex[keyIndex];
+            }
+        }
+    };
 
-            index += 1;
+    /**
+     * Returns the original value of the specified key.
+     * @private
+     * @param  {*} key - The key of the value object to be returned
+     * @param  {number} keyIndex - The index of the key
+     * @return {*} Original value
+     */
+    Map.prototype._getOriginValue = function(key, keyIndex) {
+        return this._getValueObject(key, keyIndex).origin;
+    };
+
+    /**
+     * Returns key-value pair of the specified key.
+     * @private
+     * @param  {*} key - The key of the value object to be returned
+     * @param  {number} keyIndex - The index of the key
+     * @return {Array} Key-value Pair
+     */
+    Map.prototype._getKeyValuePair = function(key, keyIndex) {
+        return [this._getOriginKey(key), this._getOriginValue(key, keyIndex)];
+    };
+
+    /**
+     * Creates the wrapper object of original value that contains a key index
+     * and returns it.
+     * @private
+     * @param  {type} origin - Original value
+     * @param  {type} keyIndex - Index of the key
+     * @return {{keyIndex: number, origin: *}} Value object
+     */
+    Map.prototype._createValueObject = function(origin, keyIndex) {
+        return {
+            keyIndex: keyIndex,
+            origin: origin
+        };
+    };
+
+    /**
+     * Sets the value for the key in the Map object.
+     * @param  {*} key - The key of the element to add to the Map object
+     * @param  {*} value - The value of the element to add to the Map object
+     * @return {Map} The Map object
+     */
+    Map.prototype.set = function(key, value) {
+        var uniqueKey = this._getUniqueKey(key),
+            keyIndex = this._getKeyIndex(uniqueKey),
+            valueObject;
+
+        if (keyIndex &lt; 0) {
+            keyIndex = this._keys.push(uniqueKey) - 1;
+            this.size += 1;
+        }
+        valueObject = this._createValueObject(value, keyIndex);
+
+        if (util.isString(key)) {
+            this._valuesForString[key] = valueObject;
+        } else {
+            this._valuesForIndex[keyIndex] = valueObject;
+        }
+        return this;
+    };
+
+    /**
+     * Returns the value associated to the key, or undefined if there is none.
+     * @param  {*} key - The key of the element to return
+     * @return {*} Element associated with the specified key
+     */
+    Map.prototype.get = function(key) {
+        var uniqueKey = this._getUniqueKey(key),
+            value = this._getValueObject(uniqueKey);
+
+        return value &amp;&amp; value.origin;
+    };
+
+    /**
+     * Returns a new Iterator object that contains the keys for each element
+     * in the Map object in insertion order.
+     * @return {Iterator} A new Iterator object
+     */
+    Map.prototype.keys = function() {
+        return new MapIterator(this._keys, util.bind(this._getOriginKey, this));
+    };
+
+    /**
+     * Returns a new Iterator object that contains the values for each element
+     * in the Map object in insertion order.
+     * @return {Iterator} A new Iterator object
+     */
+    Map.prototype.values = function() {
+        return new MapIterator(this._keys, util.bind(this._getOriginValue, this));
+    };
+
+    /**
+     * Returns a new Iterator object that contains the [key, value] pairs
+     * for each element in the Map object in insertion order.
+     * @return {Iterator} A new Iterator object
+     */
+    Map.prototype.entries = function() {
+        return new MapIterator(this._keys, util.bind(this._getKeyValuePair, this));
+    };
+
+    /**
+     * Returns a boolean asserting whether a value has been associated to the key
+     * in the Map object or not.
+     * @param  {*} key - The key of the element to test for presence
+     * @return {boolean} True if an element with the specified key exists;
+     *          Otherwise false
+     */
+    Map.prototype.has = function(key) {
+        return !!this._getValueObject(key);
+    };
+
+    /**
+     * Removes the specified element from a Map object.
+     * @param {*} key - The key of the element to remove
+     */
+     // cannot use reserved keyword as a property name in IE8 and under.
+    Map.prototype['delete'] = function(key) {
+        var keyIndex;
+
+        if (util.isString(key)) {
+            if (this._valuesForString[key]) {
+                keyIndex = this._valuesForString[key].keyIndex;
+                delete this._valuesForString[key];
+            }
+        } else {
+            keyIndex = this._getKeyIndex(key);
+            if (keyIndex >= 0) {
+                delete this._valuesForIndex[keyIndex];
+            }
         }
 
-        return true;
+        if (keyIndex >= 0) {
+            delete this._keys[keyIndex];
+            this.size -= 1;
+        }
     };
 
     /**
-     * Return whether at least one of the handlers is registered in the given
-     *  event name.
-     * @param {string} eventName - Custom event name
-     * @returns {boolean} Is there at least one handler in event name?
+     * Executes a provided function once per each key/value pair in the Map object,
+     * in insertion order.
+     * @param  {function} callback - Function to execute for each element
+     * @param  {thisArg} thisArg - Value to use as this when executing callback
      */
-    CustomEvents.prototype.hasListener = function(eventName) {
-        return this.getListenerLength(eventName) > 0;
+    Map.prototype.forEach = function(callback, thisArg) {
+        thisArg = thisArg || this;
+        util.forEachArray(this._keys, function(key) {
+            if (!util.isUndefined(key)) {
+                callback.call(thisArg, this._getValueObject(key).origin, key, this);
+            }
+        }, this);
     };
 
     /**
-     * Return a count of events registered.
-     * @param {string} eventName - Custom event name
-     * @returns {number} number of event
+     * Removes all elements from a Map object.
      */
-    CustomEvents.prototype.getListenerLength = function(eventName) {
-        var events = this._safeEvent(eventName);
-        return events.length;
+    Map.prototype.clear = function() {
+        Map.call(this);
     };
 
-    tui.util.CustomEvents = CustomEvents;
+    // Use native Map object if exists.
+    // But only latest versions of Chrome and Firefox support full implementation.
+    (function() {
+        var browser = util.browser;
+        if (window.Map &amp;&amp; (
+            (browser.firefox &amp;&amp; browser.version >= 37) ||
+            (browser.chrome &amp;&amp; browser.version >= 42) )) {
+            Map = window.Map;
+        }
+    })();
+
+    util.Map = Map;
 })(window.tui);
 </code></pre>
         </article>
