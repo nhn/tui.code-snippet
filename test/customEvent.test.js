@@ -42,6 +42,14 @@ describe('CustomEvents', function() {
                 multiple2: [{handler: handler}]
             });
             expect(ce.contexts).toBe(null);
+
+            ce.on('a  b  c', handler);
+
+            expect(ce.events).toEqual(jasmine.objectContaining({
+                a: [{handler: handler}],
+                b: [{handler: handler}],
+                c: [{handler: handler}]
+            }));
         });
 
         it('by name, handler, context object.', function() {

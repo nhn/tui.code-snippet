@@ -235,7 +235,7 @@
 
         if (tui.util.isString(eventName)) {
             // [syntax 1, 2]
-            eventName = eventName.replace(EVENTNAME_SPLIT, ' ').split(' ');
+            eventName = eventName.split(EVENTNAME_SPLIT);
             tui.util.forEach(eventName, function(eventName) {
                 self._bindEvent(eventName, handler, context);
             });
@@ -370,7 +370,7 @@
             forEach = tui.util.forEachArray,
             andByHandler = tui.util.isFunction(handler);
 
-        eventName = eventName.replace(EVENTNAME_SPLIT, ' ').split(' ');
+        eventName = eventName.split(EVENTNAME_SPLIT);
 
         forEach(eventName, function(eventName) {
             var handlerItems = self.events[eventName];
