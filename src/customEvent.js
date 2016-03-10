@@ -21,7 +21,7 @@
         tui.util = window.tui.util = {};
     }
 
-    var EVENTNAME_SPLIT = /\s+/g;  // eslint-disable-line
+    var R_EVENTNAME_SPLIT = /\s+/g;  // eslint-disable-line
 
     /**
      * A unit of event handler item.
@@ -170,7 +170,7 @@
     };
 
     /**
-     * Forget supplied conect object
+     * Forget supplied context object
      * @param {object} ctx - context object to forget
      */
     CustomEvents.prototype._forgetContext = function(ctx) {
@@ -235,7 +235,7 @@
 
         if (tui.util.isString(eventName)) {
             // [syntax 1, 2]
-            eventName = eventName.split(EVENTNAME_SPLIT);
+            eventName = eventName.split(R_EVENTNAME_SPLIT);
             tui.util.forEach(eventName, function(eventName) {
                 self._bindEvent(eventName, handler, context);
             });
@@ -370,7 +370,7 @@
             forEach = tui.util.forEachArray,
             andByHandler = tui.util.isFunction(handler);
 
-        eventName = eventName.split(EVENTNAME_SPLIT);
+        eventName = eventName.split(R_EVENTNAME_SPLIT);
 
         forEach(eventName, function(eventName) {
             var handlerItems = self.events[eventName];
