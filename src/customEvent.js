@@ -373,7 +373,7 @@
         eventName = eventName.split(R_EVENTNAME_SPLIT);
 
         forEach(eventName, function(eventName) {
-            var handlerItems = self.events[eventName];
+            var handlerItems = self._safeEvent(eventName);
 
             if (andByHandler) {
                 self._removeArray(handlerItems, self._matchHandler(handler));
@@ -396,7 +396,7 @@
         var self = this,
             matchHandler = this._matchHandler(handler);
 
-        tui.util.forEach(this.events, function(handlerItems) {
+        tui.util.forEach(this._safeEvent(), function(handlerItems) {
             self._removeArray(handlerItems, matchHandler);
         });
     };
@@ -418,17 +418,17 @@
         } else if (tui.util.isString(handler)) {
             matchFunc = this._matchContext(obj);
 
-            self._removeArray(this.events[handler], matchFunc);
+            self._removeArray(this._safeEvent(handler), matchFunc);
         } else if (tui.util.isFunction(handler)) {
             matchFunc = this._matchHandlerAndContext(handler, obj);
 
-            tui.util.forEach(this.events, function(handlerItems) {
+            tui.util.forEach(this._safeEvent(), function(handlerItems) {
                 self._removeArray(handlerItems, matchFunc);
             });
         } else {
             matchFunc = this._matchContext(obj);
 
-            tui.util.forEach(this.events, function(handlerItems) {
+            tui.util.forEach(this._safeEvent(), function(handlerItems) {
                 self._removeArray(handlerItems, matchFunc);
             });
         }
@@ -473,7 +473,8 @@
             this._offByEventName(eventName, handler);
         } else if (!arguments.length) {
             // [syntax 8]
-            this.events = this.contexts = [];
+            this.events = {};
+            this.contexts = [];
         } else if (tui.util.isFunction(eventName)) {
             // [syntax 3]
             this._offByHandler(eventName);

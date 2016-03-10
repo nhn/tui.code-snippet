@@ -161,6 +161,12 @@ describe('CustomEvents', function() {
             obj2 = {};
         });
 
+        it('exceptional situtaions.', function() {
+            expect(function() {
+                ce.off('good');
+            }).not.toThrow();
+        });
+
         it('by name.', function() {
             ce.on('play', spy, obj);
             ce.off('play');
@@ -259,7 +265,7 @@ describe('CustomEvents', function() {
 
             ce.off();
 
-            expect(ce.events).toEqual([]);
+            expect(ce.events).toEqual({});
             expect(ce.contexts).toEqual([]);
         });
     });
