@@ -326,7 +326,7 @@ describe('CustomEvents', function() {
         });
 
         describe('need return "false" explicitly for stop other event calls.', function() {
-            it('empty string can\' stop event calls.', function() {
+            it('empty string can\'t stop event calls.', function() {
                 inst.on('beforeZoom', function() { return ''; });
                 inst.work();
                 expect(spy).toHaveBeenCalled();
