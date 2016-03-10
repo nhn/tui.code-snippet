@@ -1,5 +1,3 @@
-/* eslint no-shadow: 0*/
-
 /**
  * @fileoverview
  *  This module provides some functions for custom events.<br>
@@ -236,14 +234,14 @@
         if (tui.util.isString(eventName)) {
             // [syntax 1, 2]
             eventName = eventName.split(R_EVENTNAME_SPLIT);
-            tui.util.forEach(eventName, function(eventName) {
-                self._bindEvent(eventName, handler, context);
+            tui.util.forEach(eventName, function(name) {
+                self._bindEvent(name, handler, context);
             });
         } else if (tui.util.isObject(eventName)) {
             // [syntax 3, 4]
             context = handler;
-            tui.util.forEach(eventName, function(handler, eventName) {
-                self.on(eventName, handler, context);
+            tui.util.forEach(eventName, function(func, name) {
+                self.on(name, func, context);
             });
         }
     };
@@ -260,8 +258,8 @@
 
         if (tui.util.isObject(eventName)) {
             context = handler;
-            tui.util.forEach(eventName, function(handler, eventName) {
-                self.once(eventName, handler, context);
+            tui.util.forEach(eventName, function(func, name) {
+                self.once(name, func, context);
             });
             return;
         }
@@ -373,8 +371,8 @@
 
         eventName = eventName.split(R_EVENTNAME_SPLIT);
 
-        forEach(eventName, function(eventName) {
-            var handlerItems = self._safeEvent(eventName);
+        forEach(eventName, function(name) {
+            var handlerItems = self._safeEvent(name);
 
             if (andByHandler) {
                 self._spliceMatches(handlerItems, matchHandler);
@@ -383,7 +381,7 @@
                     self._forgetContext(item.context);
                 });
 
-                self.events[eventName] = [];
+                self.events[name] = [];
             }
         });
     };
@@ -413,8 +411,8 @@
             matchFunc;
 
         if (this._indexOfContext(obj) < 0) {
-            tui.util.forEach(obj, function(handler, eventName) {
-                self.off(eventName, handler);
+            tui.util.forEach(obj, function(func, name) {
+                self.off(name, func);
             });
         } else if (tui.util.isString(handler)) {
             matchFunc = this._matchContext(obj);
