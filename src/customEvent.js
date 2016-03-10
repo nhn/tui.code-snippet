@@ -1,3 +1,5 @@
+/* eslint no-shadow: 0*/
+
 /**
  * @fileoverview
  *  This module provides some functions for custom events.<br>
@@ -19,7 +21,7 @@
         tui.util = window.tui.util = {};
     }
 
-    var EVENTNAME_SPLIT = /\s+/g;  // eslint-disable
+    var EVENTNAME_SPLIT = /\s+/g;  // eslint-disable-line
 
     /**
      * A unit of event handler item.
@@ -254,8 +256,7 @@
      * @param {object} [context] - context for binding
      */
     CustomEvents.prototype.once = function(eventName, handler, context) {
-        var self = this,
-            context;
+        var self = this;
 
         if (tui.util.isObject(eventName)) {
             context = handler;
@@ -306,7 +307,10 @@
 
         return function(item) {
             var needRemove = handler === item.handler;
-            needRemove && self._forgetContext(item.context);
+
+            if (needRemove) {
+                self._forgetContext(item.context);
+            }
 
             return needRemove;
         };
@@ -323,7 +327,10 @@
 
         return function(item) {
             var needRemove = context === item.context;
-            needRemove && self._forgetContext(item.context);
+
+            if (needRemove) {
+                self._forgetContext(item.context);
+            }
 
             return needRemove;
         };
@@ -344,10 +351,12 @@
                 matchContext = (context === item.context),
                 needRemove = (matchHandler && matchContext);
 
-            needRemove && self._forgetContext(item.context);
+            if (needRemove) {
+                self._forgetContext(item.context);
+            }
 
             return needRemove;
-        }
+        };
     };
 
     /**
@@ -471,14 +480,14 @@
         } else if (tui.util.isObject(eventName)) {
             // [syntax 4, 5, 6]
             this._offByObject(eventName, handler);
-        };
+        }
     };
 
     /**
      * Fire custom event
      * @param {string} eventName - name of custom event
      */
-    CustomEvents.prototype.fire = function(eventName) {  // eslint-disable
+    CustomEvents.prototype.fire = function(eventName) {  // eslint-disable-line
         this.invoke.apply(this, arguments);
     };
 
