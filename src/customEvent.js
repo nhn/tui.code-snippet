@@ -45,7 +45,7 @@
          * only for checking specific context event was binded
          * @type {object[]}
          */
-        this.context = null;
+        this.contexts = null;
     }
 
     /**
@@ -118,10 +118,10 @@
      * @returns {array} context array
      */
     CustomEvents.prototype._safeContext = function() {
-        var context = this.context;
+        var context = this.contexts;
 
         if (!context) {
-            context = this.context = [];
+            context = this.contexts = [];
         }
 
         return context;
@@ -473,7 +473,7 @@
             this._offByEventName(eventName, handler);
         } else if (!arguments.length) {
             // [syntax 8]
-            this.events = this.context = [];
+            this.events = this.contexts = [];
         } else if (tui.util.isFunction(eventName)) {
             // [syntax 3]
             this._offByHandler(eventName);

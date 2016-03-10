@@ -41,7 +41,7 @@ describe('CustomEvents', function() {
                 multiple: [{handler: handler}],
                 multiple2: [{handler: handler}]
             });
-            expect(ce.context).toBe(null);
+            expect(ce.contexts).toBe(null);
         });
 
         it('by name, handler, context object.', function() {
@@ -59,7 +59,7 @@ describe('CustomEvents', function() {
                 multi: [{handler: handler, context: obj}],
                 multi2: [{handler: handler, context: obj}]
             });
-            expect(ce.context).toEqual([[obj, 3]]);
+            expect(ce.contexts).toEqual([[obj, 3]]);
         });
 
         it('by {name: handler} pair objects.', function() {
@@ -110,7 +110,7 @@ describe('CustomEvents', function() {
                 'test': [{handler: handler, context: obj}],
                 'test2': [{handler: handler2, context: obj}]
             });
-            expect(ce.context).toEqual([[obj, 2]]);
+            expect(ce.contexts).toEqual([[obj, 2]]);
 
             ce.on({'test': handler}, obj);
 
@@ -121,7 +121,7 @@ describe('CustomEvents', function() {
                 ],
                 'test2': [{handler: handler2, context: obj}]
             });
-            expect(ce.context).toEqual([[obj, 3]]);
+            expect(ce.contexts).toEqual([[obj, 3]]);
 
             ce.on({'multi  multi2': handler}, obj2);
 
@@ -134,7 +134,7 @@ describe('CustomEvents', function() {
                 multi: [{handler: handler, context: obj2}],
                 multi2: [{handler: handler, context: obj2}]
             });
-            expect(ce.context).toEqual([[obj, 3], [obj2, 2]]);
+            expect(ce.contexts).toEqual([[obj, 3], [obj2, 2]]);
         });
     });
 
@@ -158,7 +158,7 @@ describe('CustomEvents', function() {
             ce.off('play');
 
             expect(ce.events).toEqual({'play': []});
-            expect(ce.context.length).toBe(0);
+            expect(ce.contexts.length).toBe(0);
         });
 
         it('by handler function.', function() {
@@ -179,7 +179,7 @@ describe('CustomEvents', function() {
                 'pause': [{handler: spy}]
             });
 
-            expect(ce.context).toEqual([]);
+            expect(ce.contexts).toEqual([]);
         });
 
         it('by context.', function() {
@@ -191,7 +191,7 @@ describe('CustomEvents', function() {
                 play: [],
                 pause: [{handler: spy}]
             });
-            expect(ce.context.length).toBe(0);
+            expect(ce.contexts.length).toBe(0);
         });
 
         it('by context and handler.', function() {
@@ -203,7 +203,7 @@ describe('CustomEvents', function() {
                 play: [],
                 pause: []
             });
-            expect(ce.context.length).toBe(0);
+            expect(ce.contexts.length).toBe(0);
         });
 
         it('by context and event name.', function() {
@@ -220,7 +220,7 @@ describe('CustomEvents', function() {
                 ],
                 pause: []
             });
-            expect(ce.context.length).toBe(2);
+            expect(ce.contexts.length).toBe(2);
         });
 
         it('by object with event name and handler pairs.', function() {
@@ -240,7 +240,7 @@ describe('CustomEvents', function() {
                 pause: [],
                 delay: []
             });
-            expect(ce.context.length).toBe(0);
+            expect(ce.contexts.length).toBe(0);
         });
 
         it('with no arguments. then unbind all event.', function() {
@@ -252,7 +252,7 @@ describe('CustomEvents', function() {
             ce.off();
 
             expect(ce.events).toEqual([]);
-            expect(ce.context).toEqual([]);
+            expect(ce.contexts).toEqual([]);
         });
     });
 
@@ -375,7 +375,7 @@ describe('CustomEvents', function() {
 
             inst._memorizeContext(obj);
             inst._memorizeContext(obj2);
-            expect(inst.context).toEqual([
+            expect(inst.contexts).toEqual([
                 [obj, 1],
                 [obj2, 1]
             ]);
@@ -391,7 +391,7 @@ describe('CustomEvents', function() {
 
             inst._forgetContext(obj2);
 
-            expect(inst.context).toEqual([
+            expect(inst.contexts).toEqual([
                 [obj, 1]
             ]);
         });
