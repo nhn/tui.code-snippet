@@ -275,12 +275,12 @@
     };
 
     /**
-     * Splice supplied array by omit() callback result
+     * Splice supplied array by callback result
      * @param {array} arr - array to splice
      * @param {function} predicate - function return boolean
      * @private
      */
-    CustomEvents.prototype._removeArray = function(arr, predicate) {
+    CustomEvents.prototype._spliceMatches = function(arr, predicate) {
         var i, len;
 
         if (!tui.util.isArray(arr)) {
@@ -368,7 +368,8 @@
     CustomEvents.prototype._offByEventName = function(eventName, handler) {
         var self = this,
             forEach = tui.util.forEachArray,
-            andByHandler = tui.util.isFunction(handler);
+            andByHandler = tui.util.isFunction(handler),
+            matchHandler = self._matchHandler(handler);
 
         eventName = eventName.split(R_EVENTNAME_SPLIT);
 
@@ -376,7 +377,7 @@
             var handlerItems = self._safeEvent(eventName);
 
             if (andByHandler) {
-                self._removeArray(handlerItems, self._matchHandler(handler));
+                self._spliceMatches(handlerItems, matchHandler);
             } else {
                 forEach(handlerItems, function(item) {
                     self._forgetContext(item.context);
@@ -397,7 +398,7 @@
             matchHandler = this._matchHandler(handler);
 
         tui.util.forEach(this._safeEvent(), function(handlerItems) {
-            self._removeArray(handlerItems, matchHandler);
+            self._spliceMatches(handlerItems, matchHandler);
         });
     };
 
@@ -418,18 +419,18 @@
         } else if (tui.util.isString(handler)) {
             matchFunc = this._matchContext(obj);
 
-            self._removeArray(this._safeEvent(handler), matchFunc);
+            self._spliceMatches(this._safeEvent(handler), matchFunc);
         } else if (tui.util.isFunction(handler)) {
             matchFunc = this._matchHandlerAndContext(handler, obj);
 
             tui.util.forEach(this._safeEvent(), function(handlerItems) {
-                self._removeArray(handlerItems, matchFunc);
+                self._spliceMatches(handlerItems, matchFunc);
             });
         } else {
             matchFunc = this._matchContext(obj);
 
             tui.util.forEach(this._safeEvent(), function(handlerItems) {
-                self._removeArray(handlerItems, matchFunc);
+                self._spliceMatches(handlerItems, matchFunc);
             });
         }
     };
@@ -560,11 +561,8 @@
      * @returns {number} number of event
      */
     CustomEvents.prototype.getListenerLength = function(eventName) {
-        if (!eventName) {
-            return 0;
-        }
-
-        return this._safeEvent(eventName).length;
+        var events = this._safeEvent(eventName);
+        return events.length;
     };
 
     tui.util.CustomEvents = CustomEvents;
