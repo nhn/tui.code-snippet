@@ -1,7 +1,7 @@
 /**
  * @fileoverview Define module
  * @author NHN Ent.
- *         FE Development Team <e0242@nhnent.com>
+ *         FE Development Team <dl_javscript@nhnent.com>
  * @dependency type.js, defineNamespace.js
  */
 (function(tui) {
@@ -44,10 +44,9 @@
 
         if (util.isFunction(base[INITIALIZATION_METHOD_NAME])) {
             base[INITIALIZATION_METHOD_NAME]();
-            delete base[INITIALIZATION_METHOD_NAME];
         }
 
-        return util.defineNamespace(namespace, base, true);
+        return util.defineNamespace(namespace, base);
     }
     tui.util.defineModule = defineModule;
 })(window.tui);

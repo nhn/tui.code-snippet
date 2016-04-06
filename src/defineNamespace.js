@@ -16,11 +16,12 @@
         tui.util = window.tui.util = {};
     }
 
+    var util = tui.util;
+
     /**
      * Define namespace
      * @param {string} name - Module name
      * @param {(object|function)} props - A set of modules or one module
-     * @param {boolean} isOverride flag - What if module already define, override or not
      * @returns {(object|function)} Defined namespace
      * @memberof tui.util
      * @example
@@ -31,58 +32,26 @@
      *      }
      * });
      */
-    var defineNamespace = function(name, props, isOverride) {
-        var namespace,
-            lastspace,
-            result,
-            module = getNamespace(name);
-
-        if (!isOverride && isValidType(module)) {
-            return module;
-        }
+    tui.util.defineNamespace = function(name, props) {
+        var namespace, result, prevLast, last;
 
         namespace = name.split('.');
-        lastspace = namespace.pop();
         namespace.unshift(window);
 
-        result = tui.util.reduce(namespace, function(obj, name) {
+        result = util.reduce(namespace, function(obj, name) {
             obj[name] = obj[name] || {};
             return obj[name];
         });
 
-        result[lastspace] = isValidType(props) ? props : {};
+        if (util.isFunction(props)) {
+            last = namespace.pop();
+            prevLast = util.pick.apply(null, namespace);
+            result = prevLast[last] = props;
+        } else {
+            util.extend(result, props);
+        }
 
-        return result[lastspace];
-
-    };
-
-    /**
-     * Get namespace
-     * @param {string} name - namespace
-     * @returns {*}
-     */
-    var getNamespace = function(name) {
-        var namespace,
-            result;
-
-        namespace = name.split('.');
-        namespace.unshift(window);
-
-        result = tui.util.reduce(namespace, function(obj, name) {
-            return obj && obj[name];
-        });
         return result;
-    };
-
-    /**
-     * Check valid type
-     * @param {*} module
-     * @returns {boolean}
-     */
-    var isValidType = function(module) {
-        return (tui.util.isObject(module) || tui.util.isFunction(module));
-    };
-
-    tui.util.defineNamespace = defineNamespace;
+    };;
 
 })(window.tui);

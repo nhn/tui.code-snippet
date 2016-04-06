@@ -87,4 +87,15 @@ describe('defineNamespace', function() {
         expect(feCom.team).toBe(fe.comp.team);
     });
 
+    it('should override if exist', function() {
+        var tester = {
+            method: function() {}
+        };
+
+        defineNamespace('foo.bar.baz');
+        expect(window.foo.bar.baz).toEqual(jasmine.any(Object));
+
+        defineNamespace('foo.bar', tester);
+        expect(window.foo.bar.method).toEqual(tester.method);
+    });
 });
