@@ -1,9 +1,9 @@
-describe('`defineModule` function', function() {
-    fit('should call initialize', function() {
+describe('"defineModule" function', function() {
+    it('should call initialize', function() {
         tui.util.defineModule('foo.bar', {
             initialize: jasmine.createSpy()
         });
-        
-        expect(foo.bar.initialize).toHaveBeenCalled();
+
+        expect(window.foo.bar.initialize).toHaveBeenCalled();
     });
 });

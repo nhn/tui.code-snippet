@@ -63,7 +63,6 @@ describe('defineNamespace', function() {
             }
         }, true);
         expect(asdf.over.exec).toBeDefined();
-
     });
 
     it('invalid props type', function() {

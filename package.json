@@ -14,21 +14,21 @@
   "license": "MIT",
   "devDependencies": {
     "fedoc-template": "git+https://14bfd38a036366f7ca90355d202038126127bd01:x-oauth-basic@github.nhnent.com/fe/share-fedoc-template.git#snippet",
-    "jasmine-ajax": "^2.0.1",
-    "jasmine-core": "^2.2.0",
-    "jasmine-jquery": "^2.0.5",
-    "jquery": "1.8.3",
+    "grunt": "^0.4.5",
+    "grunt-contrib-concat": "^0.5.0",
+    "grunt-contrib-uglify": "^0.6.0",
+    "jasmine-ajax": "latest",
+    "jasmine-core": "latest",
+    "jasmine-jquery": "latest",
     "jsdoc": "git+https://github.com/jsdoc3/jsdoc.git",
     "karma": "0.12.37",
-    "karma-chrome-launcher": "^0.1.5",
-    "karma-coverage": "^0.2.6",
+    "karma-chrome-launcher": "latest",
+    "karma-coverage": "latest",
     "karma-jasmine": "0.3.5",
-    "karma-junit-reporter": "^0.2.2",
-    "karma-mocha-reporter": "^1.0.2",
-    "karma-phantomjs-launcher": "^0.2.0",
+    "karma-junit-reporter": "latest",
+    "karma-mocha-reporter": "1.3.0",
+    "karma-phantomjs-launcher": "latest",
     "karma-webdriver-launcher": "git+https://github.com/everedifice/karma-webdriver-launcher.git",
-    "phantomjs": "^1.9.17",
-    "body-parser": "^1.14.1",
-    "serve-static": "^1.10.0"
+    "phantomjs": "^2.1.3"
   }
 }
