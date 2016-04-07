@@ -113,14 +113,14 @@ module.exports = function(config) {
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
     browsers: [
-      'IE7', // Karma bug - 무한대기 (Karma 0.13.22, Karma-jasmine 0.3.8)
-      // 'IE8',
+      // 'IE7', // Karma bug - 무한대기 (Karma 0.13.22, Karma-jasmine 0.3.8)
+      'IE8',
       'IE9',
       'IE10',
       'IE11',
       'Chrome-WebDriver',
       'Firefox-WebDriver'
-      , 'PhantomJS'
+      // , 'PhantomJS'
     ],
 
     customLaunchers: {
