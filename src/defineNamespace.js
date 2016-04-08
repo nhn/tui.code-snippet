@@ -45,7 +45,7 @@
             return obj[name];
         });
 
-        if (isOverride) { // if (isOverride || tui.util.isFunction(props)) {
+        if (isOverride) {
             last = names.pop();
             prevLast = util.pick.apply(null, names);
             result = prevLast[last] = props;
