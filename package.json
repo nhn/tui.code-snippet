@@ -29,6 +29,6 @@
     "karma-mocha-reporter": "latest",
     "karma-phantomjs-launcher": "latest",
     "karma-webdriver-launcher": "git+https://github.com/everedifice/karma-webdriver-launcher.git",
-    "phantomjs": "^2.1.3"
+    "phantomjs-prebuilt": "latest"
   }
 }
