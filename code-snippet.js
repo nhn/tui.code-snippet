@@ -1310,40 +1310,41 @@
 
     /**
      * Define namespace
-     * @param {string} name - Module name
+     * @param {string} namespace - Namespace (ex- 'foo.bar.baz')
      * @param {(object|function)} props - A set of modules or one module
+     * @param {boolean} [isOverride] - Override the props to the namespace.<br>
+     *                                  (It removes previous properties of this namespace)
      * @returns {(object|function)} Defined namespace
      * @memberof tui.util
      * @example
-     * var neComp = defineNamespace('ne.component');
+     * var neComp = tui.util.defineNamespace('ne.component');
      * neComp.listMenu = tui.util.defineClass({
      *      init: function() {
      *          // code
      *      }
      * });
      */
-    tui.util.defineNamespace = function(name, props) {
-        var namespace, result, prevLast, last;
+    tui.util.defineNamespace = function(namespace, props, isOverride) {
+        var names, result, prevLast, last;
 
-        namespace = name.split('.');
-        namespace.unshift(window);
+        names = namespace.split('.');
+        names.unshift(window);
 
-        result = util.reduce(namespace, function(obj, name) {
+        result = util.reduce(names, function(obj, name) {
             obj[name] = obj[name] || {};
             return obj[name];
         });
 
-        if (util.isFunction(props)) {
-            last = namespace.pop();
-            prevLast = util.pick.apply(null, namespace);
+        if (isOverride) { // if (isOverride || tui.util.isFunction(props)) {
+            last = names.pop();
+            prevLast = util.pick.apply(null, names);
             result = prevLast[last] = props;
         } else {
             util.extend(result, props);
         }
 
         return result;
-    };;
-
+    };
 })(window.tui);
 
 /**********
