@@ -26,9 +26,26 @@ module.exports = function(config) {
       'node_modules/jasmine-jquery/lib/jasmine-jquery.js',
       'node_modules/jasmine-ajax/lib/mock-ajax.js',
       'src/**/*.js',
-      'test/**/*.test.js'
+      'test/**/*.test.js',
+      // 'test/array.test.js',
+      // 'test/browser.test.js',
+      // 'test/collection.test.js',
+      // 'test/customEvent.test.js',
+      // 'test/defineClass.test.js',
+      // 'test/defineModule.test.js',
+      // 'test/defineNamespace.test.js',
+      // 'test/enum.test.js',
+      // 'test/exMap.test.js',
+      // 'test/formatDate.test.js'
+      // 'test/func.test.js',
+      // 'test/hashMap.test.js',
+      // 'test/inheritance.test.js',
+      // 'test/map.test.js',
+      // 'test/object.test.js',
+      // 'test/string.test.js',
+      // 'test/tricks.test.js',
+      // 'test/type.test.js'
     ],
-
 
     // list of files to exclude
     exclude: [
@@ -53,6 +70,7 @@ module.exports = function(config) {
 
     junitReporter: {
       outputFile: 'report/junit-result.xml',
+      outputDir: 'report',
       suite: ''
     },
 
@@ -95,13 +113,14 @@ module.exports = function(config) {
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
     browsers: [
-      'IE7',
+      // 'IE7', // Karma bug - 무한대기 (Karma 0.13.22, Karma-jasmine 0.3.8)
       'IE8',
       'IE9',
       'IE10',
       'IE11',
       'Chrome-WebDriver',
       'Firefox-WebDriver'
+      // , 'PhantomJS'
     ],
 
     customLaunchers: {
@@ -149,6 +168,6 @@ module.exports = function(config) {
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: false
+    singleRun: true
   });
 };

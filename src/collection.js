@@ -15,13 +15,6 @@
     }
 
     /**
-     * This variable saves whether the 'indexOf' method is in Array.prototype or not.<br>
-     * And it will be checked only once when the page is loaded.
-     * @type {boolean}
-     */
-    var hasIndexOf = !!Array.prototype.indexOf;
-
-    /**
      * Execute the provided callback once for each element present in the array(or Array-like object) in ascending order.<br>
      * If the callback function returns false, the loop will be stopped.<br>
      * Callback function(iteratee) is invoked with three arguments:
@@ -285,55 +278,6 @@
     };
 
     /**
-     * Returns the first index at which a given element can be found in the array from start index(default 0), or -1 if it is not present.<br>
-     * It compares searchElement to elements of the Array using strict equality (the same method used by the ===, or triple-equals, operator).
-     * @param {*} searchElement Element to locate in the array
-     * @param {Array} array Array that will be traversed.
-     * @param {number} startIndex Start index in array for searching (default 0)
-     * @memberof tui.util
-     * @return {number} the First index at which a given element, or -1 if it is not present
-     * @example
-     *
-     *   var arr = ['one', 'two', 'three', 'four'],
-     *       idx1,
-     *       idx2;
-     *
-     *   idx1 = tui.util.inArray('one', arr, 3);
-     *   alert(idx1); // -1
-     *
-     *   idx2 = tui.util.inArray('one', arr);
-     *   alert(idx2); // 0
-     */
-    var inArray = function(searchElement, array, startIndex) {
-        if (!tui.util.isArray(array)) {
-            return -1;
-        }
-
-        if (hasIndexOf) {
-            return Array.prototype.indexOf.call(array, searchElement, startIndex);
-        }
-
-        var i,
-            length = array.length;
-
-        // set startIndex
-        if (tui.util.isUndefined(startIndex)) {
-            startIndex = 0;
-        } else if (startIndex >= length || startIndex < 0) {
-            return -1;
-        }
-
-        // search
-        for (i = startIndex; i < length; i++) {
-            if (array[i] === searchElement) {
-                return i;
-            }
-        }
-
-        return -1;
-    };
-
-    /**
      * fetching a property
      * @param {Array} arr target collection
      * @param {String|Number} property property name
@@ -372,7 +316,5 @@
     tui.util.map = map;
     tui.util.reduce = reduce;
     tui.util.filter = filter;
-    tui.util.inArray = inArray;
     tui.util.pluck = pluck;
-
 })(window.tui);

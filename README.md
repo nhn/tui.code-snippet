@@ -77,7 +77,10 @@ It includes several features like `class simulation`, `browser detecting`, `type
 ## History
 | Version | Description | Date | Developer |
 | ---- | ---- | ---- | ---- |
-| <a href="https://nhnent.github.io/tui.code-snippet/1.0.6/">1.0.6</a> | Please see github release page after this versions. | 2015.11 | NHN Entertainment FE Dev team<dl_javascript@nhnent.com> |
+| <a href="https://nhnent.github.io/tui.code-snippet/1.2.0/">1.2.0</a> | `defineNamespace` base on object extending. | 2016.04 | NHN Entertainment FE Dev team<dl_javascript@nhnent.com> |
+| 1.0.8 | [Refactoring `CustomEvents`](https://github.com/nhnent/tui.code-snippet/releases/tag/1.0.8) | 2016.03 | NHN Entertainment FE Dev team<dl_javascript@nhnent.com> |
+| 1.0.7 | [Fix critical bug in CustomEvent module.](https://github.com/nhnent/tui.code-snippet/releases/tag/1.0.7) | 2016.01 | NHN Entertainment FE Dev team<dl_javascript@nhnent.com> |
+| <a href="https://nhnent.github.io/tui.code-snippet/1.0.6/">1.0.6</a> | [Please see github release page after this versions.](https://github.com/nhnent/tui.code-snippet/releases/tag/1.0.6) | 2015.11 | NHN Entertainment FE Dev team<dl_javascript@nhnent.com> |
 | <a href="https://nhnent.github.io/tui.code-snippet/1.0.4/">1.0.4</a> | getDuplicatedChar added | 2015.07 | NHN Entertainment FE Dev team<dl_javascript@nhnent.com> |
 | <a href="https://nhnent.github.io/tui.code-snippet/1.0.3/">1.0.3</a> | defineModule,<br>formatDate added | 2015.06 | NHN Entertainment FE Dev team<dl_javascript@nhnent.com> |
 | <a href="https://nhnent.github.io/tui.code-snippet/1.0.2/">1.0.2</a> | defineNamespace,<br>map, exMap added | 2015.04 | NHN Entertainment FE Dev team<dl_javascript@nhnent.com> |

@@ -16,73 +16,43 @@
         tui.util = window.tui.util = {};
     }
 
+    var util = tui.util;
+
     /**
      * Define namespace
-     * @param {string} name - Module name
+     * @param {string} namespace - Namespace (ex- 'foo.bar.baz')
      * @param {(object|function)} props - A set of modules or one module
-     * @param {boolean} isOverride flag - What if module already define, override or not
+     * @param {boolean} [isOverride] - Override the props to the namespace.<br>
+     *                                  (It removes previous properties of this namespace)
      * @returns {(object|function)} Defined namespace
      * @memberof tui.util
      * @example
-     * var neComp = defineNamespace('ne.component');
+     * var neComp = tui.util.defineNamespace('ne.component');
      * neComp.listMenu = tui.util.defineClass({
      *      init: function() {
      *          // code
      *      }
      * });
      */
-    var defineNamespace = function(name, props, isOverride) {
-        var namespace,
-            lastspace,
-            result,
-            module = getNamespace(name);
+    tui.util.defineNamespace = function(namespace, props, isOverride) {
+        var names, result, prevLast, last;
 
-        if (!isOverride && isValidType(module)) {
-            return module;
-        }
+        names = namespace.split('.');
+        names.unshift(window);
 
-        namespace = name.split('.');
-        lastspace = namespace.pop();
-        namespace.unshift(window);
-
-        result = tui.util.reduce(namespace, function(obj, name) {
+        result = util.reduce(names, function(obj, name) {
             obj[name] = obj[name] || {};
             return obj[name];
         });
 
-        result[lastspace] = isValidType(props) ? props : {};
+        if (isOverride) {
+            last = names.pop();
+            prevLast = util.pick.apply(null, names);
+            result = prevLast[last] = props;
+        } else {
+            util.extend(result, props);
+        }
 
-        return result[lastspace];
-
-    };
-
-    /**
-     * Get namespace
-     * @param {string} name - namespace
-     * @returns {*}
-     */
-    var getNamespace = function(name) {
-        var namespace,
-            result;
-
-        namespace = name.split('.');
-        namespace.unshift(window);
-
-        result = tui.util.reduce(namespace, function(obj, name) {
-            return obj && obj[name];
-        });
         return result;
     };
-
-    /**
-     * Check valid type
-     * @param {*} module
-     * @returns {boolean}
-     */
-    var isValidType = function(module) {
-        return (tui.util.isObject(module) || tui.util.isFunction(module));
-    };
-
-    tui.util.defineNamespace = defineNamespace;
-
 })(window.tui);

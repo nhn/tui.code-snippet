@@ -30,7 +30,7 @@ describe('defineNamespace', function() {
         var num = 0;
         defineNamespace('fdsa', function() {
             num += 100;
-        });
+        }, true);
 
         fdsa();
         expect(num).toBe(100);
@@ -38,15 +38,17 @@ describe('defineNamespace', function() {
     });
 
     it('for class', function() {
-        var name = 'nhnent';
-        defineNamespace('asdf.nhnent', function() {
+        var name = 'Nhnent';
+        var mInstance;
+
+        defineNamespace('asdf.Nhnent', function() {
             this.name = name;
             this.getName = function() {
                 return this.name;
-            }
-        });
+            };
+        }, true);
+        mInstance = new asdf.Nhnent();
 
-        var mInstance = new asdf.nhnent();
         expect(mInstance.getName()).toBe(name);
 
     });
@@ -58,12 +60,9 @@ describe('defineNamespace', function() {
         expect(asdf.over.exec).not.toBeDefined();
 
         defineNamespace('asdf.over', {
-            exec: function() {
-
-            }
+            exec: function() {}
         }, true);
         expect(asdf.over.exec).toBeDefined();
-
     });
 
     it('invalid props type', function() {
@@ -87,4 +86,15 @@ describe('defineNamespace', function() {
         expect(feCom.team).toBe(fe.comp.team);
     });
 
+    it('should extend if exist', function() {
+        var tester = {
+            method: function() {}
+        };
+
+        defineNamespace('foo.bar.baz');
+        expect(window.foo.bar.baz).toEqual(jasmine.any(Object));
+
+        defineNamespace('foo.bar', tester);
+        expect(window.foo.bar.method).toEqual(tester.method);
+    });
 });
