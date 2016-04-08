@@ -86,7 +86,7 @@ describe('defineNamespace', function() {
         expect(feCom.team).toBe(fe.comp.team);
     });
 
-    it('should override if exist', function() {
+    it('should extend if exist', function() {
         var tester = {
             method: function() {}
         };
