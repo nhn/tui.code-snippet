@@ -1,6 +1,6 @@
 {
   "name": "tui-code-snippet",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "useful code snippets from frontend development team",
   "main": "code-snippet.js",
   "scripts": {

@@ -1,4 +1,4 @@
-/*!code-snippet v1.1.0 | NHN Entertainment*/
+/*!code-snippet v1.1.1 | NHN Entertainment*/
 /**********
  * array.js
  **********/
@@ -3048,7 +3048,7 @@ tui.util.Enum = Enum;
      * @return {boolean}
      */
     function hasEncodableString(string) {
-        return /[<>&"']/.test(string);
+        return (/[<>&"']/).test(string);
     }
 
     /**
