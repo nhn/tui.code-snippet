@@ -53,7 +53,7 @@
      * @return {boolean}
      */
     function hasEncodableString(string) {
-        return /[<>&"']/.test(string);
+        return (/[<>&"']/).test(string);
     }
 
     /**
