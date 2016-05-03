@@ -1,4 +1,4 @@
-/*!code-snippet v1.1.1 | NHN Entertainment*/
+/*!code-snippet v1.1.2 | NHN Entertainment*/
 /**********
  * array.js
  **********/
@@ -240,7 +240,12 @@
         }
     };
 
-    detector[appName]();
+    var fn = detector[appName];
+
+    if (fn) {
+        detector[appName]();
+    }
+
     tui.util.browser = browser;
 })(window.tui);
 
