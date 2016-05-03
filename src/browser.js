@@ -85,6 +85,11 @@
         }
     };
 
-    detector[appName]();
+    var fn = detector[appName];
+
+    if (fn) {
+        detector[appName]();
+    }
+
     tui.util.browser = browser;
 })(window.tui);
