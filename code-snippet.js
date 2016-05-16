@@ -1,4 +1,4 @@
-/*!code-snippet v1.1.2 | NHN Entertainment*/
+/*!code-snippet v1.1.3 | NHN Entertainment*/
 /**********
  * array.js
  **********/
@@ -178,12 +178,14 @@
      *  - chrome
      *  - firefox
      *  - safari
+     *  - edge
      * @memberof tui.util
      * @example
      *  tui.util.browser.chrome === true;    // chrome
      *  tui.util.browser.firefox === true;    // firefox
      *  tui.util.browser.safari === true;    // safari
      *  tui.util.browser.msie === true;    // IE
+     *  tui.util.browser.edge === true;     // edge
      *  tui.util.browser.other === true;    // other browser
      *  tui.util.browser.version;    // browser version
      */
@@ -192,6 +194,7 @@
         firefox: false,
         safari: false,
         msie: false,
+        edge: false,
         others: false,
         version: 0
     };
@@ -202,6 +205,7 @@
 
     var rIE = /MSIE\s([0-9]+[.0-9]*)/,
         rIE11 = /Trident.*rv:11\./,
+        rEdge = /Edge\/(\d+)\./,
         versionRegex = {
             'firefox': /Firefox\/(\d+)\./,
             'chrome': /Chrome\/(\d+)\./,
@@ -222,6 +226,11 @@
             if (rIE11.exec(userAgent)) {
                 browser.msie = true;
                 browser.version = 11;
+                detected = true;
+            } else if (rEdge.exec(userAgent)) {
+                browser.edge = true;
+                browser.version = userAgent.match(rEdge)[1];
+                detected = true;
             } else {
                 for (key in versionRegex) {
                     if (versionRegex.hasOwnProperty(key)) {
