@@ -119,7 +119,8 @@ module.exports = function(config) {
       'IE10',
       'IE11',
       'Chrome-WebDriver',
-      'Firefox-WebDriver'
+      'Firefox-WebDriver',
+      'Edge'
       // , 'PhantomJS'
     ],
 
@@ -153,6 +154,11 @@ module.exports = function(config) {
         config: webdriverConfig,
         browserName: 'internet explorer',
         version: 11
+      },
+      'Edge': {
+          base: 'WebDriver',
+          config: webdriverConfig,
+          browserName: 'MicrosoftEdge'
       },
       'Chrome-WebDriver': {
         base: 'WebDriver',
