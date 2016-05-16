@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: browser.js</title>
+    <title>JSDoc: Source: tricks.js</title>
     <link type="text/css" rel="stylesheet" href="styles/prettify-jsdoc.css">
     <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
     <link type="text/css" rel="stylesheet" href="styles/bootstrap.min.css">
@@ -30,14 +30,17 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @fileoverview This module detects the kind of well-known browser and version.
- * @author NHN Ent.
- *         FE Development Team &lt;e0242@nhnent.com>
- * @namespace tui.util
+ * @fileoverview collections of some technic methods.
+ * @author NHN Ent. FE Development Team &lt;e0242.nhnent.com>
  */
+
+/** @namespace tui */
+/** @namespace tui.util */
 
 (function(tui) {
     'use strict';
+    var aps = Array.prototype.slice;
+
     /* istanbul ignore if */
     if (!tui) {
         tui = window.tui = {};
@@ -48,91 +51,141 @@
     }
 
     /**
-     * This object has an information that indicate the kind of browser.&lt;br>
-     * The list below is a detectable browser list.
-     *  - ie7 ~ ie11
-     *  - chrome
-     *  - firefox
-     *  - safari
-     *  - edge
+     * Creates a debounced function that delays invoking fn until after delay milliseconds has elapsed
+     * since the last time the debouced function was invoked.
+     * @param {function} fn The function to debounce.
+     * @param {number} [delay=0] The number of milliseconds to delay
      * @memberof tui.util
+     * @returns {function} debounced function.
      * @example
-     *  tui.util.browser.chrome === true;    // chrome
-     *  tui.util.browser.firefox === true;    // firefox
-     *  tui.util.browser.safari === true;    // safari
-     *  tui.util.browser.msie === true;    // IE
-     *  tui.util.browser.edge === true;     // edge
-     *  tui.util.browser.other === true;    // other browser
-     *  tui.util.browser.version;    // browser version
+     *
+     * function someMethodToInvokeDebounced() {}
+     *
+     * var debounced = tui.util.debounce(someMethodToInvokeDebounced, 300);
+     *
+     * // invoke repeatedly
+     * debounced();
+     * debounced();
+     * debounced();
+     * debounced();
+     * debounced();
+     * debounced();    // last invoke of debounced()
+     *
+     * // invoke someMethodToInvokeDebounced() after 300 milliseconds.
      */
-    var browser = {
-        chrome: false,
-        firefox: false,
-        safari: false,
-        msie: false,
-        edge: false,
-        others: false,
-        version: 0
-    };
+    function debounce(fn, delay) {
+        var timer,
+            args;
 
-    var nav = window.navigator,
-        appName = nav.appName.replace(/\s/g, '_'),
-        userAgent = nav.userAgent;
+        /* istanbul ignore next */
+        delay = delay || 0;
 
-    var rIE = /MSIE\s([0-9]+[.0-9]*)/,
-        rIE11 = /Trident.*rv:11\./,
-        rEdge = /Edge\/(\d+)\./,
-        versionRegex = {
-            'firefox': /Firefox\/(\d+)\./,
-            'chrome': /Chrome\/(\d+)\./,
-            'safari': /Version\/([\d\.]+)\sSafari\/(\d+)/
-        };
+        function debounced() {
+            args = aps.call(arguments);
 
-    var key, tmp;
-
-    var detector = {
-        'Microsoft_Internet_Explorer': function() {
-            // ie8 ~ ie10
-            browser.msie = true;
-            browser.version = parseFloat(userAgent.match(rIE)[1]);
-        },
-        'Netscape': function() {
-            var detected = false;
-
-            if (rIE11.exec(userAgent)) {
-                browser.msie = true;
-                browser.version = 11;
-                detected = true;
-            } else if (rEdge.exec(userAgent)) {
-                browser.edge = true;
-                browser.version = userAgent.match(rEdge)[1];
-                detected = true;
-            } else {
-                for (key in versionRegex) {
-                    if (versionRegex.hasOwnProperty(key)) {
-                        tmp = userAgent.match(versionRegex[key]);
-                        if (tmp &amp;&amp; tmp.length > 1) {
-                            browser[key] = detected = true;
-                            browser.version = parseFloat(tmp[1] || 0);
-                            break;
-                        }
-                    }
-                }
-            }
-            if (!detected) {
-                browser.others = true;
-            }
+            window.clearTimeout(timer);
+            timer = window.setTimeout(function() {
+                fn.apply(null, args);
+            }, delay);
         }
-    };
 
-    var fn = detector[appName];
-
-    if (fn) {
-        detector[appName]();
+        return debounced;
     }
 
-    tui.util.browser = browser;
+    /**
+     * return timestamp
+     * @memberof tui.util
+     * @returns {number} The number of milliseconds from Jan. 1970 00:00:00 (GMT)
+     */
+    function timestamp() {
+        return +(new Date());
+    }
+
+    /**
+     * Creates a throttled function that only invokes fn at most once per every interval milliseconds.
+     *
+     * You can use this throttle short time repeatedly invoking functions. (e.g MouseMove, Resize ...)
+     *
+     * if you need reuse throttled method. you must remove slugs (e.g. flag variable) related with throttling.
+     * @param {function} fn function to throttle
+     * @param {number} [interval=0] the number of milliseconds to throttle invocations to.
+     * @memberof tui.util
+     * @returns {function} throttled function
+     * @example
+     *
+     * function someMethodToInvokeThrottled() {}
+     *
+     * var throttled = tui.util.throttle(someMethodToInvokeThrottled, 300);
+     *
+     * // invoke repeatedly
+     * throttled();    // invoke (leading)
+     * throttled();
+     * throttled();    // invoke (near 300 milliseconds)
+     * throttled();
+     * throttled();
+     * throttled();    // invoke (near 600 milliseconds)
+     * // ...
+     * // invoke (trailing)
+     *
+     * // if you need reuse throttled method. then invoke reset()
+     * throttled.reset();
+     */
+    function throttle(fn, interval) {
+        var base,
+            _timestamp = tui.util.timestamp,
+            debounced,
+            isLeading = true,
+            stamp,
+            args,
+            tick = function(_args) {
+                fn.apply(null, _args);
+                base = null;
+            };
+
+        /* istanbul ignore next */
+        interval = interval || 0;
+
+        debounced = tui.util.debounce(tick, interval);
+
+        function throttled() {
+            args = aps.call(arguments);
+
+            if (isLeading) {
+                tick(args);
+                isLeading = false;
+                return;
+            }
+
+            stamp = _timestamp();
+
+            base = base || stamp;
+
+            // pass array directly because `debounce()`, `tick()` are already use
+            // `apply()` method to invoke developer's `fn` handler.
+            //
+            // also, this `debounced` line invoked every time for implements 
+            // `trailing` features.
+            debounced(args);
+
+            if ((stamp - base) >= interval) {
+                tick(args);
+            }
+        }
+
+        function reset() {
+            isLeading = true;
+            base = null;
+        }
+
+        throttled.reset = reset;
+        return throttled;
+    }
+
+    tui.util.timestamp = timestamp;
+    tui.util.debounce = debounce;
+    tui.util.throttle = throttle;
 })(window.tui);
+
 </code></pre>
         </article>
     </section>

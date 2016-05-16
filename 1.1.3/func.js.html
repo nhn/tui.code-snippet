@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: browser.js</title>
+    <title>JSDoc: Source: func.js</title>
     <link type="text/css" rel="stylesheet" href="styles/prettify-jsdoc.css">
     <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
     <link type="text/css" rel="stylesheet" href="styles/bootstrap.min.css">
@@ -30,108 +30,48 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @fileoverview This module detects the kind of well-known browser and version.
+ * @fileoverview This module provides a bind() function for context binding.
  * @author NHN Ent.
  *         FE Development Team &lt;e0242@nhnent.com>
- * @namespace tui.util
  */
 
 (function(tui) {
     'use strict';
+
     /* istanbul ignore if */
     if (!tui) {
         tui = window.tui = {};
     }
-    /* istanbul ignore if */
     if (!tui.util) {
         tui.util = window.tui.util = {};
     }
 
     /**
-     * This object has an information that indicate the kind of browser.&lt;br>
-     * The list below is a detectable browser list.
-     *  - ie7 ~ ie11
-     *  - chrome
-     *  - firefox
-     *  - safari
-     *  - edge
+     * Create a new function that, when called, has its this keyword set to the provided value.
+     * @param {function} fn A original function before binding
+     * @param {*} obj context of function in arguments[0]
+     * @return {function()} A new bound function with context that is in arguments[1]
      * @memberof tui.util
-     * @example
-     *  tui.util.browser.chrome === true;    // chrome
-     *  tui.util.browser.firefox === true;    // firefox
-     *  tui.util.browser.safari === true;    // safari
-     *  tui.util.browser.msie === true;    // IE
-     *  tui.util.browser.edge === true;     // edge
-     *  tui.util.browser.other === true;    // other browser
-     *  tui.util.browser.version;    // browser version
      */
-    var browser = {
-        chrome: false,
-        firefox: false,
-        safari: false,
-        msie: false,
-        edge: false,
-        others: false,
-        version: 0
-    };
+    function bind(fn, obj) {
+        var slice = Array.prototype.slice;
 
-    var nav = window.navigator,
-        appName = nav.appName.replace(/\s/g, '_'),
-        userAgent = nav.userAgent;
-
-    var rIE = /MSIE\s([0-9]+[.0-9]*)/,
-        rIE11 = /Trident.*rv:11\./,
-        rEdge = /Edge\/(\d+)\./,
-        versionRegex = {
-            'firefox': /Firefox\/(\d+)\./,
-            'chrome': /Chrome\/(\d+)\./,
-            'safari': /Version\/([\d\.]+)\sSafari\/(\d+)/
-        };
-
-    var key, tmp;
-
-    var detector = {
-        'Microsoft_Internet_Explorer': function() {
-            // ie8 ~ ie10
-            browser.msie = true;
-            browser.version = parseFloat(userAgent.match(rIE)[1]);
-        },
-        'Netscape': function() {
-            var detected = false;
-
-            if (rIE11.exec(userAgent)) {
-                browser.msie = true;
-                browser.version = 11;
-                detected = true;
-            } else if (rEdge.exec(userAgent)) {
-                browser.edge = true;
-                browser.version = userAgent.match(rEdge)[1];
-                detected = true;
-            } else {
-                for (key in versionRegex) {
-                    if (versionRegex.hasOwnProperty(key)) {
-                        tmp = userAgent.match(versionRegex[key]);
-                        if (tmp &amp;&amp; tmp.length > 1) {
-                            browser[key] = detected = true;
-                            browser.version = parseFloat(tmp[1] || 0);
-                            break;
-                        }
-                    }
-                }
-            }
-            if (!detected) {
-                browser.others = true;
-            }
+        if (fn.bind) {
+            return fn.bind.apply(fn, slice.call(arguments, 1));
         }
-    };
 
-    var fn = detector[appName];
+        /* istanbul ignore next */
+        var args = slice.call(arguments, 2);
 
-    if (fn) {
-        detector[appName]();
+        /* istanbul ignore next */
+        return function() {
+            /* istanbul ignore next */
+            return fn.apply(obj, args.length ? args.concat(slice.call(arguments)) : arguments);
+        };
     }
 
-    tui.util.browser = browser;
+    tui.util.bind = bind;
+
 })(window.tui);
 </code></pre>
         </article>

@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: browser.js</title>
+    <title>JSDoc: Source: defineClass.js</title>
     <link type="text/css" rel="stylesheet" href="styles/prettify-jsdoc.css">
     <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
     <link type="text/css" rel="stylesheet" href="styles/bootstrap.min.css">
@@ -30,10 +30,11 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @fileoverview This module detects the kind of well-known browser and version.
+ * @fileoverview
+ *  This module provides a function to make a constructor that can inherit from the other constructors like the CLASS easily.
  * @author NHN Ent.
  *         FE Development Team &lt;e0242@nhnent.com>
- * @namespace tui.util
+ * @dependency inheritance.js, object.js
  */
 
 (function(tui) {
@@ -48,90 +49,66 @@
     }
 
     /**
-     * This object has an information that indicate the kind of browser.&lt;br>
-     * The list below is a detectable browser list.
-     *  - ie7 ~ ie11
-     *  - chrome
-     *  - firefox
-     *  - safari
-     *  - edge
+     * Help a constructor to be defined and to inherit from the other constructors
+     * @param {*} [parent] Parent constructor
+     * @param {Object} props Members of constructor
+     *  @param {Function} props.init Initialization method
+     *  @param {Object} [props.static] Static members of constructor
+     * @returns {*} Constructor
      * @memberof tui.util
      * @example
-     *  tui.util.browser.chrome === true;    // chrome
-     *  tui.util.browser.firefox === true;    // firefox
-     *  tui.util.browser.safari === true;    // safari
-     *  tui.util.browser.msie === true;    // IE
-     *  tui.util.browser.edge === true;     // edge
-     *  tui.util.browser.other === true;    // other browser
-     *  tui.util.browser.version;    // browser version
+     *  var Parent = defineClass({
+     *      init: function() {
+     *          this.name = 'made by def';
+     *      },
+     *      method: function() {
+     *          //..can do something with this
+     *      },
+     *      static: {
+     *          staticMethod: function() {
+     *               //..do something
+     *          }
+     *      }
+     *  });
+     *
+     *  var Child = defineClass(Parent, {
+     *      method2: function() {}
+     *  });
+     *
+     *  Parent.staticMethod();
+     *
+     *  var parentInstance = new Parent();
+     *  console.log(parentInstance.name); //made by def
+     *  parentInstance.staticMethod(); // Error
+     *
+     *  var childInstance = new Child();
+     *  childInstance.method();
+     *  childInstance.method2();
      */
-    var browser = {
-        chrome: false,
-        firefox: false,
-        safari: false,
-        msie: false,
-        edge: false,
-        others: false,
-        version: 0
-    };
+    tui.util.defineClass = function(parent, props) {
+        var obj;
 
-    var nav = window.navigator,
-        appName = nav.appName.replace(/\s/g, '_'),
-        userAgent = nav.userAgent;
-
-    var rIE = /MSIE\s([0-9]+[.0-9]*)/,
-        rIE11 = /Trident.*rv:11\./,
-        rEdge = /Edge\/(\d+)\./,
-        versionRegex = {
-            'firefox': /Firefox\/(\d+)\./,
-            'chrome': /Chrome\/(\d+)\./,
-            'safari': /Version\/([\d\.]+)\sSafari\/(\d+)/
-        };
-
-    var key, tmp;
-
-    var detector = {
-        'Microsoft_Internet_Explorer': function() {
-            // ie8 ~ ie10
-            browser.msie = true;
-            browser.version = parseFloat(userAgent.match(rIE)[1]);
-        },
-        'Netscape': function() {
-            var detected = false;
-
-            if (rIE11.exec(userAgent)) {
-                browser.msie = true;
-                browser.version = 11;
-                detected = true;
-            } else if (rEdge.exec(userAgent)) {
-                browser.edge = true;
-                browser.version = userAgent.match(rEdge)[1];
-                detected = true;
-            } else {
-                for (key in versionRegex) {
-                    if (versionRegex.hasOwnProperty(key)) {
-                        tmp = userAgent.match(versionRegex[key]);
-                        if (tmp &amp;&amp; tmp.length > 1) {
-                            browser[key] = detected = true;
-                            browser.version = parseFloat(tmp[1] || 0);
-                            break;
-                        }
-                    }
-                }
-            }
-            if (!detected) {
-                browser.others = true;
-            }
+        if (!props) {
+            props = parent;
+            parent = null;
         }
+
+        obj = props.init || function(){};
+
+        if(parent) {
+            tui.util.inherit(obj, parent);
+        }
+
+        if (props.hasOwnProperty('static')) {
+            tui.util.extend(obj, props.static);
+            delete props.static;
+        }
+
+        tui.util.extend(obj.prototype, props);
+
+        return obj;
     };
 
-    var fn = detector[appName];
-
-    if (fn) {
-        detector[appName]();
-    }
-
-    tui.util.browser = browser;
 })(window.tui);
 </code></pre>
         </article>

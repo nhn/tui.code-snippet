@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: browser.js</title>
+    <title>JSDoc: Class: Map</title>
     <link type="text/css" rel="stylesheet" href="styles/prettify-jsdoc.css">
     <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
     <link type="text/css" rel="stylesheet" href="styles/bootstrap.min.css">
@@ -26,116 +26,1403 @@
 
 
 
+
+<section>
+
+<header>
     
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/**
- * @fileoverview This module detects the kind of well-known browser and version.
- * @author NHN Ent.
- *         FE Development Team &lt;e0242@nhnent.com>
- * @namespace tui.util
- */
+        <h2>
+        
+            <span class="ancestors"><a href="tui.util.html">tui.util</a>.</span>
+        
+        Map
+        
+        
+        </h2>
+        
+    
+</header>
 
-(function(tui) {
-    'use strict';
-    /* istanbul ignore if */
-    if (!tui) {
-        tui = window.tui = {};
-    }
-    /* istanbul ignore if */
-    if (!tui.util) {
-        tui.util = window.tui.util = {};
-    }
+<article>
+    
+    <div class="container-overview">
+    
+        
+<dt>
+    
+        <h4 class="name" id="Map">
+            <span class="type-signature"></span>new Map<span class="signature">(initData)</span><span class="type-signature"></span>
+            
+                <div class="container-source method">
+                    <code><a href="map.js.html">map.js</a></code>,
+                    <code><a href="map.js.html#line92">line 92</a></code>
+                </div>
+            
+        </h4>
 
-    /**
-     * This object has an information that indicate the kind of browser.&lt;br>
-     * The list below is a detectable browser list.
-     *  - ie7 ~ ie11
-     *  - chrome
-     *  - firefox
-     *  - safari
-     *  - edge
-     * @memberof tui.util
-     * @example
-     *  tui.util.browser.chrome === true;    // chrome
-     *  tui.util.browser.firefox === true;    // firefox
-     *  tui.util.browser.safari === true;    // safari
-     *  tui.util.browser.msie === true;    // IE
-     *  tui.util.browser.edge === true;     // edge
-     *  tui.util.browser.other === true;    // other browser
-     *  tui.util.browser.version;    // browser version
-     */
-    var browser = {
-        chrome: false,
-        firefox: false,
-        safari: false,
-        msie: false,
-        edge: false,
-        others: false,
-        version: 0
-    };
 
-    var nav = window.navigator,
-        appName = nav.appName.replace(/\s/g, '_'),
-        userAgent = nav.userAgent;
 
-    var rIE = /MSIE\s([0-9]+[.0-9]*)/,
-        rIE11 = /Trident.*rv:11\./,
-        rEdge = /Edge\/(\d+)\./,
-        versionRegex = {
-            'firefox': /Firefox\/(\d+)\./,
-            'chrome': /Chrome\/(\d+)\./,
-            'safari': /Version\/([\d\.]+)\sSafari\/(\d+)/
-        };
+        
+    
+</dt>
+<dd>
 
-    var key, tmp;
+    
+    <div class="description">
+        <p>The Map object implements the ES6 Map specification as closely as possible.<br>
+For using objects and primitive values as keys, this object uses array internally.<br>
+So if the key is not a string, get(), set(), has(), delete() will operates in O(n),<br>
+and it can cause performance issues with a large dataset.</p>
+<p>Features listed below are not supported. (can't be implented without native support)</p>
+<ul>
+<li>Map object is iterable<br></li>
+<li>Iterable object can be used as an argument of constructor</li>
+</ul>
+<p>If the browser supports full implementation of ES6 Map specification, native Map obejct
+will be used internally.</p>
+    </div>
+    
 
-    var detector = {
-        'Microsoft_Internet_Explorer': function() {
-            // ie8 ~ ie10
-            browser.msie = true;
-            browser.version = parseFloat(userAgent.match(rIE)[1]);
-        },
-        'Netscape': function() {
-            var detected = false;
+    
 
-            if (rIE11.exec(userAgent)) {
-                browser.msie = true;
-                browser.version = 11;
-                detected = true;
-            } else if (rEdge.exec(userAgent)) {
-                browser.edge = true;
-                browser.version = userAgent.match(rEdge)[1];
-                detected = true;
-            } else {
-                for (key in versionRegex) {
-                    if (versionRegex.hasOwnProperty(key)) {
-                        tmp = userAgent.match(versionRegex[key]);
-                        if (tmp &amp;&amp; tmp.length > 1) {
-                            browser[key] = detected = true;
-                            browser.version = parseFloat(tmp[1] || 0);
-                            break;
-                        }
-                    }
-                }
-            }
-            if (!detected) {
-                browser.others = true;
-            }
-        }
-    };
+    
 
-    var fn = detector[appName];
+    
 
-    if (fn) {
-        detector[appName]();
-    }
+    
+    <div class="container-params">
+        <div class="params">
 
-    tui.util.browser = browser;
-})(window.tui);
-</code></pre>
-        </article>
-    </section>
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name first"><code>initData</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Array of key-value pairs (2-element Arrays).
+     Each key-value pair will be added to the new Map</p></td>
+        </tr>
+
+    
+    </tbody>
+</table></div>
+    </div>
+    
+
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    <!--
+    
+    -->
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+    
+    </div>
+    
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+
+    
+    <div class="container-methods">
+        <h3 class="subsection-title">Methods</h3>
+
+        <dl>
+            
+<dt>
+    
+        <h4 class="name" id="set">
+            <span class="type-signature"></span>set<span class="signature">(key, value)</span><span class="type-signature"> &rarr; {Map}</span>
+            
+                <div class="container-source method">
+                    <code><a href="map.js.html">map.js</a></code>,
+                    <code><a href="map.js.html#line246">line 246</a></code>
+                </div>
+            
+        </h4>
+
+
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Sets the value for the key in the Map object.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-params">
+        <div class="params">
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name first"><code>key</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The key of the element to add to the Map object</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name first"><code>value</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The value of the element to add to the Map object</p></td>
+        </tr>
+
+    
+    </tbody>
+</table></div>
+    </div>
+    
+
+    
+    <div class="container-returns">
+        <div class="returns">
+        <h5>Returns:</h5>
+        <div class="details">
+        
+                
+<div class="param-desc">
+    <p>The Map object</p>
+</div>
+
+            
+        </div>
+        </div>
+    </div>
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    <!--
+    
+    -->
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    
+        <h4 class="name" id="get">
+            <span class="type-signature"></span>get<span class="signature">(key)</span><span class="type-signature"> &rarr; {*}</span>
+            
+                <div class="container-source method">
+                    <code><a href="map.js.html">map.js</a></code>,
+                    <code><a href="map.js.html#line270">line 270</a></code>
+                </div>
+            
+        </h4>
+
+
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Returns the value associated to the key, or undefined if there is none.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-params">
+        <div class="params">
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name first"><code>key</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The key of the element to return</p></td>
+        </tr>
+
+    
+    </tbody>
+</table></div>
+    </div>
+    
+
+    
+    <div class="container-returns">
+        <div class="returns">
+        <h5>Returns:</h5>
+        <div class="details">
+        
+                
+<div class="param-desc">
+    <p>Element associated with the specified key</p>
+</div>
+
+            
+        </div>
+        </div>
+    </div>
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    <!--
+    
+    -->
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    
+        <h4 class="name" id="keys">
+            <span class="type-signature"></span>keys<span class="signature">()</span><span class="type-signature"> &rarr; {Iterator}</span>
+            
+                <div class="container-source method">
+                    <code><a href="map.js.html">map.js</a></code>,
+                    <code><a href="map.js.html#line282">line 282</a></code>
+                </div>
+            
+        </h4>
+
+
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Returns a new Iterator object that contains the keys for each element
+in the Map object in insertion order.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-returns">
+        <div class="returns">
+        <h5>Returns:</h5>
+        <div class="details">
+        
+                
+<div class="param-desc">
+    <p>A new Iterator object</p>
+</div>
+
+            
+        </div>
+        </div>
+    </div>
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    <!--
+    
+    -->
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    
+        <h4 class="name" id="values">
+            <span class="type-signature"></span>values<span class="signature">()</span><span class="type-signature"> &rarr; {Iterator}</span>
+            
+                <div class="container-source method">
+                    <code><a href="map.js.html">map.js</a></code>,
+                    <code><a href="map.js.html#line291">line 291</a></code>
+                </div>
+            
+        </h4>
+
+
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Returns a new Iterator object that contains the values for each element
+in the Map object in insertion order.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-returns">
+        <div class="returns">
+        <h5>Returns:</h5>
+        <div class="details">
+        
+                
+<div class="param-desc">
+    <p>A new Iterator object</p>
+</div>
+
+            
+        </div>
+        </div>
+    </div>
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    <!--
+    
+    -->
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    
+        <h4 class="name" id="entries">
+            <span class="type-signature"></span>entries<span class="signature">()</span><span class="type-signature"> &rarr; {Iterator}</span>
+            
+                <div class="container-source method">
+                    <code><a href="map.js.html">map.js</a></code>,
+                    <code><a href="map.js.html#line300">line 300</a></code>
+                </div>
+            
+        </h4>
+
+
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Returns a new Iterator object that contains the [key, value] pairs
+for each element in the Map object in insertion order.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-returns">
+        <div class="returns">
+        <h5>Returns:</h5>
+        <div class="details">
+        
+                
+<div class="param-desc">
+    <p>A new Iterator object</p>
+</div>
+
+            
+        </div>
+        </div>
+    </div>
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    <!--
+    
+    -->
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    
+        <h4 class="name" id="has">
+            <span class="type-signature"></span>has<span class="signature">(key)</span><span class="type-signature"> &rarr; {boolean}</span>
+            
+                <div class="container-source method">
+                    <code><a href="map.js.html">map.js</a></code>,
+                    <code><a href="map.js.html#line311">line 311</a></code>
+                </div>
+            
+        </h4>
+
+
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Returns a boolean asserting whether a value has been associated to the key
+in the Map object or not.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-params">
+        <div class="params">
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name first"><code>key</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The key of the element to test for presence</p></td>
+        </tr>
+
+    
+    </tbody>
+</table></div>
+    </div>
+    
+
+    
+    <div class="container-returns">
+        <div class="returns">
+        <h5>Returns:</h5>
+        <div class="details">
+        
+                
+<div class="param-desc">
+    <p>True if an element with the specified key exists;
+         Otherwise false</p>
+</div>
+
+            
+        </div>
+        </div>
+    </div>
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    <!--
+    
+    -->
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    
+        <h4 class="name" id="%5B'delete'%5D">
+            <span class="type-signature"></span>['delete']<span class="signature">(key)</span><span class="type-signature"></span>
+            
+                <div class="container-source method">
+                    <code><a href="map.js.html">map.js</a></code>,
+                    <code><a href="map.js.html#line320">line 320</a></code>
+                </div>
+            
+        </h4>
+
+
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Removes the specified element from a Map object.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-params">
+        <div class="params">
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name first"><code>key</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The key of the element to remove</p></td>
+        </tr>
+
+    
+    </tbody>
+</table></div>
+    </div>
+    
+
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    <!--
+    
+    -->
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    
+        <h4 class="name" id="forEach">
+            <span class="type-signature"></span>forEach<span class="signature">(callback, thisArg)</span><span class="type-signature"></span>
+            
+                <div class="container-source method">
+                    <code><a href="map.js.html">map.js</a></code>,
+                    <code><a href="map.js.html#line347">line 347</a></code>
+                </div>
+            
+        </h4>
+
+
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Executes a provided function once per each key/value pair in the Map object,
+in insertion order.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-params">
+        <div class="params">
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name first"><code>callback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Function to execute for each element</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name first"><code>thisArg</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">thisArg</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Value to use as this when executing callback</p></td>
+        </tr>
+
+    
+    </tbody>
+</table></div>
+    </div>
+    
+
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    <!--
+    
+    -->
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    
+        <h4 class="name" id="clear">
+            <span class="type-signature"></span>clear<span class="signature">()</span><span class="type-signature"></span>
+            
+                <div class="container-source method">
+                    <code><a href="map.js.html">map.js</a></code>,
+                    <code><a href="map.js.html#line359">line 359</a></code>
+                </div>
+            
+        </h4>
+
+
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Removes all elements from a Map object.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    <!--
+    
+    -->
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        </dl>
+    </div>
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 
