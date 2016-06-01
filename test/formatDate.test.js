@@ -406,5 +406,30 @@ describe('date format', function() {
                 });
             });
         });
+
+        describe('meridianSet', function() {
+            it('AM -> 오전', function() {
+                var option = {
+                    meridianSet: {
+                        AM: '오전',
+                        PM: '오후'
+                    }
+                };
+                var date = {year: 1999, month: 9, date: 9, hour: 0, minute: 2};
+
+                expect(formatDate('yyyy-MM-dd a hh:mm', date, option)).toEqual('1999-09-09 오전 00:02');
+            });
+            it('PM -> 오후', function() {
+                var option = {
+                    meridianSet: {
+                        AM: '오전',
+                        PM: '오후'
+                    }
+                };
+                var date = {year: 1999, month: 9, date: 9, hour: 13, minute: 2};
+
+                expect(formatDate('yyyy-MM-dd A hh:mm', date, option)).toEqual('1999-09-09 오후 01:02');
+            });
+        });
     });
 });
