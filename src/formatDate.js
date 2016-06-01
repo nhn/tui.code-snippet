@@ -131,6 +131,7 @@
      * Return a string that transformed from the given form and date.
      * @param {string} form - Date form
      * @param {Date|Object} date - Date object
+     * @param {{meridianSet: {AM: string, PM: string}}} option - Option
      * @returns {boolean|string} A transformed string or false.
      * @memberOf tui.util
      * @example
@@ -164,6 +165,17 @@
      *      dateStr3 = formatDate('yyyy년 M월 dd일', dt);
      *
      *  alert(dateStr3); // '2010년 3월 13일'
+     *
+     *  var option4 = {
+     *      meridianSet: {
+     *          AM: '오전',
+     *          PM: '오후'
+     *      }
+     *  };
+     *  var date4 = {year: 1999, month: 9, date: 9, hour: 13, minute: 2};
+     *  var dateStr4 = formatDate('yyyy-MM-dd A hh:mm', date4, option4));
+     *
+     *  alert(dateStr4); // '1999-09-09 오후 01:02'
      */
     function formatDate(form, date, option) {
         var meridian, nDate, resultStr;
