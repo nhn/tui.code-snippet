@@ -131,7 +131,7 @@
      * Return a string that transformed from the given form and date.
      * @param {string} form - Date form
      * @param {Date|Object} date - Date object
-     * @param {{meridianSet: {AM: string, PM: string}}} option - Option
+     * @param {{meridiemSet: {AM: string, PM: string}}} option - Option
      * @returns {boolean|string} A transformed string or false.
      * @memberOf tui.util
      * @example
@@ -143,7 +143,7 @@
      *  // days            | D / DD / d / dd
      *  // hours           | H / HH / h / hh
      *  // minutes         | m / mm
-     *  // meridian(AM,PM) | A / a
+     *  // meridiem(AM,PM) | A / a
      *
      *  var dateStr1 = formatDate('yyyy-MM-dd', {
      *      year: 2014,
@@ -167,7 +167,7 @@
      *  alert(dateStr3); // '2010년 3월 13일'
      *
      *  var option4 = {
-     *      meridianSet: {
+     *      meridiemSet: {
      *          AM: '오전',
      *          PM: '오후'
      *      }
@@ -178,7 +178,7 @@
      *  alert(dateStr4); // '1999-09-09 오후 01:02'
      */
     function formatDate(form, date, option) {
-        var meridian, nDate, resultStr;
+        var meridiem, nDate, resultStr;
 
         if (tui.util.isDate(date)) {
             nDate = {
@@ -204,11 +204,11 @@
 
         nDate.meridian = '';
         if (/[^\\][aA]\b/g.test(form)) {
-            meridian = (nDate.hour > 12) ?
-                tui.util.pick(option, 'meridianSet', 'PM') || 'PM'
-                : tui.util.pick(option, 'meridianSet', 'AM') || 'AM';
+            meridiem = (nDate.hour > 12) ?
+                tui.util.pick(option, 'meridiemSet', 'PM') || 'PM'
+                : tui.util.pick(option, 'meridiemSet', 'AM') || 'AM';
             nDate.hour %= 12;
-            nDate.meridian = meridian;
+            nDate.meridian = meridiem;
         }
 
         resultStr = form.replace(tokens, function(key) {

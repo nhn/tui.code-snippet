@@ -407,10 +407,10 @@ describe('date format', function() {
             });
         });
 
-        describe('meridianSet', function() {
+        describe('meridiemSet', function() {
             it('AM -> 오전', function() {
                 var option = {
-                    meridianSet: {
+                    meridiemSet: {
                         AM: '오전',
                         PM: '오후'
                     }
@@ -421,7 +421,7 @@ describe('date format', function() {
             });
             it('PM -> 오후', function() {
                 var option = {
-                    meridianSet: {
+                    meridiemSet: {
                         AM: '오전',
                         PM: '오후'
                     }
