@@ -56,10 +56,10 @@
             return replaceMap.YYYY(date);
         },
         A: function(date) {
-            return date.meridian;
+            return date.meridiem;
         },
         a: function(date) {
-            return date.meridian;
+            return date.meridiem;
         },
         hh: function(date) {
             var hour = date.hour;
@@ -202,13 +202,13 @@
             return false;
         }
 
-        nDate.meridian = '';
+        nDate.meridiem = '';
         if (/[^\\][aA]\b/g.test(form)) {
             meridiem = (nDate.hour > 12) ?
                 tui.util.pick(option, 'meridiemSet', 'PM') || 'PM'
                 : tui.util.pick(option, 'meridiemSet', 'AM') || 'AM';
             nDate.hour %= 12;
-            nDate.meridian = meridiem;
+            nDate.meridiem = meridiem;
         }
 
         resultStr = form.replace(tokens, function(key) {
