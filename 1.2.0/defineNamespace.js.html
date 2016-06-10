@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: defineClass.js</title>
+    <title>JSDoc: Source: defineNamespace.js</title>
     <link type="text/css" rel="stylesheet" href="styles/prettify-jsdoc.css">
     <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
     <link type="text/css" rel="stylesheet" href="styles/bootstrap.min.css">
@@ -30,14 +30,13 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @fileoverview
- *  This module provides a function to make a constructor that can inherit from the other constructors like the CLASS easily.
+ * @fileoverview Define namespace
  * @author NHN Ent.
  *         FE Development Team &lt;e0242@nhnent.com>
- * @dependency inheritance.js, object.js
+ * @dependency inheritance.js, object.js, collection.js
  */
-
 (function(tui) {
+
     'use strict';
     /* istanbul ignore if */
     if (!tui) {
@@ -48,65 +47,44 @@
         tui.util = window.tui.util = {};
     }
 
+    var util = tui.util;
+
     /**
-     * Help a constructor to be defined and to inherit from the other constructors
-     * @param {*} [parent] Parent constructor
-     * @param {Object} props Members of constructor
-     *  @param {Function} props.init Initialization method
-     *  @param {Object} [props.static] Static members of constructor
-     * @returns {*} Constructor
+     * Define namespace
+     * @param {string} namespace - Namespace (ex- 'foo.bar.baz')
+     * @param {(object|function)} props - A set of modules or one module
+     * @param {boolean} [isOverride] - Override the props to the namespace.&lt;br>
+     *                                  (It removes previous properties of this namespace)
+     * @returns {(object|function)} Defined namespace
      * @memberof tui.util
      * @example
-     *  var Parent = defineClass({
+     * var neComp = tui.util.defineNamespace('ne.component');
+     * neComp.listMenu = tui.util.defineClass({
      *      init: function() {
-     *          this.name = 'made by def';
-     *      },
-     *      method: function() {
-     *          //..can do something with this
-     *      },
-     *      static: {
-     *          staticMethod: function() {
-     *               //..do something
-     *          }
+     *          // code
      *      }
-     *  });
-     *
-     *  var Child = defineClass(Parent, {
-     *      method2: function() {}
-     *  });
-     *
-     *  Parent.staticMethod();
-     *
-     *  var parentInstance = new Parent();
-     *  console.log(parentInstance.name); //made by def
-     *  parentInstance.staticMethod(); // Error
-     *
-     *  var childInstance = new Child();
-     *  childInstance.method();
-     *  childInstance.method2();
+     * });
      */
-    tui.util.defineClass = function(parent, props) {
-        var obj;
+    tui.util.defineNamespace = function(namespace, props, isOverride) {
+        var names, result, prevLast, last;
 
-        if (!props) {
-            props = parent;
-            parent = null;
+        names = namespace.split('.');
+        names.unshift(window);
+
+        result = util.reduce(names, function(obj, name) {
+            obj[name] = obj[name] || {};
+            return obj[name];
+        });
+
+        if (isOverride) {
+            last = names.pop();
+            prevLast = util.pick.apply(null, names);
+            result = prevLast[last] = props;
+        } else {
+            util.extend(result, props);
         }
 
-        obj = props.init || function() {};
-
-        if (parent) {
-            tui.util.inherit(obj, parent);
-        }
-
-        if (props.hasOwnProperty('static')) {
-            tui.util.extend(obj, props['static']);
-            delete props['static'];
-        }
-
-        tui.util.extend(obj.prototype, props);
-
-        return obj;
+        return result;
     };
 })(window.tui);
 </code></pre>

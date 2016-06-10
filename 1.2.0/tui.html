@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: defineClass.js</title>
+    <title>JSDoc: Namespace: tui</title>
     <link type="text/css" rel="stylesheet" href="styles/prettify-jsdoc.css">
     <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
     <link type="text/css" rel="stylesheet" href="styles/bootstrap.min.css">
@@ -26,92 +26,102 @@
 
 
 
+
+<section>
+
+<header>
     
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/**
- * @fileoverview
- *  This module provides a function to make a constructor that can inherit from the other constructors like the CLASS easily.
- * @author NHN Ent.
- *         FE Development Team &lt;e0242@nhnent.com>
- * @dependency inheritance.js, object.js
- */
+        <h2>
+        
+        tui
+        
+        
+        </h2>
+        
+    
+</header>
 
-(function(tui) {
-    'use strict';
-    /* istanbul ignore if */
-    if (!tui) {
-        tui = window.tui = {};
-    }
-    /* istanbul ignore if */
-    if (!tui.util) {
-        tui.util = window.tui.util = {};
-    }
+<article>
+    
+    <div class="container-overview">
+    
+        
 
-    /**
-     * Help a constructor to be defined and to inherit from the other constructors
-     * @param {*} [parent] Parent constructor
-     * @param {Object} props Members of constructor
-     *  @param {Function} props.init Initialization method
-     *  @param {Object} [props.static] Static members of constructor
-     * @returns {*} Constructor
-     * @memberof tui.util
-     * @example
-     *  var Parent = defineClass({
-     *      init: function() {
-     *          this.name = 'made by def';
-     *      },
-     *      method: function() {
-     *          //..can do something with this
-     *      },
-     *      static: {
-     *          staticMethod: function() {
-     *               //..do something
-     *          }
-     *      }
-     *  });
-     *
-     *  var Child = defineClass(Parent, {
-     *      method2: function() {}
-     *  });
-     *
-     *  Parent.staticMethod();
-     *
-     *  var parentInstance = new Parent();
-     *  console.log(parentInstance.name); //made by def
-     *  parentInstance.staticMethod(); // Error
-     *
-     *  var childInstance = new Child();
-     *  childInstance.method();
-     *  childInstance.method2();
-     */
-    tui.util.defineClass = function(parent, props) {
-        var obj;
+        
 
-        if (!props) {
-            props = parent;
-            parent = null;
-        }
 
-        obj = props.init || function() {};
+<dl class="details">
 
-        if (parent) {
-            tui.util.inherit(obj, parent);
-        }
+    
 
-        if (props.hasOwnProperty('static')) {
-            tui.util.extend(obj, props['static']);
-            delete props['static'];
-        }
+    
 
-        tui.util.extend(obj.prototype, props);
+    
 
-        return obj;
-    };
-})(window.tui);
-</code></pre>
-        </article>
-    </section>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+        <dd class="tag-source"><ul class="dummy"><li>
+            <a href="tricks.js.html">tricks.js</a>, <a href="tricks.js.html#line6">line 6</a>
+        </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+        
+    
+    </div>
+    
+
+    
+
+    
+
+    
+
+     
+
+    
+        <h3 class="subsection-title">Namespaces</h3>
+
+        <dl>
+            <dt><a href="tui.util.html">util</a></dt>
+            <dd></dd>
+        </dl>
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 

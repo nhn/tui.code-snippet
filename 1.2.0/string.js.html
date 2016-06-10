@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: defineClass.js</title>
+    <title>JSDoc: Source: string.js</title>
     <link type="text/css" rel="stylesheet" href="styles/prettify-jsdoc.css">
     <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
     <link type="text/css" rel="stylesheet" href="styles/bootstrap.min.css">
@@ -30,84 +30,110 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @fileoverview
- *  This module provides a function to make a constructor that can inherit from the other constructors like the CLASS easily.
+ * @fileoverview This module has some functions for handling the string.
  * @author NHN Ent.
  *         FE Development Team &lt;e0242@nhnent.com>
- * @dependency inheritance.js, object.js
  */
 
 (function(tui) {
     'use strict';
-    /* istanbul ignore if */
+
     if (!tui) {
         tui = window.tui = {};
     }
-    /* istanbul ignore if */
     if (!tui.util) {
         tui.util = window.tui.util = {};
     }
 
     /**
-     * Help a constructor to be defined and to inherit from the other constructors
-     * @param {*} [parent] Parent constructor
-     * @param {Object} props Members of constructor
-     *  @param {Function} props.init Initialization method
-     *  @param {Object} [props.static] Static members of constructor
-     * @returns {*} Constructor
+     * Transform the given HTML Entity string into plain string
+     * @param {String} htmlEntity - HTML Entity type string
+     * @return {String} Plain string
      * @memberof tui.util
      * @example
-     *  var Parent = defineClass({
-     *      init: function() {
-     *          this.name = 'made by def';
-     *      },
-     *      method: function() {
-     *          //..can do something with this
-     *      },
-     *      static: {
-     *          staticMethod: function() {
-     *               //..do something
-     *          }
-     *      }
-     *  });
-     *
-     *  var Child = defineClass(Parent, {
-     *      method2: function() {}
-     *  });
-     *
-     *  Parent.staticMethod();
-     *
-     *  var parentInstance = new Parent();
-     *  console.log(parentInstance.name); //made by def
-     *  parentInstance.staticMethod(); // Error
-     *
-     *  var childInstance = new Child();
-     *  childInstance.method();
-     *  childInstance.method2();
+     *  var htmlEntityString = "A &amp;#39;quote&amp;#39; is &amp;lt;b&amp;gt;bold&amp;lt;/b&amp;gt;"
+     *  var result = decodeHTMLEntity(htmlEntityString); //"A 'quote' is &lt;b>bold&lt;/b>"
      */
-    tui.util.defineClass = function(parent, props) {
-        var obj;
+    function decodeHTMLEntity(htmlEntity) {
+        var entities = {'&amp;quot;' : '"', '&amp;amp;' : '&amp;', '&amp;lt;' : '&lt;', '&amp;gt;' : '>', '&amp;#39;' : '\'', '&amp;nbsp;' : ' '};
+        return htmlEntity.replace(/&amp;amp;|&amp;lt;|&amp;gt;|&amp;quot;|&amp;#39;|&amp;nbsp;/g, function(m0) {
+            return entities[m0] ? entities[m0] : m0;
+        });
+    }
 
-        if (!props) {
-            props = parent;
-            parent = null;
+    /**
+     * Transform the given string into HTML Entity string
+     * @param {String} html - String for encoding
+     * @return {String} HTML Entity
+     * @memberof tui.util
+     * @example
+     *  var htmlEntityString = "&lt;script> alert('test');&lt;/script>&lt;a href='test'>";
+     *  var result = encodeHTMLEntity(htmlEntityString); //"&amp;lt;script&amp;gt; alert(&amp;#39;test&amp;#39;);&amp;lt;/script&amp;gt;&amp;lt;a href=&amp;#39;test&amp;#39;&amp;gt;"
+     */
+    function encodeHTMLEntity(html) {
+        var entities = {'"': 'quot', '&amp;': 'amp', '&lt;': 'lt', '>': 'gt', '\'': '#39'};
+        return html.replace(/[&lt;>&amp;"']/g, function(m0) {
+            return entities[m0] ? '&amp;' + entities[m0] + ';' : m0;
+        });
+    }
+
+    /**
+     * Return whether the string capable to transform into plain string is in the given string or not.
+     * @param {String} string
+     * @memberof tui.util
+     * @return {boolean}
+     */
+    function hasEncodableString(string) {
+        return (/[&lt;>&amp;"']/).test(string);
+    }
+
+    /**
+     * Return duplicate charters
+     * @param {string} operandStr1 The operand string
+     * @param {string} operandStr2 The operand string
+     * @private
+     * @memberof tui.util
+     * @returns {string}
+     * @example
+     * tui.util.getDuplicatedChar('fe dev', 'nhn entertainment');
+     * => 'e'
+     * tui.util.getDuplicatedChar('fdsa', 'asdf');
+     * => 'asdf'
+     */
+    function getDuplicatedChar(operandStr1, operandStr2) {
+        var dupl,
+            key,
+            i = 0,
+            len = operandStr1.length,
+            pool = {};
+
+        for (; i &lt; len; i += 1) {
+            key = operandStr1.charAt(i);
+            pool[key] = 1;
         }
 
-        obj = props.init || function() {};
-
-        if (parent) {
-            tui.util.inherit(obj, parent);
+        for (i = 0, len = operandStr2.length; i &lt; len; i += 1) {
+            key = operandStr2.charAt(i);
+            if(pool[key]) {
+                pool[key] += 1;
+            }
         }
 
-        if (props.hasOwnProperty('static')) {
-            tui.util.extend(obj, props['static']);
-            delete props['static'];
-        }
+        pool = tui.util.filter(pool, function(item) {
+            return item > 1;
+        });
 
-        tui.util.extend(obj.prototype, props);
+        pool = tui.util.keys(pool).sort();
+        dupl = pool.join('');
 
-        return obj;
-    };
+        return dupl;
+    }
+
+    tui.util.decodeHTMLEntity = decodeHTMLEntity;
+    tui.util.encodeHTMLEntity = encodeHTMLEntity;
+    tui.util.hasEncodableString = hasEncodableString;
+    tui.util.getDuplicatedChar = getDuplicatedChar;
+
 })(window.tui);
 </code></pre>
         </article>

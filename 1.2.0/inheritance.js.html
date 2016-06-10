@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: defineClass.js</title>
+    <title>JSDoc: Source: inheritance.js</title>
     <link type="text/css" rel="stylesheet" href="styles/prettify-jsdoc.css">
     <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
     <link type="text/css" rel="stylesheet" href="styles/bootstrap.min.css">
@@ -30,11 +30,9 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @fileoverview
- *  This module provides a function to make a constructor that can inherit from the other constructors like the CLASS easily.
+ * @fileoverview This module provides some simple function for inheritance.
  * @author NHN Ent.
  *         FE Development Team &lt;e0242@nhnent.com>
- * @dependency inheritance.js, object.js
  */
 
 (function(tui) {
@@ -48,66 +46,64 @@
         tui.util = window.tui.util = {};
     }
 
+
+
     /**
-     * Help a constructor to be defined and to inherit from the other constructors
-     * @param {*} [parent] Parent constructor
-     * @param {Object} props Members of constructor
-     *  @param {Function} props.init Initialization method
-     *  @param {Object} [props.static] Static members of constructor
-     * @returns {*} Constructor
+     * Create a new object with the specified prototype object and properties.
+     * @param {Object} obj This object will be a prototype of the newly-created object.
+     * @return {Object}
+     * @memberof tui.util
+     */
+    function createObject() {
+        function F() {}
+
+        return function(obj) {
+            F.prototype = obj;
+            return new F();
+        };
+    }
+
+    /**
+     * Provide a simple inheritance in prototype-oriented.
+     * Caution :
+     *  Don't overwrite the prototype of child constructor.
+     *
+     * @param {function} subType Child constructor
+     * @param {function} superType Parent constructor
      * @memberof tui.util
      * @example
-     *  var Parent = defineClass({
-     *      init: function() {
-     *          this.name = 'made by def';
-     *      },
-     *      method: function() {
-     *          //..can do something with this
-     *      },
-     *      static: {
-     *          staticMethod: function() {
-     *               //..do something
-     *          }
-     *      }
-     *  });
+     *  // Parent constructor
+     *  function Animal(leg) {
+     *      this.leg = leg;
+     *  }
      *
-     *  var Child = defineClass(Parent, {
-     *      method2: function() {}
-     *  });
+     *  Animal.prototype.growl = function() {
+     *      // ...
+     *  };
      *
-     *  Parent.staticMethod();
+     *  // Child constructor
+     *  function Person(name) {
+     *      this.name = name;
+     *  }
      *
-     *  var parentInstance = new Parent();
-     *  console.log(parentInstance.name); //made by def
-     *  parentInstance.staticMethod(); // Error
+     *  // Inheritance
+     *  core.inherit(Person, Animal);
      *
-     *  var childInstance = new Child();
-     *  childInstance.method();
-     *  childInstance.method2();
+     *  // After this inheritance, please use only the extending of property.
+     *  // Do not overwrite prototype.
+     *  Person.prototype.walk = function(direction) {
+     *      // ...
+     *  };
      */
-    tui.util.defineClass = function(parent, props) {
-        var obj;
+    function inherit(subType, superType) {
+        var prototype = tui.util.createObject(superType.prototype);
+        prototype.constructor = subType;
+        subType.prototype = prototype;
+    }
 
-        if (!props) {
-            props = parent;
-            parent = null;
-        }
+    tui.util.createObject = createObject();
+    tui.util.inherit = inherit;
 
-        obj = props.init || function() {};
-
-        if (parent) {
-            tui.util.inherit(obj, parent);
-        }
-
-        if (props.hasOwnProperty('static')) {
-            tui.util.extend(obj, props['static']);
-            delete props['static'];
-        }
-
-        tui.util.extend(obj.prototype, props);
-
-        return obj;
-    };
 })(window.tui);
 </code></pre>
         </article>

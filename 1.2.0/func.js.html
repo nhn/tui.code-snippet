@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: defineClass.js</title>
+    <title>JSDoc: Source: func.js</title>
     <link type="text/css" rel="stylesheet" href="styles/prettify-jsdoc.css">
     <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
     <link type="text/css" rel="stylesheet" href="styles/bootstrap.min.css">
@@ -30,84 +30,48 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @fileoverview
- *  This module provides a function to make a constructor that can inherit from the other constructors like the CLASS easily.
+ * @fileoverview This module provides a bind() function for context binding.
  * @author NHN Ent.
  *         FE Development Team &lt;e0242@nhnent.com>
- * @dependency inheritance.js, object.js
  */
 
 (function(tui) {
     'use strict';
+
     /* istanbul ignore if */
     if (!tui) {
         tui = window.tui = {};
     }
-    /* istanbul ignore if */
     if (!tui.util) {
         tui.util = window.tui.util = {};
     }
 
     /**
-     * Help a constructor to be defined and to inherit from the other constructors
-     * @param {*} [parent] Parent constructor
-     * @param {Object} props Members of constructor
-     *  @param {Function} props.init Initialization method
-     *  @param {Object} [props.static] Static members of constructor
-     * @returns {*} Constructor
+     * Create a new function that, when called, has its this keyword set to the provided value.
+     * @param {function} fn A original function before binding
+     * @param {*} obj context of function in arguments[0]
+     * @return {function()} A new bound function with context that is in arguments[1]
      * @memberof tui.util
-     * @example
-     *  var Parent = defineClass({
-     *      init: function() {
-     *          this.name = 'made by def';
-     *      },
-     *      method: function() {
-     *          //..can do something with this
-     *      },
-     *      static: {
-     *          staticMethod: function() {
-     *               //..do something
-     *          }
-     *      }
-     *  });
-     *
-     *  var Child = defineClass(Parent, {
-     *      method2: function() {}
-     *  });
-     *
-     *  Parent.staticMethod();
-     *
-     *  var parentInstance = new Parent();
-     *  console.log(parentInstance.name); //made by def
-     *  parentInstance.staticMethod(); // Error
-     *
-     *  var childInstance = new Child();
-     *  childInstance.method();
-     *  childInstance.method2();
      */
-    tui.util.defineClass = function(parent, props) {
-        var obj;
+    function bind(fn, obj) {
+        var slice = Array.prototype.slice;
 
-        if (!props) {
-            props = parent;
-            parent = null;
+        if (fn.bind) {
+            return fn.bind.apply(fn, slice.call(arguments, 1));
         }
 
-        obj = props.init || function() {};
+        /* istanbul ignore next */
+        var args = slice.call(arguments, 2);
 
-        if (parent) {
-            tui.util.inherit(obj, parent);
-        }
+        /* istanbul ignore next */
+        return function() {
+            /* istanbul ignore next */
+            return fn.apply(obj, args.length ? args.concat(slice.call(arguments)) : arguments);
+        };
+    }
 
-        if (props.hasOwnProperty('static')) {
-            tui.util.extend(obj, props['static']);
-            delete props['static'];
-        }
+    tui.util.bind = bind;
 
-        tui.util.extend(obj.prototype, props);
-
-        return obj;
-    };
 })(window.tui);
 </code></pre>
         </article>

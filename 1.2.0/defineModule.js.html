@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: defineClass.js</title>
+    <title>JSDoc: Source: defineModule.js</title>
     <link type="text/css" rel="stylesheet" href="styles/prettify-jsdoc.css">
     <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
     <link type="text/css" rel="stylesheet" href="styles/bootstrap.min.css">
@@ -30,13 +30,11 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @fileoverview
- *  This module provides a function to make a constructor that can inherit from the other constructors like the CLASS easily.
+ * @fileoverview Define module
  * @author NHN Ent.
- *         FE Development Team &lt;e0242@nhnent.com>
- * @dependency inheritance.js, object.js
+ *         FE Development Team &lt;dl_javscript@nhnent.com>
+ * @dependency type.js, defineNamespace.js
  */
-
 (function(tui) {
     'use strict';
     /* istanbul ignore if */
@@ -48,66 +46,40 @@
         tui.util = window.tui.util = {};
     }
 
+    var util = tui.util,
+        INITIALIZATION_METHOD_NAME = 'initialize';
+
     /**
-     * Help a constructor to be defined and to inherit from the other constructors
-     * @param {*} [parent] Parent constructor
-     * @param {Object} props Members of constructor
-     *  @param {Function} props.init Initialization method
-     *  @param {Object} [props.static] Static members of constructor
-     * @returns {*} Constructor
+     * Define module
+     * @param {string} namespace - Namespace of module
+     * @param {Object} moduleDefinition - Object literal for module
+     * @returns {Object} Defined module
      * @memberof tui.util
      * @example
-     *  var Parent = defineClass({
-     *      init: function() {
-     *          this.name = 'made by def';
-     *      },
-     *      method: function() {
-     *          //..can do something with this
-     *      },
-     *      static: {
-     *          staticMethod: function() {
-     *               //..do something
+     *     var myModule = tui.util.defineModule('modules.myModule', {
+     *          name: 'john',
+     *          message: '',
+     *          initialize: function() {
+     *              this.message = 'hello world';
+     *          },
+     *          getMessage: function() {
+     *              return this.name + ': ' + this.message
      *          }
-     *      }
-     *  });
+     *     });
      *
-     *  var Child = defineClass(Parent, {
-     *      method2: function() {}
-     *  });
-     *
-     *  Parent.staticMethod();
-     *
-     *  var parentInstance = new Parent();
-     *  console.log(parentInstance.name); //made by def
-     *  parentInstance.staticMethod(); // Error
-     *
-     *  var childInstance = new Child();
-     *  childInstance.method();
-     *  childInstance.method2();
+     *     console.log(myModule.getMessage());  // 'john: hello world';
+     *     console.log(window.modules.myModule.getMessage());   // 'john: hello world';
      */
-    tui.util.defineClass = function(parent, props) {
-        var obj;
+    function defineModule(namespace, moduleDefinition) {
+        var base = moduleDefinition || {};
 
-        if (!props) {
-            props = parent;
-            parent = null;
+        if (util.isFunction(base[INITIALIZATION_METHOD_NAME])) {
+            base[INITIALIZATION_METHOD_NAME]();
         }
 
-        obj = props.init || function() {};
-
-        if (parent) {
-            tui.util.inherit(obj, parent);
-        }
-
-        if (props.hasOwnProperty('static')) {
-            tui.util.extend(obj, props['static']);
-            delete props['static'];
-        }
-
-        tui.util.extend(obj.prototype, props);
-
-        return obj;
-    };
+        return util.defineNamespace(namespace, base);
+    }
+    tui.util.defineModule = defineModule;
 })(window.tui);
 </code></pre>
         </article>
