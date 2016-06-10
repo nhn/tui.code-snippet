@@ -1702,10 +1702,10 @@ tui.util.Enum = Enum;
             return replaceMap.YYYY(date);
         },
         A: function(date) {
-            return date.meridian;
+            return date.meridiem;
         },
         a: function(date) {
-            return date.meridian;
+            return date.meridiem;
         },
         hh: function(date) {
             var hour = date.hour;
@@ -1777,7 +1777,7 @@ tui.util.Enum = Enum;
      * Return a string that transformed from the given form and date.
      * @param {string} form - Date form
      * @param {Date|Object} date - Date object
-     * @param {{meridianSet: {AM: string, PM: string}}} option - Option
+     * @param {{meridiemSet: {AM: string, PM: string}}} option - Option
      * @returns {boolean|string} A transformed string or false.
      * @memberOf tui.util
      * @example
@@ -1789,7 +1789,7 @@ tui.util.Enum = Enum;
      *  // days            | D / DD / d / dd
      *  // hours           | H / HH / h / hh
      *  // minutes         | m / mm
-     *  // meridian(AM,PM) | A / a
+     *  // meridiem(AM,PM) | A / a
      *
      *  var dateStr1 = formatDate('yyyy-MM-dd', {
      *      year: 2014,
@@ -1813,7 +1813,7 @@ tui.util.Enum = Enum;
      *  alert(dateStr3); // '2010년 3월 13일'
      *
      *  var option4 = {
-     *      meridianSet: {
+     *      meridiemSet: {
      *          AM: '오전',
      *          PM: '오후'
      *      }
@@ -1824,7 +1824,7 @@ tui.util.Enum = Enum;
      *  alert(dateStr4); // '1999-09-09 오후 01:02'
      */
     function formatDate(form, date, option) {
-        var meridian, nDate, resultStr;
+        var meridiem, nDate, resultStr;
 
         if (tui.util.isDate(date)) {
             nDate = {
@@ -1848,13 +1848,13 @@ tui.util.Enum = Enum;
             return false;
         }
 
-        nDate.meridian = '';
+        nDate.meridiem = '';
         if (/[^\\][aA]\b/g.test(form)) {
-            meridian = (nDate.hour > 12) ?
-                tui.util.pick(option, 'meridianSet', 'PM') || 'PM'
-                : tui.util.pick(option, 'meridianSet', 'AM') || 'AM';
+            meridiem = (nDate.hour > 12) ?
+                tui.util.pick(option, 'meridiemSet', 'PM') || 'PM'
+                : tui.util.pick(option, 'meridiemSet', 'AM') || 'AM';
             nDate.hour %= 12;
-            nDate.meridian = meridian;
+            nDate.meridiem = meridiem;
         }
 
         resultStr = form.replace(tokens, function(key) {
