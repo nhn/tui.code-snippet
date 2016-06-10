@@ -62,20 +62,19 @@
             parent = null;
         }
 
-        obj = props.init || function(){};
+        obj = props.init || function() {};
 
-        if(parent) {
+        if (parent) {
             tui.util.inherit(obj, parent);
         }
 
         if (props.hasOwnProperty('static')) {
-            tui.util.extend(obj, props.static);
-            delete props.static;
+            tui.util.extend(obj, props['static']);
+            delete props['static'];
         }
 
         tui.util.extend(obj.prototype, props);
 
         return obj;
     };
-
 })(window.tui);
