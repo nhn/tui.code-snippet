@@ -203,20 +203,21 @@
         }
 
         nDate.meridiem = '';
-        if (/[^\\][aA]\b/g.test(form)) {
-            meridiem = (nDate.hour > 12) ?
+        if (/([^\\]|^)[aA]\b/.test(form)) {
+            meridiem = (nDate.hour > 11) ?
                 tui.util.pick(option, 'meridiemSet', 'PM') || 'PM'
                 : tui.util.pick(option, 'meridiemSet', 'AM') || 'AM';
-            nDate.hour %= 12;
+            if (nDate.hour > 12) { //See the clock system: https://en.wikipedia.org/wiki/12-hour_clock
+                nDate.hour %= 12;
+            }
             nDate.meridiem = meridiem;
         }
 
         resultStr = form.replace(tokens, function(key) {
             if (key.indexOf('\\') > -1) { // escape character
-                return key.replace(/\\/g, '');
-            } else {
-                return replaceMap[key](nDate) || '';
+                return key.replace(/\\/, '');
             }
+            return replaceMap[key](nDate) || '';
         });
         return resultStr;
     }

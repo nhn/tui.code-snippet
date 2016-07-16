@@ -431,5 +431,24 @@ describe('date format', function() {
                 expect(formatDate('yyyy-MM-dd A hh:mm', date, option)).toEqual('1999-09-09 오후 01:02');
             });
         });
+
+        it('not full-date but time format', function() {
+            var date = {year: 1999, month: 9, date: 9, hour: 2, minute: 3};
+
+            expect(formatDate('a hh:mm', date)).toEqual('AM 02:03');
+        });
+
+        it('not full-date but time format with meridiemSet', function() {
+            var option = {
+                meridiemSet: {
+                    AM: '오전',
+                    PM: '오후'
+                }
+            };
+            var date = {year: 1999, month: 9, date: 9, hour: 12, minute: 3};
+
+            //See the clock system: https://en.wikipedia.org/wiki/12-hour_clock
+            expect(formatDate('a hh:mm', date, option)).toEqual('오후 12:03');
+        });
     });
 });
