@@ -1,4 +1,4 @@
-/*!code-snippet v1.2.0 | NHN Entertainment*/
+/*!code-snippet v1.2.1 | NHN Entertainment*/
 /**********
  * array.js
  **********/
@@ -1849,11 +1849,11 @@ tui.util.Enum = Enum;
         }
 
         nDate.meridiem = '';
-        if (/[^\\][aA]|^[aA]\b/.test(form)) {
+        if (/([^\\]|^)[aA]\b/.test(form)) {
             meridiem = (nDate.hour > 11) ?
                 tui.util.pick(option, 'meridiemSet', 'PM') || 'PM'
                 : tui.util.pick(option, 'meridiemSet', 'AM') || 'AM';
-            if (nDate.hour !== 12) { //See the clock system: https://en.wikipedia.org/wiki/12-hour_clock
+            if (nDate.hour > 12) { //See the clock system: https://en.wikipedia.org/wiki/12-hour_clock
                 nDate.hour %= 12;
             }
             nDate.meridiem = meridiem;
