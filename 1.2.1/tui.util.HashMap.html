@@ -1,0 +1,2512 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Class: HashMap</title>
+    <link type="text/css" rel="stylesheet" href="styles/prettify-jsdoc.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-fe2.css">
+</head>
+<body>
+
+<div id="wrap">
+
+    <div class="header">
+
+        <div class="container-fluid">
+            <h3><a href="index.html">API Documentation</a> <small>FE개발팀</small></h3>
+        </div>
+
+    </div>
+
+    <div class="body">
+        <div id="navigation" class="navigation"><h3>Util Classes</h3><ul class="utillist classes"><li><span class="namespace">tui.util.</span><a href="tui.util.CustomEvents.html">CustomEvents</a></li><li><span class="namespace">tui.util.</span><a href="tui.util.Enum.html">Enum</a></li><li><span class="namespace">tui.util.</span><a href="tui.util.ExMap.html">ExMap</a></li><li><span class="namespace">tui.util.</span><a href="tui.util.HashMap.html">HashMap</a></li><li><span class="namespace">tui.util.</span><a href="tui.util.Map.html">Map</a></li><li><span class="namespace">tui.util.</span><a href="tui.util.Popup.html">Popup</a></li></ul><h3>Util Methods</h3><ul class="utillist classes"><h4>browser.js</h4><ul class="utillist modules"><li><span class="namespace">tui.util.</span><a href="tui.util.html#.browser">browser</a><span class="icon blue static">static</span></li></ul><ul class="sublist division tui.util"><li></li></ul><h4>array.js</h4><ul class="utillist modules"><li><span class="namespace">tui.util.</span><a href="tui.util.html#.inArray">inArray</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.range">range</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.zip">zip</a><span class="icon blue static">static</span></li></ul><h4>collection.js</h4><ul class="utillist modules"><li><span class="namespace">tui.util.</span><a href="tui.util.html#.filter">filter</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.forEach">forEach</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.forEachArray">forEachArray</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.forEachOwnProperties">forEachOwnProperties</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.map">map</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.pluck">pluck</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.reduce">reduce</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.toArray">toArray</a><span class="icon blue static">static</span></li></ul><h4>defineClass.js</h4><ul class="utillist modules"><li><span class="namespace">tui.util.</span><a href="tui.util.html#.defineClass">defineClass</a><span class="icon blue static">static</span></li></ul><h4>defineModule.js</h4><ul class="utillist modules"><li><span class="namespace">tui.util.</span><a href="tui.util.html#.defineModule">defineModule</a><span class="icon blue static">static</span></li></ul><h4>defineNamespace.js</h4><ul class="utillist modules"><li><span class="namespace">tui.util.</span><a href="tui.util.html#.defineNamespace">defineNamespace</a><span class="icon blue static">static</span></li></ul><h4>formatDate.js</h4><ul class="utillist modules"><li><span class="namespace">tui.util.</span><a href="tui.util.html#.formatDate">formatDate</a><span class="icon blue static">static</span></li></ul><h4>func.js</h4><ul class="utillist modules"><li><span class="namespace">tui.util.</span><a href="tui.util.html#.bind">bind</a><span class="icon blue static">static</span></li></ul><h4>inheritance.js</h4><ul class="utillist modules"><li><span class="namespace">tui.util.</span><a href="tui.util.html#.createObject">createObject</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.inherit">inherit</a><span class="icon blue static">static</span></li></ul><h4>object.js</h4><ul class="utillist modules"><li><span class="namespace">tui.util.</span><a href="tui.util.html#.compareJSON">compareJSON</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.extend">extend</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.hasStamp">hasStamp</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.keys">keys</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.stamp">stamp</a><span class="icon blue static">static</span></li></ul><h4>string.js</h4><ul class="utillist modules"><li><span class="namespace">tui.util.</span><a href="tui.util.html#.decodeHTMLEntity">decodeHTMLEntity</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.encodeHTMLEntity">encodeHTMLEntity</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.hasEncodableString">hasEncodableString</a><span class="icon blue static">static</span></li></ul><h4>tricks.js</h4><ul class="utillist modules"><li><span class="namespace">tui.util.</span><a href="tui.util.html#.debounce">debounce</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.throttle">throttle</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.timestamp">timestamp</a><span class="icon blue static">static</span></li></ul><h4>type.js</h4><ul class="utillist modules"><li><span class="namespace">tui.util.</span><a href="tui.util.html#.isArguments">isArguments</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.isArray">isArray</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.isArraySafe">isArraySafe</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.isBoolean">isBoolean</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.isBooleanSafe">isBooleanSafe</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.isDate">isDate</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.isDateSafe">isDateSafe</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.isEmpty">isEmpty</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.isExisty">isExisty</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.isFalsy">isFalsy</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.isFunction">isFunction</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.isFunctionSafe">isFunctionSafe</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.isHTMLNode">isHTMLNode</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.isHTMLTag">isHTMLTag</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.isNotEmpty">isNotEmpty</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.isNull">isNull</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.isNumber">isNumber</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.isNumberSafe">isNumberSafe</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.isObject">isObject</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.isString">isString</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.isStringSafe">isStringSafe</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.isTruthy">isTruthy</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.isUndefined">isUndefined</a><span class="icon blue static">static</span></li></ul><h4>browser.js</h4><ul class="utillist modules"><li><span class="namespace">tui.util.</span><a href="tui.util.html#.browser">browser</a><span class="icon blue static">static</span></li></ul><ul class="sublist division tui.util"><li></li></ul><h4>array.js</h4><ul class="utillist modules"><li><span class="namespace">tui.util.</span><a href="tui.util.html#.inArray">inArray</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.range">range</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.zip">zip</a><span class="icon blue static">static</span></li></ul><h4>collection.js</h4><ul class="utillist modules"><li><span class="namespace">tui.util.</span><a href="tui.util.html#.filter">filter</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.forEach">forEach</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.forEachArray">forEachArray</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.forEachOwnProperties">forEachOwnProperties</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.map">map</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.pluck">pluck</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.reduce">reduce</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.toArray">toArray</a><span class="icon blue static">static</span></li></ul><h4>defineClass.js</h4><ul class="utillist modules"><li><span class="namespace">tui.util.</span><a href="tui.util.html#.defineClass">defineClass</a><span class="icon blue static">static</span></li></ul><h4>defineModule.js</h4><ul class="utillist modules"><li><span class="namespace">tui.util.</span><a href="tui.util.html#.defineModule">defineModule</a><span class="icon blue static">static</span></li></ul><h4>defineNamespace.js</h4><ul class="utillist modules"><li><span class="namespace">tui.util.</span><a href="tui.util.html#.defineNamespace">defineNamespace</a><span class="icon blue static">static</span></li></ul><h4>formatDate.js</h4><ul class="utillist modules"><li><span class="namespace">tui.util.</span><a href="tui.util.html#.formatDate">formatDate</a><span class="icon blue static">static</span></li></ul><h4>func.js</h4><ul class="utillist modules"><li><span class="namespace">tui.util.</span><a href="tui.util.html#.bind">bind</a><span class="icon blue static">static</span></li></ul><h4>inheritance.js</h4><ul class="utillist modules"><li><span class="namespace">tui.util.</span><a href="tui.util.html#.createObject">createObject</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.inherit">inherit</a><span class="icon blue static">static</span></li></ul><h4>object.js</h4><ul class="utillist modules"><li><span class="namespace">tui.util.</span><a href="tui.util.html#.compareJSON">compareJSON</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.extend">extend</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.hasStamp">hasStamp</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.keys">keys</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.stamp">stamp</a><span class="icon blue static">static</span></li></ul><h4>string.js</h4><ul class="utillist modules"><li><span class="namespace">tui.util.</span><a href="tui.util.html#.decodeHTMLEntity">decodeHTMLEntity</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.encodeHTMLEntity">encodeHTMLEntity</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.hasEncodableString">hasEncodableString</a><span class="icon blue static">static</span></li></ul><h4>tricks.js</h4><ul class="utillist modules"><li><span class="namespace">tui.util.</span><a href="tui.util.html#.debounce">debounce</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.throttle">throttle</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.timestamp">timestamp</a><span class="icon blue static">static</span></li></ul><h4>type.js</h4><ul class="utillist modules"><li><span class="namespace">tui.util.</span><a href="tui.util.html#.isArguments">isArguments</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.isArray">isArray</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.isArraySafe">isArraySafe</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.isBoolean">isBoolean</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.isBooleanSafe">isBooleanSafe</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.isDate">isDate</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.isDateSafe">isDateSafe</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.isEmpty">isEmpty</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.isExisty">isExisty</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.isFalsy">isFalsy</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.isFunction">isFunction</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.isFunctionSafe">isFunctionSafe</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.isHTMLNode">isHTMLNode</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.isHTMLTag">isHTMLTag</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.isNotEmpty">isNotEmpty</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.isNull">isNull</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.isNumber">isNumber</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.isNumberSafe">isNumberSafe</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.isObject">isObject</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.isString">isString</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.isStringSafe">isStringSafe</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.isTruthy">isTruthy</a><span class="icon blue static">static</span></li><li><span class="namespace">tui.util.</span><a href="tui.util.html#.isUndefined">isUndefined</a><span class="icon blue static">static</span></li></ul></ul></div>
+        <div id="main" class="main">
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+        
+            <span class="ancestors"><a href="tui.util.html">tui.util</a>.</span>
+        
+        HashMap
+        
+        
+        </h2>
+        
+    
+</header>
+
+<article>
+    
+    <div class="container-overview">
+    
+        
+<dt>
+    
+        <h4 class="name" id="HashMap">
+            <span class="type-signature"></span>new HashMap<span class="signature">(obj<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span>
+            
+                <div class="container-source method">
+                    <code><a href="hashMap.js.html">hashMap.js</a></code>,
+                    <code><a href="hashMap.js.html#line41">line 41</a></code>
+                </div>
+            
+        </h4>
+
+
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>HashMap can handle the key-value pairs.<br>
+Caution:<br>
+ HashMap instance has a length property but is not an instance of Array.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-params">
+        <div class="params">
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name first"><code>obj</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>A initial data for creation.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table></div>
+    </div>
+    
+
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    <!--
+    
+    -->
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code>var hm = new tui.util.HashMap({
+     'mydata': {
+          'hello': 'imfine'
+      },
+     'what': 'time'
+ });</code></pre>
+
+    
+</dd>
+
+    
+    </div>
+    
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+    <div class="container-members">
+        <h3 class="subsection-title">Members</h3>
+
+        <dl>
+            
+<dt>
+    <h4 class="name" id="length">
+        <span class="type-signature"></span>length<span class="type-signature"> :number</span>
+        
+        <div class="container-source members">
+            <code><a href="hashMap.js.html">hashMap.js</a></code>,
+            <code><a href="hashMap.js.html#line46">line 46</a></code>
+        </div>
+        
+    </h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>size</p>
+    </div>
+    
+
+    <!--
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">number</span>
+
+
+            </li>
+        </ul>
+    
+    -->
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    <!--
+    
+    -->
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    
+
+    
+</dd>
+
+        </dl>
+    </div>
+    
+
+    
+    <div class="container-methods">
+        <h3 class="subsection-title">Methods</h3>
+
+        <dl>
+            
+<dt>
+    
+        <h4 class="name" id="set">
+            <span class="type-signature"></span>set<span class="signature">(key, value<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span>
+            
+                <div class="container-source method">
+                    <code><a href="hashMap.js.html">hashMap.js</a></code>,
+                    <code><a href="hashMap.js.html#line66">line 66</a></code>
+                </div>
+            
+        </h4>
+
+
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Set a data from the given key with value or the given object.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-params">
+        <div class="params">
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name first"><code>key</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+|
+
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>A string or object for key</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name first"><code>value</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>A data</p></td>
+        </tr>
+
+    
+    </tbody>
+</table></div>
+    </div>
+    
+
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    <!--
+    
+    -->
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code>var hm = new HashMap();
+
+ hm.set('key', 'value');
+ hm.set({
+     'key1': 'data1',
+     'key2': 'data2'
+ });</code></pre>
+
+    
+</dd>
+
+        
+            
+<dt>
+    
+        <h4 class="name" id="setKeyValue">
+            <span class="type-signature"></span>setKeyValue<span class="signature">(key, value)</span><span class="type-signature"></span>
+            
+                <div class="container-source method">
+                    <code><a href="hashMap.js.html">hashMap.js</a></code>,
+                    <code><a href="hashMap.js.html#line82">line 82</a></code>
+                </div>
+            
+        </h4>
+
+
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Set a data from the given key with value.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-params">
+        <div class="params">
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name first"><code>key</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>A string for key</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name first"><code>value</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>A data</p></td>
+        </tr>
+
+    
+    </tbody>
+</table></div>
+    </div>
+    
+
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    <!--
+    
+    -->
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code>var hm = new HashMap();
+ hm.setKeyValue('key', 'value');</code></pre>
+
+    
+</dd>
+
+        
+            
+<dt>
+    
+        <h4 class="name" id="setObject">
+            <span class="type-signature"></span>setObject<span class="signature">(obj)</span><span class="type-signature"></span>
+            
+                <div class="container-source method">
+                    <code><a href="hashMap.js.html">hashMap.js</a></code>,
+                    <code><a href="hashMap.js.html#line100">line 100</a></code>
+                </div>
+            
+        </h4>
+
+
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Set a data from the given object.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-params">
+        <div class="params">
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name first"><code>obj</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>A object for data</p></td>
+        </tr>
+
+    
+    </tbody>
+</table></div>
+    </div>
+    
+
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    <!--
+    
+    -->
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code>var hm = new HashMap();
+
+ hm.setObject({
+     'key1': 'data1',
+     'key2': 'data2'
+ });</code></pre>
+
+    
+</dd>
+
+        
+            
+<dt>
+    
+        <h4 class="name" id="merge">
+            <span class="type-signature"></span>merge<span class="signature">(hashMap)</span><span class="type-signature"></span>
+            
+                <div class="container-source method">
+                    <code><a href="hashMap.js.html">hashMap.js</a></code>,
+                    <code><a href="hashMap.js.html#line112">line 112</a></code>
+                </div>
+            
+        </h4>
+
+
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Merge with the given another hashMap.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-params">
+        <div class="params">
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name first"><code>hashMap</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">HashMap</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Another hashMap instance</p></td>
+        </tr>
+
+    
+    </tbody>
+</table></div>
+    </div>
+    
+
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    <!--
+    
+    -->
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    
+        <h4 class="name" id="get">
+            <span class="type-signature"></span>get<span class="signature">(key)</span><span class="type-signature"> &rarr; {*}</span>
+            
+                <div class="container-source method">
+                    <code><a href="hashMap.js.html">hashMap.js</a></code>,
+                    <code><a href="hashMap.js.html#line151">line 151</a></code>
+                </div>
+            
+        </h4>
+
+
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Return the value from the given key.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-params">
+        <div class="params">
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name first"><code>key</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>A string for key</p></td>
+        </tr>
+
+    
+    </tbody>
+</table></div>
+    </div>
+    
+
+    
+    <div class="container-returns">
+        <div class="returns">
+        <h5>Returns:</h5>
+        <div class="details">
+        
+                
+<div class="param-desc">
+    <p>The value from a key</p>
+</div>
+
+            
+        </div>
+        </div>
+    </div>
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    <!--
+    
+    -->
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code>var hm = new HashMap();
+ hm.set('key', 'value');
+
+ hm.get('key') // value</code></pre>
+
+    
+</dd>
+
+        
+            
+<dt>
+    
+        <h4 class="name" id="has">
+            <span class="type-signature"></span>has<span class="signature">(key)</span><span class="type-signature"> &rarr; {boolean}</span>
+            
+                <div class="container-source method">
+                    <code><a href="hashMap.js.html">hashMap.js</a></code>,
+                    <code><a href="hashMap.js.html#line165">line 165</a></code>
+                </div>
+            
+        </h4>
+
+
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Check the existence of a value from the key.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-params">
+        <div class="params">
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name first"><code>key</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>A string for key</p></td>
+        </tr>
+
+    
+    </tbody>
+</table></div>
+    </div>
+    
+
+    
+    <div class="container-returns">
+        <div class="returns">
+        <h5>Returns:</h5>
+        <div class="details">
+        
+                
+<div class="param-desc">
+    <p>Indicating whether a value exists or not.</p>
+</div>
+
+            
+        </div>
+        </div>
+    </div>
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    <!--
+    
+    -->
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code>var hm = new HashMap();
+ hm.set('key', 'value');
+
+ hm.has('key') // true</code></pre>
+
+    
+</dd>
+
+        
+            
+<dt>
+    
+        <h4 class="name" id="remove">
+            <span class="type-signature"></span>remove<span class="signature">(key)</span><span class="type-signature"> &rarr; {string|Array.&lt;string>}</span>
+            
+                <div class="container-source method">
+                    <code><a href="hashMap.js.html">hashMap.js</a></code>,
+                    <code><a href="hashMap.js.html#line187">line 187</a></code>
+                </div>
+            
+        </h4>
+
+
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Remove a data(key-value pairs) from the given key or the given key-list.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-params">
+        <div class="params">
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name first"><code>key</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+|
+
+<span class="param-type">Array.&lt;string></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>A string for key</p></td>
+        </tr>
+
+    
+    </tbody>
+</table></div>
+    </div>
+    
+
+    
+    <div class="container-returns">
+        <div class="returns">
+        <h5>Returns:</h5>
+        <div class="details">
+        
+                
+<div class="param-desc">
+    <p>A removed data</p>
+</div>
+
+            
+        </div>
+        </div>
+    </div>
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    <!--
+    
+    -->
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code>var hm = new HashMap();
+ hm.set('key', 'value');
+ hm.set('key2', 'value');
+
+ //ex1
+ hm.remove('key');
+
+ //ex2
+ hm.remove('key', 'key2');
+
+ //ex3
+ hm.remove(['key', 'key2']);</code></pre>
+
+    
+</dd>
+
+        
+            
+<dt>
+    
+        <h4 class="name" id="removeByKey">
+            <span class="type-signature"></span>removeByKey<span class="signature">(key)</span><span class="type-signature"> &rarr; {*|null}</span>
+            
+                <div class="container-source method">
+                    <code><a href="hashMap.js.html">hashMap.js</a></code>,
+                    <code><a href="hashMap.js.html#line205">line 205</a></code>
+                </div>
+            
+        </h4>
+
+
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Remove data(key-value pair) from the given key.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-params">
+        <div class="params">
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name first"><code>key</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>A string for key</p></td>
+        </tr>
+
+    
+    </tbody>
+</table></div>
+    </div>
+    
+
+    
+    <div class="container-returns">
+        <div class="returns">
+        <h5>Returns:</h5>
+        <div class="details">
+        
+                
+<div class="param-desc">
+    <p>A removed data</p>
+</div>
+
+            
+        </div>
+        </div>
+    </div>
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    <!--
+    
+    -->
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code>var hm = new HashMap();
+ hm.set('key', 'value');
+
+ hm.removeByKey('key')</code></pre>
+
+    
+</dd>
+
+        
+            
+<dt>
+    
+        <h4 class="name" id="removeByKeyArray">
+            <span class="type-signature"></span>removeByKeyArray<span class="signature">(keyArray)</span><span class="type-signature"> &rarr; {Array.&lt;string>}</span>
+            
+                <div class="container-source method">
+                    <code><a href="hashMap.js.html">hashMap.js</a></code>,
+                    <code><a href="hashMap.js.html#line227">line 227</a></code>
+                </div>
+            
+        </h4>
+
+
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Remove a data(key-value pairs) from the given key-list.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-params">
+        <div class="params">
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name first"><code>keyArray</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;string></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>An array of keys</p></td>
+        </tr>
+
+    
+    </tbody>
+</table></div>
+    </div>
+    
+
+    
+    <div class="container-returns">
+        <div class="returns">
+        <h5>Returns:</h5>
+        <div class="details">
+        
+                
+<div class="param-desc">
+    <p>A removed data</p>
+</div>
+
+            
+        </div>
+        </div>
+    </div>
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    <!--
+    
+    -->
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code>var hm = new HashMap();
+ hm.set('key', 'value');
+ hm.set('key2', 'value');
+
+ hm.removeByKeyArray(['key', 'key2']);</code></pre>
+
+    
+</dd>
+
+        
+            
+<dt>
+    
+        <h4 class="name" id="removeAll">
+            <span class="type-signature"></span>removeAll<span class="signature">()</span><span class="type-signature"></span>
+            
+                <div class="container-source method">
+                    <code><a href="hashMap.js.html">hashMap.js</a></code>,
+                    <code><a href="hashMap.js.html#line241">line 241</a></code>
+                </div>
+            
+        </h4>
+
+
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Remove all the data</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    <!--
+    
+    -->
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    
+        <h4 class="name" id="each">
+            <span class="type-signature"></span>each<span class="signature">(iteratee)</span><span class="type-signature"></span>
+            
+                <div class="container-source method">
+                    <code><a href="hashMap.js.html">hashMap.js</a></code>,
+                    <code><a href="hashMap.js.html#line261">line 261</a></code>
+                </div>
+            
+        </h4>
+
+
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Execute the provided callback once for each all the data.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-params">
+        <div class="params">
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name first"><code>iteratee</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Callback function</p></td>
+        </tr>
+
+    
+    </tbody>
+</table></div>
+    </div>
+    
+
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    <!--
+    
+    -->
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code>var hm = new HashMap();
+ hm.set('key', 'value');
+ hm.set('key2', 'value');
+
+ hm.each(function(value, key) {
+     //do something...
+ });</code></pre>
+
+    
+</dd>
+
+        
+            
+<dt>
+    
+        <h4 class="name" id="keys">
+            <span class="type-signature"></span>keys<span class="signature">()</span><span class="type-signature"> &rarr; {Array}</span>
+            
+                <div class="container-source method">
+                    <code><a href="hashMap.js.html">hashMap.js</a></code>,
+                    <code><a href="hashMap.js.html#line286">line 286</a></code>
+                </div>
+            
+        </h4>
+
+
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Return the key-list stored.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-returns">
+        <div class="returns">
+        <h5>Returns:</h5>
+        <div class="details">
+        
+                
+<div class="param-desc">
+    <p>A key-list</p>
+</div>
+
+            
+        </div>
+        </div>
+    </div>
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    <!--
+    
+    -->
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code>var hm = new HashMap();
+ hm.set('key', 'value');
+ hm.set('key2', 'value');
+
+ hm.keys();  //['key', 'key2');</code></pre>
+
+    
+</dd>
+
+        
+            
+<dt>
+    
+        <h4 class="name" id="find">
+            <span class="type-signature"></span>find<span class="signature">(condition)</span><span class="type-signature"> &rarr; {Array}</span>
+            
+                <div class="container-source method">
+                    <code><a href="hashMap.js.html">hashMap.js</a></code>,
+                    <code><a href="hashMap.js.html#line327">line 327</a></code>
+                </div>
+            
+        </h4>
+
+
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Work similarly to Array.prototype.map().<br>
+It executes the provided callback that checks conditions once for each element of hashMap,<br>
+ and returns a new array having elements satisfying the conditions</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-params">
+        <div class="params">
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name first"><code>condition</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>A function that checks conditions</p></td>
+        </tr>
+
+    
+    </tbody>
+</table></div>
+    </div>
+    
+
+    
+    <div class="container-returns">
+        <div class="returns">
+        <h5>Returns:</h5>
+        <div class="details">
+        
+                
+<div class="param-desc">
+    <p>A new array having elements satisfying the conditions</p>
+</div>
+
+            
+        </div>
+        </div>
+    </div>
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    <!--
+    
+    -->
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code>//ex1
+ var hm = new HashMap();
+ hm.set('key', 'value');
+ hm.set('key2', 'value');
+
+ hm.find(function(value, key) {
+     return key === 'key2';
+ }); // ['value']
+
+ //ex2
+ var hm = new HashMap({
+     'myobj1': {
+          visible: true
+      },
+     'mybobj2': {
+          visible: false
+      }
+ });
+
+ hm.find(function(obj, key) {
+     return obj.visible === true;
+ }); // [{visible: true}];</code></pre>
+
+    
+</dd>
+
+        
+            
+<dt>
+    
+        <h4 class="name" id="toArray">
+            <span class="type-signature"></span>toArray<span class="signature">()</span><span class="type-signature"> &rarr; {Array}</span>
+            
+                <div class="container-source method">
+                    <code><a href="hashMap.js.html">hashMap.js</a></code>,
+                    <code><a href="hashMap.js.html#line343">line 343</a></code>
+                </div>
+            
+        </h4>
+
+
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Return a new Array having all values.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-returns">
+        <div class="returns">
+        <h5>Returns:</h5>
+        <div class="details">
+        
+                
+<div class="param-desc">
+    <p>A new array having all values</p>
+</div>
+
+            
+        </div>
+        </div>
+    </div>
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    <!--
+    
+    -->
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        </dl>
+    </div>
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+</div>
+        <div class="clearfix"></div>
+    </div>
+
+</div>
+<script>
+(function() {
+// 영역 height 설정
+var height = (window.innerHeight || document.documentElement.clientHeight || document.getElementByTagName('body')[0].clientHeight) - 50;
+var navigation = document.getElementById('navigation');
+var main = document.getElementById('main');
+navigation.style.height = height + 'px';
+main.style.height = height + 'px';
+
+// IE 7,8을 위한 getElementsByClassName 구현
+var getElementsByClassName = function(className, parentElement) {
+	if(document.getElementsByClassName) {
+		return (parentElement || document).getElementsByClassName(className);
+	}
+
+    var regEx = new RegExp('(^| )'+className+'( |$)');
+	var nodes = new Array();
+    var elements = (parentElement || document.body).getElementsByTagName("*");
+    for(var i = 0, len = elements.length; i < len ; i++) {
+        if(regEx.test(elements[i].className)) {
+			nodes.push(elements[i]);
+		}
+	}
+	elements = null;
+    return nodes;
+}
+
+// url 파싱후 해당 카테고리만 display:block 처리
+var url = location.href;
+var path = url.lastIndexOf('/');
+var fileName = url.substring(path+1);
+var fullName = fileName.split('.');
+fullName.length -= 1;
+fullName = fullName.join('.');
+fullName = fullName.split('-');
+fullName = fullName[fullName.length - 1];
+var lnbList = getElementsByClassName(fullName);
+if(lnbList.length && lnbList.length > 0) {
+    for(var i = 0, len = lnbList.length; i < len; i++) {
+        lnbList[i].className += ' selected';
+    }
+}
+
+var title = document.getElementById(fullName);
+if(title) {
+    title.className += ' selected';
+    title.innerHTML = '<span class="arrow">▶</span>' + title.innerHTML;
+
+    var static = getElementsByClassName('static', title);
+    if(static) {
+        static[0].className += ' selected';
+    }
+}
+})();
+</script>
+<script type="text/javascript" src="scripts/prettify/prettify.js"></script>
+<script type="text/javascript" src="scripts/prettify/lang-css.js"></script>
+<script type="text/javascript">prettyPrint();</script>
+<script type="text/javascript" src="scripts/linenumber.js"></script>
+</body>
+</html>

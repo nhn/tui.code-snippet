@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: formatDate.js</title>
+    <title>JSDoc: Source: object.js</title>
     <link type="text/css" rel="stylesheet" href="styles/prettify-jsdoc.css">
     <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
     <link type="text/css" rel="stylesheet" href="styles/bootstrap.min.css">
@@ -30,232 +30,273 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @fileoverview This module has a function for date format.
+ * @fileoverview This module has some functions for handling a plain object, json.
  * @author NHN Ent.
  *         FE Development Team &lt;e0242@nhnent.com>
- * @dependency type.js, object.js
+ * @dependency type.js, collection.js
  */
 
 (function(tui) {
     'use strict';
-
-    var tokens = /[\\]*YYYY|[\\]*YY|[\\]*MMMM|[\\]*MMM|[\\]*MM|[\\]*M|[\\]*DD|[\\]*D|[\\]*HH|[\\]*H|[\\]*A/gi;
-    var MONTH_STR = ["Invalid month", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    var MONTH_DAYS = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-    var replaceMap = {
-        M: function(date) {
-            return Number(date.month);
-        },
-        MM: function(date) {
-            var month = date.month;
-            return (Number(month) &lt; 10) ? '0' + month : month;
-        },
-        MMM: function(date) {
-            return MONTH_STR[Number(date.month)].substr(0, 3);
-        },
-        MMMM: function(date) {
-            return MONTH_STR[Number(date.month)];
-        },
-        D: function(date) {
-            return Number(date.date);
-        },
-        d: function(date) {
-            return replaceMap.D(date);
-        },
-        DD: function(date) {
-            var dayInMonth = date.date;
-            return (Number(dayInMonth) &lt; 10) ? '0' + dayInMonth : dayInMonth;
-        },
-        dd: function(date) {
-            return replaceMap.DD(date);
-        },
-        YY: function(date) {
-            return Number(date.year) % 100;
-        },
-        yy: function(date) {
-            return replaceMap.YY(date);
-        },
-        YYYY: function(date) {
-            var prefix = '20',
-                year = date.year;
-            if (year > 69 &amp;&amp; year &lt; 100) {
-                prefix = '19';
-            }
-            return (Number(year) &lt; 100) ? prefix + String(year) : year;
-        },
-        yyyy: function(date) {
-            return replaceMap.YYYY(date);
-        },
-        A: function(date) {
-            return date.meridiem;
-        },
-        a: function(date) {
-            return date.meridiem;
-        },
-        hh: function(date) {
-            var hour = date.hour;
-            return (Number(hour) &lt; 10) ? '0' + hour : hour;
-        },
-        HH: function(date) {
-            return replaceMap.hh(date);
-        },
-        h: function(date) {
-            return String(Number(date.hour));
-        },
-        H: function(date) {
-            return replaceMap.h(date);
-        },
-        m: function(date) {
-            return String(Number(date.minute));
-        },
-        mm: function(date) {
-            var minute = date.minute;
-            return (Number(minute) &lt; 10) ? '0' + minute : minute;
-        }
-    };
-
     /* istanbul ignore if */
     if (!tui) {
         tui = window.tui = {};
     }
-    /* istanbul ignore if */
     if (!tui.util) {
         tui.util = window.tui.util = {};
     }
 
     /**
-     * Check whether the given variables are valid date or not.
-     * @param {number} year - Year
-     * @param {number} month - Month
-     * @param {number} date - Day in month.
-     * @returns {boolean} Is valid?
+     * Extend the target object from other objects.
+     * @param {object} target - Object that will be extended
+     * @param {...object} objects - Objects as sources
+     * @return {object} Extended object
+     * @memberOf tui.util
      */
-    function isValidDate(year, month, date) {
-        var isValidYear,
-            isValidMonth,
-            isValid,
-            lastDayInMonth;
+    function extend(target, objects) {
+        var source,
+            prop,
+            hasOwnProp = Object.prototype.hasOwnProperty,
+            i,
+            len;
 
-        year = Number(year);
-        month = Number(month);
-        date = Number(date);
-
-        isValidYear = (year > -1 &amp;&amp; year &lt; 100) || (year > 1969) &amp;&amp; (year &lt; 2070);
-        isValidMonth = (month > 0) &amp;&amp; (month &lt; 13);
-
-        if (!isValidYear || !isValidMonth) {
-            return false;
-        }
-
-        lastDayInMonth = MONTH_DAYS[month];
-        if (month === 2 &amp;&amp; year % 4 === 0) {
-            if (year % 100 !== 0 || year % 400 === 0) {
-                lastDayInMonth = 29;
+        for (i = 1, len = arguments.length; i &lt; len; i++) {
+            source = arguments[i];
+            for (prop in source) {
+                if (hasOwnProp.call(source, prop)) {
+                    target[prop] = source[prop];
+                }
             }
         }
-
-        isValid = (date > 0) &amp;&amp; (date &lt;= lastDayInMonth);
-        return isValid;
+        return target;
     }
 
     /**
-     * Return a string that transformed from the given form and date.
-     * @param {string} form - Date form
-     * @param {Date|Object} date - Date object
-     * @param {{meridiemSet: {AM: string, PM: string}}} option - Option
-     * @returns {boolean|string} A transformed string or false.
-     * @memberOf tui.util
-     * @example
-     *  // key             | Shorthand
-     *  // --------------- |-----------------------
-     *  // years           | YY / YYYY / yy / yyyy
-     *  // months(n)       | M / MM
-     *  // months(str)     | MMM / MMMM
-     *  // days            | D / DD / d / dd
-     *  // hours           | H / HH / h / hh
-     *  // minutes         | m / mm
-     *  // meridiem(AM,PM) | A / a
-     *
-     *  var dateStr1 = formatDate('yyyy-MM-dd', {
-     *      year: 2014,
-     *      month: 12,
-     *      date: 12
-     *  });
-     *  alert(dateStr1); // '2014-12-12'
-     *
-     *  var dateStr2 = formatDate('MMM DD YYYY HH:mm', {
-     *      year: 1999,
-     *      month: 9,
-     *      date: 9,
-     *      hour: 0,
-     *      minute: 2
-     *  })
-     *  alert(dateStr2); // 'Sep 09 1999 00:02'
-     *
-     *  var dt = new Date(2010, 2, 13),
-     *      dateStr3 = formatDate('yyyy년 M월 dd일', dt);
-     *
-     *  alert(dateStr3); // '2010년 3월 13일'
-     *
-     *  var option4 = {
-     *      meridiemSet: {
-     *          AM: '오전',
-     *          PM: '오후'
-     *      }
-     *  };
-     *  var date4 = {year: 1999, month: 9, date: 9, hour: 13, minute: 2};
-     *  var dateStr4 = formatDate('yyyy-MM-dd A hh:mm', date4, option4));
-     *
-     *  alert(dateStr4); // '1999-09-09 오후 01:02'
+     * The last id of stamp
+     * @type {number}
      */
-    function formatDate(form, date, option) {
-        var meridiem, nDate, resultStr;
+    var lastId = 0;
 
-        if (tui.util.isDate(date)) {
-            nDate = {
-                year: date.getFullYear(),
-                month: date.getMonth() + 1,
-                date: date.getDate(),
-                hour: date.getHours(),
-                minute: date.getMinutes()
-            };
-        } else {
-            nDate = {
-                year: date.year,
-                month: date.month,
-                date: date.date,
-                hour: date.hour,
-                minute: date.minute
-            };
-        }
-
-        if (!isValidDate(nDate.year, nDate.month, nDate.date)) {
-            return false;
-        }
-
-        nDate.meridiem = '';
-        if (/([^\\]|^)[aA]\b/.test(form)) {
-            meridiem = (nDate.hour > 11) ?
-                tui.util.pick(option, 'meridiemSet', 'PM') || 'PM'
-                : tui.util.pick(option, 'meridiemSet', 'AM') || 'AM';
-            if (nDate.hour > 12) { //See the clock system: https://en.wikipedia.org/wiki/12-hour_clock
-                nDate.hour %= 12;
-            }
-            nDate.meridiem = meridiem;
-        }
-
-        resultStr = form.replace(tokens, function(key) {
-            if (key.indexOf('\\') > -1) { // escape character
-                return key.replace(/\\/, '');
-            }
-            return replaceMap[key](nDate) || '';
-        });
-        return resultStr;
+    /**
+     * Assign a unique id to an object
+     * @param {object} obj - Object that will be assigned id.
+     * @return {number} Stamped id
+     * @memberOf tui.util
+     */
+    function stamp(obj) {
+        obj.__fe_id = obj.__fe_id || ++lastId;
+        return obj.__fe_id;
     }
 
-    tui.util.formatDate = formatDate;
-})(window.tui);
+    /**
+     * Verify whether an object has a stamped id or not.
+     * @param {object} obj
+     * @returns {boolean}
+     * @memberOf tui.util
+     */
+    function hasStamp(obj) {
+        return tui.util.isExisty(tui.util.pick(obj, '__fe_id'));
+    }
 
+    /**
+     * Reset the last id of stamp
+     */
+    function resetLastId() {
+        lastId = 0;
+    }
+
+    /**
+     * Return a key-list(array) of a given object
+     * @param {object} obj - Object from which a key-list will be extracted
+     * @returns {Array} A key-list(array)
+     * @memberOf tui.util
+     */
+    function keys(obj) {
+        var keys = [],
+            key;
+
+        for (key in obj) {
+            if (obj.hasOwnProperty(key)) {
+                keys.push(key);
+            }
+        }
+
+        return keys;
+    }
+
+    /**
+     * Return the equality for multiple objects(jsonObjects).&lt;br>
+     *  See {@link http://stackoverflow.com/questions/1068834/object-comparison-in-javascript}
+     * @param {...object} object - Multiple objects for comparing.
+     * @return {boolean} Equality
+     * @example
+     *
+     *  var jsonObj1 = {name:'milk', price: 1000},
+     *      jsonObj2 = {name:'milk', price: 1000},
+     *      jsonObj3 = {name:'milk', price: 1000};
+     *
+     *  tui.util.compareJSON(jsonObj1, jsonObj2, jsonObj3);   // true
+     *
+     *
+     *  var jsonObj4 = {name:'milk', price: 1000},
+     *      jsonObj5 = {name:'beer', price: 3000};
+     *
+     *      tui.util.compareJSON(jsonObj4, jsonObj5); // false
+
+     * @memberOf tui.util
+     */
+    function compareJSON(object) {
+        var leftChain,
+            rightChain,
+            argsLen = arguments.length,
+            i;
+
+        function isSameObject(x, y) {
+            var p;
+
+            // remember that NaN === NaN returns false
+            // and isNaN(undefined) returns true
+            if (isNaN(x) &amp;&amp;
+                isNaN(y) &amp;&amp;
+                tui.util.isNumber(x) &amp;&amp;
+                tui.util.isNumber(y)) {
+                return true;
+            }
+
+            // Compare primitives and functions.
+            // Check if both arguments link to the same object.
+            // Especially useful on step when comparing prototypes
+            if (x === y) {
+                return true;
+            }
+
+            // Works in case when functions are created in constructor.
+            // Comparing dates is a common scenario. Another built-ins?
+            // We can even handle functions passed across iframes
+            if ((tui.util.isFunction(x) &amp;&amp; tui.util.isFunction(y)) ||
+                (x instanceof Date &amp;&amp; y instanceof Date) ||
+                (x instanceof RegExp &amp;&amp; y instanceof RegExp) ||
+                (x instanceof String &amp;&amp; y instanceof String) ||
+                (x instanceof Number &amp;&amp; y instanceof Number)) {
+                return x.toString() === y.toString();
+            }
+
+            // At last checking prototypes as good a we can
+            if (!(x instanceof Object &amp;&amp; y instanceof Object)) {
+                return false;
+            }
+
+            if (x.isPrototypeOf(y) ||
+                y.isPrototypeOf(x) ||
+                x.constructor !== y.constructor ||
+                x.prototype !== y.prototype) {
+                return false;
+            }
+
+            // check for infinitive linking loops
+            if (tui.util.inArray(x, leftChain) > -1 ||
+                tui.util.inArray(y, rightChain) > -1) {
+                return false;
+            }
+
+            // Quick checking of one object beeing a subset of another.
+            for (p in y) {
+                if (y.hasOwnProperty(p) !== x.hasOwnProperty(p)) {
+                    return false;
+                }
+                else if (typeof y[p] !== typeof x[p]) {
+                    return false;
+                }
+            }
+
+            //This for loop executes comparing with hasOwnProperty() and typeof for each property in 'x' object,
+            //and verifying equality for x[property] and y[property].
+            for (p in x) {
+                if (y.hasOwnProperty(p) !== x.hasOwnProperty(p)) {
+                    return false;
+                }
+                else if (typeof y[p] !== typeof x[p]) {
+                    return false;
+                }
+
+                if (typeof(x[p]) === 'object' || typeof(x[p]) === 'function') {
+                    leftChain.push(x);
+                    rightChain.push(y);
+
+                    if (!isSameObject(x[p], y[p])) {
+                        return false;
+                    }
+
+                    leftChain.pop();
+                    rightChain.pop();
+                } else if (x[p] !== y[p]) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        if (argsLen &lt; 1) {
+            return true;
+        }
+
+        for (i = 1; i &lt; argsLen; i++) {
+            leftChain = [];
+            rightChain = [];
+
+            if (!isSameObject(arguments[0], arguments[i])) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Retrieve a nested item from the given object/array
+     * @param {object|Array} obj - Object for retrieving
+     * @param {...string|number} paths - Paths of property
+     * @returns {*} Value
+     * @example
+     *  var obj = {
+     *      'key1': 1,
+     *      'nested' : {
+     *          'key1': 11,
+     *          'nested': {
+     *              'key1': 21
+     *          }
+     *      }
+     *  };
+     *  tui.util.pick(obj, 'nested', 'nested', 'key1'); // 21
+     *  tui.util.pick(obj, 'nested', 'nested', 'key2'); // undefined
+     *
+     *  var arr = ['a', 'b', 'c'];
+     *  tui.util.pick(arr, 1); // 'b'
+     */
+    function pick(obj, paths) {
+        var args = arguments,
+            target = args[0],
+            length = args.length,
+            i;
+        try {
+            for (i = 1; i &lt; length; i++) {
+                target = target[args[i]];
+            }
+            return target;
+        } catch(e) {
+            return;
+        }
+    }
+
+    tui.util.extend = extend;
+    tui.util.stamp = stamp;
+    tui.util.hasStamp = hasStamp;
+    tui.util._resetLastId = resetLastId;
+    tui.util.keys = Object.keys || keys;
+    tui.util.compareJSON = compareJSON;
+    tui.util.pick = pick;
+})(window.tui);
 </code></pre>
         </article>
     </section>

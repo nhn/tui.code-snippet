@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: formatDate.js</title>
+    <title>JSDoc: Source: map.js</title>
     <link type="text/css" rel="stylesheet" href="styles/prettify-jsdoc.css">
     <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
     <link type="text/css" rel="stylesheet" href="styles/bootstrap.min.css">
@@ -30,232 +30,380 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @fileoverview This module has a function for date format.
+ * @fileoverview
+ *  Implements the Map object.
  * @author NHN Ent.
  *         FE Development Team &lt;e0242@nhnent.com>
- * @dependency type.js, object.js
+ * @dependency type.js, collection.js
  */
 
 (function(tui) {
     'use strict';
 
-    var tokens = /[\\]*YYYY|[\\]*YY|[\\]*MMMM|[\\]*MMM|[\\]*MM|[\\]*M|[\\]*DD|[\\]*D|[\\]*HH|[\\]*H|[\\]*A/gi;
-    var MONTH_STR = ["Invalid month", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    var MONTH_DAYS = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-    var replaceMap = {
-        M: function(date) {
-            return Number(date.month);
-        },
-        MM: function(date) {
-            var month = date.month;
-            return (Number(month) &lt; 10) ? '0' + month : month;
-        },
-        MMM: function(date) {
-            return MONTH_STR[Number(date.month)].substr(0, 3);
-        },
-        MMMM: function(date) {
-            return MONTH_STR[Number(date.month)];
-        },
-        D: function(date) {
-            return Number(date.date);
-        },
-        d: function(date) {
-            return replaceMap.D(date);
-        },
-        DD: function(date) {
-            var dayInMonth = date.date;
-            return (Number(dayInMonth) &lt; 10) ? '0' + dayInMonth : dayInMonth;
-        },
-        dd: function(date) {
-            return replaceMap.DD(date);
-        },
-        YY: function(date) {
-            return Number(date.year) % 100;
-        },
-        yy: function(date) {
-            return replaceMap.YY(date);
-        },
-        YYYY: function(date) {
-            var prefix = '20',
-                year = date.year;
-            if (year > 69 &amp;&amp; year &lt; 100) {
-                prefix = '19';
-            }
-            return (Number(year) &lt; 100) ? prefix + String(year) : year;
-        },
-        yyyy: function(date) {
-            return replaceMap.YYYY(date);
-        },
-        A: function(date) {
-            return date.meridiem;
-        },
-        a: function(date) {
-            return date.meridiem;
-        },
-        hh: function(date) {
-            var hour = date.hour;
-            return (Number(hour) &lt; 10) ? '0' + hour : hour;
-        },
-        HH: function(date) {
-            return replaceMap.hh(date);
-        },
-        h: function(date) {
-            return String(Number(date.hour));
-        },
-        H: function(date) {
-            return replaceMap.h(date);
-        },
-        m: function(date) {
-            return String(Number(date.minute));
-        },
-        mm: function(date) {
-            var minute = date.minute;
-            return (Number(minute) &lt; 10) ? '0' + minute : minute;
-        }
-    };
-
     /* istanbul ignore if */
     if (!tui) {
         tui = window.tui = {};
     }
-    /* istanbul ignore if */
     if (!tui.util) {
         tui.util = window.tui.util = {};
     }
 
+
+    // Caching tui.util for performance enhancing
+    var util = tui.util,
+
     /**
-     * Check whether the given variables are valid date or not.
-     * @param {number} year - Year
-     * @param {number} month - Month
-     * @param {number} date - Day in month.
-     * @returns {boolean} Is valid?
+     * Using undefined for a key can be ambiguous if there's deleted item in the array,&lt;br>
+     * which is also undefined when accessed by index.&lt;br>
+     * So use this unique object as an undefined key to distinguish it from deleted keys.
+     * @private
+     * @constant
      */
-    function isValidDate(year, month, date) {
-        var isValidYear,
-            isValidMonth,
-            isValid,
-            lastDayInMonth;
+    _KEY_FOR_UNDEFINED = {},
 
-        year = Number(year);
-        month = Number(month);
-        date = Number(date);
+    /**
+     * For using NaN as a key, use this unique object as a NaN key.&lt;br>
+     * This makes it easier and faster to compare an object with each keys in the array&lt;br>
+     * through no exceptional comapring for NaN.
+     */
+    _KEY_FOR_NAN = {};
 
-        isValidYear = (year > -1 &amp;&amp; year &lt; 100) || (year > 1969) &amp;&amp; (year &lt; 2070);
-        isValidMonth = (month > 0) &amp;&amp; (month &lt; 13);
-
-        if (!isValidYear || !isValidMonth) {
-            return false;
-        }
-
-        lastDayInMonth = MONTH_DAYS[month];
-        if (month === 2 &amp;&amp; year % 4 === 0) {
-            if (year % 100 !== 0 || year % 400 === 0) {
-                lastDayInMonth = 29;
-            }
-        }
-
-        isValid = (date > 0) &amp;&amp; (date &lt;= lastDayInMonth);
-        return isValid;
+    /**
+     * Constructor of MapIterator&lt;br>
+     * Creates iterator object with new keyword.
+     * @constructor
+     * @param  {Array} keys - The array of keys in the map
+     * @param  {function} valueGetter - Function that returns certain value,
+     *      taking key and keyIndex as arguments.
+     */
+    function MapIterator(keys, valueGetter) {
+        this._keys = keys;
+        this._valueGetter = valueGetter;
+        this._length = this._keys.length;
+        this._index = -1;
+        this._done = false;
     }
 
     /**
-     * Return a string that transformed from the given form and date.
-     * @param {string} form - Date form
-     * @param {Date|Object} date - Date object
-     * @param {{meridiemSet: {AM: string, PM: string}}} option - Option
-     * @returns {boolean|string} A transformed string or false.
-     * @memberOf tui.util
-     * @example
-     *  // key             | Shorthand
-     *  // --------------- |-----------------------
-     *  // years           | YY / YYYY / yy / yyyy
-     *  // months(n)       | M / MM
-     *  // months(str)     | MMM / MMMM
-     *  // days            | D / DD / d / dd
-     *  // hours           | H / HH / h / hh
-     *  // minutes         | m / mm
-     *  // meridiem(AM,PM) | A / a
-     *
-     *  var dateStr1 = formatDate('yyyy-MM-dd', {
-     *      year: 2014,
-     *      month: 12,
-     *      date: 12
-     *  });
-     *  alert(dateStr1); // '2014-12-12'
-     *
-     *  var dateStr2 = formatDate('MMM DD YYYY HH:mm', {
-     *      year: 1999,
-     *      month: 9,
-     *      date: 9,
-     *      hour: 0,
-     *      minute: 2
-     *  })
-     *  alert(dateStr2); // 'Sep 09 1999 00:02'
-     *
-     *  var dt = new Date(2010, 2, 13),
-     *      dateStr3 = formatDate('yyyy년 M월 dd일', dt);
-     *
-     *  alert(dateStr3); // '2010년 3월 13일'
-     *
-     *  var option4 = {
-     *      meridiemSet: {
-     *          AM: '오전',
-     *          PM: '오후'
-     *      }
-     *  };
-     *  var date4 = {year: 1999, month: 9, date: 9, hour: 13, minute: 2};
-     *  var dateStr4 = formatDate('yyyy-MM-dd A hh:mm', date4, option4));
-     *
-     *  alert(dateStr4); // '1999-09-09 오후 01:02'
+     * Implementation of Iterator protocol.
+     * @return {{done: boolean, value: *}} Object that contains done(boolean) and value.
      */
-    function formatDate(form, date, option) {
-        var meridiem, nDate, resultStr;
+    MapIterator.prototype.next = function() {
+        var data = {};
+        do {
+           this._index += 1;
+       } while (util.isUndefined(this._keys[this._index]) &amp;&amp; this._index &lt; this._length);
 
-        if (tui.util.isDate(date)) {
-            nDate = {
-                year: date.getFullYear(),
-                month: date.getMonth() + 1,
-                date: date.getDate(),
-                hour: date.getHours(),
-                minute: date.getMinutes()
-            };
+        if (this._index >= this._length) {
+            data.done = true;
         } else {
-            nDate = {
-                year: date.year,
-                month: date.month,
-                date: date.date,
-                hour: date.hour,
-                minute: date.minute
-            };
+            data.done = false;
+            data.value = this._valueGetter(this._keys[this._index], this._index);
+        }
+        return data;
+    };
+
+    /**
+     * The Map object implements the ES6 Map specification as closely as possible.&lt;br>
+     * For using objects and primitive values as keys, this object uses array internally.&lt;br>
+     * So if the key is not a string, get(), set(), has(), delete() will operates in O(n),&lt;br>
+     * and it can cause performance issues with a large dataset.
+     *
+     * Features listed below are not supported. (can't be implented without native support)
+     * - Map object is iterable&lt;br>
+     * - Iterable object can be used as an argument of constructor
+     *
+     * If the browser supports full implementation of ES6 Map specification, native Map obejct
+     * will be used internally.
+     * @constructor
+     * @param  {Array} initData - Array of key-value pairs (2-element Arrays).
+     *      Each key-value pair will be added to the new Map
+     * @memberof tui.util
+     */
+    function Map(initData) {
+        this._valuesForString = {};
+        this._valuesForIndex = {};
+        this._keys = [];
+
+        if (initData) {
+            this._setInitData(initData);
         }
 
-        if (!isValidDate(nDate.year, nDate.month, nDate.date)) {
-            return false;
-        }
-
-        nDate.meridiem = '';
-        if (/([^\\]|^)[aA]\b/.test(form)) {
-            meridiem = (nDate.hour > 11) ?
-                tui.util.pick(option, 'meridiemSet', 'PM') || 'PM'
-                : tui.util.pick(option, 'meridiemSet', 'AM') || 'AM';
-            if (nDate.hour > 12) { //See the clock system: https://en.wikipedia.org/wiki/12-hour_clock
-                nDate.hour %= 12;
-            }
-            nDate.meridiem = meridiem;
-        }
-
-        resultStr = form.replace(tokens, function(key) {
-            if (key.indexOf('\\') > -1) { // escape character
-                return key.replace(/\\/, '');
-            }
-            return replaceMap[key](nDate) || '';
-        });
-        return resultStr;
+        this.size = 0;
     }
 
-    tui.util.formatDate = formatDate;
-})(window.tui);
+    /**
+     * Add all elements in the initData to the Map object.
+     * @private
+     * @param  {Array} initData - Array of key-value pairs to add to the Map object
+     */
+    Map.prototype._setInitData = function(initData) {
+        if (!util.isArray(initData)) {
+            throw new Error('Only Array is supported.');
+        }
+        util.forEachArray(initData, function(pair) {
+            this.set(pair[0], pair[1]);
+        }, this);
+    };
 
+    /**
+     * Returns true if the specified value is NaN.&lt;br>
+     * For unsing NaN as a key, use this method to test equality of NaN&lt;br>
+     * because === operator doesn't work for NaN.
+     * @private
+     * @param {*} value - Any object to be tested
+     * @return {boolean} True if value is NaN, false otherwise.
+     */
+    Map.prototype._isNaN = function(value) {
+        return typeof value === 'number' &amp;&amp; value !== value;
+    };
+
+    /**
+     * Returns the index of the specified key.
+     * @private
+     * @param  {*} key - The key object to search for.
+     * @return {number} The index of the specified key
+     */
+    Map.prototype._getKeyIndex = function(key) {
+        var result = -1,
+            value;
+
+        if (util.isString(key)) {
+            value = this._valuesForString[key];
+            if (value) {
+                result = value.keyIndex;
+            }
+        } else {
+            result = util.inArray(key, this._keys);
+        }
+        return result;
+    };
+
+    /**
+     * Returns the original key of the specified key.
+     * @private
+     * @param  {*} key - key
+     * @return {*} Original key
+     */
+    Map.prototype._getOriginKey = function(key) {
+        var originKey = key;
+        if (key === _KEY_FOR_UNDEFINED) {
+            originKey = undefined;
+        } else if (key === _KEY_FOR_NAN) {
+            originKey = NaN;
+        }
+        return originKey;
+    };
+
+    /**
+     * Returns the unique key of the specified key.
+     * @private
+     * @param  {*} key - key
+     * @return {*} Unique key
+     */
+    Map.prototype._getUniqueKey = function(key) {
+        var uniqueKey = key;
+        if (util.isUndefined(key)) {
+            uniqueKey = _KEY_FOR_UNDEFINED;
+        } else if (this._isNaN(key)) {
+            uniqueKey = _KEY_FOR_NAN;
+        }
+        return uniqueKey;
+    };
+
+    /**
+     * Returns the value object of the specified key.
+     * @private
+     * @param  {*} key - The key of the value object to be returned
+     * @param  {number} keyIndex - The index of the key
+     * @return {{keyIndex: number, origin: *}} Value object
+     */
+    Map.prototype._getValueObject = function(key, keyIndex) {
+        if (util.isString(key)) {
+            return this._valuesForString[key];
+        } else {
+            if (util.isUndefined(keyIndex)) {
+                keyIndex = this._getKeyIndex(key);
+            }
+            if (keyIndex >= 0) {
+                return this._valuesForIndex[keyIndex];
+            }
+        }
+    };
+
+    /**
+     * Returns the original value of the specified key.
+     * @private
+     * @param  {*} key - The key of the value object to be returned
+     * @param  {number} keyIndex - The index of the key
+     * @return {*} Original value
+     */
+    Map.prototype._getOriginValue = function(key, keyIndex) {
+        return this._getValueObject(key, keyIndex).origin;
+    };
+
+    /**
+     * Returns key-value pair of the specified key.
+     * @private
+     * @param  {*} key - The key of the value object to be returned
+     * @param  {number} keyIndex - The index of the key
+     * @return {Array} Key-value Pair
+     */
+    Map.prototype._getKeyValuePair = function(key, keyIndex) {
+        return [this._getOriginKey(key), this._getOriginValue(key, keyIndex)];
+    };
+
+    /**
+     * Creates the wrapper object of original value that contains a key index
+     * and returns it.
+     * @private
+     * @param  {type} origin - Original value
+     * @param  {type} keyIndex - Index of the key
+     * @return {{keyIndex: number, origin: *}} Value object
+     */
+    Map.prototype._createValueObject = function(origin, keyIndex) {
+        return {
+            keyIndex: keyIndex,
+            origin: origin
+        };
+    };
+
+    /**
+     * Sets the value for the key in the Map object.
+     * @param  {*} key - The key of the element to add to the Map object
+     * @param  {*} value - The value of the element to add to the Map object
+     * @return {Map} The Map object
+     */
+    Map.prototype.set = function(key, value) {
+        var uniqueKey = this._getUniqueKey(key),
+            keyIndex = this._getKeyIndex(uniqueKey),
+            valueObject;
+
+        if (keyIndex &lt; 0) {
+            keyIndex = this._keys.push(uniqueKey) - 1;
+            this.size += 1;
+        }
+        valueObject = this._createValueObject(value, keyIndex);
+
+        if (util.isString(key)) {
+            this._valuesForString[key] = valueObject;
+        } else {
+            this._valuesForIndex[keyIndex] = valueObject;
+        }
+        return this;
+    };
+
+    /**
+     * Returns the value associated to the key, or undefined if there is none.
+     * @param  {*} key - The key of the element to return
+     * @return {*} Element associated with the specified key
+     */
+    Map.prototype.get = function(key) {
+        var uniqueKey = this._getUniqueKey(key),
+            value = this._getValueObject(uniqueKey);
+
+        return value &amp;&amp; value.origin;
+    };
+
+    /**
+     * Returns a new Iterator object that contains the keys for each element
+     * in the Map object in insertion order.
+     * @return {Iterator} A new Iterator object
+     */
+    Map.prototype.keys = function() {
+        return new MapIterator(this._keys, util.bind(this._getOriginKey, this));
+    };
+
+    /**
+     * Returns a new Iterator object that contains the values for each element
+     * in the Map object in insertion order.
+     * @return {Iterator} A new Iterator object
+     */
+    Map.prototype.values = function() {
+        return new MapIterator(this._keys, util.bind(this._getOriginValue, this));
+    };
+
+    /**
+     * Returns a new Iterator object that contains the [key, value] pairs
+     * for each element in the Map object in insertion order.
+     * @return {Iterator} A new Iterator object
+     */
+    Map.prototype.entries = function() {
+        return new MapIterator(this._keys, util.bind(this._getKeyValuePair, this));
+    };
+
+    /**
+     * Returns a boolean asserting whether a value has been associated to the key
+     * in the Map object or not.
+     * @param  {*} key - The key of the element to test for presence
+     * @return {boolean} True if an element with the specified key exists;
+     *          Otherwise false
+     */
+    Map.prototype.has = function(key) {
+        return !!this._getValueObject(key);
+    };
+
+    /**
+     * Removes the specified element from a Map object.
+     * @param {*} key - The key of the element to remove
+     */
+     // cannot use reserved keyword as a property name in IE8 and under.
+    Map.prototype['delete'] = function(key) {
+        var keyIndex;
+
+        if (util.isString(key)) {
+            if (this._valuesForString[key]) {
+                keyIndex = this._valuesForString[key].keyIndex;
+                delete this._valuesForString[key];
+            }
+        } else {
+            keyIndex = this._getKeyIndex(key);
+            if (keyIndex >= 0) {
+                delete this._valuesForIndex[keyIndex];
+            }
+        }
+
+        if (keyIndex >= 0) {
+            delete this._keys[keyIndex];
+            this.size -= 1;
+        }
+    };
+
+    /**
+     * Executes a provided function once per each key/value pair in the Map object,
+     * in insertion order.
+     * @param  {function} callback - Function to execute for each element
+     * @param  {thisArg} thisArg - Value to use as this when executing callback
+     */
+    Map.prototype.forEach = function(callback, thisArg) {
+        thisArg = thisArg || this;
+        util.forEachArray(this._keys, function(key) {
+            if (!util.isUndefined(key)) {
+                callback.call(thisArg, this._getValueObject(key).origin, key, this);
+            }
+        }, this);
+    };
+
+    /**
+     * Removes all elements from a Map object.
+     */
+    Map.prototype.clear = function() {
+        Map.call(this);
+    };
+
+    // Use native Map object if exists.
+    // But only latest versions of Chrome and Firefox support full implementation.
+    (function() {
+        var browser = util.browser;
+        if (window.Map &amp;&amp; (
+            (browser.firefox &amp;&amp; browser.version >= 37) ||
+            (browser.chrome &amp;&amp; browser.version >= 42) )) {
+            Map = window.Map;
+        }
+    })();
+
+    util.Map = Map;
+})(window.tui);
 </code></pre>
         </article>
     </section>

@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: formatDate.js</title>
+    <title>JSDoc: Source: type.js</title>
     <link type="text/css" rel="stylesheet" href="styles/prettify-jsdoc.css">
     <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
     <link type="text/css" rel="stylesheet" href="styles/bootstrap.min.css">
@@ -30,232 +30,352 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @fileoverview This module has a function for date format.
+ * @fileoverview This module provides some functions to check the type of variable
  * @author NHN Ent.
  *         FE Development Team &lt;e0242@nhnent.com>
- * @dependency type.js, object.js
+ * @dependency collection.js
  */
 
 (function(tui) {
     'use strict';
-
-    var tokens = /[\\]*YYYY|[\\]*YY|[\\]*MMMM|[\\]*MMM|[\\]*MM|[\\]*M|[\\]*DD|[\\]*D|[\\]*HH|[\\]*H|[\\]*A/gi;
-    var MONTH_STR = ["Invalid month", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    var MONTH_DAYS = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-    var replaceMap = {
-        M: function(date) {
-            return Number(date.month);
-        },
-        MM: function(date) {
-            var month = date.month;
-            return (Number(month) &lt; 10) ? '0' + month : month;
-        },
-        MMM: function(date) {
-            return MONTH_STR[Number(date.month)].substr(0, 3);
-        },
-        MMMM: function(date) {
-            return MONTH_STR[Number(date.month)];
-        },
-        D: function(date) {
-            return Number(date.date);
-        },
-        d: function(date) {
-            return replaceMap.D(date);
-        },
-        DD: function(date) {
-            var dayInMonth = date.date;
-            return (Number(dayInMonth) &lt; 10) ? '0' + dayInMonth : dayInMonth;
-        },
-        dd: function(date) {
-            return replaceMap.DD(date);
-        },
-        YY: function(date) {
-            return Number(date.year) % 100;
-        },
-        yy: function(date) {
-            return replaceMap.YY(date);
-        },
-        YYYY: function(date) {
-            var prefix = '20',
-                year = date.year;
-            if (year > 69 &amp;&amp; year &lt; 100) {
-                prefix = '19';
-            }
-            return (Number(year) &lt; 100) ? prefix + String(year) : year;
-        },
-        yyyy: function(date) {
-            return replaceMap.YYYY(date);
-        },
-        A: function(date) {
-            return date.meridiem;
-        },
-        a: function(date) {
-            return date.meridiem;
-        },
-        hh: function(date) {
-            var hour = date.hour;
-            return (Number(hour) &lt; 10) ? '0' + hour : hour;
-        },
-        HH: function(date) {
-            return replaceMap.hh(date);
-        },
-        h: function(date) {
-            return String(Number(date.hour));
-        },
-        H: function(date) {
-            return replaceMap.h(date);
-        },
-        m: function(date) {
-            return String(Number(date.minute));
-        },
-        mm: function(date) {
-            var minute = date.minute;
-            return (Number(minute) &lt; 10) ? '0' + minute : minute;
-        }
-    };
-
     /* istanbul ignore if */
     if (!tui) {
         tui = window.tui = {};
     }
-    /* istanbul ignore if */
     if (!tui.util) {
         tui.util = window.tui.util = {};
     }
 
     /**
-     * Check whether the given variables are valid date or not.
-     * @param {number} year - Year
-     * @param {number} month - Month
-     * @param {number} date - Day in month.
-     * @returns {boolean} Is valid?
-     */
-    function isValidDate(year, month, date) {
-        var isValidYear,
-            isValidMonth,
-            isValid,
-            lastDayInMonth;
-
-        year = Number(year);
-        month = Number(month);
-        date = Number(date);
-
-        isValidYear = (year > -1 &amp;&amp; year &lt; 100) || (year > 1969) &amp;&amp; (year &lt; 2070);
-        isValidMonth = (month > 0) &amp;&amp; (month &lt; 13);
-
-        if (!isValidYear || !isValidMonth) {
-            return false;
-        }
-
-        lastDayInMonth = MONTH_DAYS[month];
-        if (month === 2 &amp;&amp; year % 4 === 0) {
-            if (year % 100 !== 0 || year % 400 === 0) {
-                lastDayInMonth = 29;
-            }
-        }
-
-        isValid = (date > 0) &amp;&amp; (date &lt;= lastDayInMonth);
-        return isValid;
+     * Check whether the given variable is existing or not.&lt;br>
+     *  If the given variable is not null and not undefined, returns true.
+     * @param {*} param - Target for checking
+     * @returns {boolean} Is existy?
+     * @memberOf tui.util
+     * @example
+     *  tui.util.isExisty(''); //true
+     *  tui.util.isExisty(0); //true
+     *  tui.util.isExisty([]); //true
+     *  tui.util.isExisty({}); //true
+     *  tui.util.isExisty(null); //false
+     *  tui.util.isExisty(undefined); //false
+    */
+    function isExisty(param) {
+        return param != null;
     }
 
     /**
-     * Return a string that transformed from the given form and date.
-     * @param {string} form - Date form
-     * @param {Date|Object} date - Date object
-     * @param {{meridiemSet: {AM: string, PM: string}}} option - Option
-     * @returns {boolean|string} A transformed string or false.
+     * Check whether the given variable is undefined or not.&lt;br>
+     *  If the given variable is undefined, returns true.
+     * @param {*} obj - Target for checking
+     * @returns {boolean} Is undefined?
      * @memberOf tui.util
-     * @example
-     *  // key             | Shorthand
-     *  // --------------- |-----------------------
-     *  // years           | YY / YYYY / yy / yyyy
-     *  // months(n)       | M / MM
-     *  // months(str)     | MMM / MMMM
-     *  // days            | D / DD / d / dd
-     *  // hours           | H / HH / h / hh
-     *  // minutes         | m / mm
-     *  // meridiem(AM,PM) | A / a
-     *
-     *  var dateStr1 = formatDate('yyyy-MM-dd', {
-     *      year: 2014,
-     *      month: 12,
-     *      date: 12
-     *  });
-     *  alert(dateStr1); // '2014-12-12'
-     *
-     *  var dateStr2 = formatDate('MMM DD YYYY HH:mm', {
-     *      year: 1999,
-     *      month: 9,
-     *      date: 9,
-     *      hour: 0,
-     *      minute: 2
-     *  })
-     *  alert(dateStr2); // 'Sep 09 1999 00:02'
-     *
-     *  var dt = new Date(2010, 2, 13),
-     *      dateStr3 = formatDate('yyyy년 M월 dd일', dt);
-     *
-     *  alert(dateStr3); // '2010년 3월 13일'
-     *
-     *  var option4 = {
-     *      meridiemSet: {
-     *          AM: '오전',
-     *          PM: '오후'
-     *      }
-     *  };
-     *  var date4 = {year: 1999, month: 9, date: 9, hour: 13, minute: 2};
-     *  var dateStr4 = formatDate('yyyy-MM-dd A hh:mm', date4, option4));
-     *
-     *  alert(dateStr4); // '1999-09-09 오후 01:02'
      */
-    function formatDate(form, date, option) {
-        var meridiem, nDate, resultStr;
-
-        if (tui.util.isDate(date)) {
-            nDate = {
-                year: date.getFullYear(),
-                month: date.getMonth() + 1,
-                date: date.getDate(),
-                hour: date.getHours(),
-                minute: date.getMinutes()
-            };
-        } else {
-            nDate = {
-                year: date.year,
-                month: date.month,
-                date: date.date,
-                hour: date.hour,
-                minute: date.minute
-            };
-        }
-
-        if (!isValidDate(nDate.year, nDate.month, nDate.date)) {
-            return false;
-        }
-
-        nDate.meridiem = '';
-        if (/([^\\]|^)[aA]\b/.test(form)) {
-            meridiem = (nDate.hour > 11) ?
-                tui.util.pick(option, 'meridiemSet', 'PM') || 'PM'
-                : tui.util.pick(option, 'meridiemSet', 'AM') || 'AM';
-            if (nDate.hour > 12) { //See the clock system: https://en.wikipedia.org/wiki/12-hour_clock
-                nDate.hour %= 12;
-            }
-            nDate.meridiem = meridiem;
-        }
-
-        resultStr = form.replace(tokens, function(key) {
-            if (key.indexOf('\\') > -1) { // escape character
-                return key.replace(/\\/, '');
-            }
-            return replaceMap[key](nDate) || '';
-        });
-        return resultStr;
+    function isUndefined(obj) {
+        return obj === undefined;
     }
 
-    tui.util.formatDate = formatDate;
-})(window.tui);
+    /**
+     * Check whether the given variable is null or not.&lt;br>
+     *  If the given variable(arguments[0]) is null, returns true.
+     * @param {*} obj - Target for checking
+     * @returns {boolean} Is null?
+     * @memberOf tui.util
+     */
+    function isNull(obj) {
+        return obj === null;
+    }
 
+    /**
+     * Check whether the given variable is truthy or not.&lt;br>
+     *  If the given variable is not null or not undefined or not false, returns true.&lt;br>
+     *  (It regards 0 as true)
+     * @param {*} obj - Target for checking
+     * @return {boolean} Is truthy?
+     * @memberOf tui.util
+     */
+    function isTruthy(obj) {
+        return isExisty(obj) &amp;&amp; obj !== false;
+    }
+
+    /**
+     * Check whether the given variable is falsy or not.&lt;br>
+     *  If the given variable is null or undefined or false, returns true.
+     * @param {*} obj - Target for checking
+     * @return {boolean} Is falsy?
+     * @memberOf tui.util
+     */
+    function isFalsy(obj) {
+        return !isTruthy(obj);
+    }
+
+
+    var toString = Object.prototype.toString;
+
+    /**
+     * Check whether the given variable is an arguments object or not.&lt;br>
+     *  If the given variable is an arguments object, return true.
+     * @param {*} obj - Target for checking
+     * @return {boolean} Is arguments?
+     * @memberOf tui.util
+     */
+    function isArguments(obj) {
+        var result = isExisty(obj) &amp;&amp;
+            ((toString.call(obj) === '[object Arguments]') || !!obj.callee);
+
+        return result;
+    }
+
+    /**
+     * Check whether the given variable is an instance of Array or not.&lt;br>
+     *  If the given variable is an instance of Array, return true.
+     * @param {*} obj - Target for checking
+     * @return {boolean} Is array instance?
+     * @memberOf tui.util
+     */
+    function isArray(obj) {
+        return obj instanceof Array;
+    }
+
+    /**
+     * Check whether the given variable is an object or not.&lt;br>
+     *  If the given variable is an object, return true.
+     * @param {*} obj - Target for checking
+     * @return {boolean} Is object?
+     * @memberOf tui.util
+     */
+    function isObject(obj) {
+        return obj === Object(obj);
+    }
+
+    /**
+     * Check whether the given variable is a function or not.&lt;br>
+     *  If the given variable is a function, return true.
+     * @param {*} obj - Target for checking
+     * @return {boolean} Is function?
+     * @memberOf tui.util
+     */
+    function isFunction(obj) {
+        return obj instanceof Function;
+    }
+
+    /**
+     * Check whether the given variable is a number or not.&lt;br>
+     *  If the given variable is a number, return true.
+     * @param {*} obj - Target for checking
+     * @return {boolean} Is number?
+     * @memberOf tui.util
+     */
+    function isNumber(obj) {
+        return typeof obj === 'number' || obj instanceof Number;
+    }
+
+    /**
+     * Check whether the given variable is a string or not.&lt;br>
+     *  If the given variable is a string, return true.
+     * @param {*} obj - Target for checking
+     * @return {boolean} Is string?
+     * @memberOf tui.util
+     */
+    function isString(obj) {
+        return typeof obj === 'string' || obj instanceof String;
+    }
+
+    /**
+     * Check whether the given variable is a boolean or not.&lt;br>
+     *  If the given variable is a boolean, return true.
+     * @param {*} obj - Target for checking
+     * @return {boolean} Is boolean?
+     * @memberOf tui.util
+     */
+    function isBoolean(obj) {
+        return typeof obj === 'boolean' || obj instanceof Boolean;
+    }
+
+
+    /**
+     * Check whether the given variable is an instance of Array or not.&lt;br>
+     *  If the given variable is an instance of Array, return true.&lt;br>
+     *  (It is used for multiple frame environments)
+     * @param {*} obj - Target for checking
+     * @return {boolean} Is an instance of array?
+     * @memberOf tui.util
+     */
+    function isArraySafe(obj) {
+        return toString.call(obj) === '[object Array]';
+    }
+
+    /**
+     * Check whether the given variable is a function or not.&lt;br>
+     *  If the given variable is a function, return true.&lt;br>
+     *  (It is used for multiple frame environments)
+     * @param {*} obj - Target for checking
+     * @return {boolean} Is a function?
+     * @memberOf tui.util
+     */
+    function isFunctionSafe(obj) {
+        return toString.call(obj) === '[object Function]';
+    }
+
+    /**
+     * Check whether the given variable is a number or not.&lt;br>
+     *  If the given variable is a number, return true.&lt;br>
+     *  (It is used for multiple frame environments)
+     * @param {*} obj - Target for checking
+     * @return {boolean} Is a number?
+     * @memberOf tui.util
+     */
+    function isNumberSafe(obj) {
+        return toString.call(obj) === '[object Number]';
+    }
+
+    /**
+     * Check whether the given variable is a string or not.&lt;br>
+     *  If the given variable is a string, return true.&lt;br>
+     *  (It is used for multiple frame environments)
+     * @param {*} obj - Target for checking
+     * @return {boolean} Is a string?
+     * @memberOf tui.util
+     */
+    function isStringSafe(obj) {
+        return toString.call(obj) === '[object String]';
+    }
+
+    /**
+     * Check whether the given variable is a boolean or not.&lt;br>
+     *  If the given variable is a boolean, return true.&lt;br>
+     *  (It is used for multiple frame environments)
+     * @param {*} obj - Target for checking
+     * @return {boolean} Is a boolean?
+     * @memberOf tui.util
+     */
+    function isBooleanSafe(obj) {
+        return toString.call(obj) === '[object Boolean]';
+    }
+
+    /**
+     * Check whether the given variable is a instance of HTMLNode or not.&lt;br>
+     *  If the given variables is a instance of HTMLNode, return true.
+     * @param {*} html - Target for checking
+     * @return {boolean} Is HTMLNode ?
+     * @memberOf tui.util
+     */
+    function isHTMLNode(html) {
+        if (typeof(HTMLElement) === 'object') {
+            return (html &amp;&amp; (html instanceof HTMLElement || !!html.nodeType));
+        }
+        return !!(html &amp;&amp; html.nodeType);
+    }
+
+    /**
+     * Check whether the given variable is a HTML tag or not.&lt;br>
+     *  If the given variables is a HTML tag, return true.
+     * @param {*} html - Target for checking
+     * @return {Boolean} Is HTML tag?
+     * @memberOf tui.util
+     */
+    function isHTMLTag(html) {
+        if (typeof(HTMLElement) === 'object') {
+            return (html &amp;&amp; (html instanceof HTMLElement));
+        }
+        return !!(html &amp;&amp; html.nodeType &amp;&amp; html.nodeType === 1);
+    }
+
+    /**
+     * Check whether the given variable is empty(null, undefined, or empty array, empty object) or not.&lt;br>
+     *  If the given variables is empty, return true.
+     * @param {*} obj - Target for checking
+     * @return {boolean} Is empty?
+     * @memberOf tui.util
+     */
+    function isEmpty(obj) {
+        var hasKey = false;
+
+        if (!isExisty(obj)) {
+            return true;
+        }
+
+        if (isString(obj) &amp;&amp; obj === '') {
+            return true;
+        }
+
+        if (isArray(obj) || isArguments(obj)) {
+            return obj.length === 0;
+        }
+
+        if (isObject(obj) &amp;&amp; !isFunction(obj)) {
+            tui.util.forEachOwnProperties(obj, function() {
+                hasKey = true;
+                return false;
+            });
+
+            return !hasKey;
+        }
+
+        return true;
+
+    }
+
+    /**
+     * Check whether the given variable is not empty(not null, not undefined, or not empty array, not empty object) or not.&lt;br>
+     *  If the given variables is not empty, return true.
+     * @param {*} obj - Target for checking
+     * @return {boolean} Is not empty?
+     * @memberOf tui.util
+     */
+    function isNotEmpty(obj) {
+        return !isEmpty(obj);
+    }
+
+    /**
+     * Check whether the given variable is an instance of Date or not.&lt;br>
+     *  If the given variables is an instance of Date, return true.
+     * @param {*} obj - Target for checking
+     * @returns {boolean} Is an instance of Date?
+     * @memberOf tui.util
+     */
+    function isDate(obj) {
+        return obj instanceof Date;
+    }
+
+    /**
+     * Check whether the given variable is an instance of Date or not.&lt;br>
+     *  If the given variables is an instance of Date, return true.&lt;br>
+     *  (It is used for multiple frame environments)
+     * @param {*} obj - Target for checking
+     * @returns {boolean} Is an instance of Date?
+     * @memberOf tui.util
+     */
+    function isDateSafe(obj) {
+        return toString.call(obj) === '[object Date]';
+    }
+
+
+    tui.util.isExisty = isExisty;
+    tui.util.isUndefined = isUndefined;
+    tui.util.isNull = isNull;
+    tui.util.isTruthy = isTruthy;
+    tui.util.isFalsy = isFalsy;
+    tui.util.isArguments = isArguments;
+    tui.util.isArray = Array.isArray || isArray;
+    tui.util.isArraySafe = Array.isArray || isArraySafe;
+    tui.util.isObject = isObject;
+    tui.util.isFunction = isFunction;
+    tui.util.isFunctionSafe = isFunctionSafe;
+    tui.util.isNumber = isNumber;
+    tui.util.isNumberSafe = isNumberSafe;
+    tui.util.isDate = isDate;
+    tui.util.isDateSafe = isDateSafe;
+    tui.util.isString = isString;
+    tui.util.isStringSafe = isStringSafe;
+    tui.util.isBoolean = isBoolean;
+    tui.util.isBooleanSafe = isBooleanSafe;
+    tui.util.isHTMLNode = isHTMLNode;
+    tui.util.isHTMLTag = isHTMLTag;
+    tui.util.isEmpty = isEmpty;
+    tui.util.isNotEmpty = isNotEmpty;
+
+})(window.tui);
 </code></pre>
         </article>
     </section>
