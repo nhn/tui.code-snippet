@@ -55,7 +55,7 @@ describe('date format', function() {
                     expect(formatDate(forms[8], inputs[0])).toEqual('Sep 09 1999 00:02');
                 });
                 it('-> MMMM DD YYYY H:m A', function() {
-                    expect(formatDate(forms[9], inputs[0])).toEqual('September 09 1999 0:2 AM');
+                    expect(formatDate(forms[9], inputs[0])).toEqual('September 09 1999 12:2 AM');
                 });
             });
 
@@ -216,7 +216,7 @@ describe('date format', function() {
                         nDate = date.date,
                         dt = new Date(nYear, nMonth, nDate, date.hour, date.minute);
 
-                    expect(formatDate(forms[9], dt)).toEqual('September 09 1999 0:2 AM');
+                    expect(formatDate(forms[9], dt)).toEqual('September 09 1999 12:2 AM');
                 });
             });
 

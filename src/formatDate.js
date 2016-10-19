@@ -210,6 +210,9 @@
             if (nDate.hour > 12) { //See the clock system: https://en.wikipedia.org/wiki/12-hour_clock
                 nDate.hour %= 12;
             }
+            if (nDate.hour === 0) {
+                nDate.hour = 12;
+            }
             nDate.meridiem = meridiem;
         }
 
@@ -224,4 +227,3 @@
 
     tui.util.formatDate = formatDate;
 })(window.tui);
-
