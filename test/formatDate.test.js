@@ -417,7 +417,7 @@ describe('date format', function() {
                 };
                 var date = {year: 1999, month: 9, date: 9, hour: 0, minute: 2};
 
-                expect(formatDate('yyyy-MM-dd a hh:mm', date, option)).toEqual('1999-09-09 오전 00:02');
+                expect(formatDate('yyyy-MM-dd a hh:mm', date, option)).toEqual('1999-09-09 오전 12:02');
             });
             it('PM -> 오후', function() {
                 var option = {
