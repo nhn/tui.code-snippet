@@ -1,4 +1,4 @@
-/*!code-snippet v1.2.1 | NHN Entertainment*/
+/*!code-snippet v1.2.2 | NHN Entertainment*/
 /**********
  * array.js
  **********/
@@ -1856,6 +1856,9 @@ tui.util.Enum = Enum;
             if (nDate.hour > 12) { //See the clock system: https://en.wikipedia.org/wiki/12-hour_clock
                 nDate.hour %= 12;
             }
+            if (nDate.hour === 0) {
+                nDate.hour = 12;
+            }
             nDate.meridiem = meridiem;
         }
 
@@ -1870,7 +1873,6 @@ tui.util.Enum = Enum;
 
     tui.util.formatDate = formatDate;
 })(window.tui);
-
 
 /**********
  * func.js
