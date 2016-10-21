@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: formatDate.js</title>
+    <title>JSDoc: Source: collection.js</title>
     <link type="text/css" rel="stylesheet" href="styles/prettify-jsdoc.css">
     <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
     <link type="text/css" rel="stylesheet" href="styles/bootstrap.min.css">
@@ -30,7 +30,7 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @fileoverview This module has a function for date format.
+ * @fileoverview This module has some functions for handling object as collection.
  * @author NHN Ent.
  *         FE Development Team &lt;e0242@nhnent.com>
  * @dependency type.js, object.js
@@ -38,225 +38,316 @@
 
 (function(tui) {
     'use strict';
-
-    var tokens = /[\\]*YYYY|[\\]*YY|[\\]*MMMM|[\\]*MMM|[\\]*MM|[\\]*M|[\\]*DD|[\\]*D|[\\]*HH|[\\]*H|[\\]*A/gi;
-    var MONTH_STR = ["Invalid month", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    var MONTH_DAYS = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-    var replaceMap = {
-        M: function(date) {
-            return Number(date.month);
-        },
-        MM: function(date) {
-            var month = date.month;
-            return (Number(month) &lt; 10) ? '0' + month : month;
-        },
-        MMM: function(date) {
-            return MONTH_STR[Number(date.month)].substr(0, 3);
-        },
-        MMMM: function(date) {
-            return MONTH_STR[Number(date.month)];
-        },
-        D: function(date) {
-            return Number(date.date);
-        },
-        d: function(date) {
-            return replaceMap.D(date);
-        },
-        DD: function(date) {
-            var dayInMonth = date.date;
-            return (Number(dayInMonth) &lt; 10) ? '0' + dayInMonth : dayInMonth;
-        },
-        dd: function(date) {
-            return replaceMap.DD(date);
-        },
-        YY: function(date) {
-            return Number(date.year) % 100;
-        },
-        yy: function(date) {
-            return replaceMap.YY(date);
-        },
-        YYYY: function(date) {
-            var prefix = '20',
-                year = date.year;
-            if (year > 69 &amp;&amp; year &lt; 100) {
-                prefix = '19';
-            }
-            return (Number(year) &lt; 100) ? prefix + String(year) : year;
-        },
-        yyyy: function(date) {
-            return replaceMap.YYYY(date);
-        },
-        A: function(date) {
-            return date.meridiem;
-        },
-        a: function(date) {
-            return date.meridiem;
-        },
-        hh: function(date) {
-            var hour = date.hour;
-            return (Number(hour) &lt; 10) ? '0' + hour : hour;
-        },
-        HH: function(date) {
-            return replaceMap.hh(date);
-        },
-        h: function(date) {
-            return String(Number(date.hour));
-        },
-        H: function(date) {
-            return replaceMap.h(date);
-        },
-        m: function(date) {
-            return String(Number(date.minute));
-        },
-        mm: function(date) {
-            var minute = date.minute;
-            return (Number(minute) &lt; 10) ? '0' + minute : minute;
-        }
-    };
-
-    /* istanbul ignore if */
     if (!tui) {
         tui = window.tui = {};
     }
-    /* istanbul ignore if */
     if (!tui.util) {
         tui.util = window.tui.util = {};
     }
 
     /**
-     * Check whether the given variables are valid date or not.
-     * @param {number} year - Year
-     * @param {number} month - Month
-     * @param {number} date - Day in month.
-     * @returns {boolean} Is valid?
+     * Execute the provided callback once for each element present in the array(or Array-like object) in ascending order.&lt;br>
+     * If the callback function returns false, the loop will be stopped.&lt;br>
+     * Callback function(iteratee) is invoked with three arguments:
+     *  - The value of the element
+     *  - The index of the element
+     *  - The array(or Array-like object) being traversed
+     * @param {Array} arr The array(or Array-like object) that will be traversed
+     * @param {function} iteratee Callback function
+     * @param {Object} [context] Context(this) of callback function
+     * @memberof tui.util
+     * @example
+     *  var sum = 0;
+     *
+     *  forEachArray([1,2,3], function(value){
+     *      sum += value;
+     *   });
+     *  alert(sum); // 6
      */
-    function isValidDate(year, month, date) {
-        var isValidYear,
-            isValidMonth,
-            isValid,
-            lastDayInMonth;
+    function forEachArray(arr, iteratee, context) {
+        var index = 0,
+            len = arr.length;
 
-        year = Number(year);
-        month = Number(month);
-        date = Number(date);
+        context = context || null;
 
-        isValidYear = (year > -1 &amp;&amp; year &lt; 100) || (year > 1969) &amp;&amp; (year &lt; 2070);
-        isValidMonth = (month > 0) &amp;&amp; (month &lt; 13);
-
-        if (!isValidYear || !isValidMonth) {
-            return false;
-        }
-
-        lastDayInMonth = MONTH_DAYS[month];
-        if (month === 2 &amp;&amp; year % 4 === 0) {
-            if (year % 100 !== 0 || year % 400 === 0) {
-                lastDayInMonth = 29;
+        for (; index &lt; len; index++) {
+            if (iteratee.call(context, arr[index], index, arr) === false) {
+                break;
             }
         }
+    }
 
-        isValid = (date > 0) &amp;&amp; (date &lt;= lastDayInMonth);
-        return isValid;
+
+    /**
+     * Execute the provided callback once for each property of object which actually exist.&lt;br>
+     * If the callback function returns false, the loop will be stopped.&lt;br>
+     * Callback function(iteratee) is invoked with three arguments:
+     *  - The value of the property
+     *  - The name of the property
+     *  - The object being traversed
+     * @param {Object} obj The object that will be traversed
+     * @param {function} iteratee  Callback function
+     * @param {Object} [context] Context(this) of callback function
+     * @memberof tui.util
+     * @example
+     *  var sum = 0;
+     *
+     *  forEachOwnProperties({a:1,b:2,c:3}, function(value){
+     *      sum += value;
+     *  });
+     *  alert(sum); // 6
+     **/
+    function forEachOwnProperties(obj, iteratee, context) {
+        var key;
+
+        context = context || null;
+
+        for (key in obj) {
+            if (obj.hasOwnProperty(key)) {
+                if (iteratee.call(context, obj[key], key, obj) === false) {
+                    break;
+                }
+            }
+        }
     }
 
     /**
-     * Return a string that transformed from the given form and date.
-     * @param {string} form - Date form
-     * @param {Date|Object} date - Date object
-     * @param {{meridiemSet: {AM: string, PM: string}}} option - Option
-     * @returns {boolean|string} A transformed string or false.
-     * @memberOf tui.util
+     * Execute the provided callback once for each property of object(or element of array) which actually exist.&lt;br>
+     * If the object is Array-like object(ex-arguments object), It needs to transform to Array.(see 'ex2' of example).&lt;br>
+     * If the callback function returns false, the loop will be stopped.&lt;br>
+     * Callback function(iteratee) is invoked with three arguments:
+     *  - The value of the property(or The value of the element)
+     *  - The name of the property(or The index of the element)
+     *  - The object being traversed
+     * @param {Object} obj The object that will be traversed
+     * @param {function} iteratee Callback function
+     * @param {Object} [context] Context(this) of callback function
+     * @memberof tui.util
      * @example
-     *  // key             | Shorthand
-     *  // --------------- |-----------------------
-     *  // years           | YY / YYYY / yy / yyyy
-     *  // months(n)       | M / MM
-     *  // months(str)     | MMM / MMMM
-     *  // days            | D / DD / d / dd
-     *  // hours           | H / HH / h / hh
-     *  // minutes         | m / mm
-     *  // meridiem(AM,PM) | A / a
+     *  //ex1
+     *  var sum = 0;
      *
-     *  var dateStr1 = formatDate('yyyy-MM-dd', {
-     *      year: 2014,
-     *      month: 12,
-     *      date: 12
+     *  forEach([1,2,3], function(value){
+     *      sum += value;
      *  });
-     *  alert(dateStr1); // '2014-12-12'
+     *  alert(sum); // 6
      *
-     *  var dateStr2 = formatDate('MMM DD YYYY HH:mm', {
-     *      year: 1999,
-     *      month: 9,
-     *      date: 9,
-     *      hour: 0,
-     *      minute: 2
-     *  })
-     *  alert(dateStr2); // 'Sep 09 1999 00:02'
-     *
-     *  var dt = new Date(2010, 2, 13),
-     *      dateStr3 = formatDate('yyyy년 M월 dd일', dt);
-     *
-     *  alert(dateStr3); // '2010년 3월 13일'
-     *
-     *  var option4 = {
-     *      meridiemSet: {
-     *          AM: '오전',
-     *          PM: '오후'
-     *      }
-     *  };
-     *  var date4 = {year: 1999, month: 9, date: 9, hour: 13, minute: 2};
-     *  var dateStr4 = formatDate('yyyy-MM-dd A hh:mm', date4, option4));
-     *
-     *  alert(dateStr4); // '1999-09-09 오후 01:02'
+     *  //ex2 - In case of Array-like object
+     *  function sum(){
+     *      var factors = Array.prototype.slice.call(arguments);
+     *      forEach(factors, function(value){
+     *           //......
+     *      });
+     *  }
      */
-    function formatDate(form, date, option) {
-        var meridiem, nDate, resultStr;
-
-        if (tui.util.isDate(date)) {
-            nDate = {
-                year: date.getFullYear(),
-                month: date.getMonth() + 1,
-                date: date.getDate(),
-                hour: date.getHours(),
-                minute: date.getMinutes()
-            };
+    function forEach(obj, iteratee, context) {
+        if (tui.util.isArray(obj)) {
+            tui.util.forEachArray(obj, iteratee, context);
         } else {
-            nDate = {
-                year: date.year,
-                month: date.month,
-                date: date.date,
-                hour: date.hour,
-                minute: date.minute
-            };
+            tui.util.forEachOwnProperties(obj, iteratee, context);
         }
-
-        if (!isValidDate(nDate.year, nDate.month, nDate.date)) {
-            return false;
-        }
-
-        nDate.meridiem = '';
-        if (/([^\\]|^)[aA]\b/.test(form)) {
-            meridiem = (nDate.hour > 11) ?
-                tui.util.pick(option, 'meridiemSet', 'PM') || 'PM'
-                : tui.util.pick(option, 'meridiemSet', 'AM') || 'AM';
-            if (nDate.hour > 12) { //See the clock system: https://en.wikipedia.org/wiki/12-hour_clock
-                nDate.hour %= 12;
-            }
-            if (nDate.hour === 0) {
-                nDate.hour = 12;
-            }
-            nDate.meridiem = meridiem;
-        }
-
-        resultStr = form.replace(tokens, function(key) {
-            if (key.indexOf('\\') > -1) { // escape character
-                return key.replace(/\\/, '');
-            }
-            return replaceMap[key](nDate) || '';
-        });
-        return resultStr;
     }
 
-    tui.util.formatDate = formatDate;
+    /**
+     * Execute the provided callback function once for each element in an array, in order, and constructs a new array from the results.&lt;br>
+     * If the object is Array-like object(ex-arguments object), It needs to transform to Array.(see 'ex2' of forEach example)&lt;br>
+     * Callback function(iteratee) is invoked with three arguments:
+     *  - The value of the property(or The value of the element)
+     *  - The name of the property(or The index of the element)
+     *  - The object being traversed
+     * @param {Object} obj The object that will be traversed
+     * @param {function} iteratee Callback function
+     * @param {Object} [context] Context(this) of callback function
+     * @returns {Array} A new array composed of returned values from callback function
+     * @memberof tui.util
+     * @example
+     *  var result = map([0,1,2,3], function(value) {
+     *      return value + 1;
+     *  });
+     *
+     *  alert(result);  // 1,2,3,4
+     */
+    function map(obj, iteratee, context) {
+        var resultArray = [];
+
+        context = context || null;
+
+        tui.util.forEach(obj, function() {
+            resultArray.push(iteratee.apply(context, arguments));
+        });
+
+        return resultArray;
+    }
+
+    /**
+     * Execute the callback function once for each element present in the array(or Array-like object or plain object).&lt;br>
+     * If the object is Array-like object(ex-arguments object), It needs to transform to Array.(see 'ex2' of forEach example)&lt;br>
+     * Callback function(iteratee) is invoked with four arguments:
+     *  - The previousValue
+     *  - The currentValue
+     *  - The index
+     *  - The object being traversed
+     * @param {Object} obj The object that will be traversed
+     * @param {function} iteratee Callback function
+     * @param {Object} [context] Context(this) of callback function
+     * @returns {*} The result value
+     * @memberof tui.util
+     * @example
+     *  var result = reduce([0,1,2,3], function(stored, value) {
+     *      return stored + value;
+     *  });
+     *
+     *  alert(result); // 6
+     */
+    function reduce(obj, iteratee, context) {
+        var keys,
+            index = 0,
+            length,
+            store;
+
+        context = context || null;
+
+        if (!tui.util.isArray(obj)) {
+            keys = tui.util.keys(obj);
+        }
+
+        length = keys ? keys.length : obj.length;
+
+        store = obj[keys ? keys[index++] : index++];
+
+        for (; index &lt; length; index++) {
+            store = iteratee.call(context, store, obj[keys ? keys[index] : index]);
+        }
+
+        return store;
+    }
+    /**
+     * Transform the Array-like object to Array.&lt;br>
+     * In low IE (below 8), Array.prototype.slice.call is not perfect. So, try-catch statement is used.
+     * @param {*} arrayLike Array-like object
+     * @return {Array} Array
+     * @memberof tui.util
+     * @example
+     *  var arrayLike = {
+     *      0: 'one',
+     *      1: 'two',
+     *      2: 'three',
+     *      3: 'four',
+     *      length: 4
+     *  };
+     *  var result = toArray(arrayLike);
+     *
+     *  alert(result instanceof Array); // true
+     *  alert(result); // one,two,three,four
+     */
+    function toArray(arrayLike) {
+        var arr;
+        try {
+            arr = Array.prototype.slice.call(arrayLike);
+        } catch (e) {
+            arr = [];
+            forEachArray(arrayLike, function(value) {
+                arr.push(value);
+            });
+        }
+        return arr;
+    }
+
+    /**
+     * Create a new array or plain object with all elements(or properties) that pass the test implemented by the provided function.&lt;br>
+     * Callback function(iteratee) is invoked with three arguments:
+     *  - The value of the property(or The value of the element)
+     *  - The name of the property(or The index of the element)
+     *  - The object being traversed
+     * @param {Object} obj Object(plain object or Array) that will be traversed
+     * @param {function} iteratee Callback function
+     * @param {Object} [context] Context(this) of callback function
+     * @returns {Object} plain object or Array
+     * @memberof tui.util
+     * @example
+     *  var result1 = filter([0,1,2,3], function(value) {
+     *      return (value % 2 === 0);
+     *  });
+     *  alert(result1); // 0,2
+     *
+     *  var result2 = filter({a : 1, b: 2, c: 3}, function(value) {
+     *      return (value % 2 !== 0);
+     *  });
+     *  alert(result2.a); // 1
+     *  alert(result2.b); // undefined
+     *  alert(result2.c); // 3
+     */
+    var filter = function(obj, iteratee, context) {
+        var result,
+            add;
+
+        context = context || null;
+
+        if (!tui.util.isObject(obj) || !tui.util.isFunction(iteratee)) {
+            throw new Error('wrong parameter');
+        }
+
+        if (tui.util.isArray(obj)) {
+            result = [];
+            add = function(result, args) {
+                result.push(args[0]);
+            };
+        } else {
+            result = {};
+            add = function(result, args) {
+                result[args[1]] = args[0];
+            };
+        }
+
+        tui.util.forEach(obj, function() {
+            if (iteratee.apply(context, arguments)) {
+                add(result, arguments);
+            }
+        }, context);
+
+        return result;
+    };
+
+    /**
+     * fetching a property
+     * @param {Array} arr target collection
+     * @param {String|Number} property property name
+     * @memberof tui.util
+     * @returns {Array}
+     * @example
+     *   var objArr = [
+     *         {'abc': 1, 'def': 2, 'ghi': 3},
+     *         {'abc': 4, 'def': 5, 'ghi': 6},
+     *         {'abc': 7, 'def': 8, 'ghi': 9}
+     *       ],
+     *       arr2d = [
+     *         [1, 2, 3],
+     *         [4, 5, 6],
+     *         [7, 8, 9]
+     *       ],
+     *       result;
+     *
+     *   result = tui.util.pluck(objArr, 'abc');
+     *   console.log(result) // [1, 4, 7]
+     *
+     *   result = tui.util.pluck(arr2d, 2);
+     *   console.log(result) // [3, 6, 9]
+     */
+    var pluck = function(arr, property) {
+        var result = tui.util.map(arr, function(item) {
+            return item[property];
+        });
+        return result;
+    };
+
+    tui.util.forEachOwnProperties = forEachOwnProperties;
+    tui.util.forEachArray = forEachArray;
+    tui.util.forEach = forEach;
+    tui.util.toArray = toArray;
+    tui.util.map = map;
+    tui.util.reduce = reduce;
+    tui.util.filter = filter;
+    tui.util.pluck = pluck;
 })(window.tui);
 </code></pre>
         </article>
