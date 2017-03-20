@@ -3,9 +3,6 @@
  * @author NHN Ent. FE Development Team <e0242.nhnent.com>
  */
 
-/** @namespace tui */
-/** @namespace tui.util */
-
 (function(tui) {
     'use strict';
     var aps = Array.prototype.slice;
@@ -132,7 +129,7 @@
             // pass array directly because `debounce()`, `tick()` are already use
             // `apply()` method to invoke developer's `fn` handler.
             //
-            // also, this `debounced` line invoked every time for implements 
+            // also, this `debounced` line invoked every time for implements
             // `trailing` features.
             debounced(args);
 
@@ -154,4 +151,3 @@
     tui.util.debounce = debounce;
     tui.util.throttle = throttle;
 })(window.tui);
-

@@ -30,6 +30,7 @@
      * @param {Object} [obj] A initial data for creation.
      * @constructor
      * @memberof tui.util
+     * @deprecated since version 1.3.0
      * @example
      *  var hm = new tui.util.HashMap({
      *      'mydata': {

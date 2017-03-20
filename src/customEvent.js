@@ -114,6 +114,7 @@
     /**
      * Get context array safely
      * @returns {array} context array
+     * @private
      */
     CustomEvents.prototype._safeContext = function() {
         var context = this.contexts;
@@ -129,6 +130,7 @@
      * Get index of context
      * @param {object} ctx - context that used for bind custom event
      * @returns {number} index of context
+     * @private
      */
     CustomEvents.prototype._indexOfContext = function(ctx) {
         var context = this._safeContext(),
@@ -149,6 +151,7 @@
      * Memorize supplied context for recognize supplied object is context or
      *  name: handler pair object when off()
      * @param {object} ctx - context object to memorize
+     * @private
      */
     CustomEvents.prototype._memorizeContext = function(ctx) {
         var context, index;
@@ -170,6 +173,7 @@
     /**
      * Forget supplied context object
      * @param {object} ctx - context object to forget
+     * @private
      */
     CustomEvents.prototype._forgetContext = function(ctx) {
         var context, contextIndex;

@@ -5,7 +5,7 @@ Toast UI CodeSnippet
 
 It includes several features like `class simulation`, `browser detecting`, `type checking` and +30 more.
 
-`tui-code-snippet` supports IE7+ and modern browsers and already has been used for [open source javascript components](http://github.com/nhnent/) and many commercial projects in [NHNEnt](http://www.nhnent.com/en/index.nhn) corporation.
+`tui-code-snippet` supports IE8+ and modern browsers and already has been used for [open source javascript components](http://github.com/nhnent/) and many commercial projects in [NHNEnt](http://www.nhnent.com/en/index.nhn) corporation.
 
 ## Feature
 * browser.js
@@ -59,17 +59,17 @@ It includes several features like `class simulation`, `browser detecting`, `type
  * Use build file as you can
 
 ## Documentation
-* **API** - https://nhnent.github.io/tui.code-snippet/latest/
-* **Tutorial** - https://github.com/nhnent/fe.javascript/wiki/FE-CodeSnippet
+* API: https://nhnent.github.io/tui.code-snippet/latest/
+* Tutorial: https://github.com/nhnent/fe.javascript/wiki/FE-CodeSnippet
 
-## Tested browsers
-* browser :
-   * IE7+
+## Tested Browsers
+* browser:
+   * IE8+
    * Chrome
    * Firefox
 
 ## Download/Install
 * Bower:
-   * latest :  `bower install tui-code-snippet`
-   * each version : `bower install tui-code-snippet[#tag]`
-* Download : https://github.com/nhnent/tui.code-snippet
+   * Latest: `bower install tui-code-snippet`
+   * Each Version: `bower install tui-code-snippet[#tag]`
+* Download: https://github.com/nhnent/tui.code-snippet

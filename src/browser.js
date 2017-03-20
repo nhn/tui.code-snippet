@@ -31,7 +31,7 @@
      *  tui.util.browser.safari === true;    // safari
      *  tui.util.browser.msie === true;    // IE
      *  tui.util.browser.edge === true;     // edge
-     *  tui.util.browser.other === true;    // other browser
+     *  tui.util.browser.others === true;    // other browser
      *  tui.util.browser.version;    // browser version
      */
     var browser = {
@@ -61,9 +61,14 @@
 
     var detector = {
         'Microsoft_Internet_Explorer': function() {
-            // ie8 ~ ie10
-            browser.msie = true;
-            browser.version = parseFloat(userAgent.match(rIE)[1]);
+            var detectedVersion = userAgent.match(rIE);
+
+            if (detectedVersion) { // ie8 ~ ie10
+                browser.msie = true;
+                browser.version = parseFloat(detectedVersion[1]);
+            } else { // no version information
+                browser.others = true;
+            }
         },
         'Netscape': function() {
             var detected = false;

@@ -315,6 +315,8 @@
     /**
      * Removes the specified element from a Map object.
      * @param {*} key - The key of the element to remove
+     * @memberof tui.util.Map.prototype
+     * @method delete
      */
      // cannot use reserved keyword as a property name in IE8 and under.
     Map.prototype['delete'] = function(key) {

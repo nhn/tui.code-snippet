@@ -1,4 +1,4 @@
-/*!code-snippet v1.2.2 | NHN Entertainment*/
+/*!code-snippet v1.2.3 | NHN Entertainment*/
 /**********
  * array.js
  **********/
@@ -186,7 +186,7 @@
      *  tui.util.browser.safari === true;    // safari
      *  tui.util.browser.msie === true;    // IE
      *  tui.util.browser.edge === true;     // edge
-     *  tui.util.browser.other === true;    // other browser
+     *  tui.util.browser.others === true;    // other browser
      *  tui.util.browser.version;    // browser version
      */
     var browser = {
@@ -216,9 +216,14 @@
 
     var detector = {
         'Microsoft_Internet_Explorer': function() {
-            // ie8 ~ ie10
-            browser.msie = true;
-            browser.version = parseFloat(userAgent.match(rIE)[1]);
+            var detectedVersion = userAgent.match(rIE);
+
+            if (detectedVersion) { // ie8 ~ ie10
+                browser.msie = true;
+                browser.version = parseFloat(detectedVersion[1]);
+            } else { // no version information
+                browser.others = true;
+            }
         },
         'Netscape': function() {
             var detected = false;
@@ -703,6 +708,7 @@
     /**
      * Get context array safely
      * @returns {array} context array
+     * @private
      */
     CustomEvents.prototype._safeContext = function() {
         var context = this.contexts;
@@ -718,6 +724,7 @@
      * Get index of context
      * @param {object} ctx - context that used for bind custom event
      * @returns {number} index of context
+     * @private
      */
     CustomEvents.prototype._indexOfContext = function(ctx) {
         var context = this._safeContext(),
@@ -738,6 +745,7 @@
      * Memorize supplied context for recognize supplied object is context or
      *  name: handler pair object when off()
      * @param {object} ctx - context object to memorize
+     * @private
      */
     CustomEvents.prototype._memorizeContext = function(ctx) {
         var context, index;
@@ -759,6 +767,7 @@
     /**
      * Forget supplied context object
      * @param {object} ctx - context object to forget
+     * @private
      */
     CustomEvents.prototype._forgetContext = function(ctx) {
         var context, contextIndex;
@@ -1959,6 +1968,7 @@ tui.util.Enum = Enum;
      * @param {Object} [obj] A initial data for creation.
      * @constructor
      * @memberof tui.util
+     * @deprecated since version 1.3.0
      * @example
      *  var hm = new tui.util.HashMap({
      *      'mydata': {
@@ -2685,6 +2695,8 @@ tui.util.Enum = Enum;
     /**
      * Removes the specified element from a Map object.
      * @param {*} key - The key of the element to remove
+     * @memberof tui.util.Map.prototype
+     * @method delete
      */
      // cannot use reserved keyword as a property name in IE8 and under.
     Map.prototype['delete'] = function(key) {
@@ -3137,9 +3149,6 @@ tui.util.Enum = Enum;
  * @author NHN Ent. FE Development Team <e0242.nhnent.com>
  */
 
-/** @namespace tui */
-/** @namespace tui.util */
-
 (function(tui) {
     'use strict';
     var aps = Array.prototype.slice;
@@ -3266,7 +3275,7 @@ tui.util.Enum = Enum;
             // pass array directly because `debounce()`, `tick()` are already use
             // `apply()` method to invoke developer's `fn` handler.
             //
-            // also, this `debounced` line invoked every time for implements 
+            // also, this `debounced` line invoked every time for implements
             // `trailing` features.
             debounced(args);
 
@@ -3288,7 +3297,6 @@ tui.util.Enum = Enum;
     tui.util.debounce = debounce;
     tui.util.throttle = throttle;
 })(window.tui);
-
 
 /**********
  * type.js

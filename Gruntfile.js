@@ -13,16 +13,17 @@ module.exports = function(grunt) {
             },
             dist: {
                 src: ['src/*.js'],
-                dest: 'code-snippet.js'
+                dest: 'dist/code-snippet.js'
             }
         },
         uglify: {
             options: {
-                banner: '/*!code-snippet v<%=pkg.version%> | NHN Entertainment*/\n'
+                banner: '/*!code-snippet v<%=pkg.version%> | NHN Entertainment*/\n',
+                screwIE8: false
             },
             dist: {
                 files: {
-                    'code-snippet.min.js': ['<%= concat.dist.dest %>']
+                    'dist/code-snippet.min.js': ['<%= concat.dist.dest %>']
                 }
             }
         }
@@ -32,5 +33,4 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-concat');
 
     grunt.registerTask('default', ['concat', 'uglify']);
-
 };

@@ -1,34 +1,37 @@
 {
-  "name": "tui-code-snippet",
-  "version": "1.2.2",
-  "description": "useful code snippets from frontend development team",
-  "main": "code-snippet.js",
-  "scripts": {
-    "doc": "./node_modules/.bin/jsdoc -c conf.json"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/nhnent/tui.code-snippet.git"
-  },
-  "author": "FE",
-  "license": "MIT",
-  "devDependencies": {
-    "fedoc-template": "git+https://14bfd38a036366f7ca90355d202038126127bd01:x-oauth-basic@github.nhnent.com/fe/share-fedoc-template.git#snippet",
-    "grunt": "^0.4.5",
-    "grunt-contrib-concat": "^0.5.0",
-    "grunt-contrib-uglify": "^0.6.0",
-    "jasmine-ajax": "latest",
-    "jasmine-core": "latest",
-    "jasmine-jquery": "latest",
-    "jsdoc": "git+https://github.com/jsdoc3/jsdoc.git",
-    "karma": "0.13.22",
-    "karma-chrome-launcher": "latest",
-    "karma-coverage": "latest",
-    "karma-jasmine": "0.3.8",
-    "karma-junit-reporter": "latest",
-    "karma-mocha-reporter": "latest",
-    "karma-phantomjs-launcher": "latest",
-    "karma-webdriver-launcher": "git+https://github.com/everedifice/karma-webdriver-launcher.git",
-    "phantomjs-prebuilt": "latest"
-  }
+    "name": "tui-code-snippet",
+    "version": "1.2.3",
+    "description": "useful code snippets from frontend development team",
+    "main": "code-snippet.js",
+    "scripts": {
+        "test": "karma start karma.conf.js",
+        "bundle": "grunt",
+        "cpy-dist2doc": "mkdir -p doc/dist && cp -f dist/code-snippet.js doc/dist",
+        "doc": "./node_modules/.bin/jsdoc -c jsdoc-conf.json && npm run cpy-dist2doc"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/nhnent/tui.code-snippet.git"
+    },
+    "author": "FE",
+    "license": "MIT",
+    "devDependencies": {
+        "grunt": "^1.0.1",
+        "grunt-contrib-concat": "^0.5.0",
+        "grunt-contrib-uglify": "^2.2.0",
+        "jasmine-ajax": "latest",
+        "jasmine-core": "latest",
+        "jasmine-jquery": "latest",
+        "jsdoc": "git+https://github.com/jsdoc3/jsdoc.git",
+        "karma": "1.3.0",
+        "karma-chrome-launcher": "latest",
+        "karma-coverage": "latest",
+        "karma-jasmine": "1.0.2",
+        "karma-junit-reporter": "latest",
+        "karma-mocha-reporter": "latest",
+        "karma-phantomjs-launcher": "latest",
+        "karma-webdriver-launcher": "git+https://github.com/everedifice/karma-webdriver-launcher.git",
+        "phantomjs-prebuilt": "latest",
+        "tui-jsdoc-template": "^1.0.4"
+    }
 }
