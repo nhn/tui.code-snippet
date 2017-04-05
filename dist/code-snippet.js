@@ -1,4 +1,4 @@
-/*!code-snippet v1.2.3 | NHN Entertainment*/
+/*!code-snippet v1.2.4 | NHN Entertainment*/
 /**********
  * array.js
  **********/
@@ -209,7 +209,7 @@
         versionRegex = {
             'firefox': /Firefox\/(\d+)\./,
             'chrome': /Chrome\/(\d+)\./,
-            'safari': /Version\/([\d\.]+)\sSafari\/(\d+)/
+            'safari': /Version\/[\d\.]+.Safari\/(\d+)/
         };
 
     var key, tmp;
