@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Source: browser.js | CodeSnippet</title>
+    <title>Source: defineModule.js | CodeSnippet</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -45,12 +45,11 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @fileoverview This module detects the kind of well-known browser and version.
+ * @fileoverview Define module
  * @author NHN Ent.
- *         FE Development Team &lt;e0242@nhnent.com>
- * @namespace tui.util
+ *         FE Development Team &lt;dl_javscript@nhnent.com>
+ * @dependency type.js, defineNamespace.js
  */
-
 (function(tui) {
     'use strict';
     /* istanbul ignore if */
@@ -62,96 +61,40 @@
         tui.util = window.tui.util = {};
     }
 
+    var util = tui.util,
+        INITIALIZATION_METHOD_NAME = 'initialize';
+
     /**
-     * This object has an information that indicate the kind of browser.&lt;br>
-     * The list below is a detectable browser list.
-     *  - ie7 ~ ie11
-     *  - chrome
-     *  - firefox
-     *  - safari
-     *  - edge
+     * Define module
+     * @param {string} namespace - Namespace of module
+     * @param {Object} moduleDefinition - Object literal for module
+     * @returns {Object} Defined module
      * @memberof tui.util
      * @example
-     *  tui.util.browser.chrome === true;    // chrome
-     *  tui.util.browser.firefox === true;    // firefox
-     *  tui.util.browser.safari === true;    // safari
-     *  tui.util.browser.msie === true;    // IE
-     *  tui.util.browser.edge === true;     // edge
-     *  tui.util.browser.others === true;    // other browser
-     *  tui.util.browser.version;    // browser version
+     *     var myModule = tui.util.defineModule('modules.myModule', {
+     *          name: 'john',
+     *          message: '',
+     *          initialize: function() {
+     *              this.message = 'hello world';
+     *          },
+     *          getMessage: function() {
+     *              return this.name + ': ' + this.message
+     *          }
+     *     });
+     *
+     *     console.log(myModule.getMessage());  // 'john: hello world';
+     *     console.log(window.modules.myModule.getMessage());   // 'john: hello world';
      */
-    var browser = {
-        chrome: false,
-        firefox: false,
-        safari: false,
-        msie: false,
-        edge: false,
-        others: false,
-        version: 0
-    };
+    function defineModule(namespace, moduleDefinition) {
+        var base = moduleDefinition || {};
 
-    var nav = window.navigator,
-        appName = nav.appName.replace(/\s/g, '_'),
-        userAgent = nav.userAgent;
-
-    var rIE = /MSIE\s([0-9]+[.0-9]*)/,
-        rIE11 = /Trident.*rv:11\./,
-        rEdge = /Edge\/(\d+)\./,
-        versionRegex = {
-            'firefox': /Firefox\/(\d+)\./,
-            'chrome': /Chrome\/(\d+)\./,
-            'safari': /Version\/([\d\.]+).*Safari\/(\d+)/
-        };
-
-    var key, tmp;
-
-    var detector = {
-        'Microsoft_Internet_Explorer': function() {
-            var detectedVersion = userAgent.match(rIE);
-
-            if (detectedVersion) { // ie8 ~ ie10
-                browser.msie = true;
-                browser.version = parseFloat(detectedVersion[1]);
-            } else { // no version information
-                browser.others = true;
-            }
-        },
-        'Netscape': function() {
-            var detected = false;
-
-            if (rIE11.exec(userAgent)) {
-                browser.msie = true;
-                browser.version = 11;
-                detected = true;
-            } else if (rEdge.exec(userAgent)) {
-                browser.edge = true;
-                browser.version = userAgent.match(rEdge)[1];
-                detected = true;
-            } else {
-                for (key in versionRegex) {
-                    if (versionRegex.hasOwnProperty(key)) {
-                        tmp = userAgent.match(versionRegex[key]);
-                        if (tmp &amp;&amp; tmp.length > 1) {
-                            browser[key] = detected = true;
-                            browser.version = parseFloat(tmp[1] || 0);
-                            break;
-                        }
-                    }
-                }
-            }
-            if (!detected) {
-                browser.others = true;
-            }
+        if (util.isFunction(base[INITIALIZATION_METHOD_NAME])) {
+            base[INITIALIZATION_METHOD_NAME]();
         }
-    };
 
-    var fn = detector[appName];
-
-    if (fn) {
-        detector[appName]();
+        return util.defineNamespace(namespace, base);
     }
-
-    tui.util.browser = browser;
+    tui.util.defineModule = defineModule;
 })(window.tui);
 </code></pre>
         </article>

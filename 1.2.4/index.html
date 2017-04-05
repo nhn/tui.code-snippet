@@ -1,10 +1,8 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Source: browser.js | CodeSnippet</title>
+    <title>Home | CodeSnippet</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -42,120 +40,130 @@
 
 
     
+
+
+
+
+
+
+
+
+
+    
+
+
     <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/**
- * @fileoverview This module detects the kind of well-known browser and version.
- * @author NHN Ent.
- *         FE Development Team &lt;e0242@nhnent.com>
- * @namespace tui.util
- */
-
-(function(tui) {
-    'use strict';
-    /* istanbul ignore if */
-    if (!tui) {
-        tui = window.tui = {};
-    }
-    /* istanbul ignore if */
-    if (!tui.util) {
-        tui.util = window.tui.util = {};
-    }
-
-    /**
-     * This object has an information that indicate the kind of browser.&lt;br>
-     * The list below is a detectable browser list.
-     *  - ie7 ~ ie11
-     *  - chrome
-     *  - firefox
-     *  - safari
-     *  - edge
-     * @memberof tui.util
-     * @example
-     *  tui.util.browser.chrome === true;    // chrome
-     *  tui.util.browser.firefox === true;    // firefox
-     *  tui.util.browser.safari === true;    // safari
-     *  tui.util.browser.msie === true;    // IE
-     *  tui.util.browser.edge === true;     // edge
-     *  tui.util.browser.others === true;    // other browser
-     *  tui.util.browser.version;    // browser version
-     */
-    var browser = {
-        chrome: false,
-        firefox: false,
-        safari: false,
-        msie: false,
-        edge: false,
-        others: false,
-        version: 0
-    };
-
-    var nav = window.navigator,
-        appName = nav.appName.replace(/\s/g, '_'),
-        userAgent = nav.userAgent;
-
-    var rIE = /MSIE\s([0-9]+[.0-9]*)/,
-        rIE11 = /Trident.*rv:11\./,
-        rEdge = /Edge\/(\d+)\./,
-        versionRegex = {
-            'firefox': /Firefox\/(\d+)\./,
-            'chrome': /Chrome\/(\d+)\./,
-            'safari': /Version\/([\d\.]+).*Safari\/(\d+)/
-        };
-
-    var key, tmp;
-
-    var detector = {
-        'Microsoft_Internet_Explorer': function() {
-            var detectedVersion = userAgent.match(rIE);
-
-            if (detectedVersion) { // ie8 ~ ie10
-                browser.msie = true;
-                browser.version = parseFloat(detectedVersion[1]);
-            } else { // no version information
-                browser.others = true;
-            }
-        },
-        'Netscape': function() {
-            var detected = false;
-
-            if (rIE11.exec(userAgent)) {
-                browser.msie = true;
-                browser.version = 11;
-                detected = true;
-            } else if (rEdge.exec(userAgent)) {
-                browser.edge = true;
-                browser.version = userAgent.match(rEdge)[1];
-                detected = true;
-            } else {
-                for (key in versionRegex) {
-                    if (versionRegex.hasOwnProperty(key)) {
-                        tmp = userAgent.match(versionRegex[key]);
-                        if (tmp &amp;&amp; tmp.length > 1) {
-                            browser[key] = detected = true;
-                            browser.version = parseFloat(tmp[1] || 0);
-                            break;
-                        }
-                    }
-                }
-            }
-            if (!detected) {
-                browser.others = true;
-            }
-        }
-    };
-
-    var fn = detector[appName];
-
-    if (fn) {
-        detector[appName]();
-    }
-
-    tui.util.browser = browser;
-})(window.tui);
-</code></pre>
-        </article>
+        <article class="readme"><h1>Toast UI CodeSnippet</h1><p><code>tui-code-snippet</code> is group of utility methods to make ease with developing javascript applications.</p>
+<p>It includes several features like <code>class simulation</code>, <code>browser detecting</code>, <code>type checking</code> and +30 more.</p>
+<p><code>tui-code-snippet</code> supports IE8+ and modern browsers and already has been used for <a href="http://github.com/nhnent/">open source javascript components</a> and many commercial projects in <a href="http://www.nhnent.com/en/index.nhn">NHNEnt</a> corporation.</p>
+<h2>Feature</h2><ul>
+<li>browser.js<ul>
+<li>Browser detecting modules</li>
+</ul>
+</li>
+<li>collection.js<ul>
+<li>Modules to Process collecitons</li>
+<li>Support util methods for collecitons</li>
+</ul>
+</li>
+<li>customEvent.js<ul>
+<li>Custom event modules</li>
+<li>Add/Remove/fire custom events</li>
+</ul>
+</li>
+<li>defineClass.js<ul>
+<li>Defined classes module</li>
+</ul>
+</li>
+<li>enum.js<ul>
+<li>Const value modules</li>
+<li>Making immutability values but IE8 low</li>
+</ul>
+</li>
+<li>func.js<ul>
+<li>Function modules</li>
+</ul>
+</li>
+<li>hashMap.js<ul>
+<li>Hash map modules</li>
+<li>Managing data by key/value</li>
+</ul>
+</li>
+<li>inheritance.js<ul>
+<li>Simple inheritance modules (Nicholas C. Zakas, YUI Library)</li>
+<li>Call supur constructor of superclass</li>
+<li>Have to get inheritance before define child</li>
+<li>Using mixin and inner object</li>
+</ul>
+</li>
+<li>object.js<ul>
+<li>Object modules</li>
+<li>Support utils to control object</li>
+</ul>
+</li>
+<li>string.js<ul>
+<li>String processing modules</li>
+<li>Support utils such as decodeHTMLEntity, encodeHTMLEntity</li>
+</ul>
+</li>
+<li>type.js<ul>
+<li>Check data type</li>
+</ul>
+</li>
+<li>window.js<ul>
+<li>Window object modules</li>
+<li>You need 'postDataBridgeUrl' options to avoid IE11 popup form submit bug.</li>
+<li>Different domain have x-domain issue.</li>
+</ul>
+</li>
+<li>defineNamespace.js<ul>
+<li>Support utils to define namespace</li>
+</ul>
+</li>
+<li>formatDate.js<ul>
+<li>Formating date strings modules</li>
+</ul>
+</li>
+<li>defineModule.js<ul>
+<li>Support utils to define modules</li>
+</ul>
+</li>
+</ul>
+<h2>How to use CodeSnippet</h2><ul>
+<li>Using CodeSnippet build file<ul>
+<li>Download code-snippet.js or code-snippet.min.js from <a href="https://github.com/nhnent/tui.code-snippet">[master branch]</a></li>
+<li>It's better that you do not change the file name.</li>
+</ul>
+</li>
+<li>Using the copy only the necesary parts<ul>
+<li>Check dependency before copy the codes</li>
+<li>Use build file as you can</li>
+</ul>
+</li>
+</ul>
+<h2>Documentation</h2><ul>
+<li>API: https://nhnent.github.io/tui.code-snippet/latest/</li>
+<li>Tutorial: https://github.com/nhnent/fe.javascript/wiki/FE-CodeSnippet</li>
+</ul>
+<h2>Tested Browsers</h2><ul>
+<li>browser:<ul>
+<li>IE8+</li>
+<li>Chrome</li>
+<li>Firefox</li>
+</ul>
+</li>
+</ul>
+<h2>Download/Install</h2><ul>
+<li>Bower:<ul>
+<li>Latest: <code>bower install tui-code-snippet</code></li>
+<li>Each Version: <code>bower install tui-code-snippet[#tag]</code></li>
+</ul>
+</li>
+<li>Download: https://github.com/nhnent/tui.code-snippet</li>
+</ul></article>
     </section>
+
+
 
 
 
@@ -172,7 +180,7 @@
 <script src="scripts/linenumber.js"></script>
 
     <script>
-        var id = '_sub'.replace(/"/g, '_');
+        var id = 'package:undefined_sub'.replace(/"/g, '_');
         var selectedApi = document.getElementById(id); // do not use jquery selector
         var $selectedApi = $(selectedApi);
 

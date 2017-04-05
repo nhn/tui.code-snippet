@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Source: browser.js | CodeSnippet</title>
+    <title>Source: inheritance.js | CodeSnippet</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -45,10 +45,9 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @fileoverview This module detects the kind of well-known browser and version.
+ * @fileoverview This module provides some simple function for inheritance.
  * @author NHN Ent.
  *         FE Development Team &lt;e0242@nhnent.com>
- * @namespace tui.util
  */
 
 (function(tui) {
@@ -62,96 +61,64 @@
         tui.util = window.tui.util = {};
     }
 
+
+
     /**
-     * This object has an information that indicate the kind of browser.&lt;br>
-     * The list below is a detectable browser list.
-     *  - ie7 ~ ie11
-     *  - chrome
-     *  - firefox
-     *  - safari
-     *  - edge
+     * Create a new object with the specified prototype object and properties.
+     * @param {Object} obj This object will be a prototype of the newly-created object.
+     * @return {Object}
      * @memberof tui.util
-     * @example
-     *  tui.util.browser.chrome === true;    // chrome
-     *  tui.util.browser.firefox === true;    // firefox
-     *  tui.util.browser.safari === true;    // safari
-     *  tui.util.browser.msie === true;    // IE
-     *  tui.util.browser.edge === true;     // edge
-     *  tui.util.browser.others === true;    // other browser
-     *  tui.util.browser.version;    // browser version
      */
-    var browser = {
-        chrome: false,
-        firefox: false,
-        safari: false,
-        msie: false,
-        edge: false,
-        others: false,
-        version: 0
-    };
+    function createObject() {
+        function F() {}
 
-    var nav = window.navigator,
-        appName = nav.appName.replace(/\s/g, '_'),
-        userAgent = nav.userAgent;
-
-    var rIE = /MSIE\s([0-9]+[.0-9]*)/,
-        rIE11 = /Trident.*rv:11\./,
-        rEdge = /Edge\/(\d+)\./,
-        versionRegex = {
-            'firefox': /Firefox\/(\d+)\./,
-            'chrome': /Chrome\/(\d+)\./,
-            'safari': /Version\/([\d\.]+).*Safari\/(\d+)/
+        return function(obj) {
+            F.prototype = obj;
+            return new F();
         };
-
-    var key, tmp;
-
-    var detector = {
-        'Microsoft_Internet_Explorer': function() {
-            var detectedVersion = userAgent.match(rIE);
-
-            if (detectedVersion) { // ie8 ~ ie10
-                browser.msie = true;
-                browser.version = parseFloat(detectedVersion[1]);
-            } else { // no version information
-                browser.others = true;
-            }
-        },
-        'Netscape': function() {
-            var detected = false;
-
-            if (rIE11.exec(userAgent)) {
-                browser.msie = true;
-                browser.version = 11;
-                detected = true;
-            } else if (rEdge.exec(userAgent)) {
-                browser.edge = true;
-                browser.version = userAgent.match(rEdge)[1];
-                detected = true;
-            } else {
-                for (key in versionRegex) {
-                    if (versionRegex.hasOwnProperty(key)) {
-                        tmp = userAgent.match(versionRegex[key]);
-                        if (tmp &amp;&amp; tmp.length > 1) {
-                            browser[key] = detected = true;
-                            browser.version = parseFloat(tmp[1] || 0);
-                            break;
-                        }
-                    }
-                }
-            }
-            if (!detected) {
-                browser.others = true;
-            }
-        }
-    };
-
-    var fn = detector[appName];
-
-    if (fn) {
-        detector[appName]();
     }
 
-    tui.util.browser = browser;
+    /**
+     * Provide a simple inheritance in prototype-oriented.
+     * Caution :
+     *  Don't overwrite the prototype of child constructor.
+     *
+     * @param {function} subType Child constructor
+     * @param {function} superType Parent constructor
+     * @memberof tui.util
+     * @example
+     *  // Parent constructor
+     *  function Animal(leg) {
+     *      this.leg = leg;
+     *  }
+     *
+     *  Animal.prototype.growl = function() {
+     *      // ...
+     *  };
+     *
+     *  // Child constructor
+     *  function Person(name) {
+     *      this.name = name;
+     *  }
+     *
+     *  // Inheritance
+     *  core.inherit(Person, Animal);
+     *
+     *  // After this inheritance, please use only the extending of property.
+     *  // Do not overwrite prototype.
+     *  Person.prototype.walk = function(direction) {
+     *      // ...
+     *  };
+     */
+    function inherit(subType, superType) {
+        var prototype = tui.util.createObject(superType.prototype);
+        prototype.constructor = subType;
+        subType.prototype = prototype;
+    }
+
+    tui.util.createObject = createObject();
+    tui.util.inherit = inherit;
+
 })(window.tui);
 </code></pre>
         </article>
