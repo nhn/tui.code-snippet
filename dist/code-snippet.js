@@ -1,4 +1,4 @@
-/*!code-snippet v1.2.3 | NHN Entertainment*/
+/*!code-snippet v1.2.4 | NHN Entertainment*/
 /**********
  * array.js
  **********/
