@@ -209,7 +209,7 @@
         versionRegex = {
             'firefox': /Firefox\/(\d+)\./,
             'chrome': /Chrome\/(\d+)\./,
-            'safari': /Version\/([\d\.]+)\sSafari\/(\d+)/
+            'safari': /Version\/[\d\.]+.Safari\/(\d+)/
         };
 
     var key, tmp;
