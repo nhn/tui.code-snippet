@@ -6,7 +6,6 @@
   "scripts": {
     "test": "karma start karma.conf.js",
     "test:ne": "karma start karma.conf.ne.js",
-    "bundle": "grunt",
     "cpy-dist2doc": "mkdir -p doc/dist && cp -f dist/code-snippet.js doc/dist",
     "doc": "./node_modules/.bin/jsdoc -c jsdoc-conf.json && npm run cpy-dist2doc",
     "build": "webpack",
@@ -19,9 +18,6 @@
   "author": "FE",
   "license": "MIT",
   "devDependencies": {
-    "grunt": "^1.0.1",
-    "grunt-contrib-concat": "^0.5.0",
-    "grunt-contrib-uglify": "^2.2.0",
     "jasmine-ajax": "latest",
     "jasmine-core": "latest",
     "jasmine-jquery": "latest",

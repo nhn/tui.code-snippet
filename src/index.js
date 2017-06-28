@@ -1,5 +1,8 @@
 'use strict';
 
+/**
+ * @namespace tui.util
+ */
 var util = {};
 
 var object = require('./object');

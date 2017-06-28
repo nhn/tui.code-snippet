@@ -21,7 +21,7 @@ var lastId = 0;
  * @param {object} target - Object that will be extended
  * @param {...object} objects - Objects as sources
  * @returns {object} Extended object
- * @member tui.util
+ * @memberof tui.util
  */
 function extend(target, objects) { // eslint-disable-line no-unused-vars
     var hasOwnProp = Object.prototype.hasOwnProperty;
@@ -42,7 +42,7 @@ function extend(target, objects) { // eslint-disable-line no-unused-vars
  * Assign a unique id to an object
  * @param {object} obj - Object that will be assigned id.
  * @returns {number} Stamped id
- * @member tui.util
+ * @memberof tui.util
  */
 function stamp(obj) {
     if (!obj.__fe_id) {
@@ -57,7 +57,7 @@ function stamp(obj) {
  * Verify whether an object has a stamped id or not.
  * @param {object} obj - adjusted object
  * @returns {boolean}
- * @member tui.util
+ * @memberof tui.util
  */
 function hasStamp(obj) {
     return type.isExisty(pick(obj, '__fe_id'));
@@ -74,7 +74,7 @@ function resetLastId() {
  * Return a key-list(array) of a given object
  * @param {object} obj - Object from which a key-list will be extracted
  * @returns {Array} A key-list(array)
- * @member tui.util
+ * @memberof tui.util
  */
 function keys(obj) {
     var keyArray = [];
@@ -108,7 +108,7 @@ function keys(obj) {
  *
  *      tui.util.compareJSON(jsonObj4, jsonObj5); // false
 
- * @member tui.util
+ * @memberof tui.util
  */
 function compareJSON(object) {
     var argsLen = arguments.length;

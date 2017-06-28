@@ -10,7 +10,7 @@
  * Create a new object with the specified prototype object and properties.
  * @param {Object} obj This object will be a prototype of the newly-created object.
  * @returns {Object}
- * @member tui.util
+ * @memberof tui.util
  */
 function createObject(obj) {
     function F() {} /* eslint-ignore require-jsdoc */
@@ -25,7 +25,7 @@ function createObject(obj) {
  *
  * @param {function} subType Child constructor
  * @param {function} superType Parent constructor
- * @member tui.util
+ * @memberof tui.util
  * @example
  *  // Parent constructor
  *  function Animal(leg) {

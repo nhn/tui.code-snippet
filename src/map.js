@@ -38,6 +38,7 @@ var _KEY_FOR_NAN = {};
  * @param  {Array} keys - The array of keys in the map
  * @param  {function} valueGetter - Function that returns certain value,
  *      taking key and keyIndex as arguments.
+ * @ignore
  */
 function MapIterator(keys, valueGetter) {
     this._keys = keys;
@@ -310,7 +311,7 @@ Map.prototype.has = function(key) {
 /**
  * Removes the specified element from a Map object.
  * @param {*} key - The key of the element to remove
- * @member Map.prototype
+ * @memberof Map.prototype
  * @method delete
  */
  // cannot use reserved keyword as a property name in IE8 and under.

@@ -21,7 +21,7 @@ var object = require('./object');
  * @param {Array} arr The array(or Array-like object) that will be traversed
  * @param {function} iteratee Callback function
  * @param {Object} [context] Context(this) of callback function
- * @member tui.util
+ * @memberof tui.util
  * @example
  *  var sum = 0;
  *
@@ -127,7 +127,7 @@ function forEach(obj, iteratee, context) {
  * @param {function} iteratee Callback function
  * @param {Object} [context] Context(this) of callback function
  * @returns {Array} A new array composed of returned values from callback function
- * @member tui.util
+ * @memberof tui.util
  * @example
  *  var result = map([0,1,2,3], function(value) {
  *      return value + 1;
@@ -197,7 +197,7 @@ function reduce(obj, iteratee, context) {
  * In low IE (below 8), Array.prototype.slice.call is not perfect. So, try-catch statement is used.
  * @param {*} arrayLike Array-like object
  * @returns {Array} Array
- * @member tui.util
+ * @memberof tui.util
  * @example
  *  var arrayLike = {
  *      0: 'one',
@@ -284,8 +284,8 @@ function filter(obj, iteratee, context) {
  * fetching a property
  * @param {Array} arr target collection
  * @param {String|Number} property property name
- * @memberof tui.util
  * @returns {Array}
+ * @memberof tui.util
  * @example
  *   var objArr = [
  *         {'abc': 1, 'def': 2, 'ghi': 3},

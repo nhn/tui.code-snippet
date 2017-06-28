@@ -17,6 +17,7 @@ var aps = Array.prototype.slice;
  * @param {number} stop - stop index
  * @param {number} step - next visit index = current index + step
  * @returns {Array}
+ * @memberof tui.util
  * @example
  *
  *   var arr = range(5);
@@ -56,6 +57,7 @@ var range = function(start, stop, step) {
  * Zip together multiple lists into a single array
  * @param {...Array}
  * @returns {Array}
+ * @memberof tui.util
  * @example
  *
  *   var result = zip([1, 2, 3], ['a', 'b','c'], [true, false, true]);
@@ -90,6 +92,7 @@ var zip = function() {
  * @param {Array} array Array that will be traversed.
  * @param {number} startIndex Start index in array for searching (default 0)
  * @returns {number} the First index at which a given element, or -1 if it is not present
+ * @memberof tui.util
  * @example
  *
  *   var arr = ['one', 'two', 'three', 'four'],

@@ -13,6 +13,7 @@ var type = require('./type');
 /**
  * Check whether the defineProperty() method is supported.
  * @type {boolean}
+ * @ignore
  */
 var isSupportDefinedProperty = (function() {
     try {
@@ -26,6 +27,7 @@ var isSupportDefinedProperty = (function() {
 /**
  * A unique value of a constant.
  * @type {number}
+ * @ignore
  */
 var enumValue = 0;
 
@@ -38,7 +40,7 @@ var enumValue = 0;
  * @exports Enum
  * @constructor
  * @class
- * @member tui.util
+ * @memberof tui.util
  * @examples
  *  //create
  *  var MYENUM = new Enum('TYPE1', 'TYPE2');

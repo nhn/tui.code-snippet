@@ -14,6 +14,7 @@
  *  - firefox
  *  - safari
  *  - edge
+ * @memberof tui.util
  * @example
  *  browser.chrome === true;    // chrome
  *  browser.firefox === true;    // firefox

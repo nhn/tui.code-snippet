@@ -25,6 +25,7 @@ var R_EVENTNAME_SPLIT = /\s+/g;  // eslint-disable-line
 
 /**
  * @constructor
+ * @class
  * @memberof tui.util
  */
 function CustomEvents() {
@@ -43,6 +44,7 @@ function CustomEvents() {
 /**
  * Mixin custom events feature to specific constructor
  * @param {function} func - constructor
+ * @memberof tui.util
  * @example
  *  function Model() {
  *      this.name = '';
@@ -81,6 +83,7 @@ CustomEvents.prototype._getHandlerItem = function(handler, context) {
  * @param {string} [eventName] - create sub event map if not exist.
  * @returns {(object|array)} event object. if you supplied `eventName`
  *  parameter then make new array and return it
+ * @memberof tui.util
  * @private
  */
 CustomEvents.prototype._safeEvent = function(eventName) {
@@ -108,6 +111,7 @@ CustomEvents.prototype._safeEvent = function(eventName) {
 /**
  * Get context array safely
  * @returns {array} context array
+ * @memberof tui.util
  * @private
  */
 CustomEvents.prototype._safeContext = function() {
@@ -124,6 +128,7 @@ CustomEvents.prototype._safeContext = function() {
  * Get index of context
  * @param {object} ctx - context that used for bind custom event
  * @returns {number} index of context
+ * @memberof tui.util
  * @private
  */
 CustomEvents.prototype._indexOfContext = function(ctx) {
@@ -145,6 +150,7 @@ CustomEvents.prototype._indexOfContext = function(ctx) {
  * Memorize supplied context for recognize supplied object is context or
  *  name: handler pair object when off()
  * @param {object} ctx - context object to memorize
+ * @memberof tui.util
  * @private
  */
 CustomEvents.prototype._memorizeContext = function(ctx) {
@@ -167,6 +173,7 @@ CustomEvents.prototype._memorizeContext = function(ctx) {
 /**
  * Forget supplied context object
  * @param {object} ctx - context object to forget
+ * @memberof tui.util
  * @private
  */
 CustomEvents.prototype._forgetContext = function(ctx) {
@@ -194,6 +201,7 @@ CustomEvents.prototype._forgetContext = function(ctx) {
  *  event name or an object {eventName: handler}
  * @param {(function|object)} [handler] - handler function or context
  * @param {object} [context] - context for binding
+ * @memberof tui.util
  * @private
  */
 CustomEvents.prototype._bindEvent = function(eventName, handler, context) {
@@ -208,6 +216,7 @@ CustomEvents.prototype._bindEvent = function(eventName, handler, context) {
  *  event name or an object {eventName: handler}
  * @param {(function|object)} [handler] - handler function or context
  * @param {object} [context] - context for binding
+ * @memberof tui.util
  * @example
  *  // 1. Basic
  *  customEvent.on('onload', handler);
@@ -250,6 +259,7 @@ CustomEvents.prototype.on = function(eventName, handler, context) {
  *  event name or an object {eventName: handler}
  * @param {(function|object)} [handler] - handler function or context
  * @param {object} [context] - context for binding
+ * @memberof tui.util
  */
 CustomEvents.prototype.once = function(eventName, handler, context) {
     var self = this;
@@ -274,6 +284,7 @@ CustomEvents.prototype.once = function(eventName, handler, context) {
  * Splice supplied array by callback result
  * @param {array} arr - array to splice
  * @param {function} predicate - function return boolean
+ * @memberof tui.util
  * @private
  */
 CustomEvents.prototype._spliceMatches = function(arr, predicate) {
@@ -296,6 +307,7 @@ CustomEvents.prototype._spliceMatches = function(arr, predicate) {
  * Get matcher for unbind specific handler events
  * @param {function} handler - handler function
  * @returns {function} handler matcher
+ * @memberof tui.util
  * @private
  */
 CustomEvents.prototype._matchHandler = function(handler) {
@@ -316,6 +328,7 @@ CustomEvents.prototype._matchHandler = function(handler) {
  * Get matcher for unbind specific context events
  * @param {object} context - context
  * @returns {function} object matcher
+ * @memberof tui.util
  * @private
  */
 CustomEvents.prototype._matchContext = function(context) {
@@ -337,6 +350,7 @@ CustomEvents.prototype._matchContext = function(context) {
  * @param {function} handler - handler function
  * @param {object} context - context
  * @returns {function} handler, context matcher
+ * @memberof tui.util
  * @private
  */
 CustomEvents.prototype._matchHandlerAndContext = function(handler, context) {
@@ -359,6 +373,7 @@ CustomEvents.prototype._matchHandlerAndContext = function(handler, context) {
  * Unbind event by event name
  * @param {string} eventName - custom event name to unbind
  * @param {function} [handler] - handler function
+ * @memberof tui.util
  * @private
  */
 CustomEvents.prototype._offByEventName = function(eventName, handler) {
@@ -387,6 +402,7 @@ CustomEvents.prototype._offByEventName = function(eventName, handler) {
 /**
  * Unbind event by handler function
  * @param {function} handler - handler function
+ * @memberof tui.util
  * @private
  */
 CustomEvents.prototype._offByHandler = function(handler) {
@@ -402,6 +418,7 @@ CustomEvents.prototype._offByHandler = function(handler) {
  * Unbind event by object(name: handler pair object or context object)
  * @param {object} obj - context or {name: handler} pair object
  * @param {function} handler - handler function
+ * @memberof tui.util
  * @private
  */
 CustomEvents.prototype._offByObject = function(obj, handler) {
@@ -436,6 +453,7 @@ CustomEvents.prototype._offByObject = function(obj, handler) {
  * @param {(string|object|function)} eventName - event name or context or
  *  {name: handler} pair object or handler function
  * @param {(function)} handler - handler function
+ * @memberof tui.util
  * @example
  * // 1. off by event name
  * customEvent.off('onload');
@@ -484,6 +502,7 @@ CustomEvents.prototype.off = function(eventName, handler) {
 /**
  * Fire custom event
  * @param {string} eventName - name of custom event
+ * @memberof tui.util
  */
 CustomEvents.prototype.fire = function(eventName) {  // eslint-disable-line
     this.invoke.apply(this, arguments);
@@ -500,6 +519,7 @@ CustomEvents.prototype.fire = function(eventName) {  // eslint-disable-line
  * @param {string} eventName - Custom event name
  * @param {...*} data - Data for event
  * @returns {boolean} The result of operation 'boolean AND'
+ * @memberof tui.util
  * @example
  *  if (this.invoke('beforeZoom')) {    // check the result of 'beforeZoom'
  *      // if true,
@@ -546,6 +566,7 @@ CustomEvents.prototype.invoke = function(eventName) {
  *  event name.
  * @param {string} eventName - Custom event name
  * @returns {boolean} Is there at least one handler in event name?
+ * @memberof tui.util
  */
 CustomEvents.prototype.hasListener = function(eventName) {
     return this.getListenerLength(eventName) > 0;
@@ -555,6 +576,7 @@ CustomEvents.prototype.hasListener = function(eventName) {
  * Return a count of events registered.
  * @param {string} eventName - Custom event name
  * @returns {number} number of event
+ * @memberof tui.util
  */
 CustomEvents.prototype.getListenerLength = function(eventName) {
     var events = this._safeEvent(eventName);

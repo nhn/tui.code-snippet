@@ -20,7 +20,7 @@ var extend = require('./object').extend;
  *  @param {Function} props.init Initialization method
  *  @param {Object} [props.static] Static members of constructor
  * @returns {*} Constructor
- * @member tui.util
+ * @memberof tui.util
  * @example
  *  var Parent = defineClass({
  *      init: function() {
