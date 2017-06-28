@@ -1,21 +1,27 @@
+'use strict';
+
+var Map = require('../src/map');
+var ExMap = require('../src/exMap');
+
 describe('module:ExMap', function() {
     'use strict';
 
     var map;
 
     beforeEach(function() {
-        map = new tui.util.ExMap();
+        map = new ExMap();
     });
 
     describe('The tui.util.ExMap', function() {
         it('is defined', function() {
-            expect(tui.util.ExMap).toBeDefined();
+            expect(ExMap).toBeDefined();
         });
 
         it('is a constructor', function() {
-            expect(map instanceof tui.util.ExMap).toBe(true);
+            expect(map instanceof ExMap).toBe(true);
         });
 
+        /* eslint-disable max-nested-callbacks */
         describe('has an argument', function() {
             it('that can be an array', function() {
                 var initData = [
@@ -24,16 +30,18 @@ describe('module:ExMap', function() {
                     [3, 'three']
                 ];
 
-                map = new tui.util.ExMap(initData);
+                map = new ExMap(initData);
 
                 expect(map.get(1)).toBe('one');
                 expect(map.get(2)).toBe('two');
                 expect(map.get(3)).toBe('three');
             });
         });
+        /* eslint-enable max-nested-callbacks */
     });
 
     describe('methods from tui.util.Map', function() {
+        /* eslint-disable max-nested-callbacks */
         describe('set() and get()', function() {
             it('for the string key', function() {
                 map.set('company', 'nhn ent');
@@ -139,7 +147,7 @@ describe('module:ExMap', function() {
         describe('keys(), values(), entries() returns Iterator object in insertion order', function() {
             beforeEach(function() {
                 map.set(null, '1');
-                map.set(undefined, '2');
+                map.set(undefined, '2'); // eslint-disable-line no-undefined
                 map.set('3', '3');
             });
 
@@ -147,7 +155,7 @@ describe('module:ExMap', function() {
                 it('contains the keys for each element', function() {
                     var keys = map.keys();
                     expect(keys.next().value).toBe(null);
-                    expect(keys.next().value).toBe(undefined);
+                    expect(keys.next().value).toBe(undefined); // eslint-disable-line no-undefined
                     expect(keys.next().value).toBe('3');
                 });
             });
@@ -165,11 +173,12 @@ describe('module:ExMap', function() {
                 it('contains the values for each element', function() {
                     var entries = map.entries();
                     expect(entries.next().value).toEqual([null, '1']);
-                    expect(entries.next().value).toEqual([undefined, '2']);
+                    expect(entries.next().value).toEqual([undefined, '2']); // eslint-disable-line no-undefined
                     expect(entries.next().value).toEqual(['3', '3']);
                 });
             });
         });
+        /* eslint-enable max-nested-callbacks */
     });
 
     describe('setObject()', function() {
@@ -203,7 +212,7 @@ describe('module:ExMap', function() {
 
     describe('merge()', function() {
         it('sets all of the key-value pairs in the specified map to this map', function() {
-            var anotherMap = new tui.util.Map();
+            var anotherMap = new Map();
 
             map.set(1, 'one');
             map.set(2, 'two');

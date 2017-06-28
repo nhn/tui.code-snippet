@@ -1,18 +1,17 @@
+'use strict';
+
+var Enum = require('../src/enum');
+
 describe('module:Enum', function() {
-    'use strict';
-
-    var Enum = tui.util.Enum,
-        enumO;
-
-
-    var isModernBrowser = (function () {
+    var isModernBrowser = (function() {
         try {
             Object.defineProperty({}, 'x', {});
             return true;
         } catch (e) {
             return false;
         }
-    }());
+    })();
+    var enumO;
 
     beforeEach(function() {
         enumO = new Enum();

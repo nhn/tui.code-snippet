@@ -1,37 +1,43 @@
 {
-    "name": "tui-code-snippet",
-    "version": "1.2.4",
-    "description": "useful code snippets from frontend development team",
-    "main": "code-snippet.js",
-    "scripts": {
-        "test": "karma start karma.conf.js",
-        "bundle": "grunt",
-        "cpy-dist2doc": "mkdir -p doc/dist && cp -f dist/code-snippet.js doc/dist",
-        "doc": "./node_modules/.bin/jsdoc -c jsdoc-conf.json && npm run cpy-dist2doc"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/nhnent/tui.code-snippet.git"
-    },
-    "author": "FE",
-    "license": "MIT",
-    "devDependencies": {
-        "grunt": "^1.0.1",
-        "grunt-contrib-concat": "^0.5.0",
-        "grunt-contrib-uglify": "^2.2.0",
-        "jasmine-ajax": "latest",
-        "jasmine-core": "latest",
-        "jasmine-jquery": "latest",
-        "jsdoc": "git+https://github.com/jsdoc3/jsdoc.git",
-        "karma": "1.3.0",
-        "karma-chrome-launcher": "latest",
-        "karma-coverage": "latest",
-        "karma-jasmine": "1.0.2",
-        "karma-junit-reporter": "latest",
-        "karma-mocha-reporter": "latest",
-        "karma-phantomjs-launcher": "latest",
-        "karma-webdriver-launcher": "git+https://github.com/everedifice/karma-webdriver-launcher.git",
-        "phantomjs-prebuilt": "latest",
-        "tui-jsdoc-template": "^1.0.4"
-    }
+  "name": "tui-code-snippet",
+  "version": "1.2.4",
+  "description": "useful code snippets from frontend development team",
+  "main": "./dist/code-snippet.js",
+  "scripts": {
+    "test": "karma start karma.conf.js",
+    "test:ne": "karma start karma.conf.ne.js",
+    "bundle": "grunt",
+    "cpy-dist2doc": "mkdir -p doc/dist && cp -f dist/code-snippet.js doc/dist",
+    "doc": "./node_modules/.bin/jsdoc -c jsdoc-conf.json && npm run cpy-dist2doc",
+    "build": "webpack",
+    "dev": "webpack --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nhnent/tui.code-snippet.git"
+  },
+  "author": "FE",
+  "license": "MIT",
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-contrib-concat": "^0.5.0",
+    "grunt-contrib-uglify": "^2.2.0",
+    "jasmine-ajax": "latest",
+    "jasmine-core": "latest",
+    "jasmine-jquery": "latest",
+    "jsdoc": "git+https://github.com/jsdoc3/jsdoc.git",
+    "karma": "1.3.0",
+    "karma-chrome-launcher": "latest",
+    "karma-coverage": "latest",
+    "karma-edge-launcher": "^0.4.1",
+    "karma-jasmine": "1.0.2",
+    "karma-junit-reporter": "latest",
+    "karma-mocha-reporter": "latest",
+    "karma-phantomjs-launcher": "latest",
+    "karma-webdriver-launcher": "git+https://github.com/everedifice/karma-webdriver-launcher.git",
+    "karma-webpack": "^2.0.3",
+    "phantomjs-prebuilt": "latest",
+    "tui-jsdoc-template": "^1.0.4",
+    "webpack": "^1.1.0"
+  }
 }

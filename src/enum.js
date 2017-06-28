@@ -1,34 +1,27 @@
 /**
  * @fileoverview This module provides a Enum Constructor.
  * @author NHN Ent.
- *         FE Development Team <e0242@nhnent.com>
+ *         FE Development Lab <dl_javascript@nhnent.com>
  * @dependency type, collection.js
  */
 
-(function(tui) {
-
 'use strict';
 
-/* istanbul ignore if */
-if (!tui) {
-    tui = window.tui = {};
-}
-if (!tui.util) {
-    tui.util = window.tui.util = {};
-}
+var collection = require('./collection');
+var type = require('./type');
 
 /**
  * Check whether the defineProperty() method is supported.
  * @type {boolean}
  */
-var isSupportDefinedProperty = (function () {
+var isSupportDefinedProperty = (function() {
     try {
         Object.defineProperty({}, 'x', {});
         return true;
     } catch (e) {
         return false;
     }
-}());
+})();
 
 /**
  * A unique value of a constant.
@@ -45,7 +38,7 @@ var enumValue = 0;
  * @exports Enum
  * @constructor
  * @class
- * @memberof tui.util
+ * @member tui.util
  * @examples
  *  //create
  *  var MYENUM = new Enum('TYPE1', 'TYPE2');
@@ -81,11 +74,11 @@ function Enum(itemList) {
 Enum.prototype.set = function(itemList) {
     var self = this;
 
-    if (!tui.util.isArray(itemList)) {
-        itemList = tui.util.toArray(arguments);
+    if (!type.isArray(itemList)) {
+        itemList = collection.toArray(arguments);
     }
 
-    tui.util.forEach(itemList, function itemListIteratee(item) {
+    collection.forEach(itemList, function itemListIteratee(item) {
         self._addItem(item);
     });
 };
@@ -99,7 +92,7 @@ Enum.prototype.getName = function(value) {
     var foundedKey,
         self = this;
 
-    tui.util.forEach(this, function(itemValue, key) {
+    collection.forEach(this, function(itemValue, key) { // eslint-disable-line consistent-return
         if (self._isEnumItem(key) && value === itemValue) {
             foundedKey = key;
             return false;
@@ -154,9 +147,7 @@ Enum.prototype._makeEnumValue = function() {
  * @private
  */
 Enum.prototype._isEnumItem = function(key) {
-    return tui.util.isNumber(this[key]);
+    return type.isNumber(this[key]);
 };
 
-tui.util.Enum = Enum;
-
-})(window.tui);
+module.exports = Enum;

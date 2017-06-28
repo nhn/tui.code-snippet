@@ -1,13 +1,17 @@
+'use strict';
+
+var HashMap = require('../src/hashMap');
+
 describe('module:hashMap', function() {
     var hashMap;
 
     beforeEach(function() {
-        hashMap = new tui.util.HashMap();
+        hashMap = new HashMap();
     });
 
     describe('HashMap이 존재한다.', function() {
         it('HashMap은 정의되어있다.', function() {
-            expect(tui.util.HashMap).toBeDefined();
+            expect(HashMap).toBeDefined();
         });
 
         it('hashMap의 인스턴스가 존재한다.', function() {
@@ -44,7 +48,7 @@ describe('module:hashMap', function() {
 
     describe('merge()', function() {
         it('해쉬맵을 인자로 받아 병합한다.', function() {
-            var mergedHashMap = new tui.util.HashMap();
+            var mergedHashMap = new HashMap();
 
             hashMap.setObject({
                 'dataKey': 'data',
@@ -154,8 +158,9 @@ describe('module:hashMap', function() {
         });
 
         it('키를 넘겨 데이터를 삭제한다.', function() {
+            var v;
             hashMap.removeByKey('dataKey');
-            var v = hashMap.has('dataKey');
+            v = hashMap.has('dataKey');
             expect(v).toEqual(false);
             expect(hashMap.length).toEqual(0);
         });
@@ -209,6 +214,7 @@ describe('module:hashMap', function() {
     });
 
     describe('each()', function() {
+        /* eslint-disable max-nested-callbacks */
         beforeEach(function() {
             hashMap.set('key1', 'data1');
             hashMap.set('key2', 'data2');
@@ -227,6 +233,7 @@ describe('module:hashMap', function() {
             expect(sumValue).toEqual('data1data2data3');
             expect(sumKey).toEqual('key1key2key3');
         });
+        /* eslint-enable max-nested-callbacks */
     });
 
     describe('keys()', function() {
@@ -246,6 +253,7 @@ describe('module:hashMap', function() {
     });
 
     describe('find()', function() {
+        /* eslint-disable max-nested-callbacks */
         beforeEach(function() {
             hashMap.set('key1', 'data1');
             hashMap.set('key2', 'data');
@@ -266,8 +274,9 @@ describe('module:hashMap', function() {
             expect(dataByValue).toEqual(['data', 'data']);
             expect(dataByKey).toEqual(['data1']);
         });
+        /* eslint-enable max-nested-callbacks */
     });
-    
+
     describe('toArray()', function() {
         var obj = {};
         beforeEach(function() {
@@ -285,4 +294,3 @@ describe('module:hashMap', function() {
         });
     });
 });
-

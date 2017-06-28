@@ -2,8 +2,13 @@
 // Generated on Wed Oct 22 2014 11:36:33 GMT+0900 (KST)
 
 module.exports = function(config) {
-    config.set({
+    var webdriverConfig = {
+        hostname: 'fe.nhnent.com',
+        port: 4444,
+        remoteHost: true
+    };
 
+    config.set({
         // base path that will be used to resolve all patterns (eg. files, exclude)
         basePath: '',
 
@@ -13,15 +18,15 @@ module.exports = function(config) {
             'karma-chrome-launcher',
             'karma-safari-launcher',
             'karma-firefox-launcher',
+            'karma-edge-launcher',
             'karma-coverage',
-            'karma-junit-reporter'
+            'karma-junit-reporter',
+            'karma-webdriver-launcher'
         ],
 
         // frameworks to use
         // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-        frameworks: [
-            'jasmine'
-        ],
+        frameworks: ['jasmine'],
 
 
         // list of files / patterns to load in the browser
@@ -111,13 +116,61 @@ module.exports = function(config) {
         // start these browsers
         // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
         browsers: [
-            'Chrome',
-            'Firefox',
-            'Safari'
+            'IE8',
+            'IE9',
+            'IE10',
+            'IE11',
+            'Chrome-WebDriver',
+            'Firefox-WebDriver',
+            'Edge'
+            // ,
+            // 'PhantomJS'
         ],
+
+        customLaunchers: {
+            'IE8': {
+                base: 'WebDriver',
+                config: webdriverConfig,
+                browserName: 'internet explorer',
+                version: 8
+            },
+            'IE9': {
+                base: 'WebDriver',
+                config: webdriverConfig,
+                browserName: 'internet explorer',
+                version: 9
+            },
+            'IE10': {
+                base: 'WebDriver',
+                browserName: 'internet explorer',
+                config: webdriverConfig,
+                version: 10
+            },
+            'IE11': {
+                base: 'WebDriver',
+                config: webdriverConfig,
+                browserName: 'internet explorer',
+                version: 11
+            },
+            'Edge': {
+                base: 'WebDriver',
+                config: webdriverConfig,
+                browserName: 'MicrosoftEdge'
+            },
+            'Chrome-WebDriver': {
+                base: 'WebDriver',
+                config: webdriverConfig,
+                browserName: 'chrome'
+            },
+            'Firefox-WebDriver': {
+                base: 'WebDriver',
+                config: webdriverConfig,
+                browserName: 'firefox'
+            }
+        },
 
         // Continuous Integration mode
         // if true, Karma captures browsers, runs the tests and exits
-        singleRun: false
+        singleRun: true
     });
 };
