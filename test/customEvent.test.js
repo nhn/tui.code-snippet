@@ -1,6 +1,9 @@
+'use strict';
+
+var CustomEvents = require('../src/customEvent');
+
 describe('CustomEvents', function() {
-    var CustomEvents = tui.util.CustomEvents,
-        ce;
+    var ce;
 
     beforeEach(function() {
         ce = new CustomEvents();
@@ -20,7 +23,7 @@ describe('CustomEvents', function() {
                 test: [{handler: handler}]
             });
 
-            function handler2() {}
+            function handler2() {} // eslint-disable-line require-jsdoc
             ce.on('test', handler2);
 
             expect(ce.events).toEqual({
@@ -150,8 +153,7 @@ describe('CustomEvents', function() {
         var spy,
             spy2,
             obj,
-            obj2,
-            ce;
+            obj2;
 
         beforeEach(function() {
             spy = jasmine.createSpy('off');
@@ -162,7 +164,7 @@ describe('CustomEvents', function() {
         });
 
         it('exceptional situtaions.', function() {
-            expect(function() {
+            expect(function() { // eslint-disable-line max-nested-callbacks
                 ce.off('good');
             }).not.toThrow();
         });
@@ -304,14 +306,16 @@ describe('CustomEvents', function() {
         });
     });
 
-
+    /* eslint-disable max-nested-callbacks */
+    /* eslint-disable block-spacing */
+    /* eslint-disable brace-style */
     describe('should return AND conditions for all of handler\' result', function() {
         var inst,
             spy;
 
         function MockComponent() {}
 
-        tui.util.CustomEvents.mixin(MockComponent);
+        CustomEvents.mixin(MockComponent);
 
         MockComponent.prototype.work = function() {
             if (this.invoke('beforeZoom')) {
@@ -333,7 +337,7 @@ describe('CustomEvents', function() {
             });
 
             it('undefined can\'t stop event calls.', function() {
-                inst.on('beforeZoom', function() { return void 0; });
+                inst.on('beforeZoom', function() { return undefined; }); // eslint-disable-line no-undefined
                 inst.work();
                 expect(spy).toHaveBeenCalled();
             });
@@ -358,7 +362,7 @@ describe('CustomEvents', function() {
 
             it('if not, invoke() will return true.', function() {
                 inst.on('beforeZoom', function() { return true; });
-                inst.on('beforeZoom', function() { return void 0; });
+                inst.on('beforeZoom', function() { return undefined; }); // eslint-disable-line no-undefined
                 inst.on('beforeZoom', function() {});
 
                 inst.work();
@@ -371,7 +375,7 @@ describe('CustomEvents', function() {
             inst.work();
             expect(spy).toHaveBeenCalled();
 
-            function falseFn() { return false };
+            function falseFn() { return false; }
             inst.on('beforeZoom', falseFn);
             inst.off('beforeZoom', falseFn);
 
@@ -380,6 +384,7 @@ describe('CustomEvents', function() {
             expect(spy).toHaveBeenCalled();
         });
     });
+    /* eslint-enable max-nested-callbacks */
 
     describe('should memorize', function() {
         it('specific context object.', function() {

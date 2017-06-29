@@ -1,6 +1,8 @@
-describe('module:def', function() {
-    var defineClass = tui.util.defineClass;
+'use strict';
 
+var defineClass = require('../src/defineClass');
+
+describe('module:def', function() {
     describe('def()', function() {
         var props1,
             propsWithinit,
@@ -38,60 +40,60 @@ describe('module:def', function() {
         };
 
         describe('생성자를 생성할수있다', function() {
-            var obj;
+            var MyObject;
 
             beforeEach(function() {
-                obj = defineClass(props1);
+                MyObject = defineClass(props1);
             });
 
-            it('obj.prototype에 method1이 있다.', function() {
-                expect(obj.prototype.method1).toBeDefined();
-                expect(obj.prototype.method1).toBe(props1.method1);
+            it('MyObject.prototype에 method1이 있다.', function() {
+                expect(MyObject.prototype.method1).toBeDefined();
+                expect(MyObject.prototype.method1).toBe(props1.method1);
             });
 
-            it('obj.prototype에 var1가 있고 값이 정확하다..', function() {
-                expect(obj.prototype.var1).toBeDefined();
-                expect(obj.prototype.var1).toEqual(props1.var1);
+            it('MyObject.prototype에 var1가 있고 값이 정확하다..', function() {
+                expect(MyObject.prototype.var1).toBeDefined();
+                expect(MyObject.prototype.var1).toEqual(props1.var1);
             });
 
-            it('obj으로 생성한 인스턴스에서 va1과 method1를 참조할수있다.', function() {
-                var instance = new obj();
+            it('MyObject으로 생성한 인스턴스에서 va1과 method1를 참조할수있다.', function() {
+                var instance = new MyObject();
 
                 expect(instance.var1).toBeDefined();
-                expect(instance.var1).toBe(obj.prototype.var1);
+                expect(instance.var1).toBe(MyObject.prototype.var1);
                 expect(instance.method1).toBeDefined();
-                expect(instance.method1).toBe(obj.prototype.method1);
+                expect(instance.method1).toBe(MyObject.prototype.method1);
             });
         });
 
         describe('init을 넘겨 생성자를 지정할수있다.', function() {
-            var obj;
+            var MyObject;
 
             beforeEach(function() {
-                obj = defineClass(propsWithinit);
+                MyObject = defineClass(propsWithinit);
             });
 
-            it('obj.prototype에 method3가 있다.', function() {
-                expect(obj.prototype.method3).toBeDefined();
-                expect(obj.prototype.method3).toBe(propsWithinit.method3);
+            it('MyObject.prototype에 method3가 있다.', function() {
+                expect(MyObject.prototype.method3).toBeDefined();
+                expect(MyObject.prototype.method3).toBe(propsWithinit.method3);
             });
 
-            it('obj.prototype에 var3가 있고 값이 정확하다..', function() {
-                expect(obj.prototype.var3).toBeDefined();
-                expect(obj.prototype.var3).toEqual(propsWithinit.var3);
+            it('MyObject.prototype에 var3가 있고 값이 정확하다..', function() {
+                expect(MyObject.prototype.var3).toBeDefined();
+                expect(MyObject.prototype.var3).toEqual(propsWithinit.var3);
             });
 
-            it('obj으로 생성한 인스턴스에서 var3과 method3를 참조할수있다.', function() {
-                var instance = new obj();
+            it('MyObject으로 생성한 인스턴스에서 var3과 method3를 참조할수있다.', function() {
+                var instance = new MyObject();
 
                 expect(instance.var3).toBeDefined();
-                expect(instance.var3).toBe(obj.prototype.var3);
+                expect(instance.var3).toBe(MyObject.prototype.var3);
                 expect(instance.method3).toBeDefined();
-                expect(instance.method3).toBe(obj.prototype.method3);
+                expect(instance.method3).toBe(MyObject.prototype.method3);
             });
 
-            it('obj으로 생성한 인스턴스에서 인스턴스맴버가 존재한다.', function() {
-                var instance = new obj();
+            it('MyObject으로 생성한 인스턴스에서 인스턴스맴버가 존재한다.', function() {
+                var instance = new MyObject();
 
                 expect(instance.instanceVar).toBeDefined();
                 expect(instance.instanceVar).toEqual(3);
@@ -99,16 +101,16 @@ describe('module:def', function() {
         });
 
         describe('static키로 클래스 멤버를 할당할수있다', function() {
-            var obj;
+            var MyObject;
 
             beforeEach(function() {
-                obj = defineClass(propsWithStatic);
+                MyObject = defineClass(propsWithStatic);
             });
 
-            it('obj에 스테틱멤버가 존재한다.', function() {
-                expect(obj.staticMethod1).toBeDefined();
-                expect(obj.staticMethod2).toBeDefined();
-                expect(propsWithStatic.static).not.toBeDefined();
+            it('MyObject에 스테틱멤버가 존재한다.', function() {
+                expect(MyObject.staticMethod1).toBeDefined();
+                expect(MyObject.staticMethod2).toBeDefined();
+                expect(propsWithStatic['static']).not.toBeDefined();
             });
         });
 

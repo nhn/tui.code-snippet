@@ -1,5 +1,11 @@
-describe('type', function() {
+'use strict';
 
+var type = require('../src/type');
+var tui = {
+    util: type
+};
+
+describe('type', function() {
     it('isExisty() 값이 존재하는지 확인', function() {
         // null과 undefined이 아닐경우 값이 존재한다고 판단한다.
         var o1 = null,
@@ -10,7 +16,6 @@ describe('type', function() {
             o6 = isNaN,
             o7,
             o8 = '';
-
 
         expect(tui.util.isExisty(o1)).toBe(false);
         expect(tui.util.isExisty(o2)).toBe(true);
@@ -95,7 +100,7 @@ describe('type', function() {
             o3 = 'array',
             o4 = 3,
             o5 = function() {},
-            o6 = new Object(),
+            o6 = new Object(), // eslint-disable-line no-new-object
             o7 = {};
 
         expect(tui.util.isArray(o1)).toBe(true);
@@ -108,21 +113,21 @@ describe('type', function() {
     });
 
     it('isObject()', function() {
-        var o1 = new Object(),
+        var o1 = new Object(), // eslint-disable-line no-new-object
             o2 = {},
-            o3 = { test: {} },
+            o3 = {test: {}},
             o4 = 'a',
-            o5 = function() {},
-            o6 = new o5(),
+            O5 = function() {},
+            o6 = new O5(),
             o7 = /xyz/g,
             o8 = new Date(),
-            o9 = new Function('x', 'y', 'return x + y');
+            o9 = new Function('x', 'y', 'return x + y'); // eslint-disable-line no-new-func
 
         expect(tui.util.isObject(o1)).toBe(true);
         expect(tui.util.isObject(o2)).toBe(true);
         expect(tui.util.isObject(o3.test)).toBe(true);
         expect(tui.util.isObject(o4)).toBe(false);
-        expect(tui.util.isObject(o5)).toBe(true);
+        expect(tui.util.isObject(O5)).toBe(true);
         expect(tui.util.isObject(o6)).toBe(true);
         expect(tui.util.isObject(o7)).toBe(true);
         expect(tui.util.isObject(o8)).toBe(true);
@@ -137,7 +142,7 @@ describe('type', function() {
             o5 = 1,
             o6 = true,
             o7 = /xyz/g,
-            o8 = new Function(),
+            o8 = new Function(), // eslint-disable-line no-new-func
             o9 = function test() {};
 
         expect(tui.util.isFunction(o1)).toBe(true);
@@ -153,8 +158,8 @@ describe('type', function() {
 
     it('isNumber()', function() {
         var o1 = 1,
-            o2 = new Number(2),
-            o3 = { test: 1 },
+            o2 = new Number(2), // eslint-disable-line no-new-wrappers
+            o3 = {test: 1},
             o4 = [],
             o5 = 'string',
             o6 = true,
@@ -174,13 +179,13 @@ describe('type', function() {
         expect(tui.util.isNumber(o7)).toBe(false);
         expect(tui.util.isNumber(o8)).toBe(true);
         expect(tui.util.isNumber(o9)).toBe(true);
+        expect(tui.util.isNumber(o10)).toBe(true);
         expect(tui.util.isNumber(o11)).toBe(true);
-
     });
 
     it('isString()', function() {
         var o1 = {},
-            o2 = new String('a'),
+            o2 = new String('a'), // eslint-disable-line no-new-wrappers
             o3 = 'string',
             o4 = [],
             o5 = '',
@@ -197,6 +202,9 @@ describe('type', function() {
     });
 
     it('isBoolean()', function() {
+        /* eslint-disable no-undef-init */
+        /* eslint-disable no-undefined */
+        /* eslint-disable no-new-wrappers */
         var o1 = {},
             o2 = new Boolean('true'),
             o3 = 1,
@@ -212,6 +220,9 @@ describe('type', function() {
         expect(tui.util.isBoolean(o5)).toBe(true);
         expect(tui.util.isBoolean(o6)).toBe(false);
         expect(tui.util.isBoolean(o7)).toBe(false);
+        /* eslint-enable no-undef-init */
+        /* eslint-enable no-undefined */
+        /* eslint-enable no-new-wrappers */
     });
 
     it('isArraySafe()', function() {
@@ -220,7 +231,7 @@ describe('type', function() {
             o3 = 'array',
             o4 = 3,
             o5 = function() {},
-            o6 = new Object(),
+            o6 = new Object(), // eslint-disable-line no-new-object
             o7 = {};
 
         expect(tui.util.isArraySafe(o1)).toBe(true);
@@ -240,7 +251,7 @@ describe('type', function() {
             o5 = 1,
             o6 = true,
             o7 = /xyz/g,
-            o8 = new Function(),
+            o8 = new Function(), // eslint-disable-line no-new-func
             o9 = function test() {};
 
         expect(tui.util.isFunctionSafe(o1)).toBe(true);
@@ -256,8 +267,8 @@ describe('type', function() {
 
     it('isNumberSafe()', function() {
         var o1 = 1,
-            o2 = new Number(2),
-            o3 = { test: 1 },
+            o2 = new Number(2), // eslint-disable-line no-new-wrappers
+            o3 = {test: 1},
             o4 = [],
             o5 = 'string',
             o6 = true,
@@ -277,13 +288,13 @@ describe('type', function() {
         expect(tui.util.isNumberSafe(o7)).toBe(false);
         expect(tui.util.isNumberSafe(o8)).toBe(true);
         expect(tui.util.isNumberSafe(o9)).toBe(true);
+        expect(tui.util.isNumberSafe(o10)).toBe(true);
         expect(tui.util.isNumberSafe(o11)).toBe(true);
-
     });
 
     it('isStringSafe()', function() {
         var o1 = {},
-            o2 = new String('a'),
+            o2 = new String('a'), // eslint-disable-line no-new-wrappers
             o3 = 'string',
             o4 = [],
             o5 = '',
@@ -300,6 +311,9 @@ describe('type', function() {
     });
 
     it('isBooleanSafe()', function() {
+        /* eslint-disable no-undef-init */
+        /* eslint-disable no-undefined */
+        /* eslint-disable no-new-wrappers */
         var o1 = {},
             o2 = new Boolean('true'),
             o3 = 1,
@@ -315,18 +329,20 @@ describe('type', function() {
         expect(tui.util.isBooleanSafe(o5)).toBe(true);
         expect(tui.util.isBooleanSafe(o6)).toBe(false);
         expect(tui.util.isBooleanSafe(o7)).toBe(false);
+        /* eslint-enable no-undef-init */
+        /* eslint-enable no-undefined */
+        /* eslint-enable no-new-wrappers */
     });
 
     it('isHTMLNode() DOM인지 확인', function() {
-
-        var text = document.createTextNode("Hello World"),
-            el1 = document.createElement("H1"),
-            el2 = document.createElement("A"),
-            el3 = document.createElement("SPAN"),
-            el4 = document.createElement("P"),
-            el5 = document.createElement("PRE"),
-            el6 = document.createElement("DIV"),
-            el7 = document.createElement("INPUT"),
+        var text = document.createTextNode('Hello World'),
+            el1 = document.createElement('H1'),
+            el2 = document.createElement('A'),
+            el3 = document.createElement('SPAN'),
+            el4 = document.createElement('P'),
+            el5 = document.createElement('PRE'),
+            el6 = document.createElement('DIV'),
+            el7 = document.createElement('INPUT'),
             myObj = 3,
             testObj = {};
 
@@ -343,14 +359,14 @@ describe('type', function() {
     });
 
     it('isHTMLTag() HTML element 인지 확인', function() {
-        var text = document.createTextNode("Hello World"),
-            el1 = document.createElement("H1"),
-            el2 = document.createElement("A"),
-            el3 = document.createElement("SPAN"),
-            el4 = document.createElement("P"),
-            el5 = document.createElement("PRE"),
-            el6 = document.createElement("DIV"),
-            el7 = document.createElement("INPUT"),
+        var text = document.createTextNode('Hello World'),
+            el1 = document.createElement('H1'),
+            el2 = document.createElement('A'),
+            el3 = document.createElement('SPAN'),
+            el4 = document.createElement('P'),
+            el5 = document.createElement('PRE'),
+            el6 = document.createElement('DIV'),
+            el7 = document.createElement('INPUT'),
             myObj = 3,
             testObj = {};
 
@@ -368,15 +384,18 @@ describe('type', function() {
     });
 
     it('isEmpty()', function() {
+        /* eslint-disable no-undef-init */
+        /* eslint-disable no-undefined */
+        /* eslint-disable no-new-object */
         var o1 = {},
-            o2 = { test: 1},
+            o2 = {test: 1},
             o3 = new Object(),
             o4 = [],
             o5 = new Array(),
             o6 = [1, 3],
             o7 = function() {},
             o8,
-            o9 = void 0,
+            o9 = undefined,
             o10 = null,
             o11;
 
@@ -399,7 +418,8 @@ describe('type', function() {
         expect(tui.util.isEmpty(o9)).toBe(true);
         expect(tui.util.isEmpty(o10)).toBe(true);
         expect(tui.util.isEmpty(o11)).toBe(true);
-
+        /* eslint-enable no-undef-init */
+        /* eslint-enable no-undefined */
+        /* eslint-enable no-new-object */
     });
-
 });

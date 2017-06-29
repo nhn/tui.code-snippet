@@ -1,6 +1,10 @@
+'use strict';
+
+var defineModule = require('../src/defineModule');
+
 describe('"defineModule" function', function() {
     it('should call initialize', function() {
-        tui.util.defineModule('foo.bar', {
+        defineModule('foo.bar', {
             initialize: jasmine.createSpy()
         });
 

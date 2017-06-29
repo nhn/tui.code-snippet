@@ -1,38 +1,33 @@
 /**
  * @fileoverview This module provides a Enum Constructor.
  * @author NHN Ent.
- *         FE Development Team <e0242@nhnent.com>
+ *         FE Development Lab <dl_javascript@nhnent.com>
  * @dependency type, collection.js
  */
 
-(function(tui) {
-
 'use strict';
 
-/* istanbul ignore if */
-if (!tui) {
-    tui = window.tui = {};
-}
-if (!tui.util) {
-    tui.util = window.tui.util = {};
-}
+var collection = require('./collection');
+var type = require('./type');
 
 /**
  * Check whether the defineProperty() method is supported.
  * @type {boolean}
+ * @ignore
  */
-var isSupportDefinedProperty = (function () {
+var isSupportDefinedProperty = (function() {
     try {
         Object.defineProperty({}, 'x', {});
         return true;
     } catch (e) {
         return false;
     }
-}());
+})();
 
 /**
  * A unique value of a constant.
  * @type {number}
+ * @ignore
  */
 var enumValue = 0;
 
@@ -41,15 +36,13 @@ var enumValue = 0;
  * In modern browsers (except IE8 and lower),<br>
  *  a value defined once can not be changed.
  *
- * @param {...string | string[]} itemList Constant-list (An array of string is available)
- * @exports Enum
- * @constructor
+ * @param {...string|string[]} itemList Constant-list (An array of string is available)
  * @class
  * @memberof tui.util
- * @examples
+ * @example
  *  //create
- *  var MYENUM = new Enum('TYPE1', 'TYPE2');
- *  var MYENUM2 = new Enum(['TYPE1', 'TYPE2']);
+ *  var MYENUM = new tui.util.Enum('TYPE1', 'TYPE2');
+ *  var MYENUM2 = new tui.util.Enum(['TYPE1', 'TYPE2']);
  *
  *  //usage
  *  if (value === MYENUM.TYPE1) {
@@ -76,16 +69,16 @@ function Enum(itemList) {
 
 /**
  * Define a constants-list
- * @param {...string| string[]} itemList Constant-list (An array of string is available)
+ * @param {...string|string[]} itemList Constant-list (An array of string is available)
  */
 Enum.prototype.set = function(itemList) {
     var self = this;
 
-    if (!tui.util.isArray(itemList)) {
-        itemList = tui.util.toArray(arguments);
+    if (!type.isArray(itemList)) {
+        itemList = collection.toArray(arguments);
     }
 
-    tui.util.forEach(itemList, function itemListIteratee(item) {
+    collection.forEach(itemList, function itemListIteratee(item) {
         self._addItem(item);
     });
 };
@@ -96,10 +89,10 @@ Enum.prototype.set = function(itemList) {
  * @returns {string|undefined} Key of the constant.
  */
 Enum.prototype.getName = function(value) {
-    var foundedKey,
-        self = this;
+    var self = this;
+    var foundedKey;
 
-    tui.util.forEach(this, function(itemValue, key) {
+    collection.forEach(this, function(itemValue, key) { // eslint-disable-line consistent-return
         if (self._isEnumItem(key) && value === itemValue) {
             foundedKey = key;
             return false;
@@ -154,9 +147,7 @@ Enum.prototype._makeEnumValue = function() {
  * @private
  */
 Enum.prototype._isEnumItem = function(key) {
-    return tui.util.isNumber(this[key]);
+    return type.isNumber(this[key]);
 };
 
-tui.util.Enum = Enum;
-
-})(window.tui);
+module.exports = Enum;

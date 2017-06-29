@@ -1,6 +1,11 @@
-describe('defineNamespace', function() {
-    var defineNamespace = tui.util.defineNamespace;
+/* eslint-disable no-undef */
 
+'use strict';
+
+var defineNamespace = require('../src/defineNamespace');
+var type = require('../src/type');
+
+describe('defineNamespace', function() {
     it('define', function() {
         defineNamespace('aaa.bbb.ccc');
         expect(aaa).toBeDefined();
@@ -23,7 +28,6 @@ describe('defineNamespace', function() {
 
         asdf.exec();
         expect(num).toBe(10);
-
     });
 
     it('function', function() {
@@ -34,7 +38,6 @@ describe('defineNamespace', function() {
 
         fdsa();
         expect(num).toBe(100);
-
     });
 
     it('for class', function() {
@@ -50,7 +53,6 @@ describe('defineNamespace', function() {
         mInstance = new asdf.Nhnent();
 
         expect(mInstance.getName()).toBe(name);
-
     });
 
     it('override', function() {
@@ -68,7 +70,7 @@ describe('defineNamespace', function() {
     it('invalid props type', function() {
         defineNamespace('asdf.hello', 'hello world');
         expect(asdf.hello).toBeDefined();
-        expect(tui.util.isString(asdf.hello)).toBeFalsy();
+        expect(type.isString(asdf.hello)).toBeFalsy();
     });
 
     it('define double', function() {

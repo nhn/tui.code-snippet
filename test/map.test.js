@@ -1,22 +1,25 @@
-describe('module:Map', function() {
-    'use strict';
+'use strict';
 
+var Map = require('../src/map');
+
+describe('module:Map', function() {
     var map;
 
     beforeEach(function() {
-        map = new tui.util.Map();
+        map = new Map();
     });
 
     describe('The tui.util.Map', function() {
         it('is defined', function() {
-            expect(tui.util.Map).toBeDefined();
+            expect(Map).toBeDefined();
         });
 
         it('is a constructor', function() {
-            expect(map instanceof tui.util.Map).toBe(true);
+            expect(map instanceof Map).toBe(true);
         });
 
         describe('has an argument', function() {
+            /* eslint-disable max-nested-callbacks */
             it('that can be an array', function() {
                 var initData = [
                     [1, 'one'],
@@ -24,12 +27,13 @@ describe('module:Map', function() {
                     [3, 'three']
                 ];
 
-                map = new tui.util.Map(initData);
+                map = new Map(initData);
 
                 expect(map.get(1)).toBe('one');
                 expect(map.get(2)).toBe('two');
                 expect(map.get(3)).toBe('three');
             });
+            /* eslint-enable max-nested-callbacks */
         });
     });
 
@@ -82,21 +86,21 @@ describe('module:Map', function() {
             });
 
             it('if the value is undefined', function() {
-                map.set('key', undefined);
+                map.set('key', undefined); // eslint-disable-line no-undefined
                 expect(map.get('key')).toBeUndefined();
             });
         });
 
-        describe('primitive values', function(){
+        describe('primitive values', function() {
             it('can be used for the key', function() {
                 map.set(null, 'null');
-                map.set(undefined, 'undefined');
+                map.set(undefined, 'undefined'); // eslint-disable-line no-undefined
                 map.set(true, 'true');
                 map.set(false, 'false');
                 map.set(1, 'one');
 
                 expect(map.get(null)).toEqual('null');
-                expect(map.get(undefined)).toEqual('undefined');
+                expect(map.get(undefined)).toEqual('undefined'); // eslint-disable-line no-undefined
                 expect(map.get(true)).toEqual('true');
                 expect(map.get(false)).toEqual('false');
                 expect(map.get(1)).toEqual('one');
@@ -128,7 +132,7 @@ describe('module:Map', function() {
         });
 
         it('returns true even if value is undefined', function() {
-            map.set(1, undefined);
+            map.set(1, undefined); // eslint-disable-line no-undefined
             expect(map.has(1)).toBe(true);
             expect(map.get(1)).toBeUndefined();
         });
@@ -163,20 +167,24 @@ describe('module:Map', function() {
         });
 
         it('delete and set again with undefined key', function() {
+            /* eslint-disable no-undefined */
             map.set(undefined, 'once');
             map['delete'](undefined);
             expect(map.has(undefined)).toBe(false);
 
             map.set(undefined, 'again');
             expect(map.get(undefined)).toBe('again');
+            /* eslint-enable no-undefined */
         });
 
-        it('deleted key is not undefined key', function(){
+        it('deleted key is not undefined key', function() {
+            /* eslint-disable no-undefined */
             map.set(1, 'one');
             map.set(undefined, 'undefined');
             map['delete'](1);
 
             expect(map.get(undefined)).toBe('undefined');
+            /* eslint-enable no-undefined */
         });
     });
 
@@ -254,7 +262,7 @@ describe('module:Map', function() {
     describe('keys(), values(), entries() returns Iterator object in insertion order', function() {
         beforeEach(function() {
             map.set(null, '1');
-            map.set(undefined, '2');
+            map.set(undefined, '2'); // eslint-disable-line no-undefined
             map.set('3', '3');
         });
 
@@ -267,7 +275,7 @@ describe('module:Map', function() {
 
             it('contains the keys for each element', function() {
                 expect(keys.next().value).toBe(null);
-                expect(keys.next().value).toBe(undefined);
+                expect(keys.next().value).toBe(undefined); // eslint-disable-line no-undefined
                 expect(keys.next().value).toBe('3');
             });
 
@@ -309,7 +317,7 @@ describe('module:Map', function() {
 
             it('contains the values for each element', function() {
                 expect(entries.next().value).toEqual([null, '1']);
-                expect(entries.next().value).toEqual([undefined, '2']);
+                expect(entries.next().value).toEqual([undefined, '2']); // eslint-disable-line no-undefined
                 expect(entries.next().value).toEqual(['3', '3']);
             });
 

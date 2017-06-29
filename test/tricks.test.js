@@ -1,4 +1,7 @@
-/*eslint-disable*/
+'use strict';
+
+var tricks = require('../src/tricks');
+
 describe('tricks', function() {
     describe('debounce', function() {
         var spy;
@@ -9,9 +12,7 @@ describe('tricks', function() {
         });
 
         it('test debounced functions.', function() {
-            var fn;
-
-            fn = tui.util.debounce(spy, 50);
+            var fn = tricks.debounce(spy, 50);
             fn();
 
             expect(window.setTimeout).toHaveBeenCalledWith(jasmine.any(Function), 50);
@@ -26,7 +27,7 @@ describe('tricks', function() {
                 func();
             });
 
-            fn = tui.util.debounce(spy);
+            fn = tricks.debounce(spy);
             fn('hello world!');
 
             expect(spy.calls.argsFor(0)).toEqual(['hello world!']);
@@ -36,11 +37,6 @@ describe('tricks', function() {
     describe('throttle', function() {
         var spy;
 
-        /**
-         * util method for tui.util.timestamp spying.
-         *
-         * get an array and return each element at every invokes.
-         */
         function reload(arr) {
             var i = 0,
                 bullet;
@@ -63,13 +59,13 @@ describe('tricks', function() {
                 fireGun = reload(magazine),
                 fn;
 
-            spyOn(tui.util, 'timestamp').and.callFake(function() {
+            spyOn(tricks, 'timestamp').and.callFake(function() {
                 return fireGun();
             });
 
-            spyOn(tui.util, 'debounce').and.returnValue(function() {});
+            spyOn(tricks, 'debounce').and.returnValue(function() {});
 
-            fn = tui.util.throttle(spy, 7);
+            fn = tricks.throttle(spy, 7);
 
             fn();
             fn();
@@ -78,22 +74,23 @@ describe('tricks', function() {
             fn();
 
             expect(spy.calls.count()).toBe(2);
-            expect(tui.util.debounce).toHaveBeenCalled();
+            expect(tricks.debounce).toHaveBeenCalled();
         });
 
         it('debounced method must invoke with additional parameter', function() {
             var magazine = [1, 3, 6, 8, 9],
                 fireGun = reload(magazine),
-                fn;
+                fn,
+                debounced;
 
-            spyOn(tui.util, 'timestamp').and.callFake(function() {
+            spyOn(tricks, 'timestamp').and.callFake(function() {
                 return fireGun();
             });
 
-            var debounced = jasmine.createSpy('debounced');
-            spyOn(tui.util, 'debounce').and.returnValue(debounced);
+            debounced = jasmine.createSpy('debounced');
+            spyOn(tricks, 'debounce').and.returnValue(debounced);
 
-            fn = tui.util.throttle(spy, 7);
+            fn = tricks.throttle(spy, 7);
 
             fn('hello');
             fn('hello');
@@ -102,7 +99,7 @@ describe('tricks', function() {
             fn('hello');
 
             expect(spy.calls.count()).toBe(2);
-            expect(tui.util.debounce).toHaveBeenCalled();
+            expect(tricks.debounce).toHaveBeenCalled();
 
             expect(debounced.calls.count()).toBe(4);
             // debounce가 이미 콜백을 apply 처리하고 있는데, Mock을 했기 때문에
@@ -120,11 +117,11 @@ describe('tricks', function() {
                 fireGun = reload(magazine),
                 fn;
 
-            spyOn(tui.util, 'timestamp').and.callFake(function() {
+            spyOn(tricks, 'timestamp').and.callFake(function() {
                 return fireGun();
             });
 
-            fn = tui.util.throttle(spy, 7);
+            fn = tricks.throttle(spy, 7);
 
             fn();
 
@@ -139,9 +136,7 @@ describe('tricks', function() {
         });
 
         it('throttled functions can accept parameters.', function() {
-            var fn;
-
-            fn = tui.util.throttle(spy);
+            var fn = tricks.throttle(spy);
 
             fn('hello world!');
 
@@ -149,4 +144,3 @@ describe('tricks', function() {
         });
     });
 });
-

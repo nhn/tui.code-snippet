@@ -1,5 +1,8 @@
-describe('func', function() {
+'use strict';
 
+var func = require('../src/func');
+
+describe('func', function() {
     it('bind()를 통해 함수를 커링할 수 있다', function() {
         var a = {
             word: 'hello'
@@ -9,9 +12,8 @@ describe('func', function() {
             return this.word;
         };
 
-        var curried = tui.util.bind(b, a);
+        var curried = func.bind(b, a);
 
         expect(curried()).toBe('hello');
     });
-
 });
