@@ -67,7 +67,7 @@ var range = function(start, stop, step) {
  *   console.log(result[1]); // [2, 'b', false]
  *   console.log(result[2]); // [3, 'c', true]
  */
- /* eslint-enable valid-jsdoc */
+/* eslint-enable valid-jsdoc */
 var zip = function() {
     var arr2d = aps.call(arguments);
     var result = [];

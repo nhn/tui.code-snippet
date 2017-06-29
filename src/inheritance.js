@@ -13,7 +13,7 @@
  * @memberof tui.util
  */
 function createObject(obj) {
-    function F() {} /* eslint-ignore require-jsdoc */
+    function F() {} // eslint-disable-line require-jsdoc
     F.prototype = obj;
     return new F();
 }

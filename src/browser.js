@@ -60,7 +60,7 @@ var detector = {
             browser.others = true;
         }
     },
-    Netscape: function() {
+    Netscape: function() { // eslint-disable-line complexity
         var detected = false;
 
         if (rIE11.exec(userAgent)) {

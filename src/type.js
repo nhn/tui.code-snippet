@@ -249,30 +249,45 @@ function isHTMLTag(html) {
  * @memberof tui.util
  */
 function isEmpty(obj) {
-    var hasKey = false;
+    return (!isExisty(obj) ||
+        (isString(obj) && _isEmptyString(obj)) ||
+        (isArray(obj) && _isEmptyArray(obj)) ||
+        (isObject(obj) && (isFunction(obj) || _isEmptyObject(obj)))
+    );
+}
+
+/**
+ * Check string is empty
+ * @private
+ * @param {string} str - string
+ * @returns {boolean} Is empty?
+ */
+function _isEmptyString(str) {
+    return str === '';
+}
+
+/**
+ * Check array or array like object is empty
+ * @private
+ * @param {...Array} arr - array
+ * @returns {boolean} Is empty?
+ */
+function _isEmptyArray(arr) {
+    return arr.length === 0;
+}
+
+/**
+ * Check object is empty
+ * @private
+ * @param {Object} obj - object
+ * @returns {boolean} Is empty?
+ */
+function _isEmptyObject(obj) {
     var key;
-
-    if (!isExisty(obj)) {
-        return true;
-    }
-
-    if (isString(obj) && obj === '') {
-        return true;
-    }
-
-    if (isArray(obj) || isArguments(obj)) {
-        return obj.length === 0;
-    }
-
-    if (isObject(obj) && !isFunction(obj)) {
-        for (key in obj) {
-            if (obj.hasOwnProperty(key)) {
-                hasKey = true;
-                break;
-            }
+    for (key in obj) {
+        if (obj.hasOwnProperty(key)) {
+            return false;
         }
-
-        return !hasKey;
     }
 
     return true;

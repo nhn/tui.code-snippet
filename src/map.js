@@ -316,7 +316,7 @@ Map.prototype.has = function(key) {
  * @function delete
  * @memberof tui.util.Map.prototype
  */
- // cannot use reserved keyword as a property name in IE8 and under.
+// cannot use reserved keyword as a property name in IE8 and under.
 Map.prototype['delete'] = function(key) {
     var keyIndex;
 
@@ -365,9 +365,9 @@ Map.prototype.clear = function() {
 // But only latest versions of Chrome and Firefox support full implementation.
 (function() {
     if (window.Map && (
-            (browser.firefox && browser.version >= 37) ||
+        (browser.firefox && browser.version >= 37) ||
             (browser.chrome && browser.version >= 42)
-        )
+    )
     ) {
         Map = window.Map; // eslint-disable-line no-func-assign
     }

@@ -262,7 +262,7 @@ CustomEvents.prototype.once = function(eventName, handler, context) {
         return;
     }
 
-    function onceHandler() {
+    function onceHandler() { // eslint-disable-line require-jsdoc
         handler.apply(context, arguments);
         self.off(eventName, onceHandler, context);
     }

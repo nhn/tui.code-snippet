@@ -36,7 +36,7 @@ function debounce(fn, delay) {
     /* istanbul ignore next */
     delay = delay || 0;
 
-    function debounced() {
+    function debounced() { // eslint-disable-line require-jsdoc
         args = aps.call(arguments);
 
         window.clearTimeout(timer);
@@ -100,7 +100,7 @@ function throttle(fn, interval) {
 
     debounced = tricks.debounce(tick, interval);
 
-    function throttled() {
+    function throttled() { // eslint-disable-line require-jsdoc
         args = aps.call(arguments);
 
         if (isLeading) {
@@ -125,7 +125,7 @@ function throttle(fn, interval) {
         }
     }
 
-    function reset() {
+    function reset() { // eslint-disable-line require-jsdoc
         isLeading = true;
         base = null;
     }

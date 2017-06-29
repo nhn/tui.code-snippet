@@ -176,13 +176,14 @@ function reduce(obj, iteratee, context) {
 
     if (!type.isArray(obj)) {
         keys = object.keys(obj);
+        length = keys.length;
+        store = obj[keys[index += 1]];
+    } else {
+        length = obj.length;
+        store = obj[index];
     }
 
-    length = keys ? keys.length : obj.length;
-
-    store = obj[keys ? keys[index += 1] : index];
     index += 1;
-
     for (; index < length; index += 1) {
         store = iteratee.call(context, store, obj[keys ? keys[index] : index]);
     }

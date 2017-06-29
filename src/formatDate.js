@@ -96,7 +96,7 @@ var replaceMap = {
  * @returns {boolean} Is valid?
  * @private
  */
-function isValidDate(year, month, date) {
+function isValidDate(year, month, date) { // eslint-disable-line complexity
     var isValidYear, isValidMonth, isValid, lastDayInMonth;
 
     year = Number(year);
@@ -171,7 +171,7 @@ function isValidDate(year, month, date) {
  *
  *  alert(dateStr4); // '1999-09-09 오후 01:02'
  */
-function formatDate(form, date, option) {
+function formatDate(form, date, option) { // eslint-disable-line complexity
     var meridiem, nDate, resultStr;
 
     if (type.isDate(date)) {

@@ -93,7 +93,7 @@ Popup.prototype.getPopupList = function(key) {
  *     @param {Object} [options.param=null]
  *      - Using as parameters for transmission when the form-data is transmitted to popup-window.
  */
-Popup.prototype.openPopup = function(url, options) {
+Popup.prototype.openPopup = function(url, options) { // eslint-disable-line complexity
     var popup, formElement, useIEPostBridge;
 
     options = object.extend({
@@ -142,7 +142,7 @@ Popup.prototype.openPopup = function(url, options) {
             url, options.popupName, options.popupOptionStr);
     } else if (popup.closed) {
         this.openedPopup[options.popupName] = popup = this._open(useIEPostBridge, options.param,
-                url, options.popupName, options.popupOptionStr);
+            url, options.popupName, options.popupOptionStr);
     } else {
         if (options.useReload) {
             popup.location.replace(url);

@@ -129,7 +129,13 @@ function compareJSON(object) {
     return true;
 }
 
-function isSameObject(x, y) {
+/**
+ * @param {*} x - object to compare
+ * @param {*} y - object to compare
+ * @returns {boolean} - whether object x and y is same or not
+ * @private
+ */
+function isSameObject(x, y) { // eslint-disable-line complexity
     var leftChain = [];
     var rightChain = [];
     var p;
@@ -214,6 +220,7 @@ function isSameObject(x, y) {
 
     return true;
 }
+/* eslint-enable complexity */
 
 /**
  * Retrieve a nested item from the given object/array
