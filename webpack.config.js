@@ -10,6 +10,6 @@ module.exports = {
         libraryTarget: 'umd',
         library: ['tui', 'util'],
         path: path.resolve(__dirname, 'dist'),
-        filename: 'bundle.js'
+        filename: 'code-snippet.js'
     }
 };
