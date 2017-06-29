@@ -16,8 +16,6 @@ module.exports = function(config) {
             'karma-jasmine',
             'karma-webpack',
             'karma-chrome-launcher',
-            'karma-safari-launcher',
-            'karma-firefox-launcher',
             'karma-edge-launcher',
             'karma-coverage',
             'karma-junit-reporter',
@@ -123,8 +121,6 @@ module.exports = function(config) {
             'Chrome-WebDriver',
             'Firefox-WebDriver',
             'Edge'
-            // ,
-            // 'PhantomJS'
         ],
 
         customLaunchers: {

@@ -219,8 +219,8 @@ HashMap.prototype.removeByKey = function(key) {
  *  hm.removeByKeyArray(['key', 'key2']);
  */
 HashMap.prototype.removeByKeyArray = function(keyArray) {
-    var data = [],
-        self = this;
+    var data = [];
+    var self = this;
 
     collection.forEach(keyArray, function(key) {
         data.push(self.removeByKey(key));
@@ -253,8 +253,8 @@ HashMap.prototype.removeAll = function() {
  *  });
  */
 HashMap.prototype.each = function(iteratee) {
-    var self = this,
-        flag;
+    var self = this;
+    var flag;
 
     collection.forEachOwnProperties(this, function(value, key) { // eslint-disable-line consistent-return
         if (key.charAt(0) === _MAPDATAPREFIX) {
@@ -278,8 +278,8 @@ HashMap.prototype.each = function(iteratee) {
  *  hm.keys();  //['key', 'key2');
  */
 HashMap.prototype.keys = function() {
-    var keys = [],
-        self = this;
+    var keys = [];
+    var self = this;
 
     this.each(function(value, key) {
         keys.push(self.decodeKey(key));

@@ -14,15 +14,14 @@ var extend = require('./object').extend;
 
 /**
  * Help a constructor to be defined and to inherit from the other constructors
- * @name defineClass
  * @param {*} [parent] Parent constructor
  * @param {Object} props Members of constructor
  *  @param {Function} props.init Initialization method
  *  @param {Object} [props.static] Static members of constructor
  * @returns {*} Constructor
- * @member tui.util
+ * @memberof tui.util
  * @example
- *  var Parent = defineClass({
+ *  var Parent = tui.util.defineClass({
  *      init: function() {
  *          this.name = 'made by def';
  *      },
@@ -36,7 +35,7 @@ var extend = require('./object').extend;
  *      }
  *  });
  *
- *  var Child = defineClass(Parent, {
+ *  var Child = tui.util.defineClass(Parent, {
  *      method2: function() {}
  *  });
  *
@@ -50,7 +49,7 @@ var extend = require('./object').extend;
  *  childInstance.method();
  *  childInstance.method2();
  */
-module.exports = function(parent, props) {
+function defineClass(parent, props) {
     var obj;
 
     if (!props) {
@@ -72,4 +71,6 @@ module.exports = function(parent, props) {
     extend(obj.prototype, props);
 
     return obj;
-};
+}
+
+module.exports = defineClass;

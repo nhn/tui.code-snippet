@@ -11,11 +11,11 @@ var collection = require('./collection');
 var Map = require('./map');
 
 // Caching tui.util for performance enhancing
-var mapAPIsForRead = ['get', 'has', 'forEach', 'keys', 'values', 'entries'],
-    mapAPIsForDelete = ['delete', 'clear'];
+var mapAPIsForRead = ['get', 'has', 'forEach', 'keys', 'values', 'entries'];
+var mapAPIsForDelete = ['delete', 'clear'];
 
 /**
- * The ExMap object is Extended Version of the Map object.<br>
+ * The ExMap object is Extended Version of the tui.util.Map object.<br>
  * and added some useful feature to make it easy to manage the Map object.
  * @constructor
  * @param {Array} initData - Array of key-value pairs (2-element Arrays).

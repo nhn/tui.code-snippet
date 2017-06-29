@@ -94,9 +94,7 @@ Popup.prototype.getPopupList = function(key) {
  *      - Using as parameters for transmission when the form-data is transmitted to popup-window.
  */
 Popup.prototype.openPopup = function(url, options) {
-    var popup;
-    var formElement;
-    var useIEPostBridge;
+    var popup, formElement, useIEPostBridge;
 
     options = object.extend({
         popupName: 'popup_' + popupId + '_' + Number(new Date()),
@@ -217,9 +215,8 @@ Popup.prototype.focus = function(popupName) {
  * @private
  */
 Popup.prototype.parseQuery = function() {
-    var search,
-        pair,
-        param = {};
+    var param = {};
+    var search, pair;
 
     search = window.location.search.substr(1);
     collection.forEachArray(search.split('&'), function(part) {

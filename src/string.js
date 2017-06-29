@@ -72,11 +72,10 @@ function hasEncodableString(string) {
  * => 'asdf'
  */
 function getDuplicatedChar(operandStr1, operandStr2) {
-    var dupl,
-        key,
-        i = 0,
-        len = operandStr1.length,
-        pool = {};
+    var i = 0;
+    var len = operandStr1.length;
+    var pool = {};
+    var dupl, key;
 
     for (; i < len; i += 1) {
         key = operandStr1.charAt(i);

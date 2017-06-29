@@ -13,7 +13,7 @@ var collection = require('./collection');
 var type = require('./type');
 var object = require('./object');
 
-var R_EVENTNAME_SPLIT = /\s+/g;  // eslint-disable-line
+var R_EVENTNAME_SPLIT = /\s+/g;
 
 /**
  * A unit of event handler item.
@@ -24,7 +24,7 @@ var R_EVENTNAME_SPLIT = /\s+/g;  // eslint-disable-line
  */
 
 /**
- * @constructor
+ * @class
  * @memberof tui.util
  */
 function CustomEvents() {
@@ -47,7 +47,7 @@ function CustomEvents() {
  *  function Model() {
  *      this.name = '';
  *  }
- *  CustomEvents.mixin(Model);
+ *  tui.util.CustomEvents.mixin(Model);
  *
  *  var model = new Model();
  *  model.on('change', function() { this.name = 'model'; }, this);
@@ -84,8 +84,8 @@ CustomEvents.prototype._getHandlerItem = function(handler, context) {
  * @private
  */
 CustomEvents.prototype._safeEvent = function(eventName) {
-    var events = this.events,
-        byName;
+    var events = this.events;
+    var byName;
 
     if (!events) {
         events = this.events = {};
@@ -127,8 +127,8 @@ CustomEvents.prototype._safeContext = function() {
  * @private
  */
 CustomEvents.prototype._indexOfContext = function(ctx) {
-    var context = this._safeContext(),
-        index = 0;
+    var context = this._safeContext();
+    var index = 0;
 
     while (context[index]) {
         if (ctx === context[index][0]) {
@@ -210,7 +210,7 @@ CustomEvents.prototype._bindEvent = function(eventName, handler, context) {
  * @param {object} [context] - context for binding
  * @example
  *  // 1. Basic
- *  customEvent.on('onload', handler);
+ *  ustomEvent.on('onload', handler);
  *
  *  // 2. With context
  *  customEvent.on('onload', handler, myObj);
@@ -246,9 +246,9 @@ CustomEvents.prototype.on = function(eventName, handler, context) {
 
 /**
  * Bind one-shot event handlers
- * @param {(string|{name:string, handler:function})} eventName - custom
+ * @param {(string|{name:string,handler:function})} eventName - custom
  *  event name or an object {eventName: handler}
- * @param {(function|object)} [handler] - handler function or context
+ * @param {function|object} [handler] - handler function or context
  * @param {object} [context] - context for binding
  */
 CustomEvents.prototype.once = function(eventName, handler, context) {
@@ -277,13 +277,14 @@ CustomEvents.prototype.once = function(eventName, handler, context) {
  * @private
  */
 CustomEvents.prototype._spliceMatches = function(arr, predicate) {
-    var i, len;
+    var i = 0;
+    var len;
 
     if (!type.isArray(arr)) {
         return;
     }
 
-    for (i = 0, len = arr.length; i < len; i += 1) {
+    for (len = arr.length; i < len; i += 1) {
         if (predicate(arr[i]) === true) {
             arr.splice(i, 1);
             len -= 1;
@@ -343,9 +344,9 @@ CustomEvents.prototype._matchHandlerAndContext = function(handler, context) {
     var self = this;
 
     return function(item) {
-        var matchHandler = (handler === item.handler),
-            matchContext = (context === item.context),
-            needRemove = (matchHandler && matchContext);
+        var matchHandler = (handler === item.handler);
+        var matchContext = (context === item.context);
+        var needRemove = (matchHandler && matchContext);
 
         if (needRemove) {
             self._forgetContext(item.context);
@@ -362,10 +363,10 @@ CustomEvents.prototype._matchHandlerAndContext = function(handler, context) {
  * @private
  */
 CustomEvents.prototype._offByEventName = function(eventName, handler) {
-    var self = this,
-        forEach = collection.forEachArray,
-        andByHandler = type.isFunction(handler),
-        matchHandler = self._matchHandler(handler);
+    var self = this;
+    var forEach = collection.forEachArray;
+    var andByHandler = type.isFunction(handler);
+    var matchHandler = self._matchHandler(handler);
 
     eventName = eventName.split(R_EVENTNAME_SPLIT);
 
@@ -390,8 +391,8 @@ CustomEvents.prototype._offByEventName = function(eventName, handler) {
  * @private
  */
 CustomEvents.prototype._offByHandler = function(handler) {
-    var self = this,
-        matchHandler = this._matchHandler(handler);
+    var self = this;
+    var matchHandler = this._matchHandler(handler);
 
     collection.forEach(this._safeEvent(), function(handlerItems) {
         self._spliceMatches(handlerItems, matchHandler);
@@ -405,8 +406,8 @@ CustomEvents.prototype._offByHandler = function(handler) {
  * @private
  */
 CustomEvents.prototype._offByObject = function(obj, handler) {
-    var self = this,
-        matchFunc;
+    var self = this;
+    var matchFunc;
 
     if (this._indexOfContext(obj) < 0) {
         collection.forEach(obj, function(func, name) {

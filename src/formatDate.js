@@ -94,12 +94,10 @@ var replaceMap = {
  * @param {number} month - Month
  * @param {number} date - Day in month.
  * @returns {boolean} Is valid?
+ * @private
  */
 function isValidDate(year, month, date) {
-    var isValidYear,
-        isValidMonth,
-        isValid,
-        lastDayInMonth;
+    var isValidYear, isValidMonth, isValid, lastDayInMonth;
 
     year = Number(year);
     month = Number(month);
@@ -129,7 +127,7 @@ function isValidDate(year, month, date) {
  * @param {Date|Object} date - Date object
  * @param {{meridiemSet: {AM: string, PM: string}}} option - Option
  * @returns {boolean|string} A transformed string or false.
- * @memberOf tui.util
+ * @memberof tui.util
  * @example
  *  // key             | Shorthand
  *  // --------------- |-----------------------

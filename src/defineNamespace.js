@@ -19,14 +19,14 @@ var object = require('./object');
  * @returns {(object|function)} Defined namespace
  * @memberof tui.util
  * @example
- * var neComp = defineNamespace('ne.component');
+ * var neComp = tui.util.defineNamespace('ne.component');
  * neComp.listMenu = defineClass({
  *      init: function() {
  *          // code
  *      }
  * });
  */
-module.exports = function(namespace, props, isOverride) {
+function defineNamespace(namespace, props, isOverride) {
     var names, result, prevLast, last;
 
     names = namespace.split('.');
@@ -46,4 +46,6 @@ module.exports = function(namespace, props, isOverride) {
     }
 
     return result;
-};
+}
+
+module.exports = defineNamespace;

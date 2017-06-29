@@ -14,14 +14,15 @@
  *  - firefox
  *  - safari
  *  - edge
+ * @memberof tui.util
  * @example
- *  browser.chrome === true;    // chrome
- *  browser.firefox === true;    // firefox
- *  browser.safari === true;    // safari
- *  browser.msie === true;    // IE
- *  browser.edge === true;     // edge
- *  browser.others === true;    // other browser
- *  browser.version;    // browser version
+ *   tui.util.browser.chrome === true;    // chrome
+ *  tui.util.browser.firefox === true;    // firefox
+ *  tui.util.browser.safari === true;    // safari
+ *  tui.util.browser.msie === true;    // IE
+ *  tui.util.browser.edge === true;     // edge
+ *  tui.util.browser.others === true;    // other browser
+ *  tui.util.browser.version;    // browser version
  */
 var browser = {
     chrome: false,
