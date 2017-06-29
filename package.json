@@ -1,23 +1,25 @@
 {
   "name": "tui-code-snippet",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "useful code snippets from frontend development team",
-  "main": "./dist/bundle.js",
+  "main": "./dist/tui-code-snippet.js",
   "scripts": {
     "test": "karma start karma.conf.js",
     "test:ne": "karma start karma.conf.ne.js",
-    "cpy-dist2doc": "mkdir -p doc/dist && cp -f dist/code-snippet.js doc/dist",
+    "cpy-dist2doc": "mkdir -p doc/dist && cp -f dist/tui-code-snippet.js doc/dist",
     "doc": "./node_modules/.bin/jsdoc -c jsdoc-conf.json && npm run cpy-dist2doc",
-    "build": "webpack",
+    "bundle": "webpack && webpack -p",
     "dev": "webpack --watch"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/nhnent/tui.code-snippet.git"
   },
-  "author": "FE",
+  "author": "FE Development Lab",
   "license": "MIT",
   "devDependencies": {
+    "eslint": "^4.1.1",
+    "eslint-loader": "^1.8.0",
     "jasmine-ajax": "latest",
     "jasmine-core": "latest",
     "jasmine-jquery": "latest",
