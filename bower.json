@@ -4,7 +4,7 @@
     "NHN Ent. FE dev team(dl_javascript@nhnent.com)"
   ],
   "license": "MIT",
-  "main": "code-snippet.js",
+  "main": "dist/tui-code-snippet.js",
   "ignore": [
     "**/.*",
     ".*",
@@ -15,7 +15,6 @@
     "test",
     "bower.json",
     "conf.json",
-    "Gruntfile.js",
     "karma.conf.js",
     "package.json",
     "karma.local.conf.js",

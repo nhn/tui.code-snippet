@@ -52,7 +52,7 @@ It includes several features like `class simulation`, `browser detecting`, `type
 
 ## How to use CodeSnippet
 * Using CodeSnippet build file
- * Download code-snippet.js or code-snippet.min.js from [[master branch]](https://github.com/nhnent/tui.code-snippet)
+ * Download `tui-code-snippet.js` or `tui-code-snippet.min.js` from [[master branch]](https://github.com/nhnent/tui.code-snippet)
  * It's better that you do not change the file name.
 * Using the copy only the necesary parts
  * Check dependency before copy the codes
