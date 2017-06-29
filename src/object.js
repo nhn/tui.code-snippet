@@ -13,6 +13,7 @@ var array = require('./array');
 /**
  * The last id of stamp
  * @type {number}
+ * @private
  */
 var lastId = 0;
 
@@ -65,6 +66,7 @@ function hasStamp(obj) {
 
 /**
  * Reset the last id of stamp
+ * @private
  */
 function resetLastId() {
     lastId = 0;
@@ -96,17 +98,17 @@ function keys(obj) {
  * @returns {boolean} Equality
  * @example
  *
- *  var jsonObj1 = {name:'milk', price: 1000},
- *      jsonObj2 = {name:'milk', price: 1000},
- *      jsonObj3 = {name:'milk', price: 1000};
+ *  var jsonObj1 = {name:'milk', price: 1000};
+ *  var jsonObj2 = {name:'milk', price: 1000};
+ *  var jsonObj3 = {name:'milk', price: 1000};
  *
  *  tui.util.compareJSON(jsonObj1, jsonObj2, jsonObj3);   // true
  *
  *
- *  var jsonObj4 = {name:'milk', price: 1000},
- *      jsonObj5 = {name:'beer', price: 3000};
+ *  var jsonObj4 = {name:'milk', price: 1000};
+ *  var jsonObj5 = {name:'beer', price: 3000};
  *
- *      tui.util.compareJSON(jsonObj4, jsonObj5); // false
+ *  tui.util.compareJSON(jsonObj4, jsonObj5); // false
 
  * @memberof tui.util
  */
@@ -218,6 +220,7 @@ function isSameObject(x, y) {
  * @param {object|Array} obj - Object for retrieving
  * @param {...string|number} paths - Paths of property
  * @returns {*} Value
+ * @memberof tui.util
  * @example
  *  var obj = {
  *      'key1': 1,
@@ -235,10 +238,10 @@ function isSameObject(x, y) {
  *  tui.util.pick(arr, 1); // 'b'
  */
 function pick(obj, paths) { // eslint-disable-line no-unused-vars
-    var args = arguments,
-        target = args[0],
-        length = args.length,
-        i;
+    var args = arguments;
+    var target = args[0];
+    var length = args.length;
+    var i;
     try {
         for (i = 1; i < length; i += 1) {
             target = target[args[i]];

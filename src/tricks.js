@@ -31,8 +31,7 @@ var aps = Array.prototype.slice;
  * // invoke someMethodToInvokeDebounced() after 300 milliseconds.
  */
 function debounce(fn, delay) {
-    var timer,
-        args;
+    var timer, args;
 
     /* istanbul ignore next */
     delay = delay || 0;
@@ -88,15 +87,13 @@ function timestamp() {
  * throttled.reset();
  */
 function throttle(fn, interval) {
-    var base,
-        debounced,
-        isLeading = true,
-        stamp,
-        args,
-        tick = function(_args) {
-            fn.apply(null, _args);
-            base = null;
-        };
+    var base;
+    var isLeading = true;
+    var tick = function(_args) {
+        fn.apply(null, _args);
+        base = null;
+    };
+    var debounced, stamp, args;
 
     /* istanbul ignore next */
     interval = interval || 0;

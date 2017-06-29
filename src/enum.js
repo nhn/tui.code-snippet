@@ -36,15 +36,13 @@ var enumValue = 0;
  * In modern browsers (except IE8 and lower),<br>
  *  a value defined once can not be changed.
  *
- * @param {...string | string[]} itemList Constant-list (An array of string is available)
- * @exports Enum
- * @constructor
+ * @param {...string|string[]} itemList Constant-list (An array of string is available)
  * @class
  * @memberof tui.util
- * @examples
+ * @example
  *  //create
- *  var MYENUM = new Enum('TYPE1', 'TYPE2');
- *  var MYENUM2 = new Enum(['TYPE1', 'TYPE2']);
+ *  var MYENUM = new tui.util.Enum('TYPE1', 'TYPE2');
+ *  var MYENUM2 = new tui.util.Enum(['TYPE1', 'TYPE2']);
  *
  *  //usage
  *  if (value === MYENUM.TYPE1) {
@@ -71,7 +69,7 @@ function Enum(itemList) {
 
 /**
  * Define a constants-list
- * @param {...string| string[]} itemList Constant-list (An array of string is available)
+ * @param {...string|string[]} itemList Constant-list (An array of string is available)
  */
 Enum.prototype.set = function(itemList) {
     var self = this;
@@ -91,8 +89,8 @@ Enum.prototype.set = function(itemList) {
  * @returns {string|undefined} Key of the constant.
  */
 Enum.prototype.getName = function(value) {
-    var foundedKey,
-        self = this;
+    var self = this;
+    var foundedKey;
 
     collection.forEach(this, function(itemValue, key) { // eslint-disable-line consistent-return
         if (self._isEnumItem(key) && value === itemValue) {

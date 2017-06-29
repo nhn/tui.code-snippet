@@ -25,7 +25,7 @@ var object = require('./object');
  * @example
  *  var sum = 0;
  *
- *  forEachArray([1,2,3], function(value){
+ *  tui.util.forEachArray([1,2,3], function(value){
  *      sum += value;
  *   });
  *  alert(sum); // 6
@@ -58,7 +58,7 @@ function forEachArray(arr, iteratee, context) {
  * @example
  *  var sum = 0;
  *
- *  forEachOwnProperties({a:1,b:2,c:3}, function(value){
+ *  tui.util.forEachOwnProperties({a:1,b:2,c:3}, function(value){
  *      sum += value;
  *  });
  *  alert(sum); // 6
@@ -93,7 +93,7 @@ function forEachOwnProperties(obj, iteratee, context) {
  *  //ex1
  *  var sum = 0;
  *
- *  forEach([1,2,3], function(value){
+ *  tui.util.forEach([1,2,3], function(value){
  *      sum += value;
  *  });
  *  alert(sum); // 6
@@ -129,7 +129,7 @@ function forEach(obj, iteratee, context) {
  * @returns {Array} A new array composed of returned values from callback function
  * @memberof tui.util
  * @example
- *  var result = map([0,1,2,3], function(value) {
+ *  var result = tui.util.map([0,1,2,3], function(value) {
  *      return value + 1;
  *  });
  *
@@ -162,17 +162,15 @@ function map(obj, iteratee, context) {
  * @returns {*} The result value
  * @memberof tui.util
  * @example
- *  var result = reduce([0,1,2,3], function(stored, value) {
+ *  var result = tui.util.reduce([0,1,2,3], function(stored, value) {
  *      return stored + value;
  *  });
  *
  *  alert(result); // 6
  */
 function reduce(obj, iteratee, context) {
-    var keys,
-        index = 0,
-        length,
-        store;
+    var index = 0;
+    var keys, length, store;
 
     context = context || null;
 
@@ -206,7 +204,7 @@ function reduce(obj, iteratee, context) {
  *      3: 'four',
  *      length: 4
  *  };
- *  var result = toArray(arrayLike);
+ *  var result = tui.util.toArray(arrayLike);
  *
  *  alert(result instanceof Array); // true
  *  alert(result); // one,two,three,four
@@ -237,12 +235,12 @@ function toArray(arrayLike) {
  * @returns {Object} plain object or Array
  * @memberof tui.util
  * @example
- *  var result1 = filter([0,1,2,3], function(value) {
+ *  var result1 = tui.util.filter([0,1,2,3], function(value) {
  *      return (value % 2 === 0);
  *  });
  *  alert(result1); // 0,2
  *
- *  var result2 = filter({a : 1, b: 2, c: 3}, function(value) {
+ *  var result2 = tui.util.filter({a : 1, b: 2, c: 3}, function(value) {
  *      return (value % 2 !== 0);
  *  });
  *  alert(result2.a); // 1
@@ -250,8 +248,7 @@ function toArray(arrayLike) {
  *  alert(result2.c); // 3
  */
 function filter(obj, iteratee, context) {
-    var result,
-        add;
+    var result, add;
 
     context = context || null;
 
@@ -291,18 +288,18 @@ function filter(obj, iteratee, context) {
  *         {'abc': 1, 'def': 2, 'ghi': 3},
  *         {'abc': 4, 'def': 5, 'ghi': 6},
  *         {'abc': 7, 'def': 8, 'ghi': 9}
- *       ],
- *       arr2d = [
+ *       ];
+ *   var arr2d = [
  *         [1, 2, 3],
  *         [4, 5, 6],
  *         [7, 8, 9]
- *       ],
- *       result;
+ *       ];
+ *   var result;
  *
- *   result = pluck(objArr, 'abc');
+ *   result = tui.util.pluck(objArr, 'abc');
  *   console.log(result) // [1, 4, 7]
  *
- *   result = pluck(arr2d, 2);
+ *   result = tui.util.pluck(arr2d, 2);
  *   console.log(result) // [3, 6, 9]
  */
 function pluck(arr, property) {

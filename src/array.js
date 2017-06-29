@@ -10,6 +10,7 @@ var collection = require('./collection');
 var type = require('./type');
 
 var aps = Array.prototype.slice;
+var util;
 
 /**
  * Generate an integer Array containing an arithmetic progression.
@@ -20,16 +21,16 @@ var aps = Array.prototype.slice;
  * @memberof tui.util
  * @example
  *
- *   var arr = range(5);
+ *   var arr = tui.util.range(5);
  *   console.log(arr); // [0,1,2,3,4]
  *
- *   arr = range(1, 5);
+ *   arr = tui.util.range(1, 5);
  *   console.log(arr); // [1,2,3,4]
  *
- *   arr = range(2, 10, 2);
+ *   arr = tui.util.range(2, 10, 2);
  *   console.log(arr); // [2,4,6,8]
  *
- *   arr = range(10, 2, -2);
+ *   arr = tui.util.range(10, 2, -2);
  *   console.log(arr); // [10,8,6,4]
  */
 var range = function(start, stop, step) {
@@ -60,7 +61,7 @@ var range = function(start, stop, step) {
  * @memberof tui.util
  * @example
  *
- *   var result = zip([1, 2, 3], ['a', 'b','c'], [true, false, true]);
+ *   var result = tui.util.zip([1, 2, 3], ['a', 'b','c'], [true, false, true]);
  *
  *   console.log(result[0]); // [1, 'a', true]
  *   console.log(result[1]); // [2, 'b', false]
@@ -95,14 +96,14 @@ var zip = function() {
  * @memberof tui.util
  * @example
  *
- *   var arr = ['one', 'two', 'three', 'four'],
- *       idx1,
- *       idx2;
+ *   var arr = ['one', 'two', 'three', 'four'];
+ *   var idx1;
+ *   var idx2;
  *
- *   idx1 = inArray('one', arr, 3);
+ *   idx1 = tui.util.inArray('one', arr, 3);
  *   alert(idx1); // -1
  *
- *   idx2 = inArray('one', arr);
+ *   idx2 = tui.util.inArray('one', arr);
  *   alert(idx2); // 0
  */
 var inArray = function(searchElement, array, startIndex) {
@@ -128,8 +129,10 @@ var inArray = function(searchElement, array, startIndex) {
     return -1;
 };
 
-module.exports = {
+util = {
     inArray: inArray,
     range: range,
     zip: zip
 };
+
+module.exports = util;

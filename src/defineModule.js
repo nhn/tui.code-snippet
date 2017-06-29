@@ -18,7 +18,7 @@ var INITIALIZATION_METHOD_NAME = 'initialize';
  * @returns {Object} Defined module
  * @memberof tui.util
  * @example
- *     var myModule = defineModule('modules.myModule', {
+ *     var myModule = tui.util.defineModule('modules.myModule', {
  *          name: 'john',
  *          message: '',
  *          initialize: function() {
@@ -32,7 +32,7 @@ var INITIALIZATION_METHOD_NAME = 'initialize';
  *     console.log(myModule.getMessage());  // 'john: hello world';
  *     console.log(window.modules.myModule.getMessage());   // 'john: hello world';
  */
-module.exports = function(namespace, moduleDefinition) {
+function defineModule(namespace, moduleDefinition) {
     var base = moduleDefinition || {};
 
     if (type.isFunction(base[INITIALIZATION_METHOD_NAME])) {
@@ -40,4 +40,6 @@ module.exports = function(namespace, moduleDefinition) {
     }
 
     return defineNamespace(namespace, base);
-};
+}
+
+module.exports = defineModule;

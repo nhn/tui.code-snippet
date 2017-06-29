@@ -28,6 +28,8 @@ var _KEY_FOR_UNDEFINED = {};
  * For using NaN as a key, use this unique object as a NaN key.<br>
  * This makes it easier and faster to compare an object with each keys in the array<br>
  * through no exceptional comapring for NaN.
+ * @private
+ * @constant
  */
 var _KEY_FOR_NAN = {};
 
@@ -79,7 +81,7 @@ MapIterator.prototype.next = function() {
  *
  * If the browser supports full implementation of ES6 Map specification, native Map obejct
  * will be used internally.
- * @constructor
+ * @class
  * @param  {Array} initData - Array of key-value pairs (2-element Arrays).
  *      Each key-value pair will be added to the new Map
  * @memberof tui.util
@@ -130,8 +132,8 @@ Map.prototype._isNaN = function(value) {
  * @returns {number} The index of the specified key
  */
 Map.prototype._getKeyIndex = function(key) {
-    var result = -1,
-        value;
+    var result = -1;
+    var value;
 
     if (type.isString(key)) {
         value = this._valuesForString[key];
@@ -240,9 +242,9 @@ Map.prototype._createValueObject = function(origin, keyIndex) {
  * @returns {Map} The Map object
  */
 Map.prototype.set = function(key, value) {
-    var uniqueKey = this._getUniqueKey(key),
-        keyIndex = this._getKeyIndex(uniqueKey),
-        valueObject;
+    var uniqueKey = this._getUniqueKey(key);
+    var keyIndex = this._getKeyIndex(uniqueKey);
+    var valueObject;
 
     if (keyIndex < 0) {
         keyIndex = this._keys.push(uniqueKey) - 1;
@@ -264,8 +266,8 @@ Map.prototype.set = function(key, value) {
  * @returns {*} Element associated with the specified key
  */
 Map.prototype.get = function(key) {
-    var uniqueKey = this._getUniqueKey(key),
-        value = this._getValueObject(uniqueKey);
+    var uniqueKey = this._getUniqueKey(key);
+    var value = this._getValueObject(uniqueKey);
 
     return value && value.origin;
 };
@@ -311,8 +313,8 @@ Map.prototype.has = function(key) {
 /**
  * Removes the specified element from a Map object.
  * @param {*} key - The key of the element to remove
- * @memberof Map.prototype
- * @method delete
+ * @function delete
+ * @memberof tui.util.Map.prototype
  */
  // cannot use reserved keyword as a property name in IE8 and under.
 Map.prototype['delete'] = function(key) {

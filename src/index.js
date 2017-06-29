@@ -1,15 +1,17 @@
 'use strict';
 
 /**
+ * @fileoverview
+ * @author NHN Ent.
+ *         FE Development Lab <dl_javascript@nhnent.com>
  * @namespace tui.util
  */
-var util = {};
-
+var util;
 var object = require('./object');
 var extend = object.extend;
 
-extend(util, object);
-extend(util, require('./array'));
+extend(tui, object);
+extend(tui, require('./array'));
 extend(util, require('./collection'));
 extend(util, require('./func'));
 extend(util, require('./inheritance'));
@@ -29,4 +31,4 @@ util.ExMap = require('./exMap');
 util.HashMap = require('./hashMap');
 util.Map = require('./map');
 
-module.exports = util;
+module.exports = tui;

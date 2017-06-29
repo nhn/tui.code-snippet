@@ -11,6 +11,8 @@ module.exports = function(config) {
             'karma-jasmine',
             'karma-webpack',
             'karma-chrome-launcher',
+            'karma-safari-launcher',
+            'karma-firefox-launcher',
             'karma-coverage',
             'karma-junit-reporter'
         ],

@@ -1,6 +1,6 @@
 /**
  * @fileoverview This module provides some simple function for inheritance.
- * @author NHN Entertainment.
+ * @author NHN Ent.
  *         FE Development Lab <dl_javascript@nhnent.com>
  */
 
