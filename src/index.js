@@ -7,12 +7,12 @@ var extend = object.extend;
 
 extend(util, object);
 extend(util, require('./array'));
+extend(util, require('./type'));
 extend(util, require('./collection'));
 extend(util, require('./func'));
 extend(util, require('./inheritance'));
 extend(util, require('./string'));
 extend(util, require('./tricks'));
-extend(util, require('./type'));
 
 util.browser = require('./browser');
 util.popup = require('./window');

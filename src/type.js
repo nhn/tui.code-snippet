@@ -7,7 +7,6 @@
 
 'use strict';
 
-var collection = require('./collection');
 var toString = Object.prototype.toString;
 
 /**
@@ -251,6 +250,7 @@ function isHTMLTag(html) {
  */
 function isEmpty(obj) {
     var hasKey = false;
+    var key;
 
     if (!isExisty(obj)) {
         return true;
@@ -265,10 +265,12 @@ function isEmpty(obj) {
     }
 
     if (isObject(obj) && !isFunction(obj)) {
-        collection.forEachOwnProperties(obj, function() {
-            hasKey = true;
-            return false;
-        });
+        for (key in obj) {
+            if (obj.hasOwnProperty(key)) {
+                hasKey = true;
+                break;
+            }
+        }
 
         return !hasKey;
     }

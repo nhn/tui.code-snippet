@@ -2,7 +2,7 @@
   "name": "tui-code-snippet",
   "version": "1.2.4",
   "description": "useful code snippets from frontend development team",
-  "main": "./dist/code-snippet.js",
+  "main": "./dist/bundle.js",
   "scripts": {
     "test": "karma start karma.conf.js",
     "test:ne": "karma start karma.conf.ne.js",
