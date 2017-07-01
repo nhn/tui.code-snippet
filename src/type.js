@@ -7,6 +7,7 @@
 
 'use strict';
 
+var collection = require('./collection');
 var toString = Object.prototype.toString;
 
 /**
@@ -249,45 +250,27 @@ function isHTMLTag(html) {
  * @memberof tui.util
  */
 function isEmpty(obj) {
-    return (!isExisty(obj) ||
-        (isString(obj) && _isEmptyString(obj)) ||
-        (isArray(obj) && _isEmptyArray(obj)) ||
-        (isObject(obj) && (isFunction(obj) || _isEmptyObject(obj)))
-    );
-}
+    var hasKey = false;
 
-/**
- * Check string is empty
- * @private
- * @param {string} str - string
- * @returns {boolean} Is empty?
- */
-function _isEmptyString(str) {
-    return str === '';
-}
+    if (!isExisty(obj)) {
+        return true;
+    }
 
-/**
- * Check array or array like object is empty
- * @private
- * @param {...Array} arr - array
- * @returns {boolean} Is empty?
- */
-function _isEmptyArray(arr) {
-    return arr.length === 0;
-}
+    if (isString(obj) && obj === '') {
+        return true;
+    }
 
-/**
- * Check object is empty
- * @private
- * @param {Object} obj - object
- * @returns {boolean} Is empty?
- */
-function _isEmptyObject(obj) {
-    var key;
-    for (key in obj) {
-        if (obj.hasOwnProperty(key)) {
+    if (isArray(obj) || isArguments(obj)) {
+        return obj.length === 0;
+    }
+
+    if (isObject(obj) && !isFunction(obj)) {
+        collection.forEachOwnProperties(obj, function() {
+            hasKey = true;
             return false;
-        }
+        });
+
+        return !hasKey;
     }
 
     return true;
