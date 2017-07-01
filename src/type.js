@@ -7,7 +7,6 @@
 
 'use strict';
 
-var collection = require('./collection');
 var toString = Object.prototype.toString;
 
 /**
@@ -250,13 +249,7 @@ function isHTMLTag(html) {
  * @memberof tui.util
  */
 function isEmpty(obj) {
-    var hasKey = false;
-
-    if (!isExisty(obj)) {
-        return true;
-    }
-
-    if (isString(obj) && obj === '') {
+    if (!isExisty(obj) || _isEmptyString(obj)) {
         return true;
     }
 
@@ -265,15 +258,39 @@ function isEmpty(obj) {
     }
 
     if (isObject(obj) && !isFunction(obj)) {
-        collection.forEachOwnProperties(obj, function() {
-            hasKey = true;
-            return false;
-        });
-
-        return !hasKey;
+        return !_hasOwnProperty(obj);
     }
 
     return true;
+}
+
+/**
+ * Check whether given argument is empty string
+ * @param {*} obj - Target for checking
+ * @returns {boolean} whether given argument is empty string
+ * @memberof tui.util
+ * @private
+ */
+function _isEmptyString(obj) {
+    return isString(obj) && obj === '';
+}
+
+/**
+ * Check whether given argument has own property
+ * @param {Object} obj - Target for checking
+ * @returns {boolean} - whether given argument has own property
+ * @memberof tui.util
+ * @private
+ */
+function _hasOwnProperty(obj) {
+    var key;
+    for (key in obj) {
+        if (obj.hasOwnProperty(key)) {
+            return true;
+        }
+    }
+
+    return false;
 }
 
 /**
