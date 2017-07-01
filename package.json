@@ -4,8 +4,8 @@
   "description": "useful code snippets from frontend development team",
   "main": "./dist/tui-code-snippet.js",
   "scripts": {
-    "test": "karma start karma.conf.js",
-    "test:ne": "karma start karma.conf.ne.js",
+    "test": "karma start",
+    "test:ne": "SERVER=ne karma start",
     "cpy-dist2doc": "mkdir -p doc/dist && cp -f dist/tui-code-snippet.js doc/dist",
     "doc": "./node_modules/.bin/jsdoc -c jsdoc-conf.json && npm run cpy-dist2doc",
     "bundle": "webpack && webpack -p",
