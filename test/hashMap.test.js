@@ -214,7 +214,6 @@ describe('module:hashMap', function() {
     });
 
     describe('each()', function() {
-        /* eslint-disable max-nested-callbacks */
         beforeEach(function() {
             hashMap.set('key1', 'data1');
             hashMap.set('key2', 'data2');
@@ -233,7 +232,6 @@ describe('module:hashMap', function() {
             expect(sumValue).toEqual('data1data2data3');
             expect(sumKey).toEqual('key1key2key3');
         });
-        /* eslint-enable max-nested-callbacks */
     });
 
     describe('keys()', function() {
@@ -253,7 +251,6 @@ describe('module:hashMap', function() {
     });
 
     describe('find()', function() {
-        /* eslint-disable max-nested-callbacks */
         beforeEach(function() {
             hashMap.set('key1', 'data1');
             hashMap.set('key2', 'data');
@@ -274,7 +271,6 @@ describe('module:hashMap', function() {
             expect(dataByValue).toEqual(['data', 'data']);
             expect(dataByKey).toEqual(['data1']);
         });
-        /* eslint-enable max-nested-callbacks */
     });
 
     describe('toArray()', function() {

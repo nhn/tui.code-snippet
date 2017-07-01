@@ -1,3 +1,7 @@
+/* eslint-disable require-jsdoc */
+/* eslint-disable block-spacing */
+/* eslint-disable brace-style */
+
 'use strict';
 
 var CustomEvents = require('../src/customEvent');
@@ -23,7 +27,7 @@ describe('CustomEvents', function() {
                 test: [{handler: handler}]
             });
 
-            function handler2() {} // eslint-disable-line require-jsdoc
+            function handler2() {}
             ce.on('test', handler2);
 
             expect(ce.events).toEqual({
@@ -164,7 +168,7 @@ describe('CustomEvents', function() {
         });
 
         it('exceptional situtaions.', function() {
-            expect(function() { // eslint-disable-line max-nested-callbacks
+            expect(function() {
                 ce.off('good');
             }).not.toThrow();
         });
@@ -306,9 +310,6 @@ describe('CustomEvents', function() {
         });
     });
 
-    /* eslint-disable max-nested-callbacks */
-    /* eslint-disable block-spacing */
-    /* eslint-disable brace-style */
     describe('should return AND conditions for all of handler\' result', function() {
         var inst,
             spy;
@@ -384,7 +385,6 @@ describe('CustomEvents', function() {
             expect(spy).toHaveBeenCalled();
         });
     });
-    /* eslint-enable max-nested-callbacks */
 
     describe('should memorize', function() {
         it('specific context object.', function() {
