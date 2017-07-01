@@ -627,48 +627,48 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @memberof tui.util
 	 */
 	function isEmpty(obj) {
-	    return (!isExisty(obj) ||
-	        (isString(obj) && _isEmptyString(obj)) ||
-	        (isArray(obj) && _isEmptyArray(obj)) ||
-	        (isObject(obj) && (isFunction(obj) || _isEmptyObject(obj)))
-	    );
-	}
+	    if (!isExisty(obj) || _isEmptyString(obj)) {
+	        return true;
+	    }
 
-	/**
-	 * Check string is empty
-	 * @private
-	 * @param {string} str - string
-	 * @returns {boolean} Is empty?
-	 */
-	function _isEmptyString(str) {
-	    return str === '';
-	}
+	    if (isArray(obj) || isArguments(obj)) {
+	        return obj.length === 0;
+	    }
 
-	/**
-	 * Check array or array like object is empty
-	 * @private
-	 * @param {...Array} arr - array
-	 * @returns {boolean} Is empty?
-	 */
-	function _isEmptyArray(arr) {
-	    return arr.length === 0;
-	}
-
-	/**
-	 * Check object is empty
-	 * @private
-	 * @param {Object} obj - object
-	 * @returns {boolean} Is empty?
-	 */
-	function _isEmptyObject(obj) {
-	    var key;
-	    for (key in obj) {
-	        if (obj.hasOwnProperty(key)) {
-	            return false;
-	        }
+	    if (isObject(obj) && !isFunction(obj)) {
+	        return !_hasOwnProperty(obj);
 	    }
 
 	    return true;
+	}
+
+	/**
+	 * Check whether given argument is empty string
+	 * @param {*} obj - Target for checking
+	 * @returns {boolean} whether given argument is empty string
+	 * @memberof tui.util
+	 * @private
+	 */
+	function _isEmptyString(obj) {
+	    return isString(obj) && obj === '';
+	}
+
+	/**
+	 * Check whether given argument has own property
+	 * @param {Object} obj - Target for checking
+	 * @returns {boolean} - whether given argument has own property
+	 * @memberof tui.util
+	 * @private
+	 */
+	function _hasOwnProperty(obj) {
+	    var key;
+	    for (key in obj) {
+	        if (obj.hasOwnProperty(key)) {
+	            return true;
+	        }
+	    }
+
+	    return false;
 	}
 
 	/**
