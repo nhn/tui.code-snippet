@@ -86,7 +86,7 @@ var zip = function() {
 
 /**
  * Returns the first index at which a given element can be found in the array
- * from start index(default 0), or -1 if it is not present.
+ * from start index(default 0), or -1 if it is not present.<br>
  * It compares searchElement to elements of the Array using strict equality
  * (the same method used by the ===, or triple-equals, operator).
  * @param {*} searchElement Element to locate in the array
