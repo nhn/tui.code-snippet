@@ -27,7 +27,6 @@ describe('date format', function() {
             ];
 
         describe('plain object', function() {
-            /* eslint-disable max-nested-callbacks */
             describe('{year: 1999, month: 9, date: 9, hour: 0, minute: 2}', function() {
                 it('-> yyyy-MM-dd', function() {
                     expect(formatDate(forms[0], inputs[0])).toEqual('1999-09-09');
@@ -126,11 +125,9 @@ describe('date format', function() {
                     expect(formatDate(forms[9], inputs[2])).toEqual('January 29 2012 11:40 PM');
                 });
             });
-            /* eslint-enable max-nested-callbacks */
         });
 
         describe('Date Object', function() {
-            /* eslint-disable max-nested-callbacks */
             describe('new Date(1999, 8, 9, 0, 2}', function() {
                 it('-> yyyy-MM-dd', function() {
                     var date = inputs[0],
@@ -409,11 +406,9 @@ describe('date format', function() {
                     expect(formatDate(forms[9], dt)).toEqual('January 29 2012 11:40 PM');
                 });
             });
-            /* eslint-enable max-nested-callbacks */
         });
 
         describe('meridiemSet', function() {
-            /* eslint-disable max-nested-callbacks */
             it('AM -> 오전', function() {
                 var option = {
                     meridiemSet: {
@@ -436,7 +431,6 @@ describe('date format', function() {
 
                 expect(formatDate('yyyy-MM-dd A hh:mm', date, option)).toEqual('1999-09-09 오후 01:02');
             });
-            /* eslint-enable max-nested-callbacks */
         });
 
         it('not full-date but time format', function() {

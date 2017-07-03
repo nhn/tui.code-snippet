@@ -1,3 +1,5 @@
+/* eslint-disable no-undefined */
+
 'use strict';
 
 var Map = require('../src/map');
@@ -21,7 +23,6 @@ describe('module:ExMap', function() {
             expect(map instanceof ExMap).toBe(true);
         });
 
-        /* eslint-disable max-nested-callbacks */
         describe('has an argument', function() {
             it('that can be an array', function() {
                 var initData = [
@@ -37,11 +38,9 @@ describe('module:ExMap', function() {
                 expect(map.get(3)).toBe('three');
             });
         });
-        /* eslint-enable max-nested-callbacks */
     });
 
     describe('methods from tui.util.Map', function() {
-        /* eslint-disable max-nested-callbacks */
         describe('set() and get()', function() {
             it('for the string key', function() {
                 map.set('company', 'nhn ent');
@@ -147,7 +146,7 @@ describe('module:ExMap', function() {
         describe('keys(), values(), entries() returns Iterator object in insertion order', function() {
             beforeEach(function() {
                 map.set(null, '1');
-                map.set(undefined, '2'); // eslint-disable-line no-undefined
+                map.set(undefined, '2');
                 map.set('3', '3');
             });
 
@@ -155,7 +154,7 @@ describe('module:ExMap', function() {
                 it('contains the keys for each element', function() {
                     var keys = map.keys();
                     expect(keys.next().value).toBe(null);
-                    expect(keys.next().value).toBe(undefined); // eslint-disable-line no-undefined
+                    expect(keys.next().value).toBe(undefined);
                     expect(keys.next().value).toBe('3');
                 });
             });
@@ -173,12 +172,11 @@ describe('module:ExMap', function() {
                 it('contains the values for each element', function() {
                     var entries = map.entries();
                     expect(entries.next().value).toEqual([null, '1']);
-                    expect(entries.next().value).toEqual([undefined, '2']); // eslint-disable-line no-undefined
+                    expect(entries.next().value).toEqual([undefined, '2']);
                     expect(entries.next().value).toEqual(['3', '3']);
                 });
             });
         });
-        /* eslint-enable max-nested-callbacks */
     });
 
     describe('setObject()', function() {
