@@ -72,4 +72,7 @@ It includes several features like `class simulation`, `browser detecting`, `type
 * Bower:
    * Latest: `bower install tui-code-snippet`
    * Each Version: `bower install tui-code-snippet[#tag]`
+* Npm:
+   * Latest: `npm install tui-code-snippet`
+   * Each Version: `npm install tui-code-snippet[@tag]`
 * Download: https://github.com/nhnent/tui.code-snippet
