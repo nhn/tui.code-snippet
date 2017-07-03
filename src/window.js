@@ -82,16 +82,16 @@ Popup.prototype.getPopupList = function(key) {
  *      When transmit the POST-data, some browsers alert a message for confirming whether retransmit or not.
  *
  *     @param {string} [options.postBridgeUrl='']
- *      - Use this url to avoid a certain bug occuring when transmitting POST data to the popup in IE11.<br>
- *          This specific buggy situation is known to happen because IE11 tries to open the requested url
- *          not in a new popup window as intended, but in a new tab.<br>
- *          See {@link http://wiki.nhnent.com/pages/viewpage.action?pageId=240562844}
+ *      Use this url to avoid a certain bug occuring when transmitting POST data to the popup in IE11.<br>
+ *      This specific buggy situation is known to happen because IE11 tries to open the requested url<br>
+ *      not in a new popup window as intended, but in a new tab.<br>
+ *      See {@link http://wiki.nhnent.com/pages/viewpage.action?pageId=240562844}
  *
  *     @param {string} [options.method=get]
- *      - The method of transmission when the form-data is transmitted to popup-window.
+ *     The method of transmission when the form-data is transmitted to popup-window.
  *
  *     @param {Object} [options.param=null]
- *      - Using as parameters for transmission when the form-data is transmitted to popup-window.
+ *     Using as parameters for transmission when the form-data is transmitted to popup-window.
  */
 Popup.prototype.openPopup = function(url, options) { // eslint-disable-line complexity
     var popup, formElement, useIEPostBridge;

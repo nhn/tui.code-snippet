@@ -53,7 +53,7 @@ var enumValue = 0;
  *  MYENUM.set('TYPE3', 'TYPE4');
  *
  *  //get name of a constant by a value
- *  MYENUM.getName(MYENUM.TYPE1); // 'TYPE1'이 리턴된다.
+ *  MYENUM.getName(MYENUM.TYPE1); // 'TYPE1'
  *
  *  // In modern browsers (except IE8 and lower), a value can not be changed in constants.
  *  var originalValue = MYENUM.TYPE1;
