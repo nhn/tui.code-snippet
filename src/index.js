@@ -6,7 +6,7 @@
  *         FE Development Lab <dl_javascript@nhnent.com>
  * @namespace tui.util
  */
-var util;
+var util = {};
 var object = require('./object');
 var extend = object.extend;
 
@@ -31,4 +31,4 @@ util.ExMap = require('./exMap');
 util.HashMap = require('./hashMap');
 util.Map = require('./map');
 
-module.exports = tui;
+module.exports = util;

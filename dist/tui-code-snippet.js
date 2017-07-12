@@ -68,7 +68,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 *         FE Development Lab <dl_javascript@nhnent.com>
 	 * @namespace tui.util
 	 */
-	var util;
+	var util = {};
 	var object = __webpack_require__(1);
 	var extend = object.extend;
 
@@ -93,7 +93,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	util.HashMap = __webpack_require__(19);
 	util.Map = __webpack_require__(18);
 
-	module.exports = tui;
+	module.exports = util;
 
 
 /***/ }),
@@ -825,7 +825,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	/**
 	 * Returns the first index at which a given element can be found in the array
-	 * from start index(default 0), or -1 if it is not present.
+	 * from start index(default 0), or -1 if it is not present.<br>
 	 * It compares searchElement to elements of the Array using strict equality
 	 * (the same method used by the ===, or triple-equals, operator).
 	 * @param {*} searchElement Element to locate in the array
@@ -895,8 +895,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	/**
 	 * Execute the provided callback once for each element present
-	 * in the array(or Array-like object) in ascending order.
-	 * If the callback function returns false, the loop will be stopped.
+	 * in the array(or Array-like object) in ascending order.<br>
+	 * If the callback function returns false, the loop will be stopped.<br>
 	 * Callback function(iteratee) is invoked with three arguments:
 	 *  - The value of the element
 	 *  - The index of the element
@@ -999,9 +999,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	/**
 	 * Execute the provided callback function once for each element in an array, in order,
-	 * and constructs a new array from the results.
+	 * and constructs a new array from the results.<br>
 	 * If the object is Array-like object(ex-arguments object),
-	 * It needs to transform to Array.(see 'ex2' of forEach example)
+	 * It needs to transform to Array.(see 'ex2' of forEach example)<br>
 	 * Callback function(iteratee) is invoked with three arguments:
 	 *  - The value of the property(or The value of the element)
 	 *  - The name of the property(or The index of the element)
@@ -1031,9 +1031,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	/**
-	 * Execute the callback function once for each element present in the array(or Array-like object or plain object).
+	 * Execute the callback function once for each element present in the array(or Array-like object or plain object).<br>
 	 * If the object is Array-like object(ex-arguments object),
-	 * It needs to transform to Array.(see 'ex2' of forEach example)
+	 * It needs to transform to Array.(see 'ex2' of forEach example)<br>
 	 * Callback function(iteratee) is invoked with four arguments:
 	 *  - The previousValue
 	 *  - The currentValue
@@ -1075,7 +1075,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	/**
-	 * Transform the Array-like object to Array.
+	 * Transform the Array-like object to Array.<br>
 	 * In low IE (below 8), Array.prototype.slice.call is not perfect. So, try-catch statement is used.
 	 * @param {*} arrayLike Array-like object
 	 * @returns {Array} Array
@@ -1272,7 +1272,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	/**
-	 * Provide a simple inheritance in prototype-oriented.
+	 * Provide a simple inheritance in prototype-oriented.<br>
 	 * Caution :
 	 *  Don't overwrite the prototype of child constructor.
 	 *
@@ -1767,16 +1767,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	 *      When transmit the POST-data, some browsers alert a message for confirming whether retransmit or not.
 	 *
 	 *     @param {string} [options.postBridgeUrl='']
-	 *      - Use this url to avoid a certain bug occuring when transmitting POST data to the popup in IE11.<br>
-	 *          This specific buggy situation is known to happen because IE11 tries to open the requested url
-	 *          not in a new popup window as intended, but in a new tab.<br>
-	 *          See {@link http://wiki.nhnent.com/pages/viewpage.action?pageId=240562844}
+	 *      Use this url to avoid a certain bug occuring when transmitting POST data to the popup in IE11.<br>
+	 *      This specific buggy situation is known to happen because IE11 tries to open the requested url<br>
+	 *      not in a new popup window as intended, but in a new tab.<br>
+	 *      See {@link http://wiki.nhnent.com/pages/viewpage.action?pageId=240562844}
 	 *
 	 *     @param {string} [options.method=get]
-	 *      - The method of transmission when the form-data is transmitted to popup-window.
+	 *     The method of transmission when the form-data is transmitted to popup-window.
 	 *
 	 *     @param {Object} [options.param=null]
-	 *      - Using as parameters for transmission when the form-data is transmitted to popup-window.
+	 *     Using as parameters for transmission when the form-data is transmitted to popup-window.
 	 */
 	Popup.prototype.openPopup = function(url, options) { // eslint-disable-line complexity
 	    var popup, formElement, useIEPostBridge;
@@ -3042,7 +3042,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 *  MYENUM.set('TYPE3', 'TYPE4');
 	 *
 	 *  //get name of a constant by a value
-	 *  MYENUM.getName(MYENUM.TYPE1); // 'TYPE1'이 리턴된다.
+	 *  MYENUM.getName(MYENUM.TYPE1); // 'TYPE1'
 	 *
 	 *  // In modern browsers (except IE8 and lower), a value can not be changed in constants.
 	 *  var originalValue = MYENUM.TYPE1;
