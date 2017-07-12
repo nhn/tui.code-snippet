@@ -20,6 +20,7 @@
   "devDependencies": {
     "eslint": "^4.1.1",
     "eslint-loader": "^1.8.0",
+    "jquery": "^1.8.0",
     "jasmine-ajax": "latest",
     "jasmine-core": "latest",
     "jasmine-jquery": "latest",

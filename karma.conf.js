@@ -78,7 +78,7 @@ module.exports = function(config) {
         frameworks: ['jasmine'],
         files: [
             {
-                pattern: 'bower_components/jquery/jquery.js',
+                pattern: 'node_modules/jquery/dist/jquery.min.js',
                 watched: false
             },
             {
