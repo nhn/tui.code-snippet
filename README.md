@@ -69,10 +69,10 @@ It includes several features like `class simulation`, `browser detecting`, `type
    * Firefox
 
 ## Download/Install
-* Bower:
+* bower:
    * Latest: `bower install tui-code-snippet`
    * Each Version: `bower install tui-code-snippet[#tag]`
-* Npm:
+* npm:
    * Latest: `npm install tui-code-snippet`
    * Each Version: `npm install tui-code-snippet[@tag]`
 * Download: https://github.com/nhnent/tui.code-snippet
