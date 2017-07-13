@@ -1,5 +1,3 @@
-/* eslint-disable  max-nested-callbacks */
-
 'use strict';
 
 var collection = require('../src/collection');
@@ -18,7 +16,7 @@ describe('module:collection', function() {
         it('어레이나 유사어레이와 콜백펑션을 입력받아 객체의 내용을 순회할수있다.', function() {
             var oSum = 0;
 
-            collection.forEachArray(arrayDummy, function(value) { // eslint-disable-line max-nested-callbacks
+            collection.forEachArray(arrayDummy, function(value) {
                 oSum += value;
             });
 
@@ -42,7 +40,6 @@ describe('module:collection', function() {
         });
     });
 
-    /* eslint-disable  max-nested-callbacks */
     describe('forEachOwnProperties', function() {
         it('객체와 콜백펑션을 입력받아 객체의 내용을 순회할수있다.', function() {
             var oSum = 0;

@@ -19,7 +19,7 @@ function createObject(obj) {
 }
 
 /**
- * Provide a simple inheritance in prototype-oriented.
+ * Provide a simple inheritance in prototype-oriented.<br>
  * Caution :
  *  Don't overwrite the prototype of child constructor.
  *

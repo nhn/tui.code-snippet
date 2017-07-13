@@ -1,33 +1,84 @@
-// Karma configuration
-// Generated on Wed Oct 22 2014 11:36:33 GMT+0900 (KST)
+var webdriverConfig = {
+    hostname: 'fe.nhnent.com',
+    port: 4444,
+    remoteHost: true
+};
+
+/**
+ * manipulate config by server
+ * @param {Object} defaultConfig - base configuration
+ * @param {'ne'|null|undefined} server - ne: team selenium grid, null or undefined: local machine
+ */
+function setConfig(defaultConfig, server) {
+    if (server === 'ne') {
+        defaultConfig.plugins.push('karma-edge-launcher');
+        defaultConfig.plugins.push('karma-webdriver-launcher');
+        defaultConfig.customLaunchers = {
+            'IE8': {
+                base: 'WebDriver',
+                config: webdriverConfig,
+                browserName: 'internet explorer',
+                version: 8
+            },
+            'IE9': {
+                base: 'WebDriver',
+                config: webdriverConfig,
+                browserName: 'internet explorer',
+                version: 9
+            },
+            'IE10': {
+                base: 'WebDriver',
+                browserName: 'internet explorer',
+                config: webdriverConfig,
+                version: 10
+            },
+            'IE11': {
+                base: 'WebDriver',
+                config: webdriverConfig,
+                browserName: 'internet explorer',
+                version: 11
+            },
+            'Edge': {
+                base: 'WebDriver',
+                config: webdriverConfig,
+                browserName: 'MicrosoftEdge'
+            },
+            'Chrome-WebDriver': {
+                base: 'WebDriver',
+                config: webdriverConfig,
+                browserName: 'chrome'
+            },
+            'Firefox-WebDriver': {
+                base: 'WebDriver',
+                config: webdriverConfig,
+                browserName: 'firefox'
+            }
+        };
+        defaultConfig.browsers = [
+            'IE8',
+            'IE9',
+            'IE10',
+            'IE11',
+            'Chrome-WebDriver',
+            'Firefox-WebDriver',
+            'Edge'
+        ];
+    } else {
+        defaultConfig.browsers = [
+            'Chrome',
+            'Firefox',
+            'Safari'
+        ];
+    }
+}
 
 module.exports = function(config) {
-    config.set({
-
-        // base path that will be used to resolve all patterns (eg. files, exclude)
-        basePath: '',
-
-        plugins: [
-            'karma-jasmine',
-            'karma-webpack',
-            'karma-chrome-launcher',
-            'karma-safari-launcher',
-            'karma-firefox-launcher',
-            'karma-coverage',
-            'karma-junit-reporter'
-        ],
-
-        // frameworks to use
-        // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-        frameworks: [
-            'jasmine'
-        ],
-
-
-        // list of files / patterns to load in the browser
+    var defaultConfig = {
+        basePath: './',
+        frameworks: ['jasmine'],
         files: [
             {
-                pattern: 'bower_components/jquery/jquery.js',
+                pattern: 'node_modules/jquery/dist/jquery.min.js',
                 watched: false
             },
             {
@@ -40,25 +91,31 @@ module.exports = function(config) {
             },
             'test/*.test.js'
         ],
-
-        // preprocess matching files before serving them to the browser
-        // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
         preprocessors: {
             './test/*.test.js': ['webpack'],
             'src/**/*.js': ['coverage']
         },
-
         webpack: {
-            devtool: '#inline-source-map'
+            devtool: 'inline-source-map',
+            module: {
+                preLoaders: [
+                    {
+                        test: /\.js$/,
+                        include: /src/,
+                        exclude: /(bower_components|node_modules)/,
+                        loader: 'eslint-loader',
+                        options: {
+                            failOnWarning: true
+                        }
+                    }
+                ]
+            }
         },
 
         webpackMiddleware: {
             noInfo: true
         },
 
-        // test results reporter to use
-        // possible values: 'dots', 'progress'
-        // available reporters: https://npmjs.org/browse/keyword/karma-reporter
         reporters: [
             'dots',
             'junit',
@@ -90,34 +147,23 @@ module.exports = function(config) {
             ]
         },
 
-        // web server port
-        port: 9876,
-
-
-        // enable / disable colors in the output (reporters and logs)
-        colors: true,
-
-
-        // level of logging
-        // possible values:
-        // config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
-        logLevel: config.LOG_INFO,
-
-
-        // enable / disable watching file and executing tests whenever any file changes
-        autoWatch: true,
-
-
-        // start these browsers
-        // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-        browsers: [
-            'Chrome',
-            'Firefox',
-            'Safari'
+        plugins: [
+            'karma-jasmine',
+            'karma-webpack',
+            'karma-chrome-launcher',
+            'karma-safari-launcher',
+            'karma-firefox-launcher',
+            'karma-coverage',
+            'karma-junit-reporter'
         ],
 
-        // Continuous Integration mode
-        // if true, Karma captures browsers, runs the tests and exits
-        singleRun: false
-    });
+        port: 9876,
+        colors: true,
+        logLevel: config.LOG_INFO,
+        autoWatch: true,
+        singleRun: true
+    };
+
+    setConfig(defaultConfig, process.env.SERVER);
+    config.set(defaultConfig);
 };

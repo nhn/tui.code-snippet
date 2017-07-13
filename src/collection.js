@@ -12,8 +12,8 @@ var object = require('./object');
 
 /**
  * Execute the provided callback once for each element present
- * in the array(or Array-like object) in ascending order.
- * If the callback function returns false, the loop will be stopped.
+ * in the array(or Array-like object) in ascending order.<br>
+ * If the callback function returns false, the loop will be stopped.<br>
  * Callback function(iteratee) is invoked with three arguments:
  *  - The value of the element
  *  - The index of the element
@@ -116,9 +116,9 @@ function forEach(obj, iteratee, context) {
 
 /**
  * Execute the provided callback function once for each element in an array, in order,
- * and constructs a new array from the results.
+ * and constructs a new array from the results.<br>
  * If the object is Array-like object(ex-arguments object),
- * It needs to transform to Array.(see 'ex2' of forEach example)
+ * It needs to transform to Array.(see 'ex2' of forEach example)<br>
  * Callback function(iteratee) is invoked with three arguments:
  *  - The value of the property(or The value of the element)
  *  - The name of the property(or The index of the element)
@@ -148,9 +148,9 @@ function map(obj, iteratee, context) {
 }
 
 /**
- * Execute the callback function once for each element present in the array(or Array-like object or plain object).
+ * Execute the callback function once for each element present in the array(or Array-like object or plain object).<br>
  * If the object is Array-like object(ex-arguments object),
- * It needs to transform to Array.(see 'ex2' of forEach example)
+ * It needs to transform to Array.(see 'ex2' of forEach example)<br>
  * Callback function(iteratee) is invoked with four arguments:
  *  - The previousValue
  *  - The currentValue
@@ -192,7 +192,7 @@ function reduce(obj, iteratee, context) {
 }
 
 /**
- * Transform the Array-like object to Array.
+ * Transform the Array-like object to Array.<br>
  * In low IE (below 8), Array.prototype.slice.call is not perfect. So, try-catch statement is used.
  * @param {*} arrayLike Array-like object
  * @returns {Array} Array
