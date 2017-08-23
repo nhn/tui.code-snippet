@@ -16,10 +16,12 @@ var aps = Array.prototype.slice;
  * @memberof tui.util
  * @returns {function} debounced function.
  * @example
- *
+ * var debounce = require('tui-code-snippet') // commonjs
+ * var debounce = tui.util.debounce; // script 
+ * 
  * function someMethodToInvokeDebounced() {}
  *
- * var debounced = tui.util.debounce(someMethodToInvokeDebounced, 300);
+ * var debounced = debounce(someMethodToInvokeDebounced, 300);
  *
  * // invoke repeatedly
  * debounced();

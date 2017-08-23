@@ -524,8 +524,8 @@ CustomEvents.prototype.fire = function(eventName) {  // eslint-disable-line
  * @param {...*} data - Data for event
  * @returns {boolean} The result of operation 'boolean AND'
  * @example
- *  var Map = require('tui-code-snippet').Map; // 
- *  var Map = tui.util.Map;
+ *  var Map = require('tui-code-snippet').Map; // commonjs
+ *  var Map = tui.util.Map; // script
  *
  *  var map = new Map();
  *
