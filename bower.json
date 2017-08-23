@@ -1,20 +1,21 @@
 {
   "name": "tui-code-snippet",
   "authors": [
-    "NHN Ent. FE dev Lab(dl_javascript@nhnent.com)"
+     "NHNent. FE Development Lab <dl_javascript@nhnent.com>"
   ],
-  "license": "MIT",
   "main": "dist/tui-code-snippet.js",
+  "license": "MIT",
   "ignore": [
     "**/.*",
     ".*",
-    "src",
     "node_modules",
     "bower_components",
+    "src",
     "test",
-    "bower.json",
+    "jsdoc.conf.json",
+    "karma.conf.js",
     "webpack.config.js",
-    "jsdoc.conf.json"
+    "package.json"
   ],
   "devDependencies": {
     "jquery": "~1.8.3"

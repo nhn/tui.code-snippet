@@ -1,5 +1,4 @@
-Toast UI CodeSnippet
-======================
+# Toast UI CodeSnippet
 
 `tui-code-snippet` is group of utility methods to make ease with developing javascript applications.
 
@@ -50,29 +49,60 @@ It includes several features like `class simulation`, `browser detecting`, `type
 * defineModule.js
  * Support utils to define modules
 
-## How to use CodeSnippet
-* Using CodeSnippet build file
- * Download `tui-code-snippet.js` or `tui-code-snippet.min.js` from [[master branch]](https://github.com/nhnent/tui.code-snippet)
- * It's better that you do not change the file name.
-* Using the copy only the necesary parts
- * Check dependency before copy the codes
- * Use build file as you can
-
 ## Documentation
 * API: https://nhnent.github.io/tui.code-snippet/latest/
 * Tutorial: https://github.com/nhnent/fe.javascript/wiki/FE-CodeSnippet
 
 ## Tested Browsers
 * browser:
-   * IE8+
+   * IE8 ~ IE11
+   * Edge
    * Chrome
    * Firefox
 
-## Download/Install
-* bower:
-   * Latest: `bower install tui-code-snippet`
-   * Each Version: `bower install tui-code-snippet[#tag]`
-* npm:
-   * Latest: `npm install tui-code-snippet`
-   * Each Version: `npm install tui-code-snippet[@tag]`
-* Download: https://github.com/nhnent/tui.code-snippet
+## Usage
+### Use `npm`
+
+Install the latest version using `npm` command:
+
+```
+$ npm install tui-code-snippet --save
+```
+
+or want to install the each version:
+
+```
+$ npm install tui-code-snippet@<version> --save
+```
+
+To access as module format in your code:
+
+```javascript
+var util = require('tui-code-snippet');
+```
+
+### Use `bower`
+Install the latest version using `bower` command:
+
+```
+$ bower install tui-code-snippet
+```
+
+or want to install the each version:
+
+```
+$ bower install tui-code-snippet#<tag>
+```
+
+To access as namespace format in your code:
+
+```javascript
+var util = require('tui-code-snippet');
+```
+
+### Download
+* [Download bundle files from `dist` folder](https://github.com/nhnent/tui.code-snippet/tree/production/dist)
+* [Download all sources for each version](https://github.com/nhnent/tui.code-snippet/releases)
+
+## License
+[MIT LICENSE](https://github.com/nhnent/tui.code-snippet/blob/master/LICENSE)

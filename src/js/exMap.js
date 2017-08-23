@@ -5,6 +5,7 @@
  *         FE Development Lab <dl_javascript@nhnent.com>
  * @dependency Map.js, collection.js
  */
+
 'use strict';
 
 var collection = require('./collection');
@@ -37,6 +38,7 @@ collection.forEachArray(mapAPIsForDelete, function(name) {
     ExMap.prototype[name] = function() {
         var result = this._map[name].apply(this._map, arguments);
         this.size = this._map.size;
+
         return result;
     };
 });
@@ -44,6 +46,7 @@ collection.forEachArray(mapAPIsForDelete, function(name) {
 ExMap.prototype.set = function() {
     this._map.set.apply(this._map, arguments);
     this.size = this._map.size;
+
     return this;
 };
 

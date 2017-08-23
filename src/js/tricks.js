@@ -4,6 +4,7 @@
  */
 
 'use strict';
+
 var tricks = {};
 var aps = Array.prototype.slice;
 
@@ -68,10 +69,12 @@ function timestamp() {
  * @memberof tui.util
  * @returns {function} throttled function
  * @example
- *
+ * var throttle = require('tui-code-snippet').throttle; // commonjs
+ * var throttle = tui.util.throttle; // script
+ * 
  * function someMethodToInvokeThrottled() {}
  *
- * var throttled = tui.util.throttle(someMethodToInvokeThrottled, 300);
+ * var throttled = throttle(someMethodToInvokeThrottled, 300);
  *
  * // invoke repeatedly
  * throttled();    // invoke (leading)
@@ -106,6 +109,7 @@ function throttle(fn, interval) {
         if (isLeading) {
             tick(args);
             isLeading = false;
+
             return;
         }
 
@@ -131,6 +135,7 @@ function throttle(fn, interval) {
     }
 
     throttled.reset = reset;
+
     return throttled;
 }
 

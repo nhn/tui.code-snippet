@@ -2,8 +2,8 @@
 
 'use strict';
 
-var defineNamespace = require('../src/defineNamespace');
-var type = require('../src/type');
+var defineNamespace = require('../src/js/defineNamespace');
+var type = require('../src/js/type');
 
 describe('defineNamespace', function() {
     it('define', function() {

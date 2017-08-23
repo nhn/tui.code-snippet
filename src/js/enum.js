@@ -18,6 +18,7 @@ var type = require('./type');
 var isSupportDefinedProperty = (function() {
     try {
         Object.defineProperty({}, 'x', {});
+
         return true;
     } catch (e) {
         return false;
@@ -40,9 +41,12 @@ var enumValue = 0;
  * @class
  * @memberof tui.util
  * @example
+ *  var Enum = require('tui-code-snippet').Enum; // commonjs
+ *  var Enum = tui.util.Enum; // script
+ * 
  *  //create
- *  var MYENUM = new tui.util.Enum('TYPE1', 'TYPE2');
- *  var MYENUM2 = new tui.util.Enum(['TYPE1', 'TYPE2']);
+ *  var MYENUM = new Enum('TYPE1', 'TYPE2');
+ *  var MYENUM2 = new Enum(['TYPE1', 'TYPE2']);
  *
  *  //usage
  *  if (value === MYENUM.TYPE1) {
@@ -95,6 +99,7 @@ Enum.prototype.getName = function(value) {
     collection.forEach(this, function(itemValue, key) { // eslint-disable-line consistent-return
         if (self._isEnumItem(key) && value === itemValue) {
             foundedKey = key;
+
             return false;
         }
     });

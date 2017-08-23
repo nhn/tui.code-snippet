@@ -21,6 +21,9 @@ var extend = require('./object').extend;
  * @returns {*} Constructor
  * @memberof tui.util
  * @example
+ *  var defineClass = require('tui-code-snippet').defineClass; // commonjs
+ *  var defineClass = tui.util.defineClass; // script
+ * 
  *  var Parent = tui.util.defineClass({
  *      init: function() {
  *          this.name = 'made by def';

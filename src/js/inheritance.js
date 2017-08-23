@@ -15,6 +15,7 @@
 function createObject(obj) {
     function F() {} // eslint-disable-line require-jsdoc
     F.prototype = obj;
+
     return new F();
 }
 
@@ -27,11 +28,13 @@ function createObject(obj) {
  * @param {function} superType Parent constructor
  * @memberof tui.util
  * @example
+ *  var inherit = require('tui-code-snippet').inherit; // commonjs
+ *  var inherit = tui.util.inherit; // script
+ * 
  *  // Parent constructor
  *  function Animal(leg) {
  *      this.leg = leg;
  *  }
- *
  *  Animal.prototype.growl = function() {
  *      // ...
  *  };
@@ -42,7 +45,7 @@ function createObject(obj) {
  *  }
  *
  *  // Inheritance
- *  core.inherit(Person, Animal);
+ *  inherit(Person, Animal);
  *
  *  // After this inheritance, please use only the extending of property.
  *  // Do not overwrite prototype.

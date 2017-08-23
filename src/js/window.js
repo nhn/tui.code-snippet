@@ -57,6 +57,7 @@ Popup.prototype.getPopupList = function(key) {
     } else {
         target = this.openedPopup;
     }
+
     return target;
 };
 

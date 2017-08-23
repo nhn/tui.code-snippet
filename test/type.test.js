@@ -6,7 +6,7 @@
 
 'use strict';
 
-var type = require('../src/type');
+var type = require('../src/js/type');
 var tui = {
     util: type
 };

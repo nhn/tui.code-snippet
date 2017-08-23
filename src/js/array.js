@@ -20,18 +20,21 @@ var util;
  * @returns {Array}
  * @memberof tui.util
  * @example
+ *   // commonjs
+ *   var util = require('tui-code-snippet');
  *
+ *   util.range(5); // [0, 1, 2, 3, 4]
+ *   util.range(1, 5); // [1,2,3,4]
+ *   util.range(2, 10, 2); // [2,4,6,8]
+ *   util.range(10, 2, -2); // [10,8,6,4]
+ * @example
+ *   // script
  *   var arr = tui.util.range(5);
- *   console.log(arr); // [0,1,2,3,4]
  *
- *   arr = tui.util.range(1, 5);
- *   console.log(arr); // [1,2,3,4]
- *
- *   arr = tui.util.range(2, 10, 2);
- *   console.log(arr); // [2,4,6,8]
- *
- *   arr = tui.util.range(10, 2, -2);
- *   console.log(arr); // [10,8,6,4]
+ *   tui.util.range(5); // [0, 1, 2, 3, 4]
+ *   tui.util.range(1, 5); // [1,2,3,4]
+ *   tui.util.range(2, 10, 2); // [2,4,6,8]
+ *   tui.util.range(10, 2, -2); // [10,8,6,4]
  */
 var range = function(start, stop, step) {
     var arr = [];
@@ -60,12 +63,16 @@ var range = function(start, stop, step) {
  * @returns {Array}
  * @memberof tui.util
  * @example
- *
- *   var result = tui.util.zip([1, 2, 3], ['a', 'b','c'], [true, false, true]);
+ *   // commonjs
+ *   var util = require('tui-code-snippet');
+ *   var result = util.zip([1, 2, 3], ['a', 'b','c'], [true, false, true]);
  *
  *   console.log(result[0]); // [1, 'a', true]
  *   console.log(result[1]); // [2, 'b', false]
  *   console.log(result[2]); // [3, 'c', true]
+ * @example
+ *   // script
+ *   var result = tui.util.zip([1, 2, 3], ['a', 'b','c'], [true, false, true]);
  */
 /* eslint-enable valid-jsdoc */
 var zip = function() {
@@ -95,16 +102,17 @@ var zip = function() {
  * @returns {number} the First index at which a given element, or -1 if it is not present
  * @memberof tui.util
  * @example
+ *   // commonjs
+ *   var util = require('tui-code-snippet');
  *
  *   var arr = ['one', 'two', 'three', 'four'];
- *   var idx1;
- *   var idx2;
- *
- *   idx1 = tui.util.inArray('one', arr, 3);
- *   alert(idx1); // -1
- *
- *   idx2 = tui.util.inArray('one', arr);
- *   alert(idx2); // 0
+ *   var idx1 = util.inArray('one', arr, 3); // -1
+ *   var idx2 = util.inArray('one', arr); // 0
+ * @example
+ *   // script
+ *   var arr = ['one', 'two', 'three', 'four'];
+ *   var idx1 = tui.util.inArray('one', arr, 3); // -1
+ *   var idx2 = tui.util.inArray('one', arr); // 0
  */
 var inArray = function(searchElement, array, startIndex) {
     var i;

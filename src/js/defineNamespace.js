@@ -19,7 +19,9 @@ var object = require('./object');
  * @returns {(object|function)} Defined namespace
  * @memberof tui.util
  * @example
- * var neComp = tui.util.defineNamespace('ne.component');
+ * var neComp = require('tui-code-snippet').defineNamespace; // commonjs
+ * var neComp = tui.util.defineNamespace('ne.component'); // script
+ *
  * neComp.listMenu = defineClass({
  *      init: function() {
  *          // code
@@ -34,6 +36,7 @@ function defineNamespace(namespace, props, isOverride) {
 
     result = collection.reduce(names, function(obj, name) {
         obj[name] = obj[name] || {};
+
         return obj[name];
     });
 

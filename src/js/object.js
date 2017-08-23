@@ -36,6 +36,7 @@ function extend(target, objects) { // eslint-disable-line no-unused-vars
             }
         }
     }
+
     return target;
 }
 
@@ -97,19 +98,17 @@ function keys(obj) {
  * @param {...object} object - Multiple objects for comparing.
  * @returns {boolean} Equality
  * @example
- *
+ *  var compareJSON = require('tui-code-snippet').compareJSON; // commonjs
+ *  var compareJSON = tui.util.compareJSON;
+ * 
  *  var jsonObj1 = {name:'milk', price: 1000};
  *  var jsonObj2 = {name:'milk', price: 1000};
  *  var jsonObj3 = {name:'milk', price: 1000};
- *
- *  tui.util.compareJSON(jsonObj1, jsonObj2, jsonObj3);   // true
- *
+ *  compareJSON(jsonObj1, jsonObj2, jsonObj3);   // true
  *
  *  var jsonObj4 = {name:'milk', price: 1000};
  *  var jsonObj5 = {name:'beer', price: 3000};
- *
- *  tui.util.compareJSON(jsonObj4, jsonObj5); // false
-
+ *  compareJSON(jsonObj4, jsonObj5); // false
  * @memberof tui.util
  */
 function compareJSON(object) {
@@ -194,8 +193,8 @@ function isSameObject(x, y) { // eslint-disable-line complexity
         }
     }
 
-    //This for loop executes comparing with hasOwnProperty() and typeof for each property in 'x' object,
-    //and verifying equality for x[property] and y[property].
+    // This for loop executes comparing with hasOwnProperty() and typeof for each property in 'x' object,
+    // and verifying equality for x[property] and y[property].
     for (p in x) {
         if (y.hasOwnProperty(p) !== x.hasOwnProperty(p)) {
             return false;
@@ -229,6 +228,8 @@ function isSameObject(x, y) { // eslint-disable-line complexity
  * @returns {*} Value
  * @memberof tui.util
  * @example
+ *  var pick = require('tui-code-snippet').pick; // commonjs
+ *  var pick = tui.util.pick; // script
  *  var obj = {
  *      'key1': 1,
  *      'nested' : {
@@ -238,11 +239,11 @@ function isSameObject(x, y) { // eslint-disable-line complexity
  *          }
  *      }
  *  };
- *  tui.util.pick(obj, 'nested', 'nested', 'key1'); // 21
- *  tui.util.pick(obj, 'nested', 'nested', 'key2'); // undefined
+ *  pick(obj, 'nested', 'nested', 'key1'); // 21
+ *  pick(obj, 'nested', 'nested', 'key2'); // undefined
  *
  *  var arr = ['a', 'b', 'c'];
- *  tui.util.pick(arr, 1); // 'b'
+ *  pick(arr, 1); // 'b'
  */
 function pick(obj, paths) { // eslint-disable-line no-unused-vars
     var args = arguments;
@@ -253,9 +254,10 @@ function pick(obj, paths) { // eslint-disable-line no-unused-vars
         for (i = 1; i < length; i += 1) {
             target = target[args[i]];
         }
+
         return target;
     } catch (e) {
-        return; // eslint-disable-line consistent-return
+        return;// eslint-disable-line consistent-return, no-useless-return
     }
 }
 

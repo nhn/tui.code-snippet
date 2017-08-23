@@ -16,12 +16,15 @@ var toString = Object.prototype.toString;
  * @returns {boolean} Is existy?
  * @memberof tui.util
  * @example
- *  tui.util.isExisty(''); //true
- *  tui.util.isExisty(0); //true
- *  tui.util.isExisty([]); //true
- *  tui.util.isExisty({}); //true
- *  tui.util.isExisty(null); //false
- *  tui.util.isExisty(undefined); //false
+ *  var isExisty = require('tui-code-snippet').isExisty; // commonjs
+ *  var isExisty = tui.util.isExisty; // script
+ *
+ *  isExisty(''); //true
+ *  isExisty(0); //true
+ *  isExisty([]); //true
+ *  isExisty({}); //true
+ *  isExisty(null); //false
+ *  isExisty(undefined); //false
 */
 function isExisty(param) {
     return !isUndefined(param) && !isNull(param);
@@ -152,7 +155,6 @@ function isBoolean(obj) {
     return typeof obj === 'boolean' || obj instanceof Boolean;
 }
 
-
 /**
  * Check whether the given variable is an instance of Array or not.<br>
  *  If the given variable is an instance of Array, return true.<br>
@@ -224,6 +226,7 @@ function isHTMLNode(html) {
     if (typeof HTMLElement === 'object') {
         return (html && (html instanceof HTMLElement || !!html.nodeType));
     }
+
     return !!(html && html.nodeType);
 }
 
@@ -238,6 +241,7 @@ function isHTMLTag(html) {
     if (typeof HTMLElement === 'object') {
         return (html && (html instanceof HTMLElement));
     }
+
     return !!(html && html.nodeType && html.nodeType === 1);
 }
 

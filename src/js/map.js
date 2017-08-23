@@ -66,6 +66,7 @@ MapIterator.prototype.next = function() {
         data.done = false;
         data.value = this._valueGetter(this._keys[this._index], this._index);
     }
+
     return data;
 };
 
@@ -143,6 +144,7 @@ Map.prototype._getKeyIndex = function(key) {
     } else {
         result = array.inArray(key, this._keys);
     }
+
     return result;
 };
 
@@ -159,6 +161,7 @@ Map.prototype._getOriginKey = function(key) {
     } else if (key === _KEY_FOR_NAN) {
         originKey = NaN;
     }
+
     return originKey;
 };
 
@@ -175,6 +178,7 @@ Map.prototype._getUniqueKey = function(key) {
     } else if (this._isNaN(key)) {
         uniqueKey = _KEY_FOR_NAN;
     }
+
     return uniqueKey;
 };
 
@@ -257,6 +261,7 @@ Map.prototype.set = function(key, value) {
     } else {
         this._valuesForIndex[keyIndex] = valueObject;
     }
+
     return this;
 };
 

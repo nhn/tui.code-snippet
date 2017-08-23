@@ -22,6 +22,7 @@ var replaceMap = {
     },
     MM: function(date) {
         var month = date.month;
+
         return (Number(month) < 10) ? '0' + month : month;
     },
     MMM: function(date) {
@@ -38,6 +39,7 @@ var replaceMap = {
     },
     DD: function(date) {
         var dayInMonth = date.date;
+
         return (Number(dayInMonth) < 10) ? '0' + dayInMonth : dayInMonth;
     },
     dd: function(date) {
@@ -55,6 +57,7 @@ var replaceMap = {
         if (year > 69 && year < 100) {
             prefix = '19';
         }
+
         return (Number(year) < 100) ? prefix + String(year) : year;
     },
     yyyy: function(date) {
@@ -68,6 +71,7 @@ var replaceMap = {
     },
     hh: function(date) {
         var hour = date.hour;
+
         return (Number(hour) < 10) ? '0' + hour : hour;
     },
     HH: function(date) {
@@ -84,6 +88,7 @@ var replaceMap = {
     },
     mm: function(date) {
         var minute = date.minute;
+
         return (Number(minute) < 10) ? '0' + minute : minute;
     }
 };
@@ -103,7 +108,7 @@ function isValidDate(year, month, date) { // eslint-disable-line complexity
     month = Number(month);
     date = Number(date);
 
-    isValidYear = (year > -1 && year < 100) || (year > 1969) && (year < 2070);
+    isValidYear = (year > -1 && year < 100) || ((year > 1969) && (year < 2070));
     isValidMonth = (month > 0) && (month < 13);
 
     if (!isValidYear || !isValidMonth) {
@@ -118,6 +123,7 @@ function isValidDate(year, month, date) { // eslint-disable-line complexity
     }
 
     isValid = (date > 0) && (date <= lastDayInMonth);
+
     return isValid;
 }
 
@@ -139,6 +145,9 @@ function isValidDate(year, month, date) { // eslint-disable-line complexity
  *  // minutes         | m / mm
  *  // meridiem(AM,PM) | A / a
  *
+ *  var formatDate = require('tui-code-snippet').formatDate;
+ *  var formatDate = tui.util.formatDate;
+ * 
  *  var dateStr1 = formatDate('yyyy-MM-dd', {
  *      year: 2014,
  *      month: 12,
@@ -172,6 +181,8 @@ function isValidDate(year, month, date) { // eslint-disable-line complexity
  *  alert(dateStr4); // '1999-09-09 오후 01:02'
  */
 function formatDate(form, date, option) { // eslint-disable-line complexity
+    var am = object.pick(option, 'meridiemSet', 'AM') || 'AM';
+    var pm = object.pick(option, 'meridiemSet', 'PM') || 'PM';
     var meridiem, nDate, resultStr;
 
     if (type.isDate(date)) {
@@ -198,10 +209,8 @@ function formatDate(form, date, option) { // eslint-disable-line complexity
 
     nDate.meridiem = '';
     if (/([^\\]|^)[aA]\b/.test(form)) {
-        meridiem = (nDate.hour > 11) ?
-            object.pick(option, 'meridiemSet', 'PM') || 'PM'
-            : object.pick(option, 'meridiemSet', 'AM') || 'AM';
-        if (nDate.hour > 12) { //See the clock system: https://en.wikipedia.org/wiki/12-hour_clock
+        meridiem = (nDate.hour > 11) ? pm : am;
+        if (nDate.hour > 12) { // See the clock system: https://en.wikipedia.org/wiki/12-hour_clock
             nDate.hour %= 12;
         }
         if (nDate.hour === 0) {
@@ -214,8 +223,10 @@ function formatDate(form, date, option) { // eslint-disable-line complexity
         if (key.indexOf('\\') > -1) { // escape character
             return key.replace(/\\/, '');
         }
+
         return replaceMap[key](nDate) || '';
     });
+
     return resultStr;
 }
 

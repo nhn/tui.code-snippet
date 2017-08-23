@@ -2,7 +2,6 @@
  * @fileoverview This module has some functions for handling object as collection.
  * @author NHN Ent.
  *         FE Development Lab <dl_javascript@nhnent.com>
- * @dependency type.js, object.js
  */
 
 'use strict';
@@ -23,6 +22,17 @@ var object = require('./object');
  * @param {Object} [context] Context(this) of callback function
  * @memberof tui.util
  * @example
+ *  // commonjs
+ *  var util = require('tui-code-snippet');
+ *  var sum = 0;
+ *
+ *  util.forEachArray([1,2,3], function(value){
+ *      sum += value;
+ *   });
+ *  alert(sum); // 6
+ *
+ * @example
+ *  // script
  *  var sum = 0;
  *
  *  tui.util.forEachArray([1,2,3], function(value){
@@ -43,7 +53,6 @@ function forEachArray(arr, iteratee, context) {
     }
 }
 
-
 /**
  * Execute the provided callback once for each property of object which actually exist.<br>
  * If the callback function returns false, the loop will be stopped.<br>
@@ -56,6 +65,16 @@ function forEachArray(arr, iteratee, context) {
  * @param {Object} [context] Context(this) of callback function
  * @memberof tui.util
  * @example
+ *  // commonjs
+ *  var util = require('tui-code-snippet');
+ *  var sum = 0;
+ *
+ *  util.forEachOwnProperties({a:1,b:2,c:3}, function(value){
+ *      sum += value;
+ *  });
+ *  alert(sum); // 6
+ * @example
+ *  // script
  *  var sum = 0;
  *
  *  tui.util.forEachOwnProperties({a:1,b:2,c:3}, function(value){
@@ -90,7 +109,16 @@ function forEachOwnProperties(obj, iteratee, context) {
  * @param {Object} [context] Context(this) of callback function
  * @memberof tui.util
  * @example
- *  //ex1
+ *  // commonjs
+ *  var util = require('tui-code-snippet');
+ *  var sum = 0;
+ *
+ *  util.forEach([1,2,3], function(value){
+ *      sum += value;
+ *  });
+ *  alert(sum); // 6
+ * @example
+ *  // script
  *  var sum = 0;
  *
  *  tui.util.forEach([1,2,3], function(value){
@@ -98,7 +126,7 @@ function forEachOwnProperties(obj, iteratee, context) {
  *  });
  *  alert(sum); // 6
  *
- *  //ex2 - In case of Array-like object
+ *  // In case of Array-like object 
  *  function sum(){
  *      var factors = Array.prototype.slice.call(arguments);
  *      forEach(factors, function(value){
@@ -128,6 +156,14 @@ function forEach(obj, iteratee, context) {
  * @param {Object} [context] Context(this) of callback function
  * @returns {Array} A new array composed of returned values from callback function
  * @memberof tui.util
+ * @example
+ *  // commonjs
+ *  var util = require('tui-code-snippet');
+ *  var result = util.map([0,1,2,3], function(value) {
+ *      return value + 1;
+ *  });
+ *
+ *  alert(result);  // 1,2,3,4
  * @example
  *  var result = tui.util.map([0,1,2,3], function(value) {
  *      return value + 1;
@@ -162,6 +198,15 @@ function map(obj, iteratee, context) {
  * @returns {*} The result value
  * @memberof tui.util
  * @example
+ *  // commonjs
+ *  var util = require('tui-code-snippet');
+ *  var result = tui.util.reduce([0,1,2,3], function(stored, value) {
+ *      return stored + value;
+ *  });
+ *
+ *  alert(result); // 6
+ * @example
+ *  // script
  *  var result = tui.util.reduce([0,1,2,3], function(stored, value) {
  *      return stored + value;
  *  });
@@ -198,7 +243,22 @@ function reduce(obj, iteratee, context) {
  * @returns {Array} Array
  * @memberof tui.util
  * @example
+ *  // commonjs
+ *  var util = require('tui-code-snippet');
  *  var arrayLike = {
+ *      0: 'one',
+ *      1: 'two',
+ *      2: 'three',
+ *      3: 'four',
+ *      length: 4
+ *  };
+ *  var result = util.toArray(arrayLike);
+ *
+ *  alert(result instanceof Array); // true
+ *  alert(result); // one,two,three,four
+ * @example
+ *  // script
+ * var arrayLike = {
  *      0: 'one',
  *      1: 'two',
  *      2: 'three',
@@ -220,6 +280,7 @@ function toArray(arrayLike) {
             arr.push(value);
         });
     }
+
     return arr;
 }
 
@@ -236,6 +297,21 @@ function toArray(arrayLike) {
  * @returns {Object} plain object or Array
  * @memberof tui.util
  * @example
+ *  // commonjs
+ *  var util = require('tui-code-snippet');
+ *  var result1 = util.filter([0,1,2,3], function(value) {
+ *      return (value % 2 === 0);
+ *  });
+ *  alert(result1); // 0,2
+ *
+ *  var result2 = util.filter({a : 1, b: 2, c: 3}, function(value) {
+ *      return (value % 2 !== 0);
+ *  });
+ *  alert(result2.a); // 1
+ *  alert(result2.b); // undefined
+ *  alert(result2.c); // 3
+ * @example
+ *  // script
  *  var result1 = tui.util.filter([0,1,2,3], function(value) {
  *      return (value % 2 === 0);
  *  });
@@ -285,6 +361,7 @@ function filter(obj, iteratee, context) {
  * @returns {Array}
  * @memberof tui.util
  * @example
+ *   var util = require('tui-code-snippet');
  *   var objArr = [
  *         {'abc': 1, 'def': 2, 'ghi': 3},
  *         {'abc': 4, 'def': 5, 'ghi': 6},
@@ -295,18 +372,27 @@ function filter(obj, iteratee, context) {
  *         [4, 5, 6],
  *         [7, 8, 9]
  *       ];
- *   var result;
- *
- *   result = tui.util.pluck(objArr, 'abc');
- *   console.log(result) // [1, 4, 7]
- *
- *   result = tui.util.pluck(arr2d, 2);
- *   console.log(result) // [3, 6, 9]
+ *   util.pluck(objArr, 'abc'); // [1, 4, 7]
+ *   util.pluck(arr2d, 2); // [3, 6, 9]
+* @example
+ *   var objArr = [
+ *         {'abc': 1, 'def': 2, 'ghi': 3},
+ *         {'abc': 4, 'def': 5, 'ghi': 6},
+ *         {'abc': 7, 'def': 8, 'ghi': 9}
+ *       ];
+ *   var arr2d = [
+ *         [1, 2, 3],
+ *         [4, 5, 6],
+ *         [7, 8, 9]
+ *       ];
+ *   tui.util.pluck(objArr, 'abc'); // [1, 4, 7]
+ *   tui.util.pluck(arr2d, 2); // [3, 6, 9]
  */
 function pluck(arr, property) {
     var result = map(arr, function(item) {
         return item[property];
     });
+
     return result;
 }
 

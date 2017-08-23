@@ -44,14 +44,29 @@ function CustomEvents() {
  * Mixin custom events feature to specific constructor
  * @param {function} func - constructor
  * @example
+ *  // commonjs
+ *  var util = require('tui-code-snippet');
+ *  var model;
+ *
+ *  function Model() {
+ *      this.name = '';
+ *  }
+ *  util.CustomEvents.mixin(Model);
+ *
+ *  model = new Model();
+ *  model.on('change', function() { this.name = 'model'; }, this);
+ *  model.fire('change');
+ *  alert(model.name); // 'model';
+ * @example
+ *  // script
+ *  var model;
  *  function Model() {
  *      this.name = '';
  *  }
  *  tui.util.CustomEvents.mixin(Model);
  *
- *  var model = new Model();
+ *  model = new Model();
  *  model.on('change', function() { this.name = 'model'; }, this);
- *
  *  model.fire('change');
  *  alert(model.name); // 'model';
  */
@@ -209,8 +224,11 @@ CustomEvents.prototype._bindEvent = function(eventName, handler, context) {
  * @param {(function|object)} [handler] - handler function or context
  * @param {object} [context] - context for binding
  * @example
+ *  var customEvent = require('tui-code-snippet').CustomEvent; // commonjs
+ *  var customEvent = tui.util.CustomEvent; // script
+ *
  *  // 1. Basic
- *  ustomEvent.on('onload', handler);
+ *  customEvent.on('onload', handler);
  *
  *  // 2. With context
  *  customEvent.on('onload', handler, myObj);
@@ -259,6 +277,7 @@ CustomEvents.prototype.once = function(eventName, handler, context) {
         collection.forEach(eventName, function(func, name) {
             self.once(name, func, context);
         });
+
         return;
     }
 
@@ -438,6 +457,9 @@ CustomEvents.prototype._offByObject = function(obj, handler) {
  *  {name: handler} pair object or handler function
  * @param {(function)} handler - handler function
  * @example
+ *  var customEvent = require('tui-code-snippet').CustomEvent; // commonjs
+ *  var customEvent = tui.util.CustomEvent; // script
+ *
  * // 1. off by event name
  * customEvent.off('onload');
  *
@@ -502,6 +524,11 @@ CustomEvents.prototype.fire = function(eventName) {  // eslint-disable-line
  * @param {...*} data - Data for event
  * @returns {boolean} The result of operation 'boolean AND'
  * @example
+ *  var Map = require('tui-code-snippet').Map; // 
+ *  var Map = tui.util.Map;
+ *
+ *  var map = new Map();
+ *
  *  if (this.invoke('beforeZoom')) {    // check the result of 'beforeZoom'
  *      // if true,
  *      // doSomething
@@ -559,6 +586,7 @@ CustomEvents.prototype.hasListener = function(eventName) {
  */
 CustomEvents.prototype.getListenerLength = function(eventName) {
     var events = this._safeEvent(eventName);
+
     return events.length;
 };
 

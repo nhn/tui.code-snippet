@@ -1,6 +1,6 @@
 'use strict';
 
-var tricks = require('../src/tricks');
+var tricks = require('../src/js/tricks');
 
 describe('tricks', function() {
     describe('debounce', function() {

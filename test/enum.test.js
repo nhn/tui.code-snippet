@@ -1,6 +1,6 @@
 'use strict';
 
-var Enum = require('../src/enum');
+var Enum = require('../src/js/enum');
 
 describe('module:Enum', function() {
     var isModernBrowser = (function() {

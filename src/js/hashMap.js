@@ -25,7 +25,10 @@ var _MAPDATAPREFIX = 'å';
  * @memberof tui.util
  * @deprecated since version 1.3.0
  * @example
- *  var hm = new tui.util.HashMap({
+ *  var HashMap = require('tui-code-snippet').HashMap; // commonjs
+ *  var HashMap = tui.util.HashMap; // script
+ * 
+ *  var hm = new HashMap({
  *      'mydata': {
  *           'hello': 'imfine'
  *       },
@@ -49,8 +52,10 @@ function HashMap(obj) {
  * @param {string|Object} key A string or object for key
  * @param {*} [value] A data
  * @example
+ *  var HashMap = require('tui-code-snippet').HashMap; // commonjs
+ *  var HashMap = tui.util.HashMap; // script
+ * 
  *  var hm = new HashMap();
- *
  *  hm.set('key', 'value');
  *  hm.set({
  *      'key1': 'data1',
@@ -70,6 +75,9 @@ HashMap.prototype.set = function(key, value) {
  * @param {string} key A string for key
  * @param {*} value A data
  * @example
+ *  var HashMap = require('tui-code-snippet').HashMap; // commonjs
+ *  var HashMap = tui.util.HashMap; // script
+ * 
  *  var hm = new HashMap();
  *  hm.setKeyValue('key', 'value');
  */
@@ -84,8 +92,10 @@ HashMap.prototype.setKeyValue = function(key, value) {
  * Set a data from the given object.
  * @param {Object} obj A object for data
  * @example
+ *  var HashMap = require('tui-code-snippet').HashMap; // commonjs
+ *  var HashMap = tui.util.HashMap; // script
+ * 
  *  var hm = new HashMap();
- *
  *  hm.setObject({
  *      'key1': 'data1',
  *      'key2': 'data2'
@@ -129,6 +139,7 @@ HashMap.prototype.encodeKey = function(key) {
  */
 HashMap.prototype.decodeKey = function(key) {
     var decodedKey = key.split(_MAPDATAPREFIX);
+
     return decodedKey[decodedKey.length - 1];
 };
 
@@ -137,9 +148,11 @@ HashMap.prototype.decodeKey = function(key) {
  * @param {string} key A string for key
  * @returns {*} The value from a key
  * @example
+ *  var HashMap = require('tui-code-snippet').HashMap; // commonjs
+ *  var HashMap = tui.util.HashMap; // script
+ * 
  *  var hm = new HashMap();
  *  hm.set('key', 'value');
- *
  *  hm.get('key') // value
  */
 HashMap.prototype.get = function(key) {
@@ -151,9 +164,11 @@ HashMap.prototype.get = function(key) {
  * @param {string} key A string for key
  * @returns {boolean} Indicating whether a value exists or not.
  * @example
+ *  var HashMap = require('tui-code-snippet').HashMap; // commonjs
+ *  var HashMap = tui.util.HashMap; // script
+ * 
  *  var hm = new HashMap();
  *  hm.set('key', 'value');
- *
  *  hm.has('key') // true
  */
 HashMap.prototype.has = function(key) {
@@ -165,17 +180,15 @@ HashMap.prototype.has = function(key) {
  * @param {...string|string[]} key A string for key
  * @returns {string|string[]} A removed data
  * @example
+ *  var HashMap = require('tui-code-snippet').HashMap; // commonjs
+ *  var HashMap = tui.util.HashMap; // script
+ * 
  *  var hm = new HashMap();
  *  hm.set('key', 'value');
  *  hm.set('key2', 'value');
  *
- *  //ex1
  *  hm.remove('key');
- *
- *  //ex2
  *  hm.remove('key', 'key2');
- *
- *  //ex3
  *  hm.remove(['key', 'key2']);
  */
 HashMap.prototype.remove = function(key) {
@@ -191,9 +204,11 @@ HashMap.prototype.remove = function(key) {
  * @param {string} key A string for key
  * @returns {*|null} A removed data
  * @example
+ *  var HashMap = require('tui-code-snippet').HashMap; // commonjs
+ *  var HashMap = tui.util.HashMap; // script
+ * 
  *  var hm = new HashMap();
  *  hm.set('key', 'value');
- *
  *  hm.removeByKey('key')
  */
 HashMap.prototype.removeByKey = function(key) {
@@ -212,10 +227,12 @@ HashMap.prototype.removeByKey = function(key) {
  * @param {string[]} keyArray An array of keys
  * @returns {string[]} A removed data
  * @example
+ *  var HashMap = require('tui-code-snippet').HashMap; // commonjs
+ *  var HashMap = tui.util.HashMap; // script
+ * 
  *  var hm = new HashMap();
  *  hm.set('key', 'value');
  *  hm.set('key2', 'value');
- *
  *  hm.removeByKeyArray(['key', 'key2']);
  */
 HashMap.prototype.removeByKeyArray = function(keyArray) {
@@ -244,6 +261,9 @@ HashMap.prototype.removeAll = function() {
  * Execute the provided callback once for each all the data.
  * @param {Function} iteratee Callback function
  * @example
+ *  var HashMap = require('tui-code-snippet').HashMap; // commonjs
+ *  var HashMap = tui.util.HashMap; // script
+ * 
  *  var hm = new HashMap();
  *  hm.set('key', 'value');
  *  hm.set('key2', 'value');
@@ -271,6 +291,9 @@ HashMap.prototype.each = function(iteratee) {
  * Return the key-list stored.
  * @returns {Array} A key-list
  * @example
+ *  var HashMap = require('tui-code-snippet').HashMap; // commonjs
+ *  var HashMap = tui.util.HashMap; // script
+ * 
  *  var hm = new HashMap();
  *  hm.set('key', 'value');
  *  hm.set('key2', 'value');
@@ -295,6 +318,9 @@ HashMap.prototype.keys = function() {
  * @param {Function} condition A function that checks conditions
  * @returns {Array} A new array having elements satisfying the conditions
  * @example
+ *  var HashMap = require('tui-code-snippet').HashMap; // commonjs
+ *  var HashMap = tui.util.HashMap; // script
+ * 
  *  //ex1
  *  var hm = new HashMap();
  *  hm.set('key', 'value');
