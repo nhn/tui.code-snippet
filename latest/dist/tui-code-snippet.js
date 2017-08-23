@@ -1,7 +1,7 @@
 /*!
  * tui-code-snippet.js
- * @version 1.2.5
- * @author FE Development Lab
+ * @version 2.0.0
+ * @author NHNEnt FE Development Lab <dl_javascript@nhnent.com>
  * @license MIT
  */
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -50,7 +50,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.c = installedModules;
 
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
+/******/ 	__webpack_require__.p = "dist";
 
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(0);
@@ -68,7 +68,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 *         FE Development Lab <dl_javascript@nhnent.com>
 	 * @namespace tui.util
 	 */
-	var util;
+	var util = {};
 	var object = __webpack_require__(1);
 	var extend = object.extend;
 
@@ -93,7 +93,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	util.HashMap = __webpack_require__(19);
 	util.Map = __webpack_require__(18);
 
-	module.exports = tui;
+	module.exports = util;
 
 
 /***/ }),
@@ -138,6 +138,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }
 	        }
 	    }
+
 	    return target;
 	}
 
@@ -296,8 +297,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	    }
 
-	    //This for loop executes comparing with hasOwnProperty() and typeof for each property in 'x' object,
-	    //and verifying equality for x[property] and y[property].
+	    // This for loop executes comparing with hasOwnProperty() and typeof for each property in 'x' object,
+	    // and verifying equality for x[property] and y[property].
 	    for (p in x) {
 	        if (y.hasOwnProperty(p) !== x.hasOwnProperty(p)) {
 	            return false;
@@ -355,9 +356,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	        for (i = 1; i < length; i += 1) {
 	            target = target[args[i]];
 	        }
+
 	        return target;
 	    } catch (e) {
-	        return; // eslint-disable-line consistent-return
+	        return;// eslint-disable-line consistent-return, no-useless-return
 	    }
 	}
 
@@ -530,7 +532,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return typeof obj === 'boolean' || obj instanceof Boolean;
 	}
 
-
 	/**
 	 * Check whether the given variable is an instance of Array or not.<br>
 	 *  If the given variable is an instance of Array, return true.<br>
@@ -602,6 +603,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    if (typeof HTMLElement === 'object') {
 	        return (html && (html instanceof HTMLElement || !!html.nodeType));
 	    }
+
 	    return !!(html && html.nodeType);
 	}
 
@@ -616,6 +618,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    if (typeof HTMLElement === 'object') {
 	        return (html && (html instanceof HTMLElement));
 	    }
+
 	    return !!(html && html.nodeType && html.nodeType === 1);
 	}
 
@@ -825,7 +828,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	/**
 	 * Returns the first index at which a given element can be found in the array
-	 * from start index(default 0), or -1 if it is not present.
+	 * from start index(default 0), or -1 if it is not present.<br>
 	 * It compares searchElement to elements of the Array using strict equality
 	 * (the same method used by the ===, or triple-equals, operator).
 	 * @param {*} searchElement Element to locate in the array
@@ -895,8 +898,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	/**
 	 * Execute the provided callback once for each element present
-	 * in the array(or Array-like object) in ascending order.
-	 * If the callback function returns false, the loop will be stopped.
+	 * in the array(or Array-like object) in ascending order.<br>
+	 * If the callback function returns false, the loop will be stopped.<br>
 	 * Callback function(iteratee) is invoked with three arguments:
 	 *  - The value of the element
 	 *  - The index of the element
@@ -925,7 +928,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	    }
 	}
-
 
 	/**
 	 * Execute the provided callback once for each property of object which actually exist.<br>
@@ -999,9 +1001,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	/**
 	 * Execute the provided callback function once for each element in an array, in order,
-	 * and constructs a new array from the results.
+	 * and constructs a new array from the results.<br>
 	 * If the object is Array-like object(ex-arguments object),
-	 * It needs to transform to Array.(see 'ex2' of forEach example)
+	 * It needs to transform to Array.(see 'ex2' of forEach example)<br>
 	 * Callback function(iteratee) is invoked with three arguments:
 	 *  - The value of the property(or The value of the element)
 	 *  - The name of the property(or The index of the element)
@@ -1031,9 +1033,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	/**
-	 * Execute the callback function once for each element present in the array(or Array-like object or plain object).
+	 * Execute the callback function once for each element present in the array(or Array-like object or plain object).<br>
 	 * If the object is Array-like object(ex-arguments object),
-	 * It needs to transform to Array.(see 'ex2' of forEach example)
+	 * It needs to transform to Array.(see 'ex2' of forEach example)<br>
 	 * Callback function(iteratee) is invoked with four arguments:
 	 *  - The previousValue
 	 *  - The currentValue
@@ -1075,7 +1077,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	/**
-	 * Transform the Array-like object to Array.
+	 * Transform the Array-like object to Array.<br>
 	 * In low IE (below 8), Array.prototype.slice.call is not perfect. So, try-catch statement is used.
 	 * @param {*} arrayLike Array-like object
 	 * @returns {Array} Array
@@ -1103,6 +1105,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            arr.push(value);
 	        });
 	    }
+
 	    return arr;
 	}
 
@@ -1190,6 +1193,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var result = map(arr, function(item) {
 	        return item[property];
 	    });
+
 	    return result;
 	}
 
@@ -1268,11 +1272,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	function createObject(obj) {
 	    function F() {} // eslint-disable-line require-jsdoc
 	    F.prototype = obj;
+
 	    return new F();
 	}
 
 	/**
-	 * Provide a simple inheritance in prototype-oriented.
+	 * Provide a simple inheritance in prototype-oriented.<br>
 	 * Caution :
 	 *  Don't overwrite the prototype of child constructor.
 	 *
@@ -1347,6 +1352,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        '&#39;': '\'',
 	        '&nbsp;': ' '
 	    };
+
 	    return htmlEntity.replace(/&amp;|&lt;|&gt;|&quot;|&#39;|&nbsp;/g, function(m0) {
 	        return entities[m0] ? entities[m0] : m0;
 	    });
@@ -1363,7 +1369,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * //"&lt;script&gt; alert(&#39;test&#39;);&lt;/script&gt;&lt;a href=&#39;test&#39;&gt;"
 	 */
 	function encodeHTMLEntity(html) {
-	    var entities = {'"': 'quot', '&': 'amp', '<': 'lt', '>': 'gt', '\'': '#39'};
+	    var entities = {
+	        '"': 'quot',
+	        '&': 'amp',
+	        '<': 'lt',
+	        '>': 'gt',
+	        '\'': '#39'
+	    };
+
 	    return html.replace(/[<>&"']/g, function(m0) {
 	        return entities[m0] ? '&' + entities[m0] + ';' : m0;
 	    });
@@ -1438,6 +1451,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 
 	'use strict';
+
 	var tricks = {};
 	var aps = Array.prototype.slice;
 
@@ -1540,6 +1554,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        if (isLeading) {
 	            tick(args);
 	            isLeading = false;
+
 	            return;
 	        }
 
@@ -1565,6 +1580,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    throttled.reset = reset;
+
 	    return throttled;
 	}
 
@@ -1625,7 +1641,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var versionRegex = {
 	    firefox: /Firefox\/(\d+)\./,
 	    chrome: /Chrome\/(\d+)\./,
-	    safari: /Version\/([\d\.]+).*Safari\/(\d+)/
+	    safari: /Version\/([\d.]+).*Safari\/(\d+)/
 	};
 
 	var key, tmp;
@@ -1742,6 +1758,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    } else {
 	        target = this.openedPopup;
 	    }
+
 	    return target;
 	};
 
@@ -1767,16 +1784,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	 *      When transmit the POST-data, some browsers alert a message for confirming whether retransmit or not.
 	 *
 	 *     @param {string} [options.postBridgeUrl='']
-	 *      - Use this url to avoid a certain bug occuring when transmitting POST data to the popup in IE11.<br>
-	 *          This specific buggy situation is known to happen because IE11 tries to open the requested url
-	 *          not in a new popup window as intended, but in a new tab.<br>
-	 *          See {@link http://wiki.nhnent.com/pages/viewpage.action?pageId=240562844}
+	 *      Use this url to avoid a certain bug occuring when transmitting POST data to the popup in IE11.<br>
+	 *      This specific buggy situation is known to happen because IE11 tries to open the requested url<br>
+	 *      not in a new popup window as intended, but in a new tab.<br>
+	 *      See {@link http://wiki.nhnent.com/pages/viewpage.action?pageId=240562844}
 	 *
 	 *     @param {string} [options.method=get]
-	 *      - The method of transmission when the form-data is transmitted to popup-window.
+	 *     The method of transmission when the form-data is transmitted to popup-window.
 	 *
 	 *     @param {Object} [options.param=null]
-	 *      - Using as parameters for transmission when the form-data is transmitted to popup-window.
+	 *     Using as parameters for transmission when the form-data is transmitted to popup-window.
 	 */
 	Popup.prototype.openPopup = function(url, options) { // eslint-disable-line complexity
 	    var popup, formElement, useIEPostBridge;
@@ -2022,6 +2039,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    },
 	    MM: function(date) {
 	        var month = date.month;
+
 	        return (Number(month) < 10) ? '0' + month : month;
 	    },
 	    MMM: function(date) {
@@ -2038,6 +2056,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    },
 	    DD: function(date) {
 	        var dayInMonth = date.date;
+
 	        return (Number(dayInMonth) < 10) ? '0' + dayInMonth : dayInMonth;
 	    },
 	    dd: function(date) {
@@ -2055,6 +2074,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        if (year > 69 && year < 100) {
 	            prefix = '19';
 	        }
+
 	        return (Number(year) < 100) ? prefix + String(year) : year;
 	    },
 	    yyyy: function(date) {
@@ -2068,6 +2088,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    },
 	    hh: function(date) {
 	        var hour = date.hour;
+
 	        return (Number(hour) < 10) ? '0' + hour : hour;
 	    },
 	    HH: function(date) {
@@ -2084,6 +2105,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    },
 	    mm: function(date) {
 	        var minute = date.minute;
+
 	        return (Number(minute) < 10) ? '0' + minute : minute;
 	    }
 	};
@@ -2103,7 +2125,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    month = Number(month);
 	    date = Number(date);
 
-	    isValidYear = (year > -1 && year < 100) || (year > 1969) && (year < 2070);
+	    isValidYear = (year > -1 && year < 100) || ((year > 1969) && (year < 2070));
 	    isValidMonth = (month > 0) && (month < 13);
 
 	    if (!isValidYear || !isValidMonth) {
@@ -2118,6 +2140,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    isValid = (date > 0) && (date <= lastDayInMonth);
+
 	    return isValid;
 	}
 
@@ -2172,6 +2195,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	 *  alert(dateStr4); // '1999-09-09 오후 01:02'
 	 */
 	function formatDate(form, date, option) { // eslint-disable-line complexity
+	    var am = object.pick(option, 'meridiemSet', 'AM') || 'AM';
+	    var pm = object.pick(option, 'meridiemSet', 'PM') || 'PM';
 	    var meridiem, nDate, resultStr;
 
 	    if (type.isDate(date)) {
@@ -2198,10 +2223,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    nDate.meridiem = '';
 	    if (/([^\\]|^)[aA]\b/.test(form)) {
-	        meridiem = (nDate.hour > 11) ?
-	            object.pick(option, 'meridiemSet', 'PM') || 'PM'
-	            : object.pick(option, 'meridiemSet', 'AM') || 'AM';
-	        if (nDate.hour > 12) { //See the clock system: https://en.wikipedia.org/wiki/12-hour_clock
+	        meridiem = (nDate.hour > 11) ? pm : am;
+	        if (nDate.hour > 12) { // See the clock system: https://en.wikipedia.org/wiki/12-hour_clock
 	            nDate.hour %= 12;
 	        }
 	        if (nDate.hour === 0) {
@@ -2214,8 +2237,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	        if (key.indexOf('\\') > -1) { // escape character
 	            return key.replace(/\\/, '');
 	        }
+
 	        return replaceMap[key](nDate) || '';
 	    });
+
 	    return resultStr;
 	}
 
@@ -2314,6 +2339,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 *         FE Development Lab <dl_javscript@nhnent.com>
 	 * @dependency type.js, defineNamespace.js
 	 */
+
 	'use strict';
 
 	var defineNamespace = __webpack_require__(14);
@@ -2395,6 +2421,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    result = collection.reduce(names, function(obj, name) {
 	        obj[name] = obj[name] || {};
+
 	        return obj[name];
 	    });
 
@@ -2677,6 +2704,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        collection.forEach(eventName, function(func, name) {
 	            self.once(name, func, context);
 	        });
+
 	        return;
 	    }
 
@@ -2977,6 +3005,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	CustomEvents.prototype.getListenerLength = function(eventName) {
 	    var events = this._safeEvent(eventName);
+
 	    return events.length;
 	};
 
@@ -3007,6 +3036,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var isSupportDefinedProperty = (function() {
 	    try {
 	        Object.defineProperty({}, 'x', {});
+
 	        return true;
 	    } catch (e) {
 	        return false;
@@ -3042,7 +3072,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 *  MYENUM.set('TYPE3', 'TYPE4');
 	 *
 	 *  //get name of a constant by a value
-	 *  MYENUM.getName(MYENUM.TYPE1); // 'TYPE1'이 리턴된다.
+	 *  MYENUM.getName(MYENUM.TYPE1); // 'TYPE1'
 	 *
 	 *  // In modern browsers (except IE8 and lower), a value can not be changed in constants.
 	 *  var originalValue = MYENUM.TYPE1;
@@ -3084,6 +3114,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    collection.forEach(this, function(itemValue, key) { // eslint-disable-line consistent-return
 	        if (self._isEnumItem(key) && value === itemValue) {
 	            foundedKey = key;
+
 	            return false;
 	        }
 	    });
@@ -3153,6 +3184,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 *         FE Development Lab <dl_javascript@nhnent.com>
 	 * @dependency Map.js, collection.js
 	 */
+
 	'use strict';
 
 	var collection = __webpack_require__(4);
@@ -3185,6 +3217,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    ExMap.prototype[name] = function() {
 	        var result = this._map[name].apply(this._map, arguments);
 	        this.size = this._map.size;
+
 	        return result;
 	    };
 	});
@@ -3192,6 +3225,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	ExMap.prototype.set = function() {
 	    this._map.set.apply(this._map, arguments);
 	    this.size = this._map.size;
+
 	    return this;
 	};
 
@@ -3319,6 +3353,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        data.done = false;
 	        data.value = this._valueGetter(this._keys[this._index], this._index);
 	    }
+
 	    return data;
 	};
 
@@ -3396,6 +3431,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    } else {
 	        result = array.inArray(key, this._keys);
 	    }
+
 	    return result;
 	};
 
@@ -3412,6 +3448,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    } else if (key === _KEY_FOR_NAN) {
 	        originKey = NaN;
 	    }
+
 	    return originKey;
 	};
 
@@ -3428,6 +3465,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    } else if (this._isNaN(key)) {
 	        uniqueKey = _KEY_FOR_NAN;
 	    }
+
 	    return uniqueKey;
 	};
 
@@ -3510,6 +3548,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    } else {
 	        this._valuesForIndex[keyIndex] = valueObject;
 	    }
+
 	    return this;
 	};
 
@@ -3764,6 +3803,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	HashMap.prototype.decodeKey = function(key) {
 	    var decodedKey = key.split(_MAPDATAPREFIX);
+
 	    return decodedKey[decodedKey.length - 1];
 	};
 
