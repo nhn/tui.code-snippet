@@ -9,7 +9,6 @@ module.exports = {
     },
     "globals": {
         "tui": true,
-        "loadFixtures": true,
-        "ActiveXObject": true
+        "loadFixtures": true
     }
 };

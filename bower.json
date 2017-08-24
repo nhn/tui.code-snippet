@@ -16,8 +16,5 @@
     "karma.conf.js",
     "webpack.config.js",
     "package.json"
-  ],
-  "devDependencies": {
-    "jquery": "~1.8.3"
-  }
+  ]
 }

@@ -26,12 +26,24 @@ var _MAPDATAPREFIX = 'å';
  * @example
  * // node, commonjs
  * var HashMap = require('tui-code-snippet').HashMap;
+ * var hm = new tui.util.HashMap({
+  'mydata': {
+    'hello': 'imfine'
+  },
+  'what': 'time'
+});
  * @example
  * // distribution file, script
  * <script src='path-to/tui-code-snippt.js'></script>
  * <script>
  * var HashMap = tui.util.HashMap;
  * <script>
+ * var hm = new tui.util.HashMap({
+  'mydata': {
+    'hello': 'imfine'
+  },
+  'what': 'time'
+});
  */
 function HashMap(obj) {
     /**

@@ -33,7 +33,7 @@ var R_EVENTNAME_SPLIT = /\s+/g;
  * <script src='path-to/tui-code-snippt.js'></script>
  * <script>
  * var CustomEvents = tui.util.CustomEvents;
- * <script>
+ * </script>
  */
 function CustomEvents() {
     /**

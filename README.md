@@ -51,7 +51,7 @@ It includes several features like `class simulation`, `browser detecting`, `type
 
 ## Documentation
 * API: [https://nhnent.github.io/tui.code-snippet/latest/](https://nhnent.github.io/tui.code-snippet/latest/);
-* Tutorial: [https://github.com/nhnent/fe.javascript/wiki/FE-CodeSnippet](https://nhnent.github.io/tui.code-snippet/latest/)
+* Tutorial: [https://github.com/nhnent/fe.javascript/wiki/Toast-UI-CodeSnippet](https://github.com/nhnent/fe.javascript/wiki/Toast-UI-CodeSnippet)
 
 ## Tested Browsers
 * browser:
@@ -59,6 +59,7 @@ It includes several features like `class simulation`, `browser detecting`, `type
    * Edge
    * Chrome
    * Firefox
+   * Safari
 
 ## Usage
 ### Use `npm`
@@ -97,7 +98,7 @@ $ bower install tui-code-snippet#<tag>
 To access as namespace format in your code:
 
 ```javascript
-var util = require('tui-code-snippet');
+var util = tui.util;
 ```
 
 ### Download

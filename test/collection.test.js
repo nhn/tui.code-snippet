@@ -18,7 +18,7 @@ describe('module:collection', function() {
     });
 
     describe('forEachArray', function() {
-        it('어레이나 유사어레이와 콜백펑션을 입력받아 객체의 내용을 순회할수있다.', function() {
+        it('should traverse array or array-like object, and execute callback function in each element.', function() {
             var oSum = 0;
 
             collection.forEachArray(arrayDummy, function(value) {
@@ -28,7 +28,7 @@ describe('module:collection', function() {
             expect(oSum).toEqual(15);
         });
 
-        it('콜백펑션이 false를 리턴하면 순회를 종료한다.', function() {
+        it('should end traversing, when callback returns false', function() {
             var oSum = 0;
 
             collection.forEachArray(arrayDummy, function(value) {
@@ -46,7 +46,7 @@ describe('module:collection', function() {
     });
 
     describe('forEachOwnProperties', function() {
-        it('객체와 콜백펑션을 입력받아 객체의 내용을 순회할수있다.', function() {
+        it('should traverse each element by sending collection object and callback function.', function() {
             var oSum = 0;
 
             collection.forEachOwnProperties(objDummy, function(value) {
@@ -56,7 +56,7 @@ describe('module:collection', function() {
             expect(oSum).toEqual(15);
         });
 
-        it('콜백펑션이 false를 리턴하면 순회를 종료한다.', function() {
+        it('should end traversing, when callback returns false', function() {
             var oSum = 0;
 
             collection.forEachOwnProperties(objDummy, function(value) {
