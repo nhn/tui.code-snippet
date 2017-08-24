@@ -5,6 +5,15 @@
  * @author NHN Ent.
  *         FE Development Lab <dl_javascript@nhnent.com>
  * @namespace tui.util
+ * @example
+ * // node, commonjs
+ * var util = require('tui-code-snippet');
+ * @example
+ * // distribution file, script
+ * <script src='path-to/tui-code-snippt.js'></script>
+ * <script>
+ * var util = tui.util;
+ * <script>
  */
 var util = {};
 var object = require('./object');

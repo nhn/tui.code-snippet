@@ -1,8 +1,9 @@
 'use strict';
 
-var path = require('path');
 var pkg = require('./package.json');
 var webpack = require('webpack');
+
+var SafeUmdPlugin = require('safe-umd-webpack-plugin');
 
 var isProduction = process.argv.indexOf('-p') > -1;
 
@@ -19,28 +20,31 @@ module.exports = {
         failOnError: isProduction
     },
     entry: {
-        'entry': './src/index.js'
+        'entry': './src/js/index.js'
     },
     output: {
-        libraryTarget: 'umd',
         library: ['tui', 'util'],
-        path: path.resolve(__dirname, 'dist'),
+        libraryTarget: 'umd',
+        path: 'dist',
+        publicPath: 'dist',
         filename: FILENAME
     },
     module: {
         preLoaders: [
             {
                 test: /\.js$/,
-                exclude: /(test|node_modules|bower_components)/,
-                loader: 'eslint-loader'
+                exclude: /(test|bower_components|node_modules)/,
+                loader: 'istanbul-instrumenter'
             },
             {
-                test: /\.png$/,
-                loader: 'url-loader'
+                test: /\.js$/,
+                exclude: /(bower_components|node_modules)/,
+                loader: 'eslint-loader'
             }
         ]
     },
     plugins: [
+        new SafeUmdPlugin(),
         new webpack.BannerPlugin(BANNER)
     ]
 };

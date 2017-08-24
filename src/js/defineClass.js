@@ -4,7 +4,6 @@
  * that can inherit from the other constructors like the CLASS easily.
  * @author NHN Ent.
  *         FE Development Lab <dl_javascript@nhnent.com>
- * @dependencies inheritance.js, object.js
  */
 
 'use strict';
@@ -21,33 +20,38 @@ var extend = require('./object').extend;
  * @returns {*} Constructor
  * @memberof tui.util
  * @example
- *  var Parent = tui.util.defineClass({
- *      init: function() {
- *          this.name = 'made by def';
- *      },
- *      method: function() {
- *          //..can do something with this
- *      },
- *      static: {
- *          staticMethod: function() {
- *               //..do something
- *          }
- *      }
- *  });
+ * //-- #1. Get Module --//
+ * var util = require('tui-code-snippet'); // node, commonjs
+ * var util = tui.util; // distribution file
  *
- *  var Child = tui.util.defineClass(Parent, {
- *      method2: function() {}
- *  });
+ * //-- #2. Use property --//
+ * var Parent = util.defineClass({
+ *     init: function() { // constuructor
+ *         this.name = 'made by def';
+ *     },
+ *     method: function() {
+ *         // ...
+ *     },
+ *     static: {
+ *         staticMethod: function() {
+ *              // ...
+ *         }
+ *     }
+ * });
  *
- *  Parent.staticMethod();
+ * var Child = util.defineClass(Parent, {
+ *     childMethod: function() {}
+ * });
+ * 
+ * Parent.staticMethod();
  *
- *  var parentInstance = new Parent();
- *  console.log(parentInstance.name); //made by def
- *  parentInstance.staticMethod(); // Error
+ * var parentInstance = new Parent();
+ * console.log(parentInstance.name); //made by def
+ * parentInstance.staticMethod(); // Error
  *
- *  var childInstance = new Child();
- *  childInstance.method();
- *  childInstance.method2();
+ * var childInstance = new Child();
+ * childInstance.method();
+ * childInstance.childMethod();
  */
 function defineClass(parent, props) {
     var obj;

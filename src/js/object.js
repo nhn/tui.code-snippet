@@ -2,7 +2,6 @@
  * @fileoverview This module has some functions for handling a plain object, json.
  * @author NHN Ent.
  *         FE Development Lab <dl_javascript@nhnent.com>
- * @dependency type.js, collection.js, array.js
  */
 
 'use strict';
@@ -36,6 +35,7 @@ function extend(target, objects) { // eslint-disable-line no-unused-vars
             }
         }
     }
+
     return target;
 }
 
@@ -96,21 +96,21 @@ function keys(obj) {
  *  See {@link http://stackoverflow.com/questions/1068834/object-comparison-in-javascript}
  * @param {...object} object - Multiple objects for comparing.
  * @returns {boolean} Equality
- * @example
- *
- *  var jsonObj1 = {name:'milk', price: 1000};
- *  var jsonObj2 = {name:'milk', price: 1000};
- *  var jsonObj3 = {name:'milk', price: 1000};
- *
- *  tui.util.compareJSON(jsonObj1, jsonObj2, jsonObj3);   // true
- *
- *
- *  var jsonObj4 = {name:'milk', price: 1000};
- *  var jsonObj5 = {name:'beer', price: 3000};
- *
- *  tui.util.compareJSON(jsonObj4, jsonObj5); // false
-
  * @memberof tui.util
+ * @example
+ * //-- #1. Get Module --//
+ * var util = require('tui-code-snippet'); // node, commonjs
+ * var util = tui.util; // distribution file
+ *
+ * //-- #2. Use property --//
+ * var jsonObj1 = {name:'milk', price: 1000};
+ * var jsonObj2 = {name:'milk', price: 1000};
+ * var jsonObj3 = {name:'milk', price: 1000};
+ * util.compareJSON(jsonObj1, jsonObj2, jsonObj3);   // true
+ *
+ * var jsonObj4 = {name:'milk', price: 1000};
+ * var jsonObj5 = {name:'beer', price: 3000};
+ * util.compareJSON(jsonObj4, jsonObj5); // false
  */
 function compareJSON(object) {
     var argsLen = arguments.length;
@@ -194,8 +194,8 @@ function isSameObject(x, y) { // eslint-disable-line complexity
         }
     }
 
-    //This for loop executes comparing with hasOwnProperty() and typeof for each property in 'x' object,
-    //and verifying equality for x[property] and y[property].
+    // This for loop executes comparing with hasOwnProperty() and typeof for each property in 'x' object,
+    // and verifying equality for x[property] and y[property].
     for (p in x) {
         if (y.hasOwnProperty(p) !== x.hasOwnProperty(p)) {
             return false;
@@ -229,20 +229,25 @@ function isSameObject(x, y) { // eslint-disable-line complexity
  * @returns {*} Value
  * @memberof tui.util
  * @example
- *  var obj = {
- *      'key1': 1,
- *      'nested' : {
- *          'key1': 11,
- *          'nested': {
- *              'key1': 21
- *          }
- *      }
- *  };
- *  tui.util.pick(obj, 'nested', 'nested', 'key1'); // 21
- *  tui.util.pick(obj, 'nested', 'nested', 'key2'); // undefined
+ * //-- #1. Get Module --//
+ * var util = require('tui-code-snippet'); // node, commonjs
+ * var util = tui.util; // distribution file
  *
- *  var arr = ['a', 'b', 'c'];
- *  tui.util.pick(arr, 1); // 'b'
+ * //-- #2. Use property --//
+ * var obj = {
+ *     'key1': 1,
+ *     'nested' : {
+ *         'key1': 11,
+ *         'nested': {
+ *             'key1': 21
+ *         }
+ *     }
+ * };
+ * util.pick(obj, 'nested', 'nested', 'key1'); // 21
+ * util.pick(obj, 'nested', 'nested', 'key2'); // undefined
+ *
+ * var arr = ['a', 'b', 'c'];
+ * util.pick(arr, 1); // 'b'
  */
 function pick(obj, paths) { // eslint-disable-line no-unused-vars
     var args = arguments;
@@ -253,9 +258,10 @@ function pick(obj, paths) { // eslint-disable-line no-unused-vars
         for (i = 1; i < length; i += 1) {
             target = target[args[i]];
         }
+
         return target;
     } catch (e) {
-        return; // eslint-disable-line consistent-return
+        return;// eslint-disable-line consistent-return, no-useless-return
     }
 }
 

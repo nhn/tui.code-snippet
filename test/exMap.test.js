@@ -2,12 +2,10 @@
 
 'use strict';
 
-var Map = require('../src/map');
-var ExMap = require('../src/exMap');
+var Map = require('../src/js/map');
+var ExMap = require('../src/js/exMap');
 
 describe('module:ExMap', function() {
-    'use strict';
-
     var map;
 
     beforeEach(function() {

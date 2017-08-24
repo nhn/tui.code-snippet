@@ -3,8 +3,8 @@
  *  Implements the ExMap (Extended Map) object.
  * @author NHN Ent.
  *         FE Development Lab <dl_javascript@nhnent.com>
- * @dependency Map.js, collection.js
  */
+
 'use strict';
 
 var collection = require('./collection');
@@ -21,6 +21,15 @@ var mapAPIsForDelete = ['delete', 'clear'];
  * @param {Array} initData - Array of key-value pairs (2-element Arrays).
  *      Each key-value pair will be added to the new Map
  * @memberof tui.util
+ * @example
+ * // node, commonjs
+ * var ExMap = require('tui-code-snippet').ExMap;
+ * @example
+ * // distribution file, script
+ * <script src='path-to/tui-code-snippt.js'></script>
+ * <script>
+ * var ExMap = tui.util.ExMap;
+ * <script>
  */
 function ExMap(initData) {
     this._map = new Map(initData);
@@ -37,6 +46,7 @@ collection.forEachArray(mapAPIsForDelete, function(name) {
     ExMap.prototype[name] = function() {
         var result = this._map[name].apply(this._map, arguments);
         this.size = this._map.size;
+
         return result;
     };
 });
@@ -44,6 +54,7 @@ collection.forEachArray(mapAPIsForDelete, function(name) {
 ExMap.prototype.set = function() {
     this._map.set.apply(this._map, arguments);
     this.size = this._map.size;
+
     return this;
 };
 
