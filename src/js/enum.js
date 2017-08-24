@@ -2,7 +2,15 @@
  * @fileoverview This module provides a Enum Constructor.
  * @author NHN Ent.
  *         FE Development Lab <dl_javascript@nhnent.com>
- * @dependency type, collection.js
+ * @example
+ * // node, commonjs
+ * var Enum = require('tui-code-snippet').Enum;
+ * @example
+ * // distribution file, script
+ * <script src='path-to/tui-code-snippt.js'></script>
+ * <script>
+ * var Enum = tui.util.Enum;
+ * <script>
  */
 
 'use strict';
@@ -41,29 +49,29 @@ var enumValue = 0;
  * @class
  * @memberof tui.util
  * @example
- *  var Enum = require('tui-code-snippet').Enum; // commonjs
- *  var Enum = tui.util.Enum; // script
- * 
- *  //create
- *  var MYENUM = new Enum('TYPE1', 'TYPE2');
- *  var MYENUM2 = new Enum(['TYPE1', 'TYPE2']);
+ * //-- #1. Get Module --//
+ * var Enum = require('tui-code-snippet').Enum; // node, commonjs
+ * var Enum = tui.util.Enum; // distribution file
  *
- *  //usage
- *  if (value === MYENUM.TYPE1) {
- *       ....
- *  }
+ * //-- #2. Use property --//
+ * var MYENUM = new Enum('TYPE1', 'TYPE2');
+ * var MYENUM2 = new Enum(['TYPE1', 'TYPE2']);
  *
- *  //add (If a duplicate name is inputted, will be disregarded.)
- *  MYENUM.set('TYPE3', 'TYPE4');
+ * //usage
+ * if (value === MYENUM.TYPE1) {
+ *      ....
+ * }
  *
- *  //get name of a constant by a value
- *  MYENUM.getName(MYENUM.TYPE1); // 'TYPE1'
+ * //add (If a duplicate name is inputted, will be disregarded.)
+ * MYENUM.set('TYPE3', 'TYPE4');
  *
- *  // In modern browsers (except IE8 and lower), a value can not be changed in constants.
- *  var originalValue = MYENUM.TYPE1;
- *  MYENUM.TYPE1 = 1234; // maybe TypeError
- *  MYENUM.TYPE1 === originalValue; // true
+ * //get name of a constant by a value
+ * MYENUM.getName(MYENUM.TYPE1); // 'TYPE1'
  *
+ * // In modern browsers (except IE8 and lower), a value can not be changed in constants.
+ * var originalValue = MYENUM.TYPE1;
+ * MYENUM.TYPE1 = 1234; // maybe TypeError
+ * MYENUM.TYPE1 === originalValue; // true
  **/
 function Enum(itemList) {
     if (itemList) {

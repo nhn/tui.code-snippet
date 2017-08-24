@@ -2,7 +2,6 @@
  * @fileoverview This module has a function for date format.
  * @author NHN Ent.
  *         FE Development Lab <dl_javascript@nhnent.com>
- * @dependency type.js, object.js
  */
 
 'use strict';
@@ -145,40 +144,40 @@ function isValidDate(year, month, date) { // eslint-disable-line complexity
  *  // minutes         | m / mm
  *  // meridiem(AM,PM) | A / a
  *
- *  var formatDate = require('tui-code-snippet').formatDate;
- *  var formatDate = tui.util.formatDate;
- * 
- *  var dateStr1 = formatDate('yyyy-MM-dd', {
- *      year: 2014,
- *      month: 12,
- *      date: 12
- *  });
- *  alert(dateStr1); // '2014-12-12'
+ * //-- #1. Get Module --//
+ * var util = require('tui-code-snippet'); // node, commonjs
+ * var util = tui.util; // distribution file
  *
- *  var dateStr2 = formatDate('MMM DD YYYY HH:mm', {
- *      year: 1999,
- *      month: 9,
- *      date: 9,
- *      hour: 0,
- *      minute: 2
- *  })
- *  alert(dateStr2); // 'Sep 09 1999 00:02'
+ * //-- #2. Use property --//
+ * var dateStr1 = util.formatDate('yyyy-MM-dd', {
+ *     year: 2014,
+ *     month: 12,
+ *     date: 12
+ * });
+ * alert(dateStr1); // '2014-12-12'
  *
- *  var dt = new Date(2010, 2, 13),
- *      dateStr3 = formatDate('yyyy년 M월 dd일', dt);
+ * var dateStr2 = util.formatDate('MMM DD YYYY HH:mm', {
+ *     year: 1999,
+ *     month: 9,
+ *     date: 9,
+ *     hour: 0,
+ *     minute: 2
+ * });
+ * alert(dateStr2); // 'Sep 09 1999 00:02'
  *
- *  alert(dateStr3); // '2010년 3월 13일'
+ * var dt = new Date(2010, 2, 13),
+ *     dateStr3 = util.formatDate('yyyy년 M월 dd일', dt);
+ * alert(dateStr3); // '2010년 3월 13일'
  *
- *  var option4 = {
- *      meridiemSet: {
- *          AM: '오전',
- *          PM: '오후'
- *      }
- *  };
- *  var date4 = {year: 1999, month: 9, date: 9, hour: 13, minute: 2};
- *  var dateStr4 = formatDate('yyyy-MM-dd A hh:mm', date4, option4));
- *
- *  alert(dateStr4); // '1999-09-09 오후 01:02'
+ * var option4 = {
+ *     meridiemSet: {
+ *         AM: '오전',
+ *         PM: '오후'
+ *     }
+ * };
+ * var date4 = {year: 1999, month: 9, date: 9, hour: 13, minute: 2};
+ * var dateStr4 = util.formatDate('yyyy-MM-dd A hh:mm', date4, option4));
+ * alert(dateStr4); // '1999-09-09 오후 01:02'
  */
 function formatDate(form, date, option) { // eslint-disable-line complexity
     var am = object.pick(option, 'meridiemSet', 'AM') || 'AM';

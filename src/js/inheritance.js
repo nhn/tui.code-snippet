@@ -28,30 +28,32 @@ function createObject(obj) {
  * @param {function} superType Parent constructor
  * @memberof tui.util
  * @example
- *  var inherit = require('tui-code-snippet').inherit; // commonjs
- *  var inherit = tui.util.inherit; // script
- * 
- *  // Parent constructor
- *  function Animal(leg) {
- *      this.leg = leg;
- *  }
- *  Animal.prototype.growl = function() {
- *      // ...
- *  };
+ * //-- #1. Get Module --//
+ * var util = require('tui-code-snippet'); // node, commonjs
+ * var util = tui.util; // distribution file
  *
- *  // Child constructor
- *  function Person(name) {
- *      this.name = name;
- *  }
+ * //-- #2. Use property --//
+ * // Parent constructor
+ * function Animal(leg) {
+ *     this.leg = leg;
+ * }
+ * Animal.prototype.growl = function() {
+ *     // ...
+ * };
  *
- *  // Inheritance
- *  inherit(Person, Animal);
+ * // Child constructor
+ * function Person(name) {
+ *     this.name = name;
+ * }
  *
- *  // After this inheritance, please use only the extending of property.
- *  // Do not overwrite prototype.
- *  Person.prototype.walk = function(direction) {
- *      // ...
- *  };
+ * // Inheritance
+ * util.inherit(Person, Animal);
+ *
+ * // After this inheritance, please use only the extending of property.
+ * // Do not overwrite prototype.
+ * Person.prototype.walk = function(direction) {
+ *     // ...
+ * };
  */
 function inherit(subType, superType) {
     var prototype = createObject(superType.prototype);

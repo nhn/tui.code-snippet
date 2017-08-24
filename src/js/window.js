@@ -2,7 +2,6 @@
  * @fileoverview This module has some methods for handling popup-window
  * @author NHN Ent.
  *         FE Development Lab <dl_javascript@nhnent.com>
- * @dependency browser.js, type.js, object.js, collection.js, func.js
  */
 
 'use strict';
@@ -19,6 +18,15 @@ var popupId = 0;
  * Popup management class
  * @constructor
  * @memberof tui.util
+ * @example
+ * // node, commonjs
+ * var popup = require('tui-code-snippet').popup;
+ * @example
+ * // distribution file, script
+ * <script src='path-to/tui-code-snippt.js'></script>
+ * <script>
+ * var popup = tui.util.popup;
+ * <script>
  */
 function Popup() {
     /**

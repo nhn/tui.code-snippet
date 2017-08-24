@@ -50,8 +50,8 @@ It includes several features like `class simulation`, `browser detecting`, `type
  * Support utils to define modules
 
 ## Documentation
-* API: https://nhnent.github.io/tui.code-snippet/latest/
-* Tutorial: https://github.com/nhnent/fe.javascript/wiki/FE-CodeSnippet
+* API: [https://nhnent.github.io/tui.code-snippet/latest/](https://nhnent.github.io/tui.code-snippet/latest/);
+* Tutorial: [https://github.com/nhnent/fe.javascript/wiki/FE-CodeSnippet](https://nhnent.github.io/tui.code-snippet/latest/)
 
 ## Tested Browsers
 * browser:

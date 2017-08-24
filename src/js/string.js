@@ -14,11 +14,13 @@ var object = require('./object');
  * @returns {String} Plain string
  * @memberof tui.util
  * @example
- *  var decodeCodeEntity = require('tui-code-snippet').decodeCodeEntity; // commonjs
- *  var decodeCodeEntity = tui.util.decodeCodeEntity; // script
- * 
+ * //-- #1. Get Module --//
+ * var util = require('tui-code-snippet'); // node, commonjs
+ * var util = tui.util; // distribution file
+ *
+ * //-- #2. Use property --//
  *  var htmlEntityString = "A &#39;quote&#39; is &lt;b&gt;bold&lt;/b&gt;"
- *  var result = decodeHTMLEntity(htmlEntityString); //"A 'quote' is <b>bold</b>"
+ *  var result = util.decodeHTMLEntity(htmlEntityString); //"A 'quote' is <b>bold</b>"
  */
 function decodeHTMLEntity(htmlEntity) {
     var entities = {
@@ -41,11 +43,13 @@ function decodeHTMLEntity(htmlEntity) {
  * @returns {String} HTML Entity
  * @memberof tui.util
  * @example
- *  var encodeHTMLEntity = require('tui-code-snippet').encodeHTMLEntity; // commonjs
- *  var encodeHTMLEntity = tui.util.encodeHTMLEntity; // script
- * 
+ * //-- #1. Get Module --//
+ * var util = require('tui-code-snippet'); // node, commonjs
+ * var util = tui.util; // distribution file
+ *
+ * //-- #2. Use property --//
  *  var htmlEntityString = "<script> alert('test');</script><a href='test'>";
- *  var result = encodeHTMLEntity(htmlEntityString);
+ *  var result = util.encodeHTMLEntity(htmlEntityString);
  * //"&lt;script&gt; alert(&#39;test&#39;);&lt;/script&gt;&lt;a href=&#39;test&#39;&gt;"
  */
 function encodeHTMLEntity(html) {
@@ -80,11 +84,13 @@ function hasEncodableString(string) {
  * @memberof tui.util
  * @returns {string}
  * @example
- *  var getDuplicatedChar = require('tui-code-snippet').getDuplicatedChar; // commonjs
- *  var getDuplicatedChar = tui.util.getDuplicatedChar; // script
- * 
- * getDuplicatedChar('fe dev', 'nhn entertainment'); // 'e'
- * getDuplicatedChar('fdsa', 'asdf'); // 'asdf'
+ * //-- #1. Get Module --//
+ * var util = require('tui-code-snippet'); // node, commonjs
+ * var util = tui.util; // distribution file
+ *
+ * //-- #2. Use property --//
+ * util.getDuplicatedChar('fe dev', 'nhn entertainment'); // 'e'
+ * util.getDuplicatedChar('fdsa', 'asdf'); // 'asdf'
  */
 function getDuplicatedChar(operandStr1, operandStr2) {
     var i = 0;

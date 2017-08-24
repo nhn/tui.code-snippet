@@ -2,7 +2,6 @@
  * @fileoverview This module provides some functions to check the type of variable
  * @author NHN Ent.
  *         FE Development Lab <dl_javascript@nhnent.com>
- * @dependency collection.js
  */
 
 'use strict';
@@ -16,15 +15,17 @@ var toString = Object.prototype.toString;
  * @returns {boolean} Is existy?
  * @memberof tui.util
  * @example
- *  var isExisty = require('tui-code-snippet').isExisty; // commonjs
- *  var isExisty = tui.util.isExisty; // script
+ * //-- #1. Get Module --//
+ * var util = require('tui-code-snippet'); // node, commonjs
+ * var util = tui.util; // distribution file
  *
- *  isExisty(''); //true
- *  isExisty(0); //true
- *  isExisty([]); //true
- *  isExisty({}); //true
- *  isExisty(null); //false
- *  isExisty(undefined); //false
+ * //-- #2. Use property --//
+ * util.isExisty(''); //true
+ * util.isExisty(0); //true
+ * util.isExisty([]); //true
+ * util.isExisty({}); //true
+ * util.isExisty(null); //false
+ * util.isExisty(undefined); //false
 */
 function isExisty(param) {
     return !isUndefined(param) && !isNull(param);

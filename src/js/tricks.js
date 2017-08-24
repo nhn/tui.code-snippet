@@ -16,12 +16,14 @@ var aps = Array.prototype.slice;
  * @memberof tui.util
  * @returns {function} debounced function.
  * @example
- * var debounce = require('tui-code-snippet') // commonjs
- * var debounce = tui.util.debounce; // script 
- * 
+ * //-- #1. Get Module --//
+ * var util = require('tui-code-snippet'); // node, commonjs
+ * var util = tui.util; // distribution file
+ *
+ * //-- #2. Use property --//
  * function someMethodToInvokeDebounced() {}
  *
- * var debounced = debounce(someMethodToInvokeDebounced, 300);
+ * var debounced = util.debounce(someMethodToInvokeDebounced, 300);
  *
  * // invoke repeatedly
  * debounced();
@@ -71,12 +73,14 @@ function timestamp() {
  * @memberof tui.util
  * @returns {function} throttled function
  * @example
- * var throttle = require('tui-code-snippet').throttle; // commonjs
- * var throttle = tui.util.throttle; // script
- * 
+ * //-- #1. Get Module --//
+ * var util = require('tui-code-snippet'); // node, commonjs
+ * var util = tui.util; // distribution file
+ *
+ * //-- #2. Use property --//
  * function someMethodToInvokeThrottled() {}
  *
- * var throttled = throttle(someMethodToInvokeThrottled, 300);
+ * var throttled = util.throttle(someMethodToInvokeThrottled, 300);
  *
  * // invoke repeatedly
  * throttled();    // invoke (leading)

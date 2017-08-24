@@ -19,22 +19,23 @@ var INITIALIZATION_METHOD_NAME = 'initialize';
  * @returns {Object} Defined module
  * @memberof tui.util
  * @example
- *    var defineModule = require('tui-code-snippet').defineModule; // commonjs
- *    var deinfeModule = tui.util.defineModule; // script
- * 
- *    var myModule = tui.util.defineModule('modules.myModule', {
- *        name: 'john',
- *        message: '',
- *        initialize: function() {
- *            this.message = 'hello world';
- *        },
- *        getMessage: function() {
- *            return this.name + ': ' + this.message
- *        }
- *    });
+  * //-- #1. Get Module --//
+ * var util = require('tui-code-snippet'); // node, commonjs
+ * var util = tui.util; // distribution file
  *
- *    console.log(myModule.getMessage());  // 'john: hello world';
- *    console.log(window.modules.myModule.getMessage());   // 'john: hello world';
+ * //-- #2. Use property --//
+ * var myModule = util.defineModule('modules.myModule', {
+ *     name: 'john',
+ *     message: '',
+ *     initialize: function() {
+ *        this.message = 'hello world';
+ *     },
+ *     getMessage: function() {
+ *         return this.name + ': ' + this.message
+ *     }
+ * });
+ *
+ * console.log(myModule.getMessage());  // 'john: hello world';
  */
 function defineModule(namespace, moduleDefinition) {
     var base = moduleDefinition || {};

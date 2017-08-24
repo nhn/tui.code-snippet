@@ -4,7 +4,6 @@
  *  Implements the Map object.
  * @author NHN Ent.
  *         FE Development Lab <dl_javascript@nhnent.com>
- * @dependency type.js, collection.js
  */
 
 'use strict';
@@ -86,6 +85,15 @@ MapIterator.prototype.next = function() {
  * @param  {Array} initData - Array of key-value pairs (2-element Arrays).
  *      Each key-value pair will be added to the new Map
  * @memberof tui.util
+ * @example
+ * // node, commonjs
+ * var Map = require('tui-code-snippet').Map;
+ * @example
+ * // distribution file, script
+ * <script src='path-to/tui-code-snippt.js'></script>
+ * <script>
+ * var Map = tui.util.Map;
+ * <script>
  */
 function Map(initData) {
     this._valuesForString = {};

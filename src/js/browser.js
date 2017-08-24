@@ -16,24 +16,18 @@
  *  - edge
  * @memberof tui.util
  * @example
- *  // commonjs
- *  var util = require('tui-code-snippet');
- *  util.browser.chrome === true; // chrome
- *  util.browser.firefox === true; // firefox
- *  util.browser.safari === true; // safari
- *  util.browser.msie === true; // IE
- *  util.browser.edge === true; // edge
- *  util.browser.others === true; // other browser
- *  util.browser.version; // browser version
- * @example
- *  // script
- *  tui.util.browser.chrome === true; // chrome
- *  tui.util.browser.firefox === true; // firefox
- *  tui.util.browser.safari === true; // safari
- *  tui.util.browser.msie === true; // IE
- *  tui.util.browser.edge === true; // edge
- *  tui.util.browser.others === true; // other browser
- *  tui.util.browser.version; // browser version
+ * //-- #1. Get Module --//
+ * var util = require('tui-code-snippet'); // node, commonjs
+ * var util = tui.util; // distribution file
+ *
+ * //-- #2. Use property --//
+ * util.browser.chrome === true; // chrome
+ * util.browser.firefox === true; // firefox
+ * util.browser.safari === true; // safari
+ * util.browser.msie === true; // IE
+ * util.browser.edge === true; // edge
+ * util.browser.others === true; // other browser
+ * util.browser.version; // browser version
  */
 var browser = {
     chrome: false,

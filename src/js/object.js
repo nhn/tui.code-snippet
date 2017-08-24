@@ -2,7 +2,6 @@
  * @fileoverview This module has some functions for handling a plain object, json.
  * @author NHN Ent.
  *         FE Development Lab <dl_javascript@nhnent.com>
- * @dependency type.js, collection.js, array.js
  */
 
 'use strict';
@@ -97,19 +96,21 @@ function keys(obj) {
  *  See {@link http://stackoverflow.com/questions/1068834/object-comparison-in-javascript}
  * @param {...object} object - Multiple objects for comparing.
  * @returns {boolean} Equality
- * @example
- *  var compareJSON = require('tui-code-snippet').compareJSON; // commonjs
- *  var compareJSON = tui.util.compareJSON;
- * 
- *  var jsonObj1 = {name:'milk', price: 1000};
- *  var jsonObj2 = {name:'milk', price: 1000};
- *  var jsonObj3 = {name:'milk', price: 1000};
- *  compareJSON(jsonObj1, jsonObj2, jsonObj3);   // true
- *
- *  var jsonObj4 = {name:'milk', price: 1000};
- *  var jsonObj5 = {name:'beer', price: 3000};
- *  compareJSON(jsonObj4, jsonObj5); // false
  * @memberof tui.util
+ * @example
+ * //-- #1. Get Module --//
+ * var util = require('tui-code-snippet'); // node, commonjs
+ * var util = tui.util; // distribution file
+ *
+ * //-- #2. Use property --//
+ * var jsonObj1 = {name:'milk', price: 1000};
+ * var jsonObj2 = {name:'milk', price: 1000};
+ * var jsonObj3 = {name:'milk', price: 1000};
+ * util.compareJSON(jsonObj1, jsonObj2, jsonObj3);   // true
+ *
+ * var jsonObj4 = {name:'milk', price: 1000};
+ * var jsonObj5 = {name:'beer', price: 3000};
+ * util.compareJSON(jsonObj4, jsonObj5); // false
  */
 function compareJSON(object) {
     var argsLen = arguments.length;
@@ -228,22 +229,25 @@ function isSameObject(x, y) { // eslint-disable-line complexity
  * @returns {*} Value
  * @memberof tui.util
  * @example
- *  var pick = require('tui-code-snippet').pick; // commonjs
- *  var pick = tui.util.pick; // script
- *  var obj = {
- *      'key1': 1,
- *      'nested' : {
- *          'key1': 11,
- *          'nested': {
- *              'key1': 21
- *          }
- *      }
- *  };
- *  pick(obj, 'nested', 'nested', 'key1'); // 21
- *  pick(obj, 'nested', 'nested', 'key2'); // undefined
+ * //-- #1. Get Module --//
+ * var util = require('tui-code-snippet'); // node, commonjs
+ * var util = tui.util; // distribution file
  *
- *  var arr = ['a', 'b', 'c'];
- *  pick(arr, 1); // 'b'
+ * //-- #2. Use property --//
+ * var obj = {
+ *     'key1': 1,
+ *     'nested' : {
+ *         'key1': 11,
+ *         'nested': {
+ *             'key1': 21
+ *         }
+ *     }
+ * };
+ * util.pick(obj, 'nested', 'nested', 'key1'); // 21
+ * util.pick(obj, 'nested', 'nested', 'key2'); // undefined
+ *
+ * var arr = ['a', 'b', 'c'];
+ * util.pick(arr, 1); // 'b'
  */
 function pick(obj, paths) { // eslint-disable-line no-unused-vars
     var args = arguments;

@@ -64,8 +64,8 @@ function setConfig(defaultConfig, server) {
             'IE11',
             'Edge',
             'Chrome-WebDriver',
-            'Firefox-WebDriver'/*,
-            'Safari-WebDriver'*/
+            'Firefox-WebDriver',
+            'Safari-WebDriver'
         ];
         defaultConfig.reporters.push('coverage');
         defaultConfig.reporters.push('junit');
@@ -102,18 +102,6 @@ module.exports = function(config) {
         basePath: './',
         frameworks: ['jasmine'],
         files: [
-            {
-                pattern: 'node_modules/jquery/dist/jquery.min.js',
-                watched: false
-            },
-            {
-                pattern: 'node_modules/jasmine-jquery/lib/jasmine-jquery.js',
-                watched: false
-            },
-            {
-                pattern: 'node_modules/jasmine-ajax/lib/mock-ajax.js',
-                watched: false
-            },
             'test/*.test.js'
         ],
         preprocessors: {
