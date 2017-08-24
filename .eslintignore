@@ -1,5 +1,0 @@
-# Ignore all files except src/**/*.js files
-/**/*.js
-!/src/**/*.js
-!/test/**/*.js
-!/test/*.js

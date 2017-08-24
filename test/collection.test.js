@@ -9,7 +9,12 @@ describe('module:collection', function() {
 
     beforeEach(function() {
         arrayDummy = [0, 1, 2, 3, 4, 5];
-        objDummy = {_0: 0, _1: 1, _2: 2, _3: 3, _4: 4, _5: 5};
+        objDummy = {_0: 0,
+            _1: 1,
+            _2: 2,
+            _3: 3,
+            _4: 4,
+            _5: 5};
     });
 
     describe('forEachArray', function() {
@@ -23,7 +28,6 @@ describe('module:collection', function() {
             expect(oSum).toEqual(15);
         });
 
-
         it('콜백펑션이 false를 리턴하면 순회를 종료한다.', function() {
             var oSum = 0;
 
@@ -33,6 +37,7 @@ describe('module:collection', function() {
                 if (oSum === 3) {
                     return false;
                 }
+
                 return true;
             });
 
@@ -60,6 +65,7 @@ describe('module:collection', function() {
                 if (oSum === 3) {
                     return false;
                 }
+
                 return true;
             });
 
@@ -201,7 +207,9 @@ describe('module:collection', function() {
             result = collection.filter(objDummy, function(value) {
                 return (value % 2) === 0;
             });
-            expect(result).toEqual({_0: 0, _2: 2, _4: 4});
+            expect(result).toEqual({_0: 0,
+                _2: 2,
+                _4: 4});
         });
     });
 
@@ -223,7 +231,7 @@ describe('module:collection', function() {
             var arr = ['one', 'two', 'three', 'four'];
             var result;
 
-            //'one' 이라는 값을 3번째 인덱스에서부터 찾음
+            // 'one' 이라는 값을 3번째 인덱스에서부터 찾음
             result = array.inArray('one', arr, 3);
             expect(result).toBe(-1);
         });
@@ -243,9 +251,15 @@ describe('module:collection', function() {
 
     describe('pluck', function() {
         var objArr = [
-                {'abc': 1, 'def': 2, 'ghi': 3},
-                {'abc': 4, 'def': 5, 'ghi': 6},
-                {'abc': 7, 'def': 8, 'ghi': 9}
+                {'abc': 1,
+                    'def': 2,
+                    'ghi': 3},
+                {'abc': 4,
+                    'def': 5,
+                    'ghi': 6},
+                {'abc': 7,
+                    'def': 8,
+                    'ghi': 9}
             ],
             arr2d = [
                 [1, 2, 3],

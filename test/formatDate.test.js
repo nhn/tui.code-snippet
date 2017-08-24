@@ -9,9 +9,21 @@ describe('date format', function() {
 
     describe('test various inputs', function() {
         var inputs = [
-                {year: 1999, month: 9, date: 9, hour: 0, minute: 2},
-                {year: 2010, month: 12, date: 13, hour: 10, minute: 0},
-                {year: 12, month: 1, date: 29, hour: 23, minute: 40}
+                {year: 1999,
+                    month: 9,
+                    date: 9,
+                    hour: 0,
+                    minute: 2},
+                {year: 2010,
+                    month: 12,
+                    date: 13,
+                    hour: 10,
+                    minute: 0},
+                {year: 12,
+                    month: 1,
+                    date: 29,
+                    hour: 23,
+                    minute: 40}
             ],
             forms = [
                 'yyyy-MM-dd',
@@ -416,7 +428,11 @@ describe('date format', function() {
                         PM: '오후'
                     }
                 };
-                var date = {year: 1999, month: 9, date: 9, hour: 0, minute: 2};
+                var date = {year: 1999,
+                    month: 9,
+                    date: 9,
+                    hour: 0,
+                    minute: 2};
 
                 expect(formatDate('yyyy-MM-dd a hh:mm', date, option)).toEqual('1999-09-09 오전 12:02');
             });
@@ -427,14 +443,22 @@ describe('date format', function() {
                         PM: '오후'
                     }
                 };
-                var date = {year: 1999, month: 9, date: 9, hour: 13, minute: 2};
+                var date = {year: 1999,
+                    month: 9,
+                    date: 9,
+                    hour: 13,
+                    minute: 2};
 
                 expect(formatDate('yyyy-MM-dd A hh:mm', date, option)).toEqual('1999-09-09 오후 01:02');
             });
         });
 
         it('not full-date but time format', function() {
-            var date = {year: 1999, month: 9, date: 9, hour: 2, minute: 3};
+            var date = {year: 1999,
+                month: 9,
+                date: 9,
+                hour: 2,
+                minute: 3};
 
             expect(formatDate('a hh:mm', date)).toEqual('AM 02:03');
         });
@@ -446,9 +470,13 @@ describe('date format', function() {
                     PM: '오후'
                 }
             };
-            var date = {year: 1999, month: 9, date: 9, hour: 12, minute: 3};
+            var date = {year: 1999,
+                month: 9,
+                date: 9,
+                hour: 12,
+                minute: 3};
 
-            //See the clock system: https://en.wikipedia.org/wiki/12-hour_clock
+            // See the clock system: https://en.wikipedia.org/wiki/12-hour_clock
             expect(formatDate('a hh:mm', date, option)).toEqual('오후 12:03');
         });
     });

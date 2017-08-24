@@ -78,7 +78,7 @@ describe('inheritance', function() {
 
             /* Person */
             function Person(leg) { // eslint-disable-line no-unused-vars
-                //Animal.call(this, leg); 주석처리함
+                // Animal.call(this, leg); 주석처리함
             }
 
             tui.util.inherit(Person, Animal);

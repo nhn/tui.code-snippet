@@ -6,6 +6,7 @@ describe('module:Enum', function() {
     var isModernBrowser = (function() {
         try {
             Object.defineProperty({}, 'x', {});
+
             return true;
         } catch (e) {
             return false;

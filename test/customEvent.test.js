@@ -1,7 +1,3 @@
-/* eslint-disable require-jsdoc */
-/* eslint-disable block-spacing */
-/* eslint-disable brace-style */
-
 'use strict';
 
 var CustomEvents = require('../src/js/customEvent');
@@ -64,15 +60,19 @@ describe('CustomEvents', function() {
             ce.on('test', handler, obj);
 
             expect(ce.events).toEqual({
-                test: [{handler: handler, context: obj}]
+                test: [{handler: handler,
+                    context: obj}]
             });
 
             ce.on('multi multi2', handler, obj);
 
             expect(ce.events).toEqual({
-                test: [{handler: handler, context: obj}],
-                multi: [{handler: handler, context: obj}],
-                multi2: [{handler: handler, context: obj}]
+                test: [{handler: handler,
+                    context: obj}],
+                multi: [{handler: handler,
+                    context: obj}],
+                multi2: [{handler: handler,
+                    context: obj}]
             });
             expect(ce.contexts).toEqual([[obj, 3]]);
         });
@@ -122,8 +122,10 @@ describe('CustomEvents', function() {
             }, obj);
 
             expect(ce.events).toEqual({
-                'test': [{handler: handler, context: obj}],
-                'test2': [{handler: handler2, context: obj}]
+                'test': [{handler: handler,
+                    context: obj}],
+                'test2': [{handler: handler2,
+                    context: obj}]
             });
             expect(ce.contexts).toEqual([[obj, 2]]);
 
@@ -131,10 +133,13 @@ describe('CustomEvents', function() {
 
             expect(ce.events).toEqual({
                 'test': [
-                    {handler: handler, context: obj},
-                    {handler: handler, context: obj}
+                    {handler: handler,
+                        context: obj},
+                    {handler: handler,
+                        context: obj}
                 ],
-                'test2': [{handler: handler2, context: obj}]
+                'test2': [{handler: handler2,
+                    context: obj}]
             });
             expect(ce.contexts).toEqual([[obj, 3]]);
 
@@ -142,12 +147,17 @@ describe('CustomEvents', function() {
 
             expect(ce.events).toEqual({
                 test: [
-                    {handler: handler, context: obj},
-                    {handler: handler, context: obj}
+                    {handler: handler,
+                        context: obj},
+                    {handler: handler,
+                        context: obj}
                 ],
-                test2: [{handler: handler2, context: obj}],
-                multi: [{handler: handler, context: obj2}],
-                multi2: [{handler: handler, context: obj2}]
+                test2: [{handler: handler2,
+                    context: obj}],
+                multi: [{handler: handler,
+                    context: obj2}],
+                multi2: [{handler: handler,
+                    context: obj2}]
             });
             expect(ce.contexts).toEqual([[obj, 3], [obj2, 2]]);
         });
@@ -235,8 +245,10 @@ describe('CustomEvents', function() {
 
             expect(ce.events).toEqual({
                 play: [
-                    {handler: spy, context: obj},
-                    {handler: spy, context: obj2}
+                    {handler: spy,
+                        context: obj},
+                    {handler: spy,
+                        context: obj2}
                 ],
                 pause: []
             });
@@ -332,29 +344,49 @@ describe('CustomEvents', function() {
 
         describe('need return "false" explicitly for stop other event calls.', function() {
             it('empty string can\'t stop event calls.', function() {
-                inst.on('beforeZoom', function() { return ''; });
+                inst.on('beforeZoom', function() {
+                    return '';
+                });
                 inst.work();
                 expect(spy).toHaveBeenCalled();
             });
 
             it('undefined can\'t stop event calls.', function() {
-                inst.on('beforeZoom', function() { return undefined; }); // eslint-disable-line no-undefined
+                inst.on('beforeZoom', function() {
+                    return undefined; // eslint-disable-line no-undefined
+                });
                 inst.work();
                 expect(spy).toHaveBeenCalled();
             });
 
             it('null can\' stop event calls.', function() {
-                inst.on('beforeZoom', function() { return null; });
+                inst.on('beforeZoom', function() {
+                    return null;
+                });
                 inst.work();
                 expect(spy).toHaveBeenCalled();
             });
         });
 
         describe('return AND condition value for result of all handlers.', function() {
+            var returnTrueFn = function() {
+                return true;
+            };
+            var returnFalseFn = function() {
+                return false;
+            };
+            var returnNullFn = function() {
+                return null;
+            };
+            var returnUndefinedFn = function() {
+                return undefined; // eslint-disable-line no-undefined
+            };
+            var noopFn = function() {};
+
             it('at least one handler must return \'false\' to make invoke() return false.', function() {
-                inst.on('beforeZoom', function() { return true; });
-                inst.on('beforeZoom', function() { return false; });
-                inst.on('beforeZoom', function() { return null; });
+                inst.on('beforeZoom', returnTrueFn);
+                inst.on('beforeZoom', returnFalseFn);
+                inst.on('beforeZoom', returnNullFn);
 
                 inst.work();
 
@@ -362,9 +394,9 @@ describe('CustomEvents', function() {
             });
 
             it('if not, invoke() will return true.', function() {
-                inst.on('beforeZoom', function() { return true; });
-                inst.on('beforeZoom', function() { return undefined; }); // eslint-disable-line no-undefined
-                inst.on('beforeZoom', function() {});
+                inst.on('beforeZoom', returnTrueFn);
+                inst.on('beforeZoom', returnUndefinedFn);
+                inst.on('beforeZoom', noopFn);
 
                 inst.work();
 
@@ -373,10 +405,12 @@ describe('CustomEvents', function() {
         });
 
         it('return true when no handler binded.', function() {
+            function falseFn() {
+                return false;
+            }
+
             inst.work();
             expect(spy).toHaveBeenCalled();
-
-            function falseFn() { return false; }
             inst.on('beforeZoom', falseFn);
             inst.off('beforeZoom', falseFn);
 

@@ -33,7 +33,12 @@ module.exports = {
         preLoaders: [
             {
                 test: /\.js$/,
-                exclude: /(test|node_modules|bower_components)/,
+                exclude: /(test|bower_components|node_modules)/,
+                loader: 'istanbul-instrumenter'
+            },
+            {
+                test: /\.js$/,
+                exclude: /(bower_components|node_modules)/,
                 loader: 'eslint-loader'
             }
         ]

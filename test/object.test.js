@@ -11,17 +11,47 @@ describe('object', function() {
     });
 
     it('compareJSON()은 json객체가 같은지 비교한다.', function() {
-        var obj1 = {url: 'http://119.205.249.132/ac', st: 1, rLt: 1, rEnc: 'UTF-8', qEnc: 'UTF-8'},
-            obj2 = {url: 'http://119.205.249.132/ac', st: 1, rLt: 1, rEnc: 'UTF-8', qEnc: 'UTF-8'},
-            obj3 = {url: 'http://119.205.249.132/ac', st: 1, rLt: 1, rEnc: 'UTF-8', qEnc: 'UTF-8'},
-            obj4 = {url: 'http://119.205.249.132/ac', st: 1, rLt: 1, rEnc: 'UTF-8', qEnc: 'UTF-8'};
+        var obj1 = {url: 'http://119.205.249.132/ac',
+                st: 1,
+                rLt: 1,
+                rEnc: 'UTF-8',
+                qEnc: 'UTF-8'},
+            obj2 = {url: 'http://119.205.249.132/ac',
+                st: 1,
+                rLt: 1,
+                rEnc: 'UTF-8',
+                qEnc: 'UTF-8'},
+            obj3 = {url: 'http://119.205.249.132/ac',
+                st: 1,
+                rLt: 1,
+                rEnc: 'UTF-8',
+                qEnc: 'UTF-8'},
+            obj4 = {url: 'http://119.205.249.132/ac',
+                st: 1,
+                rLt: 1,
+                rEnc: 'UTF-8',
+                qEnc: 'UTF-8'};
 
-        var objA = {url: 'http://119.205.249.132/ac', st: 1, rLt: 1, rEnc: 'UTF-8', qEnc: 'UTF-8'},
-            objB = {url: 'http://120.120.266.1/', st: 11, rLt: 2, rEnc: 'UTF-8', qEnc: 'UTF-8'};
+        var objA = {url: 'http://119.205.249.132/ac',
+                st: 1,
+                rLt: 1,
+                rEnc: 'UTF-8',
+                qEnc: 'UTF-8'},
+            objB = {url: 'http://120.120.266.1/',
+                st: 11,
+                rLt: 2,
+                rEnc: 'UTF-8',
+                qEnc: 'UTF-8'};
 
-        var objC = {a: 100, b: [1, 2, 3], dt: {age: 12}},
-            objD = {a: 100, b: [1, 2, 3], dt: {age: 1222}},
-            objE = {a: 100, b: [1, 2, 3], dt: {age: 12}};
+        var objC = {a: 100,
+                b: [1, 2, 3],
+                dt: {age: 12}},
+            objD = {a: 100,
+                b: [1, 2, 3],
+                dt: {age: 1222}},
+            objE = {a: 100,
+                b: [1, 2, 3],
+                dt: {age: 12}};
 
         expect(tui.util.compareJSON(obj1, obj2, obj3, obj4)).toBe(true);
         expect(tui.util.compareJSON(objA, objB)).toBe(false);
@@ -79,14 +109,14 @@ describe('object', function() {
 
     describe('keys', function() {
         it('객체를 전달받아 키만 따로 배열로 만들어 리턴해준다.', function() {
-            var result = tui.util.keys({'key1': 1, 'key2': 2});
+            var result = tui.util.keys({'key1': 1,
+                'key2': 2});
 
             expect(result.length).toEqual(2);
             expect(result[0]).toEqual('key1');
             expect(result[1]).toEqual('key2');
         });
     });
-
 
     describe('pick', function() {
         it('기본 검증', function() {

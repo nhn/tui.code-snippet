@@ -44,6 +44,7 @@ describe('tricks', function() {
             function fire() {
                 bullet = arr[i];
                 i += 1;
+
                 return bullet;
             }
 

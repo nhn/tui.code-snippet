@@ -33,7 +33,6 @@ describe('type', function() {
         expect(tui.util.isExisty(o8)).toBe(true);
     });
 
-
     it('isUndefined() 값이 undefined인지 확인', function() {
         var o1 = 0,
             o2 = false,
@@ -149,7 +148,7 @@ describe('type', function() {
             o6 = true,
             o7 = /xyz/g,
             o8 = new Function(),
-            o9 = function test() {};
+            o9 = function o9() {};
 
         expect(tui.util.isFunction(o1)).toBe(true);
         expect(tui.util.isFunction(o2)).toBe(false);
@@ -252,7 +251,7 @@ describe('type', function() {
             o6 = true,
             o7 = /xyz/g,
             o8 = new Function(),
-            o9 = function test() {};
+            o9 = function o9() {};
 
         expect(tui.util.isFunctionSafe(o1)).toBe(true);
         expect(tui.util.isFunctionSafe(o2)).toBe(false);

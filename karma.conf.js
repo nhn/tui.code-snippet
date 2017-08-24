@@ -92,7 +92,7 @@ function setConfig(defaultConfig, server) {
         };
     } else {
         defaultConfig.browsers = [
-            'Chrome'
+            'ChromeHeadless'
         ];
     }
 }
@@ -127,7 +127,12 @@ module.exports = function(config) {
                     {
                         test: /\.js$/,
                         exclude: /(test|bower_components|node_modules)/,
-                        loaders: ['istanbul-instrumenter', 'eslint-loader']
+                        loader: 'istanbul-instrumenter'
+                    },
+                    {
+                        test: /\.js$/,
+                        exclude: /(bower_components|node_modules)/,
+                        loader: 'eslint-loader'
                     }
                 ]
             }
