@@ -15,6 +15,7 @@
 function createObject(obj) {
     function F() {} // eslint-disable-line require-jsdoc
     F.prototype = obj;
+
     return new F();
 }
 
@@ -27,28 +28,32 @@ function createObject(obj) {
  * @param {function} superType Parent constructor
  * @memberof tui.util
  * @example
- *  // Parent constructor
- *  function Animal(leg) {
- *      this.leg = leg;
- *  }
+ * //-- #1. Get Module --//
+ * var util = require('tui-code-snippet'); // node, commonjs
+ * var util = tui.util; // distribution file
  *
- *  Animal.prototype.growl = function() {
- *      // ...
- *  };
+ * //-- #2. Use property --//
+ * // Parent constructor
+ * function Animal(leg) {
+ *     this.leg = leg;
+ * }
+ * Animal.prototype.growl = function() {
+ *     // ...
+ * };
  *
- *  // Child constructor
- *  function Person(name) {
- *      this.name = name;
- *  }
+ * // Child constructor
+ * function Person(name) {
+ *     this.name = name;
+ * }
  *
- *  // Inheritance
- *  core.inherit(Person, Animal);
+ * // Inheritance
+ * util.inherit(Person, Animal);
  *
- *  // After this inheritance, please use only the extending of property.
- *  // Do not overwrite prototype.
- *  Person.prototype.walk = function(direction) {
- *      // ...
- *  };
+ * // After this inheritance, please use only the extending of property.
+ * // Do not overwrite prototype.
+ * Person.prototype.walk = function(direction) {
+ *     // ...
+ * };
  */
 function inherit(subType, superType) {
     var prototype = createObject(superType.prototype);

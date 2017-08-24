@@ -4,7 +4,6 @@
  *  And it is implemented in the observer design pattern.
  * @author NHN Ent.
  *         FE Development Lab <dl_javascript@nhnent.com>
- * @dependency type.js, collection.js object.js
  */
 
 'use strict';
@@ -26,6 +25,15 @@ var R_EVENTNAME_SPLIT = /\s+/g;
 /**
  * @class
  * @memberof tui.util
+ * @example
+ * // node, commonjs
+ * var CustomEvents = require('tui-code-snippet').CustomEvents;
+ * @example
+ * // distribution file, script
+ * <script src='path-to/tui-code-snippt.js'></script>
+ * <script>
+ * var CustomEvents = tui.util.CustomEvents;
+ * </script>
  */
 function CustomEvents() {
     /**
@@ -44,16 +52,21 @@ function CustomEvents() {
  * Mixin custom events feature to specific constructor
  * @param {function} func - constructor
  * @example
- *  function Model() {
- *      this.name = '';
- *  }
- *  tui.util.CustomEvents.mixin(Model);
+ * //-- #1. Get Module --//
+ * var CustomEvents = require('tui-code-snippet').CustomEvents; // node, commonjs
+ * var CustomEvents = tui.util.CustomEvents; // distribution file
  *
- *  var model = new Model();
- *  model.on('change', function() { this.name = 'model'; }, this);
+ * //-- #2. Use property --//
+ * var model;
+ * function Model() {
+ *     this.name = '';
+ * }
+ * CustomEvents.mixin(Model);
  *
- *  model.fire('change');
- *  alert(model.name); // 'model';
+ * model = new Model();
+ * model.on('change', function() { this.name = 'model'; }, this);
+ * model.fire('change');
+ * alert(model.name); // 'model';
  */
 CustomEvents.mixin = function(func) {
     object.extend(func.prototype, CustomEvents.prototype);
@@ -208,23 +221,27 @@ CustomEvents.prototype._bindEvent = function(eventName, handler, context) {
  *  event name or an object {eventName: handler}
  * @param {(function|object)} [handler] - handler function or context
  * @param {object} [context] - context for binding
- * @example
- *  // 1. Basic
- *  ustomEvent.on('onload', handler);
+ * //-- #1. Get Module --//
+ * var CustomEvents = require('tui-code-snippet').CustomEvents; // node, commonjs
+ * var CustomEvents = tui.util.CustomEvents; // distribution file
  *
- *  // 2. With context
- *  customEvent.on('onload', handler, myObj);
+ * //-- #2. Use property --//
+ * // # 2.1 Basic Usage
+ * CustomEvents.on('onload', handler);
  *
- *  // 3. Bind by object that name, handler pairs
- *  customEvent.on({
- *    'play': handler,
- *    'pause': handler2
- *  });
+ * // # 2.2 With context
+ * CustomEvents.on('onload', handler, myObj);
  *
- *  // 4. Bind by object that name, handler pairs with context object
- *  customEvent.on({
- *    'play': handler
- *  }, myObj);
+ * // # 2.3 Bind by object that name, handler pairs
+ * CustomEvents.on({
+ *     'play': handler,
+ *     'pause': handler2
+ * });
+ *
+ * // # 2.4 Bind by object that name, handler pairs with context object
+ * CustomEvents.on({
+ *     'play': handler
+ * }, myObj);
  */
 CustomEvents.prototype.on = function(eventName, handler, context) {
     var self = this;
@@ -259,6 +276,7 @@ CustomEvents.prototype.once = function(eventName, handler, context) {
         collection.forEach(eventName, function(func, name) {
             self.once(name, func, context);
         });
+
         return;
     }
 
@@ -438,32 +456,37 @@ CustomEvents.prototype._offByObject = function(obj, handler) {
  *  {name: handler} pair object or handler function
  * @param {(function)} handler - handler function
  * @example
- * // 1. off by event name
- * customEvent.off('onload');
+ * //-- #1. Get Module --//
+ * var CustomEvents = require('tui-code-snippet').CustomEvents; // node, commonjs
+ * var CustomEvents = tui.util.CustomEvents; // distribution file
  *
- * // 2. off by event name and handler
- * customEvent.off('play', handler);
+ * //-- #2. Use property --//
+ * // # 2.1 off by event name
+ * CustomEvents.off('onload');
  *
- * // 3. off by handler
- * customEvent.off(handler);
+ * // # 2.2 off by event name and handler
+ * CustomEvents.off('play', handler);
  *
- * // 4. off by context
- * customEvent.off(myObj);
+ * // # 2.3 off by handler
+ * CustomEvents.off(handler);
  *
- * // 5. off by context and handler
- * customEvent.off(myObj, handler);
+ * // # 2.4 off by context
+ * CustomEvents.off(myObj);
  *
- * // 6. off by context and event name
- * customEvent.off(myObj, 'onload');
+ * // # 2.5 off by context and handler
+ * CustomEvents.off(myObj, handler);
  *
- * // 7. off by an Object.<string, function> that is {eventName: handler}
- * customEvent.off({
+ * // # 2.6 off by context and event name
+ * CustomEvents.off(myObj, 'onload');
+ *
+ * // # 2.7 off by an Object.<string, function> that is {eventName: handler}
+ * CustomEvents.off({
  *   'play': handler,
  *   'pause': handler2
  * });
  *
- * // 8. off the all events
- * customEvent.off();
+ * // # 2.8 off the all events
+ * CustomEvents.off();
  */
 CustomEvents.prototype.off = function(eventName, handler) {
     if (type.isString(eventName)) {
@@ -502,21 +525,21 @@ CustomEvents.prototype.fire = function(eventName) {  // eslint-disable-line
  * @param {...*} data - Data for event
  * @returns {boolean} The result of operation 'boolean AND'
  * @example
- *  if (this.invoke('beforeZoom')) {    // check the result of 'beforeZoom'
- *      // if true,
- *      // doSomething
- *  }
+ * var map = new Map();
+ * map.on({
+ *     'beforeZoom': function() {
+ *         // It should cancel the 'zoom' event by some conditions.
+ *         if (that.disabled && this.getState()) {
+ *             return false;
+ *         }
+ *         return true;
+ *     }
+ * });
  *
- *  // In service code,
- *  map.on({
- *      'beforeZoom': function() {
- *          // It should cancel the 'zoom' event by some conditions.
- *          if (that.disabled && this.getState()) {
- *              return false;
- *          }
- *          return true;
- *      }
- *  });
+ * if (this.invoke('beforeZoom')) {    // check the result of 'beforeZoom'
+ *     // if true,
+ *     // doSomething
+ * }
  */
 CustomEvents.prototype.invoke = function(eventName) {
     var events, args, index, item;
@@ -559,6 +582,7 @@ CustomEvents.prototype.hasListener = function(eventName) {
  */
 CustomEvents.prototype.getListenerLength = function(eventName) {
     var events = this._safeEvent(eventName);
+
     return events.length;
 };
 

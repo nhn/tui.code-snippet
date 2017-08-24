@@ -1,6 +1,6 @@
 'use strict';
 
-var tricks = require('../src/tricks');
+var tricks = require('../src/js/tricks');
 
 describe('tricks', function() {
     describe('debounce', function() {
@@ -44,6 +44,7 @@ describe('tricks', function() {
             function fire() {
                 bullet = arr[i];
                 i += 1;
+
                 return bullet;
             }
 

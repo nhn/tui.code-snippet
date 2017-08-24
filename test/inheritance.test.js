@@ -1,7 +1,7 @@
 'use strict';
 
 var tui = {};
-tui.util = require('../src/inheritance');
+tui.util = require('../src/js/inheritance');
 
 describe('inheritance', function() {
     describe('#createObject()', function() {
@@ -78,7 +78,7 @@ describe('inheritance', function() {
 
             /* Person */
             function Person(leg) { // eslint-disable-line no-unused-vars
-                //Animal.call(this, leg); 주석처리함
+                // Animal.call(this, leg); 주석처리함
             }
 
             tui.util.inherit(Person, Animal);

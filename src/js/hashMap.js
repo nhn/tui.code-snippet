@@ -2,7 +2,6 @@
  * @fileoverview This module provides the HashMap constructor.
  * @author NHN Ent.
  *         FE Development Lab <dl_javascript@nhnent.com>
- * @dependency type, collection.js
  */
 
 'use strict';
@@ -25,12 +24,26 @@ var _MAPDATAPREFIX = 'å';
  * @memberof tui.util
  * @deprecated since version 1.3.0
  * @example
- *  var hm = new tui.util.HashMap({
- *      'mydata': {
- *           'hello': 'imfine'
- *       },
- *      'what': 'time'
- *  });
+ * // node, commonjs
+ * var HashMap = require('tui-code-snippet').HashMap;
+ * var hm = new tui.util.HashMap({
+  'mydata': {
+    'hello': 'imfine'
+  },
+  'what': 'time'
+});
+ * @example
+ * // distribution file, script
+ * <script src='path-to/tui-code-snippt.js'></script>
+ * <script>
+ * var HashMap = tui.util.HashMap;
+ * <script>
+ * var hm = new tui.util.HashMap({
+  'mydata': {
+    'hello': 'imfine'
+  },
+  'what': 'time'
+});
  */
 function HashMap(obj) {
     /**
@@ -49,13 +62,17 @@ function HashMap(obj) {
  * @param {string|Object} key A string or object for key
  * @param {*} [value] A data
  * @example
- *  var hm = new HashMap();
+ * //-- #1. Get Module --//
+ * var HashMap = require('tui-code-snippet').HashMap; // node, commonjs
+ * var HashMap = tui.util.HashMap; // distribution file
  *
- *  hm.set('key', 'value');
- *  hm.set({
- *      'key1': 'data1',
- *      'key2': 'data2'
- *  });
+ * //-- #2. Use property --//
+ * var hm = new HashMap();
+ * hm.set('key', 'value');
+ * hm.set({
+ *     'key1': 'data1',
+ *     'key2': 'data2'
+ * });
  */
 HashMap.prototype.set = function(key, value) {
     if (arguments.length === 2) {
@@ -70,8 +87,13 @@ HashMap.prototype.set = function(key, value) {
  * @param {string} key A string for key
  * @param {*} value A data
  * @example
- *  var hm = new HashMap();
- *  hm.setKeyValue('key', 'value');
+ * //-- #1. Get Module --//
+ * var HashMap = require('tui-code-snippet').HashMap; // node, commonjs
+ * var HashMap = tui.util.HashMap; // distribution file
+ *
+ * //-- #2. Use property --//
+ * var hm = new HashMap();
+ * hm.setKeyValue('key', 'value');
  */
 HashMap.prototype.setKeyValue = function(key, value) {
     if (!this.has(key)) {
@@ -84,12 +106,16 @@ HashMap.prototype.setKeyValue = function(key, value) {
  * Set a data from the given object.
  * @param {Object} obj A object for data
  * @example
- *  var hm = new HashMap();
+ * //-- #1. Get Module --//
+ * var HashMap = require('tui-code-snippet').HashMap; // node, commonjs
+ * var HashMap = tui.util.HashMap; // distribution file
  *
- *  hm.setObject({
- *      'key1': 'data1',
- *      'key2': 'data2'
- *  });
+ * //-- #2. Use property --//
+ * var hm = new HashMap();
+ * hm.setObject({
+ *     'key1': 'data1',
+ *     'key2': 'data2'
+ * });
  */
 HashMap.prototype.setObject = function(obj) {
     var self = this;
@@ -129,6 +155,7 @@ HashMap.prototype.encodeKey = function(key) {
  */
 HashMap.prototype.decodeKey = function(key) {
     var decodedKey = key.split(_MAPDATAPREFIX);
+
     return decodedKey[decodedKey.length - 1];
 };
 
@@ -137,10 +164,14 @@ HashMap.prototype.decodeKey = function(key) {
  * @param {string} key A string for key
  * @returns {*} The value from a key
  * @example
- *  var hm = new HashMap();
- *  hm.set('key', 'value');
+ * //-- #1. Get Module --//
+ * var HashMap = require('tui-code-snippet').HashMap; // node, commonjs
+ * var HashMap = tui.util.HashMap; // distribution file
  *
- *  hm.get('key') // value
+ * //-- #2. Use property --//
+ * var hm = new HashMap();
+ * hm.set('key', 'value');
+ * hm.get('key') // value
  */
 HashMap.prototype.get = function(key) {
     return this[this.encodeKey(key)];
@@ -151,10 +182,14 @@ HashMap.prototype.get = function(key) {
  * @param {string} key A string for key
  * @returns {boolean} Indicating whether a value exists or not.
  * @example
- *  var hm = new HashMap();
- *  hm.set('key', 'value');
+ * //-- #1. Get Module --//
+ * var HashMap = require('tui-code-snippet').HashMap; // node, commonjs
+ * var HashMap = tui.util.HashMap; // distribution file
  *
- *  hm.has('key') // true
+ * //-- #2. Use property --//
+ * var hm = new HashMap();
+ * hm.set('key', 'value');
+ * hm.has('key') // true
  */
 HashMap.prototype.has = function(key) {
     return this.hasOwnProperty(this.encodeKey(key));
@@ -165,18 +200,18 @@ HashMap.prototype.has = function(key) {
  * @param {...string|string[]} key A string for key
  * @returns {string|string[]} A removed data
  * @example
- *  var hm = new HashMap();
- *  hm.set('key', 'value');
- *  hm.set('key2', 'value');
+ * //-- #1. Get Module --//
+ * var HashMap = require('tui-code-snippet').HashMap; // node, commonjs
+ * var HashMap = tui.util.HashMap; // distribution file
  *
- *  //ex1
- *  hm.remove('key');
+ * //-- #2. Use property --//
+ * var hm = new HashMap();
+ * hm.set('key', 'value');
+ * hm.set('key2', 'value');
  *
- *  //ex2
- *  hm.remove('key', 'key2');
- *
- *  //ex3
- *  hm.remove(['key', 'key2']);
+ * hm.remove('key');
+ * hm.remove('key', 'key2');
+ * hm.remove(['key', 'key2']);
  */
 HashMap.prototype.remove = function(key) {
     if (arguments.length > 1) {
@@ -191,10 +226,14 @@ HashMap.prototype.remove = function(key) {
  * @param {string} key A string for key
  * @returns {*|null} A removed data
  * @example
- *  var hm = new HashMap();
- *  hm.set('key', 'value');
+ * //-- #1. Get Module --//
+ * var HashMap = require('tui-code-snippet').HashMap; // node, commonjs
+ * var HashMap = tui.util.HashMap; // distribution file
  *
- *  hm.removeByKey('key')
+ * //-- #2. Use property --//
+ * var hm = new HashMap();
+ * hm.set('key', 'value');
+ * hm.removeByKey('key')
  */
 HashMap.prototype.removeByKey = function(key) {
     var data = this.has(key) ? this.get(key) : null;
@@ -212,11 +251,15 @@ HashMap.prototype.removeByKey = function(key) {
  * @param {string[]} keyArray An array of keys
  * @returns {string[]} A removed data
  * @example
- *  var hm = new HashMap();
- *  hm.set('key', 'value');
- *  hm.set('key2', 'value');
+ * //-- #1. Get Module --//
+ * var HashMap = require('tui-code-snippet').HashMap; // node, commonjs
+ * var HashMap = tui.util.HashMap; // distribution file
  *
- *  hm.removeByKeyArray(['key', 'key2']);
+ * //-- #2. Use property --//
+ * var hm = new HashMap();
+ * hm.set('key', 'value');
+ * hm.set('key2', 'value');
+ * hm.removeByKeyArray(['key', 'key2']);
  */
 HashMap.prototype.removeByKeyArray = function(keyArray) {
     var data = [];
@@ -244,13 +287,18 @@ HashMap.prototype.removeAll = function() {
  * Execute the provided callback once for each all the data.
  * @param {Function} iteratee Callback function
  * @example
- *  var hm = new HashMap();
- *  hm.set('key', 'value');
- *  hm.set('key2', 'value');
+ * //-- #1. Get Module --//
+ * var HashMap = require('tui-code-snippet').HashMap; // node, commonjs
+ * var HashMap = tui.util.HashMap; // distribution file
  *
- *  hm.each(function(value, key) {
- *      //do something...
- *  });
+ * //-- #2. Use property --//
+ * var hm = new HashMap();
+ * hm.set('key', 'value');
+ * hm.set('key2', 'value');
+ *
+ * hm.each(function(value, key) {
+ *     //do something...
+ * });
  */
 HashMap.prototype.each = function(iteratee) {
     var self = this;
@@ -271,10 +319,14 @@ HashMap.prototype.each = function(iteratee) {
  * Return the key-list stored.
  * @returns {Array} A key-list
  * @example
+ * //-- #1. Get Module --//
+ * var HashMap = require('tui-code-snippet').HashMap; // node, commonjs
+ * var HashMap = tui.util.HashMap; // distribution file
+ *
+ * //-- #2. Use property --//
  *  var hm = new HashMap();
  *  hm.set('key', 'value');
  *  hm.set('key2', 'value');
- *
  *  hm.keys();  //['key', 'key2');
  */
 HashMap.prototype.keys = function() {
@@ -295,28 +347,31 @@ HashMap.prototype.keys = function() {
  * @param {Function} condition A function that checks conditions
  * @returns {Array} A new array having elements satisfying the conditions
  * @example
- *  //ex1
- *  var hm = new HashMap();
- *  hm.set('key', 'value');
- *  hm.set('key2', 'value');
+ * //-- #1. Get Module --//
+ * var HashMap = require('tui-code-snippet').HashMap; // node, commonjs
+ * var HashMap = tui.util.HashMap; // distribution file
  *
- *  hm.find(function(value, key) {
- *      return key === 'key2';
- *  }); // ['value']
+ * //-- #2. Use property --//
+ * var hm1 = new HashMap();
+ * hm1.set('key', 'value');
+ * hm1.set('key2', 'value');
  *
- *  //ex2
- *  var hm = new HashMap({
- *      'myobj1': {
- *           visible: true
- *       },
- *      'mybobj2': {
- *           visible: false
- *       }
- *  });
+ * hm1.find(function(value, key) {
+ *     return key === 'key2';
+ * }); // ['value']
  *
- *  hm.find(function(obj, key) {
- *      return obj.visible === true;
- *  }); // [{visible: true}];
+ * var hm2 = new HashMap({
+ *     'myobj1': {
+ *         visible: true
+ *     },
+ *     'mybobj2': {
+ *         visible: false
+ *     }
+ * });
+ *
+ * hm2.find(function(obj, key) {
+ *     return obj.visible === true;
+ * }); // [{visible: true}];
  */
 HashMap.prototype.find = function(condition) {
     var founds = [];

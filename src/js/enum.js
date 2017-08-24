@@ -2,7 +2,15 @@
  * @fileoverview This module provides a Enum Constructor.
  * @author NHN Ent.
  *         FE Development Lab <dl_javascript@nhnent.com>
- * @dependency type, collection.js
+ * @example
+ * // node, commonjs
+ * var Enum = require('tui-code-snippet').Enum;
+ * @example
+ * // distribution file, script
+ * <script src='path-to/tui-code-snippt.js'></script>
+ * <script>
+ * var Enum = tui.util.Enum;
+ * <script>
  */
 
 'use strict';
@@ -18,6 +26,7 @@ var type = require('./type');
 var isSupportDefinedProperty = (function() {
     try {
         Object.defineProperty({}, 'x', {});
+
         return true;
     } catch (e) {
         return false;
@@ -40,26 +49,29 @@ var enumValue = 0;
  * @class
  * @memberof tui.util
  * @example
- *  //create
- *  var MYENUM = new tui.util.Enum('TYPE1', 'TYPE2');
- *  var MYENUM2 = new tui.util.Enum(['TYPE1', 'TYPE2']);
+ * //-- #1. Get Module --//
+ * var Enum = require('tui-code-snippet').Enum; // node, commonjs
+ * var Enum = tui.util.Enum; // distribution file
  *
- *  //usage
- *  if (value === MYENUM.TYPE1) {
- *       ....
- *  }
+ * //-- #2. Use property --//
+ * var MYENUM = new Enum('TYPE1', 'TYPE2');
+ * var MYENUM2 = new Enum(['TYPE1', 'TYPE2']);
  *
- *  //add (If a duplicate name is inputted, will be disregarded.)
- *  MYENUM.set('TYPE3', 'TYPE4');
+ * //usage
+ * if (value === MYENUM.TYPE1) {
+ *      ....
+ * }
  *
- *  //get name of a constant by a value
- *  MYENUM.getName(MYENUM.TYPE1); // 'TYPE1'
+ * //add (If a duplicate name is inputted, will be disregarded.)
+ * MYENUM.set('TYPE3', 'TYPE4');
  *
- *  // In modern browsers (except IE8 and lower), a value can not be changed in constants.
- *  var originalValue = MYENUM.TYPE1;
- *  MYENUM.TYPE1 = 1234; // maybe TypeError
- *  MYENUM.TYPE1 === originalValue; // true
+ * //get name of a constant by a value
+ * MYENUM.getName(MYENUM.TYPE1); // 'TYPE1'
  *
+ * // In modern browsers (except IE8 and lower), a value can not be changed in constants.
+ * var originalValue = MYENUM.TYPE1;
+ * MYENUM.TYPE1 = 1234; // maybe TypeError
+ * MYENUM.TYPE1 === originalValue; // true
  **/
 function Enum(itemList) {
     if (itemList) {
@@ -95,6 +107,7 @@ Enum.prototype.getName = function(value) {
     collection.forEach(this, function(itemValue, key) { // eslint-disable-line consistent-return
         if (self._isEnumItem(key) && value === itemValue) {
             foundedKey = key;
+
             return false;
         }
     });

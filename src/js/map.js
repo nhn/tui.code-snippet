@@ -4,7 +4,6 @@
  *  Implements the Map object.
  * @author NHN Ent.
  *         FE Development Lab <dl_javascript@nhnent.com>
- * @dependency type.js, collection.js
  */
 
 'use strict';
@@ -66,6 +65,7 @@ MapIterator.prototype.next = function() {
         data.done = false;
         data.value = this._valueGetter(this._keys[this._index], this._index);
     }
+
     return data;
 };
 
@@ -85,6 +85,15 @@ MapIterator.prototype.next = function() {
  * @param  {Array} initData - Array of key-value pairs (2-element Arrays).
  *      Each key-value pair will be added to the new Map
  * @memberof tui.util
+ * @example
+ * // node, commonjs
+ * var Map = require('tui-code-snippet').Map;
+ * @example
+ * // distribution file, script
+ * <script src='path-to/tui-code-snippt.js'></script>
+ * <script>
+ * var Map = tui.util.Map;
+ * <script>
  */
 function Map(initData) {
     this._valuesForString = {};
@@ -143,6 +152,7 @@ Map.prototype._getKeyIndex = function(key) {
     } else {
         result = array.inArray(key, this._keys);
     }
+
     return result;
 };
 
@@ -159,6 +169,7 @@ Map.prototype._getOriginKey = function(key) {
     } else if (key === _KEY_FOR_NAN) {
         originKey = NaN;
     }
+
     return originKey;
 };
 
@@ -175,6 +186,7 @@ Map.prototype._getUniqueKey = function(key) {
     } else if (this._isNaN(key)) {
         uniqueKey = _KEY_FOR_NAN;
     }
+
     return uniqueKey;
 };
 
@@ -257,6 +269,7 @@ Map.prototype.set = function(key, value) {
     } else {
         this._valuesForIndex[keyIndex] = valueObject;
     }
+
     return this;
 };
 

@@ -1,6 +1,6 @@
 'use strict';
 
-var string = require('../src/string');
+var string = require('../src/js/string');
 
 describe('type', function() {
     it('encodeHTMLEntity()', function() {

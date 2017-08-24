@@ -2,7 +2,6 @@
  * @fileoverview This module provides some functions to check the type of variable
  * @author NHN Ent.
  *         FE Development Lab <dl_javascript@nhnent.com>
- * @dependency collection.js
  */
 
 'use strict';
@@ -16,12 +15,17 @@ var toString = Object.prototype.toString;
  * @returns {boolean} Is existy?
  * @memberof tui.util
  * @example
- *  tui.util.isExisty(''); //true
- *  tui.util.isExisty(0); //true
- *  tui.util.isExisty([]); //true
- *  tui.util.isExisty({}); //true
- *  tui.util.isExisty(null); //false
- *  tui.util.isExisty(undefined); //false
+ * //-- #1. Get Module --//
+ * var util = require('tui-code-snippet'); // node, commonjs
+ * var util = tui.util; // distribution file
+ *
+ * //-- #2. Use property --//
+ * util.isExisty(''); //true
+ * util.isExisty(0); //true
+ * util.isExisty([]); //true
+ * util.isExisty({}); //true
+ * util.isExisty(null); //false
+ * util.isExisty(undefined); //false
 */
 function isExisty(param) {
     return !isUndefined(param) && !isNull(param);
@@ -152,7 +156,6 @@ function isBoolean(obj) {
     return typeof obj === 'boolean' || obj instanceof Boolean;
 }
 
-
 /**
  * Check whether the given variable is an instance of Array or not.<br>
  *  If the given variable is an instance of Array, return true.<br>
@@ -224,6 +227,7 @@ function isHTMLNode(html) {
     if (typeof HTMLElement === 'object') {
         return (html && (html instanceof HTMLElement || !!html.nodeType));
     }
+
     return !!(html && html.nodeType);
 }
 
@@ -238,6 +242,7 @@ function isHTMLTag(html) {
     if (typeof HTMLElement === 'object') {
         return (html && (html instanceof HTMLElement));
     }
+
     return !!(html && html.nodeType && html.nodeType === 1);
 }
 
