@@ -50,7 +50,7 @@ It includes several features like `class simulation`, `browser detecting`, `type
  * Support utils to define modules
 
 ## Documentation
-* API: [https://nhnent.github.io/tui.code-snippet/latest/](https://nhnent.github.io/tui.code-snippet/latest/);
+* API: [https://nhnent.github.io/tui.code-snippet/latest/](https://nhnent.github.io/tui.code-snippet/latest/)
 * Tutorial: [https://github.com/nhnent/fe.javascript/wiki/Toast-UI-CodeSnippet](https://github.com/nhnent/fe.javascript/wiki/Toast-UI-CodeSnippet)
 
 ## Tested Browsers
