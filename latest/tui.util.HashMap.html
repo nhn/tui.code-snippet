@@ -67,7 +67,7 @@
             
             <div class="container-source members">
                 <code><a href="hashMap.js.html">hashMap.js</a></code>,
-                <code><a href="hashMap.js.html#line36">line 36</a></code>
+                <code><a href="hashMap.js.html#line48">line 48</a></code>
             </div>
             
         </h4>
@@ -211,13 +211,25 @@ Caution:<br>
         <h5>Examples</h5>
         
     <pre class="prettyprint"><code>// node, commonjs
-var HashMap = require('tui-code-snippet').HashMap;</code></pre>
+var HashMap = require('tui-code-snippet').HashMap;
+var hm = new tui.util.HashMap({
+  'mydata': {
+    'hello': 'imfine'
+  },
+  'what': 'time'
+});</code></pre>
 
     <pre class="prettyprint"><code>// distribution file, script
 &lt;script src='path-to/tui-code-snippt.js'>&lt;/script>
 &lt;script>
 var HashMap = tui.util.HashMap;
-&lt;script></code></pre>
+&lt;script>
+var hm = new tui.util.HashMap({
+  'mydata': {
+    'hello': 'imfine'
+  },
+  'what': 'time'
+});</code></pre>
 
     
 
@@ -248,7 +260,7 @@ var HashMap = tui.util.HashMap;
     
     <div class="container-source members">
         <code><a href="hashMap.js.html">hashMap.js</a></code>,
-        <code><a href="hashMap.js.html#line41">line 41</a></code>
+        <code><a href="hashMap.js.html#line53">line 53</a></code>
     </div>
     
 </h4>
@@ -337,7 +349,7 @@ var HashMap = tui.util.HashMap;
             
             <div class="container-source members">
                 <code><a href="hashMap.js.html">hashMap.js</a></code>,
-                <code><a href="hashMap.js.html#line291">line 291</a></code>
+                <code><a href="hashMap.js.html#line303">line 303</a></code>
             </div>
             
         </h4>
@@ -494,7 +506,7 @@ hm.each(function(value, key) {
             
             <div class="container-source members">
                 <code><a href="hashMap.js.html">hashMap.js</a></code>,
-                <code><a href="hashMap.js.html#line364">line 364</a></code>
+                <code><a href="hashMap.js.html#line376">line 376</a></code>
             </div>
             
         </h4>
@@ -687,7 +699,7 @@ hm2.find(function(obj, key) {
             
             <div class="container-source members">
                 <code><a href="hashMap.js.html">hashMap.js</a></code>,
-                <code><a href="hashMap.js.html#line164">line 164</a></code>
+                <code><a href="hashMap.js.html#line176">line 176</a></code>
             </div>
             
         </h4>
@@ -861,7 +873,7 @@ hm.get('key') // value</code></pre>
             
             <div class="container-source members">
                 <code><a href="hashMap.js.html">hashMap.js</a></code>,
-                <code><a href="hashMap.js.html#line182">line 182</a></code>
+                <code><a href="hashMap.js.html#line194">line 194</a></code>
             </div>
             
         </h4>
@@ -1035,7 +1047,7 @@ hm.has('key') // true</code></pre>
             
             <div class="container-source members">
                 <code><a href="hashMap.js.html">hashMap.js</a></code>,
-                <code><a href="hashMap.js.html#line320">line 320</a></code>
+                <code><a href="hashMap.js.html#line332">line 332</a></code>
             </div>
             
         </h4>
@@ -1160,7 +1172,7 @@ var HashMap = tui.util.HashMap; // distribution file
             
             <div class="container-source members">
                 <code><a href="hashMap.js.html">hashMap.js</a></code>,
-                <code><a href="hashMap.js.html#line120">line 120</a></code>
+                <code><a href="hashMap.js.html#line132">line 132</a></code>
             </div>
             
         </h4>
@@ -1301,7 +1313,7 @@ var HashMap = tui.util.HashMap; // distribution file
             
             <div class="container-source members">
                 <code><a href="hashMap.js.html">hashMap.js</a></code>,
-                <code><a href="hashMap.js.html#line204">line 204</a></code>
+                <code><a href="hashMap.js.html#line216">line 216</a></code>
             </div>
             
         </h4>
@@ -1485,7 +1497,7 @@ hm.remove(['key', 'key2']);</code></pre>
             
             <div class="container-source members">
                 <code><a href="hashMap.js.html">hashMap.js</a></code>,
-                <code><a href="hashMap.js.html#line266">line 266</a></code>
+                <code><a href="hashMap.js.html#line278">line 278</a></code>
             </div>
             
         </h4>
@@ -1576,7 +1588,7 @@ hm.remove(['key', 'key2']);</code></pre>
             
             <div class="container-source members">
                 <code><a href="hashMap.js.html">hashMap.js</a></code>,
-                <code><a href="hashMap.js.html#line226">line 226</a></code>
+                <code><a href="hashMap.js.html#line238">line 238</a></code>
             </div>
             
         </h4>
@@ -1753,7 +1765,7 @@ hm.removeByKey('key')</code></pre>
             
             <div class="container-source members">
                 <code><a href="hashMap.js.html">hashMap.js</a></code>,
-                <code><a href="hashMap.js.html#line252">line 252</a></code>
+                <code><a href="hashMap.js.html#line264">line 264</a></code>
             </div>
             
         </h4>
@@ -1928,7 +1940,7 @@ hm.removeByKeyArray(['key', 'key2']);</code></pre>
             
             <div class="container-source members">
                 <code><a href="hashMap.js.html">hashMap.js</a></code>,
-                <code><a href="hashMap.js.html#line65">line 65</a></code>
+                <code><a href="hashMap.js.html#line77">line 77</a></code>
             </div>
             
         </h4>
@@ -2130,7 +2142,7 @@ hm.set({
             
             <div class="container-source members">
                 <code><a href="hashMap.js.html">hashMap.js</a></code>,
-                <code><a href="hashMap.js.html#line86">line 86</a></code>
+                <code><a href="hashMap.js.html#line98">line 98</a></code>
             </div>
             
         </h4>
@@ -2305,7 +2317,7 @@ hm.setKeyValue('key', 'value');</code></pre>
             
             <div class="container-source members">
                 <code><a href="hashMap.js.html">hashMap.js</a></code>,
-                <code><a href="hashMap.js.html#line108">line 108</a></code>
+                <code><a href="hashMap.js.html#line120">line 120</a></code>
             </div>
             
         </h4>
@@ -2460,7 +2472,7 @@ hm.setObject({
             
             <div class="container-source members">
                 <code><a href="hashMap.js.html">hashMap.js</a></code>,
-                <code><a href="hashMap.js.html#line380">line 380</a></code>
+                <code><a href="hashMap.js.html#line392">line 392</a></code>
             </div>
             
         </h4>
