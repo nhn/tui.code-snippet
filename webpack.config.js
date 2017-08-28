@@ -19,9 +19,7 @@ module.exports = {
     eslint: {
         failOnError: isProduction
     },
-    entry: {
-        'entry': './src/js/index.js'
-    },
+    entry: './src/js/index.js',
     output: {
         library: ['tui', 'util'],
         libraryTarget: 'umd',
