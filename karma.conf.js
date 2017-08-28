@@ -1,3 +1,5 @@
+'use strict';
+
 var webdriverConfig = {
     hostname: 'fe.nhnent.com',
     port: 4444,
@@ -133,6 +135,7 @@ module.exports = function(config) {
         singleRun: true
     };
 
+    /* eslint-disable */
     setConfig(defaultConfig, process.env.KARMA_SERVER);
     config.set(defaultConfig);
 };

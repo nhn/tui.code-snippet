@@ -19,9 +19,7 @@ module.exports = {
     eslint: {
         failOnError: isProduction
     },
-    entry: {
-        'entry': './src/js/index.js'
-    },
+    entry: './src/js/index.js',
     output: {
         library: ['tui', 'util'],
         libraryTarget: 'umd',
@@ -31,11 +29,6 @@ module.exports = {
     },
     module: {
         preLoaders: [
-            {
-                test: /\.js$/,
-                exclude: /(test|bower_components|node_modules)/,
-                loader: 'istanbul-instrumenter'
-            },
             {
                 test: /\.js$/,
                 exclude: /(bower_components|node_modules)/,
