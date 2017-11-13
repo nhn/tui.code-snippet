@@ -1,12 +1,12 @@
 {
   "name": "tui-code-snippet",
-  "version": "1.2.8",
+  "version": "1.2.9",
   "description": "TOAST UI Utility: CodeSnippet",
   "main": "dist/tui-code-snippet.js",
   "scripts": {
     "test": "karma start --no-single-run",
     "test:ne": "KARMA_SERVER=ne karma start",
-    "bundle": "webpack && webpack -p",
+    "bundle": "webpack & webpack -p --screw-ie8=false",
     "cpy-dist2doc": "mkdir -p doc/dist && cp -f -r dist doc",
     "doc": "jsdoc -c jsdoc.conf.json && npm run cpy-dist2doc"
   },

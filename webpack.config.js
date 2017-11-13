@@ -1,3 +1,8 @@
+/**
+ * Configs file for bundling
+ * @author NHN Ent. FE Development Lab <dl_javascript@nhnent.com>
+ */
+
 'use strict';
 
 var pkg = require('./package.json');
@@ -7,6 +12,12 @@ var SafeUmdPlugin = require('safe-umd-webpack-plugin');
 
 var isProduction = process.argv.indexOf('-p') > -1;
 
+var uglifyJsPlugin = new webpack.optimize.UglifyJsPlugin({
+    compress: {
+        'properties': false
+    }
+});
+
 var FILENAME = pkg.name + (isProduction ? '.min.js' : '.js');
 var BANNER = [
     FILENAME,
@@ -15,7 +26,7 @@ var BANNER = [
     '@license ' + pkg.license
 ].join('\n');
 
-module.exports = {
+var config = {
     eslint: {
         failOnError: isProduction
     },
@@ -41,3 +52,9 @@ module.exports = {
         new webpack.BannerPlugin(BANNER)
     ]
 };
+
+if (isProduction) {
+    config.plugins.push(uglifyJsPlugin);
+}
+
+module.exports = config;

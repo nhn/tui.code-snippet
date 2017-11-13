@@ -108,7 +108,7 @@ function forEachOwnProperties(obj, iteratee, context) {
  * });
  * alert(sum); // 6
  *
- * // In case of Array-like object 
+ * // In case of Array-like object
  * var array = Array.prototype.slice.call(arrayLike); // change to array
  * util.forEach(array, function(value){
  *     sum += value;

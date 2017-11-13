@@ -42,7 +42,7 @@ var extend = require('./object').extend;
  * var Child = util.defineClass(Parent, {
  *     childMethod: function() {}
  * });
- * 
+ *
  * Parent.staticMethod();
  *
  * var parentInstance = new Parent();
