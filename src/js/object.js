@@ -252,17 +252,19 @@ function isSameObject(x, y) { // eslint-disable-line complexity
 function pick(obj, paths) { // eslint-disable-line no-unused-vars
     var args = arguments;
     var target = args[0];
+    var i = 1;
     var length = args.length;
-    var i;
-    try {
-        for (i = 1; i < length; i += 1) {
-            target = target[args[i]];
+
+    for (; i < length; i += 1) {
+        if (type.isUndefined(target) ||
+            type.isNull(target)) {
+            return;
         }
 
-        return target;
-    } catch (e) {
-        return;// eslint-disable-line consistent-return, no-useless-return
+        target = target[args[i]];
     }
+
+    return target; // eslint-disable-line consistent-return
 }
 
 module.exports = {
