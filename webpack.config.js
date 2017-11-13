@@ -14,7 +14,7 @@ var isProduction = process.argv.indexOf('-p') > -1;
 
 var uglifyJsPlugin = new webpack.optimize.UglifyJsPlugin({
     compress: {
-        'properties': false
+        'screw_ie8': false
     }
 });
 
