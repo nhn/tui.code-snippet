@@ -128,6 +128,8 @@ describe('object', function() {
             expect(tui.util.pick(o2)).toBeNull();
             expect(tui.util.pick(o2, 'key1')).toBeUndefined();
             expect(tui.util.pick(o2, 'key1', 'key2')).toBeUndefined();
+            expect(tui.util.pick(o2, 'valueOf')).toBeUndefined();
+            expect(tui.util.pick(o2, 'toString')).toBeUndefined();
 
             expect(tui.util.pick(1)).toBe(1);
             expect(tui.util.pick('key1')).toBe('key1');
@@ -136,8 +138,10 @@ describe('object', function() {
         it('Object 인 경우', function() {
             var obj = {
                 'key1': 1,
+                'key2': null,
                 'nested': {
                     'key1': 11,
+                    'key2': null,
                     'nested': {
                         'key1': 21
                     }
@@ -145,6 +149,8 @@ describe('object', function() {
             };
 
             expect(tui.util.pick(obj, 'key1')).toBe(1);
+            expect(tui.util.pick(obj, 'key1', 'notFound')).toBeUndefined();
+
             expect(tui.util.pick(obj, 'nested')).toEqual(obj.nested);
             expect(tui.util.pick(obj, 'nested', 'key1')).toBe(11);
             expect(tui.util.pick(obj, 'nested', 'nested')).toBe(obj.nested.nested);
@@ -152,6 +158,11 @@ describe('object', function() {
 
             expect(tui.util.pick(obj, 'notFound')).toBeUndefined();
             expect(tui.util.pick(obj, 'notFound', 'notFound')).toBeUndefined();
+
+            expect(tui.util.pick(obj, 'key2')).toBeNull();
+            expect(tui.util.pick(obj, 'key2', 'key2')).toBeUndefined();
+            expect(tui.util.pick(obj, 'key2', 'valueOf')).toBeUndefined();
+            expect(tui.util.pick(obj, 'nested', 'key2')).toBeNull();
         });
 
         it('배열인 경우', function() {
