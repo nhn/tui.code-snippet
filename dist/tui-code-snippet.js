@@ -1,6 +1,6 @@
 /*!
  * tui-code-snippet.js
- * @version 1.2.8
+ * @version 1.2.9
  * @author NHNEnt FE Development Lab <dl_javascript@nhnent.com>
  * @license MIT
  */
@@ -363,17 +363,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	function pick(obj, paths) { // eslint-disable-line no-unused-vars
 	    var args = arguments;
 	    var target = args[0];
+	    var i = 1;
 	    var length = args.length;
-	    var i;
-	    try {
-	        for (i = 1; i < length; i += 1) {
-	            target = target[args[i]];
+
+	    for (; i < length; i += 1) {
+	        if (type.isUndefined(target) ||
+	            type.isNull(target)) {
+	            return;
 	        }
 
-	        return target;
-	    } catch (e) {
-	        return;// eslint-disable-line consistent-return, no-useless-return
+	        target = target[args[i]];
 	    }
+
+	    return target; // eslint-disable-line consistent-return
 	}
 
 	module.exports = {
@@ -1008,7 +1010,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * });
 	 * alert(sum); // 6
 	 *
-	 * // In case of Array-like object 
+	 * // In case of Array-like object
 	 * var array = Array.prototype.slice.call(arrayLike); // change to array
 	 * util.forEach(array, function(value){
 	 *     sum += value;
@@ -2377,7 +2379,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * var Child = util.defineClass(Parent, {
 	 *     childMethod: function() {}
 	 * });
-	 * 
+	 *
 	 * Parent.staticMethod();
 	 *
 	 * var parentInstance = new Parent();
