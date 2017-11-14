@@ -10,13 +10,7 @@ var webpack = require('webpack');
 
 var SafeUmdPlugin = require('safe-umd-webpack-plugin');
 
-var isProduction = process.argv.indexOf('-p') > -1;
-
-var uglifyJsPlugin = new webpack.optimize.UglifyJsPlugin({
-    compress: {
-        'properties': false
-    }
-});
+var isProduction = process.argv.indexOf('--production') >= 0;
 
 var FILENAME = pkg.name + (isProduction ? '.min.js' : '.js');
 var BANNER = [
@@ -54,7 +48,11 @@ var config = {
 };
 
 if (isProduction) {
-    config.plugins.push(uglifyJsPlugin);
+    config.plugins.push(new webpack.optimize.UglifyJsPlugin({
+        compress: {
+            'screw_ie8': false
+        }
+    }));
 }
 
 module.exports = config;
