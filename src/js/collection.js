@@ -21,7 +21,8 @@ var object = require('./object');
  * @param {function} iteratee Callback function
  * @param {Object} [context] Context(this) of callback function
  * @memberof tui.util
-  * //-- #1. Get Module --//
+ * @example
+ * //-- #1. Get Module --//
  * var util = require('tui-code-snippet'); // node, commonjs
  * var util = tui.util; // distribution file
  *
@@ -96,6 +97,7 @@ function forEachOwnProperties(obj, iteratee, context) {
  * @param {function} iteratee Callback function
  * @param {Object} [context] Context(this) of callback function
  * @memberof tui.util
+ * @example
  * //-- #1. Get Module --//
  * var util = require('tui-code-snippet'); // node, commonjs
  * var util = tui.util; // distribution file
@@ -136,6 +138,7 @@ function forEach(obj, iteratee, context) {
  * @param {Object} [context] Context(this) of callback function
  * @returns {Array} A new array composed of returned values from callback function
  * @memberof tui.util
+ * @example
  * //-- #1. Get Module --//
  * var util = require('tui-code-snippet'); // node, commonjs
  * var util = tui.util; // distribution file
