@@ -27,6 +27,7 @@ extend(util, require('./func'));
 extend(util, require('./inheritance'));
 extend(util, require('./string'));
 extend(util, require('./tricks'));
+extend(util, require('./request'));
 
 util.browser = require('./browser');
 util.popup = require('./window');
