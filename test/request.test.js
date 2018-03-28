@@ -9,16 +9,16 @@ describe('module:request', function() {
         });
 
         it('should add tracking dom in body', function() {
-            request.imagePing('https://www.google-analytics.com/collect', {
+            var trackingElement = request.imagePing('https://www.google-analytics.com/collect', {
                 v: 1,
                 t: 'event',
-                tid: 'UA-115377265-7',
+                tid: 'tracnkingid',
                 cid: 'cid',
                 dp: 'dp',
                 dh: 'dh'
-            }, 'tracking');
+            });
 
-            expect(document.querySelector('.tracking')).not.toBeNull();
+            expect(trackingElement.src).toBe('https://www.google-analytics.com/collect?v=1&t=event&tid=tracnkingid&cid=cid&dp=dp&dh=dh');
         });
     });
 });

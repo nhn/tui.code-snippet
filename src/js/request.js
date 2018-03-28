@@ -12,7 +12,6 @@ var collection = require('./collection');
  * Request image ping.
  * @param {String} url url for ping request
  * @param {Object} trackingInfo infos for make query string
- * @param {?String} className image class name
  * @returns {HTMLElement}
  * @memberof tui.util
  * @example
@@ -28,9 +27,9 @@ var collection = require('./collection');
  *     cid: 'cid',
  *     dp: 'dp',
  *     dh: 'dh'
- * }, 'ga-trackng');
+ * });
  */
-function imagePing(url, trackingInfo, className) {
+function imagePing(url, trackingInfo) {
     var queryString = collection.map(object.keys(trackingInfo), function(key, index) {
         var startWith = index === 0 ? '' : '&';
 
@@ -39,12 +38,10 @@ function imagePing(url, trackingInfo, className) {
     var trackingElement = document.createElement('img');
 
     trackingElement.src = url + '?' + queryString;
-    if (className) {
-        trackingElement.className = className;
-    }
 
     trackingElement.style.display = 'none';
     document.body.appendChild(trackingElement);
+    document.body.removeChild(trackingElement);
 
     return trackingElement;
 }
