@@ -37,7 +37,7 @@ describe('module:request', function() {
             setTimeout(function() {
                 expect(document.body.appendChild).toHaveBeenCalled();
                 done();
-            }, 10);
+            }, 1000);
         });
 
         it('should not call appendChild', function(done) {
@@ -48,7 +48,7 @@ describe('module:request', function() {
             setTimeout(function() {
                 expect(document.body.appendChild).not.toHaveBeenCalled();
                 done();
-            }, 10);
+            }, 1000);
         });
     });
 });
