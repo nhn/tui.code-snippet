@@ -7,6 +7,38 @@
 
 var object = require('./object');
 var collection = require('./collection');
+var type = require('./type');
+
+/**
+ * Send hostname on DOMContentLoaded.
+ * To prevent hostname set tui.usageStatistics to false.
+ * @param {string} applicationId - application id to send
+ * @ignore
+ */
+function sendHostname(applicationId) {
+    var url = 'https://www.google-analytics.com/collect';
+    var hostname = location.hostname;
+    var hitType = 'event';
+    var trackingId = 'UA-115377265-9';
+
+    // skip only if the flag is defined and is set to false explicitly
+    if (!type.isUndefined(window.tui) && window.tui.usageStatistics === false) {
+        return;
+    }
+
+    setTimeout(function() {
+        if (document.readyState === 'interactive' || document.readyState === 'complete') {
+            imagePing(url, {
+                v: 1,
+                t: hitType,
+                tid: trackingId,
+                cid: hostname,
+                dp: hostname,
+                dh: applicationId
+            });
+        }
+    }, 1000);
+}
 
 /**
  * Request image ping.
@@ -47,5 +79,6 @@ function imagePing(url, trackingInfo) {
 }
 
 module.exports = {
-    imagePing: imagePing
+    imagePing: imagePing,
+    sendHostname: sendHostname
 };
