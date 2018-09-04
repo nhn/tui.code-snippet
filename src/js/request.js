@@ -20,10 +20,17 @@ function sendHostname(applicationId) {
     var hostname = location.hostname;
     var hitType = 'event';
     var trackingId = 'UA-115377265-9';
+    var applicationKeyForStorage = 'TOAST UI ' + applicationId + ' for ' + hostname + ': Statistics';
+    var alreadySentForThisApplication = window.localStorage.getItem(applicationKeyForStorage);
 
     // skip only if the flag is defined and is set to false explicitly
-    if (!type.isUndefined(window.tui) && window.tui.usageStatistics === false) {
+    if ((!type.isUndefined(window.tui) && window.tui.usageStatistics === false)
+        || alreadySentForThisApplication) {
         return;
+    }
+
+    if (!alreadySentForThisApplication) {
+        window.localStorage.setItem(applicationKeyForStorage, true);
     }
 
     setTimeout(function() {
