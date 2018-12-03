@@ -10,6 +10,19 @@ var collection = require('./collection');
 var type = require('./type');
 
 /**
+ * Check if the date has passed 7 days
+ * @param {number} date - milliseconds
+ * @returns {boolean}
+ * @ignore
+ */
+function isExpired(date) {
+    var now = new Date().getTime();
+    var ms7days = 7 * 24 * 60 * 60 * 1000;
+
+    return now - date > ms7days;
+}
+
+/**
  * Send hostname on DOMContentLoaded.
  * To prevent hostname set tui.usageStatistics to false.
  * @param {string} applicationId - application id to send
@@ -21,17 +34,19 @@ function sendHostname(applicationId) {
     var hitType = 'event';
     var trackingId = 'UA-115377265-9';
     var applicationKeyForStorage = 'TOAST UI ' + applicationId + ' for ' + hostname + ': Statistics';
-    var alreadySentForThisApplication = window.localStorage.getItem(applicationKeyForStorage);
+    var date = window.localStorage.getItem(applicationKeyForStorage);
 
-    // skip only if the flag is defined and is set to false explicitly
-    if ((!type.isUndefined(window.tui) && window.tui.usageStatistics === false)
-        || alreadySentForThisApplication) {
+    // skip if the flag is defined and is set to false explicitly
+    if (!type.isUndefined(window.tui) && window.tui.usageStatistics === false) {
         return;
     }
 
-    if (!alreadySentForThisApplication) {
-        window.localStorage.setItem(applicationKeyForStorage, true);
+    // skip if not pass seven days old
+    if (date && !isExpired(date)) {
+        return;
     }
+
+    window.localStorage.setItem(applicationKeyForStorage, new Date().getTime());
 
     setTimeout(function() {
         if (document.readyState === 'interactive' || document.readyState === 'complete') {
