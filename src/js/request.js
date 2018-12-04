@@ -9,6 +9,15 @@ var object = require('./object');
 var collection = require('./collection');
 var type = require('./type');
 
+var trackingIdMap = {
+    'editor': 'UA-129966929-1',
+    'grid': 'UA-129951906-1',
+    'calendar': 'UA-129951699-1',
+    'chart': 'UA-129983528-1',
+    'image-editor': 'UA-129999381-1',
+    'component': 'UA-129987462-1'
+};
+
 /**
  * Check if the date has passed 7 days
  * @param {number} date - milliseconds
@@ -32,7 +41,8 @@ function sendHostname(applicationId) {
     var url = 'https://www.google-analytics.com/collect';
     var hostname = location.hostname;
     var hitType = 'event';
-    var trackingId = 'UA-115377265-9';
+    var eventCategory = 'use';
+    var trackingId = trackingIdMap[applicationId] || trackingIdMap.component;
     var applicationKeyForStorage = 'TOAST UI ' + applicationId + ' for ' + hostname + ': Statistics';
     var date = window.localStorage.getItem(applicationKeyForStorage);
 
@@ -56,7 +66,9 @@ function sendHostname(applicationId) {
                 tid: trackingId,
                 cid: hostname,
                 dp: hostname,
-                dh: applicationId
+                dh: applicationId,
+                el: applicationId,
+                ec: eventCategory
             });
         }
     }, 1000);
