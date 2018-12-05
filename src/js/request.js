@@ -8,15 +8,7 @@
 var object = require('./object');
 var collection = require('./collection');
 var type = require('./type');
-
-var trackingIdMap = {
-    'editor': 'UA-129966929-1',
-    'grid': 'UA-129951906-1',
-    'calendar': 'UA-129951699-1',
-    'chart': 'UA-129983528-1',
-    'image-editor': 'UA-129999381-1',
-    'component': 'UA-129987462-1'
-};
+var ms7days = 7 * 24 * 60 * 60 * 1000;
 
 /**
  * Check if the date has passed 7 days
@@ -26,7 +18,6 @@ var trackingIdMap = {
  */
 function isExpired(date) {
     var now = new Date().getTime();
-    var ms7days = 7 * 24 * 60 * 60 * 1000;
 
     return now - date > ms7days;
 }
@@ -34,16 +25,16 @@ function isExpired(date) {
 /**
  * Send hostname on DOMContentLoaded.
  * To prevent hostname set tui.usageStatistics to false.
- * @param {string} applicationId - application id to send
+ * @param {string} appName - application name
+ * @param {string} trackingId - GA tracking ID
  * @ignore
  */
-function sendHostname(applicationId) {
+function sendHostname(appName, trackingId) {
     var url = 'https://www.google-analytics.com/collect';
     var hostname = location.hostname;
     var hitType = 'event';
     var eventCategory = 'use';
-    var trackingId = trackingIdMap[applicationId] || trackingIdMap.component;
-    var applicationKeyForStorage = 'TOAST UI ' + applicationId + ' for ' + hostname + ': Statistics';
+    var applicationKeyForStorage = 'TOAST UI ' + appName + ' for ' + hostname + ': Statistics';
     var date = window.localStorage.getItem(applicationKeyForStorage);
 
     // skip if the flag is defined and is set to false explicitly
@@ -66,8 +57,8 @@ function sendHostname(applicationId) {
                 tid: trackingId,
                 cid: hostname,
                 dp: hostname,
-                dh: applicationId,
-                el: applicationId,
+                dh: appName,
+                el: appName,
                 ec: eventCategory
             });
         }
