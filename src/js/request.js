@@ -17,7 +17,6 @@ var trackingIdMap = {
     'image-editor': 'UA-129999381-1',
     'component': 'UA-129987462-1'
 };
-var ms7days = 7 * 24 * 60 * 60 * 1000;
 
 /**
  * Check if the date has passed 7 days
@@ -27,6 +26,7 @@ var ms7days = 7 * 24 * 60 * 60 * 1000;
  */
 function isExpired(date) {
     var now = new Date().getTime();
+    var ms7days = 7 * 24 * 60 * 60 * 1000;
 
     return now - date > ms7days;
 }
@@ -47,7 +47,7 @@ function sendHostname(applicationId) {
     var date = window.localStorage.getItem(applicationKeyForStorage);
 
     // skip if the flag is defined and is set to false explicitly
-    if (tui.usageStatistics === false) {
+    if (!type.isUndefined(window.tui) && window.tui.usageStatistics === false) {
         return;
     }
 
