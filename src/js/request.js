@@ -7,6 +7,7 @@
 
 var object = require('./object');
 var collection = require('./collection');
+var type = require('./type');
 
 var trackingIdMap = {
     'editor': 'UA-129966929-1',
