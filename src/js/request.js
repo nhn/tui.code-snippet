@@ -87,6 +87,9 @@ function sendHostname(appName, trackingId) {
  * });
  */
 function imagePing(url, trackingInfo) {
+    if (!type.isUndefined(window.tui) && window.tui.usageStatistics === false) {
+        return;
+    }
     var queryString = collection.map(object.keys(trackingInfo), function(key, index) {
         var startWith = index === 0 ? '' : '&';
 
