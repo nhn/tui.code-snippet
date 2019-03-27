@@ -1,7 +1,7 @@
 /**
  * @fileoverview This module provides a Enum Constructor.
- * @author NHN Ent.
- *         FE Development Lab <dl_javascript@nhnent.com>
+ * @author NHN.
+ *         FE Development Lab <dl_javascript@nhn.com>
  * @example
  * // node, commonjs
  * var Enum = require('tui-code-snippet').Enum;
