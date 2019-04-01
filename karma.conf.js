@@ -52,12 +52,12 @@ function setConfig(defaultConfig, server) {
                 base: 'WebDriver',
                 config: webdriverConfig,
                 browserName: 'firefox'
-            },
-            'Safari-WebDriver': {
-                base: 'WebDriver',
-                config: webdriverConfig,
-                browserName: 'safari'
             }
+            // 'Safari-WebDriver': {
+            //     base: 'WebDriver',
+            //     config: webdriverConfig,
+            //     browserName: 'safari'
+            // }
         };
         defaultConfig.browsers = [
             'IE8',
