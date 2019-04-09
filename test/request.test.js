@@ -29,7 +29,7 @@ describe('module:request', function() {
             // can not spy on imagePing. spy on appendChild instead.
             spyOn(document.body, 'appendChild');
             spyOn(document.body, 'removeChild');
-            spyOn(localStorage, 'getItem').and.returnValue(null);
+            spyOn(Storage.prototype, 'getItem').and.returnValue(null);
         });
 
         it('should call appendChild', function(done) {
@@ -66,7 +66,7 @@ describe('module:request', function() {
             var now = new Date().getTime();
             var ms6days = 6 * 24 * 60 * 60 * 1000;
 
-            spyOn(localStorage, 'getItem').and.returnValue(now - ms6days);
+            spyOn(Storage.prototype, 'getItem').and.returnValue(now - ms6days);
 
             window.tui.usageStatistics = true;
 
@@ -81,8 +81,7 @@ describe('module:request', function() {
         it('should call appendChild after 7 days', function(done) {
             var now = new Date().getTime();
             var ms8days = 8 * 24 * 60 * 60 * 1000;
-
-            spyOn(localStorage, 'getItem').and.returnValue(now - ms8days);
+            spyOn(Storage.prototype, 'getItem').and.returnValue(now - ms8days);
 
             window.tui.usageStatistics = true;
 

@@ -18,9 +18,10 @@
     "nhnent",
     "tui",
     "utility",
-    "code-snippet"
+    "code-snippet",
+    "nhn"
   ],
-  "author": "NHNEnt FE Development Lab <dl_javascript@nhnent.com>",
+  "author": "NHN. FE Development Lab <dl_javascript@nhn.com>",
   "license": "MIT",
   "devDependencies": {
     "eslint": "^4.1.1",

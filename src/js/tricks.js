@@ -1,6 +1,7 @@
 /**
  * @fileoverview collections of some technic methods.
- * @author NHN Ent. FE Development Lab <e0242.nhnent.com>
+ * @author NHN.
+ *         FE Development Lab <dl_javascript.nhn.com>
  */
 
 'use strict';
