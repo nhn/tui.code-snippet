@@ -1,7 +1,7 @@
 /**
  * @fileoverview Define module
- * @author NHN Ent.
- *         FE Development Lab <dl_javscript@nhnent.com>
+ * @author NHN.
+ *         FE Development Lab <dl_javscript@nhn.com>
  * @dependency type.js, defineNamespace.js
  */
 
