@@ -60,7 +60,8 @@ function setConfig(defaultConfig, server) {
             // }
         };
         defaultConfig.browsers = [
-            'IE8',
+            // @FIXME: localStorage mocking 버그. 이후 수정 필요
+            // 'IE8',
             'IE9',
             'IE10',
             // 'IE11',
