@@ -102,8 +102,8 @@ var util = tui.util;
 ```
 
 ### Download
-* [Download bundle files from `dist` folder](https://github.com/nhnent/tui.code-snippet/tree/production/dist)
-* [Download all sources for each version](https://github.com/nhnent/tui.code-snippet/releases)
+* [Download bundle files from `dist` folder](https://github.com/nhn/tui.code-snippet/tree/production/dist)
+* [Download all sources for each version](https://github.com/nhn/tui.code-snippet/releases)
 
 ## License
-[MIT LICENSE](https://github.com/nhnent/tui.code-snippet/blob/master/LICENSE)
+[MIT LICENSE](https://github.com/nhn/tui.code-snippet/blob/master/LICENSE)
