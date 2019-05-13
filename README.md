@@ -50,8 +50,8 @@ It includes several features like `class simulation`, `browser detecting`, `type
  * Support utils to define modules
 
 ## Documentation
-* API: [https://nhnent.github.io/tui.code-snippet/latest/](https://nhnent.github.io/tui.code-snippet/latest/)
-* Tutorial: [https://github.com/nhnent/fe.javascript/wiki/Toast-UI-CodeSnippet](https://github.com/nhnent/fe.javascript/wiki/Toast-UI-CodeSnippet)
+* API: [https://nhn.github.io/tui.code-snippet/latest/](https://nhn.github.io/tui.code-snippet/latest/)
+* Tutorial: [https://github.com/nhn/fe.javascript/wiki/Toast-UI-CodeSnippet](https://github.com/nhn/fe.javascript/wiki/Toast-UI-CodeSnippet)
 
 ## Tested Browsers
 * browser:
@@ -102,8 +102,8 @@ var util = tui.util;
 ```
 
 ### Download
-* [Download bundle files from `dist` folder](https://github.com/nhnent/tui.code-snippet/tree/production/dist)
-* [Download all sources for each version](https://github.com/nhnent/tui.code-snippet/releases)
+* [Download bundle files from `dist` folder](https://github.com/nhn/tui.code-snippet/tree/production/dist)
+* [Download all sources for each version](https://github.com/nhn/tui.code-snippet/releases)
 
 ## License
-[MIT LICENSE](https://github.com/nhnent/tui.code-snippet/blob/master/LICENSE)
+[MIT LICENSE](https://github.com/nhn/tui.code-snippet/blob/master/LICENSE)
