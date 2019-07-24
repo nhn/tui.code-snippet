@@ -41,16 +41,16 @@ describe('defineNamespace', function() {
     });
 
     it('for class', function() {
-        var name = 'Nhnent';
+        var name = 'nhn';
         var mInstance;
 
-        defineNamespace('asdf.Nhnent', function() {
+        defineNamespace('asdf.nhn', function() {
             this.name = name;
             this.getName = function() {
                 return this.name;
             };
         }, true);
-        mInstance = new asdf.Nhnent();
+        mInstance = new asdf.nhn();
 
         expect(mInstance.getName()).toBe(name);
     });
