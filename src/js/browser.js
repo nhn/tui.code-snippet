@@ -40,6 +40,14 @@ var browser = {
 };
 
 if (window && window.navigator) {
+    detectBrowser();
+}
+
+/**
+ * Detect the browser.
+ * @private
+ */
+function detectBrowser() {
     var nav = window.navigator;
     var appName = nav.appName.replace(/\s/g, '_');
     var userAgent = nav.userAgent;
