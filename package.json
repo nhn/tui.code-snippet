@@ -12,14 +12,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/nhnent/tui.code-snippet.git"
+    "url": "https://github.com/nhn/tui.code-snippet.git"
   },
   "keywords": [
-    "nhnent",
+    "nhn",
     "tui",
     "utility",
-    "code-snippet",
-    "nhn"
+    "code-snippet"
   ],
   "author": "NHN. FE Development Lab <dl_javascript@nhn.com>",
   "license": "MIT",
@@ -42,7 +41,7 @@
     "karma-junit-reporter": "^1.2.0",
     "karma-safari-launcher": "^1.0.0",
     "karma-sourcemap-loader": "^0.3.7",
-    "karma-webdriver-launcher": "git+https://github.com/nhnent/karma-webdriver-launcher.git#v1.1.0",
+    "karma-webdriver-launcher": "git+https://github.com/nhn/karma-webdriver-launcher.git#v1.1.0",
     "karma-webpack": "^2.0.3",
     "safe-umd-webpack-plugin": "0.0.2",
     "tui-jsdoc-template": "^1.0.4",
