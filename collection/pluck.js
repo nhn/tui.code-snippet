@@ -5,7 +5,7 @@
 
 'use strict';
 
-var forEach = require('./forEach');
+var map = require('./map');
 
 /**
  * fetching a property
@@ -33,15 +33,11 @@ var forEach = require('./forEach');
  * util.pluck(arr2d, 2); // [3, 6, 9]
  */
 function pluck(arr, property) {
-    var resultArray = [];
-
-    forEach(arr, function() {
-        resultArray.push(function(item) {
-            return item[property];
-        });
+    var result = map(arr, function(item) {
+        return item[property];
     });
 
-    return resultArray;
+    return result;
 }
 
 module.exports = pluck;
