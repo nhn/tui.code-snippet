@@ -10,5 +10,8 @@ module.exports = {
     "globals": {
         "tui": true,
         "loadFixtures": true
+    },
+    "rules": {
+        "dot-notation": ["error", { "allowKeywords": true }]
     }
 };
