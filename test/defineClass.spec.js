@@ -1,6 +1,6 @@
 'use strict';
 
-var defineClass = require('../src/js/defineClass');
+var defineClass = require('../defineClass/defineClass');
 
 describe('module:def', function() {
     describe('def()', function() {
@@ -39,24 +39,24 @@ describe('module:def', function() {
             }
         };
 
-        describe('생성자를 생성할수있다', function() {
+        describe('should create a constructor', function() {
             var MyObject;
 
             beforeEach(function() {
                 MyObject = defineClass(props1);
             });
 
-            it('MyObject.prototype에 method1이 있다.', function() {
+            it('and its prototype should have the methods passed by the parameter.', function() {
                 expect(MyObject.prototype.method1).toBeDefined();
                 expect(MyObject.prototype.method1).toBe(props1.method1);
             });
 
-            it('MyObject.prototype에 var1가 있고 값이 정확하다..', function() {
+            it('and its prototype should have the variables passed by the parameter.', function() {
                 expect(MyObject.prototype.var1).toBeDefined();
                 expect(MyObject.prototype.var1).toEqual(props1.var1);
             });
 
-            it('MyObject으로 생성한 인스턴스에서 va1과 method1를 참조할수있다.', function() {
+            it('and an instance should refer to the prototype\'s method and variable.', function() {
                 var instance = new MyObject();
 
                 expect(instance.var1).toBeDefined();
@@ -66,24 +66,24 @@ describe('module:def', function() {
             });
         });
 
-        describe('init을 넘겨 생성자를 지정할수있다.', function() {
+        describe('should set a constructor by passing init', function() {
             var MyObject;
 
             beforeEach(function() {
                 MyObject = defineClass(propsWithinit);
             });
 
-            it('MyObject.prototype에 method3가 있다.', function() {
+            it('and its prototype should have the methods passed by the parameter.', function() {
                 expect(MyObject.prototype.method3).toBeDefined();
                 expect(MyObject.prototype.method3).toBe(propsWithinit.method3);
             });
 
-            it('MyObject.prototype에 var3가 있고 값이 정확하다..', function() {
+            it('and its prototype should have the variables passed by the parameter.', function() {
                 expect(MyObject.prototype.var3).toBeDefined();
                 expect(MyObject.prototype.var3).toEqual(propsWithinit.var3);
             });
 
-            it('MyObject으로 생성한 인스턴스에서 var3과 method3를 참조할수있다.', function() {
+            it('and an instance should refer to the prototype\'s method and variable.', function() {
                 var instance = new MyObject();
 
                 expect(instance.var3).toBeDefined();
@@ -92,7 +92,7 @@ describe('module:def', function() {
                 expect(instance.method3).toBe(MyObject.prototype.method3);
             });
 
-            it('MyObject으로 생성한 인스턴스에서 인스턴스맴버가 존재한다.', function() {
+            it('and an instance should have instance variables.', function() {
                 var instance = new MyObject();
 
                 expect(instance.instanceVar).toBeDefined();
@@ -100,21 +100,21 @@ describe('module:def', function() {
             });
         });
 
-        describe('static키로 클래스 멤버를 할당할수있다', function() {
+        describe('should assign static variables by a static property', function() {
             var MyObject;
 
             beforeEach(function() {
                 MyObject = defineClass(propsWithStatic);
             });
 
-            it('MyObject에 스테틱멤버가 존재한다.', function() {
+            it('and it should have static members.', function() {
                 expect(MyObject.staticMethod1).toBeDefined();
                 expect(MyObject.staticMethod2).toBeDefined();
                 expect(propsWithStatic['static']).not.toBeDefined();
             });
         });
 
-        describe('생성자를 상속받아 또다른 생성자를 만들수있다.', function() {
+        describe('should create a new constructor by inheriting other constructor', function() {
             var Parent,
                 Child;
 
@@ -123,17 +123,17 @@ describe('module:def', function() {
                 Child = defineClass(Parent, propsWithinit2);
             });
 
-            it('Child.prototype에 method4가 있다.', function() {
+            it('and child\'s prototype should have parent\'s methods.', function() {
                 expect(Child.prototype.method4).toBeDefined();
                 expect(Child.prototype.method4).toBe(propsWithinit2.method4);
             });
 
-            it('Child.prototype에 var4가 있고 값이 정확하다..', function() {
+            it('and child\'s prototype should have parent\'s variables.', function() {
                 expect(Child.prototype.var4).toBeDefined();
                 expect(Child.prototype.var4).toEqual(propsWithinit2.var4);
             });
 
-            it('Child로 생성한 인스턴스에서 프로토타입멤버를 참조할수있다.', function() {
+            it('and child\'s instance should refer to its prototype\'s members.', function() {
                 var instance = new Child();
 
                 expect(instance.var4).toBeDefined();
@@ -142,7 +142,7 @@ describe('module:def', function() {
                 expect(instance.method4).toBe(Child.prototype.method4);
             });
 
-            it('Child로 생성한 인스턴스에서 Parent에서 상속받은 멤버를 참조할수있다.', function() {
+            it('and child\'s instance should refer to parent\'s prototype\'s members.', function() {
                 var instance = new Child();
 
                 expect(instance.var3).toBeDefined();
@@ -151,7 +151,7 @@ describe('module:def', function() {
                 expect(instance.method3).toBe(Parent.prototype.method3);
             });
 
-            it('Child로 생성한 인스턴스에서 인스턴스멤버를 참조할수있다.', function() {
+            it('and child\'s instance should refer to its instance members.', function() {
                 var instance = new Child();
 
                 expect(instance.instanceVar).toBeDefined();
@@ -159,7 +159,7 @@ describe('module:def', function() {
             });
         });
 
-        describe('init안에서 def로 만들어진 생성자를 빌려쓸수있다.', function() {
+        describe('should use a constructor in the init function', function() {
             var Parent,
                 Child;
 
@@ -172,7 +172,7 @@ describe('module:def', function() {
                 });
             });
 
-            it('Child로 생성한 인스턴스에서 Parent에서 상속받은 멤버를 참조할수있다.', function() {
+            it('and child\'s instance should refer the members inherited by parent.', function() {
                 var instance = new Child();
 
                 expect(instance.var3).toBeDefined();
@@ -181,7 +181,7 @@ describe('module:def', function() {
                 expect(instance.method3).toBe(Parent.prototype.method3);
             });
 
-            it('Child로 생성한 인스턴스에서 인스턴스멤버를 참조할수있다.', function() {
+            it('and child\'s instance should refer the instance members.', function() {
                 var instance = new Child();
 
                 expect(instance.instanceVar).toBeDefined();

@@ -64,8 +64,8 @@ function setConfig(defaultConfig, server) {
             // 'IE8',
             'IE9',
             'IE10',
-            // 'IE11',
-            // 'Edge',
+            'IE11',
+            'Edge',
             'Chrome-WebDriver',
             'Firefox-WebDriver'
             // 'Safari-WebDriver'
@@ -103,12 +103,12 @@ function setConfig(defaultConfig, server) {
 module.exports = function(config) {
     var defaultConfig = {
         basePath: './',
-        frameworks: ['jasmine'],
+        frameworks: ['fixture', 'jasmine'],
         files: [
-            'test/*.test.js'
+            'test/*.spec.js'
         ],
         preprocessors: {
-            './test/*.test.js': ['webpack', 'sourcemap']
+            './test/*.spec.js': ['webpack', 'sourcemap']
         },
         reporters: ['dots'],
         webpack: {

@@ -1,6 +1,6 @@
 'use strict';
 
-var CustomEvents = require('../src/js/customEvent');
+var CustomEvents = require('../customEvent/customEvent');
 
 describe('CustomEvents', function() {
     var ce;
@@ -463,7 +463,7 @@ describe('CustomEvents', function() {
         });
     });
 
-    it('Can bind one-shot event.', function() {
+    it('should bind one-shot event.', function() {
         var spy = jasmine.createSpy();
         var inst = new CustomEvents();
 
@@ -475,7 +475,7 @@ describe('CustomEvents', function() {
         expect(spy.calls.count()).toBe(1);
     });
 
-    it('Can bind mutiple one-shot events.', function() {
+    it('should bind mutiple one-shot events.', function() {
         var spy = jasmine.createSpy();
         var inst = new CustomEvents();
 
@@ -492,7 +492,7 @@ describe('CustomEvents', function() {
         expect(spy.calls.count()).toBe(2);
     });
 
-    it('Can check specific event was binded.', function() {
+    it('should check specific event was binded.', function() {
         var inst = new CustomEvents();
         inst.on('test', function() {});
 
@@ -500,7 +500,7 @@ describe('CustomEvents', function() {
         expect(inst.hasListener('good')).not.toBe(true);
     });
 
-    it('Can count event listeners.', function() {
+    it('should count event listeners.', function() {
         var inst = new CustomEvents();
 
         expect(inst.getListenerLength('foo')).toBe(0);

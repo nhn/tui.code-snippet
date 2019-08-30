@@ -1,11 +1,11 @@
 'use strict';
 
-var tui = {};
-tui.util = require('../src/js/inheritance');
+var createObject = require('../inheritance/createObject');
+var inherit = require('../inheritance/inherit');
 
 describe('inheritance', function() {
     describe('#createObject()', function() {
-        it('전달된 객체를 prototype으로 가지는 새 객체를 생성할 수 있다', function() {
+        it('should create a new object and its prototype is the object passed by a parameter.', function() {
             var obj = {
                 say: function() {
                     alert('hello');
@@ -13,17 +13,17 @@ describe('inheritance', function() {
                 arr: [1, 2, 3]
             };
 
-            var newObj = tui.util.createObject(obj);
+            var newObj = createObject(obj);
 
             expect(newObj.say).toBeDefined();
         });
 
-        it('prototype으로 사용하는 객체는 얇은 복사를 하기 때문에 주의해야 한다', function() {
+        it('should be cautious due to the shallow copy of the prototype.', function() {
             var obj = {
                 arr: [1, 3, 4]
             };
 
-            var newObj = tui.util.createObject(obj);
+            var newObj = createObject(obj);
 
             obj.arr.push(5);
 
@@ -32,7 +32,7 @@ describe('inheritance', function() {
     });
 
     describe('#inherit()', function() {
-        it('기본적인 프로토타입 상속을 지원한다', function() {
+        it('should provide the basic prototype inheritance.', function() {
             var adam;
             /* Animal */
             function Animal(leg) {
@@ -49,7 +49,7 @@ describe('inheritance', function() {
                 Animal.call(this, leg);
             }
 
-            tui.util.inherit(Person, Animal);
+            inherit(Person, Animal);
 
             Person.prototype.say = function(word) {
                 return '"' + word + '"';
@@ -64,7 +64,7 @@ describe('inheritance', function() {
             expect(adam.say('good')).toBe('"good"');
         });
 
-        it('상속관계라도 부모의 생성자를 자동 호출하지는 않는다', function() {
+        it('should not automatically call a parent\'s constructor even if a child is inherited by a parent.', function() {
             var person;
             /* Animal */
             function Animal(leg) {
@@ -81,7 +81,7 @@ describe('inheritance', function() {
                 // Animal.call(this, leg); 주석처리함
             }
 
-            tui.util.inherit(Person, Animal);
+            inherit(Person, Animal);
 
             Person.prototype.say = function(word) {
                 return '"' + word + '"';
@@ -92,7 +92,7 @@ describe('inheritance', function() {
             expect(person.leg).toBeUndefined();
         });
 
-        it('2단계 이상 상속도 지원한다', function() {
+        it('should provide deep inheritance more than two-depth.', function() {
             var resig;
 
             /* Animal */
@@ -110,7 +110,7 @@ describe('inheritance', function() {
                 Animal.call(this, leg);
             }
 
-            tui.util.inherit(Person, Animal);
+            inherit(Person, Animal);
 
             Person.prototype.say = function(word) {
                 return '"' + word + '"';
@@ -122,7 +122,7 @@ describe('inheritance', function() {
                 this.name = name;
             }
 
-            tui.util.inherit(Programmer, Person);
+            inherit(Programmer, Person);
 
             Programmer.prototype.coding = function(language) {
                 return this.name + ' coding with ' + language;
@@ -135,7 +135,7 @@ describe('inheritance', function() {
             expect(resig.say('good')).toBe('"good"');
         });
 
-        it('당연한 이야기지만 상속관계더라도 인스턴스 프로퍼티는 공유하지 않는다', function() {
+        it('should not share instance properties even if they are in the inheritance relationship.', function() {
             var ant, person;
 
             /* Animal */
@@ -153,7 +153,7 @@ describe('inheritance', function() {
                 Animal.call(this, leg);
             }
 
-            tui.util.inherit(Person, Animal);
+            inherit(Person, Animal);
 
             Person.prototype.say = function(word) {
                 return '"' + word + '"';
@@ -163,7 +163,7 @@ describe('inheritance', function() {
             ant.move(10);
 
             person = new Person(2);
-            tui.util.inherit(Person, Animal);
+            inherit(Person, Animal);
 
             expect(ant.leg).toBe(6);
             expect(person.leg).toBe(2);

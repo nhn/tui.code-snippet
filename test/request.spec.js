@@ -1,6 +1,7 @@
 'use strict';
 
-var request = require('../src/js/request');
+var imagePing = require('../request/imagePing');
+var sendHostname = require('../request/sendHostname');
 
 describe('module:request', function() {
     describe('imagePing', function() {
@@ -9,7 +10,7 @@ describe('module:request', function() {
         });
 
         it('should add tracking dom in body', function() {
-            var trackingElement = request.imagePing('https://www.google-analytics.com/collect', {
+            var trackingElement = imagePing('https://www.google-analytics.com/collect', {
                 v: 1,
                 t: 'event',
                 tid: 'tracnkingid',
@@ -33,7 +34,7 @@ describe('module:request', function() {
         });
 
         it('should call appendChild', function(done) {
-            request.sendHostname('editor');
+            sendHostname('editor');
 
             setTimeout(function() {
                 expect(document.body.appendChild).toHaveBeenCalled();
@@ -44,7 +45,7 @@ describe('module:request', function() {
         it('should not call appendChild', function(done) {
             window.tui.usageStatistics = false;
 
-            request.sendHostname('editor');
+            sendHostname('editor');
 
             setTimeout(function() {
                 expect(document.body.appendChild).not.toHaveBeenCalled();
@@ -70,7 +71,7 @@ describe('module:request', function() {
 
             window.tui.usageStatistics = true;
 
-            request.sendHostname('editor');
+            sendHostname('editor');
 
             setTimeout(function() {
                 expect(document.body.appendChild).not.toHaveBeenCalled();
@@ -85,7 +86,7 @@ describe('module:request', function() {
 
             window.tui.usageStatistics = true;
 
-            request.sendHostname('editor');
+            sendHostname('editor');
 
             setTimeout(function() {
                 expect(document.body.appendChild).toHaveBeenCalled();

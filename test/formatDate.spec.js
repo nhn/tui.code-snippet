@@ -1,6 +1,6 @@
 'use strict';
 
-var formatDate = require('../src/js/formatDate');
+var formatDate = require('../formatDate/formatDate');
 
 describe('date format', function() {
     it('date format function is defined', function() {
