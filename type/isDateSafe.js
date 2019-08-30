@@ -14,7 +14,7 @@
  * @memberof tui.util
  */
 function isDateSafe(obj) {
-    return toString.call(obj) === '[object Date]';
+    return Object.prototype.toString.call(obj) === '[object Date]';
 }
 
 module.exports = isDateSafe;

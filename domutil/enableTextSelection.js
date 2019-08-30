@@ -37,8 +37,8 @@ function enableTextSelection(el) {
     } else {
         el = (el === document) ? document.documentElement : el;
         style = el.style;
-        style[userSelectProperty] = style.prevSelectStyle;
-        delete style.prevSelectStyle;
+        style[userSelectProperty] = el.prevSelectStyle || 'auto';
+        delete el.prevSelectStyle;
     }
 }
 

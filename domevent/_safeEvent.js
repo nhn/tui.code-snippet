@@ -5,7 +5,7 @@
 
 'use strict';
 
-var Map = require('../map/Map');
+var Map = require('../map/map');
 
 var EVENT_KEY = '_feEventKey';
 

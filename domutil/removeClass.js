@@ -5,8 +5,7 @@
 
 'use strict';
 
-var forEach = require('../collection/forEach');
-var filter = require('../collection/filter');
+var forEachArray = require('../collection/forEachArray');
 var inArray = require('../array/inArray');
 var getClass = require('./getClass');
 var setClassName = require('./_setClassName');
@@ -19,13 +18,13 @@ var setClassName = require('./_setClassName');
  * @memberof tui.dom
  * @function
  */
-function removeClass(element) {    // eslint-disable-line
-    var cssClass = Array.prototype.slice.call(arguments, 1); // eslint-disable-line prefer-rest-params
+function removeClass(element) {
+    var cssClass = Array.prototype.slice.call(arguments, 1);
     var classList = element.classList;
     var origin, newClass;
 
     if (classList) {
-        forEach(cssClass, function(name) {
+        forEachArray(cssClass, function(name) {
             classList.remove(name);
         });
 
@@ -33,9 +32,11 @@ function removeClass(element) {    // eslint-disable-line
     }
 
     origin = getClass(element).split(/\s+/);
-
-    newClass = filter(origin, function(name) {
-        return inArray(name, cssClass) < 0;
+    newClass = [];
+    forEachArray(origin, function(name) {
+        if (inArray(name, cssClass) < 0) {
+            newClass.push(name);
+        }
     });
 
     setClassName(element, newClass);

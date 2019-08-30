@@ -14,7 +14,7 @@
  * @memberof tui.util
  */
 function isFunctionSafe(obj) {
-    return toString.call(obj) === '[object Function]';
+    return Object.prototype.toString.call(obj) === '[object Function]';
 }
 
 module.exports = isFunctionSafe;

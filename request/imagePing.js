@@ -5,8 +5,7 @@
 
 'use strict';
 
-var map = require('../collection/map');
-var keys = require('../object/keys');
+var forEachOwnProperties = require('../collection/forEachOwnProperties');
 
 /**
  * Request image ping.
@@ -30,12 +29,12 @@ var keys = require('../object/keys');
  * });
  */
 function imagePing(url, trackingInfo) {
-    var queryString = map(keys(trackingInfo), function(key, index) {
-        var startWith = index === 0 ? '' : '&';
-
-        return startWith + key + '=' + trackingInfo[key];
-    }).join('');
     var trackingElement = document.createElement('img');
+    var queryString = '';
+    forEachOwnProperties(trackingInfo, function(value, key) {
+        queryString += '&' + key + '=' + value;
+    });
+    queryString = queryString.substring(1);
 
     trackingElement.src = url + '?' + queryString;
 

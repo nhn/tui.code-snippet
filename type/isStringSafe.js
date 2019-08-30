@@ -14,7 +14,7 @@
  * @memberof tui.util
  */
 function isStringSafe(obj) {
-    return toString.call(obj) === '[object String]';
+    return Object.prototype.toString.call(obj) === '[object String]';
 }
 
 module.exports = isStringSafe;

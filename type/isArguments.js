@@ -16,7 +16,7 @@ var isExisty = require('./isExisty');
  */
 function isArguments(obj) {
     var result = isExisty(obj) &&
-        ((toString.call(obj) === '[object Arguments]') || !!obj.callee);
+        ((Object.prototype.toString.call(obj) === '[object Arguments]') || !!obj.callee);
 
     return result;
 }

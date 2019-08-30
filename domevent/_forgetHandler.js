@@ -14,7 +14,7 @@ var safeEvent = require('./_safeEvent');
  * @param {function} keyFn - handler function that user passed at on() use
  */
 function forgetHandler(element, type, keyFn) {
-    safeEvent(element, type).delete(keyFn);
+    safeEvent(element, type)['delete'](keyFn);
 }
 
 module.exports = forgetHandler;

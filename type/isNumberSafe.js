@@ -14,7 +14,7 @@
  * @memberof tui.util
  */
 function isNumberSafe(obj) {
-    return toString.call(obj) === '[object Number]';
+    return Object.prototype.toString.call(obj) === '[object Number]';
 }
 
 module.exports = isNumberSafe;

@@ -37,7 +37,7 @@ function disableTextSelection(el) {
     } else {
         el = (el === document) ? document.documentElement : el;
         style = el.style;
-        style.prevSelectStyle = style[userSelectProperty];
+        el.prevSelectStyle = style[userSelectProperty];
         style[userSelectProperty] = 'none';
     }
 }

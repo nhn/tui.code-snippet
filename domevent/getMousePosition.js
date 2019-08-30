@@ -6,7 +6,6 @@
 'use strict';
 
 var isArray = require('../type/isArray');
-var getRect = require('../domutil/getRect');
 
 /**
  * Get mouse position from mouse event
@@ -31,7 +30,7 @@ function getMousePosition(position, relativeElement) {
         return [clientX, clientY];
     }
 
-    rect = getRect(relativeElement);
+    rect = relativeElement.getBoundingClientRect();
 
     return [
         clientX - rect.left - relativeElement.clientLeft,

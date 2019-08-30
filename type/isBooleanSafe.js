@@ -14,7 +14,7 @@
  * @memberof tui.util
  */
 function isBooleanSafe(obj) {
-    return toString.call(obj) === '[object Boolean]';
+    return Object.prototype.toString.call(obj) === '[object Boolean]';
 }
 
 module.exports = isBooleanSafe;
