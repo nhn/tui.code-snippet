@@ -7,9 +7,12 @@
 
 var off = require('../domevent/off');
 var preventDefault = require('../domevent/preventDefault');
+var getData = require('./getData');
+var removeData = require('./removeData');
 var testCSSProp = require('./_testCSSProp');
 
 var SUPPORT_SELECTSTART = 'onselectstart' in document;
+var KEY_PREVIOUS_USER_SELECT = 'prevUserSelect';
 var userSelectProperty = testCSSProp([
     'userSelect',
     'WebkitUserSelect',
@@ -26,8 +29,6 @@ var userSelectProperty = testCSSProp([
  * @function
  */
 function enableTextSelection(el) {
-    var style;
-
     if (!el) {
         el = document;
     }
@@ -36,9 +37,8 @@ function enableTextSelection(el) {
         off(el, 'selectstart', preventDefault);
     } else {
         el = (el === document) ? document.documentElement : el;
-        style = el.style;
-        style[userSelectProperty] = el.prevSelectStyle || 'auto';
-        delete el.prevSelectStyle;
+        el.style[userSelectProperty] = getData(el, KEY_PREVIOUS_USER_SELECT) || 'auto';
+        removeData(el, KEY_PREVIOUS_USER_SELECT);
     }
 }
 
