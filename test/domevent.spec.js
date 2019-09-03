@@ -24,49 +24,52 @@ describe('The domevent module', function() {
     it('on() should bind DOM event.', function() {
         on(btn, 'click', spy);
 
-        expect(btn._feEventKey.click.has(spy)).toBe(true);
-        expect(btn._feEventKey.click.size).toBe(1);
+        expect(btn._feEventKey.click.length).toBe(1);
+        expect(btn._feEventKey.click[0].keyFn).toEqual(spy);
     });
 
     it('once() should bind DOM event and unbind after invoke.', function() {
         once(btn, 'click', spy);
         btn.click();
 
-        expect(btn._feEventKey.click.has(spy)).toBe(false);
-        expect(btn._feEventKey.click.size).toBe(0);
+        expect(btn._feEventKey.click.length).toBe(0);
     });
 
     it('off() should unbind DOM event.', function() {
         on(btn, 'click', spy);
         off(btn, 'click', spy);
 
-        expect(btn._feEventKey.click.has(spy)).toBe(false);
-        expect(btn._feEventKey.click.size).toBe(0);
+        expect(btn._feEventKey.click.length).toBe(0);
     });
 
-    it('off() should unbind all event for same type name and handler.', function() {
+    it('off() should unbind an event for same type name and handler.', function() {
         var spy2 = jasmine.createSpy('spy2');
 
         on(btn, 'click', spy);
         on(btn, 'click', spy);
         on(btn, 'click', spy2);
 
-        expect(btn._feEventKey.click.has(spy)).toBe(true);
-        expect(btn._feEventKey.click.size).toBe(2);
-        expect(btn._feEventKey.click.get(spy)).toEqual([
-            jasmine.any(Function),
-            jasmine.any(Function)
-        ]);
+        expect(btn._feEventKey.click.length).toBe(2);
+        expect(btn._feEventKey.click[0].keyFn).toEqual(spy);
+        expect(btn._feEventKey.click[1].keyFn).toEqual(spy2);
+        expect(btn._feEventKey.click[0].valueFn).toEqual(jasmine.any(Function));
 
         off(btn, 'click', spy);
 
-        expect(btn._feEventKey.click.has(spy)).toBe(false);
-        expect(btn._feEventKey.click.size).toBe(1);
-
+        expect(btn._feEventKey.click.length).toBe(1);
         // spy2 must not unbind at this moment.
-        expect(btn._feEventKey.click.get(spy2)).toEqual([
-            jasmine.any(Function)
-        ]);
+        expect(btn._feEventKey.click[0].keyFn).toEqual(spy2);
+        expect(btn._feEventKey.click[0].valueFn).toEqual(jasmine.any(Function));
+    });
+
+    it('off() should unbind all events of the type if a handler is not passed.', function() {
+        var spy2 = jasmine.createSpy('spy2');
+
+        on(btn, 'click', spy);
+        on(btn, 'click', spy2);
+        off(btn, 'click');
+
+        expect(btn._feEventKey.click.length).toBe(0);
     });
 
     it('getMousePosition() should calculate mouse cursor position relative by other element.', function() {

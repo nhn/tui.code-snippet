@@ -5,30 +5,28 @@
 
 'use strict';
 
-var Map = require('../map/map');
-
 var EVENT_KEY = '_feEventKey';
 
 /**
  * Get event collection for specific HTML element
  * @param {HTMLElement} element - HTML element
  * @param {string} type - event type
- * @returns {(object|Map)}
+ * @returns {array}
  */
 function safeEvent(element, type) {
     var events = element[EVENT_KEY];
-    var handlerMap;
+    var handlersArray;
 
     if (!events) {
         events = element[EVENT_KEY] = {};
     }
 
-    handlerMap = events[type];
-    if (!handlerMap) {
-        handlerMap = events[type] = new Map();
+    handlersArray = events[type];
+    if (!handlersArray) {
+        handlersArray = events[type] = [];
     }
 
-    return handlerMap;
+    return handlersArray;
 }
 
 module.exports = safeEvent;
