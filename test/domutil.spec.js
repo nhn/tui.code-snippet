@@ -1,19 +1,19 @@
 'use strict';
 
-var css = require('../domutil/css');
-var getClass = require('../domutil/getClass');
-var hasClass = require('../domutil/hasClass');
-var addClass = require('../domutil/addClass');
-var toggleClass = require('../domutil/toggleClass');
-var removeClass = require('../domutil/removeClass');
-var setData = require('../domutil/setData');
-var getData = require('../domutil/getData');
-var removeData = require('../domutil/removeData');
-var removeElement = require('../domutil/removeElement');
-var matches = require('../domutil/matches');
-var closest = require('../domutil/closest');
-var disableTextSelection = require('../domutil/disableTextSelection');
-var enableTextSelection = require('../domutil/enableTextSelection');
+var css = require('../domUtil/css');
+var getClass = require('../domUtil/getClass');
+var hasClass = require('../domUtil/hasClass');
+var addClass = require('../domUtil/addClass');
+var toggleClass = require('../domUtil/toggleClass');
+var removeClass = require('../domUtil/removeClass');
+var setData = require('../domUtil/setData');
+var getData = require('../domUtil/getData');
+var removeData = require('../domUtil/removeData');
+var removeElement = require('../domUtil/removeElement');
+var matches = require('../domUtil/matches');
+var closest = require('../domUtil/closest');
+var disableTextSelection = require('../domUtil/disableTextSelection');
+var enableTextSelection = require('../domUtil/enableTextSelection');
 
 var browser = require('../browser/browser');
 var NO_SVG = browser.msie && browser.version < 9;

@@ -1,10 +1,10 @@
 'use strict';
 
-var on = require('../domevent/on');
-var once = require('../domevent/once');
-var off = require('../domevent/off');
-var getMousePosition = require('../domevent/getMousePosition');
-var getTarget = require('../domevent/getTarget');
+var on = require('../domEvent/on');
+var once = require('../domEvent/once');
+var off = require('../domEvent/off');
+var getMousePosition = require('../domEvent/getMousePosition');
+var getTarget = require('../domEvent/getTarget');
 
 describe('The domevent module', function() {
     var btn, spy;
