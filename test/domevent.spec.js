@@ -25,7 +25,7 @@ describe('The domevent module', function() {
         on(btn, 'click', spy);
 
         expect(btn._feEventKey.click.length).toBe(1);
-        expect(btn._feEventKey.click[0].keyFn).toEqual(spy);
+        expect(btn._feEventKey.click[0].handler).toEqual(spy);
     });
 
     it('once() should bind DOM event and unbind after invoke.', function() {
@@ -50,16 +50,16 @@ describe('The domevent module', function() {
         on(btn, 'click', spy2);
 
         expect(btn._feEventKey.click.length).toBe(2);
-        expect(btn._feEventKey.click[0].keyFn).toEqual(spy);
-        expect(btn._feEventKey.click[1].keyFn).toEqual(spy2);
-        expect(btn._feEventKey.click[0].valueFn).toEqual(jasmine.any(Function));
+        expect(btn._feEventKey.click[0].handler).toEqual(spy);
+        expect(btn._feEventKey.click[1].handler).toEqual(spy2);
+        expect(btn._feEventKey.click[0].wrappedHandler).toEqual(jasmine.any(Function));
 
         off(btn, 'click', spy);
 
         expect(btn._feEventKey.click.length).toBe(1);
         // spy2 must not unbind at this moment.
-        expect(btn._feEventKey.click[0].keyFn).toEqual(spy2);
-        expect(btn._feEventKey.click[0].valueFn).toEqual(jasmine.any(Function));
+        expect(btn._feEventKey.click[0].handler).toEqual(spy2);
+        expect(btn._feEventKey.click[0].wrappedHandler).toEqual(jasmine.any(Function));
     });
 
     it('off() should unbind all events of the type if a handler is not passed.', function() {

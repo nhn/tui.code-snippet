@@ -46,14 +46,20 @@ function unbindEvent(element, type, handler) {
     var index;
 
     forEach(events, function(item, idx) {
-        if (!handler || handler === item.keyFn) {
+        if (!handler || handler === item.handler) {
             if ('removeEventListener' in element) {
-                element.removeEventListener(type, item.valueFn);
+                element.removeEventListener(type, item.wrappedHandler);
             } else if ('detachEvent' in element) {
-                element.detachEvent('on' + type, item.valueFn);
+                element.detachEvent('on' + type, item.wrappedHandler);
             }
             index = idx;
+
+            if (handler) {
+                return false;
+            }
         }
+
+        return true;
     });
 
     if (handler) {

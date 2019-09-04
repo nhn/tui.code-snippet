@@ -64,17 +64,17 @@ function bindEvent(element, type, handler, context) {
  * Memorize DOM event handler for unbinding.
  * @param {HTMLElement} element - element to bind events
  * @param {string} type - events name
- * @param {function} keyFn - handler function that user passed at on() use
- * @param {function} valueFn - handler function that wrapped by domevent for implementing some features
+ * @param {function} handler - handler function that user passed at on() use
+ * @param {function} wrappedHandler - handler function that wrapped by domevent for implementing some features
  * @private
  */
-function memorizeHandler(element, type, keyFn, valueFn) {
+function memorizeHandler(element, type, handler, wrappedHandler) {
     var events = safeEvent(element, type);
-    var item;
+    var existInEvents = false;
 
     forEach(events, function(obj) {
-        if (obj.keyFn === keyFn) {
-            item = obj;
+        if (obj.handler === handler) {
+            existInEvents = true;
 
             return false;
         }
@@ -82,12 +82,11 @@ function memorizeHandler(element, type, keyFn, valueFn) {
         return true;
     });
 
-    if (!item) {
-        item = {
-            keyFn: keyFn,
-            valueFn: valueFn
-        };
-        events.push(item);
+    if (!existInEvents) {
+        events.push({
+            handler: handler,
+            wrappedHandler: wrappedHandler
+        });
     }
 }
 
