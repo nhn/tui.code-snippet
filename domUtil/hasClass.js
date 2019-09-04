@@ -13,10 +13,7 @@ var getClass = require('./getClass');
  * @param {(HTMLElement|SVGElement)} element - target element
  * @param {string} cssClass - css class
  * @returns {boolean}
- * @name hasClass
- * @memberof tui.dom
- * @function
- * @api
+ * @memberof module:domUtil
  */
 function hasClass(element, cssClass) {
     var origin;

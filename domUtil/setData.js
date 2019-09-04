@@ -10,9 +10,7 @@
  * @param {HTMLElement} element - element to set data attribute
  * @param {string} key - key
  * @param {string} value - value
- * @name setData
- * @memberof tui.dom
- * @function
+ * @memberof module:domUtil
  */
 function setData(element, key, value) {
     if (element.dataset) {

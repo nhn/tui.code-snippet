@@ -8,18 +8,19 @@
 var forEachOwnProperties = require('../collection/forEachOwnProperties');
 
 /**
+ * @module request
+ */
+
+/**
  * Request image ping.
  * @param {String} url url for ping request
  * @param {Object} trackingInfo infos for make query string
  * @returns {HTMLElement}
- * @memberof tui.util
+ * @memberof module:request
  * @example
- * //-- #1. Get Module --//
- * var util = require('tui-code-snippet'); // node, commonjs
- * var util = tui.util; // distribution file
+ * var imagePing = require('tui-code-snippet/request/imagePing'); // node, commonjs
  *
- * //-- #2. Use property --//
- * util.imagePing('https://www.google-analytics.com/collect', {
+ * imagePing('https://www.google-analytics.com/collect', {
  *     v: 1,
  *     t: 'event',
  *     tid: 'trackingid',

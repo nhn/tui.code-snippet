@@ -9,16 +9,12 @@
  * Transform the given string into HTML Entity string.
  * @param {String} html - String for encoding
  * @returns {String} HTML Entity
- * @memberof tui.util
+ * @memberof module:string
  * @example
- * //-- #1. Get Module --//
- * var util = require('tui-code-snippet'); // node, commonjs
- * var util = tui.util; // distribution file
+ * var encodeHTMLEntity = require('tui-code-snippet/string/encodeHTMLEntity'); // node, commonjs
  *
- * //-- #2. Use property --//
- *  var htmlEntityString = "<script> alert('test');</script><a href='test'>";
- *  var result = util.encodeHTMLEntity(htmlEntityString);
- * //"&lt;script&gt; alert(&#39;test&#39;);&lt;/script&gt;&lt;a href=&#39;test&#39;&gt;"
+ * var htmlEntityString = "<script> alert('test');</script><a href='test'>";
+ * var result = encodeHTMLEntity(htmlEntityString);
  */
 function encodeHTMLEntity(html) {
     var entities = {

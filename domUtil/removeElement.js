@@ -8,9 +8,7 @@
 /**
  * Remove element from parent node.
  * @param {HTMLElement} element - element to remove.
- * @name removeElement
- * @memberof tui.dom
- * @function
+ * @memberof module:domUtil
  */
 function removeElement(element) {
     if (element && element.parentNode) {

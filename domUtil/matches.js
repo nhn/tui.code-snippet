@@ -24,9 +24,7 @@ var matchSelector = elProto.matches ||
  * @param {HTMLElement} element - element to check
  * @param {string} selector - selector to check
  * @returns {boolean} is selector matched to element?
- * @name matches
- * @memberof tui.dom
- * @function
+ * @memberof module:domUtil
  */
 function matches(element, selector) {
     return matchSelector.call(element, selector);

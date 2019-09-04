@@ -8,19 +8,16 @@
 var createObject = require('./createObject');
 
 /**
- * Provide a simple inheritance in prototype-oriented.<br>
+ * Provide a simple inheritance in prototype-oriented.
  * Caution :
  *  Don't overwrite the prototype of child constructor.
  *
  * @param {function} subType Child constructor
  * @param {function} superType Parent constructor
- * @memberof tui.util
+ * @memberof module:inheritance
  * @example
- * //-- #1. Get Module --//
- * var util = require('tui-code-snippet'); // node, commonjs
- * var util = tui.util; // distribution file
+ * var inherit = require('tui-code-snippet/inheritance/inherit'); // node, commonjs
  *
- * //-- #2. Use property --//
  * // Parent constructor
  * function Animal(leg) {
  *     this.leg = leg;
@@ -35,7 +32,7 @@ var createObject = require('./createObject');
  * }
  *
  * // Inheritance
- * util.inherit(Person, Animal);
+ * inherit(Person, Animal);
  *
  * // After this inheritance, please use only the extending of property.
  * // Do not overwrite prototype.

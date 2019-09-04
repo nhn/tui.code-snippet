@@ -12,13 +12,10 @@ var forEach = require('./forEach');
  * @param {Array} arr target collection
  * @param {String|Number} property property name
  * @returns {Array}
- * @memberof tui.util
+ * @memberof module:collection
  * @example
- * //-- #1. Get Module --//
- * var util = require('tui-code-snippet'); // node, commonjs
- * var util = tui.util; // distribution file
+ * var pluck = require('tui-code-snippe/collection/pluck'); // node, commonjs
  *
- * //-- #2. Use property --//
  * var objArr = [
  *     {'abc': 1, 'def': 2, 'ghi': 3},
  *     {'abc': 4, 'def': 5, 'ghi': 6},
@@ -29,8 +26,8 @@ var forEach = require('./forEach');
  *     [4, 5, 6],
  *     [7, 8, 9]
  * ];
- * util.pluck(objArr, 'abc'); // [1, 4, 7]
- * util.pluck(arr2d, 2); // [3, 6, 9]
+ * pluck(objArr, 'abc'); // [1, 4, 7]
+ * pluck(arr2d, 2); // [3, 6, 9]
  */
 function pluck(arr, property) {
     var resultArray = [];

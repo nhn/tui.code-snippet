@@ -12,7 +12,7 @@ var isUndefined = require('../type/isUndefined');
  * Set className value
  * @param {(HTMLElement|SVGElement)} element - target element
  * @param {(string|string[])} cssClass - class names
- * @ignore
+ * @private
  */
 function setClassName(element, cssClass) {
     cssClass = isArray(cssClass) ? cssClass.join(' ') : cssClass;

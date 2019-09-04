@@ -17,9 +17,7 @@ var safeEvent = require('./_safeEvent');
  * @param {(string|object)} types - Space splitted events names or
  *  eventName:handler object
  * @param {function} [handler] - handler function
- * @name off
- * @memberof tui.dom
- * @function
+ * @memberof module:domEvent
  */
 function off(element, types, handler) {
     if (isString(types)) {
@@ -41,6 +39,7 @@ function off(element, types, handler) {
  * @param {HTMLElement} element - element to unbind events
  * @param {string} type - events name
  * @param {function} [handler] - handler function
+ * @private
  */
 function unbindEvent(element, type, handler) {
     var events = safeEvent(element, type);

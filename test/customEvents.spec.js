@@ -1,6 +1,6 @@
 'use strict';
 
-var CustomEvents = require('../customEvent/customEvent');
+var CustomEvents = require('../customEvents/customEvents');
 
 describe('CustomEvents', function() {
     var ce;

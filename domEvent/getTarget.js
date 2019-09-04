@@ -9,7 +9,7 @@
  * Get a target element from an event object.
  * @param {Event} e - event object
  * @returns {HTMLElement} - target element
- * @name getTarget
+ * @memberof module:domEvent
  */
 function getTarget(e) {
     return e.target || e.srcElement;

@@ -10,9 +10,7 @@
  * @param {HTMLElement} element - target element
  * @param {string} key - key
  * @returns {string} value
- * @name getData
- * @memberof tui.dom
- * @function
+ * @memberof module:domUtil
  */
 function getData(element, key) {
     if (element.dataset) {

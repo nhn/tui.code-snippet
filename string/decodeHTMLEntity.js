@@ -6,18 +6,19 @@
 'use strict';
 
 /**
+ * @module string
+ */
+
+/**
  * Transform the given HTML Entity string into plain string.
  * @param {String} htmlEntity - HTML Entity type string
  * @returns {String} Plain string
- * @memberof tui.util
+ * @memberof module:string
  * @example
- * //-- #1. Get Module --//
- * var util = require('tui-code-snippet'); // node, commonjs
- * var util = tui.util; // distribution file
+ * var decodeHTMLEntity = require('tui-code-snippet/string/decodeHTMLEntity'); // node, commonjs
  *
- * //-- #2. Use property --//
- *  var htmlEntityString = "A &#39;quote&#39; is &lt;b&gt;bold&lt;/b&gt;"
- *  var result = util.decodeHTMLEntity(htmlEntityString); //"A 'quote' is <b>bold</b>"
+ * var htmlEntityString = "A &#39;quote&#39; is &lt;b&gt;bold&lt;/b&gt;"
+ * var result = decodeHTMLEntity(htmlEntityString); //"A 'quote' is <b>bold</b>"
  */
 function decodeHTMLEntity(htmlEntity) {
     var entities = {

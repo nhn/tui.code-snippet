@@ -11,12 +11,15 @@ var getClass = require('./getClass');
 var setClassName = require('./_setClassName');
 
 /**
+ * domUtil module
+ * @module domUtil
+ */
+
+/**
  * Add css class to element
  * @param {(HTMLElement|SVGElement)} element - target element
  * @param {...string} cssClass - css classes to add
- * @name addClass
- * @memberof tui.dom
- * @function
+ * @memberof module:domUtil
  */
 function addClass(element) {
     var cssClass = Array.prototype.slice.call(arguments, 1);

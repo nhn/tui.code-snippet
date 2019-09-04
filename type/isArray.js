@@ -6,11 +6,11 @@
 'use strict';
 
 /**
- * Check whether the given variable is an instance of Array or not.<br>
+ * Check whether the given variable is an instance of Array or not.
  * If the given variable is an instance of Array, return true.
  * @param {*} obj - Target for checking
  * @returns {boolean} Is array instance?
- * @memberof tui.util
+ * @memberof module:type
  */
 function isArray(obj) {
     return obj instanceof Array;

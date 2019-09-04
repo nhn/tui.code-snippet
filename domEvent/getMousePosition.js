@@ -16,9 +16,7 @@ var isArray = require('../type/isArray');
  * @param {HTMLElement} relativeElement HTML element that calculate relative
  *  position
  * @returns {number[]} mouse position
- * @name getMousePosition
- * @memberof tui.dom
- * @function
+ * @memberof module:domEvent
  */
 function getMousePosition(position, relativeElement) {
     var positionArray = isArray(position);

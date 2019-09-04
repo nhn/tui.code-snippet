@@ -13,19 +13,16 @@ var isUndefined = require('../type/isUndefined');
  * @param {number} stop - stop index
  * @param {number} step - next visit index = current index + step
  * @returns {Array}
- * @memberof tui.util
+ * @memberof module:array
  * @example
- * //-- #1. Get Module --//
- * var util = require('tui-code-snippet'); // node, commonjs
- * var util = tui.util; // distribution file
+ * var range = require('tui-code-snippet/array/range'); // node, commonjs
  *
- * //-- #2. Use property --//
- * util.range(5); // [0, 1, 2, 3, 4]
- * util.range(1, 5); // [1,2,3,4]
- * util.range(2, 10, 2); // [2,4,6,8]
- * util.range(10, 2, -2); // [10,8,6,4]
+ * range(5); // [0, 1, 2, 3, 4]
+ * range(1, 5); // [1,2,3,4]
+ * range(2, 10, 2); // [2,4,6,8]
+ * range(10, 2, -2); // [10,8,6,4]
  */
-var range = function(start, stop, step) {
+function range(start, stop, step) {
     var arr = [];
     var flag;
 
@@ -43,6 +40,6 @@ var range = function(start, stop, step) {
     }
 
     return arr;
-};
+}
 
 module.exports = range;

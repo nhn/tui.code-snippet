@@ -7,8 +7,8 @@
 
 /**
  * Execute the provided callback once for each element present
- * in the array(or Array-like object) in ascending order.<br>
- * If the callback function returns false, the loop will be stopped.<br>
+ * in the array(or Array-like object) in ascending order.
+ * If the callback function returns false, the loop will be stopped.
  * Callback function(iteratee) is invoked with three arguments:
  *  - The value of the element
  *  - The index of the element
@@ -16,16 +16,13 @@
  * @param {Array} arr The array(or Array-like object) that will be traversed
  * @param {function} iteratee Callback function
  * @param {Object} [context] Context(this) of callback function
- * @memberof tui.util
+ * @memberof module:collection
  * @example
- * //-- #1. Get Module --//
- * var util = require('tui-code-snippet'); // node, commonjs
- * var util = tui.util; // distribution file
+ * var forEachArray = require('tui-code-snippet/collection/forEachArray'); // node, commonjs
  *
- * //-- #2. Use property --//
  * var sum = 0;
  *
- * util.forEachArray([1,2,3], function(value){
+ * forEachArray([1,2,3], function(value){
  *     sum += value;
  * });
  * alert(sum); // 6

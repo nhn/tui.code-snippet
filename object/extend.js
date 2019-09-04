@@ -6,11 +6,15 @@
 'use strict';
 
 /**
+ * @module object
+ */
+
+/**
  * Extend the target object from other objects.
  * @param {object} target - Object that will be extended
  * @param {...object} objects - Objects as sources
  * @returns {object} Extended object
- * @memberof tui.util
+ * @memberof module:object
  */
 function extend(target, objects) { // eslint-disable-line no-unused-vars
     var hasOwnProp = Object.prototype.hasOwnProperty;

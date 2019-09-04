@@ -11,20 +11,22 @@ var inherit = require('../inheritance/inherit');
 var extend = require('../object/extend');
 
 /**
+ * @module defineClass
+ */
+
+/**
  * Help a constructor to be defined and to inherit from the other constructors
  * @param {*} [parent] Parent constructor
  * @param {Object} props Members of constructor
  *  @param {Function} props.init Initialization method
  *  @param {Object} [props.static] Static members of constructor
  * @returns {*} Constructor
- * @memberof tui.util
+ * @memberof module:defineClass
  * @example
- * //-- #1. Get Module --//
- * var util = require('tui-code-snippet'); // node, commonjs
- * var util = tui.util; // distribution file
+ * var defineClass = require('tui-code-snippet/defineClass/defineClass'); // node, commonjs
  *
  * //-- #2. Use property --//
- * var Parent = util.defineClass({
+ * var Parent = defineClass({
  *     init: function() { // constuructor
  *         this.name = 'made by def';
  *     },
@@ -38,7 +40,7 @@ var extend = require('../object/extend');
  *     }
  * });
  *
- * var Child = util.defineClass(Parent, {
+ * var Child = defineClass(Parent, {
  *     childMethod: function() {}
  * });
  *

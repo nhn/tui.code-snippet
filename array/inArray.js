@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 /**
  * @fileoverview Returns the first index at which a given element can be found in the array.
  * @author NHN FE Development Lab <dl_javascript@nhn.com>
@@ -8,27 +9,27 @@
 var isArray = require('../type/isArray');
 
 /**
+ * @module array
+ */
+
+/**
  * Returns the first index at which a given element can be found in the array
- * from start index(default 0), or -1 if it is not present.<br>
+ * from start index(default 0), or -1 if it is not present.
  * It compares searchElement to elements of the Array using strict equality
  * (the same method used by the ===, or triple-equals, operator).
  * @param {*} searchElement Element to locate in the array
  * @param {Array} array Array that will be traversed.
  * @param {number} startIndex Start index in array for searching (default 0)
  * @returns {number} the First index at which a given element, or -1 if it is not present
- * @memberof tui.util
+ * @memberof module:array
  * @example
- * //-- #1. Get Module --//
- * var util = require('tui-code-snippet'); // node, commonjs
- * var util = tui.util; // distribution file
+ * var inArray = require('tui-code-snippet/array/inArray'); // node, commonjs
  *
- * //-- #2. Use property --//
  * var arr = ['one', 'two', 'three', 'four'];
- * var idx1 = util.inArray('one', arr, 3); // -1
- * var idx2 = util.inArray('one', arr); // 0
+ * var idx1 = inArray('one', arr, 3); // -1
+ * var idx2 = inArray('one', arr); // 0
  */
-// eslint-disable-next-line complexity
-var inArray = function(searchElement, array, startIndex) {
+function inArray(searchElement, array, startIndex) {
     var i;
     var length;
     startIndex = startIndex || 0;
@@ -49,6 +50,6 @@ var inArray = function(searchElement, array, startIndex) {
     }
 
     return -1;
-};
+}
 
 module.exports = inArray;

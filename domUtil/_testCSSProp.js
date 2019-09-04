@@ -9,17 +9,7 @@
  * Check specific CSS style is available.
  * @param {array} props property name to testing
  * @returns {(string|boolean)} return true when property is available
- * @name testCSSProp
- * @memberof tui.dom
- * @function
- * @example
- * //-- #1. Get Module --//
- * var domUtil = require('tui-dom'); // node, commonjs
- * var domUtil = tui.dom; // distribution file
- *
- * //-- #2. Use property --//
- * var props = ['transform', '-webkit-transform'];
- * domutil.testCSSProp(props);    // 'transform'
+ * @private
  */
 function testCSSProp(props) {
     var style = document.documentElement.style;

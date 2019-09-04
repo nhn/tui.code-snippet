@@ -16,25 +16,10 @@ var forEach = require('../collection/forEach');
 var R_EVENTNAME_SPLIT = /\s+/g;
 
 /**
- * A unit of event handler item.
- * @ignore
- * @typedef {object} HandlerItem
- * @property {function} fn - event handler
- * @property {object} ctx - context of event handler
- */
-
-/**
  * @class
- * @memberof tui.util
  * @example
  * // node, commonjs
- * var CustomEvents = require('tui-code-snippet').CustomEvents;
- * @example
- * // distribution file, script
- * <script src='path-to/tui-code-snippt.js'></script>
- * <script>
- * var CustomEvents = tui.util.CustomEvents;
- * </script>
+ * var CustomEvents = require('tui-code-snippet/customEvents/customEvents');
  */
 function CustomEvents() {
     /**
@@ -53,11 +38,8 @@ function CustomEvents() {
  * Mixin custom events feature to specific constructor
  * @param {function} func - constructor
  * @example
- * //-- #1. Get Module --//
- * var CustomEvents = require('tui-code-snippet').CustomEvents; // node, commonjs
- * var CustomEvents = tui.util.CustomEvents; // distribution file
+ * var CustomEvents = require('tui-code-snippet/customEvents/customEvents'); // node, commonjs
  *
- * //-- #2. Use property --//
  * var model;
  * function Model() {
  *     this.name = '';
@@ -223,10 +205,9 @@ CustomEvents.prototype._bindEvent = function(eventName, handler, context) {
  * @param {(function|object)} [handler] - handler function or context
  * @param {object} [context] - context for binding
  * //-- #1. Get Module --//
- * var CustomEvents = require('tui-code-snippet').CustomEvents; // node, commonjs
- * var CustomEvents = tui.util.CustomEvents; // distribution file
+ * var CustomEvents = require('tui-code-snippet/customEvents/customEvents'); // node, commonjs
  *
- * //-- #2. Use property --//
+ * //-- #2. Use method --//
  * // # 2.1 Basic Usage
  * CustomEvents.on('onload', handler);
  *
@@ -457,10 +438,9 @@ CustomEvents.prototype._offByObject = function(obj, handler) {
  * @param {(function)} handler - handler function
  * @example
  * //-- #1. Get Module --//
- * var CustomEvents = require('tui-code-snippet').CustomEvents; // node, commonjs
- * var CustomEvents = tui.util.CustomEvents; // distribution file
+ * var CustomEvents = require('tui-code-snippet/customEvents/customEvents'); // node, commonjs
  *
- * //-- #2. Use property --//
+ * //-- #2. Use method --//
  * // # 2.1 off by event name
  * CustomEvents.off('onload');
  *

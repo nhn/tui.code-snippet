@@ -6,21 +6,22 @@
 'use strict';
 
 /**
+ * @module tricks
+ */
+
+/**
  * Creates a debounced function that delays invoking fn until after delay milliseconds has elapsed
  * since the last time the debouced function was invoked.
  * @param {function} fn The function to debounce.
  * @param {number} [delay=0] The number of milliseconds to delay
- * @memberof tui.util
  * @returns {function} debounced function.
+ * @memberof module:tricks
  * @example
- * //-- #1. Get Module --//
- * var util = require('tui-code-snippet'); // node, commonjs
- * var util = tui.util; // distribution file
+ * var debounce = require('tui-code-snippet/tricks/debounce'); // node, commonjs
  *
- * //-- #2. Use property --//
  * function someMethodToInvokeDebounced() {}
  *
- * var debounced = util.debounce(someMethodToInvokeDebounced, 300);
+ * var debounced = debounce(someMethodToInvokeDebounced, 300);
  *
  * // invoke repeatedly
  * debounced();

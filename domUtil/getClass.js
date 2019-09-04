@@ -11,10 +11,7 @@ var isUndefined = require('../type/isUndefined');
  * Get HTML element's design classes.
  * @param {(HTMLElement|SVGElement)} element target element
  * @returns {string} element css class name
- * @name getClass
- * @memberof tui.dom
- * @function
- * @api
+ * @memberof module:domUtil
  */
 function getClass(element) {
     if (!element || !element.className) {

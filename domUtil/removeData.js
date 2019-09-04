@@ -9,9 +9,7 @@
  * Remove data property
  * @param {HTMLElement} element - target element
  * @param {string} key - key
- * @name removeData
- * @memberof tui.dom
- * @function
+ * @memberof module:domUtil
  */
 function removeData(element, key) {
     if (element.dataset) {

@@ -6,27 +6,29 @@
 'use strict';
 
 /**
- * This object has an information that indicate the kind of browser.<br>
+ * Browser module
+ * @module browser
+ */
+
+/**
+ * This object has an information that indicate the kind of browser.
  * The list below is a detectable browser list.
  *  - ie8 ~ ie11
  *  - chrome
  *  - firefox
  *  - safari
  *  - edge
- * @memberof tui.util
+ * @memberof module:browser
  * @example
- * //-- #1. Get Module --//
- * var util = require('tui-code-snippet'); // node, commonjs
- * var util = tui.util; // distribution file
+ * var browser = require('tui-code-snippet/browser/browser'); // node, commonjs
  *
- * //-- #2. Use property --//
- * util.browser.chrome === true; // chrome
- * util.browser.firefox === true; // firefox
- * util.browser.safari === true; // safari
- * util.browser.msie === true; // IE
- * util.browser.edge === true; // edge
- * util.browser.others === true; // other browser
- * util.browser.version; // browser version
+ * browser.chrome === true; // chrome
+ * browser.firefox === true; // firefox
+ * browser.safari === true; // safari
+ * browser.msie === true; // IE
+ * browser.edge === true; // edge
+ * browser.others === true; // other browser
+ * browser.version; // browser version
  */
 var browser = {
     chrome: false,

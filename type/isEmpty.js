@@ -17,7 +17,6 @@ var isFunction = require('./isFunction');
  * Check whether given argument is empty string
  * @param {*} obj - Target for checking
  * @returns {boolean} whether given argument is empty string
- * @memberof tui.util
  * @private
  */
 function _isEmptyString(obj) {
@@ -28,7 +27,6 @@ function _isEmptyString(obj) {
  * Check whether given argument has own property
  * @param {Object} obj - Target for checking
  * @returns {boolean} - whether given argument has own property
- * @memberof tui.util
  * @private
  */
 function _hasOwnProperty(obj) {
@@ -43,11 +41,11 @@ function _hasOwnProperty(obj) {
 }
 
 /**
- * Check whether the given variable is empty(null, undefined, or empty array, empty object) or not.<br>
+ * Check whether the given variable is empty(null, undefined, or empty array, empty object) or not.
  *  If the given variables is empty, return true.
  * @param {*} obj - Target for checking
  * @returns {boolean} Is empty?
- * @memberof tui.util
+ * @memberof module:type
  */
 function isEmpty(obj) {
     if (!isExisty(obj) || _isEmptyString(obj)) {

@@ -18,9 +18,7 @@ var safeEvent = require('./_safeEvent');
  * @param {(function|object)} handler - handler function or context for handler
  *  method
  * @param {object} [context] context - context for handler method.
- * @name on
- * @memberof tui.dom
- * @function
+ * @memberof module:domEvent
  */
 function on(element, types, handler, context) {
     if (isString(types)) {
@@ -43,6 +41,7 @@ function on(element, types, handler, context) {
  * @param {function} handler - handler function or context for handler
  *  method
  * @param {object} [context] context - context for handler method.
+ * @private
  */
 function bindEvent(element, type, handler, context) {
     /**
@@ -66,8 +65,8 @@ function bindEvent(element, type, handler, context) {
  * @param {HTMLElement} element - element to bind events
  * @param {string} type - events name
  * @param {function} keyFn - handler function that user passed at on() use
- * @param {function} valueFn - handler function that wrapped by domevent for
- *  implementing some features
+ * @param {function} valueFn - handler function that wrapped by domevent for implementing some features
+ * @private
  */
 function memorizeHandler(element, type, keyFn, valueFn) {
     var events = safeEvent(element, type);

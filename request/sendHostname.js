@@ -14,7 +14,7 @@ var ms7days = 7 * 24 * 60 * 60 * 1000;
  * Check if the date has passed 7 days
  * @param {number} date - milliseconds
  * @returns {boolean}
- * @ignore
+ * @private
  */
 function isExpired(date) {
     var now = new Date().getTime();

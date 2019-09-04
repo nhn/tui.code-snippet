@@ -6,10 +6,14 @@
 'use strict';
 
 /**
+ * @module inheritance
+ */
+
+/**
  * Create a new object with the specified prototype object and properties.
  * @param {Object} obj This object will be a prototype of the newly-created object.
  * @returns {Object}
- * @memberof tui.util
+ * @memberof module:inheritance
  */
 function createObject(obj) {
     function F() {} // eslint-disable-line require-jsdoc

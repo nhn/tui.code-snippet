@@ -8,9 +8,7 @@
 /**
  * Prevent default action
  * @param {Event} e - event object
- * @name preventDefault
- * @memberof tui.dom
- * @function
+ * @memberof module:domEvent
  */
 function preventDefault(e) {
     if (e.preventDefault) {

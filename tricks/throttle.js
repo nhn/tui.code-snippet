@@ -13,17 +13,14 @@ var debounce = require('./debounce');
  * if you need reuse throttled method. you must remove slugs (e.g. flag variable) related with throttling.
  * @param {function} fn function to throttle
  * @param {number} [interval=0] the number of milliseconds to throttle invocations to.
- * @memberof tui.util
  * @returns {function} throttled function
+ * @memberof module:tricks
  * @example
- * //-- #1. Get Module --//
- * var util = require('tui-code-snippet'); // node, commonjs
- * var util = tui.util; // distribution file
+ * var throttle = require('tui-code-snippet/tricks/throttle'); // node, commonjs
  *
- * //-- #2. Use property --//
  * function someMethodToInvokeThrottled() {}
  *
- * var throttled = util.throttle(someMethodToInvokeThrottled, 300);
+ * var throttled = throttle(someMethodToInvokeThrottled, 300);
  *
  * // invoke repeatedly
  * throttled();    // invoke (leading)

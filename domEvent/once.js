@@ -15,11 +15,9 @@ var off = require('./off');
  * @param {HTMLElement} element - HTMLElement to bind events.
  * @param {(string|object)} types - Space splitted events names or
  *  eventName:handler object.
- * @param {*} handler - handler function or context for handler method.
- * @param {*} [context] - context object for handler method.
- * @name once
- * @memberof tui.dom
- * @function
+ * @param {(function|object)} handler - handler function or context for handler method.
+ * @param {object} [context] - context object for handler method.
+ * @memberof module:domEvent
  */
 function once(element, types, handler, context) {
     /**

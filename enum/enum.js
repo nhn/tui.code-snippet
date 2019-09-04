@@ -3,13 +3,7 @@
  * @author NHN FE Development Lab <dl_javascript@nhn.com>
  * @example
  * // node, commonjs
- * var Enum = require('tui-code-snippet').Enum;
- * @example
- * // distribution file, script
- * <script src='path-to/tui-code-snippt.js'></script>
- * <script>
- * var Enum = tui.util.Enum;
- * <script>
+ * var Enum = require('tui-code-snippet/enum/enum');
  */
 
 'use strict';
@@ -42,19 +36,16 @@ var isSupportDefinedProperty = (function() {
 var enumValue = 0;
 
 /**
- * Make a constant-list that has unique values.<br>
- * In modern browsers (except IE8 and lower),<br>
+ * Make a constant-list that has unique values.
+ * In modern browsers (except IE8 and lower),
  *  a value defined once can not be changed.
  *
  * @param {...string|string[]} itemList Constant-list (An array of string is available)
  * @class
- * @memberof tui.util
- * @example
- * //-- #1. Get Module --//
- * var Enum = require('tui-code-snippet').Enum; // node, commonjs
- * var Enum = tui.util.Enum; // distribution file
  *
- * //-- #2. Use property --//
+ * @example
+ * var Enum = require('tui-code-snippet/enum/enum'); // node, commonjs
+ *
  * var MYENUM = new Enum('TYPE1', 'TYPE2');
  * var MYENUM2 = new Enum(['TYPE1', 'TYPE2']);
  *

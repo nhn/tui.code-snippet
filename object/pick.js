@@ -13,13 +13,10 @@ var isNull = require('../type/isNull');
  * @param {object|Array} obj - Object for retrieving
  * @param {...string|number} paths - Paths of property
  * @returns {*} Value
- * @memberof tui.util
+ * @memberof module:object
  * @example
- * //-- #1. Get Module --//
- * var util = require('tui-code-snippet'); // node, commonjs
- * var util = tui.util; // distribution file
+ * var pick = require('tui-code-snippet/object/pick'); // node, commonjs
  *
- * //-- #2. Use property --//
  * var obj = {
  *     'key1': 1,
  *     'nested' : {
@@ -29,11 +26,11 @@ var isNull = require('../type/isNull');
  *         }
  *     }
  * };
- * util.pick(obj, 'nested', 'nested', 'key1'); // 21
- * util.pick(obj, 'nested', 'nested', 'key2'); // undefined
+ * pick(obj, 'nested', 'nested', 'key1'); // 21
+ * pick(obj, 'nested', 'nested', 'key2'); // undefined
  *
  * var arr = ['a', 'b', 'c'];
- * util.pick(arr, 1); // 'b'
+ * pick(arr, 1); // 'b'
  */
 function pick(obj, paths) { // eslint-disable-line no-unused-vars
     var args = arguments;

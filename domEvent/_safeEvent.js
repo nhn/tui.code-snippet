@@ -12,6 +12,7 @@ var EVENT_KEY = '_feEventKey';
  * @param {HTMLElement} element - HTML element
  * @param {string} type - event type
  * @returns {array}
+ * @private
  */
 function safeEvent(element, type) {
     var events = element[EVENT_KEY];

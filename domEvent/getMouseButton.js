@@ -13,6 +13,10 @@ var secondaryButton = ['2', '6'];
 var wheelButton = ['4'];
 
 /**
+ * @module domEvent
+ */
+
+/**
  * Normalize mouse event's button attributes.
  *
  * Can detect which button is clicked by this method.
@@ -24,13 +28,11 @@ var wheelButton = ['4'];
  * - 2: secondary mouse button
  * @param {MouseEvent} mouseEvent - The mouse event object want to know.
  * @returns {number} - The value of meaning which button is clicked?
- * @name getMouseButton
- * @memberof tui.dom
- * @function
+ * @memberof module:domEvent
  */
 function getMouseButton(mouseEvent) {
     if (browser.msie && browser.version <= 8) {
-        return _getMouseButtonIE8AndEarlier(mouseEvent);
+        return getMouseButtonIE8AndEarlier(mouseEvent);
     }
 
     return mouseEvent.button;
@@ -43,7 +45,7 @@ function getMouseButton(mouseEvent) {
  * @returns {number|null} - id indicating which mouse button is clicked
  * @private
  */
-function _getMouseButtonIE8AndEarlier(mouseEvent) {
+function getMouseButtonIE8AndEarlier(mouseEvent) {
     var button = String(mouseEvent.button);
 
     if (inArray(button, primaryButton) > -1) {

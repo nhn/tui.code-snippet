@@ -24,9 +24,7 @@ var userSelectProperty = testCSSProp([
 /**
  * Enable browser's text selection behaviors.
  * @param {HTMLElement} [el] - target element. if not supplied, use `document`
- * @name enableTextSelection
- * @memberof tui.dom
- * @function
+ * @memberof module:domUtil
  */
 function enableTextSelection(el) {
     if (!el) {

@@ -8,9 +8,7 @@
 /**
  * Stop event propagation.
  * @param {Event} e - event object
- * @name stopPropagation
- * @memberof tui.dom
- * @function
+ * @memberof module:domEvent
  */
 function stopPropagation(e) {
     if (e.stopPropagation) {

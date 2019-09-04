@@ -14,9 +14,7 @@ var setClassName = require('./_setClassName');
  * Remove css class from element
  * @param {(HTMLElement|SVGElement)} element - target element
  * @param {...string} cssClass - css classes to remove
- * @name removeClass
- * @memberof tui.dom
- * @function
+ * @memberof module:domUtil
  */
 function removeClass(element) {
     var cssClass = Array.prototype.slice.call(arguments, 1);

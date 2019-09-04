@@ -13,10 +13,7 @@ var forEach = require('../collection/forEach');
  * @param {(HTMLElement|SVGElement)} element - element to setting style
  * @param {(string|object)} key - style prop name or {prop: value} pair object
  * @param {string} [value] - style value
- * @name css
- * @memberof tui.dom
- * @function
- * @api
+ * @memberof module:domUtil
  */
 function css(element, key, value) {
     var style = element.style;

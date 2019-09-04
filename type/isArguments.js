@@ -8,11 +8,15 @@
 var isExisty = require('./isExisty');
 
 /**
- * Check whether the given variable is an arguments object or not.<br>
+ * @module type
+ */
+
+/**
+ * Check whether the given variable is an arguments object or not.
  * If the given variable is an arguments object, return true.
  * @param {*} obj - Target for checking
  * @returns {boolean} Is arguments?
- * @memberof tui.util
+ * @memberof module:type
  */
 function isArguments(obj) {
     var result = isExisty(obj) &&

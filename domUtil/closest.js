@@ -12,9 +12,7 @@ var matches = require('./matches');
  * @param {HTMLElement} element - base element to start find
  * @param {string} selector - selector string for find
  * @returns {HTMLElement} - element finded or null
- * @name closest
- * @memberof tui.dom
- * @function
+ * @memberof module:domUtil
  */
 function closest(element, selector) {
     var parent = element.parentNode;

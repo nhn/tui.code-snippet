@@ -126,12 +126,16 @@ function isValidDate(year, month, date) { // eslint-disable-line complexity
 }
 
 /**
+ * @module formatDate
+ */
+
+/**
  * Return a string that transformed from the given form and date.
  * @param {string} form - Date form
  * @param {Date|Object} date - Date object
  * @param {{meridiemSet: {AM: string, PM: string}}} option - Option
  * @returns {boolean|string} A transformed string or false.
- * @memberof tui.util
+ * @memberof module:formatDate
  * @example
  *  // key             | Shorthand
  *  // --------------- |-----------------------
@@ -143,19 +147,16 @@ function isValidDate(year, month, date) { // eslint-disable-line complexity
  *  // minutes         | m / mm
  *  // meridiem(AM,PM) | A / a
  *
- * //-- #1. Get Module --//
- * var util = require('tui-code-snippet'); // node, commonjs
- * var util = tui.util; // distribution file
+ * var formatDate = require('tui-code-snippet/formatDate/formatDate'); // node, commonjs
  *
- * //-- #2. Use property --//
- * var dateStr1 = util.formatDate('yyyy-MM-dd', {
+ * var dateStr1 = formatDate('yyyy-MM-dd', {
  *     year: 2014,
  *     month: 12,
  *     date: 12
  * });
  * alert(dateStr1); // '2014-12-12'
  *
- * var dateStr2 = util.formatDate('MMM DD YYYY HH:mm', {
+ * var dateStr2 = formatDate('MMM DD YYYY HH:mm', {
  *     year: 1999,
  *     month: 9,
  *     date: 9,
@@ -165,7 +166,7 @@ function isValidDate(year, month, date) { // eslint-disable-line complexity
  * alert(dateStr2); // 'Sep 09 1999 00:02'
  *
  * var dt = new Date(2010, 2, 13),
- *     dateStr3 = util.formatDate('yyyy년 M월 dd일', dt);
+ *     dateStr3 = formatDate('yyyy년 M월 dd일', dt);
  * alert(dateStr3); // '2010년 3월 13일'
  *
  * var option4 = {
@@ -175,7 +176,7 @@ function isValidDate(year, month, date) { // eslint-disable-line complexity
  *     }
  * };
  * var date4 = {year: 1999, month: 9, date: 9, hour: 13, minute: 2};
- * var dateStr4 = util.formatDate('yyyy-MM-dd A hh:mm', date4, option4));
+ * var dateStr4 = formatDate('yyyy-MM-dd A hh:mm', date4, option4));
  * alert(dateStr4); // '1999-09-09 오후 01:02'
  */
 function formatDate(form, date, option) { // eslint-disable-line complexity

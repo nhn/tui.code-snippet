@@ -6,12 +6,12 @@
 'use strict';
 
 /**
- * Check whether the given variable is a boolean or not.<br>
- * If the given variable is a boolean, return true.<br>
+ * Check whether the given variable is a boolean or not.
+ * If the given variable is a boolean, return true.
  * (It is used for multiple frame environments)
  * @param {*} obj - Target for checking
  * @returns {boolean} Is a boolean?
- * @memberof tui.util
+ * @memberof module:type
  */
 function isBooleanSafe(obj) {
     return Object.prototype.toString.call(obj) === '[object Boolean]';

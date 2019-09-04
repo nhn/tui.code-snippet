@@ -8,17 +8,14 @@
 var forEachArray = require('./forEachArray');
 
 /**
- * Transform the Array-like object to Array.<br>
+ * Transform the Array-like object to Array.
  * In low IE (below 8), Array.prototype.slice.call is not perfect. So, try-catch statement is used.
  * @param {*} arrayLike Array-like object
  * @returns {Array} Array
- * @memberof tui.util
+ * @memberof module:collection
  * @example
- * //-- #1. Get Module --//
- * var util = require('tui-code-snippet'); // node, commonjs
- * var util = tui.util; // distribution file
+ * var toArray = require('tui-code-snippet/collection/toArray'); // node, commonjs
  *
- * //-- #2. Use property --//
  * var arrayLike = {
  *     0: 'one',
  *     1: 'two',
@@ -26,7 +23,7 @@ var forEachArray = require('./forEachArray');
  *     3: 'four',
  *     length: 4
  * };
- * var result = util.toArray(arrayLike);
+ * var result = toArray(arrayLike);
  *
  * alert(result instanceof Array); // true
  * alert(result); // one,two,three,four

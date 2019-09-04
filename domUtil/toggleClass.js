@@ -14,9 +14,7 @@ var setClassName = require('./_setClassName');
  * Toggle css class
  * @param {(HTMLElement|SVGElement)} element - target element
  * @param {...string} cssClass - css classes to toggle
- * @name toggleClass
- * @memberof tui.dom
- * @function
+ * @memberof module:domUtil
  */
 function toggleClass(element) {
     var cssClass = Array.prototype.slice.call(arguments, 1);

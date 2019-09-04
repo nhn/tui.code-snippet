@@ -6,8 +6,8 @@
 'use strict';
 
 /**
- * Execute the provided callback once for each property of object which actually exist.<br>
- * If the callback function returns false, the loop will be stopped.<br>
+ * Execute the provided callback once for each property of object which actually exist.
+ * If the callback function returns false, the loop will be stopped.
  * Callback function(iteratee) is invoked with three arguments:
  *  - The value of the property
  *  - The name of the property
@@ -15,20 +15,17 @@
  * @param {Object} obj The object that will be traversed
  * @param {function} iteratee  Callback function
  * @param {Object} [context] Context(this) of callback function
- * @memberof tui.util
+ * @memberof module:collection
  * @example
- * //-- #1. Get Module --//
- * var util = require('tui-code-snippet'); // node, commonjs
- * var util = tui.util; // distribution file
+ * var forEachOwnProperties = require('tui-code-snippet/collection/forEachOwnProperties'); // node, commonjs
  *
- * //-- #2. Use property --//
  * var sum = 0;
  *
- * util.forEachOwnProperties({a:1,b:2,c:3}, function(value){
+ * forEachOwnProperties({a:1,b:2,c:3}, function(value){
  *     sum += value;
  * });
  * alert(sum); // 6
- **/
+ */
 function forEachOwnProperties(obj, iteratee, context) {
     var key;
 
