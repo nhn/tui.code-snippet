@@ -1,0 +1,30 @@
+{
+  "header": {
+    "logo": {
+      "src": "https://uicdn.toast.com/toastui/img/logo-white.png"
+    },
+    "title": {
+      "text": "Code Snippet",
+      "linkUrl": "https://github.com/nhn/tui.code-snippet"
+    }
+  },
+  "footer": [
+    {
+      "title": "NHN",
+      "linkUrl": "https://github.com/nhn"
+    },
+    {
+      "title": "FE Development Lab",
+      "linkUrl": "https://github.com/nhn/fe.javascript"
+    }
+  ],
+  "main": {
+    "filePath": "README.md"
+  },
+  "api": {
+    "filePath": ["array", "browser", "collection", "customEvents", "defineClass", "domEvent", "domUtil", "enum", "formatDate", "inheritance", "object", "request", "string", "tricks", "type"],
+    "permalink": true
+  },
+  "examples": false,
+  "pathPrefix": "tui.code-snippet"
+}

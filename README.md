@@ -1,109 +1,91 @@
-# Toast UI CodeSnippet
+# TOAST UI CodeSnippet
 
 `tui-code-snippet` is group of utility methods to make ease with developing javascript applications.
 
-It includes several features like `class simulation`, `browser detecting`, `type checking` and +30 more.
+It includes several features like `class simulation`, `browser detecting`, `type checking` and more.
 
 `tui-code-snippet` supports IE8+ and modern browsers and already has been used for [open source javascript components](http://github.com/nhn/) and many commercial projects in [NHN](http://www.nhn.com) corporation.
 
-## Feature
-* browser.js
-  * Browser detecting modules
-* collection.js
- * Modules to Process collecitons
- * Support util methods for collecitons
-* customEvent.js
- * Custom event modules
- * Add/Remove/fire custom events
-* defineClass.js
- * Defined classes module
-* enum.js
- * Const value modules
- * Making immutability values but IE8 low
-* func.js
- * Function modules
-* hashMap.js
- * Hash map modules
- * Managing data by key/value
-* inheritance.js
-  * Simple inheritance modules (Nicholas C. Zakas, YUI Library)
+## Documents
+
+* [Getting Started](https://github.com/nhn/tui.code-snippet/blob/master/docs/getting-started.md)
+* [APIs](https://nhn.github.io/tui.code-snippet/latest/)
+* [v2.0 Migration Guide](https://github.com/nhn/tui.code-snippet/blob/master/docs/v2.0-migration-guide.md)
+
+## Features
+
+* array
+  * Handle arrays
+* browser
+  * Detect browser
+* collection
+  * Process collections
+  * Support util methods for collections
+* customEvents
+  * Add/Remove/fire custom events
+* defineClass
+  * Define classes
+* domEvent
+  * Add, remove, fire DOM events
+  * Control mouse events
+* domUtil
+  * Control the information of DOM
+  * Add, remove, find DOM class name
+* enum
+  * Manage constant value
+  * Make immutability values but IE8 low
+* formatDate
+  * Format date strings
+* inheritance
+  * Simple inheritance (Nicholas C. Zakas, YUI Library)
   * Call supur constructor of superclass
   * Have to get inheritance before define child
-  * Using mixin and inner object
-* object.js
- * Object modules
- * Support utils to control object
-* string.js
- * String processing modules
- * Support utils such as decodeHTMLEntity, encodeHTMLEntity
-* type.js
- * Check data type
-* window.js
- * Window object modules
- * You need 'postDataBridgeUrl' options to avoid IE11 popup form submit bug.
- * Different domain have x-domain issue.
-* defineNamespace.js
- * Support utils to define namespace
-* formatDate.js
- * Formating date strings modules
-* defineModule.js
- * Support utils to define modules
+  * Use mixin and inner object
+* object
+  * Support utils to control object
+* request
+  * Request image ping
+* string
+  * Support utils such as decodeHTMLEntity, encodeHTMLEntity
+* tricks
+  * Creates a debounced function and a throttled function
+* type
+  * Check data type
 
-## Documentation
-* API: [https://nhn.github.io/tui.code-snippet/latest/](https://nhn.github.io/tui.code-snippet/latest/)
-* Tutorial: [https://github.com/nhn/fe.javascript/wiki/Toast-UI-CodeSnippet](https://github.com/nhn/fe.javascript/wiki/Toast-UI-CodeSnippet)
-
-## Tested Browsers
-* browser:
-   * IE8 ~ IE11
-   * Edge
-   * Chrome
-   * Firefox
-   * Safari
-
-## Usage
-### Use `npm`
+## Installation
 
 Install the latest version using `npm` command:
 
-```
-$ npm install tui-code-snippet --save
-```
-
-or want to install the each version:
-
-```
-$ npm install tui-code-snippet@<version> --save
+``` sh
+$ npm install --save tui-code-snippet
 ```
 
-To access as module format in your code:
+or install the each version:
+
+```
+$ npm install --save tui-code-snippet@<version>
+```
+
+## Usage
+
+Import only functions that you need in your code:
 
 ```javascript
-var util = require('tui-code-snippet');
+var func = require('tui-code-snippet/<folder>/<function>');
+
+// for example,
+var inArray = require('tui-code-snippet/array/inArray');
+var customEvents = require('tui-code-snippet/customEvents/customEvents');
 ```
 
-### Use `bower`
-Install the latest version using `bower` command:
+The folder structure can be found [here](https://github.com/nhn/tui.code-snippet/tree/production).
 
-```
-$ bower install tui-code-snippet
-```
+## Browser Support
 
-or want to install the each version:
-
-```
-$ bower install tui-code-snippet#<tag>
-```
-
-To access as namespace format in your code:
-
-```javascript
-var util = tui.util;
-```
-
-### Download
-* [Download bundle files from `dist` folder](https://github.com/nhn/tui.code-snippet/tree/production/dist)
-* [Download all sources for each version](https://github.com/nhn/tui.code-snippet/releases)
+| <img src="https://user-images.githubusercontent.com/1215767/34348387-a2e64588-ea4d-11e7-8267-a43365103afe.png" alt="Chrome" width="16px" height="16px" /> Chrome | <img src="https://user-images.githubusercontent.com/1215767/34348590-250b3ca2-ea4f-11e7-9efb-da953359321f.png" alt="IE" width="16px" height="16px" /> Internet Explorer | <img src="https://user-images.githubusercontent.com/1215767/34348380-93e77ae8-ea4d-11e7-8696-9a989ddbbbf5.png" alt="Edge" width="16px" height="16px" /> Edge | <img src="https://user-images.githubusercontent.com/1215767/34348394-a981f892-ea4d-11e7-9156-d128d58386b9.png" alt="Safari" width="16px" height="16px" /> Safari | <img src="https://user-images.githubusercontent.com/1215767/34348383-9e7ed492-ea4d-11e7-910c-03b39d52f496.png" alt="Firefox" width="16px" height="16px" /> Firefox |
+| :---------: | :---------: | :---------: | :---------: | :---------: |
+| Yes | 8+ | Yes | Yes | Yes |
 
 ## License
-[MIT LICENSE](https://github.com/nhn/tui.code-snippet/blob/master/LICENSE)
+
+This software is licensed under the [MIT](https://github.com/nhn/tui.code-snippet/blob/master/LICENSE) © [NHN](https://github.com/nhn).
