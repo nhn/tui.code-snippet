@@ -45,27 +45,38 @@ function unbindEvent(element, type, handler) {
     var events = safeEvent(element, type);
     var index;
 
-    forEach(events, function(item, idx) {
-        if (!handler || handler === item.handler) {
-            if ('removeEventListener' in element) {
-                element.removeEventListener(type, item.wrappedHandler);
-            } else if ('detachEvent' in element) {
-                element.detachEvent('on' + type, item.wrappedHandler);
-            }
-            index = idx;
+    if (!handler) {
+        forEach(events, function(item) {
+            removeHandler(element, type, item.wrappedHandler);
+        });
+        events.splice(0, events.length);
+    } else {
+        forEach(events, function(item, idx) {
+            if (handler === item.handler) {
+                removeHandler(element, type, item.wrappedHandler);
+                index = idx;
 
-            if (handler) {
                 return false;
             }
-        }
 
-        return true;
-    });
-
-    if (handler) {
+            return true;
+        });
         events.splice(index, 1);
-    } else {
-        events.splice(0, events.length);
+    }
+}
+
+/**
+ * Remove an event handler
+ * @param {HTMLElement} element - An element to remove an event
+ * @param {string} type - event type
+ * @param {function} handler - event handler
+ * @private
+ */
+function removeHandler(element, type, handler) {
+    if ('removeEventListener' in element) {
+        element.removeEventListener(type, handler);
+    } else if ('detachEvent' in element) {
+        element.detachEvent('on' + type, handler);
     }
 }
 
