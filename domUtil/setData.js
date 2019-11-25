@@ -13,17 +13,17 @@
  * @memberof module:domUtil
  */
 function setData(element, key, value) {
-    if (element.dataset) {
-        element.dataset[key] = value;
+  if (element.dataset) {
+    element.dataset[key] = value;
 
-        return;
-    }
+    return;
+  }
 
-    key = key.replace(/([A-Z])/g, function(match) {
-        return '-' + match.toLowerCase();
-    });
+  key = key.replace(/([A-Z])/g, function(match) {
+    return '-' + match.toLowerCase();
+  });
 
-    element.setAttribute('data-' + key, value);
+  element.setAttribute('data-' + key, value);
 }
 
 module.exports = setData;

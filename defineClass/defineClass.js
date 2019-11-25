@@ -55,27 +55,27 @@ var extend = require('../object/extend');
  * childInstance.childMethod();
  */
 function defineClass(parent, props) {
-    var obj;
+  var obj;
 
-    if (!props) {
-        props = parent;
-        parent = null;
-    }
+  if (!props) {
+    props = parent;
+    parent = null;
+  }
 
-    obj = props.init || function() {};
+  obj = props.init || function() {};
 
-    if (parent) {
-        inherit(obj, parent);
-    }
+  if (parent) {
+    inherit(obj, parent);
+  }
 
-    if (props.hasOwnProperty('static')) {
-        extend(obj, props['static']);
-        delete props['static'];
-    }
+  if (props.hasOwnProperty('static')) {
+    extend(obj, props['static']);
+    delete props['static'];
+  }
 
-    extend(obj.prototype, props);
+  extend(obj.prototype, props);
 
-    return obj;
+  return obj;
 }
 
 module.exports = defineClass;

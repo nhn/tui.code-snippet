@@ -11,9 +11,9 @@
  * @memberof module:domUtil
  */
 function removeElement(element) {
-    if (element && element.parentNode) {
-        element.parentNode.removeChild(element);
-    }
+  if (element && element.parentNode) {
+    element.parentNode.removeChild(element);
+  }
 }
 
 module.exports = removeElement;

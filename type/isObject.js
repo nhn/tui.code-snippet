@@ -13,7 +13,7 @@
  * @memberof module:type
  */
 function isObject(obj) {
-    return obj === Object(obj);
+  return obj === Object(obj);
 }
 
 module.exports = isObject;

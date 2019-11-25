@@ -12,17 +12,17 @@
  * @memberof module:domUtil
  */
 function removeData(element, key) {
-    if (element.dataset) {
-        delete element.dataset[key];
+  if (element.dataset) {
+    delete element.dataset[key];
 
-        return;
-    }
+    return;
+  }
 
-    key = key.replace(/([A-Z])/g, function(match) {
-        return '-' + match.toLowerCase();
-    });
+  key = key.replace(/([A-Z])/g, function(match) {
+    return '-' + match.toLowerCase();
+  });
 
-    element.removeAttribute('data-' + key);
+  element.removeAttribute('data-' + key);
 }
 
 module.exports = removeData;

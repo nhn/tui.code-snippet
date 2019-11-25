@@ -14,9 +14,9 @@ var matchSelector = elProto.matches ||
     elProto.mozMatchesSelector ||
     elProto.msMatchesSelector ||
     function(selector) {
-        var doc = this.document || this.ownerDocument;
+      var doc = this.document || this.ownerDocument;
 
-        return inArray(this, toArray(doc.querySelectorAll(selector))) > -1;
+      return inArray(this, toArray(doc.querySelectorAll(selector))) > -1;
     };
 
 /**
@@ -27,7 +27,7 @@ var matchSelector = elProto.matches ||
  * @memberof module:domUtil
  */
 function matches(element, selector) {
-    return matchSelector.call(element, selector);
+  return matchSelector.call(element, selector);
 }
 
 module.exports = matches;

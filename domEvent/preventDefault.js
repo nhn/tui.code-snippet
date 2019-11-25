@@ -11,13 +11,13 @@
  * @memberof module:domEvent
  */
 function preventDefault(e) {
-    if (e.preventDefault) {
-        e.preventDefault();
+  if (e.preventDefault) {
+    e.preventDefault();
 
-        return;
-    }
+    return;
+  }
 
-    e.returnValue = false;
+  e.returnValue = false;
 }
 
 module.exports = preventDefault;

@@ -19,10 +19,10 @@ var isExisty = require('./isExisty');
  * @memberof module:type
  */
 function isArguments(obj) {
-    var result = isExisty(obj) &&
+  var result = isExisty(obj) &&
         ((Object.prototype.toString.call(obj) === '[object Arguments]') || !!obj.callee);
 
-    return result;
+  return result;
 }
 
 module.exports = isArguments;

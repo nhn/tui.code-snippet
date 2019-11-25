@@ -16,17 +16,17 @@ var forEach = require('../collection/forEach');
  * @memberof module:domUtil
  */
 function css(element, key, value) {
-    var style = element.style;
+  var style = element.style;
 
-    if (isString(key)) {
-        style[key] = value;
+  if (isString(key)) {
+    style[key] = value;
 
-        return;
-    }
+    return;
+  }
 
-    forEach(key, function(v, k) {
-        style[k] = v;
-    });
+  forEach(key, function(v, k) {
+    style[k] = v;
+  });
 }
 
 module.exports = css;

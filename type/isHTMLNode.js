@@ -13,11 +13,11 @@
  * @memberof module:type
  */
 function isHTMLNode(html) {
-    if (typeof HTMLElement === 'object') {
-        return (html && (html instanceof HTMLElement || !!html.nodeType));
-    }
+  if (typeof HTMLElement === 'object') {
+    return (html && (html instanceof HTMLElement || !!html.nodeType));
+  }
 
-    return !!(html && html.nodeType);
+  return !!(html && html.nodeType);
 }
 
 module.exports = isHTMLNode;

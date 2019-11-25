@@ -13,7 +13,7 @@
  * @memberof module:type
  */
 function isNull(obj) {
-    return obj === null;
+  return obj === null;
 }
 
 module.exports = isNull;

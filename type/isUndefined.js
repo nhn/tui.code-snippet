@@ -13,7 +13,7 @@
  * @memberof module:type
  */
 function isUndefined(obj) {
-    return obj === undefined; // eslint-disable-line no-undefined
+  return obj === undefined; // eslint-disable-line no-undefined
 }
 
 module.exports = isUndefined;

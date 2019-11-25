@@ -15,17 +15,17 @@ var isUndefined = require('../type/isUndefined');
  * @private
  */
 function setClassName(element, cssClass) {
-    cssClass = isArray(cssClass) ? cssClass.join(' ') : cssClass;
+  cssClass = isArray(cssClass) ? cssClass.join(' ') : cssClass;
 
-    cssClass = cssClass.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
+  cssClass = cssClass.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
 
-    if (isUndefined(element.className.baseVal)) {
-        element.className = cssClass;
+  if (isUndefined(element.className.baseVal)) {
+    element.className = cssClass;
 
-        return;
-    }
+    return;
+  }
 
-    element.className.baseVal = cssClass;
+  element.className.baseVal = cssClass;
 }
 
 module.exports = setClassName;

@@ -17,27 +17,27 @@ var setClassName = require('./_setClassName');
  * @memberof module:domUtil
  */
 function removeClass(element) {
-    var cssClass = Array.prototype.slice.call(arguments, 1);
-    var classList = element.classList;
-    var origin, newClass;
+  var cssClass = Array.prototype.slice.call(arguments, 1);
+  var classList = element.classList;
+  var origin, newClass;
 
-    if (classList) {
-        forEachArray(cssClass, function(name) {
-            classList.remove(name);
-        });
-
-        return;
-    }
-
-    origin = getClass(element).split(/\s+/);
-    newClass = [];
-    forEachArray(origin, function(name) {
-        if (inArray(name, cssClass) < 0) {
-            newClass.push(name);
-        }
+  if (classList) {
+    forEachArray(cssClass, function(name) {
+      classList.remove(name);
     });
 
-    setClassName(element, newClass);
+    return;
+  }
+
+  origin = getClass(element).split(/\s+/);
+  newClass = [];
+  forEachArray(origin, function(name) {
+    if (inArray(name, cssClass) < 0) {
+      newClass.push(name);
+    }
+  });
+
+  setClassName(element, newClass);
 }
 
 module.exports = removeClass;

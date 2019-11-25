@@ -34,21 +34,21 @@
  * // invoke someMethodToInvokeDebounced() after 300 milliseconds.
  */
 function debounce(fn, delay) {
-    var timer, args;
+  var timer, args;
 
-    /* istanbul ignore next */
-    delay = delay || 0;
+  /* istanbul ignore next */
+  delay = delay || 0;
 
-    function debounced() { // eslint-disable-line require-jsdoc
-        args = Array.prototype.slice.call(arguments);
+  function debounced() { // eslint-disable-line require-jsdoc
+    args = Array.prototype.slice.call(arguments);
 
-        window.clearTimeout(timer);
-        timer = window.setTimeout(function() {
-            fn.apply(null, args);
-        }, delay);
-    }
+    window.clearTimeout(timer);
+    timer = window.setTimeout(function() {
+      fn.apply(null, args);
+    }, delay);
+  }
 
-    return debounced;
+  return debounced;
 }
 
 module.exports = debounce;

@@ -23,23 +23,23 @@ var isUndefined = require('../type/isUndefined');
  * range(10, 2, -2); // [10,8,6,4]
  */
 function range(start, stop, step) {
-    var arr = [];
-    var flag;
+  var arr = [];
+  var flag;
 
-    if (isUndefined(stop)) {
-        stop = start || 0;
-        start = 0;
-    }
+  if (isUndefined(stop)) {
+    stop = start || 0;
+    start = 0;
+  }
 
-    step = step || 1;
-    flag = step < 0 ? -1 : 1;
-    stop *= flag;
+  step = step || 1;
+  flag = step < 0 ? -1 : 1;
+  stop *= flag;
 
-    for (; start * flag < stop; start += step) {
-        arr.push(start);
-    }
+  for (; start * flag < stop; start += step) {
+    arr.push(start);
+  }
 
-    return arr;
+  return arr;
 }
 
 module.exports = range;

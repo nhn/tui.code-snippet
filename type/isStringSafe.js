@@ -14,7 +14,7 @@
  * @memberof module:type
  */
 function isStringSafe(obj) {
-    return Object.prototype.toString.call(obj) === '[object String]';
+  return Object.prototype.toString.call(obj) === '[object String]';
 }
 
 module.exports = isStringSafe;

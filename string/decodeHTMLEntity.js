@@ -21,18 +21,18 @@
  * var result = decodeHTMLEntity(htmlEntityString); //"A 'quote' is <b>bold</b>"
  */
 function decodeHTMLEntity(htmlEntity) {
-    var entities = {
-        '&quot;': '"',
-        '&amp;': '&',
-        '&lt;': '<',
-        '&gt;': '>',
-        '&#39;': '\'',
-        '&nbsp;': ' '
-    };
+  var entities = {
+    '&quot;': '"',
+    '&amp;': '&',
+    '&lt;': '<',
+    '&gt;': '>',
+    '&#39;': '\'',
+    '&nbsp;': ' '
+  };
 
-    return htmlEntity.replace(/&amp;|&lt;|&gt;|&quot;|&#39;|&nbsp;/g, function(m0) {
-        return entities[m0] ? entities[m0] : m0;
-    });
+  return htmlEntity.replace(/&amp;|&lt;|&gt;|&quot;|&#39;|&nbsp;/g, function(m0) {
+    return entities[m0] ? entities[m0] : m0;
+  });
 }
 
 module.exports = decodeHTMLEntity;

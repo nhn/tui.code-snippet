@@ -27,17 +27,17 @@
  * alert(sum); // 6
  */
 function forEachOwnProperties(obj, iteratee, context) {
-    var key;
+  var key;
 
-    context = context || null;
+  context = context || null;
 
-    for (key in obj) {
-        if (obj.hasOwnProperty(key)) {
-            if (iteratee.call(context, obj[key], key, obj) === false) {
-                break;
-            }
-        }
+  for (key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      if (iteratee.call(context, obj[key], key, obj) === false) {
+        break;
+      }
     }
+  }
 }
 
 module.exports = forEachOwnProperties;

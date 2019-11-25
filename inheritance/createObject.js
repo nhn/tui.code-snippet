@@ -16,10 +16,10 @@
  * @memberof module:inheritance
  */
 function createObject(obj) {
-    function F() {} // eslint-disable-line require-jsdoc
-    F.prototype = obj;
+  function F() {} // eslint-disable-line require-jsdoc
+  F.prototype = obj;
 
-    return new F();
+  return new F();
 }
 
 module.exports = createObject;

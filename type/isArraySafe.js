@@ -14,7 +14,7 @@
  * @memberof module:type
  */
 function isArraySafe(obj) {
-    return Object.prototype.toString.call(obj) === '[object Array]';
+  return Object.prototype.toString.call(obj) === '[object Array]';
 }
 
 module.exports = isArraySafe;

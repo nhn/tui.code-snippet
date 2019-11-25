@@ -14,15 +14,15 @@ var isUndefined = require('../type/isUndefined');
  * @memberof module:domUtil
  */
 function getClass(element) {
-    if (!element || !element.className) {
-        return '';
-    }
+  if (!element || !element.className) {
+    return '';
+  }
 
-    if (isUndefined(element.className.baseVal)) {
-        return element.className;
-    }
+  if (isUndefined(element.className.baseVal)) {
+    return element.className;
+  }
 
-    return element.className.baseVal;
+  return element.className.baseVal;
 }
 
 module.exports = getClass;

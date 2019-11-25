@@ -13,15 +13,15 @@
  * @memberof module:domUtil
  */
 function getData(element, key) {
-    if (element.dataset) {
-        return element.dataset[key];
-    }
+  if (element.dataset) {
+    return element.dataset[key];
+  }
 
-    key = key.replace(/([A-Z])/g, function(match) {
-        return '-' + match.toLowerCase();
-    });
+  key = key.replace(/([A-Z])/g, function(match) {
+    return '-' + match.toLowerCase();
+  });
 
-    return element.getAttribute('data-' + key);
+  return element.getAttribute('data-' + key);
 }
 
 module.exports = getData;

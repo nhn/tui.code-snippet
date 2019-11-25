@@ -20,17 +20,17 @@ var safeEvent = require('./_safeEvent');
  * @memberof module:domEvent
  */
 function off(element, types, handler) {
-    if (isString(types)) {
-        forEach(types.split(/\s+/g), function(type) {
-            unbindEvent(element, type, handler);
-        });
-
-        return;
-    }
-
-    forEach(types, function(func, type) {
-        unbindEvent(element, type, func);
+  if (isString(types)) {
+    forEach(types.split(/\s+/g), function(type) {
+      unbindEvent(element, type, handler);
     });
+
+    return;
+  }
+
+  forEach(types, function(func, type) {
+    unbindEvent(element, type, func);
+  });
 }
 
 /**
@@ -42,27 +42,27 @@ function off(element, types, handler) {
  * @private
  */
 function unbindEvent(element, type, handler) {
-    var events = safeEvent(element, type);
-    var index;
+  var events = safeEvent(element, type);
+  var index;
 
-    if (!handler) {
-        forEach(events, function(item) {
-            removeHandler(element, type, item.wrappedHandler);
-        });
-        events.splice(0, events.length);
-    } else {
-        forEach(events, function(item, idx) {
-            if (handler === item.handler) {
-                removeHandler(element, type, item.wrappedHandler);
-                index = idx;
+  if (!handler) {
+    forEach(events, function(item) {
+      removeHandler(element, type, item.wrappedHandler);
+    });
+    events.splice(0, events.length);
+  } else {
+    forEach(events, function(item, idx) {
+      if (handler === item.handler) {
+        removeHandler(element, type, item.wrappedHandler);
+        index = idx;
 
-                return false;
-            }
+        return false;
+      }
 
-            return true;
-        });
-        events.splice(index, 1);
-    }
+      return true;
+    });
+    events.splice(index, 1);
+  }
 }
 
 /**
@@ -73,11 +73,11 @@ function unbindEvent(element, type, handler) {
  * @private
  */
 function removeHandler(element, type, handler) {
-    if ('removeEventListener' in element) {
-        element.removeEventListener(type, handler);
-    } else if ('detachEvent' in element) {
-        element.detachEvent('on' + type, handler);
-    }
+  if ('removeEventListener' in element) {
+    element.removeEventListener(type, handler);
+  } else if ('detachEvent' in element) {
+    element.detachEvent('on' + type, handler);
+  }
 }
 
 module.exports = off;

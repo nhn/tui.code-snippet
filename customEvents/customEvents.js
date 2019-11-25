@@ -22,16 +22,16 @@ var R_EVENTNAME_SPLIT = /\s+/g;
  * var CustomEvents = require('tui-code-snippet/customEvents/customEvents');
  */
 function CustomEvents() {
-    /**
+  /**
      * @type {HandlerItem[]}
      */
-    this.events = null;
+  this.events = null;
 
-    /**
+  /**
      * only for checking specific context event was binded
      * @type {object[]}
      */
-    this.contexts = null;
+  this.contexts = null;
 }
 
 /**
@@ -52,7 +52,7 @@ function CustomEvents() {
  * alert(model.name); // 'model';
  */
 CustomEvents.mixin = function(func) {
-    extend(func.prototype, CustomEvents.prototype);
+  extend(func.prototype, CustomEvents.prototype);
 };
 
 /**
@@ -63,13 +63,13 @@ CustomEvents.mixin = function(func) {
  * @private
  */
 CustomEvents.prototype._getHandlerItem = function(handler, context) {
-    var item = {handler: handler};
+  var item = {handler: handler};
 
-    if (context) {
-        item.context = context;
-    }
+  if (context) {
+    item.context = context;
+  }
 
-    return item;
+  return item;
 };
 
 /**
@@ -80,25 +80,25 @@ CustomEvents.prototype._getHandlerItem = function(handler, context) {
  * @private
  */
 CustomEvents.prototype._safeEvent = function(eventName) {
-    var events = this.events;
-    var byName;
+  var events = this.events;
+  var byName;
 
-    if (!events) {
-        events = this.events = {};
+  if (!events) {
+    events = this.events = {};
+  }
+
+  if (eventName) {
+    byName = events[eventName];
+
+    if (!byName) {
+      byName = [];
+      events[eventName] = byName;
     }
 
-    if (eventName) {
-        byName = events[eventName];
+    events = byName;
+  }
 
-        if (!byName) {
-            byName = [];
-            events[eventName] = byName;
-        }
-
-        events = byName;
-    }
-
-    return events;
+  return events;
 };
 
 /**
@@ -107,13 +107,13 @@ CustomEvents.prototype._safeEvent = function(eventName) {
  * @private
  */
 CustomEvents.prototype._safeContext = function() {
-    var context = this.contexts;
+  var context = this.contexts;
 
-    if (!context) {
-        context = this.contexts = [];
-    }
+  if (!context) {
+    context = this.contexts = [];
+  }
 
-    return context;
+  return context;
 };
 
 /**
@@ -123,18 +123,18 @@ CustomEvents.prototype._safeContext = function() {
  * @private
  */
 CustomEvents.prototype._indexOfContext = function(ctx) {
-    var context = this._safeContext();
-    var index = 0;
+  var context = this._safeContext();
+  var index = 0;
 
-    while (context[index]) {
-        if (ctx === context[index][0]) {
-            return index;
-        }
-
-        index += 1;
+  while (context[index]) {
+    if (ctx === context[index][0]) {
+      return index;
     }
 
-    return -1;
+    index += 1;
+  }
+
+  return -1;
 };
 
 /**
@@ -144,20 +144,20 @@ CustomEvents.prototype._indexOfContext = function(ctx) {
  * @private
  */
 CustomEvents.prototype._memorizeContext = function(ctx) {
-    var context, index;
+  var context, index;
 
-    if (!isExisty(ctx)) {
-        return;
-    }
+  if (!isExisty(ctx)) {
+    return;
+  }
 
-    context = this._safeContext();
-    index = this._indexOfContext(ctx);
+  context = this._safeContext();
+  index = this._indexOfContext(ctx);
 
-    if (index > -1) {
-        context[index][1] += 1;
-    } else {
-        context.push([ctx, 1]);
-    }
+  if (index > -1) {
+    context[index][1] += 1;
+  } else {
+    context.push([ctx, 1]);
+  }
 };
 
 /**
@@ -166,22 +166,22 @@ CustomEvents.prototype._memorizeContext = function(ctx) {
  * @private
  */
 CustomEvents.prototype._forgetContext = function(ctx) {
-    var context, contextIndex;
+  var context, contextIndex;
 
-    if (!isExisty(ctx)) {
-        return;
+  if (!isExisty(ctx)) {
+    return;
+  }
+
+  context = this._safeContext();
+  contextIndex = this._indexOfContext(ctx);
+
+  if (contextIndex > -1) {
+    context[contextIndex][1] -= 1;
+
+    if (context[contextIndex][1] <= 0) {
+      context.splice(contextIndex, 1);
     }
-
-    context = this._safeContext();
-    contextIndex = this._indexOfContext(ctx);
-
-    if (contextIndex > -1) {
-        context[contextIndex][1] -= 1;
-
-        if (context[contextIndex][1] <= 0) {
-            context.splice(contextIndex, 1);
-        }
-    }
+  }
 };
 
 /**
@@ -193,9 +193,9 @@ CustomEvents.prototype._forgetContext = function(ctx) {
  * @private
  */
 CustomEvents.prototype._bindEvent = function(eventName, handler, context) {
-    var events = this._safeEvent(eventName);
-    this._memorizeContext(context);
-    events.push(this._getHandlerItem(handler, context));
+  var events = this._safeEvent(eventName);
+  this._memorizeContext(context);
+  events.push(this._getHandlerItem(handler, context));
 };
 
 /**
@@ -226,21 +226,21 @@ CustomEvents.prototype._bindEvent = function(eventName, handler, context) {
  * }, myObj);
  */
 CustomEvents.prototype.on = function(eventName, handler, context) {
-    var self = this;
+  var self = this;
 
-    if (isString(eventName)) {
-        // [syntax 1, 2]
-        eventName = eventName.split(R_EVENTNAME_SPLIT);
-        forEach(eventName, function(name) {
-            self._bindEvent(name, handler, context);
-        });
-    } else if (isObject(eventName)) {
-        // [syntax 3, 4]
-        context = handler;
-        forEach(eventName, function(func, name) {
-            self.on(name, func, context);
-        });
-    }
+  if (isString(eventName)) {
+    // [syntax 1, 2]
+    eventName = eventName.split(R_EVENTNAME_SPLIT);
+    forEach(eventName, function(name) {
+      self._bindEvent(name, handler, context);
+    });
+  } else if (isObject(eventName)) {
+    // [syntax 3, 4]
+    context = handler;
+    forEach(eventName, function(func, name) {
+      self.on(name, func, context);
+    });
+  }
 };
 
 /**
@@ -251,23 +251,23 @@ CustomEvents.prototype.on = function(eventName, handler, context) {
  * @param {object} [context] - context for binding
  */
 CustomEvents.prototype.once = function(eventName, handler, context) {
-    var self = this;
+  var self = this;
 
-    if (isObject(eventName)) {
-        context = handler;
-        forEach(eventName, function(func, name) {
-            self.once(name, func, context);
-        });
+  if (isObject(eventName)) {
+    context = handler;
+    forEach(eventName, function(func, name) {
+      self.once(name, func, context);
+    });
 
-        return;
-    }
+    return;
+  }
 
-    function onceHandler() { // eslint-disable-line require-jsdoc
-        handler.apply(context, arguments);
-        self.off(eventName, onceHandler, context);
-    }
+  function onceHandler() { // eslint-disable-line require-jsdoc
+    handler.apply(context, arguments);
+    self.off(eventName, onceHandler, context);
+  }
 
-    this.on(eventName, onceHandler, context);
+  this.on(eventName, onceHandler, context);
 };
 
 /**
@@ -277,20 +277,20 @@ CustomEvents.prototype.once = function(eventName, handler, context) {
  * @private
  */
 CustomEvents.prototype._spliceMatches = function(arr, predicate) {
-    var i = 0;
-    var len;
+  var i = 0;
+  var len;
 
-    if (!isArray(arr)) {
-        return;
-    }
+  if (!isArray(arr)) {
+    return;
+  }
 
-    for (len = arr.length; i < len; i += 1) {
-        if (predicate(arr[i]) === true) {
-            arr.splice(i, 1);
-            len -= 1;
-            i -= 1;
-        }
+  for (len = arr.length; i < len; i += 1) {
+    if (predicate(arr[i]) === true) {
+      arr.splice(i, 1);
+      len -= 1;
+      i -= 1;
     }
+  }
 };
 
 /**
@@ -300,17 +300,17 @@ CustomEvents.prototype._spliceMatches = function(arr, predicate) {
  * @private
  */
 CustomEvents.prototype._matchHandler = function(handler) {
-    var self = this;
+  var self = this;
 
-    return function(item) {
-        var needRemove = handler === item.handler;
+  return function(item) {
+    var needRemove = handler === item.handler;
 
-        if (needRemove) {
-            self._forgetContext(item.context);
-        }
+    if (needRemove) {
+      self._forgetContext(item.context);
+    }
 
-        return needRemove;
-    };
+    return needRemove;
+  };
 };
 
 /**
@@ -320,17 +320,17 @@ CustomEvents.prototype._matchHandler = function(handler) {
  * @private
  */
 CustomEvents.prototype._matchContext = function(context) {
-    var self = this;
+  var self = this;
 
-    return function(item) {
-        var needRemove = context === item.context;
+  return function(item) {
+    var needRemove = context === item.context;
 
-        if (needRemove) {
-            self._forgetContext(item.context);
-        }
+    if (needRemove) {
+      self._forgetContext(item.context);
+    }
 
-        return needRemove;
-    };
+    return needRemove;
+  };
 };
 
 /**
@@ -341,19 +341,19 @@ CustomEvents.prototype._matchContext = function(context) {
  * @private
  */
 CustomEvents.prototype._matchHandlerAndContext = function(handler, context) {
-    var self = this;
+  var self = this;
 
-    return function(item) {
-        var matchHandler = (handler === item.handler);
-        var matchContext = (context === item.context);
-        var needRemove = (matchHandler && matchContext);
+  return function(item) {
+    var matchHandler = (handler === item.handler);
+    var matchContext = (context === item.context);
+    var needRemove = (matchHandler && matchContext);
 
-        if (needRemove) {
-            self._forgetContext(item.context);
-        }
+    if (needRemove) {
+      self._forgetContext(item.context);
+    }
 
-        return needRemove;
-    };
+    return needRemove;
+  };
 };
 
 /**
@@ -363,25 +363,25 @@ CustomEvents.prototype._matchHandlerAndContext = function(handler, context) {
  * @private
  */
 CustomEvents.prototype._offByEventName = function(eventName, handler) {
-    var self = this;
-    var andByHandler = isFunction(handler);
-    var matchHandler = self._matchHandler(handler);
+  var self = this;
+  var andByHandler = isFunction(handler);
+  var matchHandler = self._matchHandler(handler);
 
-    eventName = eventName.split(R_EVENTNAME_SPLIT);
+  eventName = eventName.split(R_EVENTNAME_SPLIT);
 
-    forEach(eventName, function(name) {
-        var handlerItems = self._safeEvent(name);
+  forEach(eventName, function(name) {
+    var handlerItems = self._safeEvent(name);
 
-        if (andByHandler) {
-            self._spliceMatches(handlerItems, matchHandler);
-        } else {
-            forEach(handlerItems, function(item) {
-                self._forgetContext(item.context);
-            });
+    if (andByHandler) {
+      self._spliceMatches(handlerItems, matchHandler);
+    } else {
+      forEach(handlerItems, function(item) {
+        self._forgetContext(item.context);
+      });
 
-            self.events[name] = [];
-        }
-    });
+      self.events[name] = [];
+    }
+  });
 };
 
 /**
@@ -390,12 +390,12 @@ CustomEvents.prototype._offByEventName = function(eventName, handler) {
  * @private
  */
 CustomEvents.prototype._offByHandler = function(handler) {
-    var self = this;
-    var matchHandler = this._matchHandler(handler);
+  var self = this;
+  var matchHandler = this._matchHandler(handler);
 
-    forEach(this._safeEvent(), function(handlerItems) {
-        self._spliceMatches(handlerItems, matchHandler);
-    });
+  forEach(this._safeEvent(), function(handlerItems) {
+    self._spliceMatches(handlerItems, matchHandler);
+  });
 };
 
 /**
@@ -405,30 +405,30 @@ CustomEvents.prototype._offByHandler = function(handler) {
  * @private
  */
 CustomEvents.prototype._offByObject = function(obj, handler) {
-    var self = this;
-    var matchFunc;
+  var self = this;
+  var matchFunc;
 
-    if (this._indexOfContext(obj) < 0) {
-        forEach(obj, function(func, name) {
-            self.off(name, func);
-        });
-    } else if (isString(handler)) {
-        matchFunc = this._matchContext(obj);
+  if (this._indexOfContext(obj) < 0) {
+    forEach(obj, function(func, name) {
+      self.off(name, func);
+    });
+  } else if (isString(handler)) {
+    matchFunc = this._matchContext(obj);
 
-        self._spliceMatches(this._safeEvent(handler), matchFunc);
-    } else if (isFunction(handler)) {
-        matchFunc = this._matchHandlerAndContext(handler, obj);
+    self._spliceMatches(this._safeEvent(handler), matchFunc);
+  } else if (isFunction(handler)) {
+    matchFunc = this._matchHandlerAndContext(handler, obj);
 
-        forEach(this._safeEvent(), function(handlerItems) {
-            self._spliceMatches(handlerItems, matchFunc);
-        });
-    } else {
-        matchFunc = this._matchContext(obj);
+    forEach(this._safeEvent(), function(handlerItems) {
+      self._spliceMatches(handlerItems, matchFunc);
+    });
+  } else {
+    matchFunc = this._matchContext(obj);
 
-        forEach(this._safeEvent(), function(handlerItems) {
-            self._spliceMatches(handlerItems, matchFunc);
-        });
-    }
+    forEach(this._safeEvent(), function(handlerItems) {
+      self._spliceMatches(handlerItems, matchFunc);
+    });
+  }
 };
 
 /**
@@ -469,20 +469,20 @@ CustomEvents.prototype._offByObject = function(obj, handler) {
  * CustomEvents.off();
  */
 CustomEvents.prototype.off = function(eventName, handler) {
-    if (isString(eventName)) {
-        // [syntax 1, 2]
-        this._offByEventName(eventName, handler);
-    } else if (!arguments.length) {
-        // [syntax 8]
-        this.events = {};
-        this.contexts = [];
-    } else if (isFunction(eventName)) {
-        // [syntax 3]
-        this._offByHandler(eventName);
-    } else if (isObject(eventName)) {
-        // [syntax 4, 5, 6]
-        this._offByObject(eventName, handler);
-    }
+  if (isString(eventName)) {
+    // [syntax 1, 2]
+    this._offByEventName(eventName, handler);
+  } else if (!arguments.length) {
+    // [syntax 8]
+    this.events = {};
+    this.contexts = [];
+  } else if (isFunction(eventName)) {
+    // [syntax 3]
+    this._offByHandler(eventName);
+  } else if (isObject(eventName)) {
+    // [syntax 4, 5, 6]
+    this._offByObject(eventName, handler);
+  }
 };
 
 /**
@@ -490,7 +490,7 @@ CustomEvents.prototype.off = function(eventName, handler) {
  * @param {string} eventName - name of custom event
  */
 CustomEvents.prototype.fire = function(eventName) {  // eslint-disable-line
-    this.invoke.apply(this, arguments);
+  this.invoke.apply(this, arguments);
 };
 
 /**
@@ -522,27 +522,27 @@ CustomEvents.prototype.fire = function(eventName) {  // eslint-disable-line
  * }
  */
 CustomEvents.prototype.invoke = function(eventName) {
-    var events, args, index, item;
+  var events, args, index, item;
 
-    if (!this.hasListener(eventName)) {
-        return true;
-    }
-
-    events = this._safeEvent(eventName);
-    args = Array.prototype.slice.call(arguments, 1);
-    index = 0;
-
-    while (events[index]) {
-        item = events[index];
-
-        if (item.handler.apply(item.context, args) === false) {
-            return false;
-        }
-
-        index += 1;
-    }
-
+  if (!this.hasListener(eventName)) {
     return true;
+  }
+
+  events = this._safeEvent(eventName);
+  args = Array.prototype.slice.call(arguments, 1);
+  index = 0;
+
+  while (events[index]) {
+    item = events[index];
+
+    if (item.handler.apply(item.context, args) === false) {
+      return false;
+    }
+
+    index += 1;
+  }
+
+  return true;
 };
 
 /**
@@ -552,7 +552,7 @@ CustomEvents.prototype.invoke = function(eventName) {
  * @returns {boolean} Is there at least one handler in event name?
  */
 CustomEvents.prototype.hasListener = function(eventName) {
-    return this.getListenerLength(eventName) > 0;
+  return this.getListenerLength(eventName) > 0;
 };
 
 /**
@@ -561,9 +561,9 @@ CustomEvents.prototype.hasListener = function(eventName) {
  * @returns {number} number of event
  */
 CustomEvents.prototype.getListenerLength = function(eventName) {
-    var events = this._safeEvent(eventName);
+  var events = this._safeEvent(eventName);
 
-    return events.length;
+  return events.length;
 };
 
 module.exports = CustomEvents;

@@ -16,15 +16,15 @@ var getClass = require('./getClass');
  * @memberof module:domUtil
  */
 function hasClass(element, cssClass) {
-    var origin;
+  var origin;
 
-    if (element.classList) {
-        return element.classList.contains(cssClass);
-    }
+  if (element.classList) {
+    return element.classList.contains(cssClass);
+  }
 
-    origin = getClass(element).split(/\s+/);
+  origin = getClass(element).split(/\s+/);
 
-    return inArray(cssClass, origin) > -1;
+  return inArray(cssClass, origin) > -1;
 }
 
 module.exports = hasClass;

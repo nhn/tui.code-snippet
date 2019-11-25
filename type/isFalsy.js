@@ -15,7 +15,7 @@ var isTruthy = require('./isTruthy');
  * @memberof module:type
  */
 function isFalsy(obj) {
-    return !isTruthy(obj);
+  return !isTruthy(obj);
 }
 
 module.exports = isFalsy;

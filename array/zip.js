@@ -21,19 +21,19 @@ var forEach = require('../collection/forEach');
  * console.log(result[2]); // [3, 'c', true]
  */
 function zip() {
-    var arr2d = Array.prototype.slice.call(arguments);
-    var result = [];
+  var arr2d = Array.prototype.slice.call(arguments);
+  var result = [];
 
-    forEach(arr2d, function(arr) {
-        forEach(arr, function(value, index) {
-            if (!result[index]) {
-                result[index] = [];
-            }
-            result[index].push(value);
-        });
+  forEach(arr2d, function(arr) {
+    forEach(arr, function(value, index) {
+      if (!result[index]) {
+        result[index] = [];
+      }
+      result[index].push(value);
     });
+  });
 
-    return result;
+  return result;
 }
 
 module.exports = zip;

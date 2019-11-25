@@ -28,16 +28,16 @@
  * alert(sum); // 6
  */
 function forEachArray(arr, iteratee, context) {
-    var index = 0;
-    var len = arr.length;
+  var index = 0;
+  var len = arr.length;
 
-    context = context || null;
+  context = context || null;
 
-    for (; index < len; index += 1) {
-        if (iteratee.call(context, arr[index], index, arr) === false) {
-            break;
-        }
+  for (; index < len; index += 1) {
+    if (iteratee.call(context, arr[index], index, arr) === false) {
+      break;
     }
+  }
 }
 
 module.exports = forEachArray;

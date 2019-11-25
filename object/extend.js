@@ -17,19 +17,19 @@
  * @memberof module:object
  */
 function extend(target, objects) { // eslint-disable-line no-unused-vars
-    var hasOwnProp = Object.prototype.hasOwnProperty;
-    var source, prop, i, len;
+  var hasOwnProp = Object.prototype.hasOwnProperty;
+  var source, prop, i, len;
 
-    for (i = 1, len = arguments.length; i < len; i += 1) {
-        source = arguments[i];
-        for (prop in source) {
-            if (hasOwnProp.call(source, prop)) {
-                target[prop] = source[prop];
-            }
-        }
+  for (i = 1, len = arguments.length; i < len; i += 1) {
+    source = arguments[i];
+    for (prop in source) {
+      if (hasOwnProp.call(source, prop)) {
+        target[prop] = source[prop];
+      }
     }
+  }
 
-    return target;
+  return target;
 }
 
 module.exports = extend;

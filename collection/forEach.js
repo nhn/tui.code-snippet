@@ -42,11 +42,11 @@ var forEachOwnProperties = require('../collection/forEachOwnProperties');
  * });
  */
 function forEach(obj, iteratee, context) {
-    if (isArray(obj)) {
-        forEachArray(obj, iteratee, context);
-    } else {
-        forEachOwnProperties(obj, iteratee, context);
-    }
+  if (isArray(obj)) {
+    forEachArray(obj, iteratee, context);
+  } else {
+    forEachOwnProperties(obj, iteratee, context);
+  }
 }
 
 module.exports = forEach;

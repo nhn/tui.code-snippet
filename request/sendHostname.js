@@ -17,9 +17,9 @@ var ms7days = 7 * 24 * 60 * 60 * 1000;
  * @private
  */
 function isExpired(date) {
-    var now = new Date().getTime();
+  var now = new Date().getTime();
 
-    return now - date > ms7days;
+  return now - date > ms7days;
 }
 
 /**
@@ -30,39 +30,39 @@ function isExpired(date) {
  * @ignore
  */
 function sendHostname(appName, trackingId) {
-    var url = 'https://www.google-analytics.com/collect';
-    var hostname = location.hostname;
-    var hitType = 'event';
-    var eventCategory = 'use';
-    var applicationKeyForStorage = 'TOAST UI ' + appName + ' for ' + hostname + ': Statistics';
-    var date = window.localStorage.getItem(applicationKeyForStorage);
+  var url = 'https://www.google-analytics.com/collect';
+  var hostname = location.hostname;
+  var hitType = 'event';
+  var eventCategory = 'use';
+  var applicationKeyForStorage = 'TOAST UI ' + appName + ' for ' + hostname + ': Statistics';
+  var date = window.localStorage.getItem(applicationKeyForStorage);
 
-    // skip if the flag is defined and is set to false explicitly
-    if (!isUndefined(window.tui) && window.tui.usageStatistics === false) {
-        return;
+  // skip if the flag is defined and is set to false explicitly
+  if (!isUndefined(window.tui) && window.tui.usageStatistics === false) {
+    return;
+  }
+
+  // skip if not pass seven days old
+  if (date && !isExpired(date)) {
+    return;
+  }
+
+  window.localStorage.setItem(applicationKeyForStorage, new Date().getTime());
+
+  setTimeout(function() {
+    if (document.readyState === 'interactive' || document.readyState === 'complete') {
+      imagePing(url, {
+        v: 1,
+        t: hitType,
+        tid: trackingId,
+        cid: hostname,
+        dp: hostname,
+        dh: appName,
+        el: appName,
+        ec: eventCategory
+      });
     }
-
-    // skip if not pass seven days old
-    if (date && !isExpired(date)) {
-        return;
-    }
-
-    window.localStorage.setItem(applicationKeyForStorage, new Date().getTime());
-
-    setTimeout(function() {
-        if (document.readyState === 'interactive' || document.readyState === 'complete') {
-            imagePing(url, {
-                v: 1,
-                t: hitType,
-                tid: trackingId,
-                cid: hostname,
-                dp: hostname,
-                dh: appName,
-                el: appName,
-                ec: eventCategory
-            });
-        }
-    }, 1000);
+  }, 1000);
 }
 
 module.exports = sendHostname;

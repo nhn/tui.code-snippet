@@ -30,20 +30,20 @@ var forEachOwnProperties = require('../collection/forEachOwnProperties');
  * });
  */
 function imagePing(url, trackingInfo) {
-    var trackingElement = document.createElement('img');
-    var queryString = '';
-    forEachOwnProperties(trackingInfo, function(value, key) {
-        queryString += '&' + key + '=' + value;
-    });
-    queryString = queryString.substring(1);
+  var trackingElement = document.createElement('img');
+  var queryString = '';
+  forEachOwnProperties(trackingInfo, function(value, key) {
+    queryString += '&' + key + '=' + value;
+  });
+  queryString = queryString.substring(1);
 
-    trackingElement.src = url + '?' + queryString;
+  trackingElement.src = url + '?' + queryString;
 
-    trackingElement.style.display = 'none';
-    document.body.appendChild(trackingElement);
-    document.body.removeChild(trackingElement);
+  trackingElement.style.display = 'none';
+  document.body.appendChild(trackingElement);
+  document.body.removeChild(trackingElement);
 
-    return trackingElement;
+  return trackingElement;
 }
 
 module.exports = imagePing;

@@ -19,21 +19,21 @@ var isArray = require('../type/isArray');
  * @memberof module:domEvent
  */
 function getMousePosition(position, relativeElement) {
-    var positionArray = isArray(position);
-    var clientX = positionArray ? position[0] : position.clientX;
-    var clientY = positionArray ? position[1] : position.clientY;
-    var rect;
+  var positionArray = isArray(position);
+  var clientX = positionArray ? position[0] : position.clientX;
+  var clientY = positionArray ? position[1] : position.clientY;
+  var rect;
 
-    if (!relativeElement) {
-        return [clientX, clientY];
-    }
+  if (!relativeElement) {
+    return [clientX, clientY];
+  }
 
-    rect = relativeElement.getBoundingClientRect();
+  rect = relativeElement.getBoundingClientRect();
 
-    return [
-        clientX - rect.left - relativeElement.clientLeft,
-        clientY - rect.top - relativeElement.clientTop
-    ];
+  return [
+    clientX - rect.left - relativeElement.clientLeft,
+    clientY - rect.top - relativeElement.clientTop
+  ];
 }
 
 module.exports = getMousePosition;

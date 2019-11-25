@@ -17,17 +17,17 @@
  * var result = encodeHTMLEntity(htmlEntityString);
  */
 function encodeHTMLEntity(html) {
-    var entities = {
-        '"': 'quot',
-        '&': 'amp',
-        '<': 'lt',
-        '>': 'gt',
-        '\'': '#39'
-    };
+  var entities = {
+    '"': 'quot',
+    '&': 'amp',
+    '<': 'lt',
+    '>': 'gt',
+    '\'': '#39'
+  };
 
-    return html.replace(/[<>&"']/g, function(m0) {
-        return entities[m0] ? '&' + entities[m0] + ';' : m0;
-    });
+  return html.replace(/[<>&"']/g, function(m0) {
+    return entities[m0] ? '&' + entities[m0] + ';' : m0;
+  });
 }
 
 module.exports = encodeHTMLEntity;

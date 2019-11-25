@@ -20,23 +20,23 @@ var off = require('./off');
  * @memberof module:domEvent
  */
 function once(element, types, handler, context) {
-    /**
+  /**
      * Event handler for one time.
      */
-    function onceHandler() {
-        handler.apply(context || element, arguments);
-        off(element, types, onceHandler, context);
-    }
+  function onceHandler() {
+    handler.apply(context || element, arguments);
+    off(element, types, onceHandler, context);
+  }
 
-    if (isObject(types)) {
-        forEachOwnProperties(types, function(fn, type) {
-            once(element, type, fn, handler);
-        });
+  if (isObject(types)) {
+    forEachOwnProperties(types, function(fn, type) {
+      once(element, type, fn, handler);
+    });
 
-        return;
-    }
+    return;
+  }
 
-    on(element, types, onceHandler, context);
+  on(element, types, onceHandler, context);
 }
 
 module.exports = once;

@@ -30,26 +30,26 @@ var isArray = require('../type/isArray');
  * var idx2 = inArray('one', arr); // 0
  */
 function inArray(searchElement, array, startIndex) {
-    var i;
-    var length;
-    startIndex = startIndex || 0;
+  var i;
+  var length;
+  startIndex = startIndex || 0;
 
-    if (!isArray(array)) {
-        return -1;
-    }
-
-    if (Array.prototype.indexOf) {
-        return Array.prototype.indexOf.call(array, searchElement, startIndex);
-    }
-
-    length = array.length;
-    for (i = startIndex; startIndex >= 0 && i < length; i += 1) {
-        if (array[i] === searchElement) {
-            return i;
-        }
-    }
-
+  if (!isArray(array)) {
     return -1;
+  }
+
+  if (Array.prototype.indexOf) {
+    return Array.prototype.indexOf.call(array, searchElement, startIndex);
+  }
+
+  length = array.length;
+  for (i = startIndex; startIndex >= 0 && i < length; i += 1) {
+    if (array[i] === searchElement) {
+      return i;
+    }
+  }
+
+  return -1;
 }
 
 module.exports = inArray;
