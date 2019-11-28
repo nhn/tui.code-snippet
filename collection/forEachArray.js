@@ -10,9 +10,9 @@
  * in the array(or Array-like object) in ascending order.
  * If the callback function returns false, the loop will be stopped.
  * Callback function(iteratee) is invoked with three arguments:
- *  - The value of the element
- *  - The index of the element
- *  - The array(or Array-like object) being traversed
+ *  1) The value of the element
+ *  2) The index of the element
+ *  3) The array(or Array-like object) being traversed
  * @param {Array} arr The array(or Array-like object) that will be traversed
  * @param {function} iteratee Callback function
  * @param {Object} [context] Context(this) of callback function

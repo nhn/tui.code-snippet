@@ -18,9 +18,9 @@ var forEachOwnProperties = require('../collection/forEachOwnProperties');
  * If the object is Array-like object(ex-arguments object), It needs to transform to Array.(see 'ex2' of example).
  * If the callback function returns false, the loop will be stopped.
  * Callback function(iteratee) is invoked with three arguments:
- *  - The value of the property(or The value of the element)
- *  - The name of the property(or The index of the element)
- *  - The object being traversed
+ *  1) The value of the property(or The value of the element)
+ *  2) The name of the property(or The index of the element)
+ *  3) The object being traversed
  * @param {Object} obj The object that will be traversed
  * @param {function} iteratee Callback function
  * @param {Object} [context] Context(this) of callback function
