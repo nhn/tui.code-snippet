@@ -9,7 +9,8 @@
     "test:ne": "KARMA_SERVER=ne karma start",
     "bundle": "webpack & webpack -p",
     "doc:serve": "tuidoc --serv",
-    "doc": "tuidoc"
+    "doc": "tuidoc",
+    "note": "tui-note"
   },
   "repository": {
     "type": "git",
@@ -41,6 +42,7 @@
     "type"
   ],
   "devDependencies": {
+    "@toast-ui/release-notes": "^2.0.0",
     "eslint": "^6.7.1",
     "eslint-config-prettier": "^6.7.0",
     "eslint-config-tui": "^3.0.0",
