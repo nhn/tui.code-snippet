@@ -31,11 +31,11 @@ var wheelButton = ['4'];
  * @memberof module:domEvent
  */
 function getMouseButton(mouseEvent) {
-    if (browser.msie && browser.version <= 8) {
-        return getMouseButtonIE8AndEarlier(mouseEvent);
-    }
+  if (browser.msie && browser.version <= 8) {
+    return getMouseButtonIE8AndEarlier(mouseEvent);
+  }
 
-    return mouseEvent.button;
+  return mouseEvent.button;
 }
 
 /**
@@ -46,17 +46,21 @@ function getMouseButton(mouseEvent) {
  * @private
  */
 function getMouseButtonIE8AndEarlier(mouseEvent) {
-    var button = String(mouseEvent.button);
+  var button = String(mouseEvent.button);
 
-    if (inArray(button, primaryButton) > -1) {
-        return 0;
-    } else if (inArray(button, secondaryButton) > -1) {
-        return 2;
-    } else if (inArray(button, wheelButton) > -1) {
-        return 1;
-    }
+  if (inArray(button, primaryButton) > -1) {
+    return 0;
+  }
 
-    return null;
+  if (inArray(button, secondaryButton) > -1) {
+    return 2;
+  }
+
+  if (inArray(button, wheelButton) > -1) {
+    return 1;
+  }
+
+  return null;
 }
 
 module.exports = getMouseButton;

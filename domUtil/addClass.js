@@ -22,32 +22,32 @@ var setClassName = require('./_setClassName');
  * @memberof module:domUtil
  */
 function addClass(element) {
-    var cssClass = Array.prototype.slice.call(arguments, 1);
-    var classList = element.classList;
-    var newClass = [];
-    var origin;
+  var cssClass = Array.prototype.slice.call(arguments, 1);
+  var classList = element.classList;
+  var newClass = [];
+  var origin;
 
-    if (classList) {
-        forEach(cssClass, function(name) {
-            element.classList.add(name);
-        });
-
-        return;
-    }
-
-    origin = getClass(element);
-
-    if (origin) {
-        cssClass = [].concat(origin.split(/\s+/), cssClass);
-    }
-
-    forEach(cssClass, function(cls) {
-        if (inArray(cls, newClass) < 0) {
-            newClass.push(cls);
-        }
+  if (classList) {
+    forEach(cssClass, function(name) {
+      element.classList.add(name);
     });
 
-    setClassName(element, newClass);
+    return;
+  }
+
+  origin = getClass(element);
+
+  if (origin) {
+    cssClass = [].concat(origin.split(/\s+/), cssClass);
+  }
+
+  forEach(cssClass, function(cls) {
+    if (inArray(cls, newClass) < 0) {
+      newClass.push(cls);
+    }
+  });
+
+  setClassName(element, newClass);
 }
 
 module.exports = addClass;

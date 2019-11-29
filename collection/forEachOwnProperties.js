@@ -9,9 +9,9 @@
  * Execute the provided callback once for each property of object which actually exist.
  * If the callback function returns false, the loop will be stopped.
  * Callback function(iteratee) is invoked with three arguments:
- *  - The value of the property
- *  - The name of the property
- *  - The object being traversed
+ *  1) The value of the property
+ *  2) The name of the property
+ *  3) The object being traversed
  * @param {Object} obj The object that will be traversed
  * @param {function} iteratee  Callback function
  * @param {Object} [context] Context(this) of callback function
@@ -27,17 +27,17 @@
  * alert(sum); // 6
  */
 function forEachOwnProperties(obj, iteratee, context) {
-    var key;
+  var key;
 
-    context = context || null;
+  context = context || null;
 
-    for (key in obj) {
-        if (obj.hasOwnProperty(key)) {
-            if (iteratee.call(context, obj[key], key, obj) === false) {
-                break;
-            }
-        }
+  for (key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      if (iteratee.call(context, obj[key], key, obj) === false) {
+        break;
+      }
     }
+  }
 }
 
 module.exports = forEachOwnProperties;

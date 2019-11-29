@@ -13,7 +13,7 @@
  * @memberof module:type
  */
 function isNumber(obj) {
-    return typeof obj === 'number' || obj instanceof Number;
+  return typeof obj === 'number' || obj instanceof Number;
 }
 
 module.exports = isNumber;

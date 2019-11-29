@@ -15,21 +15,21 @@ var matches = require('./matches');
  * @memberof module:domUtil
  */
 function closest(element, selector) {
-    var parent = element.parentNode;
+  var parent = element.parentNode;
 
-    if (matches(element, selector)) {
-        return element;
+  if (matches(element, selector)) {
+    return element;
+  }
+
+  while (parent && parent !== document) {
+    if (matches(parent, selector)) {
+      return parent;
     }
 
-    while (parent && parent !== document) {
-        if (matches(parent, selector)) {
-            return parent;
-        }
+    parent = parent.parentNode;
+  }
 
-        parent = parent.parentNode;
-    }
-
-    return null;
+  return null;
 }
 
 module.exports = closest;

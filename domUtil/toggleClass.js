@@ -17,30 +17,30 @@ var setClassName = require('./_setClassName');
  * @memberof module:domUtil
  */
 function toggleClass(element) {
-    var cssClass = Array.prototype.slice.call(arguments, 1);
-    var newClass;
+  var cssClass = Array.prototype.slice.call(arguments, 1);
+  var newClass;
 
-    if (element.classList) {
-        forEach(cssClass, function(name) {
-            element.classList.toggle(name);
-        });
-
-        return;
-    }
-
-    newClass = getClass(element).split(/\s+/);
-
+  if (element.classList) {
     forEach(cssClass, function(name) {
-        var idx = inArray(name, newClass);
-
-        if (idx > -1) {
-            newClass.splice(idx, 1);
-        } else {
-            newClass.push(name);
-        }
+      element.classList.toggle(name);
     });
 
-    setClassName(element, newClass);
+    return;
+  }
+
+  newClass = getClass(element).split(/\s+/);
+
+  forEach(cssClass, function(name) {
+    var idx = inArray(name, newClass);
+
+    if (idx > -1) {
+      newClass.splice(idx, 1);
+    } else {
+      newClass.push(name);
+    }
+  });
+
+  setClassName(element, newClass);
 }
 
 module.exports = toggleClass;

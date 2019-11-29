@@ -29,17 +29,17 @@ var forEachArray = require('./forEachArray');
  * alert(result); // one,two,three,four
  */
 function toArray(arrayLike) {
-    var arr;
-    try {
-        arr = Array.prototype.slice.call(arrayLike);
-    } catch (e) {
-        arr = [];
-        forEachArray(arrayLike, function(value) {
-            arr.push(value);
-        });
-    }
+  var arr;
+  try {
+    arr = Array.prototype.slice.call(arrayLike);
+  } catch (e) {
+    arr = [];
+    forEachArray(arrayLike, function(value) {
+      arr.push(value);
+    });
+  }
 
-    return arr;
+  return arr;
 }
 
 module.exports = toArray;

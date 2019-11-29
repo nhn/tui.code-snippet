@@ -14,7 +14,7 @@
  * @memberof module:type
  */
 function isDateSafe(obj) {
-    return Object.prototype.toString.call(obj) === '[object Date]';
+  return Object.prototype.toString.call(obj) === '[object Date]';
 }
 
 module.exports = isDateSafe;

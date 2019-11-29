@@ -11,13 +11,13 @@
  * @memberof module:domEvent
  */
 function stopPropagation(e) {
-    if (e.stopPropagation) {
-        e.stopPropagation();
+  if (e.stopPropagation) {
+    e.stopPropagation();
 
-        return;
-    }
+    return;
+  }
 
-    e.cancelBubble = true;
+  e.cancelBubble = true;
 }
 
 module.exports = stopPropagation;

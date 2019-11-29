@@ -12,7 +12,7 @@
  * @memberof module:domEvent
  */
 function getTarget(e) {
-    return e.target || e.srcElement;
+  return e.target || e.srcElement;
 }
 
 module.exports = getTarget;

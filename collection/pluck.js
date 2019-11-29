@@ -30,13 +30,13 @@ var forEach = require('./forEach');
  * pluck(arr2d, 2); // [3, 6, 9]
  */
 function pluck(arr, property) {
-    var resultArray = [];
+  var resultArray = [];
 
-    forEach(arr, function(item) {
-        resultArray.push(item[property]);
-    });
+  forEach(arr, function(item) {
+    resultArray.push(item[property]);
+  });
 
-    return resultArray;
+  return resultArray;
 }
 
 module.exports = pluck;

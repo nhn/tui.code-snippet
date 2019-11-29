@@ -21,17 +21,17 @@ var safeEvent = require('./_safeEvent');
  * @memberof module:domEvent
  */
 function on(element, types, handler, context) {
-    if (isString(types)) {
-        forEach(types.split(/\s+/g), function(type) {
-            bindEvent(element, type, handler, context);
-        });
-
-        return;
-    }
-
-    forEach(types, function(func, type) {
-        bindEvent(element, type, func, handler);
+  if (isString(types)) {
+    forEach(types.split(/\s+/g), function(type) {
+      bindEvent(element, type, handler, context);
     });
+
+    return;
+  }
+
+  forEach(types, function(func, type) {
+    bindEvent(element, type, func, handler);
+  });
 }
 
 /**
@@ -44,20 +44,20 @@ function on(element, types, handler, context) {
  * @private
  */
 function bindEvent(element, type, handler, context) {
-    /**
+  /**
      * Event handler
      * @param {Event} e - event object
      */
-    function eventHandler(e) {
-        handler.call(context || element, e || window.event);
-    }
+  function eventHandler(e) {
+    handler.call(context || element, e || window.event);
+  }
 
-    if ('addEventListener' in element) {
-        element.addEventListener(type, eventHandler);
-    } else if ('attachEvent' in element) {
-        element.attachEvent('on' + type, eventHandler);
-    }
-    memorizeHandler(element, type, handler, eventHandler);
+  if ('addEventListener' in element) {
+    element.addEventListener(type, eventHandler);
+  } else if ('attachEvent' in element) {
+    element.attachEvent('on' + type, eventHandler);
+  }
+  memorizeHandler(element, type, handler, eventHandler);
 }
 
 /**
@@ -69,25 +69,25 @@ function bindEvent(element, type, handler, context) {
  * @private
  */
 function memorizeHandler(element, type, handler, wrappedHandler) {
-    var events = safeEvent(element, type);
-    var existInEvents = false;
+  var events = safeEvent(element, type);
+  var existInEvents = false;
 
-    forEach(events, function(obj) {
-        if (obj.handler === handler) {
-            existInEvents = true;
+  forEach(events, function(obj) {
+    if (obj.handler === handler) {
+      existInEvents = true;
 
-            return false;
-        }
-
-        return true;
-    });
-
-    if (!existInEvents) {
-        events.push({
-            handler: handler,
-            wrappedHandler: wrappedHandler
-        });
+      return false;
     }
+
+    return true;
+  });
+
+  if (!existInEvents) {
+    events.push({
+      handler: handler,
+      wrappedHandler: wrappedHandler
+    });
+  }
 }
 
 module.exports = on;

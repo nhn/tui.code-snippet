@@ -13,7 +13,7 @@
  * @memberof module:type
  */
 function isBoolean(obj) {
-    return typeof obj === 'boolean' || obj instanceof Boolean;
+  return typeof obj === 'boolean' || obj instanceof Boolean;
 }
 
 module.exports = isBoolean;

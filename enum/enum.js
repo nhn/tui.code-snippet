@@ -19,13 +19,13 @@ var forEach = require('../collection/forEach');
  * @ignore
  */
 var isSupportDefinedProperty = (function() {
-    try {
-        Object.defineProperty({}, 'x', {});
+  try {
+    Object.defineProperty({}, 'x', {});
 
-        return true;
-    } catch (e) {
-        return false;
-    }
+    return true;
+  } catch (e) {
+    return false;
+  }
 })();
 
 /**
@@ -66,9 +66,9 @@ var enumValue = 0;
  * MYENUM.TYPE1 === originalValue; // true
  **/
 function Enum(itemList) {
-    if (itemList) {
-        this.set.apply(this, arguments);
-    }
+  if (itemList) {
+    this.set.apply(this, arguments);
+  }
 }
 
 /**
@@ -76,15 +76,15 @@ function Enum(itemList) {
  * @param {...string|string[]} itemList Constant-list (An array of string is available)
  */
 Enum.prototype.set = function(itemList) {
-    var self = this;
+  var self = this;
 
-    if (!isArray(itemList)) {
-        itemList = toArray(arguments);
-    }
+  if (!isArray(itemList)) {
+    itemList = toArray(arguments);
+  }
 
-    forEach(itemList, function itemListIteratee(item) {
-        self._addItem(item);
-    });
+  forEach(itemList, function itemListIteratee(item) {
+    self._addItem(item);
+  });
 };
 
 /**
@@ -93,18 +93,18 @@ Enum.prototype.set = function(itemList) {
  * @returns {string|undefined} Key of the constant.
  */
 Enum.prototype.getName = function(value) {
-    var self = this;
-    var foundedKey;
+  var self = this;
+  var foundedKey;
 
-    forEach(this, function(itemValue, key) { // eslint-disable-line consistent-return
-        if (self._isEnumItem(key) && value === itemValue) {
-            foundedKey = key;
+  forEach(this, function(itemValue, key) { // eslint-disable-line consistent-return
+    if (self._isEnumItem(key) && value === itemValue) {
+      foundedKey = key;
 
-            return false;
-        }
-    });
+      return false;
+    }
+  });
 
-    return foundedKey;
+  return foundedKey;
 };
 
 /**
@@ -113,22 +113,22 @@ Enum.prototype.getName = function(value) {
  * @param {string} name Constant name. (It will be a key of a constant)
  */
 Enum.prototype._addItem = function(name) {
-    var value;
+  var value;
 
-    if (!this.hasOwnProperty(name)) {
-        value = this._makeEnumValue();
+  if (!this.hasOwnProperty(name)) {
+    value = this._makeEnumValue();
 
-        if (isSupportDefinedProperty) {
-            Object.defineProperty(this, name, {
-                enumerable: true,
-                configurable: false,
-                writable: false,
-                value: value
-            });
-        } else {
-            this[name] = value;
-        }
+    if (isSupportDefinedProperty) {
+      Object.defineProperty(this, name, {
+        enumerable: true,
+        configurable: false,
+        writable: false,
+        value: value
+      });
+    } else {
+      this[name] = value;
     }
+  }
 };
 
 /**
@@ -137,12 +137,12 @@ Enum.prototype._addItem = function(name) {
  * @returns {number} A unique value
  */
 Enum.prototype._makeEnumValue = function() {
-    var value;
+  var value;
 
-    value = enumValue;
-    enumValue += 1;
+  value = enumValue;
+  enumValue += 1;
 
-    return value;
+  return value;
 };
 
 /**
@@ -152,7 +152,7 @@ Enum.prototype._makeEnumValue = function() {
  * @private
  */
 Enum.prototype._isEnumItem = function(key) {
-    return isNumber(this[key]);
+  return isNumber(this[key]);
 };
 
 module.exports = Enum;

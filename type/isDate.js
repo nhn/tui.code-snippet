@@ -13,7 +13,7 @@
  * @memberof module:type
  */
 function isDate(obj) {
-    return obj instanceof Date;
+  return obj instanceof Date;
 }
 
 module.exports = isDate;

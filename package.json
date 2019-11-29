@@ -4,11 +4,13 @@
   "description": "TOAST UI Utility: CodeSnippet",
   "main": "dist/tui-code-snippet.js",
   "scripts": {
+    "eslint": "eslint \"**/*.js\"",
     "test": "karma start --no-single-run",
     "test:ne": "KARMA_SERVER=ne karma start",
-    "bundle": "webpack & webpack --production",
+    "bundle": "webpack & webpack -p",
     "doc:serve": "tuidoc --serv",
-    "doc": "tuidoc"
+    "doc": "tuidoc",
+    "note": "tui-note"
   },
   "repository": {
     "type": "git",
@@ -40,10 +42,12 @@
     "type"
   ],
   "devDependencies": {
-    "eslint": "^4.1.1",
-    "eslint-config-tui": "^1.0.1",
-    "eslint-loader": "^1.8.0",
-    "istanbul-instrumenter-loader": "^2.0.0",
+    "@toast-ui/release-notes": "^2.0.0",
+    "eslint": "^6.7.1",
+    "eslint-config-prettier": "^6.7.0",
+    "eslint-config-tui": "^3.0.0",
+    "eslint-loader": "^3.0.2",
+    "eslint-plugin-prettier": "^3.1.1",
     "jasmine-ajax": "^3.3.1",
     "jasmine-core": "^2.7.0",
     "jasmine-jquery": "^2.1.1",
@@ -58,8 +62,9 @@
     "karma-safari-launcher": "^1.0.0",
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webdriver-launcher": "git+https://github.com/nhn/karma-webdriver-launcher.git#v1.2.0",
-    "karma-webpack": "^2.0.3",
-    "safe-umd-webpack-plugin": "0.0.2",
-    "webpack": "^1.1.0"
+    "karma-webpack": "^4.0.2",
+    "prettier": "^1.19.1",
+    "webpack": "^4.0.0",
+    "webpack-cli": "^3.3.10"
   }
 }

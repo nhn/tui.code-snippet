@@ -5,6 +5,8 @@
 
 'use strict';
 
+var convertToKebabCase = require('./_convertToKebabCase');
+
 /**
  * Remove data property
  * @param {HTMLElement} element - target element
@@ -12,17 +14,13 @@
  * @memberof module:domUtil
  */
 function removeData(element, key) {
-    if (element.dataset) {
-        delete element.dataset[key];
+  if (element.dataset) {
+    delete element.dataset[key];
 
-        return;
-    }
+    return;
+  }
 
-    key = key.replace(/([A-Z])/g, function(match) {
-        return '-' + match.toLowerCase();
-    });
-
-    element.removeAttribute('data-' + key);
+  element.removeAttribute('data-' + convertToKebabCase(key));
 }
 
 module.exports = removeData;

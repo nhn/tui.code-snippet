@@ -16,7 +16,7 @@ var isEmpty = require('./isEmpty');
  * @memberof module:type
  */
 function isNotEmpty(obj) {
-    return !isEmpty(obj);
+  return !isEmpty(obj);
 }
 
 module.exports = isNotEmpty;

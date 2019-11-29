@@ -15,19 +15,19 @@ var EVENT_KEY = '_feEventKey';
  * @private
  */
 function safeEvent(element, type) {
-    var events = element[EVENT_KEY];
-    var handlers;
+  var events = element[EVENT_KEY];
+  var handlers;
 
-    if (!events) {
-        events = element[EVENT_KEY] = {};
-    }
+  if (!events) {
+    events = element[EVENT_KEY] = {};
+  }
 
-    handlers = events[type];
-    if (!handlers) {
-        handlers = events[type] = [];
-    }
+  handlers = events[type];
+  if (!handlers) {
+    handlers = events[type] = [];
+  }
 
-    return handlers;
+  return handlers;
 }
 
 module.exports = safeEvent;

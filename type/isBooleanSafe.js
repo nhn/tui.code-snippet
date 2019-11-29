@@ -14,7 +14,7 @@
  * @memberof module:type
  */
 function isBooleanSafe(obj) {
-    return Object.prototype.toString.call(obj) === '[object Boolean]';
+  return Object.prototype.toString.call(obj) === '[object Boolean]';
 }
 
 module.exports = isBooleanSafe;

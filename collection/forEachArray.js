@@ -10,9 +10,9 @@
  * in the array(or Array-like object) in ascending order.
  * If the callback function returns false, the loop will be stopped.
  * Callback function(iteratee) is invoked with three arguments:
- *  - The value of the element
- *  - The index of the element
- *  - The array(or Array-like object) being traversed
+ *  1) The value of the element
+ *  2) The index of the element
+ *  3) The array(or Array-like object) being traversed
  * @param {Array} arr The array(or Array-like object) that will be traversed
  * @param {function} iteratee Callback function
  * @param {Object} [context] Context(this) of callback function
@@ -28,16 +28,16 @@
  * alert(sum); // 6
  */
 function forEachArray(arr, iteratee, context) {
-    var index = 0;
-    var len = arr.length;
+  var index = 0;
+  var len = arr.length;
 
-    context = context || null;
+  context = context || null;
 
-    for (; index < len; index += 1) {
-        if (iteratee.call(context, arr[index], index, arr) === false) {
-            break;
-        }
+  for (; index < len; index += 1) {
+    if (iteratee.call(context, arr[index], index, arr) === false) {
+      break;
     }
+  }
 }
 
 module.exports = forEachArray;

@@ -13,11 +13,11 @@ var testCSSProp = require('./_testCSSProp');
 var SUPPORT_SELECTSTART = 'onselectstart' in document;
 var KEY_PREVIOUS_USER_SELECT = 'prevUserSelect';
 var userSelectProperty = testCSSProp([
-    'userSelect',
-    'WebkitUserSelect',
-    'OUserSelect',
-    'MozUserSelect',
-    'msUserSelect'
+  'userSelect',
+  'WebkitUserSelect',
+  'OUserSelect',
+  'MozUserSelect',
+  'msUserSelect'
 ]);
 
 /**
@@ -26,17 +26,17 @@ var userSelectProperty = testCSSProp([
  * @memberof module:domUtil
  */
 function disableTextSelection(el) {
-    if (!el) {
-        el = document;
-    }
+  if (!el) {
+    el = document;
+  }
 
-    if (SUPPORT_SELECTSTART) {
-        on(el, 'selectstart', preventDefault);
-    } else {
-        el = (el === document) ? document.documentElement : el;
-        setData(el, KEY_PREVIOUS_USER_SELECT, el.style[userSelectProperty]);
-        el.style[userSelectProperty] = 'none';
-    }
+  if (SUPPORT_SELECTSTART) {
+    on(el, 'selectstart', preventDefault);
+  } else {
+    el = (el === document) ? document.documentElement : el;
+    setData(el, KEY_PREVIOUS_USER_SELECT, el.style[userSelectProperty]);
+    el.style[userSelectProperty] = 'none';
+  }
 }
 
 module.exports = disableTextSelection;

@@ -33,21 +33,21 @@ var isNull = require('../type/isNull');
  * pick(arr, 1); // 'b'
  */
 function pick(obj, paths) { // eslint-disable-line no-unused-vars
-    var args = arguments;
-    var target = args[0];
-    var i = 1;
-    var length = args.length;
+  var args = arguments;
+  var target = args[0];
+  var i = 1;
+  var length = args.length;
 
-    for (; i < length; i += 1) {
-        if (isUndefined(target) ||
+  for (; i < length; i += 1) {
+    if (isUndefined(target) ||
             isNull(target)) {
-            return;
-        }
-
-        target = target[args[i]];
+      return;
     }
 
-    return target; // eslint-disable-line consistent-return
+    target = target[args[i]];
+  }
+
+  return target; // eslint-disable-line consistent-return
 }
 
 module.exports = pick;

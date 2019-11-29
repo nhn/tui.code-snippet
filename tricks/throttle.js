@@ -36,53 +36,53 @@ var debounce = require('./debounce');
  * throttled.reset();
  */
 function throttle(fn, interval) {
-    var base;
-    var isLeading = true;
-    var tick = function(_args) {
-        fn.apply(null, _args);
-        base = null;
-    };
-    var debounced, stamp, args;
+  var base;
+  var isLeading = true;
+  var tick = function(_args) {
+    fn.apply(null, _args);
+    base = null;
+  };
+  var debounced, stamp, args;
 
-    /* istanbul ignore next */
-    interval = interval || 0;
+  /* istanbul ignore next */
+  interval = interval || 0;
 
-    debounced = debounce(tick, interval);
+  debounced = debounce(tick, interval);
 
-    function throttled() { // eslint-disable-line require-jsdoc
-        args = Array.prototype.slice.call(arguments);
+  function throttled() { // eslint-disable-line require-jsdoc
+    args = Array.prototype.slice.call(arguments);
 
-        if (isLeading) {
-            tick(args);
-            isLeading = false;
+    if (isLeading) {
+      tick(args);
+      isLeading = false;
 
-            return;
-        }
-
-        stamp = Number(new Date());
-
-        base = base || stamp;
-
-        // pass array directly because `debounce()`, `tick()` are already use
-        // `apply()` method to invoke developer's `fn` handler.
-        //
-        // also, this `debounced` line invoked every time for implements
-        // `trailing` features.
-        debounced(args);
-
-        if ((stamp - base) >= interval) {
-            tick(args);
-        }
+      return;
     }
 
-    function reset() { // eslint-disable-line require-jsdoc
-        isLeading = true;
-        base = null;
+    stamp = Number(new Date());
+
+    base = base || stamp;
+
+    // pass array directly because `debounce()`, `tick()` are already use
+    // `apply()` method to invoke developer's `fn` handler.
+    //
+    // also, this `debounced` line invoked every time for implements
+    // `trailing` features.
+    debounced(args);
+
+    if ((stamp - base) >= interval) {
+      tick(args);
     }
+  }
 
-    throttled.reset = reset;
+  function reset() { // eslint-disable-line require-jsdoc
+    isLeading = true;
+    base = null;
+  }
 
-    return throttled;
+  throttled.reset = reset;
+
+  return throttled;
 }
 
 module.exports = throttle;

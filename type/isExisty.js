@@ -25,7 +25,7 @@ var isNull = require('./isNull');
  * isExisty(undefined); //false
 */
 function isExisty(param) {
-    return !isUndefined(param) && !isNull(param);
+  return !isUndefined(param) && !isNull(param);
 }
 
 module.exports = isExisty;

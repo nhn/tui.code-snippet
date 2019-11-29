@@ -13,7 +13,7 @@
  * @memberof module:type
  */
 function isFunction(obj) {
-    return obj instanceof Function;
+  return obj instanceof Function;
 }
 
 module.exports = isFunction;

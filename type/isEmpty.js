@@ -20,7 +20,7 @@ var isFunction = require('./isFunction');
  * @private
  */
 function _isEmptyString(obj) {
-    return isString(obj) && obj === '';
+  return isString(obj) && obj === '';
 }
 
 /**
@@ -30,14 +30,14 @@ function _isEmptyString(obj) {
  * @private
  */
 function _hasOwnProperty(obj) {
-    var key;
-    for (key in obj) {
-        if (obj.hasOwnProperty(key)) {
-            return true;
-        }
+  var key;
+  for (key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      return true;
     }
+  }
 
-    return false;
+  return false;
 }
 
 /**
@@ -48,19 +48,19 @@ function _hasOwnProperty(obj) {
  * @memberof module:type
  */
 function isEmpty(obj) {
-    if (!isExisty(obj) || _isEmptyString(obj)) {
-        return true;
-    }
-
-    if (isArray(obj) || isArguments(obj)) {
-        return obj.length === 0;
-    }
-
-    if (isObject(obj) && !isFunction(obj)) {
-        return !_hasOwnProperty(obj);
-    }
-
+  if (!isExisty(obj) || _isEmptyString(obj)) {
     return true;
+  }
+
+  if (isArray(obj) || isArguments(obj)) {
+    return obj.length === 0;
+  }
+
+  if (isObject(obj) && !isFunction(obj)) {
+    return !_hasOwnProperty(obj);
+  }
+
+  return true;
 }
 
 module.exports = isEmpty;

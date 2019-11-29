@@ -16,7 +16,7 @@ var isExisty = require('./isExisty');
  * @memberof module:type
  */
 function isTruthy(obj) {
-    return isExisty(obj) && obj !== false;
+  return isExisty(obj) && obj !== false;
 }
 
 module.exports = isTruthy;

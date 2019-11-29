@@ -41,9 +41,9 @@ var createObject = require('./createObject');
  * };
  */
 function inherit(subType, superType) {
-    var prototype = createObject(superType.prototype);
-    prototype.constructor = subType;
-    subType.prototype = prototype;
+  var prototype = createObject(superType.prototype);
+  prototype.constructor = subType;
+  subType.prototype = prototype;
 }
 
 module.exports = inherit;

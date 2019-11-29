@@ -14,7 +14,7 @@
  * @memberof module:type
  */
 function isNumberSafe(obj) {
-    return Object.prototype.toString.call(obj) === '[object Number]';
+  return Object.prototype.toString.call(obj) === '[object Number]';
 }
 
 module.exports = isNumberSafe;

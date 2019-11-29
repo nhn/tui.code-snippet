@@ -5,6 +5,8 @@
 
 'use strict';
 
+var convertToKebabCase = require('./_convertToKebabCase');
+
 /**
  * Get data value from data-attribute
  * @param {HTMLElement} element - target element
@@ -13,15 +15,11 @@
  * @memberof module:domUtil
  */
 function getData(element, key) {
-    if (element.dataset) {
-        return element.dataset[key];
-    }
+  if (element.dataset) {
+    return element.dataset[key];
+  }
 
-    key = key.replace(/([A-Z])/g, function(match) {
-        return '-' + match.toLowerCase();
-    });
-
-    return element.getAttribute('data-' + key);
+  return element.getAttribute('data-' + convertToKebabCase(key));
 }
 
 module.exports = getData;
