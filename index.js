@@ -37,6 +37,7 @@ require('./domUtil/removeClass');
 require('./domUtil/removeData');
 require('./domUtil/removeElement');
 require('./domUtil/setData');
+require('./domUtil/template');
 require('./domUtil/toggleClass');
 require('./enum/enum');
 require('./formatDate/formatDate');
