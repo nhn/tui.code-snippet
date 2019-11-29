@@ -5,6 +5,8 @@
 
 'use strict';
 
+var convertToKebabCase = require('./_convertToKebabCase');
+
 /**
  * Remove data property
  * @param {HTMLElement} element - target element
@@ -18,11 +20,7 @@ function removeData(element, key) {
     return;
   }
 
-  key = key.replace(/([A-Z])/g, function(match) {
-    return '-' + match.toLowerCase();
-  });
-
-  element.removeAttribute('data-' + key);
+  element.removeAttribute('data-' + convertToKebabCase(key));
 }
 
 module.exports = removeData;
