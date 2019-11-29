@@ -15,6 +15,8 @@ var EXPRESSION_REGEXP = /{{\s?(\/?[a-zA-Z0-9_.@[\] ]+)\s?}}/g;
 var BRACKET_REGEXP = /^([a-zA-Z0-9_@]+)\[([a-zA-Z0-9_@]+)\]$/;
 var NUMBER_REGEXP = /^-?\d+\.?\d*$/;
 
+var EXPRESSION_INTERVAL = 2;
+
 var BLOCK_HELPERS = {
   'if': handleIf,
   'each': handleEach,
@@ -25,7 +27,7 @@ var BLOCK_HELPERS = {
  * Find value in the context by an expression.
  * @param {string} exp - an expression
  * @param {object} context - context
- * @return {*}
+ * @returns {*}
  * @private
  */
 function getValueFromContext(exp, context) {
@@ -50,7 +52,7 @@ function getValueFromContext(exp, context) {
  * Extract elseif and else expressions.
  * @param {Array.<string>} ifExps - args of if expression
  * @param {Array.<string>} sourcesInsideBlock - sources inside if block
- * @return {object} - exps: expressions of if, elseif, and else / sourcesInsideIf: sources inside if, elseif, and else block.
+ * @returns {object} - exps: expressions of if, elseif, and else / sourcesInsideIf: sources inside if, elseif, and else block.
  * @private
  */
 function extractElseif(ifExps, sourcesInsideBlock) {
@@ -82,7 +84,7 @@ function extractElseif(ifExps, sourcesInsideBlock) {
  * @param {Array.<string>} exps - array of expressions split by spaces
  * @param {Array.<string>} sourcesInsideBlock - array of sources inside the if block
  * @param {object} context - context
- * @return {string}
+ * @returns {string}
  * @private
  */
 function handleIf(exps, sourcesInsideBlock, context) {
@@ -107,7 +109,7 @@ function handleIf(exps, sourcesInsideBlock, context) {
  * @param {Array.<string>} exps - array of expressions split by spaces
  * @param {Array.<string>} sourcesInsideBlock - array of sources inside the each block
  * @param {object} context - context
- * @return {string}
+ * @returns {string}
  * @private
  */
 function handleEach(exps, sourcesInsideBlock, context) {
@@ -132,7 +134,7 @@ function handleEach(exps, sourcesInsideBlock, context) {
  * @param {Array.<string>} exps - array of expressions split by spaces
  * @param {Array.<string>} sourcesInsideBlock - array of sources inside the with block
  * @param {object} context - context
- * @return {string}
+ * @returns {string}
  * @private
  */
 function handleWith(exps, sourcesInsideBlock, context) {
@@ -151,7 +153,7 @@ function handleWith(exps, sourcesInsideBlock, context) {
  * @param {Array.<string>} sources - array of sources
  * @param {number} start - index of start block
  * @param {number} end - index of end block
- * @return {Array.<string>}
+ * @returns {Array.<string>}
  * @private
  */
 function extractSourcesInsideBlock(sources, start, end) {
@@ -162,18 +164,18 @@ function extractSourcesInsideBlock(sources, start, end) {
 }
 
 /**
- * Concatenate the elements between previous and next of the base element in place. 
+ * Concatenate the strings between previous and next of the base string in place. 
  * @param {Array.<string>} sources - array of sources
- * @param {number} index - index of base element
+ * @param {number} index - index of base string
  * @private
  */
-function joinBetween(source, index) {
+function concatPrevAndNextString(source, index) {
   var start = Math.max(index - 1, 0);
   var end = Math.min(index + 1, source.length - 1);
-  var deleteCount = end - start + 1;
-  var result = source.splice(start, deleteCount).join('');
+  var deletedCount = end - start + 1;
+  var result = source.splice(start, deletedCount).join('');
 
-  if (deleteCount < 3) {
+  if (deletedCount < 3) {
     source.splice(start, 0, '', result);
   } else {
     source.splice(start, 0, result);
@@ -185,7 +187,7 @@ function joinBetween(source, index) {
  * @param {string} helperKeyword - helper keyword (ex. if, each, with)
  * @param {Array.<string>} sourcesToEnd - array of sources after the starting block
  * @param {object} context - context
- * @return {Array.<string>}
+ * @returns {Array.<string>}
  * @private
  */
 function handleBlockHelper(helperKeyword, sourcesToEnd, context) {
@@ -209,15 +211,15 @@ function handleBlockHelper(helperKeyword, sourcesToEnd, context) {
         extractSourcesInsideBlock(sourcesToEnd, startBlockIndex, index),
         context
       );
-      joinBetween(sourcesToEnd, startBlockIndex);
-      index = startBlockIndex - 2;
+      concatPrevAndNextString(sourcesToEnd, startBlockIndex);
+      index = startBlockIndex - EXPRESSION_INTERVAL;
     }
 
-    index += 2;
+    index += EXPRESSION_INTERVAL;
     expression = sourcesToEnd[index];
-  } while (helperCount !== 0 && isString(expression));
+  } while (helperCount && isString(expression));
 
-  if (helperCount !== 0) {
+  if (helperCount) {
     throw Error(helperKeyword + ' needs {{/' + helperKeyword + '}} expression.');
   }
 
@@ -229,14 +231,14 @@ function handleBlockHelper(helperKeyword, sourcesToEnd, context) {
  * If helper is not a function, return helper itself.
  * @param {Array.<string>} exps - array of expressions split by spaces (first element: helper)
  * @param {object} context - context
- * @return {string}
+ * @returns {string}
  * @private
  */
 function handleExpression(exps, context) {
   var result = getValueFromContext(exps[0], context);
 
   if (result instanceof Function) {
-    result = executeFunction(result, exps.slice(1), context);
+    return executeFunction(result, exps.slice(1), context);
   }
 
   return result;
@@ -247,7 +249,7 @@ function handleExpression(exps, context) {
  * @param {Function} helper - helper function
  * @param {Array.<string>} argExps - expressions of arguments
  * @param {object} context - context
- * @return {string} - result of executing the function with arguments
+ * @returns {string} - result of executing the function with arguments
  * @private
  */
 function executeFunction(helper, argExps, context) {
@@ -263,7 +265,7 @@ function executeFunction(helper, argExps, context) {
  * Get a result of compiling an expression with the context.
  * @param {Array.<string>} sources - array of sources split by regexp of expression.
  * @param {object} context - context
- * @return {Array.<string>} - array of sources that bind with its context
+ * @returns {Array.<string>} - array of sources that bind with its context
  * @private
  */
 function compile(sources, context) {
@@ -282,7 +284,7 @@ function compile(sources, context) {
       sources[index] = handleExpression(exps, context);
     }
 
-    index += 2;
+    index += EXPRESSION_INTERVAL;
     expression = sources[index];
   }
 
@@ -304,7 +306,7 @@ function compile(sources, context) {
  * 3) 'with ... as ...' provides an alias.
  * @param {string} text - text with expressions
  * @param {object} context - context
- * @return {string} - text that bind with its context
+ * @returns {string} - text that bind with its context
  * @memberof module:domUtil
  * @example
  * var template = require('tui-code-snippet/domUtil/template');
