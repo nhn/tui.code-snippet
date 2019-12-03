@@ -11,8 +11,9 @@ var isArray = require('../type/isArray');
 var isString = require('../type/isString');
 var extend = require('../object/extend');
 
-var EXPRESSION_REGEXP = /{{\s?(\/?[a-zA-Z0-9_.@[\] ]+)\s?}}/g;
-var BRACKET_REGEXP = /^([a-zA-Z0-9_@]+)\[([a-zA-Z0-9_@]+)\]$/;
+var EXPRESSION_REGEXP = /{{\s?(\/?[a-zA-Z0-9_.@[\]"' ]+)\s?}}/g;
+var BRACKET_REGEXP = /^([a-zA-Z0-9_@]+)\[([a-zA-Z0-9_@"']+)\]$/;
+var STRING_REGEXP = /^["'](\w+)["']$/;
 var NUMBER_REGEXP = /^-?\d+\.?\d*$/;
 
 var EXPRESSION_INTERVAL = 2;
@@ -38,6 +39,8 @@ function getValueFromContext(exp, context) {
     value = true;
   } else if (exp === 'false') {
     value = false;
+  } else if (STRING_REGEXP.test(exp)) {
+    value = STRING_REGEXP.exec(exp)[1];
   } else if (BRACKET_REGEXP.test(exp)) {
     bracketExps = exp.split(BRACKET_REGEXP);
     value = getValueFromContext(bracketExps[1], context)[getValueFromContext(bracketExps[2], context)];
@@ -296,6 +299,10 @@ function compile(sources, context) {
  * <br>
  * If expression exists in the context, it will be replaced.
  * ex) '{{title}}' with context {title: 'Hello!'} is converted to 'Hello!'.
+ * An array or object can be accessed using bracket notation.
+ * ex) '{{odds[2]}}' with context {odds: [1, 3, 5]} is converted to '5'.
+ * ex) '{{evens[first]}}' with context {evens: [2, 4], first: 0} is converted to '2'.
+ * ex) '{{project["name"]}}' with context {project: {name: 'CodeSnippet'}} is converted to 'CodeSnippet'.
  * <br>
  * If replaced expression is a function, next expressions will be arguments of the function.
  * ex) '{{add 1 2}}' with context {add: function(a, b) {return a + b;}} is converted to '3'.

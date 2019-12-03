@@ -25,9 +25,10 @@ describe('{{expression}}', function() {
 
   it('should access the value with brackets if value is an object or array.', function() {
     expect(template('<p>{{ arr[2] }}</p>', {arr: [0, 1, 2]})).toBe('<p>2</p>');
-    expect(template('<p>{{obj[key]}}</p>', {
+    expect(template('<p>{{obj["key"]}}</p>', {obj: {key: 'value'}})).toBe('<p>value</p>');
+    expect(template('<p>{{obj[name]}}</p>', {
       obj: {key: 'value'},
-      key: 'key'
+      name: 'key'
     })).toBe('<p>value</p>');
     expect(template('{{each nums}}{{nums[@index]}}{{/each}}', {nums: [1, 2, 3]})).toBe('123');
   });
@@ -35,6 +36,16 @@ describe('{{expression}}', function() {
   it('should bind with boolean if value is "true" or "false".', function() {
     expect(template('<p>{{ false }}</p>', {})).toBe('<p>false</p>');
     expect(template('<p>{{true}}</p>', {})).toBe('<p>true</p>');
+  });
+
+  it('should bind with string if value is string with quotes.', function() {
+    var context = {
+      sayHello: function(name) {
+        return 'Hello, ' + name;
+      }
+    };
+    expect(template('<p>{{ sayHello "CodeSnippet" }}</p>', context)).toBe('<p>Hello, CodeSnippet</p>');
+    expect(template('<p>{{sayHello \'world\'}}</p>', context)).toBe('<p>Hello, world</p>');
   });
 });
 
