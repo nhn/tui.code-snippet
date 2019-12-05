@@ -66,19 +66,22 @@ function getValueFromContext(exp, context) {
 function extractElseif(ifExps, sourcesInsideBlock) {
   var exps = [ifExps];
   var sourcesInsideIf = [];
-
+  var otherIfCount = 0;
   var start = 0;
-  var i, len, source;
 
-  for (i = 0, len = sourcesInsideBlock.length; i < len; i += 1) {
-    source = sourcesInsideBlock[i];
-
-    if (source.indexOf('elseif') > -1 || source === 'else') {
+  // eslint-disable-next-line complexity
+  forEach(sourcesInsideBlock, function(source, index) {
+    if (source.indexOf('if') === 0) {
+      otherIfCount += 1;
+    } else if (source === '/if') {
+      otherIfCount -= 1;
+    } else if (!otherIfCount && (source.indexOf('elseif') === 0 || source === 'else')) {
       exps.push(source === 'else' ? ['true'] : source.split(' ').slice(1));
-      sourcesInsideIf.push(sourcesInsideBlock.slice(start, i));
-      start = i + 1;
+      sourcesInsideIf.push(sourcesInsideBlock.slice(start, index));
+      start = index + 1;
     }
-  }
+  });
+
   sourcesInsideIf.push(sourcesInsideBlock.slice(start));
 
   return {
@@ -129,9 +132,9 @@ function handleEach(exps, sourcesInsideBlock, context) {
   forEach(collection, function(item, key) {
     additionalContext[additionalKey] = key;
     additionalContext['@this'] = item;
-    extend(additionalContext, context);
+    extend(context, additionalContext);
 
-    result += compile(sourcesInsideBlock.slice(), additionalContext);
+    result += compile(sourcesInsideBlock.slice(), context);
   });
 
   return result;
@@ -153,7 +156,7 @@ function handleWith(exps, sourcesInsideBlock, context) {
   var additionalContext = {};
   additionalContext[alias] = result;
 
-  return compile(sourcesInsideBlock, extend(additionalContext, context)) || '';
+  return compile(sourcesInsideBlock, extend(context, additionalContext)) || '';
 }
 
 /**
@@ -172,25 +175,6 @@ function extractSourcesInsideBlock(sources, start, end) {
 }
 
 /**
- * Concatenate the strings between previous and next of the base string in place. 
- * @param {Array.<string>} sources - array of sources
- * @param {number} index - index of base string
- * @private
- */
-function concatPrevAndNextString(source, index) {
-  var start = Math.max(index - 1, 0);
-  var end = Math.min(index + 1, source.length - 1);
-  var deletedCount = end - start + 1;
-  var result = source.splice(start, deletedCount).join('');
-
-  if (deletedCount < 3) {
-    source.splice(start, 0, '', result);
-  } else {
-    source.splice(start, 0, result);
-  }
-}
-
-/**
  * Handle block helper function
  * @param {string} helperKeyword - helper keyword (ex. if, each, with)
  * @param {Array.<string>} sourcesToEnd - array of sources after the starting block
@@ -200,36 +184,33 @@ function concatPrevAndNextString(source, index) {
  */
 function handleBlockHelper(helperKeyword, sourcesToEnd, context) {
   var executeBlockHelper = BLOCK_HELPERS[helperKeyword];
-  var startBlockIndices = [];
-  var helperCount = 0;
-  var index = 0;
+  var helperCount = 1;
+  var startBlockIndex = 0;
+  var endBlockIndex;
+  var index = startBlockIndex + EXPRESSION_INTERVAL;
   var expression = sourcesToEnd[index];
-  var startBlockIndex;
 
-  do {
+  while (helperCount && isString(expression)) {
     if (expression.indexOf(helperKeyword) === 0) {
       helperCount += 1;
-      startBlockIndices.push(index);
     } else if (expression.indexOf('/' + helperKeyword) === 0) {
       helperCount -= 1;
-      startBlockIndex = startBlockIndices.pop();
-
-      sourcesToEnd[startBlockIndex] = executeBlockHelper(
-        sourcesToEnd[startBlockIndex].split(' ').slice(1),
-        extractSourcesInsideBlock(sourcesToEnd, startBlockIndex, index),
-        context
-      );
-      concatPrevAndNextString(sourcesToEnd, startBlockIndex);
-      index = startBlockIndex - EXPRESSION_INTERVAL;
+      endBlockIndex = index;
     }
 
     index += EXPRESSION_INTERVAL;
     expression = sourcesToEnd[index];
-  } while (helperCount && isString(expression));
+  }
 
   if (helperCount) {
     throw Error(helperKeyword + ' needs {{/' + helperKeyword + '}} expression.');
   }
+
+  sourcesToEnd[startBlockIndex] = executeBlockHelper(
+    sourcesToEnd[startBlockIndex].split(' ').slice(1),
+    extractSourcesInsideBlock(sourcesToEnd, startBlockIndex, endBlockIndex),
+    context
+  );
 
   return sourcesToEnd;
 }

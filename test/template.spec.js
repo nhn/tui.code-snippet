@@ -101,7 +101,6 @@ describe('block helper', function() {
     expect(function() {
       return template('{{each arr}}', {});
     }).toThrowError('each needs {{/each}} expression.');
-
     expect(function() {
       return template('{{with 1 as one}}', {});
     }).toThrowError('with needs {{/with}} expression.');
@@ -238,6 +237,12 @@ describe('{{each ...}} @this @index @key {{/each}}', function() {
       second: [4, 5, 6]
     };
     expect(template(source, context)).toBe('456456456');
+
+    source = '{{each doubleArr}}{{each @this}}{{@this}}{{/each}}{{/each}}';
+    context = {
+      doubleArr: [[1, 2, 3], [4, 5, 6]]
+    };
+    expect(template(source, context)).toBe('123456');
   });
 });
 
