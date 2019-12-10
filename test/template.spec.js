@@ -21,6 +21,9 @@ describe('{{expression}}', function() {
   it('should bind with number if value is a number.', function() {
     expect(template('<p>{{ 3 }}</p>', {})).toBe('<p>3</p>');
     expect(template('<p>{{123.4567}}</p>', {})).toBe('<p>123.4567</p>');
+    expect(template('<p>{{-1}}</p>', {})).toBe('<p>-1</p>');
+    expect(template('<p>{{-0}}</p>', {})).toBe('<p>0</p>');
+    expect(template('<p>{{-123.4567}}</p>', {})).toBe('<p>-123.4567</p>');
   });
 
   it('should access the value with brackets if value is an object or array.', function() {
@@ -31,6 +34,10 @@ describe('{{expression}}', function() {
       name: 'key'
     })).toBe('<p>value</p>');
     expect(template('{{each nums}}{{nums[@index]}}{{/each}}', {nums: [1, 2, 3]})).toBe('123');
+  });
+
+  it('should access the value with dots if value is an object.', function() {
+    expect(template('<p>{{obj.key}}</p>', {obj: {key: 'value'}})).toBe('<p>value</p>');
   });
 
   it('should bind with boolean if value is "true" or "false".', function() {

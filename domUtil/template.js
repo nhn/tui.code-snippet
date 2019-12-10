@@ -11,8 +11,9 @@ var isArray = require('../type/isArray');
 var isString = require('../type/isString');
 var extend = require('../object/extend');
 
-var EXPRESSION_REGEXP = /{{\s?(\/?[a-zA-Z0-9_.@[\]"' ]+)\s?}}/g;
+var EXPRESSION_REGEXP = /{{\s?(\/?[a-zA-Z0-9_.@[\]"'\- ]+)\s?}}/g;
 var BRACKET_REGEXP = /^([a-zA-Z0-9_@]+)\[([a-zA-Z0-9_@"']+)\]$/;
+var DOT_REGEXP = /^([a-zA-Z_]+)\.([a-zA-Z_]+)$/;
 var STRING_REGEXP = /^["'](\w+)["']$/;
 var NUMBER_REGEXP = /^-?\d+\.?\d*$/;
 
@@ -31,8 +32,9 @@ var BLOCK_HELPERS = {
  * @returns {*}
  * @private
  */
+// eslint-disable-next-line complexity
 function getValueFromContext(exp, context) {
-  var bracketExps;
+  var splitedExps;
   var value = context[exp];
 
   if (exp === 'true') {
@@ -42,8 +44,11 @@ function getValueFromContext(exp, context) {
   } else if (STRING_REGEXP.test(exp)) {
     value = STRING_REGEXP.exec(exp)[1];
   } else if (BRACKET_REGEXP.test(exp)) {
-    bracketExps = exp.split(BRACKET_REGEXP);
-    value = getValueFromContext(bracketExps[1], context)[getValueFromContext(bracketExps[2], context)];
+    splitedExps = exp.split(BRACKET_REGEXP);
+    value = getValueFromContext(splitedExps[1], context)[getValueFromContext(splitedExps[2], context)];
+  } else if (DOT_REGEXP.test(exp)) {
+    splitedExps = exp.split(DOT_REGEXP);
+    value = getValueFromContext(splitedExps[1], context)[splitedExps[2]];
   } else if (NUMBER_REGEXP.test(exp)) {
     value = parseFloat(exp);
   }
@@ -299,10 +304,10 @@ function compile(sources, context) {
  * <br>
  * If expression exists in the context, it will be replaced.
  * ex) '{{title}}' with context {title: 'Hello!'} is converted to 'Hello!'.
- * An array or object can be accessed using bracket notation.
+ * An array or object can be accessed using bracket and dot notation.
  * ex) '{{odds[2]}}' with context {odds: [1, 3, 5]} is converted to '5'.
  * ex) '{{evens[first]}}' with context {evens: [2, 4], first: 0} is converted to '2'.
- * ex) '{{project["name"]}}' with context {project: {name: 'CodeSnippet'}} is converted to 'CodeSnippet'.
+ * ex) '{{project["name"]}}' and '{{project.name}}' with context {project: {name: 'CodeSnippet'}} is converted to 'CodeSnippet'.
  * <br>
  * If replaced expression is a function, next expressions will be arguments of the function.
  * ex) '{{add 1 2}}' with context {add: function(a, b) {return a + b;}} is converted to '3'.
