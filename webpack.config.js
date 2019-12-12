@@ -8,10 +8,30 @@
 var path = require('path');
 var pkg = require('./package.json');
 var webpack = require('webpack');
+var TerserPlugin = require('terser-webpack-plugin');
+
+function setOptimization(isMinified) {
+  if (isMinified) {
+    return {
+      minimizer: [
+        new TerserPlugin({
+          cache: true,
+          parallel: true,
+          sourceMap: false,
+          extractComments: false
+        })
+      ]
+    };
+  }
+
+  return {
+    minimize: false
+  };
+}
 
 module.exports = function(env, argv) {
-  var isProduction = argv.mode === 'production';
-  var FILENAME = pkg.name + (isProduction ? '.min.js' : '.js');
+  var isMinified = !!argv.minify;
+  var FILENAME = pkg.name + (isMinified ? '.min.js' : '.js');
   var BANNER = [
     'TOAST UI Code Snippet',
     '@version ' + pkg.version,
@@ -20,7 +40,7 @@ module.exports = function(env, argv) {
   ].join('\n');
 
   return {
-    mode: 'development',
+    mode: 'production',
     entry: './index.js',
     output: {
       library: ['tui', 'util'],
@@ -36,13 +56,14 @@ module.exports = function(env, argv) {
           exclude: /node_modules/,
           loader: 'eslint-loader',
           options: {
-            failOnError: isProduction
+            failOnError: true
           }
         }
       ]
     },
     plugins: [
       new webpack.BannerPlugin(BANNER)
-    ]
+    ],
+    optimization: setOptimization(isMinified)
   };
 };
