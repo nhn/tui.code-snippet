@@ -61,8 +61,7 @@ function setConfig(defaultConfig, server) {
       // }
     };
     defaultConfig.browsers = [
-      // @FIXME: localStorage mocking 버그. 이후 수정 필요
-      // 'IE8',
+      'IE8',
       'IE9',
       'IE10',
       'IE11',
@@ -94,9 +93,7 @@ function setConfig(defaultConfig, server) {
       suite: ''
     };
   } else {
-    defaultConfig.browsers = [
-      'ChromeHeadless'
-    ];
+    defaultConfig.browsers = ['ChromeHeadless'];
   }
 }
 
