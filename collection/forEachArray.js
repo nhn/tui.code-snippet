@@ -13,7 +13,7 @@
  *  1) The value of the element
  *  2) The index of the element
  *  3) The array(or Array-like object) being traversed
- * @param {Array} arr The array(or Array-like object) that will be traversed
+ * @param {Array|Arguments|NodeList} arr The array(or Array-like object) that will be traversed
  * @param {function} iteratee Callback function
  * @param {Object} [context] Context(this) of callback function
  * @memberof module:collection
