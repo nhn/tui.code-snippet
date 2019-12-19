@@ -7,7 +7,7 @@
     "eslint": "eslint \"**/*.js\"",
     "test": "karma start --no-single-run",
     "test:ne": "KARMA_SERVER=ne karma start",
-    "bundle": "webpack & webpack -p",
+    "bundle": "webpack --mode=production & webpack --mode=production --minify",
     "doc:serve": "tuidoc --serv",
     "doc": "tuidoc",
     "note": "tui-note"

@@ -11,10 +11,14 @@ var isArray = require('../type/isArray');
 var isString = require('../type/isString');
 var extend = require('../object/extend');
 
-var EXPRESSION_REGEXP = /{{\s?(\/?[a-zA-Z0-9_.@[\]"'\- ]+)\s?}}/g;
-var BRACKET_REGEXP = /^([a-zA-Z0-9_@]+)\[([a-zA-Z0-9_@"']+)\]$/;
-var DOT_REGEXP = /^([a-zA-Z_]+)\.([a-zA-Z_]+)$/;
-var STRING_REGEXP = /^["'](\w+)["']$/;
+// IE8 does not support capture groups.
+var EXPRESSION_REGEXP = /{{\s?|\s?}}/g;
+var BRACKET_NOTATION_REGEXP = /^[a-zA-Z0-9_@]+\[[a-zA-Z0-9_@"']+\]$/;
+var BRACKET_REGEXP = /\[\s?|\s?\]/;
+var DOT_NOTATION_REGEXP = /^[a-zA-Z_]+\.[a-zA-Z_]+$/;
+var DOT_REGEXP = /\./;
+var STRING_NOTATION_REGEXP = /^["']\w+["']$/;
+var STRING_REGEXP = /"|'/g;
 var NUMBER_REGEXP = /^-?\d+\.?\d*$/;
 
 var EXPRESSION_INTERVAL = 2;
@@ -24,6 +28,44 @@ var BLOCK_HELPERS = {
   'each': handleEach,
   'with': handleWith
 };
+
+var isValidSplit = 'a'.split(/a/).length === 3;
+
+/**
+ * Split by RegExp. (Polyfill for IE8)
+ * @param {string} text - text to be splitted\
+ * @param {RegExp} regexp - regular expression
+ * @returns {Array.<string>}
+ */
+var splitByRegExp = (function() {
+  if (isValidSplit) {
+    return function(text, regexp) {
+      return text.split(regexp);
+    };
+  }
+
+  return function(text, regexp) {
+    var result = [];
+    var prevIndex = 0;
+    var match, index;
+
+    if (!regexp.global) {
+      regexp = new RegExp(regexp, 'g');
+    }
+
+    match = regexp.exec(text);
+    while (match !== null) {
+      index = match.index;
+      result.push(text.slice(prevIndex, index));
+
+      prevIndex = index + match[0].length;
+      match = regexp.exec(text);
+    }
+    result.push(text.slice(prevIndex));
+
+    return result;
+  };
+})();
 
 /**
  * Find value in the context by an expression.
@@ -41,14 +83,14 @@ function getValueFromContext(exp, context) {
     value = true;
   } else if (exp === 'false') {
     value = false;
-  } else if (STRING_REGEXP.test(exp)) {
-    value = STRING_REGEXP.exec(exp)[1];
-  } else if (BRACKET_REGEXP.test(exp)) {
+  } else if (STRING_NOTATION_REGEXP.test(exp)) {
+    value = exp.replace(STRING_REGEXP, '');
+  } else if (BRACKET_NOTATION_REGEXP.test(exp)) {
     splitedExps = exp.split(BRACKET_REGEXP);
-    value = getValueFromContext(splitedExps[1], context)[getValueFromContext(splitedExps[2], context)];
-  } else if (DOT_REGEXP.test(exp)) {
+    value = getValueFromContext(splitedExps[0], context)[getValueFromContext(splitedExps[1], context)];
+  } else if (DOT_NOTATION_REGEXP.test(exp)) {
     splitedExps = exp.split(DOT_REGEXP);
-    value = getValueFromContext(splitedExps[1], context)[splitedExps[2]];
+    value = getValueFromContext(splitedExps[0], context)[splitedExps[1]];
   } else if (NUMBER_REGEXP.test(exp)) {
     value = parseFloat(exp);
   }
@@ -336,9 +378,7 @@ function compile(sources, context) {
  * console.log(result); // <h1>Date: 2019-11-25</h1><p>1: Clean the room</p><p>2: Wash the dishes</p>
  */
 function template(text, context) {
-  text = text.replace(/\n\s*/g, '');
-
-  return compile(text.split(EXPRESSION_REGEXP), context);
+  return compile(splitByRegExp(text, EXPRESSION_REGEXP), context);
 }
 
 module.exports = template;
