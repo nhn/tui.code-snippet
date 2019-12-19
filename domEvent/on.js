@@ -11,14 +11,36 @@ var forEach = require('../collection/forEach');
 var safeEvent = require('./_safeEvent');
 
 /**
- * Bind DOM events
+ * Bind DOM events.
  * @param {HTMLElement} element - element to bind events
- * @param {(string|object)} types - Space splitted events names or
- *  eventName:handler object
- * @param {(function|object)} handler - handler function or context for handler
- *  method
+ * @param {(string|object)} types - Space splitted events names or eventName:handler object
+ * @param {(function|object)} handler - handler function or context for handler method
  * @param {object} [context] context - context for handler method.
  * @memberof module:domEvent
+ * @example
+ * var div = document.querySelector('div');
+ * 
+ * // Bind one event to an element.
+ * on(div, 'click', toggle);
+ * 
+ * // Bind multiple events with a same handler to multiple elements at once.
+ * // Use event names splitted by a space.
+ * on(div, 'mouseenter mouseleave', changeColor);
+ * 
+ * // Bind multiple events with different handlers to an element at once.
+ * // Use an object which of key is an event name and value is a handler function.
+ * on(div, {
+ *   keydown: highlight,
+ *   keyup: dehighlight
+ * });
+ * 
+ * // Set a context for handler method.
+ * var name = 'global';
+ * var repository = {name: 'CodeSnippet'};
+ * on(div, 'drag', function() {
+ *  console.log(this.name);
+ * }, repository);
+ * // Result when you drag a div: "CodeSnippet"
  */
 function on(element, types, handler, context) {
   if (isString(types)) {
@@ -38,8 +60,7 @@ function on(element, types, handler, context) {
  * Bind DOM events
  * @param {HTMLElement} element - element to bind events
  * @param {string} type - events name
- * @param {function} handler - handler function or context for handler
- *  method
+ * @param {function} handler - handler function or context for handler method
  * @param {object} [context] context - context for handler method.
  * @private
  */

@@ -13,11 +13,29 @@ var safeEvent = require('./_safeEvent');
 /**
  * Unbind DOM events
  * If a handler function is not passed, remove all events of that type.
- * @param {HTMLElement} element - element to unbindbind events
- * @param {(string|object)} types - Space splitted events names or
- *  eventName:handler object
+ * @param {HTMLElement} element - element to unbind events
+ * @param {(string|object)} types - Space splitted events names or eventName:handler object
  * @param {function} [handler] - handler function
  * @memberof module:domEvent
+ * @example
+ * // Following the example of {@link domEvent#on on()}
+ * 
+ * // Unbind one event from an element.
+ * off(div, 'click', toggle);
+ * 
+ * // Unbind multiple events with a same handler from multiple elements at once.
+ * // Use event names splitted by a space.
+ * off(element, 'mouseenter mouseleave', changeColor);
+ * 
+ * // Unbind multiple events with different handlers from an element at once.
+ * // Use an object which of key is an event name and value is a handler function.
+ * off(div, {
+ *   keydown: highlight,
+ *   keyup: dehighlight
+ * });
+ * 
+ * // Unbind events without handlers.
+ * off(div, 'drag');
  */
 function off(element, types, handler) {
   if (isString(types)) {
