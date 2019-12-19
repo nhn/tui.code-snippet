@@ -1,6 +1,6 @@
 {
   "name": "tui-code-snippet",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "TOAST UI Utility: CodeSnippet",
   "main": "dist/tui-code-snippet.js",
   "scripts": {
@@ -42,7 +42,7 @@
     "type"
   ],
   "devDependencies": {
-    "@toast-ui/release-notes": "^2.0.0",
+    "@toast-ui/release-notes": "^2.0.1",
     "eslint": "^6.7.1",
     "eslint-config-prettier": "^6.7.0",
     "eslint-config-tui": "^3.0.0",
