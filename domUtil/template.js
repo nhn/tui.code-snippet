@@ -328,9 +328,9 @@ function compile(sources, context) {
  * If expression exists in the context, it will be replaced.
  * ex) '{{title}}' with context {title: 'Hello!'} is converted to 'Hello!'.
  * An array or object can be accessed using bracket and dot notation.
- * ex) '{{odds[2]}}' with context {odds: [1, 3, 5]} is converted to '5'.
- * ex) '{{evens[first]}}' with context {evens: [2, 4], first: 0} is converted to '2'.
- * ex) '{{project["name"]}}' and '{{project.name}}' with context {project: {name: 'CodeSnippet'}} is converted to 'CodeSnippet'.
+ * ex) '{{odds\[2\]}}' with context {odds: \[1, 3, 5\]} is converted to '5'.
+ * ex) '{{evens\[first\]}}' with context {evens: \[2, 4\], first: 0} is converted to '2'.
+ * ex) '{{project\["name"\]}}' and '{{project.name}}' with context {project: {name: 'CodeSnippet'}} is converted to 'CodeSnippet'.
  * <br>
  * If replaced expression is a function, next expressions will be arguments of the function.
  * ex) '{{add 1 2}}' with context {add: function(a, b) {return a + b;}} is converted to '3'.

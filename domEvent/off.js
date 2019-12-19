@@ -18,7 +18,7 @@ var safeEvent = require('./_safeEvent');
  * @param {function} [handler] - handler function
  * @memberof module:domEvent
  * @example
- * // Following the example of {@link domEvent#on on()}
+ * // Following the example of domEvent#on
  * 
  * // Unbind one event from an element.
  * off(div, 'click', toggle);
