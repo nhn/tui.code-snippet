@@ -10,7 +10,7 @@ var pkg = require('./package.json');
 var webpack = require('webpack');
 var TerserPlugin = require('terser-webpack-plugin');
 
-function setOptimization(isMinified) {
+function getOptimization(isMinified) {
   if (isMinified) {
     return {
       minimizer: [
@@ -64,6 +64,6 @@ module.exports = function(env, argv) {
     plugins: [
       new webpack.BannerPlugin(BANNER)
     ],
-    optimization: setOptimization(isMinified)
+    optimization: getOptimization(isMinified)
   };
 };

@@ -29,6 +29,8 @@ var BLOCK_HELPERS = {
   'with': handleWith
 };
 
+var isValidSplit = 'a'.split(/a/).length === 3;
+
 /**
  * Split by RegExp. (Polyfill for IE8)
  * @param {string} text - text to be splitted\
@@ -36,7 +38,7 @@ var BLOCK_HELPERS = {
  * @returns {Array.<string>}
  */
 var splitByRegExp = (function() {
-  if ('a'.split(/a/).length === 3) {
+  if (isValidSplit) {
     return function(text, regexp) {
       return text.split(regexp);
     };
