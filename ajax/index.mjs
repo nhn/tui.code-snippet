@@ -22,6 +22,12 @@ function getSerialized(params, serializer) {
   return isFunction(serializer) ? serializer(params) : serialize(params);
 }
 
+function executeCallback(callback, param) {
+  if (callback) {
+    callback(param);
+  }
+}
+
 function handleReadyStateChange(xhr, options) {
   const { success, error, complete } = options;
 
@@ -33,11 +39,12 @@ function handleReadyStateChange(xhr, options) {
 
   if (validateStatus(xhr.status)) {
     // TODO: response wrapper
-    // success(xhr.responseText);
+    executeCallback(success, xhr.responseText);
   } else {
-    // error(xhr.statusText);
+    executeCallback(error, xhr.statusText);
   }
-  // complete();
+
+  executeCallback(complete);
 }
 
 function open(xhr, options) {
@@ -101,7 +108,7 @@ function send(xhr, options) {
 
   xhr.onreadystatechange = () => handleReadyStateChange(xhr, options);
 
-  // beforeRequest();
+  executeCallback(beforeRequest);
   xhr.send(body);
 }
 
