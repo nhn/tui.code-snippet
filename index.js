@@ -5,6 +5,7 @@
 
 'use strict';
 
+require('./ajax');
 require('./array/inArray');
 require('./array/range');
 require('./array/zip');

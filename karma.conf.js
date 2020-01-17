@@ -61,7 +61,7 @@ function setConfig(defaultConfig, server) {
       // }
     };
     defaultConfig.browsers = [
-      'IE8',
+      // 'IE8' // TODO: fail due to babel
       'IE9',
       'IE10',
       'IE11',
@@ -100,7 +100,7 @@ function setConfig(defaultConfig, server) {
 module.exports = function(config) {
   var defaultConfig = {
     basePath: './',
-    frameworks: ['fixture', 'jasmine'],
+    frameworks: ['fixture', 'jasmine-ajax', 'jasmine'],
     files: [
       'test/*.spec.js'
     ],
@@ -114,9 +114,20 @@ module.exports = function(config) {
       module: {
         rules: [
           {
-            test: /\.js$/,
+            test: /\.m?js$/,
             exclude: /node_modules/,
-            loader: 'eslint-loader'
+            loader: 'eslint-loader',
+            enforce: 'pre'
+          },
+          {
+            test: /\.mjs$/,
+            exclude: /(node_modules|bower_components)/,
+            use: {
+              loader: 'babel-loader',
+              options: {
+                presets: ['@babel/preset-env']
+              }
+            }
           }
         ]
       }

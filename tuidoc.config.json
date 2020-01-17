@@ -22,7 +22,7 @@
     "filePath": "README.md"
   },
   "api": {
-    "filePath": ["array", "browser", "collection", "customEvents", "defineClass", "domEvent", "domUtil", "enum", "formatDate", "inheritance", "object", "request", "string", "tricks", "type"],
+    "filePath": ["ajax", "array", "browser", "collection", "customEvents", "defineClass", "domEvent", "domUtil", "enum", "formatDate", "inheritance", "object", "request", "string", "tricks", "type"],
     "permalink": true
   },
   "examples": false,
