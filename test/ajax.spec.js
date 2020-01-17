@@ -86,7 +86,7 @@ fdescribe('Ajax', function() {
         'responseText': 'Test for the Ajax module'
       });
 
-      expect(success).toHaveBeenCalledWith('Test for the Ajax module');
+      expect(success).toHaveBeenCalled();
       expect(complete).toHaveBeenCalled();
     });
 
@@ -104,8 +104,87 @@ fdescribe('Ajax', function() {
         'statusText': 'Page Not Found'
       });
 
-      expect(error).toHaveBeenCalledWith('Page Not Found');
+      expect(error).toHaveBeenCalled();
       expect(complete).toHaveBeenCalled();
+    });
+  });
+
+  describe('response wrapper', function() {
+    it('should have status, statusText, data, and headers', function() {
+      var response;
+
+      ajax({
+        url: 'https://ui.toast.com/',
+        method: 'GET',
+        success: function(res) {
+          response = res;
+        }
+      });
+
+      jasmine.Ajax.requests.mostRecent().respondWith({
+        'status': 201,
+        'statusText': 'Created',
+        'responseText': '{"name":"tui-code-snippet","description":"TOAST UI Utility: CodeSnippet","author":"NHN. FE Development Lab <dl_javascript@nhn.com>"}',
+        'responseHeaders': {
+          'content-type': 'application/json',
+          'date': 'Fri, 17 Jan 2020 11:38:17 GMT',
+          'x-custom-header': 'CUSTOM'
+        }
+      });
+
+      expect(response.status).toBe(201);
+      expect(response.statusText).toBe('Created');
+      expect(response.data).toEqual({
+        'name': 'tui-code-snippet',
+        'description': 'TOAST UI Utility: CodeSnippet',
+        'author': 'NHN. FE Development Lab <dl_javascript@nhn.com>'
+      });
+      expect(response.headers).toEqual({
+        'content-type': 'application/json',
+        'date': 'Fri, 17 Jan 2020 11:38:17 GMT',
+        'x-custom-header': 'CUSTOM'
+      });
+    });
+
+    it('should have raw responseText if it does not meet a JSON format', function() {
+      var response;
+
+      ajax({
+        url: 'https://ui.toast.com/',
+        method: 'GET',
+        success: function(res) {
+          response = res;
+        }
+      });
+
+      jasmine.Ajax.requests.mostRecent().respondWith({
+        'status': 201,
+        'responseText': 'tui-code-snippet'
+      });
+
+      expect(response.data).toBe('tui-code-snippet');
+    });
+  });
+
+  describe('error wrapper', function() {
+    it('should have status and statusText', function() {
+      var error;
+
+      ajax({
+        url: 'https://ui.toast.com/',
+        method: 'GET',
+        error: function(err) {
+          error = err;
+        }
+      });
+
+      jasmine.Ajax.requests.mostRecent().respondWith({
+        'status': 502,
+        'statusText': 'Bad Gateway'
+      });
+
+      expect(error.status).toBe(502);
+      expect(error.statusText).toBe('Bad Gateway');
     });
   });
 

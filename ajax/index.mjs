@@ -34,20 +34,47 @@ function executeCallback(callback, param) {
   }
 }
 
+function parseData(data) {
+  let result = '';
+  try {
+    result = JSON.parse(data);
+  } catch (_) {
+    result = data;
+  }
+
+  return result;
+}
+
+function parseHeaders(text) {
+  return text.split('\r\n').reduce((acc, current) => {
+    if (current.length > 0) {
+      const [header, value] = current.split(': ');
+      acc[header] = value;
+    }
+
+    return acc;
+  }, {});
+}
+
 function handleReadyStateChange(xhr, options) {
+  const { readyState, status, statusText, responseText } = xhr;
   const { success, resolve, error, reject, complete } = options;
 
   // TODO: check whether XMLHttpRequest.DONE(=4) works well in IE8
   // eslint-disable-next-line eqeqeq
-  if (xhr.readyState != XMLHttpRequest.DONE) {
+  if (readyState != XMLHttpRequest.DONE) {
     return;
   }
 
-  if (validateStatus(xhr.status)) {
-    // TODO: response wrapper
-    executeCallback([success, resolve], xhr.responseText);
+  if (validateStatus(status)) {
+    executeCallback([success, resolve], {
+      status,
+      statusText,
+      data: parseData(responseText),
+      headers: parseHeaders(xhr.getAllResponseHeaders())
+    });
   } else {
-    executeCallback([error, reject], xhr.statusText);
+    executeCallback([error, reject], { status, statusText });
   }
 
   executeCallback(complete);
