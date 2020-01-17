@@ -10,6 +10,10 @@ import { serialize } from './_serializer';
 const ENCODED_SPACE_REGEXP = /%20/g;
 const QS_DELIM_REGEXP = /\?/;
 
+function supportPromise() {
+  return typeof Promise !== 'undefined';
+}
+
 function validateStatus(status) {
   return status >= 200 && status < 300;
 }
@@ -23,13 +27,15 @@ function getSerialized(params, serializer) {
 }
 
 function executeCallback(callback, param) {
-  if (callback) {
+  if (Array.isArray(callback)) {
+    callback.forEach(fn => executeCallback(fn, param));
+  } else if (callback) {
     callback(param);
   }
 }
 
 function handleReadyStateChange(xhr, options) {
-  const { success, error, complete } = options;
+  const { success, resolve, error, reject, complete } = options;
 
   // TODO: check whether XMLHttpRequest.DONE(=4) works well in IE8
   // eslint-disable-next-line eqeqeq
@@ -39,9 +45,9 @@ function handleReadyStateChange(xhr, options) {
 
   if (validateStatus(xhr.status)) {
     // TODO: response wrapper
-    executeCallback(success, xhr.responseText);
+    executeCallback([success, resolve], xhr.responseText);
   } else {
-    executeCallback(error, xhr.statusText);
+    executeCallback([error, reject], xhr.statusText);
   }
 
   executeCallback(complete);
@@ -113,13 +119,21 @@ function send(xhr, options) {
 }
 
 /**
- * A module for the Ajax request
+ * A module for the Ajax request.
+ * If the browser supports Promise, return the Promise object. If not, return nothing.
  * @param {object} options Options for the Ajax request
+ * @returns {[Promise]}
  * @memberof module:ajax
  */
 export default function ajax(options) {
   const xhr = new XMLHttpRequest();
   const request = opts => [open, applyConfig, send].forEach(fn => fn(xhr, opts));
+
+  if (supportPromise()) {
+    return new Promise((resolve, reject) => {
+      request(Object.assign(options, { resolve, reject }));
+    });
+  }
 
   return request(options);
 }

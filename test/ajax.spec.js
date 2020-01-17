@@ -3,6 +3,10 @@
 var ajax = require('../ajax/')['default'];
 // import ajax from '../ajax';
 
+function supportPromise() {
+  return typeof Promise !== 'undefined';
+}
+
 fdescribe('Ajax', function() {
   beforeEach(function() {
     jasmine.Ajax.install();
@@ -104,4 +108,97 @@ fdescribe('Ajax', function() {
       expect(complete).toHaveBeenCalled();
     });
   });
+
+  // TODO: Edge17 does not support Promise.finally()
+  // eslint-disable-next-line no-undef
+  if (supportPromise() && Promise.prototype['finally']) {
+    describe('Promise', function() {
+      var resolve, reject, success, error;
+
+      beforeEach(function() {
+        resolve = jasmine.createSpy('resolve');
+        reject = jasmine.createSpy('reject');
+        success = jasmine.createSpy('success');
+        error = jasmine.createSpy('error');
+      });
+
+      it('should execute resolve() when the request completed successfully', function() {
+        ajax({
+          url: 'https://ui.toast.com',
+          method: 'GET'
+        }).then(resolve)
+          .catch(reject) // eslint-disable-line dot-notation
+          .finally(function() { // eslint-disable-line dot-notation
+            expect(resolve).toHaveBeenCalled();
+            expect(reject).not.toHaveBeenCalled();
+          });
+
+        jasmine.Ajax.requests.mostRecent().respondWith({
+          'status': 200,
+          'contentType': 'text/plain',
+          'responseText': 'Test for the Ajax module'
+        });
+      });
+
+      it('should execute reject() when the request failed', function() {
+        ajax({
+          url: 'https://ui.toast.com',
+          method: 'GET'
+        }).then(resolve)
+          .catch(reject) // eslint-disable-line dot-notation
+          .finally(function() { // eslint-disable-line dot-notation
+            expect(resolve).not.toHaveBeenCalled();
+            expect(reject).toHaveBeenCalled();
+          });
+
+        jasmine.Ajax.requests.mostRecent().respondWith({
+          'status': 500,
+          'statusText': 'Internal Server Error'
+        });
+      });
+
+      it('should execute success() and resolve() when the request completed successfully', function() {
+        ajax({
+          url: 'https://ui.toast.com',
+          method: 'GET',
+          success: success,
+          error: error
+        }).then(resolve)
+          .catch(reject) // eslint-disable-line dot-notation
+          .finally(function() { // eslint-disable-line dot-notation
+            expect(success).toHaveBeenCalled();
+            expect(resolve).toHaveBeenCalled();
+            expect(success).toHaveBeenCalledBefore(resolve);
+            expect(error).not.toHaveBeenCalled();
+          });
+
+        jasmine.Ajax.requests.mostRecent().respondWith({
+          'status': 200,
+          'contentType': 'text/plain',
+          'responseText': 'Test for the Ajax module'
+        });
+      });
+
+      it('should execute error() and reject() when the request failed', function() {
+        ajax({
+          url: 'https://ui.toast.com',
+          method: 'GET',
+          success: success,
+          error: error
+        }).then(resolve)
+          .catch(reject) // eslint-disable-line dot-notation
+          .finally(function() { // eslint-disable-line dot-notation
+            expect(error).toHaveBeenCalled();
+            expect(reject).toHaveBeenCalled();
+            expect(error).toHaveBeenCalledBefore(reject);
+            expect(success).not.toHaveBeenCalled();
+          });
+
+        jasmine.Ajax.requests.mostRecent().respondWith({
+          'status': 500,
+          'statusText': 'Internal Server Error'
+        });
+      });
+    });
+  }
 });
