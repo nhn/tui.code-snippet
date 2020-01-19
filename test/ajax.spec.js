@@ -1,6 +1,9 @@
 'use strict';
 
+var forEachOwnProperties = require('../collection/forEachOwnProperties');
+
 var ajax = require('../ajax/')['default'];
+var defaultOptions = require('../ajax/_options').defaultOptions;
 // import ajax from '../ajax';
 
 function supportPromise() {
@@ -185,6 +188,135 @@ fdescribe('Ajax', function() {
 
       expect(error.status).toBe(502);
       expect(error.statusText).toBe('Bad Gateway');
+    });
+  });
+
+  describe('default options', function() {
+    var request;
+
+    beforeEach(function() {
+      ajax.defaults = defaultOptions;
+    });
+
+    it('should set a baseURL', function() {
+      ajax.defaults.baseURL = 'https://nhn.github.io/';
+
+      ajax({
+        url: '/tui-code-snippet',
+        method: 'GET'
+      });
+
+      request = jasmine.Ajax.requests.mostRecent();
+      expect(request.url).toBe('https://nhn.github.io/tui-code-snippet');
+
+      ajax({
+        // If a url starts with 'http', baseURL is not applied
+        url: 'https://ui.toast.com',
+        method: 'POST'
+      });
+
+      request = jasmine.Ajax.requests.mostRecent();
+      expect(request.url).toBe('https://ui.toast.com');
+    });
+
+    it('should set headers and contentType', function() {
+      ajax.defaults.common = {
+        contentType: 'application/json',
+        headers: {
+          'X-Common-Header': 'COMMON',
+          'X-Custom-Header': 'CUSTOM-COMMON'
+        }
+      };
+
+      ajax({
+        url: 'https://ui.toast.com',
+        method: 'PUT'
+      });
+
+      request = jasmine.Ajax.requests.mostRecent();
+      // v2.3.0, ajax module supports charset=UTF-8 only
+      expect(request.requestHeaders['Content-Type']).toBe('application/json; charset=UTF-8');
+      expect(request.requestHeaders['X-Common-Header']).toBe('COMMON');
+      expect(request.requestHeaders['X-Custom-Header']).toBe('CUSTOM-COMMON');
+
+      ajax.defaults.POST.contentType = 'text/plain';
+      ajax.defaults.POST.headers = {'X-Custom-Header': 'CUSTOM-POST'};
+
+      ajax({
+        url: 'https://ui.toast.com',
+        method: 'POST'
+      });
+
+      request = jasmine.Ajax.requests.mostRecent();
+      // v2.3.0, ajax module supports charset=UTF-8 only
+      // defaults.common is overidden by defaults[method]
+      expect(request.requestHeaders['Content-Type']).toBe('text/plain; charset=UTF-8');
+      expect(request.requestHeaders['X-Common-Header']).toBe('COMMON');
+      expect(request.requestHeaders['X-Custom-Header']).toBe('CUSTOM-POST');
+
+      ajax({
+        url: 'https://ui.toast.com',
+        method: 'POST',
+        headers: {
+          'X-Custom-Header': 'CUSTOM-AJAX-OPTION'
+        }
+      });
+
+      request = jasmine.Ajax.requests.mostRecent();
+      // v2.3.0, ajax module supports charset=UTF-8 only
+      // defaults[method] is overidden by ajax's options
+      expect(request.requestHeaders['Content-Type']).toBe('text/plain; charset=UTF-8');
+      expect(request.requestHeaders['X-Common-Header']).toBe('COMMON');
+      expect(request.requestHeaders['X-Custom-Header']).toBe('CUSTOM-AJAX-OPTION');
+    });
+
+    it('should set a serializer', function() {
+      ajax.defaults.serializer = function(params) {
+        var result = [];
+
+        forEachOwnProperties(params, function(value, key) {
+          result.push('param-' + key + '=' + value);
+        });
+
+        return result.join('&');
+      };
+
+      ajax({
+        url: 'https://ui.toast.com',
+        method: 'GET',
+        params: {
+          first: 1,
+          second: 2,
+          third: 3
+        }
+      });
+
+      request = jasmine.Ajax.requests.mostRecent();
+      expect(request.url).toBe('https://ui.toast.com?param-first=1&param-second=2&param-third=3');
+    });
+
+    it('should set event handlers', function() {
+      var success = jasmine.createSpy('ajaxOptionSuccess');
+      var defaultSuccess = jasmine.createSpy('defaultSuccess');
+      var defaultComplete = jasmine.createSpy('defaultComplete');
+
+      ajax.defaults.success = defaultSuccess;
+      ajax.defaults.complete = defaultComplete;
+
+      ajax({
+        url: 'https://ui.toast.com',
+        method: 'GET',
+        success: success
+      });
+
+      jasmine.Ajax.requests.mostRecent().respondWith({
+        'status': 201,
+        'responseText': 'tui-code-snippet'
+      });
+
+      expect(success).toHaveBeenCalled();
+      expect(defaultSuccess).not.toHaveBeenCalled();
+      expect(defaultComplete).toHaveBeenCalled();
     });
   });
 

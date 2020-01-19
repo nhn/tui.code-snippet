@@ -1,7 +1,6 @@
 import forEachOwnProperties from '../collection/forEachOwnProperties';
-import isFunction from '../type/isFunction';
 
-import { serialize } from './_serializer';
+import { defaultOptions, getComputedOptions } from './_options';
 
 /**
  * @module ajax
@@ -20,10 +19,6 @@ function validateStatus(status) {
 
 function hasRequestBody(method) {
   return /^(?:POST|PUT|PATCH)$/.test(method.toUpperCase());
-}
-
-function getSerialized(params, serializer) {
-  return isFunction(serializer) ? serializer(params) : serialize(params);
 }
 
 function executeCallback(callback, param) {
@@ -81,13 +76,13 @@ function handleReadyStateChange(xhr, options) {
 }
 
 function open(xhr, options) {
-  const { url, method, serializer, params = {} } = options;
+  const { url, method, serializer, params } = options;
 
   let requestUrl = url;
 
-  if (!hasRequestBody(method)) {
+  if (!hasRequestBody(method) && params) {
     // serialize query string
-    const qs = (QS_DELIM_REGEXP.test(url) ? '&' : '?') + getSerialized(params, serializer);
+    const qs = (QS_DELIM_REGEXP.test(url) ? '&' : '?') + serializer(params);
     requestUrl = `${url}${qs}`;
   }
 
@@ -96,6 +91,7 @@ function open(xhr, options) {
 
 function applyConfig(xhr, options) {
   const { method, contentType, mimeType, headers, withCredentials = false } = options;
+
   // set withCredentials (IE10+)
   if (withCredentials) {
     xhr.withCredentials = withCredentials;
@@ -106,12 +102,10 @@ function applyConfig(xhr, options) {
     xhr.overrideMimeType(mimeType);
   }
 
-  // set user defined request headers
   forEachOwnProperties(headers, (value, header) => {
     xhr.setRequestHeader(header, value);
   });
 
-  // set 'Content-Type' when request has body
   if (hasRequestBody(method)) {
     xhr.setRequestHeader('Content-Type', `${contentType}; charset=UTF-8`);
   }
@@ -135,7 +129,7 @@ function send(xhr, options) {
     // The space character '%20' is replaced to '+', because application/x-www-form-urlencoded follows rfc-1866
     body =
       contentType.indexOf('application/x-www-form-urlencoded') !== -1
-        ? getSerialized(params, serializer).replace(ENCODED_SPACE_REGEXP, '+')
+        ? serializer(params).replace(ENCODED_SPACE_REGEXP, '+')
         : JSON.stringify(params);
   }
 
@@ -152,9 +146,11 @@ function send(xhr, options) {
  * @returns {[Promise]}
  * @memberof module:ajax
  */
-export default function ajax(options) {
+function ajax(options) {
   const xhr = new XMLHttpRequest();
   const request = opts => [open, applyConfig, send].forEach(fn => fn(xhr, opts));
+
+  options = getComputedOptions(ajax.defaults, options);
 
   if (supportPromise()) {
     return new Promise((resolve, reject) => {
@@ -164,3 +160,7 @@ export default function ajax(options) {
 
   return request(options);
 }
+
+ajax.defaults = defaultOptions;
+
+export default ajax;
