@@ -163,4 +163,37 @@ function ajax(options) {
 
 ajax.defaults = defaultOptions;
 
+ajax._request = function(url, method, options = {}) {
+  return ajax(Object.assign(options, { url, method }));
+};
+
+ajax.get = function(url, options) {
+  return ajax._request(url, 'GET', options);
+};
+
+ajax.post = function(url, options) {
+  return ajax._request(url, 'POST', options);
+};
+
+ajax.put = function(url, options) {
+  return ajax._request(url, 'PUT', options);
+};
+
+// eslint-disable-next-line dot-notation
+ajax.delete = function(url, options) {
+  return ajax._request(url, 'DELETE', options);
+};
+
+ajax.patch = function(url, options) {
+  return ajax._request(url, 'PATCH', options);
+};
+
+ajax.options = function(url, options) {
+  return ajax._request(url, 'OPTIONS', options);
+};
+
+ajax.head = function(url, options) {
+  return ajax._request(url, 'HEAD', options);
+};
+
 export default ajax;

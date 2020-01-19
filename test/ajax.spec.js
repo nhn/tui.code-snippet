@@ -194,7 +194,7 @@ fdescribe('Ajax', function() {
   describe('default options', function() {
     var request;
 
-    beforeEach(function() {
+    afterEach(function() {
       ajax.defaults = defaultOptions;
     });
 
@@ -317,6 +317,28 @@ fdescribe('Ajax', function() {
       expect(success).toHaveBeenCalled();
       expect(defaultSuccess).not.toHaveBeenCalled();
       expect(defaultComplete).toHaveBeenCalled();
+    });
+  });
+
+  describe('request methods', function() {
+    var request;
+
+    afterEach(function() {
+      ajax.defaults = defaultOptions;
+    });
+
+    it('should send the request depending on the method name', function() {
+      ajax.get('https://ui.toast.com');
+      request = jasmine.Ajax.requests.mostRecent();
+      expect(request.url).toBe('https://ui.toast.com');
+      expect(request.method).toBe('GET');
+
+      ajax.defaults.POST.contentType = 'application/json';
+      ajax.post('https://nhn.github.io/tui-code-snippet');
+      request = jasmine.Ajax.requests.mostRecent();
+      expect(request.url).toBe('https://nhn.github.io/tui-code-snippet');
+      expect(request.method).toBe('POST');
+      expect(request.requestHeaders['Content-Type']).toBe('application/json; charset=UTF-8');
     });
   });
 
