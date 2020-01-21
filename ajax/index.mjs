@@ -64,43 +64,36 @@ function serialize(params) {
  * The default configurations
  * @namespace defaults
  * @property {string} baseURL - baseURL
- * @property {object} common - Common configs regardless of the type of request
- * @property {string} common.contentType - content-type for every requests
- * @property {object<string, string>} common.headers - headers for every requests
- * @property {object} POST - Common configs for the POST method
- * @property {string} POST.contentType - content-type for the POST method
- * @property {object<string, string>} POST.headers - headers for the POST method
- * @property {object} PUT - Common configs for the PUT method
- * @property {string} PUT.contentType - content-type for the PUT method
- * @property {object<string, string>} PUT.headers - headers for the PUT method
- * @property {object} PATCH - Common configs for the PATCH method
- * @property {string} PATCH.contentType - content-type for the PATCH method
- * @property {object<string, string>} PATCH.headers - headers for the PATCH method
+ * @property {object} headers - request headers
+ * @property {object<string,string>} headers.common - Common configs regardless of the type of request
+ * @property {object<string,string>} headers.get - Common configs for the GET method
+ * @property {object<string,string>} headers.post - Common configs for the POST method
+ * @property {object<string,string>} headers.put - Common configs for the PUT method
+ * @property {object<string,string>} headers.delete - Common configs for the DELETE method
+ * @property {object<string,string>} headers.patch - Common configs for the PATCH method
+ * @property {object<string,string>} headers.options - Common configs for the OPTIONS method
+ * @property {object<string,string>} headers.head - Common configs for the HEAD method
  * @property {function} serializer - determine how to serialize the data
  * @property {function} beforeRequest - callback function executed before the request is sent
  * @property {function} success - callback function executed when the request is success
  * @property {function} error - callback function executed when the request is failed
  * @property {function} complete - callback function executed when the request is completed
  */
-const defaultOptions = {
-  baseURL: '',
-  common: {
-    contentType: '',
-    headers: {}
-  },
-  POST: {
-    contentType: '',
-    headers: {}
-  },
-  PUT: {
-    contentType: '',
-    headers: {}
-  },
-  PATCH: {
-    contentType: '',
-    headers: {}
-  },
-  serializer: serialize
+const getDefaultOptions = () => {
+  return {
+    baseURL: '',
+    headers: {
+      common: {},
+      get: {},
+      post: {},
+      put: {},
+      delete: {},
+      patch: {},
+      options: {},
+      head: {}
+    },
+    serializer: serialize
+  };
 };
 
 /**
@@ -157,12 +150,11 @@ function combineURL(baseURL, url) {
  */
 function getComputedOptions(defaults, customs) {
   const options = merge(defaults, customs);
-  const { baseURL, url, method, headers, contentType, common } = options;
-  const methodOptions = options[method] || {};
+  const { baseURL, url, method, headers, contentType } = options;
 
   options.url = combineURL(baseURL, url);
-  options.headers = extend(common.headers, methodOptions.headers, headers);
-  options.contentType = contentType || methodOptions.contentType || common.contentType;
+  options.headers = extend(headers.common, headers[method.toLowerCase()], customs.headers);
+  options.contentType = contentType || options.headers['Content-Type'];
 
   return options;
 }
@@ -270,7 +262,9 @@ function applyConfig(xhr, options) {
   }
 
   forEachOwnProperties(headers, (value, header) => {
-    xhr.setRequestHeader(header, value);
+    if (!isObject(value) && header !== 'Content-Type') {
+      xhr.setRequestHeader(header, value);
+    }
   });
 
   if (hasRequestBody(method)) {
@@ -328,10 +322,10 @@ function ajax(options) {
   return request(options);
 }
 
-ajax.defaults = deepAssign({}, defaultOptions);
+ajax.defaults = getDefaultOptions();
 
 ajax._reset = function() {
-  ajax.defaults = deepAssign({}, defaultOptions);
+  ajax.defaults = getDefaultOptions();
 };
 
 ajax._request = function(url, method, options = {}) {

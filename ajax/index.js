@@ -76,18 +76,15 @@ function serialize(params) {
  * The default configurations
  * @namespace defaults
  * @property {string} baseURL - baseURL
- * @property {object} common - Common configs regardless of the type of request
- * @property {string} common.contentType - content-type for every requests
- * @property {object<string, string>} common.headers - headers for every requests
- * @property {object} POST - Common configs for the POST method
- * @property {string} POST.contentType - content-type for the POST method
- * @property {object<string, string>} POST.headers - headers for the POST method
- * @property {object} PUT - Common configs for the PUT method
- * @property {string} PUT.contentType - content-type for the PUT method
- * @property {object<string, string>} PUT.headers - headers for the PUT method
- * @property {object} PATCH - Common configs for the PATCH method
- * @property {string} PATCH.contentType - content-type for the PATCH method
- * @property {object<string, string>} PATCH.headers - headers for the PATCH method
+ * @property {object} headers - request headers
+ * @property {object<string,string>} headers.common - Common configs regardless of the type of request
+ * @property {object<string,string>} headers.get - Common configs for the GET method
+ * @property {object<string,string>} headers.post - Common configs for the POST method
+ * @property {object<string,string>} headers.put - Common configs for the PUT method
+ * @property {object<string,string>} headers.delete - Common configs for the DELETE method
+ * @property {object<string,string>} headers.patch - Common configs for the PATCH method
+ * @property {object<string,string>} headers.options - Common configs for the OPTIONS method
+ * @property {object<string,string>} headers.head - Common configs for the HEAD method
  * @property {function} serializer - determine how to serialize the data
  * @property {function} beforeRequest - callback function executed before the request is sent
  * @property {function} success - callback function executed when the request is success
@@ -96,25 +93,21 @@ function serialize(params) {
  */
 
 
-var defaultOptions = {
-  baseURL: '',
-  common: {
-    contentType: '',
-    headers: {}
-  },
-  POST: {
-    contentType: '',
-    headers: {}
-  },
-  PUT: {
-    contentType: '',
-    headers: {}
-  },
-  PATCH: {
-    contentType: '',
-    headers: {}
-  },
-  serializer: serialize
+var getDefaultOptions = function getDefaultOptions() {
+  return {
+    baseURL: '',
+    headers: {
+      common: {},
+      get: {},
+      post: {},
+      put: {},
+      "delete": {},
+      patch: {},
+      options: {},
+      head: {}
+    },
+    serializer: serialize
+  };
 };
 /**
  * Deep copy all enumerable own properties from a source objects to a target object.
@@ -123,6 +116,7 @@ var defaultOptions = {
  * @returns {object}
  * @private
  */
+
 
 function deepAssign(target, source) {
   (0, _forEachOwnProperties["default"])(source, function (value, key) {
@@ -177,12 +171,10 @@ function getComputedOptions(defaults, customs) {
       url = options.url,
       method = options.method,
       headers = options.headers,
-      contentType = options.contentType,
-      common = options.common;
-  var methodOptions = options[method] || {};
+      contentType = options.contentType;
   options.url = combineURL(baseURL, url);
-  options.headers = (0, _extend["default"])(common.headers, methodOptions.headers, headers);
-  options.contentType = contentType || methodOptions.contentType || common.contentType;
+  options.headers = (0, _extend["default"])(headers.common, headers[method.toLowerCase()], customs.headers);
+  options.contentType = contentType || options.headers['Content-Type'];
   return options;
 }
 /**
@@ -250,8 +242,7 @@ function handleReadyStateChange(xhr, options) {
       resolve = options.resolve,
       error = options.error,
       reject = options.reject,
-      complete = options.complete;
-  // eslint-disable-next-line eqeqeq
+      complete = options.complete; // eslint-disable-next-line eqeqeq
 
   if (readyState != XMLHttpRequest.DONE) {
     return;
@@ -308,7 +299,9 @@ function applyConfig(xhr, options) {
   }
 
   (0, _forEachOwnProperties["default"])(headers, function (value, header) {
-    xhr.setRequestHeader(header, value);
+    if (!(0, _isObject["default"])(value) && header !== 'Content-Type') {
+      xhr.setRequestHeader(header, value);
+    }
   });
 
   if (hasRequestBody(method)) {
@@ -373,10 +366,10 @@ function ajax(options) {
   return request(options);
 }
 
-ajax.defaults = deepAssign({}, defaultOptions);
+ajax.defaults = getDefaultOptions();
 
 ajax._reset = function () {
-  ajax.defaults = deepAssign({}, defaultOptions);
+  ajax.defaults = getDefaultOptions();
 };
 
 ajax._request = function (url, method, options) {

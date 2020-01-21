@@ -218,12 +218,10 @@ describe('Ajax', function() {
     });
 
     it('should set headers and contentType', function() {
-      ajax.defaults.common = {
-        contentType: 'application/json',
-        headers: {
-          'X-Common-Header': 'COMMON',
-          'X-Custom-Header': 'CUSTOM-COMMON'
-        }
+      ajax.defaults.headers.common = {
+        'X-Common-Header': 'COMMON',
+        'X-Custom-Header': 'CUSTOM-COMMON',
+        'Content-Type': 'application/json'
       };
 
       ajax({
@@ -237,8 +235,10 @@ describe('Ajax', function() {
       expect(request.requestHeaders['X-Common-Header']).toBe('COMMON');
       expect(request.requestHeaders['X-Custom-Header']).toBe('CUSTOM-COMMON');
 
-      ajax.defaults.POST.contentType = 'text/plain';
-      ajax.defaults.POST.headers = {'X-Custom-Header': 'CUSTOM-POST'};
+      ajax.defaults.headers.post = {
+        'X-Custom-Header': 'CUSTOM-POST',
+        'Content-Type': 'text/plain'
+      };
 
       ajax({
         url: 'https://ui.toast.com',
@@ -331,7 +331,9 @@ describe('Ajax', function() {
       expect(request.url).toBe('https://ui.toast.com');
       expect(request.method).toBe('GET');
 
-      ajax.defaults.POST.contentType = 'application/json';
+      ajax.defaults.headers.post = {
+        'Content-Type': 'application/json'
+      };
       ajax.post('https://nhn.github.io/tui-code-snippet');
       request = jasmine.Ajax.requests.mostRecent();
       expect(request.url).toBe('https://nhn.github.io/tui-code-snippet');
