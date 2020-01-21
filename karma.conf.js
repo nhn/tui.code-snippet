@@ -61,7 +61,7 @@ function setConfig(defaultConfig, server) {
       // }
     };
     defaultConfig.browsers = [
-      // 'IE8' // TODO: fail due to babel
+      'IE8',
       'IE9',
       'IE10',
       'IE11',
@@ -118,16 +118,6 @@ module.exports = function(config) {
             exclude: /node_modules/,
             loader: 'eslint-loader',
             enforce: 'pre'
-          },
-          {
-            test: /\.mjs$/,
-            exclude: /(node_modules|bower_components)/,
-            use: {
-              loader: 'babel-loader',
-              options: {
-                presets: ['@babel/preset-env']
-              }
-            }
           }
         ]
       }

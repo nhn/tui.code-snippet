@@ -59,14 +59,6 @@ module.exports = function(_, argv) {
             failOnError: true
           },
           enforce: 'pre'
-        },
-        {
-          test: /\.mjs$/,
-          exclude: /node_modules/,
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env']
-          }
         }
       ]
     },

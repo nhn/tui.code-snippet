@@ -2,15 +2,13 @@
 
 var forEachOwnProperties = require('../collection/forEachOwnProperties');
 
-var ajax = require('../ajax/')['default'];
-var defaultOptions = require('../ajax/_options').defaultOptions;
-// import ajax from '../ajax';
+var ajax = require('../ajax/index.js');
 
 function supportPromise() {
   return typeof Promise !== 'undefined';
 }
 
-fdescribe('Ajax', function() {
+describe('Ajax', function() {
   beforeEach(function() {
     jasmine.Ajax.install();
   });
@@ -195,7 +193,7 @@ fdescribe('Ajax', function() {
     var request;
 
     afterEach(function() {
-      ajax.defaults = defaultOptions;
+      ajax._reset();
     });
 
     it('should set a baseURL', function() {
@@ -324,7 +322,7 @@ fdescribe('Ajax', function() {
     var request;
 
     afterEach(function() {
-      ajax.defaults = defaultOptions;
+      ajax._reset();
     });
 
     it('should send the request depending on the method name', function() {
@@ -342,11 +340,10 @@ fdescribe('Ajax', function() {
     });
   });
 
-  // TODO: Edge17 does not support Promise.finally()
   // eslint-disable-next-line no-undef
-  if (supportPromise() && Promise.prototype['finally']) {
+  if (supportPromise()) {
     describe('Promise', function() {
-      var resolve, reject, success, error;
+      var resolve, reject, success, error, checkSpyCalls;
 
       beforeEach(function() {
         resolve = jasmine.createSpy('resolve');
@@ -356,15 +353,16 @@ fdescribe('Ajax', function() {
       });
 
       it('should execute resolve() when the request completed successfully', function() {
+        checkSpyCalls = function() {
+          expect(resolve).toHaveBeenCalled();
+          expect(reject).not.toHaveBeenCalled();
+        };
+
         ajax({
           url: 'https://ui.toast.com',
           method: 'GET'
-        }).then(resolve)
-          .catch(reject) // eslint-disable-line dot-notation
-          .finally(function() { // eslint-disable-line dot-notation
-            expect(resolve).toHaveBeenCalled();
-            expect(reject).not.toHaveBeenCalled();
-          });
+        }).then(resolve)['catch'](reject)
+          .then(checkSpyCalls)['catch'](checkSpyCalls);
 
         jasmine.Ajax.requests.mostRecent().respondWith({
           'status': 200,
@@ -374,15 +372,16 @@ fdescribe('Ajax', function() {
       });
 
       it('should execute reject() when the request failed', function() {
+        checkSpyCalls = function() {
+          expect(resolve).not.toHaveBeenCalled();
+          expect(reject).toHaveBeenCalled();
+        };
+
         ajax({
           url: 'https://ui.toast.com',
           method: 'GET'
-        }).then(resolve)
-          .catch(reject) // eslint-disable-line dot-notation
-          .finally(function() { // eslint-disable-line dot-notation
-            expect(resolve).not.toHaveBeenCalled();
-            expect(reject).toHaveBeenCalled();
-          });
+        }).then(resolve)['catch'](reject)
+          .then(checkSpyCalls)['catch'](checkSpyCalls);
 
         jasmine.Ajax.requests.mostRecent().respondWith({
           'status': 500,
@@ -391,19 +390,20 @@ fdescribe('Ajax', function() {
       });
 
       it('should execute success() and resolve() when the request completed successfully', function() {
+        checkSpyCalls = function() {
+          expect(success).toHaveBeenCalled();
+          expect(resolve).toHaveBeenCalled();
+          expect(success).toHaveBeenCalledBefore(resolve);
+          expect(error).not.toHaveBeenCalled();
+        };
+
         ajax({
           url: 'https://ui.toast.com',
           method: 'GET',
           success: success,
           error: error
-        }).then(resolve)
-          .catch(reject) // eslint-disable-line dot-notation
-          .finally(function() { // eslint-disable-line dot-notation
-            expect(success).toHaveBeenCalled();
-            expect(resolve).toHaveBeenCalled();
-            expect(success).toHaveBeenCalledBefore(resolve);
-            expect(error).not.toHaveBeenCalled();
-          });
+        }).then(resolve)['catch'](reject)
+          .then(checkSpyCalls)['catch'](checkSpyCalls);
 
         jasmine.Ajax.requests.mostRecent().respondWith({
           'status': 200,
@@ -413,19 +413,20 @@ fdescribe('Ajax', function() {
       });
 
       it('should execute error() and reject() when the request failed', function() {
+        checkSpyCalls = function() {
+          expect(error).toHaveBeenCalled();
+          expect(reject).toHaveBeenCalled();
+          expect(error).toHaveBeenCalledBefore(reject);
+          expect(success).not.toHaveBeenCalled();
+        };
+
         ajax({
           url: 'https://ui.toast.com',
           method: 'GET',
           success: success,
           error: error
-        }).then(resolve)
-          .catch(reject) // eslint-disable-line dot-notation
-          .finally(function() { // eslint-disable-line dot-notation
-            expect(error).toHaveBeenCalled();
-            expect(reject).toHaveBeenCalled();
-            expect(error).toHaveBeenCalledBefore(reject);
-            expect(success).not.toHaveBeenCalled();
-          });
+        }).then(resolve)['catch'](reject)
+          .then(checkSpyCalls)['catch'](checkSpyCalls);
 
         jasmine.Ajax.requests.mostRecent().respondWith({
           'status': 500,
