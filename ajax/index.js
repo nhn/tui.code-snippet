@@ -13,8 +13,6 @@ var _isArray = _interopRequireDefault(require("../type/isArray"));
 
 var _isEmpty = _interopRequireDefault(require("../type/isEmpty"));
 
-var _isFunction = _interopRequireDefault(require("../type/isFunction"));
-
 var _isNull = _interopRequireDefault(require("../type/isNull"));
 
 var _isObject = _interopRequireDefault(require("../type/isObject"));
@@ -109,33 +107,8 @@ var getDefaultOptions = function getDefaultOptions() {
     serializer: serialize
   };
 };
-/**
- * Deep copy all enumerable own properties from a source objects to a target object.
- * @param {object} target - A target object
- * @param {object} source - A source object
- * @returns {object}
- * @private
- */
 
-
-function deepAssign(target, source) {
-  (0, _forEachOwnProperties["default"])(source, function (value, key) {
-    if ((0, _isObject["default"])(value) && !(0, _isFunction["default"])(value)) {
-      if (!target.hasOwnProperty(key)) {
-        target[key] = {};
-      }
-
-      deepAssign(target[key], value);
-    } else {
-      target[key] = value || target[key];
-    }
-  });
-  return target;
-}
-
-function merge(defaults, customs) {
-  return deepAssign(deepAssign({}, defaults), customs);
-}
+var HTTP_PROTOCOL_REGEXP = /^(http|https):\/\//;
 /**
  * Combine an absolute URL string (baseURL) and a relative URL string (url).
  * @param {string} baseURL - An absolute URL string
@@ -144,9 +117,8 @@ function merge(defaults, customs) {
  * @private
  */
 
-
 function combineURL(baseURL, url) {
-  if (url.slice(0, 4) === 'http') {
+  if (HTTP_PROTOCOL_REGEXP.test(url.toLowerCase())) {
     return url;
   }
 
@@ -159,35 +131,40 @@ function combineURL(baseURL, url) {
 /**
  * Get merged options by its priorities.
  * defaults.common < defaults[method] < custom options
- * @param {object} defaults - The default options
- * @param {object} customs - The custom options
+ * @param {object} defaultOptions - The default options
+ * @param {object} customOptions - The custom options
  * @returns {object}
  */
 
 
-function getComputedOptions(defaults, customs) {
-  var options = merge(defaults, customs);
-  var baseURL = options.baseURL,
-      url = options.url,
-      method = options.method,
-      headers = options.headers,
-      contentType = options.contentType;
-  options.url = combineURL(baseURL, url);
-  options.headers = (0, _extend["default"])(headers.common, headers[method.toLowerCase()], customs.headers);
+function getComputedOptions(defaultOptions, customOptions) {
+  var baseURL = defaultOptions.baseURL;
+  var url = customOptions.url,
+      contentType = customOptions.contentType,
+      method = customOptions.method,
+      params = customOptions.params,
+      withCredentials = customOptions.withCredentials,
+      mimeType = customOptions.mimeType;
+  var options = {
+    url: combineURL(baseURL, url),
+    method: method,
+    params: params,
+    headers: (0, _extend["default"])(defaultOptions.headers.common, defaultOptions.headers[method.toLowerCase()], customOptions.headers),
+    serializer: customOptions.serializer || defaultOptions.serializer || serialize,
+    beforeRequest: [defaultOptions.beforeRequest, customOptions.beforeRequest],
+    success: [defaultOptions.success, customOptions.success],
+    error: [defaultOptions.error, customOptions.error],
+    complete: [defaultOptions.complete, customOptions.complete],
+    withCredentials: withCredentials,
+    mimeType: mimeType
+  };
   options.contentType = contentType || options.headers['Content-Type'];
+  delete options.headers['Content-Type'];
   return options;
 }
-/**
- * Ajax
- */
-
 
 var ENCODED_SPACE_REGEXP = /%20/g;
 var QS_DELIM_REGEXP = /\?/;
-
-function supportPromise() {
-  return typeof Promise !== 'undefined';
-}
 
 function validateStatus(status) {
   return status >= 200 && status < 300;
@@ -207,18 +184,6 @@ function executeCallback(callback, param) {
   }
 }
 
-function parseData(data) {
-  var result = '';
-
-  try {
-    result = JSON.parse(data);
-  } catch (_) {
-    result = data;
-  }
-
-  return result;
-}
-
 function parseHeaders(text) {
   var headers = {};
   (0, _forEachArray["default"])(text.split('\r\n'), function (header) {
@@ -231,6 +196,18 @@ function parseHeaders(text) {
     }
   });
   return headers;
+}
+
+function parseJSONData(data) {
+  var result = '';
+
+  try {
+    result = JSON.parse(data);
+  } catch (_) {
+    result = data;
+  }
+
+  return result;
 }
 
 function handleReadyStateChange(xhr, options) {
@@ -249,11 +226,19 @@ function handleReadyStateChange(xhr, options) {
   }
 
   if (validateStatus(status)) {
+    var headers = parseHeaders(xhr.getAllResponseHeaders());
+    var contentType = headers['Content-Type'];
+    var data = responseText;
+
+    if (contentType && contentType.indexOf('application/json') > -1) {
+      data = parseJSONData(data);
+    }
+
     executeCallback([success, resolve], {
       status: status,
       statusText: statusText,
-      data: parseData(responseText),
-      headers: parseHeaders(xhr.getAllResponseHeaders())
+      data: data,
+      headers: headers
     });
   } else {
     executeCallback([error, reject], {
@@ -291,7 +276,7 @@ function applyConfig(xhr, options) {
 
   if (withCredentials) {
     xhr.withCredentials = withCredentials;
-  } // overide MIME type (IE11+)
+  } // override MIME type (IE11+)
 
 
   if (mimeType) {
@@ -299,7 +284,7 @@ function applyConfig(xhr, options) {
   }
 
   (0, _forEachOwnProperties["default"])(headers, function (value, header) {
-    if (!(0, _isObject["default"])(value) && header !== 'Content-Type') {
+    if (!(0, _isObject["default"])(value)) {
       xhr.setRequestHeader(header, value);
     }
   });
@@ -324,7 +309,7 @@ function send(xhr, options) {
 
   if (hasRequestBody(method)) {
     // The space character '%20' is replaced to '+', because application/x-www-form-urlencoded follows rfc-1866
-    body = contentType.indexOf('application/x-www-form-urlencoded') !== -1 ? serializer(params).replace(ENCODED_SPACE_REGEXP, '+') : JSON.stringify(params);
+    body = contentType.indexOf('application/x-www-form-urlencoded') > -1 ? serializer(params).replace(ENCODED_SPACE_REGEXP, '+') : JSON.stringify(params);
   }
 
   xhr.onreadystatechange = function () {
@@ -354,7 +339,7 @@ function ajax(options) {
 
   options = getComputedOptions(ajax.defaults, options);
 
-  if (supportPromise()) {
+  if (typeof Promise !== 'undefined') {
     return new Promise(function (resolve, reject) {
       request((0, _extend["default"])(options, {
         resolve: resolve,
@@ -363,7 +348,8 @@ function ajax(options) {
     });
   }
 
-  return request(options);
+  request(options);
+  return null;
 }
 
 ajax.defaults = getDefaultOptions();
@@ -383,35 +369,11 @@ ajax._request = function (url, method, options) {
   }));
 };
 
-ajax.get = function (url, options) {
-  return ajax._request(url, 'GET', options);
-};
-
-ajax.post = function (url, options) {
-  return ajax._request(url, 'POST', options);
-};
-
-ajax.put = function (url, options) {
-  return ajax._request(url, 'PUT', options);
-}; // eslint-disable-next-line dot-notation
-
-
-ajax["delete"] = function (url, options) {
-  return ajax._request(url, 'DELETE', options);
-};
-
-ajax.patch = function (url, options) {
-  return ajax._request(url, 'PATCH', options);
-};
-
-ajax.options = function (url, options) {
-  return ajax._request(url, 'OPTIONS', options);
-};
-
-ajax.head = function (url, options) {
-  return ajax._request(url, 'HEAD', options);
-};
-
+(0, _forEachArray["default"])(['get', 'post', 'put', 'delete', 'patch', 'options', 'head'], function (type) {
+  ajax[type] = function (url, options) {
+    return ajax._request(url, type.toUpperCase(), options);
+  };
+});
 var _default = ajax;
 exports["default"] = _default;
 module.exports = exports["default"];

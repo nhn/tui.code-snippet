@@ -3,7 +3,6 @@ import forEachOwnProperties from '../collection/forEachOwnProperties';
 import extend from '../object/extend';
 import isArray from '../type/isArray';
 import isEmpty from '../type/isEmpty';
-import isFunction from '../type/isFunction';
 import isNull from '../type/isNull';
 import isObject from '../type/isObject';
 import isUndefined from '../type/isUndefined';
@@ -79,48 +78,22 @@ function serialize(params) {
  * @property {function} error - callback function executed when the request is failed
  * @property {function} complete - callback function executed when the request is completed
  */
-const getDefaultOptions = () => {
-  return {
-    baseURL: '',
-    headers: {
-      common: {},
-      get: {},
-      post: {},
-      put: {},
-      delete: {},
-      patch: {},
-      options: {},
-      head: {}
-    },
-    serializer: serialize
-  };
-};
+const getDefaultOptions = () => ({
+  baseURL: '',
+  headers: {
+    common: {},
+    get: {},
+    post: {},
+    put: {},
+    delete: {},
+    patch: {},
+    options: {},
+    head: {}
+  },
+  serializer: serialize
+});
 
-/**
- * Deep copy all enumerable own properties from a source objects to a target object.
- * @param {object} target - A target object
- * @param {object} source - A source object
- * @returns {object}
- * @private
- */
-function deepAssign(target, source) {
-  forEachOwnProperties(source, (value, key) => {
-    if (isObject(value) && !isFunction(value)) {
-      if (!target.hasOwnProperty(key)) {
-        target[key] = {};
-      }
-      deepAssign(target[key], value);
-    } else {
-      target[key] = value || target[key];
-    }
-  });
-
-  return target;
-}
-
-function merge(defaults, customs) {
-  return deepAssign(deepAssign({}, defaults), customs);
-}
+const HTTP_PROTOCOL_REGEXP = /^(http|https):\/\//;
 
 /**
  * Combine an absolute URL string (baseURL) and a relative URL string (url).
@@ -130,7 +103,7 @@ function merge(defaults, customs) {
  * @private
  */
 function combineURL(baseURL, url) {
-  if (url.slice(0, 4) === 'http') {
+  if (HTTP_PROTOCOL_REGEXP.test(url.toLowerCase())) {
     return url;
   }
 
@@ -144,31 +117,40 @@ function combineURL(baseURL, url) {
 /**
  * Get merged options by its priorities.
  * defaults.common < defaults[method] < custom options
- * @param {object} defaults - The default options
- * @param {object} customs - The custom options
+ * @param {object} defaultOptions - The default options
+ * @param {object} customOptions - The custom options
  * @returns {object}
  */
-function getComputedOptions(defaults, customs) {
-  const options = merge(defaults, customs);
-  const { baseURL, url, method, headers, contentType } = options;
+function getComputedOptions(defaultOptions, customOptions) {
+  const { baseURL } = defaultOptions;
+  const { url, contentType, method, params, withCredentials, mimeType } = customOptions;
 
-  options.url = combineURL(baseURL, url);
-  options.headers = extend(headers.common, headers[method.toLowerCase()], customs.headers);
+  const options = {
+    url: combineURL(baseURL, url),
+    method,
+    params,
+    headers: extend(
+      defaultOptions.headers.common,
+      defaultOptions.headers[method.toLowerCase()],
+      customOptions.headers
+    ),
+    serializer: customOptions.serializer || defaultOptions.serializer || serialize,
+    beforeRequest: [defaultOptions.beforeRequest, customOptions.beforeRequest],
+    success: [defaultOptions.success, customOptions.success],
+    error: [defaultOptions.error, customOptions.error],
+    complete: [defaultOptions.complete, customOptions.complete],
+    withCredentials,
+    mimeType
+  };
+
   options.contentType = contentType || options.headers['Content-Type'];
+  delete options.headers['Content-Type'];
 
   return options;
 }
 
-/**
- * Ajax
- */
-
 const ENCODED_SPACE_REGEXP = /%20/g;
 const QS_DELIM_REGEXP = /\?/;
-
-function supportPromise() {
-  return typeof Promise !== 'undefined';
-}
 
 function validateStatus(status) {
   return status >= 200 && status < 300;
@@ -186,17 +168,6 @@ function executeCallback(callback, param) {
   }
 }
 
-function parseData(data) {
-  let result = '';
-  try {
-    result = JSON.parse(data);
-  } catch (_) {
-    result = data;
-  }
-
-  return result;
-}
-
 function parseHeaders(text) {
   const headers = {};
 
@@ -211,6 +182,17 @@ function parseHeaders(text) {
   return headers;
 }
 
+function parseJSONData(data) {
+  let result = '';
+  try {
+    result = JSON.parse(data);
+  } catch (_) {
+    result = data;
+  }
+
+  return result;
+}
+
 function handleReadyStateChange(xhr, options) {
   const { readyState, status, statusText, responseText } = xhr;
   const { success, resolve, error, reject, complete } = options;
@@ -221,12 +203,15 @@ function handleReadyStateChange(xhr, options) {
   }
 
   if (validateStatus(status)) {
-    executeCallback([success, resolve], {
-      status,
-      statusText,
-      data: parseData(responseText),
-      headers: parseHeaders(xhr.getAllResponseHeaders())
-    });
+    const headers = parseHeaders(xhr.getAllResponseHeaders());
+    const contentType = headers['Content-Type'];
+    let data = responseText;
+
+    if (contentType && contentType.indexOf('application/json') > -1) {
+      data = parseJSONData(data);
+    }
+
+    executeCallback([success, resolve], { status, statusText, data, headers });
   } else {
     executeCallback([error, reject], { status, statusText });
   }
@@ -256,13 +241,13 @@ function applyConfig(xhr, options) {
     xhr.withCredentials = withCredentials;
   }
 
-  // overide MIME type (IE11+)
+  // override MIME type (IE11+)
   if (mimeType) {
     xhr.overrideMimeType(mimeType);
   }
 
   forEachOwnProperties(headers, (value, header) => {
-    if (!isObject(value) && header !== 'Content-Type') {
+    if (!isObject(value)) {
       xhr.setRequestHeader(header, value);
     }
   });
@@ -289,7 +274,7 @@ function send(xhr, options) {
   if (hasRequestBody(method)) {
     // The space character '%20' is replaced to '+', because application/x-www-form-urlencoded follows rfc-1866
     body =
-      contentType.indexOf('application/x-www-form-urlencoded') !== -1
+      contentType.indexOf('application/x-www-form-urlencoded') > -1
         ? serializer(params).replace(ENCODED_SPACE_REGEXP, '+')
         : JSON.stringify(params);
   }
@@ -313,13 +298,15 @@ function ajax(options) {
 
   options = getComputedOptions(ajax.defaults, options);
 
-  if (supportPromise()) {
+  if (typeof Promise !== 'undefined') {
     return new Promise((resolve, reject) => {
       request(extend(options, { resolve, reject }));
     });
   }
 
-  return request(options);
+  request(options);
+
+  return null;
 }
 
 ajax.defaults = getDefaultOptions();
@@ -332,33 +319,8 @@ ajax._request = function(url, method, options = {}) {
   return ajax(extend(options, { url, method }));
 };
 
-ajax.get = function(url, options) {
-  return ajax._request(url, 'GET', options);
-};
-
-ajax.post = function(url, options) {
-  return ajax._request(url, 'POST', options);
-};
-
-ajax.put = function(url, options) {
-  return ajax._request(url, 'PUT', options);
-};
-
-// eslint-disable-next-line dot-notation
-ajax.delete = function(url, options) {
-  return ajax._request(url, 'DELETE', options);
-};
-
-ajax.patch = function(url, options) {
-  return ajax._request(url, 'PATCH', options);
-};
-
-ajax.options = function(url, options) {
-  return ajax._request(url, 'OPTIONS', options);
-};
-
-ajax.head = function(url, options) {
-  return ajax._request(url, 'HEAD', options);
-};
+forEachArray(['get', 'post', 'put', 'delete', 'patch', 'options', 'head'], type => {
+  ajax[type] = (url, options) => ajax._request(url, type.toUpperCase(), options);
+});
 
 export default ajax;
