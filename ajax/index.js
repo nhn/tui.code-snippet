@@ -23,26 +23,6 @@ var _isUndefined = _interopRequireDefault(require("../type/isUndefined"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-/**
- * Serializer
- *
- * 1. Array format
- *
- * The default array format to serialize is 'bracket'.
- * However in case of nested array, only the deepest format follows the 'bracket', the rest follow 'indice' format.
- *
- * - basic
- *   { a: [1, 2, 3] } => a[]=1&a[]=2&a[]=3
- * - nested
- *   { a: [1, 2, [3]] } => a[]=1&a[]=2&a[2][]=3
- *
- * 2. Object format
- *
- * The default object format to serialize is 'bracket' notation and doesn't allow the 'dot' notation.
- *
- * - basic
- *   { a: { b: 1, c: 2 } } => a[b]=1&a[c]=2
- */
 function encodePairs(key, value) {
   return encodeURIComponent(key) + "=" + encodeURIComponent((0, _isNull["default"])(value) || (0, _isUndefined["default"])(value) ? '' : value);
 }
@@ -72,26 +52,6 @@ function serialize(params) {
   });
   return serializedList.join('&');
 }
-/**
- * The default configurations
- * @namespace defaults
- * @property {string} baseURL - baseURL
- * @property {object} headers - request headers
- * @property {object<string,string>} headers.common - Common configs regardless of the type of request
- * @property {object<string,string>} headers.get - Common configs for the GET method
- * @property {object<string,string>} headers.post - Common configs for the POST method
- * @property {object<string,string>} headers.put - Common configs for the PUT method
- * @property {object<string,string>} headers.delete - Common configs for the DELETE method
- * @property {object<string,string>} headers.patch - Common configs for the PATCH method
- * @property {object<string,string>} headers.options - Common configs for the OPTIONS method
- * @property {object<string,string>} headers.head - Common configs for the HEAD method
- * @property {function} serializer - determine how to serialize the data
- * @property {function} beforeRequest - callback function executed before the request is sent
- * @property {function} success - callback function executed when the request is success
- * @property {function} error - callback function executed when the request is failed
- * @property {function} complete - callback function executed when the request is completed
- */
-
 
 var getDefaultOptions = function getDefaultOptions() {
   return {
@@ -111,13 +71,6 @@ var getDefaultOptions = function getDefaultOptions() {
 };
 
 var HTTP_PROTOCOL_REGEXP = /^(http|https):\/\//i;
-/**
- * Combine an absolute URL string (baseURL) and a relative URL string (url).
- * @param {string} baseURL - An absolute URL string
- * @param {string} url - An relative URL string
- * @returns {string}
- * @private
- */
 
 function combineURL(baseURL, url) {
   if (HTTP_PROTOCOL_REGEXP.test(url)) {
@@ -130,14 +83,6 @@ function combineURL(baseURL, url) {
 
   return baseURL + url;
 }
-/**
- * Get merged options by its priorities.
- * defaults.common < defaults[method] < custom options
- * @param {object} defaultOptions - The default options
- * @param {object} customOptions - The custom options
- * @returns {object}
- */
-
 
 function getComputedOptions(defaultOptions, customOptions) {
   var baseURL = defaultOptions.baseURL,
@@ -233,7 +178,7 @@ function handleReadyStateChange(xhr, options) {
       resolve = options.resolve,
       error = options.error,
       reject = options.reject,
-      complete = options.complete; // eslint-disable-next-line eqeqeq
+      complete = options.complete;
 
   if (readyState != XMLHttpRequest.DONE) {
     return;
@@ -274,7 +219,6 @@ function open(xhr, options) {
   var requestUrl = url;
 
   if (!hasRequestBody(method) && params) {
-    // serialize query string
     var qs = (QS_DELIM_REGEXP.test(url) ? '&' : '?') + serializer(params);
     requestUrl = "" + url + qs;
   }
@@ -288,12 +232,11 @@ function applyConfig(xhr, options) {
       mimeType = options.mimeType,
       headers = options.headers,
       _options$withCredenti = options.withCredentials,
-      withCredentials = _options$withCredenti === void 0 ? false : _options$withCredenti; // set withCredentials (IE10+)
+      withCredentials = _options$withCredenti === void 0 ? false : _options$withCredenti;
 
   if (withCredentials) {
     xhr.withCredentials = withCredentials;
-  } // override MIME type (IE11+)
-
+  }
 
   if (mimeType) {
     xhr.overrideMimeType(mimeType);
@@ -307,8 +250,7 @@ function applyConfig(xhr, options) {
 
   if (hasRequestBody(method)) {
     xhr.setRequestHeader('Content-Type', contentType + "; charset=UTF-8");
-  } // set 'x-requested-with' header to prevent CSRF in old browser
-
+  }
 
   xhr.setRequestHeader('x-requested-with', 'XMLHttpRequest');
 }
@@ -324,7 +266,6 @@ function send(xhr, options) {
   var body = null;
 
   if (hasRequestBody(method)) {
-    // The space character '%20' is replaced to '+', because application/x-www-form-urlencoded follows rfc-1866
     body = contentType.indexOf('application/x-www-form-urlencoded') > -1 ? serializer(params).replace(ENCODED_SPACE_REGEXP, '+') : JSON.stringify(params);
   }
 
@@ -335,14 +276,6 @@ function send(xhr, options) {
   executeCallback(beforeRequest, xhr);
   xhr.send(body);
 }
-/**
- * A module for the Ajax request.
- * If the browser supports Promise, return the Promise object. If not, return nothing.
- * @param {object} options Options for the Ajax request
- * @returns {[Promise]}
- * @memberof module:ajax
- */
-
 
 function ajax(options) {
   var xhr = new XMLHttpRequest();

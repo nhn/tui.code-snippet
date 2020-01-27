@@ -5,7 +5,7 @@
 
 'use strict';
 
-require('./ajax/index.js');
+require('./ajax');
 require('./array/inArray');
 require('./array/range');
 require('./array/zip');
