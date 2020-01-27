@@ -1,12 +1,4 @@
 {
-  "presets": [
-    [
-      "@babel/preset-env", {
-        "loose": true
-      }
-    ]
-  ],
-  "plugins": [
-    "add-module-exports"
-  ]
+  "presets": [["@babel/preset-env", { "loose": true }]],
+  "plugins": [["add-module-exports", { "accessDefaultWithBracket": true }]]
 }

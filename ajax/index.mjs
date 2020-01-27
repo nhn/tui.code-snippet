@@ -3,6 +3,7 @@ import forEachOwnProperties from '../collection/forEachOwnProperties';
 import extend from '../object/extend';
 import isArray from '../type/isArray';
 import isEmpty from '../type/isEmpty';
+import isFunction from '../type/isFunction';
 import isNull from '../type/isNull';
 import isObject from '../type/isObject';
 import isUndefined from '../type/isUndefined';
@@ -93,7 +94,7 @@ const getDefaultOptions = () => ({
   serializer: serialize
 });
 
-const HTTP_PROTOCOL_REGEXP = /^(http|https):\/\//;
+const HTTP_PROTOCOL_REGEXP = /^(http|https):\/\//i;
 
 /**
  * Combine an absolute URL string (baseURL) and a relative URL string (url).
@@ -103,7 +104,7 @@ const HTTP_PROTOCOL_REGEXP = /^(http|https):\/\//;
  * @private
  */
 function combineURL(baseURL, url) {
-  if (HTTP_PROTOCOL_REGEXP.test(url.toLowerCase())) {
+  if (HTTP_PROTOCOL_REGEXP.test(url)) {
     return url;
   }
 
@@ -122,23 +123,40 @@ function combineURL(baseURL, url) {
  * @returns {object}
  */
 function getComputedOptions(defaultOptions, customOptions) {
-  const { baseURL } = defaultOptions;
-  const { url, contentType, method, params, withCredentials, mimeType } = customOptions;
+  const {
+    baseURL,
+    headers: defaultHeaders,
+    serializer: defaultSerializer,
+    beforeRequest: defaultBeforeRequest,
+    success: defaultSuccess,
+    error: defaultError,
+    complete: defaultComplete
+  } = defaultOptions;
+  const {
+    url,
+    contentType,
+    method,
+    params,
+    headers,
+    serializer,
+    beforeRequest,
+    success,
+    error,
+    complete,
+    withCredentials,
+    mimeType
+  } = customOptions;
 
   const options = {
     url: combineURL(baseURL, url),
     method,
     params,
-    headers: extend(
-      defaultOptions.headers.common,
-      defaultOptions.headers[method.toLowerCase()],
-      customOptions.headers
-    ),
-    serializer: customOptions.serializer || defaultOptions.serializer || serialize,
-    beforeRequest: [defaultOptions.beforeRequest, customOptions.beforeRequest],
-    success: [defaultOptions.success, customOptions.success],
-    error: [defaultOptions.error, customOptions.error],
-    complete: [defaultOptions.complete, customOptions.complete],
+    headers: extend(defaultHeaders.common, defaultHeaders[method.toLowerCase()], headers),
+    serializer: serializer || defaultSerializer || serialize,
+    beforeRequest: [defaultBeforeRequest, beforeRequest],
+    success: [defaultSuccess, success],
+    error: [defaultError, error],
+    complete: [defaultComplete, complete],
     withCredentials,
     mimeType
   };
@@ -163,7 +181,7 @@ function hasRequestBody(method) {
 function executeCallback(callback, param) {
   if (isArray(callback)) {
     forEachArray(callback, fn => executeCallback(fn, param));
-  } else if (callback) {
+  } else if (isFunction(callback)) {
     callback(param);
   }
 }
@@ -203,20 +221,24 @@ function handleReadyStateChange(xhr, options) {
   }
 
   if (validateStatus(status)) {
-    const headers = parseHeaders(xhr.getAllResponseHeaders());
-    const contentType = headers['Content-Type'];
+    const contentType = xhr.getResponseHeader('Content-Type');
     let data = responseText;
 
     if (contentType && contentType.indexOf('application/json') > -1) {
       data = parseJSONData(data);
     }
 
-    executeCallback([success, resolve], { status, statusText, data, headers });
+    executeCallback([success, resolve], {
+      status,
+      statusText,
+      data,
+      headers: parseHeaders(xhr.getAllResponseHeaders())
+    });
   } else {
     executeCallback([error, reject], { status, statusText });
   }
 
-  executeCallback(complete);
+  executeCallback(complete, { status, statusText });
 }
 
 function open(xhr, options) {
@@ -281,7 +303,7 @@ function send(xhr, options) {
 
   xhr.onreadystatechange = () => handleReadyStateChange(xhr, options);
 
-  executeCallback(beforeRequest);
+  executeCallback(beforeRequest, xhr);
   xhr.send(body);
 }
 

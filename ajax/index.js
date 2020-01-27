@@ -13,6 +13,8 @@ var _isArray = _interopRequireDefault(require("../type/isArray"));
 
 var _isEmpty = _interopRequireDefault(require("../type/isEmpty"));
 
+var _isFunction = _interopRequireDefault(require("../type/isFunction"));
+
 var _isNull = _interopRequireDefault(require("../type/isNull"));
 
 var _isObject = _interopRequireDefault(require("../type/isObject"));
@@ -108,7 +110,7 @@ var getDefaultOptions = function getDefaultOptions() {
   };
 };
 
-var HTTP_PROTOCOL_REGEXP = /^(http|https):\/\//;
+var HTTP_PROTOCOL_REGEXP = /^(http|https):\/\//i;
 /**
  * Combine an absolute URL string (baseURL) and a relative URL string (url).
  * @param {string} baseURL - An absolute URL string
@@ -118,7 +120,7 @@ var HTTP_PROTOCOL_REGEXP = /^(http|https):\/\//;
  */
 
 function combineURL(baseURL, url) {
-  if (HTTP_PROTOCOL_REGEXP.test(url.toLowerCase())) {
+  if (HTTP_PROTOCOL_REGEXP.test(url)) {
     return url;
   }
 
@@ -138,23 +140,35 @@ function combineURL(baseURL, url) {
 
 
 function getComputedOptions(defaultOptions, customOptions) {
-  var baseURL = defaultOptions.baseURL;
+  var baseURL = defaultOptions.baseURL,
+      defaultHeaders = defaultOptions.headers,
+      defaultSerializer = defaultOptions.serializer,
+      defaultBeforeRequest = defaultOptions.beforeRequest,
+      defaultSuccess = defaultOptions.success,
+      defaultError = defaultOptions.error,
+      defaultComplete = defaultOptions.complete;
   var url = customOptions.url,
       contentType = customOptions.contentType,
       method = customOptions.method,
       params = customOptions.params,
+      headers = customOptions.headers,
+      serializer = customOptions.serializer,
+      beforeRequest = customOptions.beforeRequest,
+      success = customOptions.success,
+      error = customOptions.error,
+      complete = customOptions.complete,
       withCredentials = customOptions.withCredentials,
       mimeType = customOptions.mimeType;
   var options = {
     url: combineURL(baseURL, url),
     method: method,
     params: params,
-    headers: (0, _extend["default"])(defaultOptions.headers.common, defaultOptions.headers[method.toLowerCase()], customOptions.headers),
-    serializer: customOptions.serializer || defaultOptions.serializer || serialize,
-    beforeRequest: [defaultOptions.beforeRequest, customOptions.beforeRequest],
-    success: [defaultOptions.success, customOptions.success],
-    error: [defaultOptions.error, customOptions.error],
-    complete: [defaultOptions.complete, customOptions.complete],
+    headers: (0, _extend["default"])(defaultHeaders.common, defaultHeaders[method.toLowerCase()], headers),
+    serializer: serializer || defaultSerializer || serialize,
+    beforeRequest: [defaultBeforeRequest, beforeRequest],
+    success: [defaultSuccess, success],
+    error: [defaultError, error],
+    complete: [defaultComplete, complete],
     withCredentials: withCredentials,
     mimeType: mimeType
   };
@@ -179,7 +193,7 @@ function executeCallback(callback, param) {
     (0, _forEachArray["default"])(callback, function (fn) {
       return executeCallback(fn, param);
     });
-  } else if (callback) {
+  } else if ((0, _isFunction["default"])(callback)) {
     callback(param);
   }
 }
@@ -226,8 +240,7 @@ function handleReadyStateChange(xhr, options) {
   }
 
   if (validateStatus(status)) {
-    var headers = parseHeaders(xhr.getAllResponseHeaders());
-    var contentType = headers['Content-Type'];
+    var contentType = xhr.getResponseHeader('Content-Type');
     var data = responseText;
 
     if (contentType && contentType.indexOf('application/json') > -1) {
@@ -238,7 +251,7 @@ function handleReadyStateChange(xhr, options) {
       status: status,
       statusText: statusText,
       data: data,
-      headers: headers
+      headers: parseHeaders(xhr.getAllResponseHeaders())
     });
   } else {
     executeCallback([error, reject], {
@@ -247,7 +260,10 @@ function handleReadyStateChange(xhr, options) {
     });
   }
 
-  executeCallback(complete);
+  executeCallback(complete, {
+    status: status,
+    statusText: statusText
+  });
 }
 
 function open(xhr, options) {
@@ -316,7 +332,7 @@ function send(xhr, options) {
     return handleReadyStateChange(xhr, options);
   };
 
-  executeCallback(beforeRequest);
+  executeCallback(beforeRequest, xhr);
   xhr.send(body);
 }
 /**
