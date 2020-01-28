@@ -1,6 +1,6 @@
 {
   "name": "tui-code-snippet",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "TOAST UI Utility: CodeSnippet",
   "main": "dist/tui-code-snippet.js",
   "scripts": {
