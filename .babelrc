@@ -1,5 +1,5 @@
 {
   "presets": [["@babel/preset-env", { "loose": true }]],
-  "plugins": [["add-module-exports", { "accessDefaultWithBracket": true }]],
+  "plugins": ["add-module-exports"],
   "comments": false
 }

@@ -21,7 +21,11 @@ var _isObject = _interopRequireDefault(require("../type/isObject"));
 
 var _isUndefined = _interopRequireDefault(require("../type/isUndefined"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : {
+    "default": obj
+  };
+}
 
 function encodePairs(key, value) {
   return encodeURIComponent(key) + "=" + encodeURIComponent((0, _isNull["default"])(value) || (0, _isUndefined["default"])(value) ? '' : value);

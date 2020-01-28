@@ -8,7 +8,7 @@
     "test": "karma start --no-single-run",
     "test:ne": "KARMA_SERVER=ne karma start",
     "bundle": "webpack --mode=production & webpack --mode=production --minify",
-    "transpile": "babel ajax/index.mjs --out-file ajax/index.js",
+    "transpile": "babel --plugins babel-plugin-add-module-exports ajax/index.mjs --out-file ajax/index.js && babel --plugins @babel/plugin-transform-member-expression-literals ajax/index.js --out-file ajax/index.js",
     "doc:serve": "tuidoc --serv",
     "doc": "tuidoc",
     "note": "tui-note"
@@ -46,9 +46,10 @@
   "devDependencies": {
     "@babel/cli": "^7.8.3",
     "@babel/core": "^7.8.3",
+    "@babel/plugin-transform-member-expression-literals": "^7.8.3",
     "@babel/preset-env": "^7.8.3",
     "@toast-ui/release-notes": "^2.0.1",
-    "babel-plugin-add-module-exports": "git+https://github.com/dotaitch/babel-plugin-add-module-exports.git#v1.1.0",
+    "babel-plugin-add-module-exports": "^1.0.2",
     "eslint": "^6.7.1",
     "eslint-config-prettier": "^6.7.0",
     "eslint-config-tui": "^3.0.0",
