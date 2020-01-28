@@ -29,7 +29,7 @@ function getOptimization(isMinified) {
   };
 }
 
-module.exports = function(env, argv) {
+module.exports = function(_, argv) {
   var isMinified = !!argv.minify;
   var FILENAME = pkg.name + (isMinified ? '.min.js' : '.js');
   var BANNER = [
@@ -52,12 +52,13 @@ module.exports = function(env, argv) {
     module: {
       rules: [
         {
-          test: /\.js$/,
+          test: /\.m?js$/,
           exclude: /node_modules/,
           loader: 'eslint-loader',
           options: {
             failOnError: true
-          }
+          },
+          enforce: 'pre'
         }
       ]
     },

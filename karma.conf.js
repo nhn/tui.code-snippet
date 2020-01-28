@@ -100,7 +100,7 @@ function setConfig(defaultConfig, server) {
 module.exports = function(config) {
   var defaultConfig = {
     basePath: './',
-    frameworks: ['fixture', 'jasmine'],
+    frameworks: ['fixture', 'jasmine-ajax', 'jasmine'],
     files: [
       'test/*.spec.js'
     ],
@@ -114,9 +114,10 @@ module.exports = function(config) {
       module: {
         rules: [
           {
-            test: /\.js$/,
+            test: /\.m?js$/,
             exclude: /node_modules/,
-            loader: 'eslint-loader'
+            loader: 'eslint-loader',
+            enforce: 'pre'
           }
         ]
       }

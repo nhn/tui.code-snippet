@@ -31,6 +31,8 @@ You can also see the older versions of API page on the [releases page](https://g
 
 ## 🎨 Features
 
+* ajax
+  * Send the Ajax request
 * array
   * Handle arrays
 * browser
