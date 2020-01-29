@@ -126,9 +126,6 @@ function getComputedOptions(defaultOptions, customOptions) {
   return options;
 }
 
-var ENCODED_SPACE_REGEXP = /%20/g;
-var QS_DELIM_REGEXP = /\?/;
-
 function validateStatus(status) {
   return status >= 200 && status < 300;
 }
@@ -173,9 +170,16 @@ function parseJSONData(data) {
   return result;
 }
 
+var REQUEST_DONE = 4;
+
 function handleReadyStateChange(xhr, options) {
-  var readyState = xhr.readyState,
-      status = xhr.status,
+  var readyState = xhr.readyState;
+
+  if (readyState != REQUEST_DONE) {
+    return;
+  }
+
+  var status = xhr.status,
       statusText = xhr.statusText,
       responseText = xhr.responseText;
   var success = options.success,
@@ -183,10 +187,6 @@ function handleReadyStateChange(xhr, options) {
       error = options.error,
       reject = options.reject,
       complete = options.complete;
-
-  if (readyState != XMLHttpRequest.DONE) {
-    return;
-  }
 
   if (validateStatus(status)) {
     var contentType = xhr.getResponseHeader('Content-Type');
@@ -214,6 +214,8 @@ function handleReadyStateChange(xhr, options) {
     statusText: statusText
   });
 }
+
+var QS_DELIM_REGEXP = /\?/;
 
 function open(xhr, options) {
   var url = options.url,
@@ -258,6 +260,8 @@ function applyConfig(xhr, options) {
 
   xhr.setRequestHeader('x-requested-with', 'XMLHttpRequest');
 }
+
+var ENCODED_SPACE_REGEXP = /%20/g;
 
 function send(xhr, options) {
   var method = options.method,
