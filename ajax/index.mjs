@@ -160,9 +160,6 @@ function getComputedOptions(defaultOptions, customOptions) {
   return options;
 }
 
-const ENCODED_SPACE_REGEXP = /%20/g;
-const QS_DELIM_REGEXP = /\?/;
-
 function validateStatus(status) {
   return status >= 200 && status < 300;
 }
@@ -204,14 +201,18 @@ function parseJSONData(data) {
   return result;
 }
 
+const REQUEST_DONE = 4;
+
 function handleReadyStateChange(xhr, options) {
-  const { readyState, status, statusText, responseText } = xhr;
-  const { success, resolve, error, reject, complete } = options;
+  const { readyState } = xhr;
 
   // eslint-disable-next-line eqeqeq
-  if (readyState != XMLHttpRequest.DONE) {
+  if (readyState != REQUEST_DONE) {
     return;
   }
+
+  const { status, statusText, responseText } = xhr;
+  const { success, resolve, error, reject, complete } = options;
 
   if (validateStatus(status)) {
     const contentType = xhr.getResponseHeader('Content-Type');
@@ -257,6 +258,8 @@ function handleReadyStateChange(xhr, options) {
   executeCallback(complete, { status, statusText });
 }
 
+const QS_DELIM_REGEXP = /\?/;
+
 function open(xhr, options) {
   const { url, method, serializer, params } = options;
 
@@ -297,6 +300,8 @@ function applyConfig(xhr, options) {
   // set 'x-requested-with' header to prevent CSRF in old browser
   xhr.setRequestHeader('x-requested-with', 'XMLHttpRequest');
 }
+
+const ENCODED_SPACE_REGEXP = /%20/g;
 
 function send(xhr, options) {
   const {
