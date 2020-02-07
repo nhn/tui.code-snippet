@@ -341,6 +341,7 @@ function send(xhr, options) {
  * @param {Object} options - Options for the Ajax request
  * @param {string} options.url - URL string
  * @param {('GET'|'POST'|'PUT'|'DELETE'|'PATCH'|'OPTIONS'|'HEAD')} options.method - Method of the Ajax request
+ * @param {Object.<string,string>} [options.headers] - Headers for the Ajax request
  * @param {string} [options.contentType] - Content-Type for the Ajax request. It is applied to POST, PUT, and PATCH requests only. Its encoding automatically sets to UTF-8.
  * @param {*} [options.params] - Parameters to send by the Ajax request
  * @param {serializer} [options.serializer] - {@link ajax_serializer Serializer} that determine how to serialize the parameters. Default serializer is {@link https://github.com/nhn/tui.code-snippet/tree/v2.3.0/ajax/index.mjs#L38 serialize()}.
