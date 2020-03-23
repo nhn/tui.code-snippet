@@ -40,7 +40,7 @@ var browser = {
   version: 0
 };
 
-if (window && window.navigator) {
+if (typeof window !== 'undefined' && window.navigator) {
   detectBrowser();
 }
 
