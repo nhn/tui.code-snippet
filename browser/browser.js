@@ -11,13 +11,7 @@
  */
 
 /**
- * This object has an information that indicate the kind of browser.
- * The list below is a detectable browser list.
- *  - ie8 ~ ie11
- *  - chrome
- *  - firefox
- *  - safari
- *  - edge
+ * This object has an information that indicate the kind of browser. It can detect IE8 ~ IE11, Chrome, Firefox, Safari, and Edge.
  * @memberof module:browser
  * @example
  * var browser = require('tui-code-snippet/browser/browser'); // node, commonjs
