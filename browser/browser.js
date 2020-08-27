@@ -52,7 +52,7 @@ function detectBrowser() {
   var rEdge = /Edge\/(\d+)\./;
   var versionRegex = {
     firefox: /Firefox\/(\d+)\./,
-    chrome: /Chrome|CriOS\/(\d+)\./,
+    chrome: /(?:Chrome|CriOS)\/(\d+)\./,
     safari: /Version\/([\d.]+).*Safari\/(\d+)/
   };
 
