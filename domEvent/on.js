@@ -18,7 +18,7 @@ var safeEvent = require('./_safeEvent');
  * @param {object} [context] context - context for handler method.
  * @memberof module:domEvent
  * @example
- * var div = document.querySelector('div');
+ * const div = document.querySelector('div');
  * 
  * // Bind one event to an element.
  * on(div, 'click', toggle);
@@ -35,10 +35,10 @@ var safeEvent = require('./_safeEvent');
  * });
  * 
  * // Set a context for handler method.
- * var name = 'global';
- * var repository = {name: 'CodeSnippet'};
+ * const name = 'global';
+ * const repository = {name: 'CodeSnippet'};
  * on(div, 'drag', function() {
- *  console.log(this.name);
+ *   console.log(this.name);
  * }, repository);
  * // Result when you drag a div: "CodeSnippet"
  */

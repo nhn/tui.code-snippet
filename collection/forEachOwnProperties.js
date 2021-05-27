@@ -17,12 +17,13 @@
  * @param {Object} [context] Context(this) of callback function
  * @memberof module:collection
  * @example
- * var forEachOwnProperties = require('tui-code-snippet/collection/forEachOwnProperties'); // node, commonjs
+ * import forEachOwnProperties from 'tui-code-snippet/collection/forEachOwnProperties'; // ES6
+ * // const forEachOwnProperties = require('tui-code-snippet/collection/forEachOwnProperties'); // CommonJS
  *
- * var sum = 0;
+ * let sum = 0;
  *
  * forEachOwnProperties({a:1,b:2,c:3}, function(value){
- *     sum += value;
+ *   sum += value;
  * });
  * alert(sum); // 6
  */

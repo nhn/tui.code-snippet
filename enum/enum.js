@@ -44,14 +44,14 @@ var enumValue = 0;
  * @class
  *
  * @example
- * var Enum = require('tui-code-snippet/enum/enum'); // node, commonjs
+ * const Enum = require('tui-code-snippet/enum/enum'); // node, commonjs
  *
- * var MYENUM = new Enum('TYPE1', 'TYPE2');
- * var MYENUM2 = new Enum(['TYPE1', 'TYPE2']);
+ * const MYENUM = new Enum('TYPE1', 'TYPE2');
+ * const MYENUM2 = new Enum(['TYPE1', 'TYPE2']);
  *
- * //usage
+ * // usage
  * if (value === MYENUM.TYPE1) {
- *      ....
+ *   // ...
  * }
  *
  * //add (If a duplicate name is inputted, will be disregarded.)
@@ -61,7 +61,7 @@ var enumValue = 0;
  * MYENUM.getName(MYENUM.TYPE1); // 'TYPE1'
  *
  * // In modern browsers (except IE8 and lower), a value can not be changed in constants.
- * var originalValue = MYENUM.TYPE1;
+ * const originalValue = MYENUM.TYPE1;
  * MYENUM.TYPE1 = 1234; // maybe TypeError
  * MYENUM.TYPE1 === originalValue; // true
  **/

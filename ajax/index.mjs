@@ -355,7 +355,7 @@ function send(xhr, options) {
  * @example
  * import ajax from 'tui-code-snippet/ajax'; // import ES6 module (written in ES6)
  * // import ajax from 'tui-code-snippet/ajax/index.js'; // import transfiled file (IE8+)
- * // var ajax = require('tui-code-snippet/ajax/index.js'); // commonjs
+ * // const ajax = require('tui-code-snippet/ajax/index.js'); // CommonJS
  *
  * // If the browser supports Promise, return the Promise object
  * ajax({

@@ -19,7 +19,8 @@ var R_EVENTNAME_SPLIT = /\s+/g;
  * @class
  * @example
  * // node, commonjs
- * var CustomEvents = require('tui-code-snippet/customEvents/customEvents');
+ * import CustomEvents from 'tui-code-snippet/customEvents/customEvents'; // ES6
+ * // const CustomEvents = require('tui-code-snippet/customEvents/customEvents'); // CommonJS
  */
 function CustomEvents() {
   /**
@@ -38,9 +39,10 @@ function CustomEvents() {
  * Mixin custom events feature to specific constructor
  * @param {function} func - constructor
  * @example
- * var CustomEvents = require('tui-code-snippet/customEvents/customEvents'); // node, commonjs
+ * import CustomEvents from 'tui-code-snippet/customEvents/customEvents'; // ES6
+ * // const CustomEvents = require('tui-code-snippet/customEvents/customEvents'); // CommonJS
  *
- * var model;
+ * let model;
  * function Model() {
  *     this.name = '';
  * }
@@ -205,7 +207,8 @@ CustomEvents.prototype._bindEvent = function(eventName, handler, context) {
  * @param {(function|object)} [handler] - handler function or context
  * @param {object} [context] - context for binding
  * //-- #1. Get Module --//
- * var CustomEvents = require('tui-code-snippet/customEvents/customEvents'); // node, commonjs
+ * import CustomEvents from 'tui-code-snippet/customEvents/customEvents'; // ES6
+ * // const CustomEvents = require('tui-code-snippet/customEvents/customEvents'); // CommonJS
  *
  * //-- #2. Use method --//
  * // # 2.1 Basic Usage
@@ -438,7 +441,8 @@ CustomEvents.prototype._offByObject = function(obj, handler) {
  * @param {(function)} handler - handler function
  * @example
  * //-- #1. Get Module --//
- * var CustomEvents = require('tui-code-snippet/customEvents/customEvents'); // node, commonjs
+ * import CustomEvents from 'tui-code-snippet/customEvents/customEvents'; // ES6
+ * // const CustomEvents = require('tui-code-snippet/customEvents/customEvents'); // CommonJS
  *
  * //-- #2. Use method --//
  * // # 2.1 off by event name
@@ -505,20 +509,20 @@ CustomEvents.prototype.fire = function(eventName) {  // eslint-disable-line
  * @param {...*} data - Data for event
  * @returns {boolean} The result of operation 'boolean AND'
  * @example
- * var map = new Map();
+ * const map = new Map();
  * map.on({
- *     'beforeZoom': function() {
- *         // It should cancel the 'zoom' event by some conditions.
- *         if (that.disabled && this.getState()) {
- *             return false;
- *         }
- *         return true;
+ *   'beforeZoom': function() {
+ *     // It should cancel the 'zoom' event by some conditions.
+ *     if (that.disabled && this.getState()) {
+ *       return false;
  *     }
+ *     return true;
+ *   }
  * });
  *
  * if (this.invoke('beforeZoom')) {    // check the result of 'beforeZoom'
- *     // if true,
- *     // doSomething
+ *   // if true,
+ *   // doSomething
  * }
  */
 CustomEvents.prototype.invoke = function(eventName) {

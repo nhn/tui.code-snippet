@@ -22,35 +22,36 @@ var extend = require('../object/extend');
  *  @param {Object} [props.static] Static members of constructor
  * @returns {*} Constructor
  * @memberof module:defineClass
- * @example
- * var defineClass = require('tui-code-snippet/defineClass/defineClass'); // node, commonjs
+ * @exampl
+ * import defineClass from 'tui-code-snippet/defineClass/defineClass'; // ES6
+ * // const defineClass = require('tui-code-snippet/defineClass/defineClass'); // CommonJS
  *
  * //-- #2. Use property --//
- * var Parent = defineClass({
- *     init: function() { // constuructor
- *         this.name = 'made by def';
- *     },
- *     method: function() {
- *         // ...
- *     },
- *     static: {
- *         staticMethod: function() {
- *              // ...
- *         }
+ * const Parent = defineClass({
+ *   init: function() { // constuructor
+ *     this.name = 'made by def';
+ *   },
+ *   method: function() {
+ *     // ...
+ *   },
+ *   static: {
+ *     staticMethod: function() {
+ *       // ...
  *     }
+ *   }
  * });
  *
- * var Child = defineClass(Parent, {
- *     childMethod: function() {}
+ * const Child = defineClass(Parent, {
+ *   childMethod: function() {}
  * });
  *
  * Parent.staticMethod();
  *
- * var parentInstance = new Parent();
+ * const parentInstance = new Parent();
  * console.log(parentInstance.name); //made by def
  * parentInstance.staticMethod(); // Error
  *
- * var childInstance = new Child();
+ * const childInstance = new Child();
  * childInstance.method();
  * childInstance.childMethod();
  */

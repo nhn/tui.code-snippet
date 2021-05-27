@@ -15,7 +15,8 @@ var isNull = require('./isNull');
  * @returns {boolean} Is existy?
  * @memberof module:type
  * @example
- * var isExisty = require('tui-code-snippet/type/isExisty'); // node, commonjs
+ * import isExisty from 'tui-code-snippet/type/isExisty'); // ES6
+ * // const isExisty = require('tui-code-snippet/type/isExisty'); // CommonJS
  *
  * isExisty(''); //true
  * isExisty(0); //true

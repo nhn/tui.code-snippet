@@ -14,16 +14,17 @@ var forEachArray = require('./forEachArray');
  * @returns {Array} Array
  * @memberof module:collection
  * @example
- * var toArray = require('tui-code-snippet/collection/toArray'); // node, commonjs
+ * import toArray from 'tui-code-snippet/collection/toArray'; // ES6
+ * // const toArray = require('tui-code-snippet/collection/toArray'); // CommonJS
  *
- * var arrayLike = {
- *     0: 'one',
- *     1: 'two',
- *     2: 'three',
- *     3: 'four',
- *     length: 4
+ * const arrayLike = {
+ *   0: 'one',
+ *   1: 'two',
+ *   2: 'three',
+ *   3: 'four',
+ *   length: 4
  * };
- * var result = toArray(arrayLike);
+ * const result = toArray(arrayLike);
  *
  * alert(result instanceof Array); // true
  * alert(result); // one,two,three,four
