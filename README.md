@@ -9,16 +9,25 @@
 
 
 ## 🚩 Table of Contents
-* [Documents](#-documents)
-* [Features](#-features)
-* [Install](#-install)
-* [Usage](#-usage)
-  * [Bundle](#bundle)
-* [Browser Support](#-browser-support)
-* [Pull Request Steps](#-pull-request-steps)
-* [Contributing](#-contributing)
-* [TOAST UI Family](#-toast-ui-family)
-* [License](#-license)
+- [TOAST UI Tools: Code Snippet](#toast-ui-tools-code-snippet)
+  - [🚩 Table of Contents](#-table-of-contents)
+  - [📙 Documents](#-documents)
+  - [🎨 Features](#-features)
+  - [💾 Install](#-install)
+    - [Via Package Manager](#via-package-manager)
+      - [npm](#npm)
+    - [Download Source Files](#download-source-files)
+  - [🔨 Usage](#-usage)
+    - [Bundle](#bundle)
+  - [🌏 Browser Support](#-browser-support)
+  - [🔧 Pull Request Steps](#-pull-request-steps)
+    - [Setup](#setup)
+    - [Develop](#develop)
+      - [Run karma test](#run-karma-test)
+    - [Pull Request](#pull-request)
+  - [💬 Contributing](#-contributing)
+  - [🍞 TOAST UI Family](#-toast-ui-family)
+  - [📜 License](#-license)
 
 
 ## 📙 Documents
