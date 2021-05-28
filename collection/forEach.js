@@ -26,19 +26,23 @@ var forEachOwnProperties = require('../collection/forEachOwnProperties');
  * @param {Object} [context] Context(this) of callback function
  * @memberof module:collection
  * @example
- * var forEach = require('tui-code-snippet/collection/forEach'); // node, commonjs
+ * // ES6
+ * import forEach from 'tui-code-snippet/collection/forEach'; 
+ * 
+ * // CommonJS
+ * const forEach = require('tui-code-snippet/collection/forEach'); 
  *
- * var sum = 0;
+ * let sum = 0;
  *
  * forEach([1,2,3], function(value){
- *     sum += value;
+ *   sum += value;
  * });
  * alert(sum); // 6
  *
  * // In case of Array-like object
- * var array = Array.prototype.slice.call(arrayLike); // change to array
+ * const array = Array.prototype.slice.call(arrayLike); // change to array
  * forEach(array, function(value){
- *     sum += value;
+ *   sum += value;
  * });
  */
 function forEach(obj, iteratee, context) {

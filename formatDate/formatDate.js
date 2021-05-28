@@ -137,46 +137,51 @@ function isValidDate(year, month, date) { // eslint-disable-line complexity
  * @returns {boolean|string} A transformed string or false.
  * @memberof module:formatDate
  * @example
- *  // key             | Shorthand
- *  // --------------- |-----------------------
- *  // years           | YY / YYYY / yy / yyyy
- *  // months(n)       | M / MM
- *  // months(str)     | MMM / MMMM
- *  // days            | D / DD / d / dd
- *  // hours           | H / HH / h / hh
- *  // minutes         | m / mm
- *  // meridiem(AM,PM) | A / a
+ * // key             | Shorthand
+ * // --------------- |-----------------------
+ * // years           | YY / YYYY / yy / yyyy
+ * // months(n)       | M / MM
+ * // months(str)     | MMM / MMMM
+ * // days            | D / DD / d / dd
+ * // hours           | H / HH / h / hh
+ * // minutes         | m / mm
+ * // meridiem(AM,PM) | A / a
  *
- * var formatDate = require('tui-code-snippet/formatDate/formatDate'); // node, commonjs
+ * // ES6
+ * import formatDate from 'tui-code-snippet/formatDate/formatDate'; 
+ * 
+ * // CommonJS
+ * const formatDate = require('tui-code-snippet/formatDate/formatDate'); 
  *
- * var dateStr1 = formatDate('yyyy-MM-dd', {
- *     year: 2014,
- *     month: 12,
- *     date: 12
+ * const dateStr1 = formatDate('yyyy-MM-dd', {
+ *   year: 2014,
+ *   month: 12,
+ *   date: 12
  * });
  * alert(dateStr1); // '2014-12-12'
  *
- * var dateStr2 = formatDate('MMM DD YYYY HH:mm', {
- *     year: 1999,
- *     month: 9,
- *     date: 9,
- *     hour: 0,
- *     minute: 2
+ * const dateStr2 = formatDate('MMM DD YYYY HH:mm', {
+ *   year: 1999,
+ *   month: 9,
+ *   date: 9,
+ *   hour: 0,
+ *   minute: 2
  * });
  * alert(dateStr2); // 'Sep 09 1999 00:02'
  *
- * var dt = new Date(2010, 2, 13),
- *     dateStr3 = formatDate('yyyy년 M월 dd일', dt);
+ * const dt = new Date(2010, 2, 13),
+ *   dateStr3 = formatDate('yyyy년 M월 dd일', dt);
  * alert(dateStr3); // '2010년 3월 13일'
  *
- * var option4 = {
- *     meridiemSet: {
- *         AM: '오전',
- *         PM: '오후'
- *     }
+ * const option4 = {
+ *   meridiemSet: {
+ *     AM: '오전',
+ *     PM: '오후'
+ *   }
  * };
- * var date4 = {year: 1999, month: 9, date: 9, hour: 13, minute: 2};
- * var dateStr4 = formatDate('yyyy-MM-dd A hh:mm', date4, option4));
+ * 
+ * const date4 = {year: 1999, month: 9, date: 9, hour: 13, minute: 2};
+ * const dateStr4 = formatDate('yyyy-MM-dd A hh:mm', date4, option4);
  * alert(dateStr4); // '1999-09-09 오후 01:02'
  */
 function formatDate(form, date, option) { // eslint-disable-line complexity

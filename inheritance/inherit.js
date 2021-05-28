@@ -16,19 +16,23 @@ var createObject = require('./createObject');
  * @param {function} superType Parent constructor
  * @memberof module:inheritance
  * @example
- * var inherit = require('tui-code-snippet/inheritance/inherit'); // node, commonjs
+ * // ES6
+ * import inherit from 'tui-code-snippet/inheritance/inherit';
+ * 
+ * // CommonJS
+ * const inherit = require('tui-code-snippet/inheritance/inherit');
  *
  * // Parent constructor
  * function Animal(leg) {
- *     this.leg = leg;
+ *   this.leg = leg;
  * }
  * Animal.prototype.growl = function() {
- *     // ...
+ *   // ...
  * };
  *
  * // Child constructor
  * function Person(name) {
- *     this.name = name;
+ *   this.name = name;
  * }
  *
  * // Inheritance
@@ -37,7 +41,7 @@ var createObject = require('./createObject');
  * // After this inheritance, please use only the extending of property.
  * // Do not overwrite prototype.
  * Person.prototype.walk = function(direction) {
- *     // ...
+ *   // ...
  * };
  */
 function inherit(subType, superType) {

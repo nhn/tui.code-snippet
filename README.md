@@ -9,16 +9,24 @@
 
 
 ## 🚩 Table of Contents
-* [Documents](#-documents)
-* [Features](#-features)
-* [Install](#-install)
-* [Usage](#-usage)
-  * [Bundle](#bundle)
-* [Browser Support](#-browser-support)
-* [Pull Request Steps](#-pull-request-steps)
-* [Contributing](#-contributing)
-* [TOAST UI Family](#-toast-ui-family)
-* [License](#-license)
+
+- [📙 Documents](#-documents)
+- [🎨 Features](#-features)
+- [💾 Install](#-install)
+  - [Via Package Manager](#via-package-manager)
+    - [npm](#npm)
+  - [Download Source Files](#download-source-files)
+- [🔨 Usage](#-usage)
+  - [Bundle](#bundle)
+- [🌏 Browser Support](#-browser-support)
+- [🔧 Pull Request Steps](#-pull-request-steps)
+  - [Setup](#setup)
+  - [Develop](#develop)
+    - [Run karma test](#run-karma-test)
+  - [Pull Request](#pull-request)
+- [💬 Contributing](#-contributing)
+- [🍞 TOAST UI Family](#-toast-ui-family)
+- [📜 License](#-license)
 
 
 ## 📙 Documents
@@ -99,11 +107,20 @@ $ npm install --save tui-code-snippet@<version> # Specific version
 Import only functions that you need in your code:
 
 ```javascript
-var func = require('tui-code-snippet/<folder>/<function>');
+// CommonJS
+const func = require('tui-code-snippet/<folder>/<function>');
 
 // for example,
-var inArray = require('tui-code-snippet/array/inArray');
-var customEvents = require('tui-code-snippet/customEvents/customEvents');
+const inArray = require('tui-code-snippet/array/inArray');
+const customEvents = require('tui-code-snippet/customEvents/customEvents');
+```
+```javascript
+// ES6
+import func from 'tui-code-snippet/<folder>/<function>';
+
+// for example,
+import inArray from 'tui-code-snippet/array/inArray';
+import customEvents from 'tui-code-snippet/customEvents/customEvents';
 ```
 
 The folder structure can be found [here](https://github.com/nhn/tui.code-snippet/tree/master).

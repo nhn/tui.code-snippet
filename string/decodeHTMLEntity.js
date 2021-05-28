@@ -15,10 +15,14 @@
  * @returns {String} Plain string
  * @memberof module:string
  * @example
- * var decodeHTMLEntity = require('tui-code-snippet/string/decodeHTMLEntity'); // node, commonjs
+ * // ES6
+ * import decodeHTMLEntity from 'tui-code-snippet/string/decodeHTMLEntity';
+ * 
+ * // CommonJS
+ * const decodeHTMLEntity = require('tui-code-snippet/string/decodeHTMLEntity');
  *
- * var htmlEntityString = "A &#39;quote&#39; is &lt;b&gt;bold&lt;/b&gt;"
- * var result = decodeHTMLEntity(htmlEntityString); //"A 'quote' is <b>bold</b>"
+ * const htmlEntityString = "A &#39;quote&#39; is &lt;b&gt;bold&lt;/b&gt;"
+ * const result = decodeHTMLEntity(htmlEntityString); //"A 'quote' is <b>bold</b>"
  */
 function decodeHTMLEntity(htmlEntity) {
   var entities = {
