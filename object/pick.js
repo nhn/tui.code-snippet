@@ -15,8 +15,11 @@ var isNull = require('../type/isNull');
  * @returns {*} Value
  * @memberof module:object
  * @example
- * import pick from 'tui-code-snippet/object/pick'; // ES6
- * // const pick = require('tui-code-snippet/object/pick'); // CommonJS
+ * // ES6
+ * import pick from 'tui-code-snippet/object/pick';
+ * 
+ * // CommonJS
+ * const pick = require('tui-code-snippet/object/pick');
  *
  * cosnt obj = {
  *   'key1': 1,

@@ -14,8 +14,11 @@ var forEach = require('./forEach');
  * @returns {Array}
  * @memberof module:collection
  * @example
- * import pluck from 'tui-code-snippet/collection/pluck'; // ES6
- * // const pluck = require('tui-code-snippet/collection/pluck'); // CommonJS
+ * // ES6
+ * import pluck from 'tui-code-snippet/collection/pluck'; 
+ * 
+ * // CommonJS
+ * const pluck = require('tui-code-snippet/collection/pluck'); 
  *
  * const objArr = [
  *   {'abc': 1, 'def': 2, 'ghi': 3},

@@ -18,8 +18,11 @@ var forEachOwnProperties = require('../collection/forEachOwnProperties');
  * @returns {HTMLElement}
  * @memberof module:request
  * @example
- * import imagePing from 'tui-code-snippet/request/imagePing'; // ES6
- * // const imagePing = require('tui-code-snippet/request/imagePing'); // CommonJS
+ * // ES6
+ * import imagePing from 'tui-code-snippet/request/imagePing';
+ * 
+ * // CommonJS
+ * const imagePing = require('tui-code-snippet/request/imagePing');
  *
  * imagePing('https://www.google-analytics.com/collect', {
  *   v: 1,

@@ -11,8 +11,11 @@
  * @returns {String} HTML Entity
  * @memberof module:string
  * @example
- * import encodeHTMLEntity from 'tui-code-snippet/string/encodeHTMLEntity'; // ES6
- * // const encodeHTMLEntity = require('tui-code-snippet/string/encodeHTMLEntity'); // CommonJS
+ * // ES6
+ * import encodeHTMLEntity from 'tui-code-snippet/string/encodeHTMLEntity';
+ * 
+ * // CommonJS
+ * const encodeHTMLEntity = require('tui-code-snippet/string/encodeHTMLEntity');
  *
  * const htmlEntityString = "<script> alert('test');</script><a href='test'>";
  * const result = encodeHTMLEntity(htmlEntityString);

@@ -23,8 +23,11 @@ var isArray = require('../type/isArray');
  * @returns {number} the First index at which a given element, or -1 if it is not present
  * @memberof module:array
  * @example
- * import inArray from 'tui-code-snippet/array/inArray'; // ES6
- * // const inArray = require('tui-code-snippet/array/inArray'); // CommonJS
+ * // ES6
+ * import inArray from 'tui-code-snippet/array/inArray';
+ * 
+ * // CommonJS
+ * const inArray = require('tui-code-snippet/array/inArray');
  *
  * const arr = ['one', 'two', 'three', 'four'];
  * const idx1 = inArray('one', arr, 3); // -1

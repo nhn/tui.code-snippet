@@ -15,8 +15,11 @@ var isUndefined = require('../type/isUndefined');
  * @returns {Array}
  * @memberof module:array
  * @example
- * import range from 'tui-code-snippet/array/range'; // ES6
- * // const range = require('tui-code-snippet/array/range'); // CommonJS
+ * // ES6
+ * import range from 'tui-code-snippet/array/range';
+ * 
+ * // CommonJS
+ * const range = require('tui-code-snippet/array/range');
  *
  * range(5); // [0, 1, 2, 3, 4]
  * range(1, 5); // [1,2,3,4]

@@ -17,8 +17,11 @@
  * @returns {function} debounced function.
  * @memberof module:tricks
  * @example
- * import debounce from 'tui-code-snippet/tricks/debounce'; // ES6
- * // const debounce = require('tui-code-snippet/tricks/debounce'); // CommonJS
+ * // ES6
+ * import debounce from 'tui-code-snippet/tricks/debounce';
+ * 
+ * // CommonJS
+ * const debounce = require('tui-code-snippet/tricks/debounce');
  *
  * function someMethodToInvokeDebounced() {}
  *

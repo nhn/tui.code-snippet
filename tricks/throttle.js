@@ -16,8 +16,11 @@ var debounce = require('./debounce');
  * @returns {function} throttled function
  * @memberof module:tricks
  * @example
- * import throttle from 'tui-code-snippet/tricks/throttle'; // ES6
- * // const throttle = require('tui-code-snippet/tricks/throttle'); // CommonJS
+ * // ES6
+ * import throttle from 'tui-code-snippet/tricks/throttle';
+ * 
+ * // CommonJS
+ * const throttle = require('tui-code-snippet/tricks/throttle');
  *
  * function someMethodToInvokeThrottled() {}
  *

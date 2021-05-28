@@ -2,8 +2,8 @@
  * @fileoverview This module provides a Enum Constructor.
  * @author NHN FE Development Lab <dl_javascript@nhn.com>
  * @example
- * // node, commonjs
- * var Enum = require('tui-code-snippet/enum/enum');
+ * // CommonJS
+ * const Enum = require('tui-code-snippet/enum/enum');
  */
 
 'use strict';
@@ -44,7 +44,8 @@ var enumValue = 0;
  * @class
  *
  * @example
- * const Enum = require('tui-code-snippet/enum/enum'); // node, commonjs
+ * // CommonJS
+ * const Enum = require('tui-code-snippet/enum/enum');
  *
  * const MYENUM = new Enum('TYPE1', 'TYPE2');
  * const MYENUM2 = new Enum(['TYPE1', 'TYPE2']);

@@ -344,8 +344,11 @@ function compile(sources, context) {
  * @returns {string} - text that bind with its context
  * @memberof module:domUtil
  * @example
- * import template from 'tui-code-snippet/domUtil/template'; // ES6
- * // const template = require('tui-code-snippet/domUtil/template'); // CommonJS
+ * // ES6
+ * import template from 'tui-code-snippet/domUtil/template'; 
+ * 
+ * // CommonJS
+ * const template = require('tui-code-snippet/domUtil/template'); 
  * 
  * const source = 
  *     '<h1>'

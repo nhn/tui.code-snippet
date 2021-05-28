@@ -147,8 +147,11 @@ function isValidDate(year, month, date) { // eslint-disable-line complexity
  * // minutes         | m / mm
  * // meridiem(AM,PM) | A / a
  *
- * import formatDate from 'tui-code-snippet/formatDate/formatDate'; // ES6
- * // const formatDate = require('tui-code-snippet/formatDate/formatDate'); // CommonJS
+ * // ES6
+ * import formatDate from 'tui-code-snippet/formatDate/formatDate'; 
+ * 
+ * // CommonJS
+ * const formatDate = require('tui-code-snippet/formatDate/formatDate'); 
  *
  * const dateStr1 = formatDate('yyyy-MM-dd', {
  *   year: 2014,

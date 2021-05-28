@@ -13,10 +13,13 @@ var forEach = require('../collection/forEach');
  * @returns {Array}
  * @memberof module:array
  * @example
- * import zip from 'tui-code-snippet/array/zip'; // ES6
- * // const zip = require('tui-code-snippet/array/zip'); // CommonJS
+ * // ES6
+ * import zip from 'tui-code-snippet/array/zip';
+ * 
+ * // CommonJS
+ * const zip = require('tui-code-snippet/array/zip');
  *
- * const result = zip([1, 2, 3], ['a', 'b','c'], [true, false, true]);
+ * const result = zip([1, 2, 3], ['a', 'b', 'c'], [true, false, true]);
  * console.log(result[0]); // [1, 'a', true]
  * console.log(result[1]); // [2, 'b', false]
  * console.log(result[2]); // [3, 'c', true]

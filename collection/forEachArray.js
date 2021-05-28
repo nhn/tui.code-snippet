@@ -18,8 +18,11 @@
  * @param {Object} [context] Context(this) of callback function
  * @memberof module:collection
  * @example
- * import forEachArray from 'tui-code-snippet/collection/forEachArray'; // ES6
- * // const forEachArray = require('tui-code-snippet/collection/forEachArray'); // CommonJS
+ * // ES6
+ * import forEachArray from 'tui-code-snippet/collection/forEachArray';
+ * 
+ * // CommonJS
+ * const forEachArray = require('tui-code-snippet/collection/forEachArray'); 
  *
  * let sum = 0;
  *

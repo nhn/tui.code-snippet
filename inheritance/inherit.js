@@ -16,8 +16,11 @@ var createObject = require('./createObject');
  * @param {function} superType Parent constructor
  * @memberof module:inheritance
  * @example
- * import inherit from 'tui-code-snippet/inheritance/inherit'; // ES6
- * // const inherit = require('tui-code-snippet/inheritance/inherit'); // CommonJS
+ * // ES6
+ * import inherit from 'tui-code-snippet/inheritance/inherit';
+ * 
+ * // CommonJS
+ * const inherit = require('tui-code-snippet/inheritance/inherit');
  *
  * // Parent constructor
  * function Animal(leg) {

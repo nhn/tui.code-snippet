@@ -15,8 +15,11 @@
  * @returns {String} Plain string
  * @memberof module:string
  * @example
- * import decodeHTMLEntity from 'tui-code-snippet/string/decodeHTMLEntity'; // ES6
- * // const decodeHTMLEntity = require('tui-code-snippet/string/decodeHTMLEntity'); // CommonJS
+ * // ES6
+ * import decodeHTMLEntity from 'tui-code-snippet/string/decodeHTMLEntity';
+ * 
+ * // CommonJS
+ * const decodeHTMLEntity = require('tui-code-snippet/string/decodeHTMLEntity');
  *
  * const htmlEntityString = "A &#39;quote&#39; is &lt;b&gt;bold&lt;/b&gt;"
  * const result = decodeHTMLEntity(htmlEntityString); //"A 'quote' is <b>bold</b>"

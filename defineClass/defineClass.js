@@ -22,9 +22,12 @@ var extend = require('../object/extend');
  *  @param {Object} [props.static] Static members of constructor
  * @returns {*} Constructor
  * @memberof module:defineClass
- * @exampl
- * import defineClass from 'tui-code-snippet/defineClass/defineClass'; // ES6
- * // const defineClass = require('tui-code-snippet/defineClass/defineClass'); // CommonJS
+ * @example
+ * // ES6
+ * import defineClass from 'tui-code-snippet/defineClass/defineClass'; 
+ * 
+ * // CommonJS
+ * const defineClass = require('tui-code-snippet/defineClass/defineClass'); 
  *
  * //-- #2. Use property --//
  * const Parent = defineClass({

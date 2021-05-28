@@ -26,8 +26,11 @@ var forEachOwnProperties = require('../collection/forEachOwnProperties');
  * @param {Object} [context] Context(this) of callback function
  * @memberof module:collection
  * @example
- * import forEach from 'tui-code-snippet/collection/forEach'; // ES6
- * // const forEach = require('tui-code-snippet/collection/forEach'); // CommonJS
+ * // ES6
+ * import forEach from 'tui-code-snippet/collection/forEach'; 
+ * 
+ * // CommonJS
+ * const forEach = require('tui-code-snippet/collection/forEach'); 
  *
  * let sum = 0;
  *
