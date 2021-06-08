@@ -13,7 +13,7 @@ describe('CustomEvents', function() {
     var handler;
 
     beforeEach(function() {
-      handler = jasmine.createSpy('handler');
+      handler = jest.fn();
     });
 
     it('by name, handler function.', function() {
@@ -48,7 +48,7 @@ describe('CustomEvents', function() {
 
       ce.on('a  b  c', handler);
 
-      expect(ce.events).toEqual(jasmine.objectContaining({
+      expect(ce.events).toEqual(expect.objectContaining({
         a: [{handler: handler}],
         b: [{handler: handler}],
         c: [{handler: handler}]
@@ -170,8 +170,8 @@ describe('CustomEvents', function() {
       obj2;
 
     beforeEach(function() {
-      spy = jasmine.createSpy('off');
-      spy2 = jasmine.createSpy('last');
+      spy = function() {};
+      spy2 = function() {};
       ce = new CustomEvents();
       obj = {};
       obj2 = {};
@@ -293,7 +293,7 @@ describe('CustomEvents', function() {
 
     beforeEach(function() {
       inst = new CustomEvents();
-      spy = jasmine.createSpy();
+      spy = jest.fn();
     });
 
     it('and invoke handler multiple times even if duplicated.', function() {
@@ -304,14 +304,14 @@ describe('CustomEvents', function() {
 
       inst.fire('foo');
 
-      expect(spy.calls.count()).toBe(2);
+      expect(spy).toHaveBeenCalledTimes(2);
 
       inst.on('bar', spy, obj);
       inst.on('bar', spy, obj);
 
       inst.fire('bar');
 
-      expect(spy.calls.count()).toBe(4);
+      expect(spy).toHaveBeenCalledTimes(4);
     });
 
     it('and pass arguments to each handlers.', function() {
@@ -337,7 +337,7 @@ describe('CustomEvents', function() {
     };
 
     beforeEach(function() {
-      spy = jasmine.createSpy('handler');
+      spy = jest.fn();
       inst = new MockComponent();
       inst.on('zoom', spy);
     });
@@ -464,7 +464,7 @@ describe('CustomEvents', function() {
   });
 
   it('should bind one-shot event.', function() {
-    var spy = jasmine.createSpy();
+    var spy = jest.fn();
     var inst = new CustomEvents();
 
     inst.once('foo', spy);
@@ -472,11 +472,11 @@ describe('CustomEvents', function() {
     inst.fire('foo');
     inst.fire('foo');
 
-    expect(spy.calls.count()).toBe(1);
+    expect(spy).toHaveBeenCalledTimes(1);
   });
 
   it('should bind mutiple one-shot events.', function() {
-    var spy = jasmine.createSpy();
+    var spy = jest.fn();
     var inst = new CustomEvents();
 
     inst.once({
@@ -489,7 +489,7 @@ describe('CustomEvents', function() {
     inst.fire('bar');
     inst.fire('bar');
 
-    expect(spy.calls.count()).toBe(2);
+    expect(spy).toHaveBeenCalledTimes(2);
   });
 
   it('should check specific event was binded.', function() {
@@ -514,3 +514,4 @@ describe('CustomEvents', function() {
     expect(inst.getListenerLength('test')).toBe(0);
   });
 });
+

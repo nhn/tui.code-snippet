@@ -24,7 +24,7 @@ function $(selector) {
 
 describe('domutil', function() {
   beforeEach(function() {
-    fixture.set(
+    document.body.innerHTML =
       '<style>html, body {margin:0; padding:0;}</style>' +
             '<div id="test"></div>' +
             '<div id="test2" class="test-class"></div>' +
@@ -33,12 +33,11 @@ describe('domutil', function() {
             '<div id="test4" class="test-class test-class2"></div>' +
             '<svg width="300" height="300">' +
                 '<rect class="origin" id="rect" x="10" y="10" width="50" height="50"></rect>' +
-            '</svg>'
-    );
+            '</svg>';
   });
 
   afterEach(function() {
-    fixture.cleanup();
+    document.body.innerHTML = '';
   });
 
   it('css() should change element\'s style values.', function() {
@@ -106,9 +105,9 @@ describe('domutil', function() {
   it('getData() can manipulate element custom data', function() {
     var el, el2, el3;
 
-    fixture.set('<div id="_test" data-test="good"></div>' +
+    document.body.innerHTML += '<div id="_test" data-test="good"></div>' +
             '<span id="_test2" data-user-id="123"></span>' +
-            '<div id="_test3" data-user-name="hong"></div>');
+            '<div id="_test3" data-user-name="hong"></div>';
 
     el = $('#_test');
     expect(getData(el, 'test')).toBe('good');
@@ -137,15 +136,15 @@ describe('domutil', function() {
 
   describe('closest method', function() {
     beforeEach(function() {
-      fixture.set('<div id="parent">' +
+      document.body.innerHTML = '<div id="parent">' +
                         '<ul id="test">' +
                         '<li id="list-item">test</li>' +
                         '</ul>' +
-                        '</div>');
+                        '</div>';
     });
 
     afterEach(function() {
-      fixture.cleanup();
+      document.body.innerHTML = '';
     });
 
     it('should return matched parent node recursively until meet document.', function() {
@@ -180,7 +179,7 @@ describe('domutil', function() {
   });
 
   it('should disable text selection without throw error.', function() {
-    fixture.set('<div id="prevent-selection"></div>');
+    document.body.innerHTML += '<div id="prevent-selection"></div>';
 
     expect(function() {
       disableTextSelection($('#prevent-selection'));
@@ -193,9 +192,9 @@ describe('domutil', function() {
   it('toggleClass() should toggle specific class names.', function() {
     var div, div2, div3;
 
-    fixture.set('<div id="target" class="alpha beta gamma"></div>' +
+    document.body.innerHTML += '<div id="target" class="alpha beta gamma"></div>' +
                     '<div id="target2" class="alpha"></div>' +
-                    '<div id="target3"></div>');
+                    '<div id="target3"></div>';
 
     div = document.getElementById('target');
     toggleClass(div, 'beta', 'zeta');
@@ -213,9 +212,9 @@ describe('domutil', function() {
   it('removeElement() should element from parent node.', function() {
     var parent, child;
 
-    fixture.set('<div id="parent">' +
+    document.body.innerHTML += '<div id="parent">' +
                     '<p id="child"></p>' +
-                    '</div>');
+                    '</div>';
 
     parent = document.getElementById('parent');
     child = document.getElementById('child');

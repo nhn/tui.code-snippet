@@ -10,40 +10,55 @@ var tricks = {
 describe('tricks', function() {
   describe('debounce', function() {
     var spy;
+    var setTimeout = window.setTimeout;
 
     beforeEach(function() {
-      spyOn(window, 'setTimeout');
-      spy = jasmine.createSpy('debounced?');
+      jest.spyOn(window, 'setTimeout');
+      spy = jest.fn();
+    });
+
+    afterEach(function() {
+      window.setTimeout = setTimeout;
+      jest.clearAllMocks();
     });
 
     it('test debounced functions.', function() {
       var fn = debounce(spy, 50);
       fn();
 
-      expect(window.setTimeout).toHaveBeenCalledWith(jasmine.any(Function), 50);
-      window.setTimeout.calls.argsFor(0)[0]();
+      expect(window.setTimeout).toHaveBeenCalledWith(expect.any(Function), 50);
+      window.setTimeout.mock.calls[0][0]();
       expect(spy).toHaveBeenCalled();
     });
 
     it('debounced function can accept parameters', function() {
       var fn;
 
-      window.setTimeout.and.callFake(function(func) {
+      window.setTimeout.mockImplementation(function(func) {
         func();
       });
 
       fn = debounce(spy);
       fn('hello world!');
 
-      expect(spy.calls.argsFor(0)).toEqual(['hello world!']);
+      expect(spy).toHaveBeenCalledWith('hello world!');
     });
   });
 
   describe('throttle', function() {
-    var spy;
+    var spy, mockFunc;
 
     beforeEach(function() {
-      spy = jasmine.createSpy('throttled?');
+      mockFunc = jest.fn();
+
+      spy = function() {
+        var args = Array.prototype.slice.call(arguments);
+        mockFunc.apply(null, args);
+      };
+    });
+
+    afterEach(function() {
+      jest.clearAllMocks();
     });
 
     it('test throttled functions.', function() {
@@ -55,7 +70,7 @@ describe('tricks', function() {
       fn();
       fn();
 
-      expect(spy.calls.count()).toBe(1);
+      expect(mockFunc).toHaveBeenCalledTimes(1);
     });
 
     it('debounced method must invoke with additional parameter', function() {
@@ -67,19 +82,20 @@ describe('tricks', function() {
       fn('hello');
       fn('hello');
 
-      expect(spy.calls.count()).toBe(1);
-      expect(spy.calls.allArgs()).toEqual([['hello']]);
+      expect(mockFunc).toHaveBeenCalledTimes(1);
+      expect(mockFunc).toHaveBeenCalledWith('hello');
     });
 
     it('reset can remove slugs related with throttling.', function() {
       var fn = throttle(spy, 7);
       fn();
-      expect(spy.calls.count()).toBe(1);
+
+      expect(mockFunc).toHaveBeenCalledTimes(1);
 
       fn.reset();
       fn();
 
-      expect(spy.calls.count()).toBe(2);
+      expect(mockFunc).toHaveBeenCalledTimes(2);
     });
 
     it('throttled functions can accept parameters.', function() {
@@ -87,7 +103,7 @@ describe('tricks', function() {
 
       fn('hello world!');
 
-      expect(spy.calls.argsFor(0)).toEqual(['hello world!']);
+      expect(mockFunc).toHaveBeenCalledWith('hello world!');
     });
   });
 });

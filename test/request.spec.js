@@ -31,9 +31,9 @@ describe('module:request', function() {
         window.tui = window.tui || {};
 
         // can not spy on imagePing. spy on appendChild instead.
-        spyOn(document.body, 'appendChild');
-        spyOn(document.body, 'removeChild');
-        spyOn(Storage.prototype, 'getItem').and.returnValue(null);
+        jest.spyOn(document.body, 'appendChild');
+        jest.spyOn(document.body, 'removeChild');
+        jest.spyOn(Storage.prototype, 'getItem').mockReturnValue(null);
       });
 
       it('should call appendChild', function(done) {
@@ -62,15 +62,15 @@ describe('module:request', function() {
         window.tui = window.tui || {};
 
         // can not spy on imagePing. spy on appendChild instead.
-        spyOn(document.body, 'appendChild');
-        spyOn(document.body, 'removeChild');
+        jest.spyOn(document.body, 'appendChild');
+        jest.spyOn(document.body, 'removeChild');
       });
 
       it('should not call appendChild within 7 days', function(done) {
         var now = new Date().getTime();
         var ms6days = 6 * 24 * 60 * 60 * 1000;
 
-        spyOn(Storage.prototype, 'getItem').and.returnValue(now - ms6days);
+        jest.spyOn(Storage.prototype, 'getItem').mockReturnValue(now - ms6days);
 
         window.tui.usageStatistics = true;
 
@@ -85,7 +85,7 @@ describe('module:request', function() {
       it('should call appendChild after 7 days', function(done) {
         var now = new Date().getTime();
         var ms8days = 8 * 24 * 60 * 60 * 1000;
-        spyOn(Storage.prototype, 'getItem').and.returnValue(now - ms8days);
+        jest.spyOn(Storage.prototype, 'getItem').mockReturnValue(now - ms8days);
 
         window.tui.usageStatistics = true;
 

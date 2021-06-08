@@ -6,19 +6,68 @@ var forEachOwnProperties = require('../collection/forEachOwnProperties');
 var ajax = require('../ajax/index.js'); // Test for transpiled file
 // var ajax = require('../ajax')['default']; // Test for ES6 Module
 
+var mock = {
+  open: jest.fn(),
+  send: jest.fn().mockImplementation(function() {
+    this.readyState = 4;
+    this.onreadystatechange();
+  }),
+  setRequestHeader: jest.fn(),
+  getResponseHeader: jest.fn().mockImplementation(function(key) {
+    return this.responseHeaders && this.responseHeaders[key];
+  }),
+  getAllResponseHeaders: jest.fn().mockImplementation(function() {
+    var result, i, keys;
+
+    if (this.responseHeaders) {
+      result = '';
+      keys = Object.keys(this.responseHeaders);
+
+      for (i = 0; i < keys.length; i += 1) {
+        result += keys[i] + ': ' + this.responseHeaders[keys[i]] + '\r\n';
+      }
+    }
+
+    return result;
+  }),
+  setResponse: function(options) {
+    this.xhr.status = options.status;
+    this.xhr.statusText = options.statusText;
+    this.xhr.responseText = options.responseText || '\r\n';
+    this.xhr.responseHeaders = options.responseHeaders || '\r\n';
+  },
+  install: function() {
+    var xhr;
+    this.xhr = xhr = {
+      open: this.open,
+      send: this.send,
+      setRequestHeader: this.setRequestHeader,
+      getResponseHeader: this.getResponseHeader,
+      getAllResponseHeaders: this.getAllResponseHeaders,
+      status: 200
+    };
+
+    this.originalXHR = window.XMLHttpRequest;
+    window.XMLHttpRequest = function() {
+      return xhr;
+    };
+  },
+  uninstall: function() {
+    window.XMLHttpRequest = this.originalXHR;
+  }
+};
+
 describe('Ajax', function() {
   beforeEach(function() {
-    jasmine.Ajax.install();
+    mock.install();
     ajax._reset();
   });
 
   afterEach(function() {
-    jasmine.Ajax.uninstall();
+    mock.uninstall();
   });
 
   describe('Request', function() {
-    var request;
-
     it('should be sent correctly by using GET', function() {
       ajax({
         url: 'https://ui.toast.com/',
@@ -29,16 +78,12 @@ describe('Ajax', function() {
         headers: {'X-Custom-Header': 'CUSTOM'}
       });
 
-      request = jasmine.Ajax.requests.mostRecent();
-      expect(request.url).toBe('https://ui.toast.com/?q=query');
-      expect(request.method).toBe('GET');
-      expect(request.requestHeaders['X-Custom-Header']).toBe('CUSTOM');
+      expect(mock.open).toHaveBeenCalledWith('GET', 'https://ui.toast.com/?q=query');
+      expect(mock.setRequestHeader).toHaveBeenCalledWith('X-Custom-Header', 'CUSTOM');
     });
   });
 
   describe('Default serializer', function() {
-    var request;
-
     describe('query strings', function() {
       it('should serialize query strings properly', function() {
         ajax.get('https://ui.toast.com/', {
@@ -49,8 +94,7 @@ describe('Ajax', function() {
           }
         });
 
-        request = jasmine.Ajax.requests.mostRecent();
-        expect(request.url).toBe('https://ui.toast.com/?q=query&name=toast-ui&space=s%20p%20a%20c%20e');
+        expect(mock.open).toHaveBeenCalledWith('GET', 'https://ui.toast.com/?q=query&name=toast-ui&space=s%20p%20a%20c%20e');
       });
 
       it('should serialize array parameters by brackets', function() {
@@ -60,8 +104,7 @@ describe('Ajax', function() {
           }
         });
 
-        request = jasmine.Ajax.requests.mostRecent();
-        expect(request.url).toBe('https://ui.toast.com/?qs%5B%5D=toast-ui&qs%5B%5D=code&qs%5B%5D=snippet');
+        expect(mock.open).toHaveBeenCalledWith('HEAD', 'https://ui.toast.com/?qs%5B%5D=toast-ui&qs%5B%5D=code&qs%5B%5D=snippet');
       });
 
       it('should serialize object parameters by brackets', function() {
@@ -74,8 +117,7 @@ describe('Ajax', function() {
           }
         });
 
-        request = jasmine.Ajax.requests.mostRecent();
-        expect(request.url).toBe('https://ui.toast.com/?qs%5Bname%5D=toast-ui&qs%5Bproduct%5D=code-snippet');
+        expect(mock.open).toHaveBeenCalledWith('HEAD', 'https://ui.toast.com/?qs%5Bname%5D=toast-ui&qs%5Bproduct%5D=code-snippet');
       });
     });
 
@@ -92,8 +134,7 @@ describe('Ajax', function() {
           }
         });
 
-        request = jasmine.Ajax.requests.mostRecent();
-        expect(request.params).toBe('q=query&qs%5B%5D=toast-ui&qs%5B%5D=code&qs%5B%5D=snippet&product%5Bcode%5D=snippet&space=s+p+a+c+e');
+        expect(mock.send).toHaveBeenCalledWith('q=query&qs%5B%5D=toast-ui&qs%5B%5D=code&qs%5B%5D=snippet&product%5Bcode%5D=snippet&space=s+p+a+c+e');
       });
 
       it('should serialize using JSON.stringify() if Content-Type is not application/x-www-form-urlencoded', function() {
@@ -109,8 +150,7 @@ describe('Ajax', function() {
           contentType: 'application/json'
         });
 
-        request = jasmine.Ajax.requests.mostRecent();
-        expect(request.params).toBe(JSON.stringify({
+        expect(mock.send).toHaveBeenLastCalledWith(JSON.stringify({
           q: 'query',
           qs: ['toast-ui', 'code', 'snippet'],
           product: {
@@ -124,12 +164,27 @@ describe('Ajax', function() {
 
   describe('Event handler', function() {
     var beforeRequest, success, error, complete;
+    var beforeRequestMock, successMock, errorMock, completeMock;
 
     beforeEach(function() {
-      beforeRequest = jasmine.createSpy('beforeRequest');
-      success = jasmine.createSpy('success');
-      error = jasmine.createSpy('error');
-      complete = jasmine.createSpy('complete');
+      beforeRequestMock = jest.fn();
+      successMock = jest.fn();
+      errorMock = jest.fn();
+      completeMock = jest.fn();
+
+      beforeRequest = function() {
+        var args = Array.prototype.slice.call(arguments);
+        beforeRequestMock.apply(null, args);
+      };
+      success = function() {
+        successMock();
+      };
+      error = function() {
+        errorMock();
+      };
+      complete = function() {
+        completeMock();
+      };
     });
 
     describe('beforeRequest', function() {
@@ -143,10 +198,10 @@ describe('Ajax', function() {
           complete: complete
         });
 
-        expect(beforeRequest).toHaveBeenCalled();
-        expect(success).not.toHaveBeenCalled();
-        expect(error).not.toHaveBeenCalled();
-        expect(complete).not.toHaveBeenCalled();
+        expect(beforeRequestMock).toHaveBeenCalled();
+        expect(successMock).not.toHaveBeenCalled();
+        expect(errorMock).not.toHaveBeenCalled();
+        expect(completeMock).not.toHaveBeenCalled();
       });
 
       it('should be called with a XMLHttpRequest object', function() {
@@ -156,12 +211,16 @@ describe('Ajax', function() {
           beforeRequest: beforeRequest
         });
 
-        expect(beforeRequest).toHaveBeenCalledWith(jasmine.any(XMLHttpRequest));
+        expect(beforeRequestMock).toHaveBeenCalledWith(mock.xhr);
       });
     });
 
     describe('success', function() {
       it('should be executed when the request completed successfully and before executing complete function', function() {
+        mock.setResponse({
+          status: 200
+        });
+
         ajax({
           url: 'https://ui.toast.com/',
           method: 'POST',
@@ -171,31 +230,17 @@ describe('Ajax', function() {
           complete: complete
         });
 
-        jasmine.Ajax.requests.mostRecent().respondWith({
-          status: 201,
-          contentType: 'text/plain',
-          responseText: 'Test for the Ajax module'
-        });
-
-        expect(success).toHaveBeenCalled();
-        expect(error).not.toHaveBeenCalled();
-        expect(complete).toHaveBeenCalled();
-        expect(success).toHaveBeenCalledBefore(complete);
+        expect(successMock).toHaveBeenCalled();
+        expect(errorMock).not.toHaveBeenCalled();
+        expect(completeMock).toHaveBeenCalled();
+        expect(successMock).toHaveBeenCalledBefore(completeMock);
       });
 
       describe('response wrapper', function() {
         it('should have status, statusText, data, and headers', function() {
           var response;
 
-          ajax({
-            url: '//ui.toast.com/',
-            method: 'GET',
-            success: function(res) {
-              response = res;
-            }
-          });
-
-          jasmine.Ajax.requests.mostRecent().respondWith({
+          mock.setResponse({
             status: 201,
             statusText: 'Created',
             responseText: '{"name":"tui-code-snippet","description":"TOAST UI Utility: CodeSnippet","author":"NHN. FE Development Lab <dl_javascript@nhn.com>"}',
@@ -203,6 +248,14 @@ describe('Ajax', function() {
               'Content-Type': 'application/json',
               date: 'Fri, 17 Jan 2020 11:38:17 GMT',
               'x-custom-header': 'CUSTOM'
+            }
+          });
+
+          ajax({
+            url: '//ui.toast.com/',
+            method: 'GET',
+            success: function(res) {
+              response = res;
             }
           });
 
@@ -223,19 +276,19 @@ describe('Ajax', function() {
         it('should have raw responseText if it does not meet a JSON format', function() {
           var response;
 
+          mock.setResponse({
+            status: 201,
+            responseText: 'tui-code-snippet',
+            responseHeaders: {
+              'Content-Type': 'text/plain'
+            }
+          });
+
           ajax({
             url: 'https://ui.toast.com/',
             method: 'GET',
             success: function(res) {
               response = res;
-            }
-          });
-
-          jasmine.Ajax.requests.mostRecent().respondWith({
-            status: 201,
-            responseText: 'tui-code-snippet',
-            responseHeaders: {
-              'Content-Type': 'text/plain'
             }
           });
 
@@ -246,6 +299,8 @@ describe('Ajax', function() {
 
     describe('error', function() {
       it('should executed when the request failed and before executing complete function', function() {
+        mock.setResponse(404, 'Page Not Found');
+
         ajax({
           url: 'https://ui.toast.com/',
           method: 'PUT',
@@ -254,20 +309,20 @@ describe('Ajax', function() {
           complete: complete
         });
 
-        jasmine.Ajax.requests.mostRecent().respondWith({
-          status: 404,
-          statusText: 'Page Not Found'
-        });
-
-        expect(success).not.toHaveBeenCalled();
-        expect(error).toHaveBeenCalled();
-        expect(complete).toHaveBeenCalled();
-        expect(error).toHaveBeenCalledBefore(complete);
+        expect(successMock).not.toHaveBeenCalled();
+        expect(errorMock).toHaveBeenCalled();
+        expect(completeMock).toHaveBeenCalled();
+        expect(errorMock).toHaveBeenCalledBefore(completeMock);
       });
 
       describe('error response wrapper', function() {
         it('should have status and statusText', function() {
           var errorResponse;
+
+          mock.setResponse({
+            status: 502,
+            statusText: 'Bad Gateway'
+          });
 
           ajax({
             url: 'https://ui.toast.com/',
@@ -275,11 +330,6 @@ describe('Ajax', function() {
             error: function(err) {
               errorResponse = err;
             }
-          });
-
-          jasmine.Ajax.requests.mostRecent().respondWith({
-            status: 502,
-            statusText: 'Bad Gateway'
           });
 
           expect(errorResponse.status).toBe(502);
@@ -292,17 +342,17 @@ describe('Ajax', function() {
       it('should be called with a complete response wrapper consisting of status and statusText', function() {
         var completeResponse;
 
+        mock.setResponse({
+          status: 201,
+          statusText: 'Created'
+        });
+
         ajax({
           url: 'https://ui.toast.com/',
           method: 'POST',
           complete: function(res) {
             completeResponse = res;
           }
-        });
-
-        jasmine.Ajax.requests.mostRecent().respondWith({
-          status: 201,
-          statusText: 'Created'
         });
 
         expect(completeResponse.status).toBe(201);
@@ -312,8 +362,6 @@ describe('Ajax', function() {
   });
 
   describe('default options', function() {
-    var request;
-
     afterEach(function() {
       ajax._reset();
     });
@@ -326,8 +374,8 @@ describe('Ajax', function() {
         method: 'GET'
       });
 
-      request = jasmine.Ajax.requests.mostRecent();
-      expect(request.url).toBe('https://nhn.github.io/tui-code-snippet');
+      expect(mock.open).toHaveBeenCalledWith('GET', 'https://nhn.github.io/tui-code-snippet');
+      mock.open.mockClear();
 
       ajax({
         // If a url starts with 'http', baseURL is not applied
@@ -335,8 +383,7 @@ describe('Ajax', function() {
         method: 'POST'
       });
 
-      request = jasmine.Ajax.requests.mostRecent();
-      expect(request.url).toBe('https://ui.toast.com');
+      expect(mock.open).toHaveBeenCalledWith('POST', 'https://ui.toast.com');
     });
 
     it('should set headers and contentType depending on the priority (defaults.common < defaults.[method] < ajax options)', function() {
@@ -351,11 +398,10 @@ describe('Ajax', function() {
         method: 'PUT'
       });
 
-      request = jasmine.Ajax.requests.mostRecent();
-      // v2.3.0, ajax module supports charset=UTF-8 only
-      expect(request.requestHeaders['Content-Type']).toBe('application/json; charset=UTF-8');
-      expect(request.requestHeaders['X-Common-Header']).toBe('COMMON');
-      expect(request.requestHeaders['X-Custom-Header']).toBe('CUSTOM-COMMON');
+      expect(mock.setRequestHeader).toHaveBeenCalledWith('Content-Type', 'application/json; charset=UTF-8');
+      expect(mock.setRequestHeader).toHaveBeenCalledWith('X-Common-Header', 'COMMON');
+      expect(mock.setRequestHeader).toHaveBeenCalledWith('X-Custom-Header', 'CUSTOM-COMMON');
+      mock.setRequestHeader.mockClear();
 
       ajax.defaults.headers.post = {
         'X-Custom-Header': 'CUSTOM-POST',
@@ -367,12 +413,10 @@ describe('Ajax', function() {
         method: 'POST'
       });
 
-      request = jasmine.Ajax.requests.mostRecent();
-      // v2.3.0, ajax module supports charset=UTF-8 only
-      // defaults.common is overidden by defaults[method]
-      expect(request.requestHeaders['Content-Type']).toBe('text/plain; charset=UTF-8');
-      expect(request.requestHeaders['X-Common-Header']).toBe('COMMON');
-      expect(request.requestHeaders['X-Custom-Header']).toBe('CUSTOM-POST');
+      expect(mock.setRequestHeader).toHaveBeenCalledWith('Content-Type', 'text/plain; charset=UTF-8');
+      expect(mock.setRequestHeader).toHaveBeenCalledWith('X-Common-Header', 'COMMON');
+      expect(mock.setRequestHeader).toHaveBeenCalledWith('X-Custom-Header', 'CUSTOM-POST');
+      mock.setRequestHeader.mockClear();
 
       ajax({
         url: 'https://ui.toast.com',
@@ -382,12 +426,9 @@ describe('Ajax', function() {
         }
       });
 
-      request = jasmine.Ajax.requests.mostRecent();
-      // v2.3.0, ajax module supports charset=UTF-8 only
-      // defaults[method] is overidden by ajax's options
-      expect(request.requestHeaders['Content-Type']).toBe('text/plain; charset=UTF-8');
-      expect(request.requestHeaders['X-Common-Header']).toBe('COMMON');
-      expect(request.requestHeaders['X-Custom-Header']).toBe('CUSTOM-AJAX-OPTION');
+      expect(mock.setRequestHeader).toHaveBeenCalledWith('Content-Type', 'text/plain; charset=UTF-8');
+      expect(mock.setRequestHeader).toHaveBeenCalledWith('X-Common-Header', 'COMMON');
+      expect(mock.setRequestHeader).toHaveBeenCalledWith('X-Custom-Header', 'CUSTOM-AJAX-OPTION');
     });
 
     it('should set a serializer', function() {
@@ -411,18 +452,35 @@ describe('Ajax', function() {
         }
       });
 
-      request = jasmine.Ajax.requests.mostRecent();
-      expect(request.url).toBe('https://ui.toast.com?param-first=1&param-second=2&param-third=3');
+      expect(mock.open).toHaveBeenCalledWith('GET', 'https://ui.toast.com?param-first=1&param-second=2&param-third=3');
     });
 
     it('should set event handlers and they should be called in order depending on the priority (defaults -> ajax option)', function() {
-      var success = jasmine.createSpy('ajaxOptionSuccess');
-      var complete = jasmine.createSpy('ajaxOptionComplete');
-      var defaultSuccess = jasmine.createSpy('defaultSuccess');
-      var defaultComplete = jasmine.createSpy('defaultComplete');
+      var successMock = jest.fn();
+      var completeMock = jest.fn();
+      var defaultSuccessMock = jest.fn();
+      var defaultCompleteMock = jest.fn();
+
+      var success = function() {
+        successMock();
+      };
+      var complete = function() {
+        completeMock();
+      };
+      var defaultSuccess = function() {
+        defaultSuccessMock();
+      };
+      var defaultComplete = function() {
+        defaultCompleteMock();
+      };
 
       ajax.defaults.success = defaultSuccess;
       ajax.defaults.complete = defaultComplete;
+
+      mock.setResponse({
+        status: 201,
+        responseText: 'tui-code-snippet'
+      });
 
       ajax({
         url: 'https://ui.toast.com',
@@ -431,24 +489,18 @@ describe('Ajax', function() {
         complete: complete
       });
 
-      jasmine.Ajax.requests.mostRecent().respondWith({
-        status: 201,
-        responseText: 'tui-code-snippet'
-      });
-
-      expect(success).toHaveBeenCalled();
-      expect(complete).toHaveBeenCalled();
-      expect(defaultSuccess).toHaveBeenCalled();
-      expect(defaultComplete).toHaveBeenCalled();
-      expect(defaultSuccess).toHaveBeenCalledBefore(success);
-      expect(defaultComplete).toHaveBeenCalledBefore(complete);
+      expect(successMock).toHaveBeenCalled();
+      expect(completeMock).toHaveBeenCalled();
+      expect(defaultSuccessMock).toHaveBeenCalled();
+      expect(defaultCompleteMock).toHaveBeenCalled();
+      expect(defaultSuccessMock).toHaveBeenCalledBefore(successMock);
+      expect(defaultCompleteMock).toHaveBeenCalledBefore(completeMock);
     });
   });
 
   describe('request methods (static method)', function() {
     var url = 'https://ui.toast.com';
     var options = {contentType: 'text/plain'};
-    var request;
 
     function hasRequestBody(method) {
       return /^(?:POST|PUT|PATCH)$/.test(method.toUpperCase());
@@ -462,13 +514,11 @@ describe('Ajax', function() {
       it('ajax.' + method + '() should send the request by ' + method.toUpperCase(), function() {
         ajax[method](url, options);
 
-        request = jasmine.Ajax.requests.mostRecent();
-        expect(request.url).toBe('https://ui.toast.com');
-        expect(request.method).toBe(method.toUpperCase());
+        expect(mock.open).toHaveBeenCalledWith(method.toUpperCase(), url);
         if (hasRequestBody(method)) {
-          expect(request.requestHeaders['Content-Type']).toBe('text/plain; charset=UTF-8');
+          expect(mock.setRequestHeader).toHaveBeenCalledWith('Content-Type', 'text/plain; charset=UTF-8');
         } else {
-          expect(request.requestHeaders['Content-Type']).toBeUndefined();
+          expect(mock.setRequestHeader).not.toHaveBeenCalledWith('Content-Type', 'text/plain; charset=UTF-8');
         }
       });
     });
@@ -477,52 +527,59 @@ describe('Ajax', function() {
   // eslint-disable-next-line no-undef
   if (typeof Promise !== 'undefined') {
     describe('Promise', function() {
-      var ajaxResult, success, error;
+      var ajaxResult, successMock, errorMock, success, error;
 
       beforeEach(function() {
-        success = jasmine.createSpy('success');
-        error = jasmine.createSpy('error');
+        successMock = jest.fn();
+        errorMock = jest.fn();
+
+        success = function() {
+          successMock();
+        };
+        error = function() {
+          errorMock();
+        };
       });
 
       it('should execute success() and resolve() when the request completed successfully', function() {
+        mock.setResponse({
+          status: 200,
+          contentType: 'text/plain',
+          responseText: 'Test for the Ajax module'
+        });
+
         ajaxResult = ajax({
           url: 'https://ui.toast.com',
           method: 'GET',
           success: success,
           error: error
         }).then(function() {
-          expect(success).toHaveBeenCalled();
-          expect(error).not.toHaveBeenCalled();
-        });
-
-        jasmine.Ajax.requests.mostRecent().respondWith({
-          status: 200,
-          contentType: 'text/plain',
-          responseText: 'Test for the Ajax module'
+          expect(successMock).toHaveBeenCalled();
+          expect(errorMock).not.toHaveBeenCalled();
         });
 
         // eslint-disable-next-line no-undef
-        expect(ajaxResult).toEqual(jasmine.any(Promise));
+        expect(ajaxResult).toEqual(expect.any(Promise));
       });
 
       it('should execute error() and reject() when the request failed', function() {
+        mock.setResponse({
+          status: 500,
+          statusText: 'Internal Server Error'
+        });
+
         ajaxResult = ajax({
           url: 'https://ui.toast.com',
           method: 'GET',
           success: success,
           error: error
         })['catch'](function() {
-          expect(success).not.toHaveBeenCalled();
-          expect(error).toHaveBeenCalled();
-        });
-
-        jasmine.Ajax.requests.mostRecent().respondWith({
-          status: 500,
-          statusText: 'Internal Server Error'
+          expect(successMock).not.toHaveBeenCalled();
+          expect(errorMock).toHaveBeenCalled();
         });
 
         // eslint-disable-next-line no-undef
-        expect(ajaxResult).toEqual(jasmine.any(Promise));
+        expect(ajaxResult).toEqual(expect.any(Promise));
       });
     });
   }
