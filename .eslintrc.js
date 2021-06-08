@@ -4,10 +4,7 @@ module.exports = {
     'browser': true,
     'amd': true,
     'node': true,
-    'jasmine': true
-  },
-  'globals': {
-    'fixture': true
+    'jest': true
   },
   'ignorePatterns': ['node_modules/', 'dist/', 'docs/', 'report/']
 };
