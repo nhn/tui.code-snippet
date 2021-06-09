@@ -48,11 +48,11 @@ describe('CustomEvents', function() {
 
       ce.on('a  b  c', handler);
 
-      expect(ce.events).toEqual(expect.objectContaining({
+      expect(ce.events).toMatchObject({
         a: [{handler: handler}],
         b: [{handler: handler}],
         c: [{handler: handler}]
-      }));
+      });
     });
 
     it('by name, handler, context object.', function() {

@@ -17,13 +17,14 @@ var mock = {
     return this.responseHeaders && this.responseHeaders[key];
   }),
   getAllResponseHeaders: jest.fn().mockImplementation(function() {
-    var result, i, keys;
+    var result, i, keys, length;
 
     if (this.responseHeaders) {
       result = '';
       keys = Object.keys(this.responseHeaders);
+      length = keys.length;
 
-      for (i = 0; i < keys.length; i += 1) {
+      for (i = 0; i < length; i += 1) {
         result += keys[i] + ': ' + this.responseHeaders[keys[i]] + '\r\n';
       }
     }
@@ -37,8 +38,7 @@ var mock = {
     this.xhr.responseHeaders = options.responseHeaders || '\r\n';
   },
   install: function() {
-    var xhr;
-    this.xhr = xhr = {
+    var xhr = {
       open: this.open,
       send: this.send,
       setRequestHeader: this.setRequestHeader,
@@ -46,6 +46,7 @@ var mock = {
       getAllResponseHeaders: this.getAllResponseHeaders,
       status: 200
     };
+    this.xhr = xhr;
 
     this.originalXHR = window.XMLHttpRequest;
     window.XMLHttpRequest = function() {

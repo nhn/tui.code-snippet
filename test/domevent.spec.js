@@ -10,7 +10,7 @@ describe('The domevent module', function() {
   var btn, spy;
 
   beforeEach(function() {
-    document.body.innerHTML = '<button id="test">test</button><div id="abs" style="position:absolute;left:10px:top:10px">a</div>';
+    document.body.innerHTML = '<button id="test">test</button><div id="abs" style="position:absolute;left:10px;top:10px;">a</div>';
 
     btn = document.querySelector('#test');
     spy = jest.fn();
