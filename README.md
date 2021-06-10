@@ -22,7 +22,7 @@
 - [🔧 Pull Request Steps](#-pull-request-steps)
   - [Setup](#setup)
   - [Develop](#develop)
-    - [Run karma test](#run-karma-test)
+    - [Run jest test](#run-jest-test)
   - [Pull Request](#pull-request)
 - [💬 Contributing](#-contributing)
 - [🍞 TOAST UI Family](#-toast-ui-family)
@@ -187,7 +187,7 @@ $ npm run test
 Let's start development!
 Don't miss adding test cases and then make green rights.
 
-#### Run karma test
+#### Run jest test
 
 ``` sh
 $ npm run test
