@@ -47,21 +47,17 @@ describe('module:def', function() {
       });
 
       it('and its prototype should have the methods passed by the parameter.', function() {
-        expect(MyObject.prototype.method1).toBeDefined();
         expect(MyObject.prototype.method1).toBe(props1.method1);
       });
 
       it('and its prototype should have the variables passed by the parameter.', function() {
-        expect(MyObject.prototype.var1).toBeDefined();
-        expect(MyObject.prototype.var1).toEqual(props1.var1);
+        expect(MyObject.prototype.var1).toBe(props1.var1);
       });
 
       it('and an instance should refer to the prototype\'s method and variable.', function() {
         var instance = new MyObject();
 
-        expect(instance.var1).toBeDefined();
         expect(instance.var1).toBe(MyObject.prototype.var1);
-        expect(instance.method1).toBeDefined();
         expect(instance.method1).toBe(MyObject.prototype.method1);
       });
     });
@@ -74,29 +70,24 @@ describe('module:def', function() {
       });
 
       it('and its prototype should have the methods passed by the parameter.', function() {
-        expect(MyObject.prototype.method3).toBeDefined();
         expect(MyObject.prototype.method3).toBe(propsWithinit.method3);
       });
 
       it('and its prototype should have the variables passed by the parameter.', function() {
-        expect(MyObject.prototype.var3).toBeDefined();
-        expect(MyObject.prototype.var3).toEqual(propsWithinit.var3);
+        expect(MyObject.prototype.var3).toBe(propsWithinit.var3);
       });
 
       it('and an instance should refer to the prototype\'s method and variable.', function() {
         var instance = new MyObject();
 
-        expect(instance.var3).toBeDefined();
         expect(instance.var3).toBe(MyObject.prototype.var3);
-        expect(instance.method3).toBeDefined();
         expect(instance.method3).toBe(MyObject.prototype.method3);
       });
 
       it('and an instance should have instance variables.', function() {
         var instance = new MyObject();
 
-        expect(instance.instanceVar).toBeDefined();
-        expect(instance.instanceVar).toEqual(3);
+        expect(instance.instanceVar).toBe(3);
       });
     });
 
@@ -124,38 +115,31 @@ describe('module:def', function() {
       });
 
       it('and child\'s prototype should have parent\'s methods.', function() {
-        expect(Child.prototype.method4).toBeDefined();
         expect(Child.prototype.method4).toBe(propsWithinit2.method4);
       });
 
       it('and child\'s prototype should have parent\'s variables.', function() {
-        expect(Child.prototype.var4).toBeDefined();
-        expect(Child.prototype.var4).toEqual(propsWithinit2.var4);
+        expect(Child.prototype.var4).toBe(propsWithinit2.var4);
       });
 
       it('and child\'s instance should refer to its prototype\'s members.', function() {
         var instance = new Child();
 
-        expect(instance.var4).toBeDefined();
         expect(instance.var4).toBe(Child.prototype.var4);
-        expect(instance.method4).toBeDefined();
         expect(instance.method4).toBe(Child.prototype.method4);
       });
 
       it('and child\'s instance should refer to parent\'s prototype\'s members.', function() {
         var instance = new Child();
 
-        expect(instance.var3).toBeDefined();
         expect(instance.var3).toBe(Parent.prototype.var3);
-        expect(instance.method3).toBeDefined();
         expect(instance.method3).toBe(Parent.prototype.method3);
       });
 
       it('and child\'s instance should refer to its instance members.', function() {
         var instance = new Child();
 
-        expect(instance.instanceVar).toBeDefined();
-        expect(instance.instanceVar).toEqual(4);
+        expect(instance.instanceVar).toBe(4);
       });
     });
 
@@ -175,17 +159,14 @@ describe('module:def', function() {
       it('and child\'s instance should refer the members inherited by parent.', function() {
         var instance = new Child();
 
-        expect(instance.var3).toBeDefined();
         expect(instance.var3).toBe(Parent.prototype.var3);
-        expect(instance.method3).toBeDefined();
         expect(instance.method3).toBe(Parent.prototype.method3);
       });
 
       it('and child\'s instance should refer the instance members.', function() {
         var instance = new Child();
 
-        expect(instance.instanceVar).toBeDefined();
-        expect(instance.instanceVar).toEqual(3);
+        expect(instance.instanceVar).toBe(3);
       });
     });
   });

@@ -60,19 +60,27 @@ describe('CustomEvents', function() {
       ce.on('test', handler, obj);
 
       expect(ce.events).toEqual({
-        test: [{handler: handler,
-          context: obj}]
+        test: [{
+          handler: handler,
+          context: obj
+        }]
       });
 
       ce.on('multi multi2', handler, obj);
 
       expect(ce.events).toEqual({
-        test: [{handler: handler,
-          context: obj}],
-        multi: [{handler: handler,
-          context: obj}],
-        multi2: [{handler: handler,
-          context: obj}]
+        test: [{
+          handler: handler,
+          context: obj
+        }],
+        multi: [{
+          handler: handler,
+          context: obj
+        }],
+        multi2: [{
+          handler: handler,
+          context: obj
+        }]
       });
       expect(ce.contexts).toEqual([[obj, 3]]);
     });
@@ -323,8 +331,7 @@ describe('CustomEvents', function() {
   });
 
   describe('should return AND conditions for all of handler\' result', function() {
-    var inst,
-      spy;
+    var inst, spy;
 
     function MockComponent() {}
 

@@ -165,27 +165,17 @@ describe('Ajax', function() {
 
   describe('Event handler', function() {
     var beforeRequest, success, error, complete;
-    var beforeRequestMock, successMock, errorMock, completeMock;
 
     beforeEach(function() {
-      beforeRequestMock = jest.fn();
-      successMock = jest.fn();
-      errorMock = jest.fn();
-      completeMock = jest.fn();
+      beforeRequest = jest.fn();
+      success = jest.fn();
+      error = jest.fn();
+      complete = jest.fn();
 
-      beforeRequest = function() {
-        var args = Array.prototype.slice.call(arguments);
-        beforeRequestMock.apply(null, args);
-      };
-      success = function() {
-        successMock();
-      };
-      error = function() {
-        errorMock();
-      };
-      complete = function() {
-        completeMock();
-      };
+      Object.setPrototypeOf(beforeRequest, Function);
+      Object.setPrototypeOf(success, Function);
+      Object.setPrototypeOf(error, Function);
+      Object.setPrototypeOf(complete, Function);
     });
 
     describe('beforeRequest', function() {
@@ -199,10 +189,10 @@ describe('Ajax', function() {
           complete: complete
         });
 
-        expect(beforeRequestMock).toHaveBeenCalled();
-        expect(successMock).not.toHaveBeenCalled();
-        expect(errorMock).not.toHaveBeenCalled();
-        expect(completeMock).not.toHaveBeenCalled();
+        expect(beforeRequest).toHaveBeenCalled();
+        expect(success).not.toHaveBeenCalled();
+        expect(error).not.toHaveBeenCalled();
+        expect(complete).not.toHaveBeenCalled();
       });
 
       it('should be called with a XMLHttpRequest object', function() {
@@ -212,7 +202,7 @@ describe('Ajax', function() {
           beforeRequest: beforeRequest
         });
 
-        expect(beforeRequestMock).toHaveBeenCalledWith(mock.xhr);
+        expect(beforeRequest).toHaveBeenCalledWith(mock.xhr);
       });
     });
 
@@ -231,10 +221,10 @@ describe('Ajax', function() {
           complete: complete
         });
 
-        expect(successMock).toHaveBeenCalled();
-        expect(errorMock).not.toHaveBeenCalled();
-        expect(completeMock).toHaveBeenCalled();
-        expect(successMock).toHaveBeenCalledBefore(completeMock);
+        expect(success).toHaveBeenCalled();
+        expect(error).not.toHaveBeenCalled();
+        expect(complete).toHaveBeenCalled();
+        expect(success).toHaveBeenCalledBefore(complete);
       });
 
       describe('response wrapper', function() {
@@ -310,10 +300,10 @@ describe('Ajax', function() {
           complete: complete
         });
 
-        expect(successMock).not.toHaveBeenCalled();
-        expect(errorMock).toHaveBeenCalled();
-        expect(completeMock).toHaveBeenCalled();
-        expect(errorMock).toHaveBeenCalledBefore(completeMock);
+        expect(success).not.toHaveBeenCalled();
+        expect(error).toHaveBeenCalled();
+        expect(complete).toHaveBeenCalled();
+        expect(error).toHaveBeenCalledBefore(complete);
       });
 
       describe('error response wrapper', function() {
@@ -457,23 +447,15 @@ describe('Ajax', function() {
     });
 
     it('should set event handlers and they should be called in order depending on the priority (defaults -> ajax option)', function() {
-      var successMock = jest.fn();
-      var completeMock = jest.fn();
-      var defaultSuccessMock = jest.fn();
-      var defaultCompleteMock = jest.fn();
+      var success = jest.fn();
+      var complete = jest.fn();
+      var defaultSuccess = jest.fn();
+      var defaultComplete = jest.fn();
 
-      var success = function() {
-        successMock();
-      };
-      var complete = function() {
-        completeMock();
-      };
-      var defaultSuccess = function() {
-        defaultSuccessMock();
-      };
-      var defaultComplete = function() {
-        defaultCompleteMock();
-      };
+      Object.setPrototypeOf(success, Function);
+      Object.setPrototypeOf(complete, Function);
+      Object.setPrototypeOf(defaultSuccess, Function);
+      Object.setPrototypeOf(defaultComplete, Function);
 
       ajax.defaults.success = defaultSuccess;
       ajax.defaults.complete = defaultComplete;
@@ -490,12 +472,12 @@ describe('Ajax', function() {
         complete: complete
       });
 
-      expect(successMock).toHaveBeenCalled();
-      expect(completeMock).toHaveBeenCalled();
-      expect(defaultSuccessMock).toHaveBeenCalled();
-      expect(defaultCompleteMock).toHaveBeenCalled();
-      expect(defaultSuccessMock).toHaveBeenCalledBefore(successMock);
-      expect(defaultCompleteMock).toHaveBeenCalledBefore(completeMock);
+      expect(success).toHaveBeenCalled();
+      expect(complete).toHaveBeenCalled();
+      expect(defaultSuccess).toHaveBeenCalled();
+      expect(defaultComplete).toHaveBeenCalled();
+      expect(defaultSuccess).toHaveBeenCalledBefore(success);
+      expect(defaultComplete).toHaveBeenCalledBefore(complete);
     });
   });
 
@@ -528,18 +510,14 @@ describe('Ajax', function() {
   // eslint-disable-next-line no-undef
   if (typeof Promise !== 'undefined') {
     describe('Promise', function() {
-      var ajaxResult, successMock, errorMock, success, error;
+      var ajaxResult, success, error;
 
       beforeEach(function() {
-        successMock = jest.fn();
-        errorMock = jest.fn();
+        success = jest.fn();
+        error = jest.fn();
 
-        success = function() {
-          successMock();
-        };
-        error = function() {
-          errorMock();
-        };
+        Object.setPrototypeOf(success, Function);
+        Object.setPrototypeOf(error, Function);
       });
 
       it('should execute success() and resolve() when the request completed successfully', function() {
@@ -555,8 +533,8 @@ describe('Ajax', function() {
           success: success,
           error: error
         }).then(function() {
-          expect(successMock).toHaveBeenCalled();
-          expect(errorMock).not.toHaveBeenCalled();
+          expect(success).toHaveBeenCalled();
+          expect(error).not.toHaveBeenCalled();
         });
 
         // eslint-disable-next-line no-undef
@@ -575,8 +553,8 @@ describe('Ajax', function() {
           success: success,
           error: error
         })['catch'](function() {
-          expect(successMock).not.toHaveBeenCalled();
-          expect(errorMock).toHaveBeenCalled();
+          expect(success).not.toHaveBeenCalled();
+          expect(error).toHaveBeenCalled();
         });
 
         // eslint-disable-next-line no-undef

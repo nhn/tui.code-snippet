@@ -24,7 +24,7 @@ describe('The domevent module', function() {
     on(btn, 'click', spy);
 
     expect(btn._feEventKey.click.length).toBe(1);
-    expect(btn._feEventKey.click[0].handler).toEqual(spy);
+    expect(btn._feEventKey.click[0].handler).toBe(spy);
   });
 
   it('once() should bind DOM event and unbind after invoke.', function() {
@@ -49,15 +49,15 @@ describe('The domevent module', function() {
     on(btn, 'click', spy2);
 
     expect(btn._feEventKey.click.length).toBe(2);
-    expect(btn._feEventKey.click[0].handler).toEqual(spy);
-    expect(btn._feEventKey.click[1].handler).toEqual(spy2);
+    expect(btn._feEventKey.click[0].handler).toBe(spy);
+    expect(btn._feEventKey.click[1].handler).toBe(spy2);
     expect(btn._feEventKey.click[0].wrappedHandler).toEqual(expect.any(Function));
 
     off(btn, 'click', spy);
 
     expect(btn._feEventKey.click.length).toBe(1);
     // spy2 must not unbind at this moment.
-    expect(btn._feEventKey.click[0].handler).toEqual(spy2);
+    expect(btn._feEventKey.click[0].handler).toBe(spy2);
     expect(btn._feEventKey.click[0].wrappedHandler).toEqual(expect.any(Function));
   });
 
@@ -90,6 +90,6 @@ describe('The domevent module', function() {
     });
     btn.click();
 
-    expect(target).toEqual(btn);
+    expect(target).toBe(btn);
   });
 });

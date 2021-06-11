@@ -26,14 +26,14 @@ describe('domutil', function() {
   beforeEach(function() {
     document.body.innerHTML =
       '<style>html, body {margin:0; padding:0;}</style>' +
-            '<div id="test"></div>' +
-            '<div id="test2" class="test-class"></div>' +
-            '<div id="test3" style="position:absolute;z-index:1;top:10px;' +
-                'left:20px;width:100px;height:50px;border:1px solid #ccc;"></div>' +
-            '<div id="test4" class="test-class test-class2"></div>' +
-            '<svg width="300" height="300">' +
-                '<rect class="origin" id="rect" x="10" y="10" width="50" height="50"></rect>' +
-            '</svg>';
+      '<div id="test"></div>' +
+      '<div id="test2" class="test-class"></div>' +
+      '<div id="test3" style="position:absolute;z-index:1;top:10px;' +
+          'left:20px;width:100px;height:50px;border:1px solid #ccc;"></div>' +
+      '<div id="test4" class="test-class test-class2"></div>' +
+      '<svg width="300" height="300">' +
+          '<rect class="origin" id="rect" x="10" y="10" width="50" height="50"></rect>' +
+      '</svg>';
   });
 
   afterEach(function() {
@@ -212,9 +212,7 @@ describe('domutil', function() {
   it('removeElement() should element from parent node.', function() {
     var parent, child;
 
-    document.body.innerHTML += '<div id="parent">' +
-                    '<p id="child"></p>' +
-                    '</div>';
+    document.body.innerHTML += '<div id="parent"><p id="child"></p></div>';
 
     parent = document.getElementById('parent');
     child = document.getElementById('child');
