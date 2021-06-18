@@ -12,30 +12,30 @@ describe('tricks', function() {
     var spy;
 
     beforeEach(function() {
-      spyOn(window, 'setTimeout');
-      spy = jasmine.createSpy('debounced?');
+      jest.useFakeTimers();
+      spy = jest.fn();
+    });
+
+    afterEach(function() {
+      jest.useRealTimers();
     });
 
     it('test debounced functions.', function() {
       var fn = debounce(spy, 50);
       fn();
+      jest.advanceTimersToNextTimer();
 
-      expect(window.setTimeout).toHaveBeenCalledWith(jasmine.any(Function), 50);
-      window.setTimeout.calls.argsFor(0)[0]();
       expect(spy).toHaveBeenCalled();
     });
 
     it('debounced function can accept parameters', function() {
       var fn;
 
-      window.setTimeout.and.callFake(function(func) {
-        func();
-      });
-
       fn = debounce(spy);
       fn('hello world!');
+      jest.advanceTimersToNextTimer();
 
-      expect(spy.calls.argsFor(0)).toEqual(['hello world!']);
+      expect(spy).toHaveBeenCalledWith('hello world!');
     });
   });
 
@@ -43,7 +43,7 @@ describe('tricks', function() {
     var spy;
 
     beforeEach(function() {
-      spy = jasmine.createSpy('throttled?');
+      spy = jest.fn();
     });
 
     it('test throttled functions.', function() {
@@ -55,7 +55,7 @@ describe('tricks', function() {
       fn();
       fn();
 
-      expect(spy.calls.count()).toBe(1);
+      expect(spy).toHaveBeenCalledTimes(1);
     });
 
     it('debounced method must invoke with additional parameter', function() {
@@ -67,19 +67,20 @@ describe('tricks', function() {
       fn('hello');
       fn('hello');
 
-      expect(spy.calls.count()).toBe(1);
-      expect(spy.calls.allArgs()).toEqual([['hello']]);
+      expect(spy).toHaveBeenCalledTimes(1);
+      expect(spy).toHaveBeenCalledWith('hello');
     });
 
     it('reset can remove slugs related with throttling.', function() {
       var fn = throttle(spy, 7);
       fn();
-      expect(spy.calls.count()).toBe(1);
+
+      expect(spy).toHaveBeenCalledTimes(1);
 
       fn.reset();
       fn();
 
-      expect(spy.calls.count()).toBe(2);
+      expect(spy).toHaveBeenCalledTimes(2);
     });
 
     it('throttled functions can accept parameters.', function() {
@@ -87,7 +88,7 @@ describe('tricks', function() {
 
       fn('hello world!');
 
-      expect(spy.calls.argsFor(0)).toEqual(['hello world!']);
+      expect(spy).toHaveBeenCalledWith('hello world!');
     });
   });
 });

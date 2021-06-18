@@ -27,7 +27,7 @@ describe('inheritance', function() {
 
       obj.arr.push(5);
 
-      expect(newObj.arr.length).toBe(4);
+      expect(newObj.arr).toBe(obj.arr);
     });
   });
 

@@ -12,12 +12,14 @@ describe('module:collection', function() {
 
   beforeEach(function() {
     arrayDummy = [0, 1, 2, 3, 4, 5];
-    objDummy = {_0: 0,
+    objDummy = {
+      _0: 0,
       _1: 1,
       _2: 2,
       _3: 3,
       _4: 4,
-      _5: 5};
+      _5: 5
+    };
   });
 
   describe('forEachArray', function() {
@@ -28,7 +30,7 @@ describe('module:collection', function() {
         oSum += value;
       });
 
-      expect(oSum).toEqual(15);
+      expect(oSum).toBe(15);
     });
 
     it('should end traversing, when callback returns false', function() {
@@ -44,7 +46,7 @@ describe('module:collection', function() {
         return true;
       });
 
-      expect(oSum).toEqual(3);
+      expect(oSum).toBe(3);
     });
   });
 
@@ -56,7 +58,7 @@ describe('module:collection', function() {
         oSum += value;
       });
 
-      expect(oSum).toEqual(15);
+      expect(oSum).toBe(15);
     });
 
     it('should end traversing, when callback returns false', function() {
@@ -72,7 +74,7 @@ describe('module:collection', function() {
         return true;
       });
 
-      expect(oSum).toEqual(3);
+      expect(oSum).toBe(3);
     });
   });
 
@@ -84,7 +86,7 @@ describe('module:collection', function() {
         aSum += value;
       });
 
-      expect(aSum).toEqual(15);
+      expect(aSum).toBe(15);
     });
 
     it('should execute a callback function for each pair of the object.', function() {
@@ -94,26 +96,21 @@ describe('module:collection', function() {
         oSum += value;
       });
 
-      expect(oSum).toEqual(15);
+      expect(oSum).toBe(15);
     });
   });
 
   describe('toArray', function() {
     it('should convert the array-like object to array.', function() {
-      var result,
-        arrayLike = {
-          0: 'one',
-          1: 'two',
-          2: 'three',
-          3: 'four',
-          length: 4
-        };
-      result = toArray(arrayLike);
+      var arrayLike = {
+        0: 'one',
+        1: 'two',
+        2: 'three',
+        3: 'four',
+        length: 4
+      };
+      var result = toArray(arrayLike);
       expect(arrayLike instanceof Array).toBe(false);
-      expect(result instanceof Array).toBe(true);
-
-      result = toArray(arguments);
-      expect(arguments instanceof Array).toBe(false);
       expect(result instanceof Array).toBe(true);
     });
 
@@ -142,15 +139,21 @@ describe('module:collection', function() {
 
   describe('pluck', function() {
     var objArr = [
-        {'abc': 1,
+        {
+          'abc': 1,
           'def': 2,
-          'ghi': 3},
-        {'abc': 4,
+          'ghi': 3
+        },
+        {
+          'abc': 4,
           'def': 5,
-          'ghi': 6},
-        {'abc': 7,
+          'ghi': 6
+        },
+        {
+          'abc': 7,
           'def': 8,
-          'ghi': 9}
+          'ghi': 9
+        }
       ],
       arr2d = [
         [1, 2, 3],
