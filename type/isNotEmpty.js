@@ -1,6 +1,5 @@
 /**
  * @fileoverview Check whether the given variable is not empty(not null, not undefined, or not empty array, not empty object) or not.
- * @author NHN FE Development Lab <dl_javascript@nhn.com>
  */
 
 'use strict';

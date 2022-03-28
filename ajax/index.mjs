@@ -369,7 +369,7 @@ function send(xhr, options) {
  *   contentType: 'application/json',
  *   params: {
  *     version: 'v2.3.0',
- *     author: 'NHN. FE Development Lab <dl_javascript@nhn.com>'
+ *     author: 'NHN Cloud. FE Development Lab <dl_javascript@nhn.com>'
  *   },
  *   success: res => console.log(`success: ${res.status} ${res.statusText}`),
  *   error: res => console.log(`error: ${res.status} ${res.statusText}`)

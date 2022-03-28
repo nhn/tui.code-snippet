@@ -1,6 +1,5 @@
 /**
  * @fileoverview Set data attribute to target element
- * @author NHN FE Development Lab <dl_javascript@nhn.com>
  */
 
 'use strict';

@@ -1,6 +1,5 @@
 /**
  * @fileoverview Bind DOM event. this event will unbind after invokes.
- * @author NHN FE Development Lab <dl_javascript@nhn.com>
  */
 
 'use strict';

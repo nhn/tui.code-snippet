@@ -5,7 +5,7 @@
 [![npm](https://img.shields.io/npm/v/tui-code-snippet.svg)](https://www.npmjs.com/package/tui-code-snippet)
 [![GitHub license](https://img.shields.io/github/license/nhn/tui.code-snippet.svg)](https://github.com/nhn/tui.code-snippet/blob/production/LICENSE)
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-ff69b4.svg)](https://github.com/nhn/tui.code-snippet/labels/help%20wanted)
-[![code with hearth by NHN](https://img.shields.io/badge/%3C%2F%3E%20with%20%E2%99%A5%20by-NHN-ff1414.svg)](https://github.com/nhn)
+[![code with hearth by NHN Cloud](https://img.shields.io/badge/%3C%2F%3E%20with%20%E2%99%A5%20by-NHN_Cloud-ff1414.svg)](https://github.com/nhn)
 
 
 ## 🚩 Table of Contents
@@ -219,4 +219,4 @@ For more information on PR's steps, please see links in the Contributing section
 
 
 ## 📜 License
-This software is licensed under the [MIT License](https://github.com/nhn/tui.code-snippet/blob/master/LICENSE) © [NHN](https://github.com/nhn).
+This software is licensed under the [MIT License](https://github.com/nhn/tui.code-snippet/blob/master/LICENSE) © [NHN Cloud](https://github.com/nhn).

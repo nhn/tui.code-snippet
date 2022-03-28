@@ -1,6 +1,5 @@
 /**
  * @fileoverview Creates a debounced function that delays invoking fn until after delay milliseconds has elapsed since the last time the debouced function was invoked.
- * @author NHN FE Development Lab <dl_javascript.nhn.com>
  */
 
 'use strict';

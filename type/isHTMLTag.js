@@ -1,6 +1,5 @@
 /**
  * @fileoverview Check whether the given variable is a HTML tag or not.
- * @author NHN FE Development Lab <dl_javascript@nhn.com>
  */
 
 'use strict';

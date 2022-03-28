@@ -1,6 +1,5 @@
 /**
  * @fileoverview Get event collection for specific HTML element
- * @author NHN FE Development Lab <dl_javascript@nhn.com>
  */
 
 'use strict';

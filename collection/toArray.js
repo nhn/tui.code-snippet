@@ -1,6 +1,5 @@
 /**
  * @fileoverview Transform the Array-like object to Array.
- * @author NHN FE Development Lab <dl_javascript@nhn.com>
  */
 
 'use strict';

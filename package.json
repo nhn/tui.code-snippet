@@ -18,11 +18,12 @@
   },
   "keywords": [
     "nhn",
+    "nhn cloud",
     "tui",
     "utility",
     "code-snippet"
   ],
-  "author": "NHN. FE Development Lab <dl_javascript@nhn.com>",
+  "author": "NHN Cloud. FE Development Lab <dl_javascript@nhn.com>",
   "license": "MIT",
   "files": [
     "ajax",

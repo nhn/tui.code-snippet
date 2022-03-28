@@ -1,6 +1,5 @@
 /**
  * @fileoverview Fetch a property
- * @author NHN FE Development Lab <dl_javascript@nhn.com>
  */
 
 'use strict';

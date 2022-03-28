@@ -1,6 +1,5 @@
 /**
  * @fileoverview Get HTML element's design classes.
- * @author NHN FE Development Lab <dl_javascript@nhn.com>
  */
 
 'use strict';

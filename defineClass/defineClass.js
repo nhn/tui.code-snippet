@@ -2,7 +2,6 @@
  * @fileoverview
  * This module provides a function to make a constructor
  * that can inherit from the other constructors like the CLASS easily.
- * @author NHN FE Development Lab <dl_javascript@nhn.com>
  */
 
 'use strict';

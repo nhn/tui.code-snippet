@@ -234,7 +234,7 @@ describe('Ajax', function() {
           mock.setResponse({
             status: 201,
             statusText: 'Created',
-            responseText: '{"name":"tui-code-snippet","description":"TOAST UI Utility: CodeSnippet","author":"NHN. FE Development Lab <dl_javascript@nhn.com>"}',
+            responseText: '{"name":"tui-code-snippet","description":"TOAST UI Utility: CodeSnippet","author":"NHN Cloud. FE Development Lab <dl_javascript@nhn.com>"}',
             responseHeaders: {
               'Content-Type': 'application/json',
               date: 'Fri, 17 Jan 2020 11:38:17 GMT',
@@ -255,7 +255,7 @@ describe('Ajax', function() {
           expect(response.data).toEqual({
             name: 'tui-code-snippet',
             description: 'TOAST UI Utility: CodeSnippet',
-            author: 'NHN. FE Development Lab <dl_javascript@nhn.com>'
+            author: 'NHN Cloud. FE Development Lab <dl_javascript@nhn.com>'
           });
           expect(response.headers).toEqual({
             'Content-Type': 'application/json',

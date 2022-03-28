@@ -1,6 +1,5 @@
 /**
  * @fileoverview Generate an integer Array containing an arithmetic progression.
- * @author NHN FE Development Lab <dl_javascript@nhn.com>
  */
 
 'use strict';
