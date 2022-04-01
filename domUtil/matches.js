@@ -1,6 +1,5 @@
 /**
  * @fileoverview Check element match selector
- * @author NHN FE Development Lab <dl_javascript@nhn.com>
  */
 
 'use strict';

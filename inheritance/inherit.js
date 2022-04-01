@@ -1,6 +1,5 @@
 /**
  * @fileoverview Provide a simple inheritance in prototype-oriented.
- * @author NHN FE Development Lab <dl_javascript@nhn.com>
  */
 
 'use strict';

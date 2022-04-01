@@ -1,6 +1,5 @@
 /**
  * @fileoverview Execute the provided callback once for each element present in the array(or Array-like object) in ascending order.
- * @author NHN FE Development Lab <dl_javascript@nhn.com>
  */
 
 'use strict';

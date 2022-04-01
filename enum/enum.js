@@ -1,6 +1,5 @@
 /**
  * @fileoverview This module provides a Enum Constructor.
- * @author NHN FE Development Lab <dl_javascript@nhn.com>
  * @example
  * // CommonJS
  * const Enum = require('tui-code-snippet/enum/enum');

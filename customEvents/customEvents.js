@@ -1,6 +1,5 @@
 /**
  * @fileoverview This module provides some functions for custom events. And it is implemented in the observer design pattern.
- * @author NHN FE Development Lab <dl_javascript@nhn.com>
  */
 
 'use strict';

@@ -1,6 +1,5 @@
 /**
  * @fileoverview Transform the given string into HTML Entity string.
- * @author NHN FE Development Lab <dl_javascript@nhn.com>
  */
 
 'use strict';

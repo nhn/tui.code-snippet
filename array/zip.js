@@ -1,6 +1,5 @@
 /**
  * @fileoverview Zip together multiple lists into a single array.
- * @author NHN FE Development Lab <dl_javascript@nhn.com>
  */
 
 'use strict';

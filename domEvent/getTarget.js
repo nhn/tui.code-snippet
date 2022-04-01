@@ -1,6 +1,5 @@
 /**
  * @fileoverview Get a target element from an event object.
- * @author NHN FE Development Lab <dl_javascript@nhn.com>
  */
 
 'use strict';

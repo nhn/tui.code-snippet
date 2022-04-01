@@ -1,6 +1,5 @@
 /**
  * @fileoverview Get data value from data-attribute
- * @author NHN FE Development Lab <dl_javascript@nhn.com>
  */
 
 'use strict';

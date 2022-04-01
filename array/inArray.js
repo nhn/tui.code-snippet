@@ -1,7 +1,6 @@
 /* eslint-disable complexity */
 /**
  * @fileoverview Returns the first index at which a given element can be found in the array.
- * @author NHN FE Development Lab <dl_javascript@nhn.com>
  */
 
 'use strict';

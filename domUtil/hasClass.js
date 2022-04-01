@@ -1,6 +1,5 @@
 /**
  * @fileoverview Check element has specific css class
- * @author NHN FE Development Lab <dl_javascript@nhn.com>
  */
 
 'use strict';

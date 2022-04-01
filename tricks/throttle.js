@@ -1,6 +1,5 @@
 /**
  * @fileoverview Creates a throttled function that only invokes fn at most once per every interval milliseconds.
- * @author NHN FE Development Lab <dl_javascript.nhn.com>
  */
 
 'use strict';

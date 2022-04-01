@@ -1,6 +1,5 @@
 /**
  * @fileoverview Execute the provided callback once for each property of object which actually exist.
- * @author NHN FE Development Lab <dl_javascript@nhn.com>
  */
 
 'use strict';

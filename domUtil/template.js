@@ -1,6 +1,5 @@
 /**
  * @fileoverview Convert text by binding expressions with context.
- * @author NHN FE Development Lab <dl_javascript@nhn.com>
  */
 
 'use strict';

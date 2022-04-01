@@ -1,6 +1,5 @@
 /**
  * @fileoverview This module detects the kind of well-known browser and version.
- * @author NHN FE Development Lab <dl_javascript@nhn.com>
  */
 
 'use strict';

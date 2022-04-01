@@ -1,6 +1,5 @@
 /**
  * @fileoverview Check whether the given variable is an object or not.
- * @author NHN FE Development Lab <dl_javascript@nhn.com>
  */
 
 'use strict';

@@ -1,6 +1,5 @@
 /**
  * Configs file for bundling
- * @author NHN FE Development Lab <dl_javascript@nhn.com>
  */
 
 'use strict';
@@ -35,7 +34,6 @@ module.exports = function(_, argv) {
   var BANNER = [
     'TOAST UI Code Snippet',
     '@version ' + pkg.version,
-    '@author ' + pkg.author,
     '@license ' + pkg.license
   ].join('\n');
 
