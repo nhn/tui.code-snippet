@@ -1,6 +1,5 @@
 /**
  * @fileoverview Zip together multiple lists into a single array.
- * @author NHN FE Development Lab <dl_javascript@nhn.com>
  */
 
 'use strict';
@@ -13,9 +12,13 @@ var forEach = require('../collection/forEach');
  * @returns {Array}
  * @memberof module:array
  * @example
- * var zip = require('tui-code-snippet/array/zip'); // node, commonjs
+ * // ES6
+ * import zip from 'tui-code-snippet/array/zip';
+ * 
+ * // CommonJS
+ * const zip = require('tui-code-snippet/array/zip');
  *
- * var result = zip([1, 2, 3], ['a', 'b','c'], [true, false, true]);
+ * const result = zip([1, 2, 3], ['a', 'b', 'c'], [true, false, true]);
  * console.log(result[0]); // [1, 'a', true]
  * console.log(result[1]); // [2, 'b', false]
  * console.log(result[2]); // [3, 'c', true]

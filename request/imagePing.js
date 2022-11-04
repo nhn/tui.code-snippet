@@ -1,6 +1,5 @@
 /**
  * @fileoverview Request image ping.
- * @author NHN FE Development Lab <dl_javascript@nhn.com>
  */
 
 'use strict';
@@ -18,15 +17,19 @@ var forEachOwnProperties = require('../collection/forEachOwnProperties');
  * @returns {HTMLElement}
  * @memberof module:request
  * @example
- * var imagePing = require('tui-code-snippet/request/imagePing'); // node, commonjs
+ * // ES6
+ * import imagePing from 'tui-code-snippet/request/imagePing';
+ * 
+ * // CommonJS
+ * const imagePing = require('tui-code-snippet/request/imagePing');
  *
  * imagePing('https://www.google-analytics.com/collect', {
- *     v: 1,
- *     t: 'event',
- *     tid: 'trackingid',
- *     cid: 'cid',
- *     dp: 'dp',
- *     dh: 'dh'
+ *   v: 1,
+ *   t: 'event',
+ *   tid: 'trackingid',
+ *   cid: 'cid',
+ *   dp: 'dp',
+ *   dh: 'dh'
  * });
  */
 function imagePing(url, trackingInfo) {

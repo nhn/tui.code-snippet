@@ -1,6 +1,5 @@
 /**
  * @fileoverview Generate an integer Array containing an arithmetic progression.
- * @author NHN FE Development Lab <dl_javascript@nhn.com>
  */
 
 'use strict';
@@ -15,7 +14,11 @@ var isUndefined = require('../type/isUndefined');
  * @returns {Array}
  * @memberof module:array
  * @example
- * var range = require('tui-code-snippet/array/range'); // node, commonjs
+ * // ES6
+ * import range from 'tui-code-snippet/array/range';
+ * 
+ * // CommonJS
+ * const range = require('tui-code-snippet/array/range');
  *
  * range(5); // [0, 1, 2, 3, 4]
  * range(1, 5); // [1,2,3,4]

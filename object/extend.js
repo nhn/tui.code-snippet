@@ -1,6 +1,5 @@
 /**
  * @fileoverview Extend the target object from other objects.
- * @author NHN FE Development Lab <dl_javascript@nhn.com>
  */
 
 'use strict';

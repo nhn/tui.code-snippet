@@ -1,6 +1,5 @@
 /**
  * @fileoverview Check whether the given variable is a boolean or not. (for multiple frame environments)
- * @author NHN FE Development Lab <dl_javascript@nhn.com>
  */
 
 'use strict';

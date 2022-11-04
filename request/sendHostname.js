@@ -1,6 +1,5 @@
 /**
  * @fileoverview Send hostname on DOMContentLoaded.
- * @author NHN FE Development Lab <dl_javascript@nhn.com>
  */
 
 'use strict';

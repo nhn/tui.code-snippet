@@ -1,6 +1,5 @@
 /**
  * @fileoverview Disable browser's text selection behaviors.
- * @author NHN FE Development Lab <dl_javascript@nhn.com>
  */
 
 'use strict';

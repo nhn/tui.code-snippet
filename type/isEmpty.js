@@ -1,7 +1,6 @@
 /* eslint-disable complexity */
 /**
  * @fileoverview Check whether the given variable is empty(null, undefined, or empty array, empty object) or not.
- * @author NHN FE Development Lab <dl_javascript@nhn.com>
  */
 
 'use strict';

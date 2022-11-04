@@ -1,6 +1,5 @@
 /**
  * @fileoverview Creates a throttled function that only invokes fn at most once per every interval milliseconds.
- * @author NHN FE Development Lab <dl_javascript.nhn.com>
  */
 
 'use strict';
@@ -16,11 +15,15 @@ var debounce = require('./debounce');
  * @returns {function} throttled function
  * @memberof module:tricks
  * @example
- * var throttle = require('tui-code-snippet/tricks/throttle'); // node, commonjs
+ * // ES6
+ * import throttle from 'tui-code-snippet/tricks/throttle';
+ * 
+ * // CommonJS
+ * const throttle = require('tui-code-snippet/tricks/throttle');
  *
  * function someMethodToInvokeThrottled() {}
  *
- * var throttled = throttle(someMethodToInvokeThrottled, 300);
+ * const throttled = throttle(someMethodToInvokeThrottled, 300);
  *
  * // invoke repeatedly
  * throttled();    // invoke (leading)

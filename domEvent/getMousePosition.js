@@ -1,6 +1,5 @@
 /**
  * @fileoverview Get mouse position from mouse event
- * @author NHN FE Development Lab <dl_javascript@nhn.com>
  */
 
 'use strict';

@@ -1,6 +1,5 @@
 /**
  * @fileoverview Create a new object with the specified prototype object and properties.
- * @author NHN FE Development Lab <dl_javascript@nhn.com>
  */
 
 'use strict';

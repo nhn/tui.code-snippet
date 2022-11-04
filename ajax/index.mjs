@@ -353,9 +353,14 @@ function send(xhr, options) {
  * @param {string} [options.mimeType] - Override the MIME type returned by the server. This options can be used on IE11+
  * @returns {?Promise} - If the browser supports Promise, return the Promise object. If not, return null.
  * @example
- * import ajax from 'tui-code-snippet/ajax'; // import ES6 module (written in ES6)
- * // import ajax from 'tui-code-snippet/ajax/index.js'; // import transfiled file (IE8+)
- * // var ajax = require('tui-code-snippet/ajax/index.js'); // commonjs
+ * // ES6
+ * import ajax from 'tui-code-snippet/ajax';
+ *
+ * // import transfiled file (IE8+)
+ * import ajax from 'tui-code-snippet/ajax/index.js';
+ *
+ * // CommonJS
+ * const ajax = require('tui-code-snippet/ajax/index.js');
  *
  * // If the browser supports Promise, return the Promise object
  * ajax({
@@ -364,7 +369,7 @@ function send(xhr, options) {
  *   contentType: 'application/json',
  *   params: {
  *     version: 'v2.3.0',
- *     author: 'NHN. FE Development Lab <dl_javascript@nhn.com>'
+ *     author: 'NHN Cloud. FE Development Lab <dl_javascript@nhn.com>'
  *   },
  *   success: res => console.log(`success: ${res.status} ${res.statusText}`),
  *   error: res => console.log(`error: ${res.status} ${res.statusText}`)

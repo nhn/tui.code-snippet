@@ -1,6 +1,5 @@
 /**
  * @fileoverview Execute the provided callback once for each property of object which actually exist.
- * @author NHN FE Development Lab <dl_javascript@nhn.com>
  */
 
 'use strict';
@@ -17,12 +16,16 @@
  * @param {Object} [context] Context(this) of callback function
  * @memberof module:collection
  * @example
- * var forEachOwnProperties = require('tui-code-snippet/collection/forEachOwnProperties'); // node, commonjs
+ * // ES6
+ * import forEachOwnProperties from 'tui-code-snippet/collection/forEachOwnProperties';
+ * 
+ * // CommonJS
+ * const forEachOwnProperties = require('tui-code-snippet/collection/forEachOwnProperties'); 
  *
- * var sum = 0;
+ * let sum = 0;
  *
  * forEachOwnProperties({a:1,b:2,c:3}, function(value){
- *     sum += value;
+ *   sum += value;
  * });
  * alert(sum); // 6
  */

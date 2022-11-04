@@ -1,6 +1,5 @@
 /**
  * @fileoverview Retrieve a nested item from the given object/array.
- * @author NHN FE Development Lab <dl_javascript@nhn.com>
  */
 
 'use strict';
@@ -15,21 +14,25 @@ var isNull = require('../type/isNull');
  * @returns {*} Value
  * @memberof module:object
  * @example
- * var pick = require('tui-code-snippet/object/pick'); // node, commonjs
+ * // ES6
+ * import pick from 'tui-code-snippet/object/pick';
+ * 
+ * // CommonJS
+ * const pick = require('tui-code-snippet/object/pick');
  *
- * var obj = {
- *     'key1': 1,
- *     'nested' : {
- *         'key1': 11,
- *         'nested': {
- *             'key1': 21
- *         }
+ * cosnt obj = {
+ *   'key1': 1,
+ *   'nested' : {
+ *     'key1': 11,
+ *     'nested': {
+ *       'key1': 21
  *     }
+ *   }
  * };
  * pick(obj, 'nested', 'nested', 'key1'); // 21
  * pick(obj, 'nested', 'nested', 'key2'); // undefined
  *
- * var arr = ['a', 'b', 'c'];
+ * const arr = ['a', 'b', 'c'];
  * pick(arr, 1); // 'b'
  */
 function pick(obj, paths) { // eslint-disable-line no-unused-vars

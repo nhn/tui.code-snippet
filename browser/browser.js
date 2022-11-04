@@ -1,6 +1,5 @@
 /**
  * @fileoverview This module detects the kind of well-known browser and version.
- * @author NHN FE Development Lab <dl_javascript@nhn.com>
  */
 
 'use strict';
@@ -14,7 +13,11 @@
  * This object has an information that indicate the kind of browser. It can detect IE8 ~ IE11, Chrome, Firefox, Safari, and Edge.
  * @memberof module:browser
  * @example
- * var browser = require('tui-code-snippet/browser/browser'); // node, commonjs
+ * // ES6
+ * import browser from 'tui-code-snippet/browser/browser';
+ * 
+ * // CommonJS
+ * const browser = require('tui-code-snippet/browser/browser'); 
  *
  * browser.chrome === true; // chrome
  * browser.firefox === true; // firefox

@@ -1,6 +1,5 @@
 /**
  * @fileoverview Execute the provided callback once for each element present in the array(or Array-like object) in ascending order.
- * @author NHN FE Development Lab <dl_javascript@nhn.com>
  */
 
 'use strict';
@@ -18,12 +17,16 @@
  * @param {Object} [context] Context(this) of callback function
  * @memberof module:collection
  * @example
- * var forEachArray = require('tui-code-snippet/collection/forEachArray'); // node, commonjs
+ * // ES6
+ * import forEachArray from 'tui-code-snippet/collection/forEachArray';
+ * 
+ * // CommonJS
+ * const forEachArray = require('tui-code-snippet/collection/forEachArray'); 
  *
- * var sum = 0;
+ * let sum = 0;
  *
  * forEachArray([1,2,3], function(value){
- *     sum += value;
+ *   sum += value;
  * });
  * alert(sum); // 6
  */

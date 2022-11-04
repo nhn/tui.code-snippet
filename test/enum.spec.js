@@ -46,7 +46,7 @@ describe('module:Enum', function() {
       originalValue = enumO.CONST1;
       enumO.set('CONST1');
 
-      expect(enumO.CONST1).toEqual(originalValue);
+      expect(enumO.CONST1).toBe(originalValue);
     });
   });
 
@@ -57,7 +57,7 @@ describe('module:Enum', function() {
       enumO.set('CONST1', 'CONST2');
       result = enumO.getName(enumO.CONST1);
 
-      expect(result).toEqual('CONST1');
+      expect(result).toBe('CONST1');
     });
   });
 
@@ -86,8 +86,8 @@ describe('module:Enum', function() {
       it('should not change the declared constants.', function() {
         var desc = Object.getOwnPropertyDescriptor(enumO, 'CONST1');
 
-        expect(desc.writable).toEqual(false);
-        expect(desc.configurable).toEqual(false);
+        expect(desc.writable).toBe(false);
+        expect(desc.configurable).toBe(false);
       });
     });
   }

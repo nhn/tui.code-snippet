@@ -24,10 +24,7 @@ describe('object', function() {
 
       extend(target, source);
 
-      expect(target.middleName).toEqual('-');
-      expect(target.lastName).toEqual('Kim');
-      expect(target.myprop.test).toEqual('good');
-      expect(target.myprop.testFunc(3)).toEqual(5);
+      expect(target).toEqual(expect.objectContaining(source));
     });
   });
 

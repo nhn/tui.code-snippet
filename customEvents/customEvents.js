@@ -1,6 +1,5 @@
 /**
  * @fileoverview This module provides some functions for custom events. And it is implemented in the observer design pattern.
- * @author NHN FE Development Lab <dl_javascript@nhn.com>
  */
 
 'use strict';
@@ -18,8 +17,11 @@ var R_EVENTNAME_SPLIT = /\s+/g;
 /**
  * @class
  * @example
- * // node, commonjs
- * var CustomEvents = require('tui-code-snippet/customEvents/customEvents');
+ * // ES6
+ * import CustomEvents from 'tui-code-snippet/customEvents/customEvents';
+ * 
+ * // CommonJS
+ * const CustomEvents = require('tui-code-snippet/customEvents/customEvents'); 
  */
 function CustomEvents() {
   /**
@@ -38,15 +40,18 @@ function CustomEvents() {
  * Mixin custom events feature to specific constructor
  * @param {function} func - constructor
  * @example
- * var CustomEvents = require('tui-code-snippet/customEvents/customEvents'); // node, commonjs
+ * //ES6
+ * import CustomEvents from 'tui-code-snippet/customEvents/customEvents'; 
+ * 
+ * // CommonJS
+ * const CustomEvents = require('tui-code-snippet/customEvents/customEvents'); 
  *
- * var model;
  * function Model() {
  *     this.name = '';
  * }
  * CustomEvents.mixin(Model);
  *
- * model = new Model();
+ * const model = new Model();
  * model.on('change', function() { this.name = 'model'; }, this);
  * model.fire('change');
  * alert(model.name); // 'model';
@@ -205,7 +210,11 @@ CustomEvents.prototype._bindEvent = function(eventName, handler, context) {
  * @param {(function|object)} [handler] - handler function or context
  * @param {object} [context] - context for binding
  * //-- #1. Get Module --//
- * var CustomEvents = require('tui-code-snippet/customEvents/customEvents'); // node, commonjs
+ * // ES6
+ * import CustomEvents from 'tui-code-snippet/customEvents/customEvents'; 
+ * 
+ * // CommonJS
+ * const CustomEvents = require('tui-code-snippet/customEvents/customEvents'); 
  *
  * //-- #2. Use method --//
  * // # 2.1 Basic Usage
@@ -438,7 +447,11 @@ CustomEvents.prototype._offByObject = function(obj, handler) {
  * @param {(function)} handler - handler function
  * @example
  * //-- #1. Get Module --//
- * var CustomEvents = require('tui-code-snippet/customEvents/customEvents'); // node, commonjs
+ * // ES6
+ * import CustomEvents from 'tui-code-snippet/customEvents/customEvents'; 
+ * 
+ * // CommonJS
+ * const CustomEvents = require('tui-code-snippet/customEvents/customEvents'); 
  *
  * //-- #2. Use method --//
  * // # 2.1 off by event name
@@ -505,20 +518,20 @@ CustomEvents.prototype.fire = function(eventName) {  // eslint-disable-line
  * @param {...*} data - Data for event
  * @returns {boolean} The result of operation 'boolean AND'
  * @example
- * var map = new Map();
+ * const map = new Map();
  * map.on({
- *     'beforeZoom': function() {
- *         // It should cancel the 'zoom' event by some conditions.
- *         if (that.disabled && this.getState()) {
- *             return false;
- *         }
- *         return true;
+ *   'beforeZoom': function() {
+ *     // It should cancel the 'zoom' event by some conditions.
+ *     if (that.disabled && this.getState()) {
+ *       return false;
  *     }
+ *     return true;
+ *   }
  * });
  *
  * if (this.invoke('beforeZoom')) {    // check the result of 'beforeZoom'
- *     // if true,
- *     // doSomething
+ *   // if true,
+ *   // doSomething
  * }
  */
 CustomEvents.prototype.invoke = function(eventName) {

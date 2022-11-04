@@ -1,6 +1,5 @@
 /**
  * @fileoverview Check whether the given variable is existing or not.
- * @author NHN FE Development Lab <dl_javascript@nhn.com>
  */
 
 'use strict';
@@ -15,7 +14,11 @@ var isNull = require('./isNull');
  * @returns {boolean} Is existy?
  * @memberof module:type
  * @example
- * var isExisty = require('tui-code-snippet/type/isExisty'); // node, commonjs
+ * // ES6
+ * import isExisty from 'tui-code-snippet/type/isExisty');
+ * 
+ * // CommonJS
+ * const isExisty = require('tui-code-snippet/type/isExisty');
  *
  * isExisty(''); //true
  * isExisty(0); //true

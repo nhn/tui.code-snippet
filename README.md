@@ -5,20 +5,28 @@
 [![npm](https://img.shields.io/npm/v/tui-code-snippet.svg)](https://www.npmjs.com/package/tui-code-snippet)
 [![GitHub license](https://img.shields.io/github/license/nhn/tui.code-snippet.svg)](https://github.com/nhn/tui.code-snippet/blob/production/LICENSE)
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-ff69b4.svg)](https://github.com/nhn/tui.code-snippet/labels/help%20wanted)
-[![code with hearth by NHN](https://img.shields.io/badge/%3C%2F%3E%20with%20%E2%99%A5%20by-NHN-ff1414.svg)](https://github.com/nhn)
+[![code with hearth by NHN Cloud](https://img.shields.io/badge/%3C%2F%3E%20with%20%E2%99%A5%20by-NHN_Cloud-ff1414.svg)](https://github.com/nhn)
 
 
 ## 🚩 Table of Contents
-* [Documents](#-documents)
-* [Features](#-features)
-* [Install](#-install)
-* [Usage](#-usage)
-  * [Bundle](#bundle)
-* [Browser Support](#-browser-support)
-* [Pull Request Steps](#-pull-request-steps)
-* [Contributing](#-contributing)
-* [TOAST UI Family](#-toast-ui-family)
-* [License](#-license)
+
+- [📙 Documents](#-documents)
+- [🎨 Features](#-features)
+- [💾 Install](#-install)
+  - [Via Package Manager](#via-package-manager)
+    - [npm](#npm)
+  - [Download Source Files](#download-source-files)
+- [🔨 Usage](#-usage)
+  - [Bundle](#bundle)
+- [🌏 Browser Support](#-browser-support)
+- [🔧 Pull Request Steps](#-pull-request-steps)
+  - [Setup](#setup)
+  - [Develop](#develop)
+    - [Running test](#running-test)
+  - [Pull Request](#pull-request)
+- [💬 Contributing](#-contributing)
+- [🍞 TOAST UI Family](#-toast-ui-family)
+- [📜 License](#-license)
 
 
 ## 📙 Documents
@@ -99,11 +107,20 @@ $ npm install --save tui-code-snippet@<version> # Specific version
 Import only functions that you need in your code:
 
 ```javascript
-var func = require('tui-code-snippet/<folder>/<function>');
+// CommonJS
+const func = require('tui-code-snippet/<folder>/<function>');
 
 // for example,
-var inArray = require('tui-code-snippet/array/inArray');
-var customEvents = require('tui-code-snippet/customEvents/customEvents');
+const inArray = require('tui-code-snippet/array/inArray');
+const customEvents = require('tui-code-snippet/customEvents/customEvents');
+```
+```javascript
+// ES6
+import func from 'tui-code-snippet/<folder>/<function>';
+
+// for example,
+import inArray from 'tui-code-snippet/array/inArray';
+import customEvents from 'tui-code-snippet/customEvents/customEvents';
 ```
 
 The folder structure can be found [here](https://github.com/nhn/tui.code-snippet/tree/master).
@@ -156,7 +173,7 @@ Run npm scripts and develop yourself with the following process.
 
 Fork `master` branch into your personal repository.
 Clone it to local computer. Install node modules.
-Before starting development, you should check to have any errors.
+Before starting development, you should check if there are any errors.
 
 ``` sh
 $ git clone https://github.com/{your-personal-repo}/tui.code-snippet.git
@@ -170,7 +187,7 @@ $ npm run test
 Let's start development!
 Don't miss adding test cases and then make green rights.
 
-#### Run karma test
+#### Running test
 
 ``` sh
 $ npm run test
@@ -178,10 +195,10 @@ $ npm run test
 
 ### Pull Request
 
-Before PR, check to test lastly and then check any errors.
-If it has no error, commit and then push it!
+Before uploading your PR, run test one last time to check if there are any errors.
+If it has no errors, commit and then push it!
 
-For more information on PR's step, please see links of Contributing section.
+For more information on PR's steps, please see links in the Contributing section.
 
 
 ## 💬 Contributing
@@ -202,4 +219,4 @@ For more information on PR's step, please see links of Contributing section.
 
 
 ## 📜 License
-This software is licensed under the [MIT License](https://github.com/nhn/tui.code-snippet/blob/master/LICENSE) © [NHN](https://github.com/nhn).
+This software is licensed under the [MIT License](https://github.com/nhn/tui.code-snippet/blob/master/LICENSE) © [NHN Cloud](https://github.com/nhn).

@@ -1,6 +1,5 @@
 /**
  * @fileoverview Convert text by binding expressions with context.
- * @author NHN FE Development Lab <dl_javascript@nhn.com>
  */
 
 'use strict';
@@ -344,9 +343,13 @@ function compile(sources, context) {
  * @returns {string} - text that bind with its context
  * @memberof module:domUtil
  * @example
- * var template = require('tui-code-snippet/domUtil/template');
+ * // ES6
+ * import template from 'tui-code-snippet/domUtil/template'; 
  * 
- * var source = 
+ * // CommonJS
+ * const template = require('tui-code-snippet/domUtil/template'); 
+ * 
+ * const source = 
  *     '<h1>'
  *   +   '{{if isValidNumber title}}'
  *   +     '{{title}}th'
@@ -360,13 +363,13 @@ function compile(sources, context) {
  *   +   '{{/with}}'
  *   + '{{/each}}';
  * 
- * var context = {
+ * const context = {
  *   isValidDate: function(text) {
  *     return /^\d{4}-(0|1)\d-(0|1|2|3)\d$/.test(text);
  *   },
  *   isValidNumber: function(text) {
  *     return /^\d+$/.test(text);
- *   }
+ *   },
  *   title: '2019-11-25',
  *   list: ['Clean the room', 'Wash the dishes'],
  *   addOne: function(num) {
@@ -374,7 +377,7 @@ function compile(sources, context) {
  *   }
  * };
  * 
- * var result = template(source, context);
+ * const result = template(source, context);
  * console.log(result); // <h1>Date: 2019-11-25</h1><p>1: Clean the room</p><p>2: Wash the dishes</p>
  */
 function template(text, context) {

@@ -1,6 +1,5 @@
 /**
  * @fileoverview Check whether the given variable is an instance of Array or not. (for multiple frame environments)
- * @author NHN FE Development Lab <dl_javascript@nhn.com>
  */
 
 'use strict';

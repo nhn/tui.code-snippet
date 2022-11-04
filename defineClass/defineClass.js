@@ -2,7 +2,6 @@
  * @fileoverview
  * This module provides a function to make a constructor
  * that can inherit from the other constructors like the CLASS easily.
- * @author NHN FE Development Lab <dl_javascript@nhn.com>
  */
 
 'use strict';
@@ -23,34 +22,38 @@ var extend = require('../object/extend');
  * @returns {*} Constructor
  * @memberof module:defineClass
  * @example
- * var defineClass = require('tui-code-snippet/defineClass/defineClass'); // node, commonjs
+ * // ES6
+ * import defineClass from 'tui-code-snippet/defineClass/defineClass'; 
+ * 
+ * // CommonJS
+ * const defineClass = require('tui-code-snippet/defineClass/defineClass'); 
  *
  * //-- #2. Use property --//
- * var Parent = defineClass({
- *     init: function() { // constuructor
- *         this.name = 'made by def';
- *     },
- *     method: function() {
- *         // ...
- *     },
- *     static: {
- *         staticMethod: function() {
- *              // ...
- *         }
+ * const Parent = defineClass({
+ *   init: function() { // constuructor
+ *     this.name = 'made by def';
+ *   },
+ *   method: function() {
+ *     // ...
+ *   },
+ *   static: {
+ *     staticMethod: function() {
+ *       // ...
  *     }
+ *   }
  * });
  *
- * var Child = defineClass(Parent, {
- *     childMethod: function() {}
+ * const Child = defineClass(Parent, {
+ *   childMethod: function() {}
  * });
  *
  * Parent.staticMethod();
  *
- * var parentInstance = new Parent();
+ * const parentInstance = new Parent();
  * console.log(parentInstance.name); //made by def
  * parentInstance.staticMethod(); // Error
  *
- * var childInstance = new Child();
+ * const childInstance = new Child();
  * childInstance.method();
  * childInstance.childMethod();
  */

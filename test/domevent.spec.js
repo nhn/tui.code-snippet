@@ -10,22 +10,21 @@ describe('The domevent module', function() {
   var btn, spy;
 
   beforeEach(function() {
-    fixture.set('<button id="test">test</button>' +
-                    '<div id="abs" style="position:absolute;left:10px:top:10px">a</div>');
+    document.body.innerHTML = '<button id="test">test</button><div id="abs" style="position:absolute;left:10px;top:10px;">a</div>';
 
     btn = document.querySelector('#test');
-    spy = jasmine.createSpy('on');
+    spy = jest.fn();
   });
 
   afterEach(function() {
-    fixture.cleanup();
+    document.body.innerHTML = '';
   });
 
   it('on() should bind DOM event.', function() {
     on(btn, 'click', spy);
 
     expect(btn._feEventKey.click.length).toBe(1);
-    expect(btn._feEventKey.click[0].handler).toEqual(spy);
+    expect(btn._feEventKey.click[0].handler).toBe(spy);
   });
 
   it('once() should bind DOM event and unbind after invoke.', function() {
@@ -43,27 +42,27 @@ describe('The domevent module', function() {
   });
 
   it('off() should unbind an event for same type name and handler.', function() {
-    var spy2 = jasmine.createSpy('spy2');
+    var spy2 = jest.fn();
 
     on(btn, 'click', spy);
     on(btn, 'click', spy);
     on(btn, 'click', spy2);
 
     expect(btn._feEventKey.click.length).toBe(2);
-    expect(btn._feEventKey.click[0].handler).toEqual(spy);
-    expect(btn._feEventKey.click[1].handler).toEqual(spy2);
-    expect(btn._feEventKey.click[0].wrappedHandler).toEqual(jasmine.any(Function));
+    expect(btn._feEventKey.click[0].handler).toBe(spy);
+    expect(btn._feEventKey.click[1].handler).toBe(spy2);
+    expect(btn._feEventKey.click[0].wrappedHandler).toEqual(expect.any(Function));
 
     off(btn, 'click', spy);
 
     expect(btn._feEventKey.click.length).toBe(1);
     // spy2 must not unbind at this moment.
-    expect(btn._feEventKey.click[0].handler).toEqual(spy2);
-    expect(btn._feEventKey.click[0].wrappedHandler).toEqual(jasmine.any(Function));
+    expect(btn._feEventKey.click[0].handler).toBe(spy2);
+    expect(btn._feEventKey.click[0].wrappedHandler).toEqual(expect.any(Function));
   });
 
   it('off() should unbind all events of the type if a handler is not passed.', function() {
-    var spy2 = jasmine.createSpy('spy2');
+    var spy2 = jest.fn();
 
     on(btn, 'click', spy);
     on(btn, 'click', spy2);
@@ -91,6 +90,6 @@ describe('The domevent module', function() {
     });
     btn.click();
 
-    expect(target).toEqual(btn);
+    expect(target).toBe(btn);
   });
 });
